@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inteplast 產品展示與商務合作</title>
+    <!-- SEO 標籤測試 -->
+    <meta name="description" content="專業的工業級塑膠產品與自動化解決方案，歡迎全球商務洽詢。">
+    <style>
+        /* 基礎網頁排版樣式 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #003366; /* 專業的企業藍 */
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        .feature-box {
+            width: 30%;
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #0055a5;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #003366;
+        }
+        #statusMessage {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頁首區塊 -->
+    <header>
+        <h1>Global Industrial Solutions</h1>
+        <p>提供頂尖的材料與自動化製程，滿足您企業的需求</p>
+    </header>
+
+    <div class="container">
+        <!-- 產品特色區塊 -->
+        <div class="features">
+            <div class="feature-box">
+                <h3>高品質材料</h3>
+                <p>符合國際標準認證，耐用且可靠。</p>
+            </div>
+            <div class="feature-box">
+                <h3>自動化整合</h3>
+                <p>優化工作流程，提升廠房運作效率。</p>
+            </div>
+            <div class="feature-box">
+                <h3>全球配送</h3>
+                <p>完善的物流鏈，支援國際 B2B 採購。</p>
+            </div>
+        </div>
+
+        <!-- 聯絡表單區塊 -->
+        <hr>
+        <h2 style="text-align: center; margin-top: 30px;">Request a Quote / 聯絡我們</h2>
+        
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="companyName">Company Name (公司名稱):</label>
+                <input type="text" id="companyName" name="companyName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Business Email (商務信箱):</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Your Inquiry (詢問內容):</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            <button type="submit">Submit Inquiry (送出詢價)</button>
+        </form>
+        
+        <!-- 送出後的提示訊息 -->
+        <div id="statusMessage"></div>
+    </div>
+
+    <!-- 自動化表單發送邏輯 -->
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            // 阻止表單預設的跳頁行為
+            e.preventDefault();
+
+            // 抓取使用者填寫的資料
+            const data = {
+                company: document.getElementById('companyName').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value,
+                timestamp: new Date().toISOString()
+            };
+
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.style.color = 'blue';
+            statusDiv.textContent = 'Sending data... (模擬傳送中)';
+
+            /*
+             * -------------------------------------------------------------
+             * 【後端整合預留區】
+             * 未來你只要在 Power Automate 建立好 Webhook，把產生的 URL 
+             * 貼到下方的 webhookUrl 變數中，然後把 fetch 這段程式碼的註解拿掉，
+             * 網頁就會自動把上方的 data 打包成 JSON 送進你們的 SharePoint 系統了！
+             * -------------------------------------------------------------
+             */
+            
+            // const webhookUrl = "你的_POWER_AUTOMATE_WEBHOOK_URL_放這裡";
+            // fetch(webhookUrl, {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(data)
+            // }).then(response => {
+            //     statusDiv.style.color = 'green';
+            //     statusDiv.textContent = '成功送出！業務人員將盡快與您聯繫。';
+            // }).catch(error => {
+            //     statusDiv.style.color = 'red';
+            //     statusDiv.textContent = '發送失敗，請稍後再試。';
+            // });
+
+            // 為了現在測試用，我們用計時器模擬成功送出
+            setTimeout(() => {
+                console.log("模擬送出的資料：", data);
+                statusDiv.style.color = 'green';
+                statusDiv.textContent = '✅ 測試成功！資料已在前端打包完成。 (請按 F12 觀看 Console 查看打包好的資料)';
+                document.getElementById('contactForm').reset(); // 清空表單
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
