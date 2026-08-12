@@ -59,7 +59,7 @@
 
     /* 3. 文字容器：與 Logo 等寬，並垂直排列 */
     .logo-text-wrapper {
-      width: 220px;          /* 🌟 在這裡設定文字區塊的寬度 (請與上方 Logo 寬度保持一致) */
+      width: auto;          /* 🌟 在這裡設定文字區塊的寬度 (請與上方 Logo 寬度保持一致) */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -67,7 +67,7 @@
 
     /* 4. 中文樣式 (大字) */
     .logo-text-tw {
-      font-size: 18px;       
+      font-size: 28px;       
       font-weight: bold;
       letter-spacing: 1px;   /* 字元間距 */
       line-height: 1.2;
@@ -75,7 +75,7 @@
 
     /* 5. 英文樣式 (小字) */
     .logo-text-en {
-      font-size: 10px;       
+      font-size: 20px;       
       font-weight: normal;
       letter-spacing: 0.5px;
       line-height: 1.2;
@@ -87,16 +87,18 @@
        更新的導覽列按鈕樣式
        ========================================= */
        
-    /* 1. 中間置中區塊：使用絕對定位確保完美置中 */
+
+    /* 1. 中間區塊：一開始放在右邊，與「聯繫我們」靠攏 */
     .header-center {
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%); /* 將區塊往左拉回自身寬度的一半，達成完美置中 */
-      background: white;
-      border-radius: 40px;         /* 膠囊狀圓角 */
-      padding: 5px 10px;           /* 內邊距 */
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* 淡淡的陰影 */
-      pointer-events: auto;        /* 確保可以點擊 */
+      right: 180px;            /* 🌟 與右邊界的距離，預留給「聯繫我們」按鈕 */
+      top: 50%;                /* 🌟 從上方算起 50% */
+      transform: translateY(-50%); /* 🌟 確保按鈕能完美垂直置中 */
+      background: rgb(255, 255, 255);
+      border-radius: 40px;         
+      padding: 5px 10px;           
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+      pointer-events: auto;        
       display: flex;
     }
 
@@ -144,9 +146,9 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 50%;
+      width: 100%;    /* 🌟 改成 100% */
       height: 100%;
-      background-color: #f6f5f7; /* 原圖左側的淡灰粉色 */
+      background-color: #0f4c9b25; 
       z-index: 1;
     }
 
@@ -155,10 +157,9 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 50%; /* 初始佔一半 */
+      width: 0%;     /* 🌟 修改 1：一開始先隱藏右邊圖片 */
       height: 100%;
-      /* 使用網址替換為您的實際背景圖 */
-      background: url('.\\src\\Foodservice-HERO-1.jpg') center/cover no-repeat; 
+      background: url('./src/can-liners-draw-tape-hero.jpg') center/cover no-repeat; 
       z-index: 2;
     }
 
@@ -167,15 +168,17 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 50%; /* 初始寬度佔一半，確保內容在左邊置中 */
+      width: 100%;   /* 🌟 修改 2：一開始設定 100%，讓內容完美置中 */
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 10;
-      color: #333333; /* 初始深色文字 */
+      color: #333333; 
       text-align: center;
+      padding-top: 80px; 
+      box-sizing: border-box;
     }
 
     .title {
@@ -216,6 +219,236 @@
       object-fit: cover;   /* 讓圖片完美填滿框框 (如果不想被裁切，可以改成 contain) */
       border-radius: 10px; /* 配合外框的圓角設定 */
     }
+    /* =========================================
+       新增：內容區塊正中間的 Logo 樣式
+       ========================================= */
+    .center-logo {
+      display: flex;
+      flex-direction: column; 
+      align-items: center;    
+      margin-bottom: 30px;    
+    }
+
+    .center-logo-image {
+      width: 100px;            
+      height: auto;
+      margin-bottom: 15px;    
+    }
+
+    .center-logo-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .center-logo-tw {
+      font-size: 40px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      line-height: 1.2;
+    }
+
+    .center-logo-en {
+      font-size: 20px;
+      font-weight: normal;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    /* =========================================
+       5. 產品總覽區塊 (Product Overview) 樣式
+       ========================================= */
+    .product-overview {
+      width: 100%;
+      background-color: #f8f9fa;   /* 乾淨的極淺灰底色，與上方動畫區塊做區分 */
+      padding: 100px 0;            /* 上下留白，讓視覺呼吸 */
+      color: #333333;
+    }
+
+    .overview-container {
+      max-width: 1200px;           /* 限制最大寬度，大螢幕不會無限延伸 */
+      margin: 0 auto;              /* 讓容器在畫面中置中 */
+      padding: 0 40px;             /* 左右安全距離 */
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 60px;
+      font-weight: bold;
+      color: #1a498b;              /* 呼應 Inteplast 的品牌藍色 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title span {
+      font-size: 14px;
+      color: #777;
+      letter-spacing: 2px;
+      font-weight: normal;
+    }
+
+    /* 網格系統：魔法就在這一行 */
+    .product-grid {
+      display: grid;
+      /* 自動分配列數：每張卡片最少 260px，畫面夠寬就自動塞入更多排 */
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;                   /* 卡片之間的間距 */
+    }
+
+    /* 卡片主體與懸停動畫 */
+    .product-card {
+      background: #ffffff;
+      border-radius: 12px;         /* 圓角 */
+      overflow: hidden;            /* 讓裡面的圖片不會超出版界 */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* 輕微的陰影 */
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* 設定動畫過渡時間 */
+      cursor: pointer;
+    }
+
+    /* 當滑鼠移上去時，卡片會微微浮起並加深陰影 */
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    }
+
+    .product-card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    .product-card-content {
+      padding: 25px;
+    }
+
+    .product-card-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #333333;
+    }
+
+    .product-card-desc {
+      font-size: 14px;
+      color: #666666;
+      line-height: 1.6;
+      margin: 0;
+    }
+    /* =========================================
+       重疊卡片 (Overlapping Card) 樣式
+       ========================================= */
+    .overlap-section {
+      width: 100%;
+      background-color: #ffffff; /* 依需求調整外層背景色 */
+      padding: 80px 20px;
+    }
+
+    .overlap-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center; /* 讓圖片與卡片垂直置中 */
+      justify-content: flex-start;
+    }
+
+    /* 左側圖片區塊 */
+    .overlap-image-box {
+      flex: 0 0 65%; /* 圖片佔據容器的 65% 寬度 */
+      position: relative;
+    }
+
+    .overlap-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background-color: #e2e6eb; /* 模擬原圖的灰藍色背景 */
+    }
+
+    /* 右側白色文字卡片 🌟 核心魔法在這裡 🌟 */
+    .overlap-text-card {
+      flex: 0 0 45%;         /* 卡片佔據 45% 寬度，加起來超過 100% 製造重疊條件 */
+      background: #ffffff;
+      padding: 40px 50px;
+      margin-left: -10%;     /* 【關鍵】使用負邊距將卡片往左拉，蓋在圖片上 */
+      z-index: 2;            /* 確保白色卡片在圖片的「上層」 */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* 淡淡的立體陰影 */
+    }
+
+    /* 標題樣式 */
+    .card-title {
+      color: #2b5c92;        /* 參考原圖的企業藍色 */
+      font-size: 28px;
+      font-weight: normal;
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+
+    /* 列表網格排版 (兩欄式) */
+    .card-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 40px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 切分成均等的兩列 */
+      gap: 20px 10px;        /* 上下間距 20px，左右間距 10px */
+    }
+
+    .card-list li {
+      font-size: 14px;
+      color: #333333;
+    }
+
+    /* 底部連結區塊 */
+    .card-footer {
+      text-align: right;     /* 將連結推到右邊 */
+    }
+
+    .see-more-link {
+      color: #2b5c92;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .see-more-link:hover {
+      color: #1a498b;
+    }
+
+    /* =========================================
+       手機版響應式設計 (RWD)
+       ========================================= */
+    @media (max-width: 768px) {
+      .overlap-container {
+        flex-direction: column; /* 手機版改成上下排列 */
+      }
+      
+      .overlap-image-box {
+        flex: 0 0 100%;
+        width: 100%;
+      }
+      
+      .overlap-text-card {
+        flex: 0 0 100%;
+        width: 90%;
+        margin-left: 0;
+        margin-top: -50px; /* 手機版改為「往上推」來蓋住圖片底部 */
+        padding: 30px;
+      }
+      
+      .card-list {
+        grid-template-columns: 1fr; /* 手機版列表變成單排 */
+      }
+    }
   </style>
 </head>
 <body>
@@ -250,18 +483,105 @@
     <div class="bg-right"></div>
     
     <div class="content-box">
-      <h1 class="title">the smallest part of EVERY DAY</h1>
+      <!-- 🌟【新增】一開始顯示在中間的 Logo 與公司名稱 -->
+      <div class="center-logo">
+        <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="center-logo-image">
+        <div class="center-logo-text">
+          <span class="center-logo-tw">臺灣營德股份有限公司</span>
+          <span class="center-logo-en">INTEPLAST TAIWAN CORPORATION</span>
+        </div>
+      </div>
+      
+      <!-- 你的標題維持不動 -->
+      <h1 class="title"></h1>
       <div class="product-img-placeholder">
-        <img src="./src/Can-Liners-HERO-1.jpg" alt="Product Image" class="product-image">
+        <img src="./src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg" alt="Product Image" class="product-image">
       </div>
       <p></p>
     </div>
   </section>
 
-  <!-- 下方區塊，讓網頁有空間可以繼續往下捲動 -->
-  <section class="dummy-content">
-    網頁其他內容...
+  <!-- =========================================
+       產品總覽區塊 (Product Overview)
+       ========================================= -->
+  <section class="product-overview">
+    <div class="overview-container">
+      <h2 class="section-title">產品總覽 <span>PRODUCT CATEGORIES</span></h2>
+      
+      <!-- CSS 網格容器 -->
+      <div class="product-grid">
+        
+        <!-- 產品卡片 1 -->
+        <div class="product-card">
+          <img src="./src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg" alt="垃圾袋與內袋" class="product-card-img" onerror="this.src='https://via.placeholder.com/400x250?text=Can+Liners'">
+          <div class="product-card-content">
+            <h3 class="product-card-title">垃圾袋與內袋</h3>
+            <p class="product-card-desc">提供多種尺寸與厚度，適用於工業、商業與家庭清潔需求，堅韌耐用。</p>
+          </div>
+        </div>
+
+        <!-- 產品卡片 2 -->
+        <div class="product-card">
+          <img src="./src/Bags-Films.jpg" alt="袋類與薄膜" class="product-card-img" onerror="this.src='https://via.placeholder.com/400x250?text=Bags+%26+Films'">
+          <div class="product-card-content">
+            <h3 class="product-card-title">袋類與薄膜</h3>
+            <p class="product-card-desc">高品質食品級與工業級薄膜，滿足包裝、儲存與運輸的嚴格標準。</p>
+          </div>
+        </div>
+
+        <!-- 產品卡片 3 -->
+        <div class="product-card">
+          <img src="./src/Corrugated-Plastics.jpg" alt="瓦楞塑膠板" class="product-card-img" onerror="this.src='https://via.placeholder.com/400x250?text=Corrugated+Plastics'">
+          <div class="product-card-content">
+            <h3 class="product-card-title">瓦楞塑膠板</h3>
+            <p class="product-card-desc">輕量且防水的環保材料，廣泛應用於印刷、包裝與建築保護。</p>
+          </div>
+        </div>
+
+        <!-- 產品卡片 4 -->
+        <div class="product-card">
+          <img src="./src/Retail-Solutions.jpg" alt="零售與超市用品" class="product-card-img" onerror="this.src='https://via.placeholder.com/400x250?text=Retail+Solutions'">
+          <div class="product-card-content">
+            <h3 class="product-card-title">零售與超市用品</h3>
+            <p class="product-card-desc">包含購物袋、生鮮袋及各類零售包裝解決方案，兼顧實用與環保。</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
   </section>
+
+  <!-- =========================================
+     重疊卡片區塊 (BOPP Films 介紹)
+     ========================================= -->
+<section class="overlap-section">
+  <div class="overlap-container">
+    
+    <!-- 左側大圖 -->
+    <div class="overlap-image-box">
+      <!-- 請將 src 替換為您的實際產品圖 -->
+      <img src="./src/bopp-films-products.jpg" alt="BOPP Films Products" class="overlap-img" onerror="this.src='https://via.placeholder.com/800x500?text=BOPP+Films+Image'">
+    </div>
+
+    <!-- 右側重疊的白色文字卡片 -->
+    <div class="overlap-text-card">
+      <h3 class="card-title">BOPP Films</h3>
+      
+      <!-- 兩欄式列表 -->
+      <ul class="card-list">
+        <li>Flexible Packaging</li>
+        <li>Tapes & Industrial</li>
+        <li>Labels</li>
+      </ul>
+      
+      <!-- 右下角連結 -->
+      <div class="card-footer">
+        <a href="#" class="see-more-link">See More &gt;</a>
+      </div>
+    </div>
+
+  </div>
+</section>
 
   <!-- =========================================
        GSAP 動畫邏輯
@@ -270,30 +590,34 @@
     // 註冊 ScrollTrigger 插件
     gsap.registerPlugin(ScrollTrigger);
 
-    // 建立一個時間軸 (Timeline)
+    // 建立一個跟隨捲動的時間軸 (Timeline)
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".hero-section",
-        start: "top top", // 當 hero-section 頂部碰到視窗頂部時開始
-        end: "+=150%",    // 往下捲動 150% 視窗高度的距離來完成動畫 (數值越大，動畫越慢)
-        scrub: 1,         // 開啟 scrub 讓動畫平滑跟隨滑鼠捲動進度
-        pin: true,        // 將 hero-section 固定在畫面上，直到動畫結束
+        start: "top top",
+        end: "+=200%",    // 🌟 捲動距離加長，因為現在有兩段變化
+        scrub: 1,         // 動畫完美跟隨滑鼠捲動
+        pin: true,        // 固定畫面
       }
     });
 
-    // 加入動畫指令，第三個參數 "0" 代表這些動畫同時開始
-    
-    // 1. 背景圖擴展到 100% 寬度
-    tl.to(".bg-right", { width: "100%", duration: 1 }, 0);
-    
-    // 2. 內容區塊擴展到 100% 寬度 (這會讓內部透過 Flexbox 置中的元素自然移動到全螢幕的正中央)
-    tl.to(".content-box", { width: "100%", duration: 1 }, 0);
-    
-    // 3. 文字顏色從深灰過渡到白色
-    tl.to(".content-box", { color: "#ffffff", duration: 1 }, 0);
-    
-    // 4. 左上角的 Logo 淡出顯示 (模擬原網站的效果)
-    tl.to(".header-logo", { opacity: 1, duration: 0.5 }, 0.5); 
+    // ==========================================
+    // 第一階段：開始往下捲動 -> 畫面切成一半 (50%)
+    // ==========================================
+    tl.to(".bg-right", { width: "50%", duration: 1 })
+      .to(".content-box", { width: "50%", duration: 1 }, "<") // "<" 代表跟上個動作同時發生
+      .to(".center-logo", { opacity: 0, duration: 0.5 }, "<") // 中間 Logo 淡出
+      .to(".header-logo", { opacity: 1, duration: 0.5 }, "<0.5") // 左上角 Logo 延遲一點點浮現
+      .to(".header-center", { right: "50%", xPercent: 50, duration: 1 }, "<"); // 將選單從右邊推至畫面正中央
+
+    // ==========================================
+    // 第二階段：繼續往下捲動 -> 變成全螢幕圖片 (100%)
+    // ==========================================
+    tl.to(".bg-right", { width: "100%", duration: 1 })
+      .to(".content-box", { width: "100%", duration: 1 }, "<")
+      // 因為背景變成圖片了，把文字變成白色
+      .to(".content-box, .header-logo", { color: "#ffffff", duration: 1 }, "<"); 
+
   </script>
 
 </body>
