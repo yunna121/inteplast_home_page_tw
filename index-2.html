@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>臺灣營德股份有限公司</title>
+
+    <!-- 1. 引入 Bootstrap CSS (負責幫你把選單橫向排好) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+    <!-- 2. 引入 Font Awesome (負責顯示那些儀表板、日曆的小圖示) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
+
+    <!-- 3. 你的專屬 CSS 樣式 (直接寫在 style 標籤裡方便測試) -->
+    <style>
+        body { background-color: #f4f4f4; }
+        
+        .navbar-mainbg {
+            background-color: #5161ce;
+            padding: 0;
+            position: relative;
+        }
+
+        .navbar-brand {
+            color: #fff !important;
+            margin-left: 20px;
+        }
+
+        .navbar-nav {
+            position: relative;
+            padding: 0;
+        }
+
+        .nav-item {
+            z-index: 2;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7) !important;
+            padding: 20px 25px !important;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+        }
+
+        .nav-item.active .nav-link {
+            color: #5161ce !important;
+            font-weight: bold;
+        }
+
+        /* 滑動的白色背景與圓角 */
+        .hori-selector {
+            display: inline-block;
+            position: absolute;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transition-duration: 0.4s;
+            transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background-color: #fff;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            z-index: 1;
+        }
+
+        .hori-selector .right,
+        .hori-selector .left {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #fff;
+            bottom: 0;
+        }
+        .hori-selector .right { right: -25px; }
+        .hori-selector .left { left: -25px; }
+
+        .hori-selector .right:before,
+        .hori-selector .left:before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #5161ce;
+        }
+        .hori-selector .left:before { bottom: 0; left: -25px; }
+        .hori-selector .right:before { bottom: 0; right: -25px; }
+    </style>
+</head>
+<body>
+
+    <!-- 你的 HTML 結構 (加上 navbar-expand-lg 讓它在電腦版強制橫向展開) -->
+    <nav class="navbar navbar-expand-lg navbar-mainbg">
+        <a class="navbar-brand navbar-logo" href="#">臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <i class="fas fa-bars text-white"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="fas fa-building"></i>OUR STORY</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="javascript:void(0);"><i class="fas fa-cubes"></i>Our Products & Solutions</a>
+                </li>
+                
+                
+            </ul>
+        </div>
+    </nav> 
+
+    <!-- 4. jQuery 和 Bootstrap 的 JS (讓手機版選單可以點擊展開) -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- 5. 你的專屬 JS (直接寫在 script 標籤裡) -->
+    <script>
+        function moveSelector() {
+            const tabs = document.getElementById('navbarSupportedContent');
+            const activeItem = tabs.querySelector('.active');
+            if (!activeItem) return; 
+
+            const activeHeight = activeItem.clientHeight;
+            const activeWidth = activeItem.clientWidth;
+            const itemPosTop = activeItem.offsetTop;
+            const itemPosLeft = activeItem.offsetLeft;
+
+            const horiSelector = document.querySelector('.hori-selector');
+            horiSelector.style.top = itemPosTop + "px";
+            horiSelector.style.left = itemPosLeft + "px";
+            horiSelector.style.height = activeHeight + "px";
+            horiSelector.style.width = activeWidth + "px";
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // 等待字體和圖片載入一下下再定位，會比較準確
+            setTimeout(moveSelector, 100);
+
+            const navItems = document.querySelectorAll('.navbar-nav .nav-item');
+            navItems.forEach(function(item) {
+                item.addEventListener('click', function() {
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    moveSelector();
+                });
+            });
+
+            window.addEventListener('resize', function() {
+                setTimeout(moveSelector, 200);
+            });
+        });
+    </script>
+</body>
+</html>
