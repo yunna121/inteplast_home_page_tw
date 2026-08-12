@@ -1,5 +1,20 @@
-<nav class="navbar navbar-expand-custom navbar-mainbg">
-        <a class="navbar-brand navbar-logo" href="#">Navbar</a>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你的網頁標題</title>
+    
+    <!-- ✅ 正確位置 1：CSS 放在 head 裡面 -->
+    <link rel="stylesheet" href="navigation.css">
+    
+    <!-- (因為你的程式碼有用到 fa-bars 等圖示，通常這裡也會引入 FontAwesome) -->
+</head>
+<body>
+
+    <!-- ✅ 正確位置 2：你的 HTML 結構正常放在 body 裡 -->
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+        <a class="navbar-brand navbar-logo" href="#">台灣營德 INTEPLAST TAIWAN CORPORATION</a>
         <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars text-white"></i>
         </button>
@@ -26,4 +41,11 @@
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav> 
+    
+    <!-- 這裡可以放其他網頁內容 -->
+
+    <!-- ✅ 正確位置 3：JS 放在 body 最底部 -->
+    <script src="navigation.js"></script>
+</body>
+</html>
