@@ -41,21 +41,92 @@
       pointer-events: auto; /* 讓按鈕可以被點擊 */
     }
 
+    /* 1. 外層容器：保持水平排列 */
     .header-logo {
-      font-weight: bold;
-      font-size: 20px;
-      opacity: 0; /* 初始隱藏，捲動後顯示 */
+      display: flex;
+      align-items: center;   /* 垂直置中對齊 */
+      gap: 15px;             /* Logo 與文字之間的距離 */
+      opacity: 0;            /* 初始隱藏，往下捲動後淡入 */
+      color: #333333;        /* 初始文字顏色 */
     }
 
-    .header-nav button {
+    /* 2. Logo 圖片：設定固定寬度 */
+    .logo-image {
+      width: 80px;          /* 🌟 在這裡設定 Logo 的寬度 */
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* 3. 文字容器：與 Logo 等寬，並垂直排列 */
+    .logo-text-wrapper {
+      width: 220px;          /* 🌟 在這裡設定文字區塊的寬度 (請與上方 Logo 寬度保持一致) */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* 4. 中文樣式 (大字) */
+    .logo-text-tw {
+      font-size: 18px;       
+      font-weight: bold;
+      letter-spacing: 1px;   /* 字元間距 */
+      line-height: 1.2;
+    }
+
+    /* 5. 英文樣式 (小字) */
+    .logo-text-en {
+      font-size: 10px;       
+      font-weight: normal;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+      opacity: 0.8;          /* 讓英文稍微淡一點，增加視覺層次 */
+      margin-top: 4px;       /* 中英文之間的上下距離 */
+    }
+
+    /* =========================================
+       更新的導覽列按鈕樣式
+       ========================================= */
+       
+    /* 1. 中間置中區塊：使用絕對定位確保完美置中 */
+    .header-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%); /* 將區塊往左拉回自身寬度的一半，達成完美置中 */
       background: white;
+      border-radius: 40px;         /* 膠囊狀圓角 */
+      padding: 5px 10px;           /* 內邊距 */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* 淡淡的陰影 */
+      pointer-events: auto;        /* 確保可以點擊 */
+      display: flex;
+    }
+
+    /* 中間區塊內的按鈕 (去除按鈕本身的背景，因為父層已經是白色了) */
+    .header-center button {
+      background: transparent;
       border: none;
       padding: 10px 20px;
-      margin-left: 10px;
-      border-radius: 20px;
       cursor: pointer;
       font-weight: bold;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      color: #333333;
+      font-size: 15px;
+    }
+
+    /* 2. 右側按鈕區塊 */
+    .header-right {
+      pointer-events: auto; /* 確保可以點擊 */
+    }
+
+    /* 右側獨立按鈕 (自帶白色背景) */
+    .header-right button {
+      background: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #333333;
+      font-size: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
     /* =========================================
@@ -87,7 +158,7 @@
       width: 50%; /* 初始佔一半 */
       height: 100%;
       /* 使用網址替換為您的實際背景圖 */
-      background: url('https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat; 
+      background: url('.\\src\\Foodservice-HERO-1.jpg') center/cover no-repeat; 
       z-index: 2;
     }
 
@@ -138,17 +209,38 @@
       justify-content: center;
       font-size: 2rem;
     }
+    /* 控制產品圖片的大小，讓它乖乖待在框框裡 */
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;   /* 讓圖片完美填滿框框 (如果不想被裁切，可以改成 contain) */
+      border-radius: 10px; /* 配合外框的圓角設定 */
+    }
   </style>
 </head>
 <body>
-
-  <!-- 浮動導覽列 -->
   <header class="header">
-    <div class="header-logo">EQUELLE</div>
-    <div class="header-nav">
+    <!-- 浮動導覽列 -->
+    <div class="header-logo">
+      <!-- 替換為您的 Logo 檔案路徑 -->
+      <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
+      
+      <!-- 新增文字容器，將中英文分兩行 -->
+      <div class="logo-text-wrapper">
+        <span class="logo-text-tw">臺灣營德股份有限公司</span>
+        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
+      </div>
+    </div>
+    
+    <!-- 🌟【新增】中間置中的按鈕區塊 (白色膠囊底色) -->
+    <div class="header-center">
       <button>關於</button>
-      <button>特徵</button>
-      <button>在此購買</button>
+      <button>商品</button>
+    </div>
+
+    <!-- 🌟【新增】右側的獨立按鈕區塊 -->
+    <div class="header-right">
+      <button>聯繫我們</button>
     </div>
   </header>
 
@@ -158,11 +250,11 @@
     <div class="bg-right"></div>
     
     <div class="content-box">
-      <h1 class="title">trusted by<br><b>SCIENCE</b><br>made for<br><b>EVERY WOMAN</b></h1>
+      <h1 class="title">the smallest part of EVERY DAY</h1>
       <div class="product-img-placeholder">
-        產品圖片
+        <img src="./src/Can-Liners-HERO-1.jpg" alt="Product Image" class="product-image">
       </div>
-      <p>一款由精心挑選的優質原料製成的<br>女性必備營養補充品。</p>
+      <p></p>
     </div>
   </section>
 
