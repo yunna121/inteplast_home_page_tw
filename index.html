@@ -1,103 +1,29 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patents & Corporate Structure Template</title>
-    <style>
-        /* 基礎排版樣式，可後續替換為您的企業 UI 規範 */
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; color: #333; }
-        header, footer { background-color: #f4f4f4; padding: 20px; text-align: center; }
-        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; }
-        nav a { text-decoration: none; color: #0056b3; font-weight: bold; }
-        main { padding: 40px 20px; max-width: 1000px; margin: auto; }
-        .patent-section { margin-bottom: 40px; }
-        .patent-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 15px; border-top: 2px solid #ccc; padding-top: 15px; }
-        .patent-numbers { font-family: monospace; color: #555; }
-        .product-name { font-weight: bold; }
-    </style>
-</head>
-<body>
-
-    <!-- 1. 頂部導覽與選單 (Header & Navigation) -->
-    <header>
-        <div class="logo">
-            <!-- 替換為企業 Logo -->
-            <h1>Corporate Logo</h1>
-        </div>
-        <nav>
-            <ul>
-                <!-- 軟實力區塊：企業文化與 ESG -->
-                <li><a href="#our-story">Our Story (Our People / Environmental Focus)</a></li>
-                <!-- 商業核心區塊：雙軌產品導覽 -->
-                <li><a href="#products">Our Products & Categories</a></li>
-                <li><a href="#markets">Our Markets</a></li>
-                <!-- 法律聲明與其他資訊 -->
-                <li><a href="#patents">Patents</a></li>
-                <li><a href="#contact">Contact Us</a></li>
+<nav class="navbar navbar-expand-custom navbar-mainbg">
+        <a class="navbar-brand navbar-logo" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-address-book"></i>Address Book</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-clone"></i>Components</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-calendar-alt"></i>Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-chart-bar"></i>Charts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-copy"></i>Documents</a>
+                </li>
             </ul>
-        </nav>
-        <div class="user-actions">
-            <button>Search</button>
-            <button>Login (Client / Intranet)</button>
         </div>
-    </header>
-
-    <!-- 2. 主要內容區塊 (Main Content) - 以專利頁面為例 -->
-    <main id="patents">
-        <h2>Patent List</h2>
-        <p>此頁面列出本公司各類產品所擁有的專利號碼與申請中的專利。</p>
-
-        <!-- 專利項目對照結構 -->
-        <section class="patent-section">
-            <h3>Bags & Packaging (提袋與包裝類)</h3>
-            <div class="patent-grid">
-                <div class="patent-numbers">
-                    US5967662, US5979655, US6079877<br>
-                    One or more additional patents pending
-                </div>
-                <div class="product-name">
-                    T-Shirt Bags, T-Shirt Bag Rack, RACK 'N SAC®, Plastic Shopping Bags
-                </div>
-            </div>
-            
-            <div class="patent-grid">
-                <div class="patent-numbers">
-                    US9555932, USD783413, USD796966
-                </div>
-                <div class="product-name">
-                    Can Liner and Draw-string Can Liners, SELECT-A-FIT®
-                </div>
-            </div>
-        </section>
-
-        <section class="patent-section">
-            <h3>Medical & Protection (醫療與防護用品類)</h3>
-            <div class="patent-grid">
-                <div class="patent-numbers">
-                    USD680695, US9084444, USD737524
-                </div>
-                <div class="product-name">
-                    Plastic Gloves, INTE-FIT®, DUO FIT®
-                </div>
-            </div>
-        </section>
-        
-        <!-- 更多產品類別可依此結構向下延伸 -->
-    </main>
-
-    <!-- 3. 底部資訊 (Footer) -->
-    <footer>
-        <nav>
-            <ul>
-                <li><a href="#careers">Careers</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#privacy">Privacy Policy</a></li>
-                <li><a href="#terms">Terms of Use</a></li>
-            </ul>
-        </nav>
-        <p>&copy; 2026 Corporate Name, All Rights Reserved</p>
-    </footer>
-
-</body>
-</html>
+    </nav>
