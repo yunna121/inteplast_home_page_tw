@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation - ISO 9001 認證包裝與薄膜外銷製造商</title>
-  <meta name="description" content="臺灣營德股份有限公司 (Inteplast Taiwan Corporation) 為 ISO 9001:2015 品質管理體系認證大廠，專業生產商業垃圾袋 (Can Liners)、自動拉繩袋 (Draw-Tape)、工業棧板伸縮膜與食品包裝。">
-  <meta name="keywords" content="Inteplast, 臺灣營德, ISO 9001, 塑膠袋, 垃圾袋, 拉繩袋, 工業薄膜, 伸縮膜, Stretch Film, Can Liners, Draw Tape Bags, 外銷製造">
+  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation - 台塑關係企業與美商營德合資大廠</title>
+  <meta name="description" content="臺灣營德股份有限公司 (Inteplast Taiwan Corporation) 由美商營德集團與台塑企業合資，嘉義新港廠區通過 ISO 9001:2015 認證，專業生產垃圾袋、拉繩袋、工業棧板伸縮膜與食品包裝。">
+  <meta name="keywords" content="Inteplast, 臺灣營德, 台塑企業, 嘉義新港廠, ISO 9001, 塑膠袋, 垃圾袋, 拉繩袋, 工業薄膜, 伸縮膜, Stretch Film, Can Liners, Draw Tape Bags, 外銷製造">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -178,7 +178,7 @@
     }
 
     .hero-sub-tagline {
-      font-size: 1.25rem; color: rgba(255, 255, 255, 0.85); max-width: 720px; font-weight: 400; margin-bottom: 40px; line-height: 1.7;
+      font-size: 1.25rem; color: rgba(255, 255, 255, 0.85); max-width: 780px; font-weight: 400; margin-bottom: 40px; line-height: 1.7;
     }
 
     .hero-btn-group { display: flex; align-items: center; gap: 20px; }
@@ -246,9 +246,34 @@
     .stack-card:hover .card-media-wrapper img { transform: scale(1.06); }
 
     /* =========================================
-       4. 數據與實力標竿 Section (ISO 9001 Quality Metrics)
+       4. 新增：產品多元應用領域與使用情境 Section (Application Scenarios)
        ========================================= */
-    .metrics-section { padding: 120px 40px; background: linear-gradient(180deg, #0A192F 0%, #071627 100%); position: relative; }
+    .scenarios-section { padding: 120px 40px; background: #061527; }
+    .scenarios-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+    .scenario-card {
+      position: relative; border-radius: var(--radius-lg); overflow: hidden; min-height: 320px;
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      transition: var(--transition); text-decoration: none; color: #FFFFFF;
+    }
+    .scenario-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(6, 21, 39, 0) 20%, rgba(6, 21, 39, 0.95) 90%); z-index: 1;
+    }
+    .scenario-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .scenario-card:hover img { transform: scale(1.08); }
+    .scenario-card:hover { border-color: var(--accent-azure); transform: translateY(-8px); }
+
+    .scenario-content { position: relative; z-index: 2; }
+    .scenario-badge { font-size: 0.75rem; font-weight: 800; color: var(--accent-azure); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .scenario-title { font-size: 1.4rem; font-weight: 800; color: #FFFFFF; margin-bottom: 8px; line-height: 1.25; }
+    .scenario-desc { font-size: 0.88rem; color: rgba(255, 255, 255, 0.8); line-height: 1.5; }
+
+    /* =========================================
+       5. 數據與實力標竿 Section (ISO 9001 Quality Metrics)
+       ========================================= */
+    .metrics-section { padding: 100px 40px; background: linear-gradient(180deg, #061527 0%, #071627 100%); position: relative; }
     .metrics-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
     .metric-card {
       background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1);
@@ -260,7 +285,7 @@
     .metric-sub { font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); }
 
     /* =========================================
-       5. RFQ 詢價 Call-to-Action
+       6. RFQ 詢價 Call-to-Action
        ========================================= */
     .cta-banner-section { padding: 100px 40px; }
     .cta-banner-container {
@@ -289,7 +314,7 @@
       .mega-menu-panel, .top-utility-bar { display: none; }
       .header { top: 0; }
       .stack-card { grid-template-columns: 1fr; top: 80px; }
-      .metrics-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
+      .scenarios-grid, .metrics-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
       .cta-banner-container { flex-direction: column; text-align: center; gap: 30px; padding: 40px 30px; }
       .hero-big-title { font-size: 2.5rem; }
     }
@@ -331,15 +356,15 @@
             <div>
               <div class="mega-col-title"><i class="fa-solid fa-building"></i> 企業規模與願景</div>
               <ul class="mega-links">
-                <li><a href="about.html" data-tw="集團簡介與經營理念" data-en="Corporate Overview">集團簡介與經營理念</a></li>
-                <li><a href="about.html" data-tw="全球 40+ 國外銷佈局" data-en="Global Export Reach">全球 40+ 國外銷佈局</a></li>
-                <li><a href="about.html" data-tw="自動化吹膜與封切機台" data-en="Advanced Extrusion Lines">自動化吹膜與封切機台</a></li>
+                <li><a href="about.html" data-tw="台塑企業與美商營德合資" data-en="Formosa & Inteplast Joint Venture">台塑企業與美商營德合資</a></li>
+                <li><a href="about.html" data-tw="嘉義台塑新港廠區基點" data-en="Chiayi Xingang Production Base">嘉義台塑新港廠區基點</a></li>
+                <li><a href="about.html" data-tw="榮獲 2022/2023 卓越營運獎" data-en="2022/2023 Excellence Awards">榮獲 2022/2023 卓越營運獎</a></li>
               </ul>
             </div>
             <div>
               <div class="mega-col-title"><i class="fa-solid fa-award"></i> 品質與國際認證</div>
               <ul class="mega-links">
-                <li><a href="about.html">ISO 9001:2015 品質管理系統認證 <span class="mega-badge badge-iso">ISO 9001</span></a></li>
+                <li><a href="about.html">ISO 9001:2015 品質管理認證 <span class="mega-badge badge-iso">ISO 9001</span></a></li>
                 <li><a href="about.html">嚴格標準品管與抗穿刺測試</a></li>
               </ul>
             </div>
@@ -420,12 +445,12 @@
         </div>
       </div>
 
-      <h1 class="hero-big-title" data-tw="引領全球包裝創新 · 噸級極致吹膜工藝" data-en="Global Leadership in Advanced Blown Film & Flexible Packaging">
-        引領全球包裝創新 · 噸級極致吹膜工藝
+      <h1 class="hero-big-title" data-tw="台塑關係企業 · 噸級極致吹膜工藝" data-en="Formosa Plastics Group Partner · Ton-Scale Extrusion Mastery">
+        台塑關係企業 · 噸級極致吹膜工藝
       </h1>
 
-      <p class="hero-sub-tagline" data-tw="數十年專注於商業垃圾袋、自動拉繩袋、300% 工業棧板伸縮膜與高品質軟包裝，為全球 40+ 國品牌提供頂級 OEM/ODM 整櫃服務。" data-en="Decades of technical excellence in Extrusion, Star-Seal Can Liners, Draw-Tape Bags, Pre-Stretch Films, and Packaging for global partners.">
-        數十年專注於商業垃圾袋、自動拉繩袋、300% 工業棧板伸縮膜與高品質軟包裝，為全球 40+ 國品牌提供頂級 OEM/ODM 整櫃服務。
+      <p class="hero-sub-tagline" data-tw="由美商營德集團、台塑企業與長庚生技合資成立。嘉義新港生產基地配備 PLC 全自動押出機台與嚴謹品管，連續獲頒集團 2022、2023 年卓越營運獎。" data-en="Joint venture by Inteplast Group & Formosa Plastics Corp. Located in Xingang Plant, Chiayi, recipient of the 2022 & 2023 Group Excellence Award for quality & operational perfection.">
+        由美商營德集團、台塑企業與長庚生技合資成立。嘉義新港生產基地配備 PLC 全自動押出機台與嚴謹品管，連續獲頒集團 2022、2023 年卓越營運獎。
       </p>
 
       <div class="hero-btn-group">
@@ -498,7 +523,7 @@
           </a>
         </div>
         <div class="card-media-wrapper">
-          <img src="./src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg" alt="Draw-Tape Bags Showcase">
+          <img src="./src/use1.png" alt="Draw-Tape Bags Showcase">
         </div>
       </div>
 
@@ -524,13 +549,13 @@
         </div>
       </div>
 
-      <!-- Card 4: Foodservice -->
+      <!-- Card 4: Poly Bags -->
       <div class="stack-card">
         <div>
-          <div class="card-num">04 / FOODSERVICE</div>
+          <div class="card-num">04 / POLY BAGS</div>
           <h3 class="card-title-lg" data-tw="包裝袋與連捲袋 <span>Poly Bags</span>" data-en="Poly Bags & <span>Produce Rolls</span>">包裝袋與連捲袋 <span>Poly Bags</span></h3>
-          <p class="card-desc-lg" data-tw="採用高品質全新的聚乙烯塑料生產，提供高透明生鮮連捲袋、超市點斷袋與雙軌冷凍夾鏈袋。" data-en="High-clarity produce rolls, header bags, and heavy-duty double-zipper freezer bags manufactured with quality PE resin.">
-            採用高品質全新的聚乙烯塑料生產，提供高透明生鮮連捲袋、超市點斷袋與雙軌冷凍夾鏈袋。
+          <p class="card-desc-lg" data-tw="採用高品質全新聚乙烯塑料生產，提供高透明生鮮連捲袋、超市點斷袋、醫療用點滴袋外包裝與雙軌冷凍保鮮袋。" data-en="High-clarity produce rolls, header bags, medical infusion outer packaging, and heavy-duty double-zipper freezer bags.">
+            採用高品質全新聚乙烯塑料生產，提供高透明生鮮連捲袋、超市點斷袋、醫療用點滴袋外包裝與雙軌冷凍保鮮袋。
           </p>
           <div class="spec-pills-list">
             <span class="spec-pill"><i class="fa-solid fa-certificate"></i> ISO 9001 品質管控</span>
@@ -542,7 +567,7 @@
           </a>
         </div>
         <div class="card-media-wrapper">
-          <img src="./src/Foodservice-HERO-1.jpg" alt="Foodservice Packaging Showcase">
+          <img src="./src/use4.png" alt="Poly Bags Showcase">
         </div>
       </div>
 
@@ -550,7 +575,78 @@
   </section>
 
   <!-- =========================================
-       4. 數據與實力標竿 Section (ISO 9001 Quality Metrics)
+       4. 新增：融合 Project_Mio 的「產品多元應用領域與使用情境」Section
+       ========================================= -->
+  <section class="scenarios-section" id="applicationScenarios">
+    <div class="section-head">
+      <span class="pill-badge" data-tw="APPLICATION SCENARIOS" data-en="APPLICATION SCENARIOS">APPLICATION SCENARIOS</span>
+      <h2 data-tw="產品多元應用領域與使用情境" data-en="Versatile Industry Applications & Usage Scenarios">產品多元應用領域與使用情境</h2>
+      <p data-tw="臺灣營德品質貫穿商業清潔、工業物流、生鮮零售、冷凍保鮮與醫療防護各大領域。" data-en="Empowering commercial cleaning, industrial logistics, supermarket produce, freezer preservation, and hygienic protection.">
+        臺灣營德品質貫穿商業清潔、工業物流、生鮮零售、冷凍保鮮與醫療防護各大領域。
+      </p>
+    </div>
+
+    <div class="scenarios-grid">
+      
+      <div class="scenario-card">
+        <img src="./src/use1.png" alt="商業與機構清潔打包">
+        <div class="scenario-content">
+          <span class="scenario-badge">CLEANING & SANITATION</span>
+          <div class="scenario-title" data-tw="商業與機構清潔打包" data-en="Commercial Sanitation">商業與機構清潔打包</div>
+          <div class="scenario-desc" data-tw="自動拉繩一拉即束、防漏星封，適用於飯店、辦公大樓、醫療院所與清潔承包商。" data-en="Easy-close drawstring and star seals for hotels, offices, hospitals, and cleaning contractors.">自動拉繩一拉即束、防漏星封，適用於飯店、辦公大樓、醫療院所與清潔承包商。</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <img src="./src/use3.png" alt="居家日常與環境管理">
+        <div class="scenario-content">
+          <span class="scenario-badge">HOME & HOUSEHOLD</span>
+          <div class="scenario-title" data-tw="居家日常與環境管理" data-en="Household Cleaning">居家日常與環境管理</div>
+          <div class="scenario-desc" data-tw="輕巧實用的清潔幫手，韌性袋材不易破裂，適合各式居家空間與日常整理。" data-en="Puncture-resistant bags designed for everyday home garbage and organization needs.">輕巧實用的清潔幫手，韌性袋材不易破裂，適合各式居家空間與日常整理。</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <img src="./src/use4.png" alt="生鮮超市與蔬果分裝">
+        <div class="scenario-content">
+          <span class="scenario-badge">GROCERY & PRODUCE</span>
+          <div class="scenario-title" data-tw="生鮮超市與蔬果分裝" data-en="Produce & Fresh Market">生鮮超市與蔬果分裝</div>
+          <div class="scenario-desc" data-tw="高透明連捲生鮮袋與點斷袋，便利分裝、快速辨識食材並確保衛生。" data-en="High-clarity produce rolls allowing easy identification and hygienic fresh food packaging.">高透明連捲生鮮袋與點斷袋，便利分裝、快速辨識食材並確保衛生。</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <img src="./src/use5.png" alt="食品包覆與食材備料">
+        <div class="scenario-content">
+          <span class="scenario-badge">FOOD PREPARATION</span>
+          <div class="scenario-title" data-tw="食品包覆與食材備料" data-en="Food Prep & Wraps">食品包覆與食材備料</div>
+          <div class="scenario-desc" data-tw="緊密貼合容器與食材表面，延緩食材乾燥與異味交叉，保留新鮮美味。" data-en="Protective wraps clinging tightly to containers and ingredients to preserve freshness.">緊密貼合容器與食材表面，延緩食材乾燥與異味交叉，保留新鮮美味。</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <img src="./src/use2.png" alt="冷凍儲存與密實保鮮">
+        <div class="scenario-content">
+          <span class="scenario-badge">FREEZER & STORAGE</span>
+          <div class="scenario-title" data-tw="冷凍儲存與密實保鮮" data-en="Freezer Preservation">冷凍儲存與密實保鮮</div>
+          <div class="scenario-desc" data-tw="雙軌密封夾鏈袋，提供極佳的密封效果，協助食材冷凍分類與生活小物收納。" data-en="Double-zipper seals keeping food fresh in freezer storage while avoiding leaks.">雙軌密封夾鏈袋，提供極佳的密封效果，協助食材冷凍分類與生活小物收納。</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <img src="./src/plant.png" alt="嘉義台塑新港廠區自動化生產">
+        <div class="scenario-content">
+          <span class="scenario-badge">AUTOMATED MANUFACTURING</span>
+          <div class="scenario-title" data-tw="嘉義台塑新港廠區基地" data-en="Chiayi Xingang Production Base">嘉義台塑新港廠區基地</div>
+          <div class="scenario-desc" data-tw="全自動拌料與原料空輸系統，榮獲集團總裁頒發 2022、2023 年卓越營運獎。" data-en="Automated extrusion & raw material handling awarded the 2022 & 2023 Excellence Award.">全自動拌料與原料空輸系統，榮獲集團總裁頒發 2022、2023 年卓越營運獎。</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================
+       5. 數據與實力標竿 Section (ISO 9001 Quality Metrics)
        ========================================= -->
   <section class="metrics-section">
     <div class="metrics-grid">
@@ -578,7 +674,7 @@
   </section>
 
   <!-- =========================================
-       5. RFQ 詢價 Call-to-Action
+       6. RFQ 詢價 Call-to-Action
        ========================================= -->
   <section class="cta-banner-section">
     <div class="cta-banner-container">
@@ -620,7 +716,7 @@
           <li><a href="products/can-liners.html">Can Liners 垃圾袋</a></li>
           <li><a href="products/draw-tape.html">Draw-Tape 拉繩袋</a></li>
           <li><a href="products/stretch-films.html">Stretch Films 伸縮膜</a></li>
-          <li><a href="products/foodservice.html">Foodservice 食品包裝</a></li>
+          <li><a href="products/foodservice.html">Poly Bags 包裝袋</a></li>
         </ul>
       </div>
 

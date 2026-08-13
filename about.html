@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>關於我們 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
-  <meta name="description" content="了解臺灣營德股份有限公司 (Inteplast Taiwan) 的企業歷史、自動化吹膜製造實力、ISO 9001:2015 品質管理系統認證與全球外銷服務。">
+  <meta name="description" content="了解臺灣營德股份有限公司 (Inteplast Taiwan) 的企業歷史：美商營德集團與台塑企業合資，嘉義新港廠區自動化吹膜，榮獲 2022/2023 卓越營運獎。">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -92,7 +92,6 @@
     .mega-feature-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
     .mega-feature-desc { font-size: 0.82rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 16px; }
     .mega-feature-btn { background: var(--surface-white); color: var(--primary-navy); padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 800; text-decoration: none; text-align: center; transition: var(--transition); }
-    .mega-feature-btn:hover { background: var(--accent-azure); color: var(--surface-white); }
 
     .header-right { display: flex; align-items: center; gap: 12px; }
     .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
@@ -101,7 +100,7 @@
     /* Page Hero */
     .page-hero { padding: 160px 40px 80px; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white); text-align: center; }
     .page-hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 16px; }
-    .page-hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: rgba(255,255,255,0.85); }
+    .page-hero p { font-size: 1.1rem; max-width: 750px; margin: 0 auto; color: rgba(255,255,255,0.85); }
 
     .section { padding: 90px 40px; }
     .container { max-width: 1200px; margin: 0 auto; }
@@ -110,15 +109,8 @@
     .title { font-size: 2rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 16px; }
     .desc { font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
 
-    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 50px; background: var(--bg-light); padding: 40px; border-radius: var(--radius-md); border: 1px solid var(--border-color); }
-    .stat-item { text-align: center; }
-    .stat-val { font-size: 2.4rem; font-weight: 900; color: var(--brand-blue); line-height: 1.1; margin-bottom: 6px; }
-    .stat-lbl { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); }
-
-    .cert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 40px; }
-    .cert-card { background: var(--surface-white); border: 1px solid var(--border-color); padding: 36px 28px; border-radius: var(--radius-md); text-align: center; box-shadow: var(--shadow-sm); transition: var(--transition); }
-    .cert-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--brand-blue); }
-    .cert-icon { font-size: 2.8rem; color: var(--brand-blue); margin-bottom: 16px; }
+    .award-card { background: linear-gradient(135deg, #FFFBEB, #FEF3C7); border: 1px solid #F59E0B; border-radius: var(--radius-md); padding: 30px; margin-top: 40px; display: flex; align-items: center; gap: 24px; }
+    .award-icon { font-size: 3rem; color: #D97706; }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
@@ -127,7 +119,6 @@
       .mega-menu-panel, .top-utility-bar { display: none; }
       .header { top: 0; }
       .grid-2 { grid-template-columns: 1fr; }
-      .stats-row, .cert-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -162,67 +153,10 @@
     <ul class="nav-menu">
       <li class="nav-item">
         <a href="about.html" class="nav-link-item active" data-tw="關於營德" data-en="About Us">關於營德 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
-        <div class="mega-menu-panel" style="width: 800px;">
-          <div class="mega-grid" style="grid-template-columns: 1fr 1fr 260px;">
-            <div>
-              <div class="mega-col-title"><i class="fa-solid fa-building"></i> 企業規模與願景</div>
-              <ul class="mega-links">
-                <li><a href="about.html" data-tw="集團簡介與經營理念" data-en="Corporate Overview">集團簡介與經營理念</a></li>
-                <li><a href="about.html" data-tw="全球 40+ 國外銷佈局" data-en="Global Export Reach">全球 40+ 國外銷佈局</a></li>
-                <li><a href="about.html" data-tw="自動化吹膜與封切機台" data-en="Advanced Extrusion Lines">自動化吹膜與封切機台</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title"><i class="fa-solid fa-award"></i> 品質與國際認證</div>
-              <ul class="mega-links">
-                <li><a href="about.html">ISO 9001:2015 品質管理認證 <span class="mega-badge badge-iso">ISO 9001</span></a></li>
-                <li><a href="about.html">嚴格標準品管與抗穿刺測試</a></li>
-              </ul>
-            </div>
-            <div class="mega-feature-card">
-              <div class="mega-feature-title" data-tw="30+ 年吹膜外銷經驗" data-en="30+ Years OEM Experience">30+ 年吹膜外銷經驗</div>
-              <div class="mega-feature-desc" data-tw="每日 500+ 噸噸級產能，國際頂尖品牌與超市通路之指定製造商。" data-en="Daily 500+ tons capacity. Premier packaging partner for global Fortune 500 brands.">每日 500+ 噸噸級產能，國際頂尖品牌與超市通路之指定製造商。</div>
-              <a href="about.html" class="mega-feature-btn" data-tw="了解製造設備" data-en="Explore Facilities">了解製造設備</a>
-            </div>
-          </div>
-        </div>
       </li>
 
       <li class="nav-item">
         <a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
-        <div class="mega-menu-panel">
-          <div class="mega-grid">
-            <div>
-              <div class="mega-col-title"><i class="fa-solid fa-dumpster"></i> Can Liners 垃圾袋</div>
-              <ul class="mega-links">
-                <li><a href="products/can-liners.html" data-tw="商業/工業重載垃圾袋" data-en="Commercial Can Liners">商業/工業重載垃圾袋 <span class="mega-badge badge-hot">HOT</span></a></li>
-                <li><a href="products/can-liners.html" data-tw="Star Seal 防漏星封內袋" data-en="Star Seal Liners">Star Seal 防漏星封內袋</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title"><i class="fa-solid fa-ribbon"></i> Draw-Tape 拉繩袋</div>
-              <ul class="mega-links">
-                <li><a href="products/draw-tape.html" data-tw="自動拉繩垃圾袋" data-en="Draw-Tape Trash Bags">自動拉繩垃圾袋 <span class="mega-badge badge-hot">BEST</span></a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title"><i class="fa-solid fa-scroll"></i> Stretch Films 薄膜</div>
-              <ul class="mega-links">
-                <li><a href="products/stretch-films.html" data-tw="300% 預拉伸棧板膜" data-en="300% Pre-Stretch Film">300% 預拉伸棧板膜</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title"><i class="fa-solid fa-bag-shopping"></i> 包裝袋</div>
-              <ul class="mega-links">
-                <li><a href="products/foodservice.html" data-tw="高透明連捲生鮮袋" data-en="Produce Rolls">高透明連捲生鮮袋</a></li>
-              </ul>
-            </div>
-            <div class="mega-feature-card">
-              <div class="mega-feature-title" data-tw="全客製化 OEM/ODM" data-en="100% Custom OEM/ODM">全客製化 OEM/ODM</div>
-              <a href="contact.html" class="mega-feature-btn" data-tw="發起 RFQ 詢價" data-en="Start RFQ">發起 RFQ 詢價</a>
-            </div>
-          </div>
-        </div>
       </li>
 
       <li class="nav-item">
@@ -242,9 +176,9 @@
 
   <!-- Page Hero -->
   <section class="page-hero">
-    <h1 data-tw="關於臺灣營德 | 卓越的包裝與薄膜製造者" data-en="About Inteplast Taiwan Corporation">關於臺灣營德 | 卓越的包裝與薄膜製造者</h1>
-    <p data-tw="數十年深耕塑膠吹膜加工與全球外銷市場，通過 ISO 9001:2015 認證，以頂尖設備與嚴格品質控管引領行業標竿。" data-en="Decades of innovation in extrusion processing, ISO 9001 certified quality management, delivering high-performance flexible packaging.">
-      數十年深耕塑膠吹膜加工與全球外銷市場，通過 ISO 9001:2015 認證，以頂尖設備與嚴格品質控管引領行業標竿。
+    <h1 data-tw="關於臺灣營德 | 台塑關係企業與美商營德合資大廠" data-en="About Inteplast Taiwan Corporation">關於臺灣營德 | 台塑關係企業與美商營德合資大廠</h1>
+    <p data-tw="由美商營德集團 (Inteplast Group)、台灣塑膠公司 (Formosa Plastics Corp.) 及長庚生物科技共同出資成立。生產基地座落於嘉義台塑企業新港廠區。" data-en="Jointly established by Inteplast Group, Formosa Plastics Corp., and Chang Gung Biotechnology. Production hub located in Formosa Plastics Xingang Complex, Chiayi.">
+      由美商營德集團 (Inteplast Group)、台灣塑膠公司 (Formosa Plastics Corp.) 及長庚生物科技共同出資成立。生產基地座落於嘉義台塑企業新港廠區。
     </p>
   </section>
 
@@ -253,51 +187,26 @@
     <div class="container">
       <div class="grid-2">
         <div>
-          <span class="badge" data-tw="OUR HERITAGE" data-en="OUR HERITAGE">OUR HERITAGE</span>
-          <h2 class="title" data-tw="全球包裝材料領導品牌合作夥伴" data-en="Global Leader in Packaging & Films">全球包裝材料領導品牌合作夥伴</h2>
-          <p class="desc" data-tw="臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 為國際包裝材料大廠 Inteplast Group 之重要外銷夥伴。我們擁有專業的吹膜、印刷、裁切與封口技術，產品涵蓋垃圾袋 (Can Liners)、自動拉繩袋 (Draw-Tape Bags)、工業棧板伸縮膜 (Stretch Films & Sheeting) 以及包裝袋。" data-en="Inteplast Taiwan Corporation is a premier manufacturer specializing in blown film extrusion, flexographic printing, and bag converting. Our products serve commercial, industrial, and retail export markets worldwide.">
-            臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 為國際包裝材料大廠 Inteplast Group 之重要外銷夥伴。我們擁有專業的吹膜、印刷、裁切與封口技術，產品涵蓋垃圾袋 (Can Liners)、自動拉繩袋 (Draw-Tape Bags)、工業棧板伸縮膜 (Stretch Films & Sheeting) 以及包裝袋。
+          <span class="badge" data-tw="CORPORATE OVERVIEW" data-en="CORPORATE OVERVIEW">CORPORATE OVERVIEW</span>
+          <h2 class="title" data-tw="勤勞樸實 · 永續經營" data-en="Diligent, Frugal & Sustainable Management">勤勞樸實 · 永續經營</h2>
+          <p class="desc" data-tw="臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 作為 Inteplast Group 全球下游塑膠加工產業鏈的核心據點之一，結合台塑企業豐富的原料資源與營德集團的全球加工技術背景。新港生產基地配備全自動拌料與原料空輸系統，並採用 PLC 自動化控制吹膜設備與精密點斷熱封技術。" data-en="As a core hub of Inteplast Group's global downstream plastic processing chain, Inteplast Taiwan combines Formosa Plastics' rich raw material resources with Inteplast's processing technology. Our Chiayi Xingang plant features fully automated resin pneumatic transport and PLC extrusion controls.">
+            臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 作為 Inteplast Group 全球下游塑膠加工產業鏈的核心據點之一，結合台塑企業豐富的原料資源與營德集團的全球加工技術背景。新港生產基地配備全自動拌料與原料空輸系統，並採用 PLC 自動化控制吹膜設備與精密點斷熱封技術。
           </p>
         </div>
         <div style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg);">
-          <img src="./src/stretch-films-machine-films-hero.jpg" alt="Inteplast Plant" style="width:100%; display:block;">
+          <img src="./src/plant.png" alt="嘉義台塑新港廠區" style="width:100%; display:block;">
         </div>
       </div>
 
-      <div class="stats-row">
-        <div class="stat-item">
-          <div class="stat-val">500+</div>
-          <div class="stat-lbl" data-tw="每日噸級產能 (Tons/Day)" data-en="Daily Capacity (Tons)">每日噸級產能 (Tons/Day)</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-val">40+</div>
-          <div class="stat-lbl" data-tw="外銷出口國家 (Countries)" data-en="Export Destinations">外銷出口國家 (Countries)</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-val">30+</div>
-          <div class="stat-lbl" data-tw="年製造經驗 (Years OEM)" data-en="Years OEM Experience">年製造經驗 (Years OEM)</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-val">ISO 9001</div>
-          <div class="stat-lbl" data-tw="品質管理認證 (Quality Certified)" data-en="Quality Management System">品質管理認證 (Quality Certified)</div>
-        </div>
-      </div>
-
-      <h2 style="text-align: center; margin-top: 70px; font-size: 1.8rem; color: var(--primary-navy);" data-tw="國際品質管理體系" data-en="Quality Management Certificate">國際品質管理體系</h2>
-      <div class="cert-grid">
-        <div class="cert-card">
-          <i class="fa-solid fa-award cert-icon"></i>
-          <div style="font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 8px;">ISO 9001:2015</div>
-          <div style="font-size: 0.95rem; color: var(--text-muted);" data-tw="國際品質管理體系認證，確保產品物性強度、封口密合度與厚度控制精確穩定。" data-en="ISO 9001:2015 Quality Management System Certification ensuring consistent tensile strength and precise gauge control.">
-            國際品質管理體系認證，確保產品物性強度、封口密合度與厚度控制精確穩定。
+      <!-- 卓越營運獎 Award -->
+      <div class="award-card">
+        <i class="fa-solid fa-trophy award-icon"></i>
+        <div>
+          <div style="font-size: 1.3rem; font-weight: 800; color: #92400E; margin-bottom: 4px;" data-tw="連續榮獲 2022、2023 年集團卓越營運獎 (Excellence Award)" data-en="Recipient of 2022 & 2023 Group Excellence Awards">
+            連續榮獲 2022、2023 年集團卓越營運獎 (Excellence Award)
           </div>
-        </div>
-
-        <div class="cert-card">
-          <i class="fa-solid fa-shield-halved cert-icon"></i>
-          <div style="font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 8px;" data-tw="廠內標準物性測試" data-en="Strict QC Physical Testing">廠內標準物性測試</div>
-          <div style="font-size: 0.95rem; color: var(--text-muted);" data-tw="包含落球衝擊測試 (Dart Drop)、抗張拉力測試與抗穿刺物理檢驗，保障出貨最高品質。" data-en="Comprehensive dart drop impact testing, tensile strength testing, and puncture resistance verification on all batches.">
-            包含落球衝擊測試 (Dart Drop)、抗張拉力測試與抗穿刺物理檢驗，保障出貨最高品質。
+          <div style="font-size: 0.95rem; color: #78350F;" data-tw="在 Inteplast Group 全球眾多生產基地的內部營運評比中，憑藉穩定且優異的生產品質與高良率，連續獲得集團總裁頒發最高榮譽代表。" data-en="Recognized by the Group President for outstanding operational efficiency, quality yield, and manufacturing perfection.">
+            在 Inteplast Group 全球眾多生產基地的內部營運評比中，憑藉穩定且優異的生產品質與高良率，連續獲得集團總裁頒發最高榮譽代表。
           </div>
         </div>
       </div>
