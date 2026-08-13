@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>工業棧板伸縮膜 & 片材 (Stretch Films) 專頁 | 臺灣營德 Inteplast Taiwan</title>
+  <meta name="description" content="臺灣營德 7 層 LLDPE 工業伸縮薄膜 (Stretch Film / Scale Sheet)，300% 預拉伸率，棧板打包與運輸保護最佳選擇。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-navy: #0A2540;
+      --brand-blue: #00529B;
+      --brand-blue-hover: #003d75;
+      --accent-azure: #00A8FF;
+      --accent-emerald: #10B981;
+      --bg-light: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--surface-white); line-height: 1.6; }
+
+    .header {
+      position: fixed; top: 0; left: 0; width: 100%; padding: 14px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color); z-index: 1000;
+    }
+    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-image { height: 40px; width: auto; }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 700; color: var(--primary-navy); display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 600; color: var(--brand-blue); display: block; }
+
+    .header-center { display: flex; gap: 8px; }
+    .nav-link {
+      padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 600;
+      color: var(--text-main); text-decoration: none; transition: var(--transition);
+    }
+    .nav-link:hover, .nav-link.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .lang-toggle {
+      background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px;
+      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);
+      cursor: pointer; transition: var(--transition);
+    }
+    .rfq-btn {
+      background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white);
+      padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700;
+      text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    .page-hero {
+      padding: 140px 40px 60px;
+      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
+      color: var(--surface-white);
+    }
+    .hero-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+    .hero-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+    .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 24px; }
+    .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
+
+    .section { padding: 80px 40px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    .spec-table { width: 100%; border-collapse: collapse; background: var(--surface-white); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); margin-top: 30px; }
+    .spec-table th { background: var(--primary-navy); color: var(--surface-white); padding: 16px 20px; text-align: left; font-size: 0.95rem; font-weight: 700; }
+    .spec-table td { padding: 14px 20px; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-main); }
+
+    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+
+    @media (max-width: 900px) {
+      .hero-container { grid-template-columns: 1fr; }
+      .header-center { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="../index.html" class="header-logo">
+      <img src="../src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
+      <div>
+        <span class="logo-text-tw">臺灣營德股份有限公司</span>
+        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
+      </div>
+    </a>
+    
+    <div class="header-center">
+      <a href="../index.html" class="nav-link" data-tw="首頁" data-en="Home">首頁</a>
+      <a href="../about.html" class="nav-link" data-tw="關於營德" data-en="About Us">關於營德</a>
+      <a href="index.html" class="nav-link active" data-tw="產品中心" data-en="Products">產品中心</a>
+      <a href="../sustainability.html" class="nav-link" data-tw="永續 ESG" data-en="ESG">永續 ESG</a>
+      <a href="../contact.html" class="nav-link" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a>
+    </div>
+
+    <div class="header-right">
+      <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
+      <a href="../contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="hero-container">
+      <div>
+        <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">INDUSTRIAL PACKAGING</span>
+        <h1 class="hero-title" data-tw="棧板伸縮膜 & 薄膜片材 (Stretch Films)" data-en="Industrial Stretch Films & Sheeting">棧板伸縮膜 & 薄膜片材 (Stretch Films)</h1>
+        <p class="hero-desc" data-tw="採用 7 層共擠鑄造/吹塑 LLDPE 膜技術，具備高達 300% 之預拉伸率與頂級包覆張力，專為工業物流與棧板裹膜保護設計。" data-en="Advanced 7-layer LLDPE cast and blown stretch film engineered for high load retention and 300% elongation performance.">
+          採用 7 層共擠鑄造/吹塑 LLDPE 膜技術，具備高達 300% 之預拉伸率與頂級包覆張力，專為工業物流與棧板裹膜保護設計。
+        </p>
+        <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Inquire Stretch Films"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
+      </div>
+      <div>
+        <img src="../src/stretch-film-bopp.png" alt="Stretch Films Showcase" class="product-hero-img">
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 12px;" data-tw="伸縮薄膜技術規格與物性數據" data-en="Technical & Physical Properties">伸縮薄膜技術規格與物性數據</h2>
+      <p style="color: var(--text-muted); margin-bottom: 20px;" data-tw="提供機械膜 (Machine Roll)、人工手打膜 (Hand Wrap) 與客製薄膜片材 (Scale Sheeting)。" data-en="Available in automatic machine rolls, hand wrap, and custom scale sheets.">
+        提供機械膜 (Machine Roll)、人工手打膜 (Hand Wrap) 與客製薄膜片材 (Scale Sheeting)。
+      </p>
+
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th data-tw="種類 Type" data-en="Type">種類 Type</th>
+            <th data-tw="寬度 Width" data-en="Width">寬度 Width</th>
+            <th data-tw="厚度 Gauge/Micron" data-en="Thickness">厚度 Gauge/Micron</th>
+            <th data-tw="延伸率 Pre-Stretch" data-en="Pre-Stretch Ratio">延伸率 Pre-Stretch</th>
+            <th data-tw="包裝 / 紙芯 Core" data-en="Core Style">包裝 / 紙芯 Core</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Automatic Machine Film 自動機械膜</td>
+            <td>500 mm / 750 mm (20" / 30")</td>
+            <td>12 - 25 Micron (47 - 100 Gauge)</td>
+            <td>250% - 300% High Stretch</td>
+            <td>3" Paper Core / Coreless</td>
+          </tr>
+          <tr>
+            <td>Hand Stretch Film 手打包膜</td>
+            <td>450 mm / 500 mm (18" / 20")</td>
+            <td>8 - 20 Micron (32 - 80 Gauge)</td>
+            <td>150% - 200% Standard</td>
+            <td>Extended Core / Standard 3"</td>
+          </tr>
+          <tr>
+            <td>Scale Sheeting 工業薄膜片材</td>
+            <td>Custom Cut Sheet / Roll</td>
+            <td>20 - 100 Micron</td>
+            <td>High Tear Resistance</td>
+            <td>Roll / Folded Sheet Box</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'tw';
+    function toggleLanguage() {
+      currentLang = currentLang === 'tw' ? 'en' : 'tw';
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) {
+        langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+      }
+      document.querySelectorAll("[data-tw]").forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) {
+          const icon = el.querySelector('i');
+          if (icon) {
+            const iconClone = icon.cloneNode(true);
+            el.innerHTML = '';
+            el.appendChild(iconClone);
+            el.appendChild(document.createTextNode(' ' + text));
+          } else {
+            el.innerText = text;
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
+  <meta name="description" content="瀏覽臺灣營德完整產品目錄：垃圾袋 (Can Liners)、自動拉繩袋 (Draw-Tape Bags)、工業伸縮薄膜 (Stretch Film) 及食品包裝。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-navy: #0A2540;
+      --brand-blue: #00529B;
+      --brand-blue-hover: #003d75;
+      --accent-azure: #00A8FF;
+      --accent-emerald: #10B981;
+      --bg-light: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--bg-light); line-height: 1.6; }
+
+    /* Header Navbar */
+    .header {
+      position: fixed; top: 0; left: 0; width: 100%; padding: 14px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color); z-index: 1000;
+    }
+    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-image { height: 40px; width: auto; }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 700; color: var(--primary-navy); display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 600; color: var(--brand-blue); display: block; }
+
+    .header-center { display: flex; gap: 8px; }
+    .nav-link {
+      padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 600;
+      color: var(--text-main); text-decoration: none; transition: var(--transition);
+    }
+    .nav-link:hover, .nav-link.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .lang-toggle {
+      background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px;
+      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);
+      cursor: pointer; transition: var(--transition);
+    }
+    .rfq-btn {
+      background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white);
+      padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700;
+      text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    /* Page Hero */
+    .page-hero {
+      padding: 140px 40px 60px;
+      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
+      color: var(--surface-white); text-align: center;
+    }
+    .page-hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 12px; }
+    .page-hero p { font-size: 1.05rem; max-width: 650px; margin: 0 auto; color: rgba(255,255,255,0.85); }
+
+    .section { padding: 80px 40px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* Catalog Cards Grid */
+    .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 36px; }
+    .catalog-card {
+      background: var(--surface-white); border-radius: var(--radius-md); overflow: hidden;
+      border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
+      display: flex; flex-direction: column;
+    }
+    .catalog-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--brand-blue); }
+
+    .card-img { width: 100%; height: 260px; object-fit: cover; }
+    .card-content { padding: 32px; flex: 1; display: flex; flex-direction: column; }
+    .card-title { font-size: 1.5rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 10px; }
+    .card-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; flex: 1; }
+
+    .feature-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .tag { background: var(--bg-light); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; color: var(--brand-blue); }
+
+    .card-link-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+      background: var(--brand-blue); color: var(--surface-white); padding: 12px 20px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 700; text-decoration: none; transition: var(--transition);
+    }
+    .card-link-btn:hover { background: var(--brand-blue-hover); }
+
+    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+
+    @media (max-width: 900px) {
+      .catalog-grid { grid-template-columns: 1fr; }
+      .header-center { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="../index.html" class="header-logo">
+      <img src="../src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
+      <div>
+        <span class="logo-text-tw">臺灣營德股份有限公司</span>
+        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
+      </div>
+    </a>
+    
+    <div class="header-center">
+      <a href="../index.html" class="nav-link" data-tw="首頁" data-en="Home">首頁</a>
+      <a href="../about.html" class="nav-link" data-tw="關於營德" data-en="About Us">關於營德</a>
+      <a href="index.html" class="nav-link active" data-tw="產品中心" data-en="Products">產品中心</a>
+      <a href="../sustainability.html" class="nav-link" data-tw="永續 ESG" data-en="ESG">永續 ESG</a>
+      <a href="../contact.html" class="nav-link" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a>
+    </div>
+
+    <div class="header-right">
+      <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
+      <a href="../contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <h1 data-tw="產品中心與目錄總覽" data-en="Product Catalog Center">產品中心與目錄總覽</h1>
+    <p data-tw="選擇下方的產品系列，深入了解規格、物性測試數據、裝櫃規範與下載產品白皮書。" data-en="Explore our specialized product categories for technical specifications, material options, and RFQ inquiries.">
+      選擇下方的產品系列，深入了解規格、物性測試數據、裝櫃規範與下載產品白皮書。
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="catalog-grid">
+        
+        <!-- Category 1 -->
+        <div class="catalog-card">
+          <img src="../src/Can-Liners-HERO-1.jpg" alt="Can Liners" class="card-img">
+          <div class="card-content">
+            <h2 class="card-title" data-tw="垃圾袋與內袋系列 (Can Liners)" data-en="Can Liners & Trash Bags">垃圾袋與內袋系列 (Can Liners)</h2>
+            <p class="card-desc" data-tw="提供商業、工業、醫療與機構用高品質垃圾袋。獨家星封 (Star Seal) 防漏底封與多層高密度 HDPE/LDPE 配方。" data-en="Commercial and institutional trash bags featuring leak-proof star seal technology and customizable gauges.">
+              提供商業、工業、醫療與機構用高品質垃圾袋。獨家星封 (Star Seal) 防漏底封與多層高密度 HDPE/LDPE 配方。
+            </p>
+            <div class="feature-tags">
+              <span class="tag">Star Seal 防漏</span>
+              <span class="tag">HDPE / LDPE</span>
+              <span class="tag">無芯捲裝 Coreless Roll</span>
+            </div>
+            <a href="can-liners.html" class="card-link-btn" data-tw="進入 Can Liners 專頁與規格表" data-en="Explore Can Liners & Specs">
+              <span data-tw="進入 Can Liners 專頁與規格表" data-en="Explore Can Liners & Specs">進入 Can Liners 專頁與規格表</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Category 2 -->
+        <div class="catalog-card">
+          <img src="../src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg" alt="Draw-Tape Bags" class="card-img">
+          <div class="card-content">
+            <h2 class="card-title" data-tw="自動拉繩垃圾袋 (Draw-Tape Bags)" data-en="Draw-Tape Bags">自動拉繩垃圾袋 (Draw-Tape Bags)</h2>
+            <p class="card-desc" data-tw="一拉封口、方便衛生。美歐零售超市最熱銷之拉繩包裝袋，具備極強之韌性與抗穿刺保護力。" data-en="Easy-close drawstring bags engineered for premium retail export and high-tensile strength requirements.">
+              一拉封口、方便衛生。美歐零售超市最熱銷之拉繩包裝袋，具備極強之韌性與抗穿刺保護力。
+            </p>
+            <div class="feature-tags">
+              <span class="tag">自動拉繩封口</span>
+              <span class="tag">Multi-Layer 抗穿刺</span>
+              <span class="tag">超市零售 OEM</span>
+            </div>
+            <a href="draw-tape.html" class="card-link-btn" data-tw="進入 Draw-Tape 專頁與規格表" data-en="Explore Draw-Tape Bags & Specs">
+              <span data-tw="進入 Draw-Tape 專頁與規格表" data-en="Explore Draw-Tape Bags & Specs">進入 Draw-Tape 專頁與規格表</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Category 3 -->
+        <div class="catalog-card">
+          <img src="../src/stretch-film-bopp.png" alt="Stretch Films" class="card-img">
+          <div class="card-content">
+            <h2 class="card-title" data-tw="工業棧板伸縮膜 & 片材 (Stretch Films)" data-en="Stretch Films & Sheeting">工業棧板伸縮膜 & 片材 (Stretch Films)</h2>
+            <p class="card-desc" data-tw="7 層鑄造/吹塑 LLDPE 膜，預拉伸率最高可達 300%。適用於自動打包機台與人工手打棧板保護。" data-en="High-performance 7-layer LLDPE stretch film up to 300% pre-stretch for heavy industrial palletization.">
+              7 層鑄造/吹塑 LLDPE 膜，預拉伸率最高可達 300%。適用於自動打包機台與人工手打棧板保護。
+            </p>
+            <div class="feature-tags">
+              <span class="tag">300% 預拉伸</span>
+              <span class="tag">Machine / Hand Wrap</span>
+              <span class="tag">Scale Sheet 片材</span>
+            </div>
+            <a href="stretch-films.html" class="card-link-btn" data-tw="進入 Stretch Films 專頁與規格表" data-en="Explore Stretch Films & Specs">
+              <span data-tw="進入 Stretch Films 專頁與規格表" data-en="Explore Stretch Films & Specs">進入 Stretch Films 專頁與規格表</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Category 4 -->
+        <div class="catalog-card">
+          <img src="../src/Foodservice-HERO-1.jpg" alt="Foodservice Packaging" class="card-img">
+          <div class="card-content">
+            <h2 class="card-title" data-tw="食品級包裝袋與保鮮膜 (Foodservice)" data-en="Foodservice Packaging">食品級包裝袋與保鮮膜 (Foodservice)</h2>
+            <p class="card-desc" data-tw="100% 符合美國 FDA 21 CFR 177.1520 食品接觸規範。高透明生鮮捲袋、連捲袋與夾鏈儲存袋。" data-en="FDA-compliant high-clarity produce rolls and food storage bags designed for grocery and foodservice.">
+              100% 符合美國 FDA 21 CFR 177.1520 食品接觸規範。高透明生鮮捲袋、連捲袋與夾鏈儲存袋。
+            </p>
+            <div class="feature-tags">
+              <span class="tag">FDA Compliant</span>
+              <span class="tag">100% Virgin Grade</span>
+              <span class="tag">Produce Roll 生鮮袋</span>
+            </div>
+            <a href="foodservice.html" class="card-link-btn" data-tw="進入 Foodservice 專頁與規格表" data-en="Explore Foodservice & Specs">
+              <span data-tw="進入 Foodservice 專頁與規格表" data-en="Explore Foodservice & Specs">進入 Foodservice 專頁與規格表</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'tw';
+    function toggleLanguage() {
+      currentLang = currentLang === 'tw' ? 'en' : 'tw';
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) {
+        langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+      }
+      document.querySelectorAll("[data-tw]").forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) {
+          const icon = el.querySelector('i');
+          if (icon) {
+            const iconClone = icon.cloneNode(true);
+            el.innerHTML = '';
+            el.appendChild(iconClone);
+            el.appendChild(document.createTextNode(' ' + text));
+          } else {
+            el.innerText = text;
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

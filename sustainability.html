@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>永續發展與 ESG 專區 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
+  <meta name="description" content="了解臺灣營德的綠色包裝計畫、PCR (Post-Consumer Recycled) 消費後再生塑料應用、廢料閉環回收與減碳承諾。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-navy: #0A2540;
+      --brand-blue: #00529B;
+      --accent-emerald: #10B981;
+      --bg-light: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--surface-white); line-height: 1.6; }
+
+    /* Header Navbar */
+    .header {
+      position: fixed; top: 0; left: 0; width: 100%; padding: 14px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color); z-index: 1000;
+    }
+    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-image { height: 40px; width: auto; }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 700; color: var(--primary-navy); display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 600; color: var(--brand-blue); display: block; }
+
+    .header-center { display: flex; gap: 8px; }
+    .nav-link {
+      padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 600;
+      color: var(--text-main); text-decoration: none; transition: var(--transition);
+    }
+    .nav-link:hover, .nav-link.active { background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .lang-toggle {
+      background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px;
+      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);
+      cursor: pointer; transition: var(--transition);
+    }
+    .rfq-btn {
+      background: linear-gradient(135deg, var(--accent-emerald), #047857); color: var(--surface-white);
+      padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700;
+      text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    /* Page Hero */
+    .page-hero {
+      padding: 150px 40px 80px;
+      background: linear-gradient(135deg, #064E3B, #047857);
+      color: var(--surface-white); text-align: center;
+    }
+    .page-hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 16px; color: #34D399; }
+    .page-hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: rgba(255,255,255,0.9); }
+
+    /* Sections */
+    .section { padding: 90px 40px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+
+    .badge {
+      display: inline-block; padding: 6px 14px; background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald);
+      border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px;
+    }
+    .title { font-size: 2rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 16px; }
+    .desc { font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+
+    .esg-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+    .esg-card {
+      background: var(--surface-white); border: 1px solid var(--border-color); border-radius: var(--radius-md);
+      padding: 36px 28px; box-shadow: var(--shadow-sm); transition: var(--transition);
+    }
+    .esg-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--accent-emerald); }
+    .card-icon { font-size: 2.4rem; color: var(--accent-emerald); margin-bottom: 20px; }
+    .card-title { font-size: 1.25rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 10px; }
+
+    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+
+    @media (max-width: 900px) {
+      .grid-2, .esg-cards { grid-template-columns: 1fr; }
+      .header-center { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="index.html" class="header-logo">
+      <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
+      <div>
+        <span class="logo-text-tw">臺灣營德股份有限公司</span>
+        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
+      </div>
+    </a>
+    
+    <div class="header-center">
+      <a href="index.html" class="nav-link" data-tw="首頁" data-en="Home">首頁</a>
+      <a href="about.html" class="nav-link" data-tw="關於營德" data-en="About Us">關於營德</a>
+      <a href="products/index.html" class="nav-link" data-tw="產品中心" data-en="Products">產品中心</a>
+      <a href="sustainability.html" class="nav-link active" data-tw="永續 ESG" data-en="ESG">永續 ESG</a>
+      <a href="contact.html" class="nav-link" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a>
+    </div>
+
+    <div class="header-right">
+      <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
+      <a href="contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <h1 data-tw="永續發展與 ESG 綠色包裝方案" data-en="Sustainability & ESG Innovations">永續發展與 ESG 綠色包裝方案</h1>
+    <p data-tw="致力於降低碳足跡、推進 PCR 消費後再生塑料應用，與全球客戶攜手實現淨零排放與循環經濟。" data-en="Pioneering recycled content solutions, carbon footprint reduction, and closed-loop manufacturing for global sustainability goals.">
+      致力於降低碳足跡、推進 PCR 消費後再生塑料應用，與全球客戶攜手實現淨零排放與循環經濟。
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <span class="badge" data-tw="CIRCULAR ECONOMY" data-en="CIRCULAR ECONOMY">CIRCULAR ECONOMY</span>
+          <h2 class="title" data-tw="PCR 高比例消費後再生塑料技術" data-en="PCR Recycled Material Technology">PCR 高比例消費後再生塑料技術</h2>
+          <p class="desc" data-tw="為了協助歐美及全球買家符合日益嚴格的塑膠包裝法規與減碳稅，臺灣營德開發出具備 20% - 100% 可調比例之 PCR (Post-Consumer Recycled) 吹膜技術。我們在摻配再生塑料的同時，透過獨家多層共擠配方，維持包裝袋與薄膜極致的拉伸強度與抗穿刺性能。" data-en="Inteplast Taiwan has engineered advanced blown film formulations utilizing 20% to 100% Post-Consumer Recycled (PCR) resin. Our multi-layer technologies ensure high tensile strength and puncture resistance while satisfying global plastic mandates.">
+            為了協助歐美及全球買家符合日益嚴格的塑膠包裝法規與減碳稅，臺灣營德開發出具備 20% - 100% 可調比例之 PCR (Post-Consumer Recycled) 吹膜技術。我們在摻配再生塑料的同時，透過獨家多層共擠配方，維持包裝袋與薄膜極致的拉伸強度與抗穿刺性能。
+          </p>
+        </div>
+        <div style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg);">
+          <img src="./src/esg-banner.png" alt="ESG Recycled Plastic" style="width:100%; display:block;">
+        </div>
+      </div>
+
+      <div class="esg-cards">
+        <div class="esg-card">
+          <i class="fa-solid fa-recycle card-icon"></i>
+          <div class="card-title" data-tw="100% 廠內廢料回收" data-en="100% In-house Scrap Recycling">100% 廠內廢料回收</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);" data-tw="所有生產過程產生的邊角料與廢膜均經由自動造粒機完全回收再利用，達成廠內零浪費循環。" data-en="100% of production scrap and trim is re-granulated and fed back into film manufacturing.">所有生產過程產生的邊角料與廢膜均經由自動造粒機完全回收再利用，達成廠內零浪費循環。</p>
+        </div>
+
+        <div class="esg-card">
+          <i class="fa-solid fa-feather-pointed card-icon"></i>
+          <div class="card-title" data-tw="輕量化與減薄技術" data-en="Source Reduction & Down-Gauging">輕量化與減薄技術</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);" data-tw="利用最新高密度樹脂配方，在維持相同承重強度下降低薄膜厚度 15%-25%，減少原生塑料消耗。" data-en="High-performance resins allow down-gauging by 15-25% without sacrificing load bearing capability.">利用最新高密度樹脂配方，在維持相同承重強度下降低薄膜厚度 15%-25%，減少原生塑料消耗。</p>
+        </div>
+
+        <div class="esg-card">
+          <i class="fa-solid fa-solar-panel card-icon"></i>
+          <div class="card-title" data-tw="節能與低碳綠色工廠" data-en="Energy Efficiency & Carbon Tracking">節能與低碳綠色工廠</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);" data-tw="全面升級全電動吹膜馬達與太陽能輔助供電，降低每噸產品生產過程的溫室氣體排放。" data-en="Upgraded energy-efficient motors and carbon tracking systems minimize greenhouse gas emissions per ton.">全面升級全電動吹膜馬達與太陽能輔助供電，降低每噸產品生產過程的溫室氣體排放。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div>
+          <h3 style="color: white; margin-bottom: 6px;">臺灣營德股份有限公司 INTEPLAST TAIWAN</h3>
+          <p>地址: 台北市敦化北路 | 電話: +886-2-2717-5566 | Email: sales@inteplast.com.tw</p>
+        </div>
+        <div>
+          <a href="contact.html" class="rfq-btn" data-tw="諮詢 PCR 綠色方案" data-en="Inquire PCR Solutions">諮詢 PCR 綠色方案</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'tw';
+    function toggleLanguage() {
+      currentLang = currentLang === 'tw' ? 'en' : 'tw';
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) {
+        langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+      }
+      document.querySelectorAll("[data-tw]").forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) {
+          const icon = el.querySelector('i');
+          if (icon) {
+            const iconClone = icon.cloneNode(true);
+            el.innerHTML = '';
+            el.appendChild(iconClone);
+            el.appendChild(document.createTextNode(' ' + text));
+          } else {
+            el.innerText = text;
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

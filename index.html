@@ -3,622 +3,458 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scroll-linked Animation Template</title>
+  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation - 塑膠包裝與薄膜外銷製造商</title>
+  <meta name="description" content="臺灣營德股份有限公司 (Inteplast Taiwan Corporation) 專業生產高品質垃圾袋、拉繩袋、工業伸縮薄膜 (Stretch Film / Scale Sheet) 與食品級包裝，提供全球 OEM/ODM 客製化外銷服務。">
+  <meta name="keywords" content="Inteplast, 臺灣營德, 塑膠袋, 垃圾袋, 拉繩袋, 工業薄膜, 伸縮膜, Stretch Film, Can Liners, Draw Tape Bags, 外銷製造">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   
-  <!-- 引入 GSAP 與 ScrollTrigger -->
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- GSAP 與 ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  
+
   <style>
     /* =========================================
-       1. 基本重置與全域設定
+       1. 全域變數與重置 (Global Variables & Reset)
        ========================================= */
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      overflow-x: hidden;
+    :root {
+      --primary-navy: #0A2540;
+      --brand-blue: #00529B;
+      --brand-blue-hover: #003d75;
+      --accent-azure: #00A8FF;
+      --accent-emerald: #10B981;
+      --bg-light: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-main); background-color: var(--surface-white); overflow-x: hidden; line-height: 1.6;
     }
 
     /* =========================================
-       2. 導覽列 (Header) 樣式
+       2. 導覽列 (Header & Navigation)
        ========================================= */
     .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-sizing: border-box;
-      z-index: 100;
-      pointer-events: none; /* 讓 Header 背景不阻擋點擊 */
+      position: fixed; top: 0; left: 0; width: 100%; padding: 16px 40px;
+      display: flex; justify-content: space-between; align-items: center; z-index: 100; pointer-events: none; transition: var(--transition);
     }
-    
-    .header * {
-      pointer-events: auto; /* 讓按鈕可以被點擊 */
-    }
+    .header * { pointer-events: auto; }
 
-    /* 1. 外層容器：保持水平排列 */
-    .header-logo {
-      display: flex;
-      align-items: center;   /* 垂直置中對齊 */
-      gap: 15px;             /* Logo 與文字之間的距離 */
-      opacity: 0;            /* 初始隱藏，往下捲動後淡入 */
-      color: #333333;        /* 初始文字顏色 */
-    }
+    .header-logo { display: flex; align-items: center; gap: 14px; opacity: 0; transition: opacity 0.5s ease; cursor: pointer; text-decoration: none; }
+    .logo-image { height: 42px; width: auto; object-fit: contain; }
+    .logo-text-wrapper { display: flex; flex-direction: column; }
+    .logo-text-tw { font-size: 1.1rem; font-weight: 700; color: var(--primary-navy); letter-spacing: 0.5px; line-height: 1.2; }
+    .logo-text-en { font-size: 0.75rem; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.5px; line-height: 1.2; opacity: 0.9; }
 
-    /* 2. Logo 圖片：設定固定寬度 */
-    .logo-image {
-      width: 80px;          /* 🌟 在這裡設定 Logo 的寬度 */
-      height: auto;
-      object-fit: contain;
-    }
-
-    /* 3. 文字容器：與 Logo 等寬，並垂直排列 */
-    .logo-text-wrapper {
-      width: auto;          /* 🌟 在這裡設定文字區塊的寬度 (請與上方 Logo 寬度保持一致) */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    /* 4. 中文樣式 (大字) */
-    .logo-text-tw {
-      font-size: 28px;       
-      font-weight: bold;
-      letter-spacing: 1px;   /* 字元間距 */
-      line-height: 1.2;
-    }
-
-    /* 5. 英文樣式 (小字) */
-    .logo-text-en {
-      font-size: 20px;       
-      font-weight: normal;
-      letter-spacing: 0.5px;
-      line-height: 1.2;
-      opacity: 0.8;          /* 讓英文稍微淡一點，增加視覺層次 */
-      margin-top: 4px;       /* 中英文之間的上下距離 */
-    }
-
-    /* =========================================
-       更新的導覽列按鈕樣式
-       ========================================= */
-       
-
-    /* 1. 中間區塊：一開始放在右邊，與「聯繫我們」靠攏 */
     .header-center {
-      position: absolute;
-      right: 180px;            /* 🌟 與右邊界的距離，預留給「聯繫我們」按鈕 */
-      top: 50%;                /* 🌟 從上方算起 50% */
-      transform: translateY(-50%); /* 🌟 確保按鈕能完美垂直置中 */
-      background: rgb(255, 255, 255);
-      border-radius: 40px;         
-      padding: 5px 10px;           
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
-      pointer-events: auto;        
-      display: flex;
+      position: absolute; right: 220px; top: 50%; transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.8);
+      border-radius: var(--radius-full); padding: 6px 12px; box-shadow: var(--shadow-md); display: flex; gap: 4px; z-index: 101;
     }
 
-    /* 中間區塊內的按鈕 (去除按鈕本身的背景，因為父層已經是白色了) */
-    .header-center button {
-      background: transparent;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-weight: bold;
-      color: #333333;
-      font-size: 15px;
+    .nav-btn {
+      background: transparent; border: none; padding: 8px 18px; border-radius: var(--radius-full);
+      font-size: 0.9rem; font-weight: 600; color: var(--text-main); cursor: pointer; transition: var(--transition);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
     }
+    .nav-btn:hover { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
 
-    /* 2. 右側按鈕區塊 */
-    .header-right {
-      pointer-events: auto; /* 確保可以點擊 */
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .lang-toggle {
+      background: rgba(255, 255, 255, 0.9); border: 1px solid var(--border-color); padding: 8px 16px;
+      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);
+      cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-sm);
     }
+    .lang-toggle:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
 
-    /* 右側獨立按鈕 (自帶白色背景) */
-    .header-right button {
-      background: white;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 40px;
-      cursor: pointer;
-      font-weight: bold;
-      color: #333333;
-      font-size: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    .rfq-btn {
+      background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white);
+      border: none; padding: 10px 24px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 14px rgba(0, 82, 155, 0.35); transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
     }
+    .rfq-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 82, 155, 0.45); background: linear-gradient(135deg, #0060B8, #00427A); }
 
     /* =========================================
-       3. 核心動畫區塊 (Hero Section) 樣式
+       3. 首頁 GSAP 動畫區塊 (Hero Section)
        ========================================= */
-    .hero-section {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    /* 左側純色背景 */
+    .hero-section { position: relative; width: 100vw; height: 100vh; overflow: hidden; background: var(--bg-light); }
     .bg-left {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;    /* 🌟 改成 100% */
-      height: 100%;
-      background-color: #0f4c9b25; 
-      z-index: 1;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 30% 30%, rgba(0, 82, 155, 0.08) 0%, rgba(248, 250, 252, 1) 70%); z-index: 1;
     }
-
-    /* 右側圖片背景 */
     .bg-right {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 0%;     /* 🌟 修改 1：一開始先隱藏右邊圖片 */
-      height: 100%;
-      background: url('./src/can-liners-draw-tape-hero.jpg') center/cover no-repeat; 
-      z-index: 2;
+      position: absolute; top: 0; right: 0; width: 0%; height: 100%;
+      background: linear-gradient(to right, rgba(10, 37, 64, 0.75), rgba(10, 37, 64, 0.45)), url('./src/can-liners-draw-tape-hero.jpg') center/cover no-repeat;
+      z-index: 2; transition: width 0.1s linear;
     }
-
-    /* 內容區塊 (文字與產品圖) */
     .content-box {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;   /* 🌟 修改 2：一開始設定 100%，讓內容完美置中 */
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 10;
-      color: #333333; 
-      text-align: center;
-      padding-top: 80px; 
-      box-sizing: border-box;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10;
+      color: var(--text-main); text-align: center; padding: 80px 20px 40px;
     }
 
-    .title {
-      font-size: 3rem;
-      font-weight: normal;
-      margin-bottom: 20px;
-      line-height: 1.2;
-    }
+    .center-logo { display: flex; flex-direction: column; align-items: center; margin-bottom: 24px; }
+    .center-logo-image { width: 120px; height: auto; margin-bottom: 16px; filter: drop-shadow(0 4px 8px rgba(0, 82, 155, 0.15)); }
+    .center-logo-tw { font-size: 2.5rem; font-weight: 900; color: var(--primary-navy); letter-spacing: 1px; line-height: 1.2; }
+    .center-logo-en { font-size: 1.25rem; font-weight: 600; color: var(--brand-blue); letter-spacing: 1px; margin-top: 6px; }
 
-    .product-img-placeholder {
-      width: 200px;
-      height: 250px;
-      background: #ffffff;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
+    .hero-tagline { font-size: 1.15rem; color: var(--text-muted); max-width: 650px; margin-bottom: 30px; font-weight: 500; }
+    .hero-product-card {
+      width: 320px; height: 220px; background: var(--surface-white); border-radius: var(--radius-md);
+      overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid rgba(226, 232, 240, 0.8); position: relative;
     }
+    .hero-product-card img { width: 100%; height: 100%; object-fit: cover; }
+
+    .hero-stats-wrapper { opacity: 0; transform: translateY(30px); transition: all 0.5s ease; margin-top: 30px; }
+    .hero-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: var(--radius-md); padding: 20px 16px; color: var(--surface-white); text-align: center;
+    }
+    .stat-number { font-size: 2.2rem; font-weight: 900; color: var(--accent-azure); line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 0.85rem; font-weight: 600; color: rgba(255, 255, 255, 0.9); letter-spacing: 0.5px; }
 
     /* =========================================
-       4. 測試用的下方假內容區塊
+       4. 產品總覽 Section
        ========================================= */
-    .dummy-content {
-      height: 150vh;
-      background: #222;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
+    .product-section { padding: 120px 40px; background-color: var(--bg-light); }
+    .section-container { max-width: 1240px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 50px; }
+    .section-badge {
+      display: inline-block; padding: 6px 16px; background: rgba(0, 82, 155, 0.1); color: var(--brand-blue);
+      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;
     }
-    /* 控制產品圖片的大小，讓它乖乖待在框框裡 */
-    .product-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;   /* 讓圖片完美填滿框框 (如果不想被裁切，可以改成 contain) */
-      border-radius: 10px; /* 配合外框的圓角設定 */
-    }
-    /* =========================================
-       新增：內容區塊正中間的 Logo 樣式
-       ========================================= */
-    .center-logo {
-      display: flex;
-      flex-direction: column; 
-      align-items: center;    
-      margin-bottom: 30px;    
-    }
+    .section-title-main { font-size: 2.25rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 12px; }
+    .section-subtitle { font-size: 1.05rem; color: var(--text-muted); max-width: 650px; margin: 0 auto; }
 
-    .center-logo-image {
-      width: 100px;            
-      height: auto;
-      margin-bottom: 15px;    
-    }
-
-    .center-logo-text {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .center-logo-tw {
-      font-size: 40px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      line-height: 1.2;
-    }
-
-    .center-logo-en {
-      font-size: 20px;
-      font-weight: normal;
-      letter-spacing: 0.5px;
-      line-height: 1.2;
-      opacity: 0.8;
-      margin-top: 4px;
-    }
-
-    /* =========================================
-       5. 產品總覽區塊 (Product Overview) 樣式
-       ========================================= */
-    .product-overview {
-      width: 100%;
-      background-color: #f8f9fa;   /* 乾淨的極淺灰底色，與上方動畫區塊做區分 */
-      padding: 100px 0;            /* 上下留白，讓視覺呼吸 */
-      color: #333333;
-    }
-
-    .overview-container {
-      max-width: 1200px;           /* 限制最大寬度，大螢幕不會無限延伸 */
-      margin: 0 auto;              /* 讓容器在畫面中置中 */
-      padding: 0 40px;             /* 左右安全距離 */
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 32px;
-      margin-bottom: 60px;
-      font-weight: bold;
-      color: #1a498b;              /* 呼應 Inteplast 的品牌藍色 */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title span {
-      font-size: 14px;
-      color: #777;
-      letter-spacing: 2px;
-      font-weight: normal;
-    }
-
-    /* 網格系統：魔法就在這一行 */
-    .product-grid {
-      display: grid;
-      /* 自動分配列數：每張卡片最少 260px，畫面夠寬就自動塞入更多排 */
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px;                   /* 卡片之間的間距 */
-    }
-
-    /* 卡片主體與懸停動畫 */
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
     .product-card {
-      background: #ffffff;
-      border-radius: 12px;         /* 圓角 */
-      overflow: hidden;            /* 讓裡面的圖片不會超出版界 */
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* 輕微的陰影 */
-      transition: transform 0.3s ease, box-shadow 0.3s ease; /* 設定動畫過渡時間 */
-      cursor: pointer;
+      background: var(--surface-white); border-radius: var(--radius-md); overflow: hidden;
+      border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
+      display: flex; flex-direction: column; position: relative;
     }
+    .product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: rgba(0, 82, 155, 0.3); }
 
-    /* 當滑鼠移上去時，卡片會微微浮起並加深陰影 */
-    .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-    }
+    .card-img-wrapper { position: relative; width: 100%; height: 220px; overflow: hidden; background: #e2e8f0; }
+    .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .product-card:hover .card-img-wrapper img { transform: scale(1.08); }
 
-    .product-card-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      display: block;
-      border-bottom: 1px solid #eeeeee;
+    .card-tag {
+      position: absolute; top: 14px; left: 14px; background: rgba(10, 37, 64, 0.85); backdrop-filter: blur(4px);
+      color: var(--surface-white); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-sm);
     }
+    .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .card-title { font-size: 1.25rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 8px; }
+    .card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; flex: 1; }
 
-    .product-card-content {
-      padding: 25px;
+    .card-action-btn {
+      width: 100%; background: var(--surface-white); border: 1px solid var(--brand-blue); color: var(--brand-blue);
+      padding: 10px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 700; cursor: pointer;
+      transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
     }
+    .card-action-btn:hover { background: var(--brand-blue); color: var(--surface-white); }
 
-    .product-card-title {
-      font-size: 20px;
-      font-weight: bold;
-      margin-top: 0;
-      margin-bottom: 12px;
-      color: #333333;
-    }
+    /* Footer */
+    .footer { background: var(--primary-navy); color: rgba(255, 255, 255, 0.7); padding: 70px 40px 30px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 50px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 0.9rem; transition: var(--transition); }
+    .footer-links a:hover { color: var(--accent-azure); }
+    .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
 
-    .product-card-desc {
-      font-size: 14px;
-      color: #666666;
-      line-height: 1.6;
-      margin: 0;
-    }
-    /* =========================================
-       重疊卡片 (Overlapping Card) 樣式
-       ========================================= */
-    .overlap-section {
-      width: 100%;
-      background-color: #ffffff; /* 依需求調整外層背景色 */
-      padding: 80px 20px;
-    }
-
-    .overlap-container {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center; /* 讓圖片與卡片垂直置中 */
-      justify-content: flex-start;
-    }
-
-    /* 左側圖片區塊 */
-    .overlap-image-box {
-      flex: 0 0 65%; /* 圖片佔據容器的 65% 寬度 */
-      position: relative;
-    }
-
-    .overlap-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      background-color: #e2e6eb; /* 模擬原圖的灰藍色背景 */
-    }
-
-    /* 右側白色文字卡片 🌟 核心魔法在這裡 🌟 */
-    .overlap-text-card {
-      flex: 0 0 45%;         /* 卡片佔據 45% 寬度，加起來超過 100% 製造重疊條件 */
-      background: #ffffff;
-      padding: 40px 50px;
-      margin-left: -10%;     /* 【關鍵】使用負邊距將卡片往左拉，蓋在圖片上 */
-      z-index: 2;            /* 確保白色卡片在圖片的「上層」 */
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* 淡淡的立體陰影 */
-    }
-
-    /* 標題樣式 */
-    .card-title {
-      color: #2b5c92;        /* 參考原圖的企業藍色 */
-      font-size: 28px;
-      font-weight: normal;
-      margin-top: 0;
-      margin-bottom: 30px;
-    }
-
-    /* 列表網格排版 (兩欄式) */
-    .card-list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 40px 0;
-      display: grid;
-      grid-template-columns: 1fr 1fr; /* 切分成均等的兩列 */
-      gap: 20px 10px;        /* 上下間距 20px，左右間距 10px */
-    }
-
-    .card-list li {
-      font-size: 14px;
-      color: #333333;
-    }
-
-    /* 底部連結區塊 */
-    .card-footer {
-      text-align: right;     /* 將連結推到右邊 */
-    }
-
-    .see-more-link {
-      color: #2b5c92;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    .see-more-link:hover {
-      color: #1a498b;
-    }
-
-    /* =========================================
-       手機版響應式設計 (RWD)
-       ========================================= */
-    @media (max-width: 768px) {
-      .overlap-container {
-        flex-direction: column; /* 手機版改成上下排列 */
-      }
-      
-      .overlap-image-box {
-        flex: 0 0 100%;
-        width: 100%;
-      }
-      
-      .overlap-text-card {
-        flex: 0 0 100%;
-        width: 90%;
-        margin-left: 0;
-        margin-top: -50px; /* 手機版改為「往上推」來蓋住圖片底部 */
-        padding: 30px;
-      }
-      
-      .card-list {
-        grid-template-columns: 1fr; /* 手機版列表變成單排 */
-      }
+    @media (max-width: 1024px) {
+      .header-center { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
-  <header class="header">
-    <!-- 浮動導覽列 -->
-    <div class="header-logo">
-      <!-- 替換為您的 Logo 檔案路徑 -->
+
+  <!-- =========================================
+       1. 浮動導覽列 (Multi-Page Header)
+       ========================================= -->
+  <header class="header" id="navbar">
+    <a href="index.html" class="header-logo">
       <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
-      
-      <!-- 新增文字容器，將中英文分兩行 -->
       <div class="logo-text-wrapper">
         <span class="logo-text-tw">臺灣營德股份有限公司</span>
         <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
       </div>
-    </div>
+    </a>
     
-    <!-- 🌟【新增】中間置中的按鈕區塊 (白色膠囊底色) -->
     <div class="header-center">
-      <button>關於</button>
-      <button>商品</button>
+      <a href="about.html" class="nav-btn" data-tw="關於營德" data-en="About Us"><i class="fa-solid fa-building"></i> 關於營德</a>
+      <a href="products/index.html" class="nav-btn" data-tw="產品中心" data-en="Products"><i class="fa-solid fa-boxes-packing"></i> 產品中心</a>
+      <a href="sustainability.html" class="nav-btn" data-tw="永續 ESG" data-en="ESG"><i class="fa-solid fa-leaf"></i> 永續 ESG</a>
+      <a href="contact.html" class="nav-btn" data-tw="聯繫與詢價" data-en="Contact & RFQ"><i class="fa-solid fa-envelope"></i> 聯繫與詢價</a>
     </div>
 
-    <!-- 🌟【新增】右側的獨立按鈕區塊 -->
     <div class="header-right">
-      <button>聯繫我們</button>
+      <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
+      <a href="contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
     </div>
   </header>
 
-  <!-- 捲動動畫區塊 -->
+  <!-- =========================================
+       2. 首頁動畫 Hero 區塊
+       ========================================= -->
   <section class="hero-section">
     <div class="bg-left"></div>
     <div class="bg-right"></div>
     
     <div class="content-box">
-      <!-- 🌟【新增】一開始顯示在中間的 Logo 與公司名稱 -->
       <div class="center-logo">
         <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="center-logo-image">
         <div class="center-logo-text">
-          <span class="center-logo-tw">臺灣營德股份有限公司</span>
-          <span class="center-logo-en">INTEPLAST TAIWAN CORPORATION</span>
+          <span class="center-logo-tw" data-tw="臺灣營德股份有限公司" data-en="INTEPLAST TAIWAN CORPORATION">臺灣營德股份有限公司</span>
+          <span class="center-logo-en" data-tw="INTEPLAST TAIWAN CORPORATION" data-en="Global Packaging & Industrial Film Leader">INTEPLAST TAIWAN CORPORATION</span>
         </div>
       </div>
       
-      <!-- 你的標題維持不動 -->
-      <h1 class="title"></h1>
-      <div class="product-img-placeholder">
-        <img src="./src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg" alt="Product Image" class="product-image">
+      <p class="hero-tagline" data-tw="專業生產垃圾袋、拉繩袋、工業伸縮薄膜與餐飲包裝 — 致力於全球 B2B 買家卓越的外銷品質與 OEM 客製服務。" data-en="Premier Manufacturer of Can Liners, Draw-Tape Bags, Stretch Films, and Foodservice Packaging for Global Export Markets.">
+        專業生產垃圾袋、拉繩袋、工業伸縮薄膜與餐飲包裝 — 致力於全球 B2B 買家卓越的外銷品質與 OEM 客製服務。
+      </p>
+
+      <div class="hero-product-card">
+        <img src="./src/can-liners-draw-tape-hero.jpg" alt="Inteplast Hero Packaging Showcase">
       </div>
-      <p></p>
+
+      <div class="hero-stats-wrapper">
+        <div class="hero-stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">500+</div>
+            <div class="stat-label" data-tw="每日噸級產能 (Tons/Day)" data-en="Daily Capacity (Tons)">每日噸級產能 (Tons/Day)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">40+</div>
+            <div class="stat-label" data-tw="外銷出口國家 (Countries)" data-en="Export Countries">外銷出口國家 (Countries)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">30+</div>
+            <div class="stat-label" data-tw="年製造經驗 (Years OEM)" data-en="Years OEM Experience">年製造經驗 (Years OEM)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">ISO/FDA</div>
+            <div class="stat-label" data-tw="國際合規認證 (Certifications)" data-en="Global Certifications">國際合規認證 (Certifications)</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- =========================================
-       產品總覽區塊 (Product Overview)
+       3. 核心產品總覽區塊
        ========================================= -->
-  <section class="product-overview">
-    <div class="overview-container">
-      <h2 class="section-title">產品總覽 <span>PRODUCT CATEGORIES</span></h2>
-      
-      <!-- CSS 網格容器 -->
+  <section class="product-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge" data-tw="PROVEN QUALITY" data-en="PROVEN QUALITY">PROVEN QUALITY</span>
+        <h2 class="section-title-main" data-tw="四大核心產品系列" data-en="Core Product Categories">四大核心產品系列</h2>
+        <p class="section-subtitle" data-tw="點擊產品可深入專屬頁面查看詳細技術數據與 TDS 白皮書。" data-en="Select any category to explore full specs, technical data sheets, and container load options.">
+          點擊產品可深入專屬頁面查看詳細技術數據與 TDS 白皮書。
+        </p>
+      </div>
+
       <div class="product-grid">
         
-        <!-- 產品卡片 1 -->
+        <!-- 1. Can Liners -->
         <div class="product-card">
-          <img src="./src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg" alt="垃圾袋與內袋" class="product-card-img" onerror="this.src='https://via.placeholder.com/400x250?text=Can+Liners'">
-          <div class="product-card-content">
-            <h3 class="product-card-title">垃圾袋與內袋</h3>
-            <p class="product-card-desc">提供多種尺寸與厚度，適用於工業、商業與家庭清潔需求，堅韌耐用。</p>
+          <div class="card-img-wrapper">
+            <span class="card-tag">Heavy Duty</span>
+            <img src="./src/Can-Liners-HERO-1.jpg" alt="Commercial Can Liners">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title" data-tw="商業與工業垃圾袋 (Can Liners)" data-en="Commercial Can Liners">商業與工業垃圾袋 (Can Liners)</h3>
+            <p class="card-desc" data-tw="專為高強度負荷設計，具備星形底封 (Star Seal) 防止洩漏，適用於商業與工業場所。" data-en="High-density and low-density liners featuring leak-proof star seals for commercial use.">
+              專為高強度負荷設計，具備星形底封 (Star Seal) 防止洩漏，適用於商業與工業場所。
+            </p>
+            <a href="products/can-liners.html" class="card-action-btn" data-tw="進入 Can Liners 專屬頁面" data-en="View Can Liners Page">
+              <span data-tw="進入 Can Liners 專屬頁面" data-en="View Can Liners Page">進入 Can Liners 專屬頁面</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
           </div>
         </div>
 
-        <!-- 產品卡片 2 -->
+        <!-- 2. Draw-Tape -->
         <div class="product-card">
-          <img src="./src/Bags-Films.jpg" alt="袋類與薄膜" class="product-card-img" onerror="this.src='https://via.placeholder.com/400x250?text=Bags+%26+Films'">
-          <div class="product-card-content">
-            <h3 class="product-card-title">袋類與薄膜</h3>
-            <p class="product-card-desc">高品質食品級與工業級薄膜，滿足包裝、儲存與運輸的嚴格標準。</p>
+          <div class="card-img-wrapper">
+            <span class="card-tag">Retail Best Seller</span>
+            <img src="./src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg" alt="Draw-Tape Trash Bags">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title" data-tw="自動拉繩垃圾袋 (Draw-Tape)" data-en="Draw-Tape Trash Bags">自動拉繩垃圾袋 (Draw-Tape)</h3>
+            <p class="card-desc" data-tw="一拉即封口，衛生不髒手。強韌抗穿刺配方，外銷美歐零售超市之熱銷主力產品。" data-en="Easy-close drawstring technology combined with multi-layer puncture resistance for retail export.">
+              一拉即封口，衛生不髒手。強韌抗穿刺配方，外銷美歐零售超市之熱銷主力產品。
+            </p>
+            <a href="products/draw-tape.html" class="card-action-btn" data-tw="進入 Draw-Tape 專屬頁面" data-en="View Draw-Tape Page">
+              <span data-tw="進入 Draw-Tape 專屬頁面" data-en="View Draw-Tape Page">進入 Draw-Tape 專屬頁面</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
           </div>
         </div>
 
-        <!-- 產品卡片 3 -->
+        <!-- 3. Stretch Films -->
         <div class="product-card">
-          <img src="./src/Corrugated-Plastics.jpg" alt="瓦楞塑膠板" class="product-card-img" onerror="this.src='https://via.placeholder.com/400x250?text=Corrugated+Plastics'">
-          <div class="product-card-content">
-            <h3 class="product-card-title">瓦楞塑膠板</h3>
-            <p class="product-card-desc">輕量且防水的環保材料，廣泛應用於印刷、包裝與建築保護。</p>
+          <div class="card-img-wrapper">
+            <span class="card-tag">High Performance</span>
+            <img src="./src/stretch-film-bopp.png" alt="Industrial Stretch Films">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title" data-tw="棧板伸縮膜 & 片材 (Stretch Films)" data-en="Stretch Films & Sheeting">棧板伸縮膜 & 片材 (Stretch Films)</h3>
+            <p class="card-desc" data-tw="高預拉伸倍率 (Pre-stretch 300%)，超強抗撕裂與包覆力，完美保護棧板貨物運輸安全。" data-en="Exceptional pre-stretch capabilities up to 300% with high load retention for pallet wrap.">
+              高預拉伸倍率 (Pre-stretch 300%)，超強抗撕裂與包覆力，完美保護棧板貨物運輸安全。
+            </p>
+            <a href="products/stretch-films.html" class="card-action-btn" data-tw="進入 Stretch Films 專頁" data-en="View Stretch Films Page">
+              <span data-tw="進入 Stretch Films 專頁" data-en="View Stretch Films Page">進入 Stretch Films 專頁</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
           </div>
         </div>
 
-        <!-- 產品卡片 4 -->
+        <!-- 4. Foodservice -->
         <div class="product-card">
-          <img src="./src/Retail-Solutions.jpg" alt="零售與超市用品" class="product-card-img" onerror="this.src='https://via.placeholder.com/400x250?text=Retail+Solutions'">
-          <div class="product-card-content">
-            <h3 class="product-card-title">零售與超市用品</h3>
-            <p class="product-card-desc">包含購物袋、生鮮袋及各類零售包裝解決方案，兼顧實用與環保。</p>
+          <div class="card-img-wrapper">
+            <span class="card-tag eco">FDA Approved</span>
+            <img src="./src/Foodservice-HERO-1.jpg" alt="Foodservice Packaging">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title" data-tw="食品級包裝 (Foodservice)" data-en="Foodservice Packaging">食品級包裝 (Foodservice)</h3>
+            <p class="card-desc" data-tw="嚴格符合 FDA 食品接觸標準，提供高透明生鮮袋、連捲袋與冷藏食品級夾鏈袋。" data-en="100% FDA food-contact compliant films and produce bags designed for fresh food storage.">
+              嚴格符合 FDA 食品接觸標準，提供高透明生鮮袋、連捲袋與冷藏食品級夾鏈袋。
+            </p>
+            <a href="products/foodservice.html" class="card-action-btn" data-tw="進入 Foodservice 專頁" data-en="View Foodservice Page">
+              <span data-tw="進入 Foodservice 專頁" data-en="View Foodservice Page">進入 Foodservice 專頁</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
           </div>
         </div>
-        
+
       </div>
     </div>
   </section>
 
   <!-- =========================================
-     重疊卡片區塊 (BOPP Films 介紹)
-     ========================================= -->
-<section class="overlap-section">
-  <div class="overlap-container">
-    
-    <!-- 左側大圖 -->
-    <div class="overlap-image-box">
-      <!-- 請將 src 替換為您的實際產品圖 -->
-      <img src="./src/bopp-films-products.jpg" alt="BOPP Films Products" class="overlap-img" onerror="this.src='https://via.placeholder.com/800x500?text=BOPP+Films+Image'">
-    </div>
+       4. 頁尾 (Multi-Page Footer)
+       ========================================= -->
+  <footer class="footer">
+    <div class="section-container">
+      <div class="footer-grid">
+        <div>
+          <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" style="height: 38px; filter: brightness(0) invert(1); margin-bottom: 16px;">
+          <p style="font-size: 0.88rem; line-height: 1.6;" data-tw="臺灣營德股份有限公司 — 專注於國際品質的塑膠包裝、拉繩袋與工業薄膜外銷製造。" data-en="Inteplast Taiwan Corporation — Premier manufacturing & export supplier for flexible packaging and industrial films.">
+            臺灣營德股份有限公司 — 專注於國際品質的塑膠包裝、拉繩袋與工業薄膜外銷製造。
+          </p>
+        </div>
 
-    <!-- 右側重疊的白色文字卡片 -->
-    <div class="overlap-text-card">
-      <h3 class="card-title">BOPP Films</h3>
-      
-      <!-- 兩欄式列表 -->
-      <ul class="card-list">
-        <li>Flexible Packaging</li>
-        <li>Tapes & Industrial</li>
-        <li>Labels</li>
-      </ul>
-      
-      <!-- 右下角連結 -->
-      <div class="card-footer">
-        <a href="#" class="see-more-link">See More &gt;</a>
+        <div>
+          <h4 style="color: white; margin-bottom: 16px;" data-tw="快速導覽" data-en="Quick Navigation">快速導覽</h4>
+          <ul class="footer-links">
+            <li><a href="about.html" data-tw="關於營德" data-en="About Us">關於營德</a></li>
+            <li><a href="products/index.html" data-tw="產品目錄總覽" data-en="Product Catalog">產品目錄總覽</a></li>
+            <li><a href="sustainability.html" data-tw="永續 ESG 專區" data-en="ESG Sustainability">永續 ESG 專區</a></li>
+            <li><a href="contact.html" data-tw="線上 RFQ 詢價" data-en="Contact & RFQ">線上 RFQ 詢價</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: white; margin-bottom: 16px;" data-tw="產品系列" data-en="Products">產品系列</h4>
+          <ul class="footer-links">
+            <li><a href="products/can-liners.html">Can Liners 垃圾袋</a></li>
+            <li><a href="products/draw-tape.html">Draw-Tape 拉繩袋</a></li>
+            <li><a href="products/stretch-films.html">Stretch Films 伸縮膜</a></li>
+            <li><a href="products/foodservice.html">Foodservice 食品包裝</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: white; margin-bottom: 16px;" data-tw="全球外銷與認證" data-en="Global Export">全球外銷與認證</h4>
+          <p style="font-size: 0.85rem; margin-bottom: 12px;" data-tw="外銷美洲、歐洲、日本與東南亞 40+ 國家。" data-en="Serving 40+ export markets worldwide.">
+            外銷美洲、歐洲、日本與東南亞 40+ 國家。
+          </p>
+          <div style="font-weight: 700; color: var(--accent-azure); font-size: 0.9rem;">
+            <i class="fa-solid fa-globe"></i> ISO 9001 / FDA / BRCGS Certified
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</div>
       </div>
     </div>
+  </footer>
 
-  </div>
-</section>
-
-  <!-- =========================================
-       GSAP 動畫邏輯
-       ========================================= -->
   <script>
-    // 註冊 ScrollTrigger 插件
     gsap.registerPlugin(ScrollTrigger);
 
-    // 建立一個跟隨捲動的時間軸 (Timeline)
-    const tl = gsap.timeline({
+    const heroTl = gsap.timeline({
       scrollTrigger: {
         trigger: ".hero-section",
         start: "top top",
-        end: "+=200%",    // 🌟 捲動距離加長，因為現在有兩段變化
-        scrub: 1,         // 動畫完美跟隨滑鼠捲動
-        pin: true,        // 固定畫面
+        end: "+=220%",
+        scrub: 1,
+        pin: true,
       }
     });
 
-    // ==========================================
-    // 第一階段：開始往下捲動 -> 畫面切成一半 (50%)
-    // ==========================================
-    tl.to(".bg-right", { width: "50%", duration: 1 })
-      .to(".content-box", { width: "50%", duration: 1 }, "<") // "<" 代表跟上個動作同時發生
-      .to(".center-logo", { opacity: 0, duration: 0.5 }, "<") // 中間 Logo 淡出
-      .to(".header-logo", { opacity: 1, duration: 0.5 }, "<0.5") // 左上角 Logo 延遲一點點浮現
-      .to(".header-center", { right: "50%", xPercent: 50, duration: 1 }, "<"); // 將選單從右邊推至畫面正中央
+    heroTl.to(".bg-right", { width: "50%", duration: 1 })
+      .to(".content-box", { width: "50%", duration: 1 }, "<")
+      .to(".center-logo", { opacity: 0, scale: 0.9, duration: 0.5 }, "<")
+      .to(".header-logo", { opacity: 1, duration: 0.5 }, "<0.4")
+      .to(".header-center", { right: "50%", xPercent: 50, duration: 1 }, "<");
+
+    heroTl.to(".bg-right", { width: "100%", duration: 1 })
+      .to(".content-box", { width: "100%", color: "#ffffff", duration: 1 }, "<")
+      .to(".hero-tagline", { color: "rgba(255, 255, 255, 0.9)", duration: 1 }, "<")
+      .to(".hero-stats-wrapper", { opacity: 1, y: 0, duration: 0.8 }, "<0.2");
 
     // ==========================================
-    // 第二階段：繼續往下捲動 -> 變成全螢幕圖片 (100%)
+    // 2. 多語系切換 (Bilingual Toggle)
     // ==========================================
-    tl.to(".bg-right", { width: "100%", duration: 1 })
-      .to(".content-box", { width: "100%", duration: 1 }, "<")
-      // 因為背景變成圖片了，把文字變成白色
-      .to(".content-box, .header-logo", { color: "#ffffff", duration: 1 }, "<"); 
+    let currentLang = 'tw';
 
+    function toggleLanguage() {
+      currentLang = currentLang === 'tw' ? 'en' : 'tw';
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) {
+        langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+      }
+
+      document.querySelectorAll("[data-tw]").forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = text;
+          } else {
+            const icon = el.querySelector('i');
+            if (icon) {
+              const iconClone = icon.cloneNode(true);
+              el.innerHTML = '';
+              el.appendChild(iconClone);
+              el.appendChild(document.createTextNode(' ' + text));
+            } else {
+              el.innerText = text;
+            }
+          }
+        }
+      });
+    }
   </script>
-
 </body>
 </html>
