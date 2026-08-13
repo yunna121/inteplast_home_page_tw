@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation - 塑膠包裝與薄膜外銷製造商</title>
-  <meta name="description" content="臺灣營德股份有限公司 (Inteplast Taiwan Corporation) 專業生產高品質垃圾袋、拉繩袋、工業伸縮薄膜 (Stretch Film / Scale Sheet) 與食品級包裝，提供全球 OEM/ODM 客製化外銷服務。">
+  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation - 跨國包裝與工業薄膜外銷製造巨頭</title>
+  <meta name="description" content="臺灣營德股份有限公司 (Inteplast Taiwan Corporation) 為全球外銷製造巨頭，專業生產垃圾袋、拉繩袋、工業棧板伸縮膜 (Stretch Film / Scale Sheet) 與 FDA 食品級包裝。">
   <meta name="keywords" content="Inteplast, 臺灣營德, 塑膠袋, 垃圾袋, 拉繩袋, 工業薄膜, 伸縮膜, Stretch Film, Can Liners, Draw Tape Bags, 外銷製造">
 
   <!-- Google Fonts -->
@@ -37,6 +37,7 @@
       --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
       --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+      --shadow-mega: 0 30px 60px -12px rgba(10, 37, 64, 0.22);
       --radius-sm: 8px;
       --radius-md: 16px;
       --radius-lg: 24px;
@@ -51,54 +52,119 @@
       color: var(--text-main); background-color: var(--surface-white); overflow-x: hidden; line-height: 1.6;
     }
 
-    /* =========================================
-       2. 導覽列 (Header & Navigation)
-       ========================================= */
-    .header {
-      position: fixed; top: 0; left: 0; width: 100%; padding: 16px 40px;
-      display: flex; justify-content: space-between; align-items: center; z-index: 100; pointer-events: none; transition: var(--transition);
+    /* 集團頂樓列 (Top Utility Bar) */
+    .top-utility-bar {
+      background: var(--primary-navy);
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.78rem;
+      padding: 6px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 1002;
     }
-    .header * { pointer-events: auto; }
 
-    .header-logo { display: flex; align-items: center; gap: 14px; opacity: 0; transition: opacity 0.5s ease; cursor: pointer; text-decoration: none; }
+    .utility-left, .utility-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .utility-left a, .utility-right a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .utility-left a:hover, .utility-right a:hover {
+      color: var(--accent-azure);
+    }
+
+    .region-badge {
+      background: rgba(0, 168, 255, 0.18);
+      color: var(--accent-azure);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
+    /* 導覽列與 Mega Menu 巨型選單 */
+    .header {
+      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
+      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
     .logo-image { height: 42px; width: auto; object-fit: contain; }
     .logo-text-wrapper { display: flex; flex-direction: column; }
-    .logo-text-tw { font-size: 1.1rem; font-weight: 700; color: var(--primary-navy); letter-spacing: 0.5px; line-height: 1.2; }
-    .logo-text-en { font-size: 0.75rem; font-weight: 600; color: var(--brand-blue); letter-spacing: 0.5px; line-height: 1.2; opacity: 0.9; }
+    .logo-text-tw { font-size: 1.1rem; font-weight: 800; color: var(--primary-navy); letter-spacing: 0.5px; line-height: 1.2; }
+    .logo-text-en { font-size: 0.75rem; font-weight: 700; color: var(--brand-blue); letter-spacing: 0.5px; line-height: 1.2; opacity: 0.9; }
 
-    .header-center {
-      position: absolute; right: 220px; top: 50%; transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.8);
-      border-radius: var(--radius-full); padding: 6px 12px; box-shadow: var(--shadow-md); display: flex; gap: 4px; z-index: 101;
+    .nav-menu { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-item { position: relative; }
+
+    .nav-link-item {
+      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
+      color: var(--text-main); text-decoration: none; transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
     }
 
-    .nav-btn {
-      background: transparent; border: none; padding: 8px 18px; border-radius: var(--radius-full);
-      font-size: 0.9rem; font-weight: 600; color: var(--text-main); cursor: pointer; transition: var(--transition);
-      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+    .nav-link-item:hover, .nav-item:hover > .nav-link-item {
+      background: rgba(0, 82, 155, 0.08); color: var(--brand-blue);
     }
-    .nav-btn:hover { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
+
+    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
+    .nav-item:hover .caret-icon { transform: rotate(180deg); }
+
+    /* 巨型下拉選單面板 (Mega Menu Panel) */
+    .mega-menu-panel {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
+      width: 1080px; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-mega); padding: 32px;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100;
+    }
+
+    .nav-item:hover .mega-menu-panel {
+      opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px);
+    }
+
+    .mega-grid { display: grid; grid-template-columns: repeat(4, 1fr) 280px; gap: 24px; }
+    .mega-col-title { font-size: 0.88rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 8px; }
+    .mega-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .mega-links a { color: var(--text-main); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: var(--transition); display: flex; align-items: center; justify-content: space-between; }
+    .mega-links a:hover { color: var(--brand-blue); transform: translateX(4px); }
+    .mega-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+    .badge-hot { background: #FEE2E2; color: #EF4444; }
+    .badge-fda { background: #D1FAE5; color: #10B981; }
+    .badge-eco { background: #ECFDF5; color: #059669; }
+
+    .mega-feature-card { background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); border-radius: var(--radius-sm); padding: 24px; color: var(--surface-white); display: flex; flex-direction: column; justify-content: space-between; }
+    .mega-feature-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+    .mega-feature-desc { font-size: 0.82rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 16px; }
+    .mega-feature-btn { background: var(--surface-white); color: var(--primary-navy); padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 800; text-decoration: none; text-align: center; transition: var(--transition); }
+    .mega-feature-btn:hover { background: var(--accent-azure); color: var(--surface-white); }
 
     .header-right { display: flex; align-items: center; gap: 12px; }
-    .lang-toggle {
-      background: rgba(255, 255, 255, 0.9); border: 1px solid var(--border-color); padding: 8px 16px;
-      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);
-      cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-sm);
-    }
+    .lang-toggle { background: rgba(255, 255, 255, 0.9); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-sm); }
     .lang-toggle:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
 
-    .rfq-btn {
-      background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white);
-      border: none; padding: 10px 24px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 700;
-      cursor: pointer; box-shadow: 0 4px 14px rgba(0, 82, 155, 0.35); transition: var(--transition);
-      display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-    }
-    .rfq-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 82, 155, 0.45); background: linear-gradient(135deg, #0060B8, #00427A); }
+    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); border: none; padding: 10px 24px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(0, 82, 155, 0.35); transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+    .rfq-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 82, 155, 0.45); }
 
     /* =========================================
-       3. 首頁 GSAP 動畫區塊 (Hero Section)
+       GSAP 滾動 Hero 區塊
        ========================================= */
-    .hero-section { position: relative; width: 100vw; height: 100vh; overflow: hidden; background: var(--bg-light); }
+    .hero-section { position: relative; width: 100vw; height: 100vh; overflow: hidden; background: var(--bg-light); margin-top: 31px; }
     .bg-left {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background: radial-gradient(circle at 30% 30%, rgba(0, 82, 155, 0.08) 0%, rgba(248, 250, 252, 1) 70%); z-index: 1;
@@ -115,52 +181,17 @@
     }
 
     .center-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      padding: 22px 40px;
-      border-radius: var(--radius-lg);
-      box-shadow: 0 20px 45px -15px rgba(10, 37, 64, 0.12);
-      margin-bottom: 28px;
-      transition: var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: 24px;
+      background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(16px);
+      border: 1px solid rgba(226, 232, 240, 0.9); padding: 22px 40px;
+      border-radius: var(--radius-lg); box-shadow: 0 20px 45px -15px rgba(10, 37, 64, 0.12);
+      margin-bottom: 28px; transition: var(--transition);
     }
-    .center-logo:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 25px 50px -12px rgba(0, 82, 155, 0.2);
-    }
-    .center-logo-image {
-      width: 76px;
-      height: auto;
-      filter: drop-shadow(0 4px 8px rgba(0, 82, 155, 0.15));
-    }
-    .logo-divider {
-      width: 2px;
-      height: 50px;
-      background: linear-gradient(180deg, rgba(0, 82, 155, 0.1), rgba(0, 82, 155, 0.4), rgba(0, 82, 155, 0.1));
-    }
-    .center-logo-text {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-    }
-    .center-logo-tw {
-      font-size: 2.1rem;
-      font-weight: 900;
-      color: var(--primary-navy);
-      letter-spacing: 1.5px;
-      line-height: 1.2;
-    }
-    .center-logo-en {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--brand-blue);
-      letter-spacing: 1.5px;
-      margin-top: 4px;
-    }
+    .center-logo-image { width: 76px; height: auto; filter: drop-shadow(0 4px 8px rgba(0, 82, 155, 0.15)); }
+    .logo-divider { width: 2px; height: 50px; background: linear-gradient(180deg, rgba(0, 82, 155, 0.1), rgba(0, 82, 155, 0.4), rgba(0, 82, 155, 0.1)); }
+    .center-logo-text { display: flex; flex-direction: column; text-align: left; }
+    .center-logo-tw { font-size: 2.1rem; font-weight: 900; color: var(--primary-navy); letter-spacing: 1.5px; line-height: 1.2; }
+    .center-logo-en { font-size: 0.9rem; font-weight: 700; color: var(--brand-blue); letter-spacing: 1.5px; margin-top: 4px; }
 
     .hero-tagline { font-size: 1.15rem; color: var(--text-muted); max-width: 650px; margin-bottom: 30px; font-weight: 500; }
     .hero-product-card {
@@ -178,19 +209,9 @@
     .stat-number { font-size: 2.2rem; font-weight: 900; color: var(--accent-azure); line-height: 1; margin-bottom: 6px; }
     .stat-label { font-size: 0.85rem; font-weight: 600; color: rgba(255, 255, 255, 0.9); letter-spacing: 0.5px; }
 
-    /* =========================================
-       4. 產品總覽 Section
-       ========================================= */
+    /* Product Section & Footer */
     .product-section { padding: 120px 40px; background-color: var(--bg-light); }
     .section-container { max-width: 1240px; margin: 0 auto; }
-    .section-header { text-align: center; margin-bottom: 50px; }
-    .section-badge {
-      display: inline-block; padding: 6px 16px; background: rgba(0, 82, 155, 0.1); color: var(--brand-blue);
-      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;
-    }
-    .section-title-main { font-size: 2.25rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 12px; }
-    .section-subtitle { font-size: 1.05rem; color: var(--text-muted); max-width: 650px; margin: 0 auto; }
-
     .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
     .product-card {
       background: var(--surface-white); border-radius: var(--radius-md); overflow: hidden;
@@ -201,8 +222,6 @@
 
     .card-img-wrapper { position: relative; width: 100%; height: 220px; overflow: hidden; background: #e2e8f0; }
     .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .product-card:hover .card-img-wrapper img { transform: scale(1.08); }
-
     .card-tag {
       position: absolute; top: 14px; left: 14px; background: rgba(10, 37, 64, 0.85); backdrop-filter: blur(4px);
       color: var(--surface-white); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-sm);
@@ -218,7 +237,6 @@
     }
     .card-action-btn:hover { background: var(--brand-blue); color: var(--surface-white); }
 
-    /* Footer */
     .footer { background: var(--primary-navy); color: rgba(255, 255, 255, 0.7); padding: 70px 40px 30px; }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 50px; }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
@@ -226,17 +244,31 @@
     .footer-links a:hover { color: var(--accent-azure); }
     .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
 
-    @media (max-width: 1024px) {
-      .header-center { display: none; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 1100px) {
+      .mega-menu-panel, .top-utility-bar { display: none; }
+      .header { top: 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- =========================================
-       1. 浮動導覽列 (Multi-Page Header)
-       ========================================= -->
+  <!-- 集團頂樓列 -->
+  <div class="top-utility-bar">
+    <div class="utility-left">
+      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
+      <a href="#"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
+      <a href="#">USA Division 北美總部</a>
+      <a href="#">Europe Division 歐洲據點</a>
+    </div>
+    <div class="utility-right">
+      <a href="about.html" data-tw="投資人專區" data-en="Investor Relations"><i class="fa-solid fa-chart-line"></i> 投資人專區</a>
+      <a href="sustainability.html" data-tw="ESG 永續報告" data-en="ESG Report"><i class="fa-solid fa-leaf"></i> ESG 永續報告</a>
+      <a href="contact.html" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
+      <a href="contact.html" data-tw="客戶專屬登入" data-en="Client Portal"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a>
+    </div>
+  </div>
+
+  <!-- 浮動導覽列與 Mega Menu 巨型下拉選單 -->
   <header class="header" id="navbar">
     <a href="index.html" class="header-logo">
       <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
@@ -246,12 +278,82 @@
       </div>
     </a>
     
-    <div class="header-center">
-      <a href="about.html" class="nav-btn" data-tw="關於營德" data-en="About Us"><i class="fa-solid fa-building"></i> 關於營德</a>
-      <a href="products/index.html" class="nav-btn" data-tw="產品中心" data-en="Products"><i class="fa-solid fa-boxes-packing"></i> 產品中心</a>
-      <a href="sustainability.html" class="nav-btn" data-tw="永續 ESG" data-en="ESG"><i class="fa-solid fa-leaf"></i> 永續 ESG</a>
-      <a href="contact.html" class="nav-btn" data-tw="聯繫與詢價" data-en="Contact & RFQ"><i class="fa-solid fa-envelope"></i> 聯繫與詢價</a>
-    </div>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel" style="width: 800px;">
+          <div class="mega-grid" style="grid-template-columns: 1fr 1fr 260px;">
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-building"></i> 企業規模與願景</div>
+              <ul class="mega-links">
+                <li><a href="about.html" data-tw="集團簡介與經營理念" data-en="Corporate Overview">集團簡介與經營理念</a></li>
+                <li><a href="about.html" data-tw="全球 40+ 國外銷佈局" data-en="Global Export Reach">全球 40+ 國外銷佈局</a></li>
+                <li><a href="about.html" data-tw="自動化吹膜與封切機台" data-en="Advanced Extrusion Lines">自動化吹膜與封切機台</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-award"></i> 品質與國際認證</div>
+              <ul class="mega-links">
+                <li><a href="about.html">ISO 9001:2015 品質認證</a></li>
+                <li><a href="about.html">ISO 14001:2015 環境管理</a></li>
+                <li><a href="about.html">FDA 21 CFR 食品接觸認證 <span class="mega-badge badge-fda">FDA</span></a></li>
+                <li><a href="about.html">BRCGS 包裝材料標準</a></li>
+              </ul>
+            </div>
+            <div class="mega-feature-card">
+              <div class="mega-feature-title" data-tw="30+ 年吹膜外銷經驗" data-en="30+ Years OEM Experience">30+ 年吹膜外銷經驗</div>
+              <div class="mega-feature-desc" data-tw="每日 500+ 噸噸級產能，國際頂尖品牌與超市通路之指定製造商。" data-en="Daily 500+ tons capacity. Premier packaging partner for global Fortune 500 brands.">每日 500+ 噸噸級產能，國際頂尖品牌與超市通路之指定製造商。</div>
+              <a href="about.html" class="mega-feature-btn" data-tw="了解製造設備" data-en="Explore Facilities">了解製造設備</a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel">
+          <div class="mega-grid">
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-dumpster"></i> Can Liners 垃圾袋</div>
+              <ul class="mega-links">
+                <li><a href="products/can-liners.html" data-tw="商業/工業重載垃圾袋" data-en="Commercial Can Liners">商業/工業重載垃圾袋 <span class="mega-badge badge-hot">HOT</span></a></li>
+                <li><a href="products/can-liners.html" data-tw="Star Seal 防漏星封內袋" data-en="Star Seal Liners">Star Seal 防漏星封內袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-ribbon"></i> Draw-Tape 拉繩袋</div>
+              <ul class="mega-links">
+                <li><a href="products/draw-tape.html" data-tw="自動拉繩垃圾袋" data-en="Draw-Tape Trash Bags">自動拉繩垃圾袋 <span class="mega-badge badge-hot">BEST</span></a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-scroll"></i> Stretch Films 薄膜</div>
+              <ul class="mega-links">
+                <li><a href="products/stretch-films.html" data-tw="300% 預拉伸棧板膜" data-en="300% Pre-Stretch Film">300% 預拉伸棧板膜</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-apple-whole"></i> Foodservice 食品袋</div>
+              <ul class="mega-links">
+                <li><a href="products/foodservice.html" data-tw="FDA 生鮮點斷連捲袋" data-en="FDA Produce Rolls">FDA 生鮮點斷連捲袋 <span class="mega-badge badge-fda">FDA</span></a></li>
+              </ul>
+            </div>
+            <div class="mega-feature-card">
+              <div class="mega-feature-title" data-tw="全客製化 OEM/ODM" data-en="100% Custom OEM/ODM">全客製化 OEM/ODM</div>
+              <a href="contact.html" class="mega-feature-btn" data-tw="發起 RFQ 詢價" data-en="Start RFQ">發起 RFQ 詢價</a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a href="sustainability.html" class="nav-link-item" data-tw="永續 ESG" data-en="ESG">永續 ESG <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+      </li>
+
+      <li class="nav-item">
+        <a href="contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a>
+      </li>
+    </ul>
 
     <div class="header-right">
       <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
@@ -259,9 +361,7 @@
     </div>
   </header>
 
-  <!-- =========================================
-       2. 首頁動畫 Hero 區塊
-       ========================================= -->
+  <!-- 首頁 GSAP 動畫區塊 -->
   <section class="hero-section">
     <div class="bg-left"></div>
     <div class="bg-right"></div>
@@ -307,22 +407,18 @@
     </div>
   </section>
 
-  <!-- =========================================
-       3. 核心產品總覽區塊
-       ========================================= -->
+  <!-- 核心產品總覽 Section -->
   <section class="product-section">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge" data-tw="PROVEN QUALITY" data-en="PROVEN QUALITY">PROVEN QUALITY</span>
-        <h2 class="section-title-main" data-tw="四大核心產品系列" data-en="Core Product Categories">四大核心產品系列</h2>
-        <p class="section-subtitle" data-tw="點擊產品可深入專屬頁面查看詳細技術數據與 TDS 白皮書。" data-en="Select any category to explore full specs, technical data sheets, and container load options.">
-          點擊產品可深入專屬頁面查看詳細技術數據與 TDS 白皮書。
+      <div style="text-align: center; margin-bottom: 50px;">
+        <span style="display: inline-block; padding: 6px 16px; background: rgba(0, 82, 155, 0.1); color: var(--brand-blue); border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px;" data-tw="PROVEN QUALITY" data-en="PROVEN QUALITY">PROVEN QUALITY</span>
+        <h2 style="font-size: 2.25rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 12px;" data-tw="四大核心產品系列" data-en="Core Product Categories">四大核心產品系列</h2>
+        <p style="font-size: 1.05rem; color: var(--text-muted); max-width: 650px; margin: 0 auto;" data-tw="點擊產品可深入專屬頁面查看詳細技術數據與裝櫃規範。" data-en="Select any category to explore full specs, technical data sheets, and container load options.">
+          點擊產品可深入專屬頁面查看詳細技術數據與裝櫃規範。
         </p>
       </div>
 
       <div class="product-grid">
-        
-        <!-- 1. Can Liners -->
         <div class="product-card">
           <div class="card-img-wrapper">
             <span class="card-tag">Heavy Duty</span>
@@ -333,13 +429,12 @@
             <p class="card-desc" data-tw="專為高強度負荷設計，具備星形底封 (Star Seal) 防止洩漏，適用於商業與工業場所。" data-en="High-density and low-density liners featuring leak-proof star seals for commercial use.">
               專為高強度負荷設計，具備星形底封 (Star Seal) 防止洩漏，適用於商業與工業場所。
             </p>
-            <a href="products/can-liners.html" class="card-action-btn" data-tw="進入 Can Liners 專屬頁面" data-en="View Can Liners Page">
-              <span data-tw="進入 Can Liners 專屬頁面" data-en="View Can Liners Page">進入 Can Liners 專屬頁面</span> <i class="fa-solid fa-arrow-right"></i>
+            <a href="products/can-liners.html" class="card-action-btn" data-tw="進入 Can Liners 專頁" data-en="View Can Liners Page">
+              <span data-tw="進入 Can Liners 專頁" data-en="View Can Liners Page">進入 Can Liners 專頁</span> <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
         </div>
 
-        <!-- 2. Draw-Tape -->
         <div class="product-card">
           <div class="card-img-wrapper">
             <span class="card-tag">Retail Best Seller</span>
@@ -350,13 +445,12 @@
             <p class="card-desc" data-tw="一拉即封口，衛生不髒手。強韌抗穿刺配方，外銷美歐零售超市之熱銷主力產品。" data-en="Easy-close drawstring technology combined with multi-layer puncture resistance for retail export.">
               一拉即封口，衛生不髒手。強韌抗穿刺配方，外銷美歐零售超市之熱銷主力產品。
             </p>
-            <a href="products/draw-tape.html" class="card-action-btn" data-tw="進入 Draw-Tape 專屬頁面" data-en="View Draw-Tape Page">
-              <span data-tw="進入 Draw-Tape 專屬頁面" data-en="View Draw-Tape Page">進入 Draw-Tape 專屬頁面</span> <i class="fa-solid fa-arrow-right"></i>
+            <a href="products/draw-tape.html" class="card-action-btn" data-tw="進入 Draw-Tape 專頁" data-en="View Draw-Tape Page">
+              <span data-tw="進入 Draw-Tape 專頁" data-en="View Draw-Tape Page">進入 Draw-Tape 專頁</span> <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>
         </div>
 
-        <!-- 3. Stretch Films -->
         <div class="product-card">
           <div class="card-img-wrapper">
             <span class="card-tag">High Performance</span>
@@ -373,7 +467,6 @@
           </div>
         </div>
 
-        <!-- 4. Foodservice -->
         <div class="product-card">
           <div class="card-img-wrapper">
             <span class="card-tag eco">FDA Approved</span>
@@ -389,14 +482,11 @@
             </a>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- =========================================
-       4. 頁尾 (Multi-Page Footer)
-       ========================================= -->
+  <!-- 頁尾 -->
   <footer class="footer">
     <div class="section-container">
       <div class="footer-grid">
@@ -461,25 +551,20 @@
       .to(".content-box", { width: "50%", duration: 1 }, "<")
       .to(".center-logo", { opacity: 0, scale: 0.9, duration: 0.5 }, "<")
       .to(".header-logo", { opacity: 1, duration: 0.5 }, "<0.4")
-      .to(".header-center", { right: "50%", xPercent: 50, duration: 1 }, "<");
+      .to(".nav-menu", { opacity: 1, duration: 0.5 }, "<");
 
     heroTl.to(".bg-right", { width: "100%", duration: 1 })
       .to(".content-box", { width: "100%", color: "#ffffff", duration: 1 }, "<")
       .to(".hero-tagline", { color: "rgba(255, 255, 255, 0.9)", duration: 1 }, "<")
       .to(".hero-stats-wrapper", { opacity: 1, y: 0, duration: 0.8 }, "<0.2");
 
-    // ==========================================
-    // 2. 多語系切換 (Bilingual Toggle)
-    // ==========================================
     let currentLang = 'tw';
-
     function toggleLanguage() {
       currentLang = currentLang === 'tw' ? 'en' : 'tw';
       const langBtn = document.getElementById("langBtn");
       if (langBtn) {
         langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
       }
-
       document.querySelectorAll("[data-tw]").forEach(el => {
         const text = el.getAttribute(`data-${currentLang}`);
         if (text) {
