@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>永續發展 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
+  <meta name="description" content="了解臺灣營德的綠色永續發展計畫：廠內生產邊角料與廢膜 100% 閉環粉碎造粒回收再利用，實踐綠色零廢棄生產。">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-navy: #0A2540;
+      --brand-blue: #00529B;
+      --emerald-dark: #022c22;
+      --emerald-mid: #065f46;
+      --emerald-light: #10B981;
+      --emerald-glow: #34D399;
+      --bg-dark: #061A14;
+      --bg-light: #F0FDF4;
+      --surface-white: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -15px rgba(2, 44, 34, 0.25);
+      --shadow-mega: 0 30px 60px -12px rgba(2, 44, 34, 0.35);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --radius-full: 9999px;
+      --transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #04120D; line-height: 1.6; }
+
+    /* Top Utility Bar */
+    .top-utility-bar {
+      background: #02140E; color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
+      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: relative; z-index: 1002;
+    }
+    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
+    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
+    .utility-left a:hover, .utility-right a:hover { color: var(--emerald-glow); }
+    .region-badge { background: rgba(52, 211, 153, 0.18); color: var(--emerald-glow); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
+
+    /* Header Navbar */
+    .header {
+      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
+      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+      background: rgba(4, 18, 13, 0.85); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12); box-shadow: var(--shadow-sm); transition: var(--transition);
+    }
+    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-image { height: 40px; width: auto; object-fit: contain; filter: brightness(0) invert(1); }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: #FFFFFF; display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--emerald-glow); display: block; }
+
+    .nav-menu { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-item { position: relative; }
+    .nav-link-item {
+      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
+      color: rgba(255, 255, 255, 0.9); text-decoration: none; transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    }
+    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(52, 211, 153, 0.15); color: var(--emerald-glow); }
+    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
+    .nav-item:hover .caret-icon { transform: rotate(180deg); }
+
+    /* Mega Menu Panel */
+    .mega-menu-panel {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
+      width: 1080px; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-mega); padding: 32px;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
+    }
+    .nav-item:hover .mega-menu-panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
+    .mega-grid { display: grid; grid-template-columns: repeat(4, 1fr) 280px; gap: 24px; }
+    .mega-col-title { font-size: 0.88rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 8px; }
+    .mega-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .mega-links a { color: var(--text-main); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: var(--transition); display: flex; align-items: center; justify-content: space-between; }
+    .mega-links a:hover { color: var(--brand-blue); transform: translateX(4px); }
+    .mega-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+    .badge-hot { background: #FEE2E2; color: #EF4444; }
+
+    .mega-feature-card { background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); border-radius: var(--radius-sm); padding: 24px; color: var(--surface-white); display: flex; flex-direction: column; justify-content: space-between; }
+    .mega-feature-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+    .mega-feature-desc { font-size: 0.82rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 16px; }
+    .mega-feature-btn { background: var(--surface-white); color: var(--primary-navy); padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 800; text-decoration: none; text-align: center; transition: var(--transition); }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .lang-toggle { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.25); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: #FFFFFF; cursor: pointer; transition: var(--transition); }
+    .rfq-btn { background: linear-gradient(135deg, var(--emerald-light), #047857); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+
+    /* Hero Section */
+    .hero-sustain {
+      position: relative; padding: 180px 40px 100px;
+      background: radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.25) 0%, rgba(4, 18, 13, 0.95) 70%), url('./src/esg-banner.png') center/cover no-repeat;
+      color: #FFFFFF; text-align: center; overflow: hidden;
+    }
+
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.3);
+      padding: 6px 20px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800;
+      color: var(--emerald-glow); letter-spacing: 1px; margin-bottom: 24px; text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: 3.4rem; font-weight: 900; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #FFFFFF 40%, var(--emerald-glow) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc { font-size: 1.15rem; max-width: 760px; margin: 0 auto; color: rgba(255, 255, 255, 0.85); font-weight: 400; line-height: 1.8; }
+
+    /* Section 1: Core Process Showcase */
+    .section { padding: 110px 40px; background: #04120D; }
+    .container { max-width: 1240px; margin: 0 auto; }
+
+    .section-header-center { text-align: center; margin-bottom: 70px; }
+    .section-title { font-size: 2.4rem; font-weight: 900; color: #FFFFFF; margin-bottom: 12px; }
+    .section-subtitle { font-size: 1.05rem; color: rgba(255, 255, 255, 0.7); max-width: 650px; margin: 0 auto; }
+
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .process-card {
+      background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-lg);
+      padding: 36px 24px; color: #FFFFFF; transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .process-card:hover { transform: translateY(-8px); border-color: var(--emerald-glow); background: rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(52, 211, 153, 0.15); }
+    
+    .step-number { font-size: 2.8rem; font-weight: 900; color: rgba(52, 211, 153, 0.25); font-family: monospace; line-height: 1; margin-bottom: 16px; }
+    .step-icon { font-size: 2.2rem; color: var(--emerald-glow); margin-bottom: 16px; }
+    .step-title { font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 10px; }
+    .step-desc { font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); line-height: 1.6; }
+
+    /* Section 2: In-Depth Features Grid */
+    .feature-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 80px; }
+    .feature-box {
+      background: linear-gradient(135deg, rgba(6, 95, 70, 0.4), rgba(2, 44, 34, 0.8));
+      border: 1px solid rgba(52, 211, 153, 0.25); border-radius: var(--radius-xl);
+      padding: 50px; color: #FFFFFF; box-shadow: var(--shadow-lg); transition: var(--transition);
+    }
+    .feature-box:hover { border-color: var(--emerald-glow); transform: translateY(-4px); }
+    .feature-title-lg { font-size: 1.8rem; font-weight: 900; color: #FFFFFF; margin-bottom: 14px; display: flex; align-items: center; gap: 14px; }
+    .feature-title-lg i { color: var(--emerald-glow); }
+    .feature-desc-lg { font-size: 1rem; color: rgba(255, 255, 255, 0.85); line-height: 1.8; }
+
+    /* Banner CTA */
+    .sustain-cta {
+      margin-top: 100px; background: linear-gradient(135deg, var(--emerald-mid), var(--emerald-dark));
+      border-radius: var(--radius-xl); padding: 60px; text-align: center; border: 1px solid rgba(52, 211, 153, 0.3);
+      color: #FFFFFF; box-shadow: var(--shadow-mega);
+    }
+    .sustain-cta h3 { font-size: 2.2rem; font-weight: 900; margin-bottom: 12px; }
+    .sustain-cta p { font-size: 1.05rem; color: rgba(255, 255, 255, 0.85); max-width: 600px; margin: 0 auto 30px; }
+    .btn-sustain-contact {
+      background: var(--surface-white); color: var(--emerald-dark); padding: 16px 36px; border-radius: var(--radius-full);
+      font-size: 1rem; font-weight: 900; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px;
+    }
+    .btn-sustain-contact:hover { background: var(--emerald-glow); color: #FFFFFF; transform: scale(1.05); }
+
+    .footer { background: #020D09; color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+
+    @media (max-width: 1100px) {
+      .mega-menu-panel, .top-utility-bar { display: none; }
+      .header { top: 0; }
+      .process-grid, .feature-grid-2 { grid-template-columns: 1fr; }
+      .hero-title { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <div class="top-utility-bar">
+    <div class="utility-left">
+      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
+      <a href="#"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
+      <a href="#">USA Division 北美總部</a>
+      <a href="#">Europe Division 歐洲據點</a>
+    </div>
+    <div class="utility-right">
+      <a href="about.html" data-tw="投資人專區" data-en="Investor Relations"><i class="fa-solid fa-chart-line"></i> 投資人專區</a>
+      <a href="sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> 永續發展</a>
+      <a href="contact.html" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
+      <a href="contact.html" data-tw="客戶專屬登入" data-en="Client Portal"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a>
+    </div>
+  </div>
+
+  <!-- Header & Mega Menu -->
+  <header class="header">
+    <a href="index.html" class="header-logo">
+      <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
+      <div>
+        <span class="logo-text-tw">臺灣營德股份有限公司</span>
+        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
+      </div>
+    </a>
+    
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+      </li>
+
+      <li class="nav-item">
+        <a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel">
+          <div class="mega-grid">
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-dumpster"></i> Can Liners 垃圾袋</div>
+              <ul class="mega-links">
+                <li><a href="products/can-liners.html" data-tw="商業/工業重載垃圾袋" data-en="Commercial Can Liners">商業/工業重載垃圾袋 <span class="mega-badge badge-hot">HOT</span></a></li>
+                <li><a href="products/can-liners.html" data-tw="Star Seal 防漏星封內袋" data-en="Star Seal Liners">Star Seal 防漏星封內袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-ribbon"></i> Draw-Tape 拉繩袋</div>
+              <ul class="mega-links">
+                <li><a href="products/draw-tape.html" data-tw="自動拉繩垃圾袋" data-en="Draw-Tape Trash Bags">自動拉繩垃圾袋 <span class="mega-badge badge-hot">BEST</span></a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-scroll"></i> Stretch Films 薄膜</div>
+              <ul class="mega-links">
+                <li><a href="products/stretch-films.html" data-tw="300% 預拉伸棧板膜" data-en="300% Pre-Stretch Film">300% 預拉伸棧板膜</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-bag-shopping"></i> 包裝袋</div>
+              <ul class="mega-links">
+                <li><a href="products/foodservice.html" data-tw="高透明連捲生鮮袋" data-en="Produce Rolls">高透明連捲生鮮袋</a></li>
+              </ul>
+            </div>
+            <div class="mega-feature-card">
+              <div class="mega-feature-title" data-tw="全客製化 OEM/ODM" data-en="100% Custom OEM/ODM">全客製化 OEM/ODM</div>
+              <a href="contact.html" class="mega-feature-btn" data-tw="發起 RFQ 詢價" data-en="Start RFQ">發起 RFQ 詢價</a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a href="sustainability.html" class="nav-link-item active" data-tw="永續發展" data-en="Sustainability">永續發展 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+      </li>
+
+      <li class="nav-item">
+        <a href="contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a>
+      </li>
+    </ul>
+
+    <div class="header-right">
+      <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
+      <a href="contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-sustain">
+    <div class="hero-pill">
+      <i class="fa-solid fa-recycle"></i> <span data-tw="100% IN-HOUSE SCRAP RECYCLING | 廠內廢料零浪費" data-en="100% IN-HOUSE SCRAP RECYCLING | ZERO WASTE">100% IN-HOUSE SCRAP RECYCLING | 廠內廢料零浪費</span>
+    </div>
+    
+    <h1 class="hero-title" data-tw="綠色循環 · 廠內邊角料 100% 造粒回收" data-en="Green Circularity: 100% In-House Scrap & Trim Regranulation">
+      綠色循環 · 廠內邊角料 100% 造粒回收
+    </h1>
+    
+    <p class="hero-desc" data-tw="臺灣營德堅持資源循環與綠色製造。我們將吹膜押出與封切加工過程中產生的所有廠內廢膜與邊角料，全數於廠內即時粉碎造粒，重新投入吹膜生產線，實現真正零浪費的綠色永續發展。" data-en="Inteplast Taiwan practices responsible manufacturing. 100% of production scrap and trim generated during film extrusion and bag converting is re-granulated in-house and re-fed into our production lines for a complete zero-waste closed loop.">
+      臺灣營德堅持資源循環與綠色製造。我們將吹膜押出與封切加工過程中產生的所有廠內廢膜與邊角料，全數於廠內即時粉碎造粒，重新投入吹膜生產線，實現真正零浪費的綠色永續發展。
+    </p>
+  </section>
+
+  <!-- 邊角料回收四步曲流程 -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="pill-badge" data-tw="CLOSED-LOOP PROCESS" data-en="CLOSED-LOOP PROCESS">CLOSED-LOOP PROCESS</span>
+        <h2 class="section-title" data-tw="廠內邊角料 100% 回收再利用四步驟" data-en="4-Step In-House Recycling Workflow">廠內邊角料 100% 回收再利用四步驟</h2>
+        <p class="section-subtitle" data-tw="無縫銜接押出與造粒工藝，將生產過程中的每寸塑料發揮最大價值。" data-en="Seamlesly combining extrusion and regranulation to maximize raw material efficiency.">
+          無縫銜接押出與造粒工藝，將生產過程中的每寸塑料發揮最大價值。
+        </p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-card">
+          <div class="step-number">01</div>
+          <i class="fa-solid fa-scissors step-icon"></i>
+          <h3 class="step-title" data-tw="邊角料自動收集" data-en="Trim Collection">邊角料自動收集</h3>
+          <p class="step-desc" data-tw="吹膜押出膜邊與封切加工機台產生的廢料，經由自動集塵抽送管線即時收集。" data-en="Production trim and scrap from extrusion and bag converting lines are automatically collected.">吹膜押出膜邊與封切加工機台產生的廢料，經由自動集塵抽送管線即時收集。</p>
+        </div>
+
+        <div class="process-card">
+          <div class="step-number">02</div>
+          <i class="fa-solid fa-cubes-stacked step-icon"></i>
+          <h3 class="step-title" data-tw="廠內高純度造粒" data-en="In-House Regranulation">廠內高純度造粒</h3>
+          <p class="step-desc" data-tw="使用廠內專用粉碎造粒機進行融熔過濾，重新製成優質高純度的再生塑料顆粒。" data-en="Dedicated in-house regranulators melt-filter scrap into high-purity recycled resin pellets.">使用廠內專用粉碎造粒機進行融熔過濾，重新製成優質高純度的再生塑料顆粒。</p>
+        </div>
+
+        <div class="process-card">
+          <div class="step-number">03</div>
+          <i class="fa-solid fa-industry step-icon"></i>
+          <h3 class="step-title" data-tw="精準混配吹膜押出" data-en="Precision Re-Extrusion">精準混配吹膜押出</h3>
+          <p class="step-desc" data-tw="將廠內再生顆粒與原料進行精準比例混配，重新充入吹膜機台進行多層共擠。" data-en="Recycled pellets are precisely blended with resins and re-fed into blown film extrusion lines.">將廠內再生顆粒與原料進行精準比例混配，重新充入吹膜機台進行多層共擠。</p>
+        </div>
+
+        <div class="process-card">
+          <div class="step-number">04</div>
+          <i class="fa-solid fa-circle-nodes step-icon"></i>
+          <h3 class="step-title" data-tw="100% 綠色零廢棄" data-en="Zero-Waste Closed-Loop">100% 綠色零廢棄</h3>
+          <p class="step-desc" data-tw="完成廠內閉環循環，不外拋任何廢塑料，為地球減少資源浪費與環境負擔。" data-en="Completes a 100% zero-waste closed loop without landfilling or discarding plastic waste.">完成廠內閉環循環，不外拋任何廢塑料，為地球減少資源浪費與環境負擔。</p>
+        </div>
+      </div>
+
+      <!-- 特點展示區 -->
+      <div class="feature-grid-2">
+        <div class="feature-box">
+          <h3 class="feature-title-lg">
+            <i class="fa-solid fa-shield-virus"></i>
+            <span data-tw="品質與物性完全不妥協" data-en="Uncompromised Tensile Strength">品質與物性完全不妥協</span>
+          </h3>
+          <p class="feature-desc-lg" data-tw="由於廠內邊角料均為單一且來源純淨的高品質原料，絕無外部回收料的雜質污染風險。經由獨家混配工藝，吹出的包裝袋與薄膜在拉伸強度、抗穿刺性與承重力上完全達到頂級外銷標準。" data-en="Because in-house trims are single-source and contaminant-free, our re-granulated film maintains premium tensile strength and puncture resistance matching export quality standards.">
+            由於廠內邊角料均為單一且來源純淨的高品質原料，絕無外部回收料的雜質污染風險。經由獨家混配工藝，吹出的包裝袋與薄膜在拉伸強度、抗穿刺性與承重力上完全達到頂級外銷標準。
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <h3 class="feature-title-lg">
+            <i class="fa-solid fa-leaf"></i>
+            <span data-tw="務實綠色製造與資源珍惜" data-en="Pragmatic Eco-Friendly Production">務實綠色製造與資源珍惜</span>
+          </h3>
+          <p class="feature-desc-lg" data-tw="不採用過度包裝口號，臺灣營德以極度務實的腳步，珍惜每公斤原物料。透過 100% 邊角料循環再利用，為全球客戶提供更具競爭力、同時兼具綠色價值的包裝產品。" data-en="Inteplast Taiwan practices genuine sustainability by valuing every kilogram of resin. Our 100% trim recycling provides competitive pricing and eco-friendly value to our global buyers.">
+            不採用過度包裝口號，臺灣營德以極度務實的腳步，珍惜每公斤原物料。透過 100% 邊角料循環再利用，為全球客戶提供更具競爭力、同時兼具綠色價值的包裝產品。
+          </p>
+        </div>
+      </div>
+
+      <!-- Banner CTA -->
+      <div class="sustain-cta">
+        <h3 data-tw="尋找高物性且具備環保價值的包裝產品？" data-en="Looking for Reliable & Eco-Friendly Packaging?">尋找高物性且具備環保價值的包裝產品？</h3>
+        <p data-tw="聯繫我們的業務團隊，獲取詳細產品規格、邊角料回收比例與客製整櫃報價。" data-en="Contact our export team to explore product specs, recycling options, and FCL container quotes.">
+          聯繫我們的業務團隊，獲取詳細產品規格、邊角料回收比例與客製整櫃報價。
+        </p>
+        <a href="contact.html" class="btn-sustain-contact" data-tw="聯繫外銷團隊 獲取報價" data-en="Contact Export Team">
+          <i class="fa-solid fa-paper-plane"></i> <span data-tw="聯繫外銷團隊 獲取報價" data-en="Contact Export Team">聯繫外銷團隊 獲取報價</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'tw';
+    function toggleLanguage() {
+      currentLang = currentLang === 'tw' ? 'en' : 'tw';
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) {
+        langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+      }
+      document.querySelectorAll("[data-tw]").forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) {
+          const icon = el.querySelector('i');
+          if (icon) {
+            const iconClone = icon.cloneNode(true);
+            el.innerHTML = '';
+            el.appendChild(iconClone);
+            el.appendChild(document.createTextNode(' ' + text));
+          } else {
+            el.innerText = text;
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
