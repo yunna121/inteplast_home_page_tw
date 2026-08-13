@@ -108,91 +108,21 @@
     .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
     .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 24px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
 
-    /* =========================================
-       2. 雙欄滑動對切揭曉 Hero (Split Screen Reveal Hero)
-       ========================================= */
-    .split-hero-wrapper {
-      position: relative; width: 100vw; height: 100vh; overflow: hidden; background: var(--bg-dark); margin-top: 31px;
-    }
-    .split-hero-container {
-      display: grid; grid-template-columns: 52% 48%; width: 100%; height: 100%; position: relative; z-index: 10;
-    }
+    /* GSAP Parallax Hero */
+    .fashion-hero-wrapper { position: relative; width: 100vw; height: 100vh; overflow: hidden; background: var(--bg-dark); margin-top: 31px; }
+    .hero-bg-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 30%, rgba(0, 82, 155, 0.35) 0%, rgba(7, 22, 39, 0.95) 75%), url('./src/can-liners-draw-tape-hero.jpg') center/cover no-repeat; z-index: 1; filter: brightness(0.65) contrast(1.1); }
+    .hero-stage-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; color: #FFFFFF; text-align: center; padding: 100px 20px 40px; }
+    .brand-hero-badge { display: inline-flex; align-items: center; gap: 20px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.5); padding: 14px 32px; border-radius: var(--radius-full); margin-bottom: 24px; }
+    .brand-logo-img { height: 40px; width: auto; object-fit: contain; }
+    .brand-divider { width: 1px; height: 32px; background: rgba(0, 82, 155, 0.3); }
+    .brand-badge-title { font-size: 1.3rem; font-weight: 900; color: var(--primary-navy); }
+    .brand-badge-sub { font-size: 0.75rem; font-weight: 700; color: var(--brand-blue); text-transform: uppercase; }
+    .hero-big-title { font-size: 3.6rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; max-width: 950px; background: linear-gradient(135deg, #FFFFFF 30%, var(--accent-azure) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-sub-tagline { font-size: 1.2rem; color: rgba(255, 255, 255, 0.85); max-width: 760px; margin-bottom: 36px; }
 
-    /* 左半部：往左滑動進場動態內容 */
-    .split-panel-left {
-      background: linear-gradient(135deg, #071627 0%, #0A2540 100%);
-      padding: 120px 60px 60px 80px; display: flex; flex-direction: column; justify-content: center;
-      position: relative; z-index: 12; border-right: 1px solid rgba(255, 255, 255, 0.1);
-      animation: slideInFromLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    @keyframes slideInFromLeft {
-      from { transform: translateX(-100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    .brand-hero-badge {
-      display: inline-flex; align-items: center; gap: 16px; background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.5); padding: 12px 28px;
-      border-radius: var(--radius-full); margin-bottom: 28px; width: fit-content;
-    }
-    .brand-logo-img { height: 36px; width: auto; object-fit: contain; }
-    .brand-divider { width: 1px; height: 28px; background: rgba(0, 82, 155, 0.3); }
-    .brand-badge-title { font-size: 1.15rem; font-weight: 900; color: var(--primary-navy); }
-    .brand-badge-sub { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); text-transform: uppercase; }
-
-    .hero-split-title {
-      font-size: 3.4rem; font-weight: 900; line-height: 1.15; color: #FFFFFF; margin-bottom: 20px;
-    }
-    .hero-split-title span {
-      background: linear-gradient(135deg, #FFFFFF 30%, var(--accent-azure) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-
-    .hero-split-tagline {
-      font-size: 1.1rem; color: rgba(255, 255, 255, 0.82); line-height: 1.7; margin-bottom: 36px; max-width: 620px;
-    }
-
-    .hero-btn-group { display: flex; align-items: center; gap: 18px; margin-bottom: 40px; }
-    .btn-hero-primary { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: #FFFFFF; padding: 15px 32px; border-radius: var(--radius-full); font-size: 0.95rem; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(0, 82, 155, 0.4); transition: var(--transition); }
-    .btn-hero-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(0, 82, 155, 0.6); }
-
-    .btn-hero-glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); color: #FFFFFF; padding: 15px 28px; border-radius: var(--radius-full); font-size: 0.95rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px; }
-    .btn-hero-glass:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-3px); }
-
-    .hero-stats-mini { display: flex; align-items: center; gap: 30px; border-top: 1px solid rgba(255, 255, 255, 0.12); padding-top: 24px; }
-    .stat-mini-num { font-size: 1.5rem; font-weight: 900; color: var(--accent-azure); display: block; line-height: 1; }
-    .stat-mini-lbl { font-size: 0.78rem; color: rgba(255, 255, 255, 0.7); font-weight: 600; }
-
-    /* 右半部：實景影像揭曉與浮動膠囊卡片 */
-    .split-panel-right {
-      position: relative; overflow: hidden; background: #051322;
-      animation: expandRightPanel 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    @keyframes expandRightPanel {
-      from { opacity: 0; transform: scale(1.08); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .right-bg-media { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .hero-split-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.75) contrast(1.1); transition: transform 0.8s ease; }
-    .split-panel-right:hover .hero-split-img { transform: scale(1.05); }
-    .right-overlay-gradient { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7, 22, 39, 0.8) 0%, rgba(7, 22, 39, 0.2) 100%); }
-
-    /* 浮動動態卡片特寫 */
-    .hero-floating-card {
-      position: absolute; background: rgba(10, 37, 64, 0.88); backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2); padding: 18px 24px; border-radius: var(--radius-md);
-      color: #FFFFFF; display: flex; align-items: center; gap: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      z-index: 15; transition: var(--transition);
-    }
-    .hero-floating-card i { font-size: 2rem; color: var(--accent-azure); }
-    .card-pos-1 { top: 25%; right: 10%; animation: floatAnim1 4s ease-in-out infinite; }
-    .card-pos-2 { bottom: 20%; right: 15%; animation: floatAnim2 4s ease-in-out infinite 2s; }
-    @keyframes floatAnim1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    @keyframes floatAnim2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
-
-    .float-card-title { font-size: 1.05rem; font-weight: 800; color: #FFFFFF; margin-bottom: 2px; }
-    .float-card-sub { font-size: 0.78rem; color: rgba(255, 255, 255, 0.75); }
+    .hero-btn-group { display: flex; align-items: center; gap: 20px; }
+    .btn-hero-primary { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: #FFFFFF; padding: 16px 36px; border-radius: var(--radius-full); font-size: 1rem; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
+    .btn-hero-glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); color: #FFFFFF; padding: 16px 32px; border-radius: var(--radius-full); font-size: 1rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
 
     /* 通用 Section 標題樣式 */
     .section-head { text-align: center; max-width: 800px; margin: 0 auto 70px; }
@@ -202,7 +132,7 @@
 
     /* =========================================
        SECTION 1: 六大核心產品系列 Showcase (Sticky Stacking Cards)
-       使用全新 AI 專屬棚拍高階原圖
+       使用 Scale Sheet 用戶指定專屬原圖 ./src/scale sheet.png
        ========================================= */
     .fashion-products-section { padding: 120px 40px; background: #0A192F; }
     .cards-stack-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 50px; }
@@ -288,12 +218,10 @@
     @media (max-width: 1000px) {
       .mega-menu-panel-6cat, .top-utility-bar { display: none; }
       .header { top: 0; }
-      .split-hero-container { grid-template-columns: 1fr; }
-      .split-panel-right { min-height: 380px; }
       .stack-card, .intro-row-card, .intro-row-card:nth-child(even) { grid-template-columns: 1fr; }
       .intro-row-card:nth-child(even) .intro-img-box { order: initial; }
       .scenarios-grid { grid-template-columns: 1fr; }
-      .hero-split-title { font-size: 2.4rem; }
+      .hero-big-title { font-size: 2.4rem; }
     }
   </style>
 </head>
@@ -392,84 +320,40 @@
     </div>
   </header>
 
-  <!-- 雙欄滑動對切揭曉 Hero (Split Screen Reveal Hero) -->
-  <div class="split-hero-wrapper" id="heroWrapper">
-    <div class="split-hero-container">
-      
-      <!-- 左半部 (Left Panel): 往左滑動進場標語與簡介 -->
-      <div class="split-panel-left">
-        <div class="brand-hero-badge">
-          <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="brand-logo-img">
-          <div class="brand-divider"></div>
-          <div>
-            <div class="brand-badge-title" data-tw="臺灣營德股份有限公司" data-en="INTEPLAST TAIWAN CORPORATION">臺灣營德股份有限公司</div>
-            <div class="brand-badge-sub" data-tw="INTEPLAST TAIWAN CORPORATION" data-en="FORMOSA PLASTICS GROUP PARTNER">INTEPLAST TAIWAN CORPORATION</div>
-          </div>
-        </div>
+  <!-- Hero Section -->
+  <div class="fashion-hero-wrapper" id="heroWrapper">
+    <div class="hero-bg-layer" id="heroBg"></div>
 
-        <h1 class="hero-split-title" data-tw="台塑關係企業<br><span>六大產品專業製造</span>" data-en="Formosa Plastics Partner<br><span>Six Core Product Lines</span>">
-          台塑關係企業<br><span>六大產品專業製造</span>
-        </h1>
-
-        <p class="hero-split-tagline" data-tw="由美商營德集團、台塑企業與長庚生技合資成立。嘉義新港生產基地專注於清潔袋、拉繩袋、耐熱袋、密封包裝類、衛生手套/防塵膠帶與 Scale Sheet。" data-en="Joint venture by Inteplast Group & Formosa Plastics Corp. Manufacturing Cleaners, Draw-Tape, Heat-Resistant, Zipper Seal, Protection Tapes & Scale Sheeting.">
-          由美商營德集團、台塑企業與長庚生技合資成立。嘉義新港生產基地專注於清潔袋、拉繩袋、耐熱袋、密封包裝類、衛生手套/防塵膠帶與 Scale Sheet。
-        </p>
-
-        <div class="hero-btn-group">
-          <a href="#productShowcase" class="btn-hero-primary" data-tw="瀏覽六大產品 Showcase" data-en="Explore Product Lines">
-            <i class="fa-solid fa-layer-group"></i> <span data-tw="瀏覽六大產品 Showcase" data-en="Explore Product Lines">瀏覽六大產品 Showcase</span>
-          </a>
-          <a href="contact.html" class="btn-hero-glass" data-tw="發起整櫃 RFQ 詢價" data-en="Request Quote">
-            <i class="fa-solid fa-paper-plane"></i> <span data-tw="發起整櫃 RFQ 詢價" data-en="Request Quote">發起整櫃 RFQ 詢價</span>
-          </a>
-        </div>
-
-        <div class="hero-stats-mini">
-          <div class="stat-mini-item">
-            <span class="stat-mini-num">500+</span>
-            <span class="stat-mini-lbl" data-tw="Tons/Day 產能" data-en="Daily Capacity">Tons/Day 產能</span>
-          </div>
-          <div class="stat-mini-item">
-            <span class="stat-mini-num">ISO 9001</span>
-            <span class="stat-mini-lbl" data-tw="品質認證" data-en="Certified Quality">品質認證</span>
-          </div>
-          <div class="stat-mini-item">
-            <span class="stat-mini-num">100%</span>
-            <span class="stat-mini-lbl" data-tw="邊角料造粒回收" data-en="Scrap Recycling">邊角料造粒回收</span>
-          </div>
+    <div class="hero-stage-content">
+      <div class="brand-hero-badge">
+        <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="brand-logo-img">
+        <div class="brand-divider"></div>
+        <div>
+          <div class="brand-badge-title" data-tw="臺灣營德股份有限公司" data-en="INTEPLAST TAIWAN CORPORATION">臺灣營德股份有限公司</div>
+          <div class="brand-badge-sub" data-tw="INTEPLAST TAIWAN CORPORATION" data-en="FORMOSA PLASTICS GROUP PARTNER">INTEPLAST TAIWAN CORPORATION</div>
         </div>
       </div>
 
-      <!-- 右半部 (Right Panel): 高清實景展示與流暢層次卡片 -->
-      <div class="split-panel-right">
-        <div class="right-bg-media">
-          <img src="./src/can-liners-draw-tape-hero.jpg" alt="營德廠區與包裝吹膜實景" class="hero-split-img">
-          <div class="right-overlay-gradient"></div>
-        </div>
-        
-        <!-- 浮動動態卡片特寫 -->
-        <div class="hero-floating-card card-pos-1">
-          <i class="fa-solid fa-trophy"></i>
-          <div>
-            <div class="float-card-title" data-tw="2022 & 2023 卓越營運獎" data-en="2022 & 2023 Excellence Award">2022 & 2023 卓越營運獎</div>
-            <div class="float-card-sub" data-tw="Inteplast Group 總裁頒發最高榮譽" data-en="Awarded by Group President">Inteplast Group 總裁頒發最高榮譽</div>
-          </div>
-        </div>
+      <h1 class="hero-big-title" data-tw="台塑關係企業 · 六大產品專業製造" data-en="Formosa Plastics Partner · Six Core Product Lines">
+        台塑關係企業 · 六大產品專業製造
+      </h1>
 
-        <div class="hero-floating-card card-pos-2">
-          <i class="fa-solid fa-industry"></i>
-          <div>
-            <div class="float-card-title" data-tw="嘉義台塑新港廠區基地" data-en="Chiayi Xingang Production Base">嘉義台塑新港廠區基地</div>
-            <div class="float-card-sub" data-tw="全自動拌料與 PLC 空輸系統" data-en="Automated Extrusion System">全自動拌料與 PLC 空輸系統</div>
-          </div>
-        </div>
+      <p class="hero-sub-tagline" data-tw="由美商營德集團、台塑企業與長庚生技合資成立。嘉義新港生產基地專注於清潔袋、拉繩袋、耐熱袋、密封包裝類、衛生手套/防塵膠帶與 Scale Sheet。" data-en="Joint venture by Inteplast Group & Formosa Plastics Corp. Manufacturing Cleaners, Draw-Tape, Heat-Resistant, Zipper Seal, Protection Tapes & Scale Sheeting.">
+        由美商營德集團、台塑企業與長庚生技合資成立。嘉義新港生產基地專注於清潔袋、拉繩袋、耐熱袋、密封包裝類、衛生手套/防塵膠帶與 Scale Sheet。
+      </p>
 
+      <div class="hero-btn-group">
+        <a href="#productShowcase" class="btn-hero-primary" data-tw="瀏覽六大產品系列 Showcase" data-en="Explore 6 Product Lines">
+          <i class="fa-solid fa-layer-group"></i> <span data-tw="瀏覽六大產品系列 Showcase" data-en="Explore 6 Product Lines">瀏覽六大產品系列 Showcase</span>
+        </a>
+        <a href="#productIntroRows" class="btn-hero-glass" data-tw="查看產品特色與應用特寫" data-en="View Product Highlights">
+          <i class="fa-solid fa-circle-check"></i> <span data-tw="查看產品特色與應用特寫" data-en="View Product Highlights">查看產品特色與應用特寫</span>
+        </a>
       </div>
-
     </div>
   </div>
 
-  <!-- SECTION 1: 6 大產品 Sticky Stacking Showcase (使用 AI 棚拍獨立原圖) -->
+  <!-- SECTION 1: 6 大產品 Sticky Stacking Showcase (Scale Sheet 使用指定圖片 src/scale sheet.png) -->
   <section class="fashion-products-section" id="productShowcase">
     <div class="section-head">
       <span class="pill-badge" data-tw="SIX CORE CATEGORIES" data-en="SIX CORE CATEGORIES">SIX CORE CATEGORIES</span>
@@ -499,7 +383,7 @@
           </a>
         </div>
         <div class="card-media-wrapper">
-          <img src="./src/ai_can_liner.png" alt="清潔袋 AI 棚拍照">
+          <img src="./src/ai_can_liner.png" alt="清潔袋">
         </div>
       </div>
 
@@ -520,7 +404,7 @@
           </a>
         </div>
         <div class="card-media-wrapper">
-          <img src="./src/ai_draw_tape.png" alt="拉繩袋 AI 棚拍照">
+          <img src="./src/ai_draw_tape.png" alt="拉繩袋">
         </div>
       </div>
 
@@ -541,7 +425,7 @@
           </a>
         </div>
         <div class="card-media-wrapper">
-          <img src="./src/ai_heat_bag.png" alt="耐熱袋 AI 棚拍照">
+          <img src="./src/ai_heat_bag.png" alt="耐熱袋">
         </div>
       </div>
 
@@ -564,7 +448,7 @@
           </a>
         </div>
         <div class="card-media-wrapper">
-          <img src="./src/ai_zipper_bag.png" alt="密封包裝類 AI 棚拍照">
+          <img src="./src/ai_zipper_bag.png" alt="密封包裝類">
         </div>
       </div>
 
@@ -585,11 +469,11 @@
           </a>
         </div>
         <div class="card-media-wrapper">
-          <img src="./src/ai_specialty.png" alt="其他類 AI 棚拍照">
+          <img src="./src/ai_specialty.png" alt="其他類">
         </div>
       </div>
 
-      <!-- 06 Scale Sheet -->
+      <!-- 06 Scale Sheet (使用用戶指定圖片 ./src/scale sheet.png) -->
       <div class="stack-card">
         <div>
           <div class="card-num">06 / SCALE SHEET</div>
@@ -607,7 +491,7 @@
           </a>
         </div>
         <div class="card-media-wrapper">
-          <img src="./src/ai_scale_sheet.png" alt="Scale Sheet AI 棚拍照">
+          <img src="./src/scale sheet.png" alt="Scale Sheet 生鮮磅秤切片膜實景原圖">
         </div>
       </div>
 
@@ -832,6 +716,12 @@
   </footer>
 
   <script>
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to("#heroBg", {
+      scrollTrigger: { trigger: "#heroWrapper", start: "top top", end: "bottom top", scrub: true },
+      y: 120, scale: 1.15
+    });
+
     let currentLang = 'tw';
     function toggleLanguage() {
       currentLang = currentLang === 'tw' ? 'en' : 'tw';
