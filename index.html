@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation - 台塑關係企業六大產品專業製造商</title>
-  <meta name="description" content="臺灣營德股份有限公司 (Inteplast Taiwan Corporation) 為台塑關係企業與美商營德合資大廠，專業生產清潔袋、拉繩袋、耐熱袋、密封包裝類、手套/遮蔽膠帶與 Scales Sheet。">
-  <meta name="keywords" content="Inteplast, 臺灣營德, 台塑企業, 嘉義新港廠, ISO 9001, 清潔袋, 拉繩袋, 耐熱袋, 密封包裝, 密實袋, 夾鏈袋, Scales Sheet, 防塵膠帶">
+  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation - 台塑關係企業六大產品與應用情境</title>
+  <meta name="description" content="臺灣營德股份有限公司 (Inteplast Taiwan Corporation) 為台塑關係企業與美商營德合資大廠，專業生產清潔袋、拉繩袋、耐熱袋、密封包裝類、手套/遮蔽膠帶與 Scales Sheet，提供多元日常與工業應用情境。">
+  <meta name="keywords" content="Inteplast, 臺灣營德, 台塑企業, 嘉義新港廠, ISO 9001, 清潔袋, 拉繩袋, 耐熱袋, 密封包裝, 密實袋, 夾鏈袋, Scales Sheet, 防塵膠帶, 使用情境">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,7 +60,6 @@
       padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: relative; z-index: 1002;
     }
-
     .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
     .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
     .utility-left a:hover, .utility-right a:hover { color: var(--accent-azure); }
@@ -82,7 +81,6 @@
 
     .nav-menu { display: flex; align-items: center; gap: 6px; list-style: none; }
     .nav-item { position: relative; }
-
     .nav-link-item {
       padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
       color: var(--text-main); text-decoration: none; transition: var(--transition);
@@ -108,7 +106,7 @@
 
     .header-right { display: flex; align-items: center; gap: 12px; }
     .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
-    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 24px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 24px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: gap: 8px; }
 
     /* GSAP Parallax Hero */
     .fashion-hero-wrapper { position: relative; width: 100vw; height: 100vh; overflow: hidden; background: var(--bg-dark); margin-top: 31px; }
@@ -126,13 +124,16 @@
     .btn-hero-primary { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: #FFFFFF; padding: 16px 36px; border-radius: var(--radius-full); font-size: 1rem; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
     .btn-hero-glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); color: #FFFFFF; padding: 16px 32px; border-radius: var(--radius-full); font-size: 1rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
 
-    /* 6 大產品 Sticky Stacking Showcase */
-    .fashion-products-section { padding: 130px 40px; background: #0A192F; }
+    /* 通用 Section 標題樣式 */
     .section-head { text-align: center; max-width: 800px; margin: 0 auto 70px; }
     .pill-badge { display: inline-block; padding: 6px 18px; background: rgba(0, 168, 255, 0.15); color: var(--accent-azure); border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; border: 1px solid rgba(0, 168, 255, 0.3); }
     .section-head h2 { font-size: 2.7rem; font-weight: 900; color: #FFFFFF; margin-bottom: 16px; }
     .section-head p { font-size: 1.05rem; color: rgba(255, 255, 255, 0.7); }
 
+    /* =========================================
+       SECTION 1: 六大核心產品系列 Showcase (Sticky Stacking Cards)
+       ========================================= */
+    .fashion-products-section { padding: 120px 40px; background: #0A192F; }
     .cards-stack-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 50px; }
     .stack-card { position: sticky; top: 120px; background: rgba(15, 30, 54, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-xl); padding: 44px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 36px; align-items: center; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); transition: var(--transition); overflow: hidden; }
     .stack-card:hover { border-color: var(--accent-azure); }
@@ -147,6 +148,62 @@
     .card-media-wrapper { border-radius: var(--radius-lg); overflow: hidden; height: 320px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
     .card-media-wrapper img { width: 100%; height: 100%; object-fit: cover; }
 
+    /* =========================================
+       SECTION 2 (Fused from Project_Mio product_intro.html):
+       交錯式雙欄產品靈魂特寫與勾選亮點 (Deep-Dive Checklist Rows)
+       ========================================= */
+    .mio-product-intro-section { padding: 120px 40px; background: #06172A; }
+    .intro-rows-list { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 50px; }
+    
+    .intro-row-card {
+      background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-xl);
+      overflow: hidden; display: grid; grid-template-columns: 45% 1fr;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3); transition: var(--transition);
+    }
+    .intro-row-card:nth-child(even) { grid-template-columns: 1fr 45%; }
+    .intro-row-card:nth-child(even) .intro-img-box { order: 2; }
+    .intro-row-card:hover { border-color: var(--accent-azure); transform: translateY(-6px); background: rgba(255, 255, 255, 0.07); }
+
+    .intro-img-box { height: 100%; min-height: 320px; overflow: hidden; position: relative; }
+    .intro-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .intro-row-card:hover .intro-img-box img { transform: scale(1.08); }
+
+    .intro-body-box { padding: 44px; display: flex; flex-direction: column; justify-content: center; color: #FFFFFF; }
+    .intro-eyebrow { font-size: 0.8rem; font-weight: 800; color: var(--accent-azure); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+    .intro-h3 { font-size: 1.8rem; font-weight: 800; color: #FFFFFF; margin-bottom: 12px; line-height: 1.3; }
+    .intro-p { font-size: 0.95rem; color: rgba(255, 255, 255, 0.8); line-height: 1.65; margin-bottom: 24px; }
+
+    /* Project_Mio 特色勾選清單 (✓ Checkmarks) */
+    .mio-checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .mio-check-item { display: flex; align-items: center; gap: 12px; font-size: 0.92rem; font-weight: 700; color: #E2E8F0; }
+    .mio-check-item i { color: var(--accent-azure); font-size: 1.1rem; }
+
+    /* =========================================
+       SECTION 3: 六大應用情境網格 (Application Scenarios Gallery)
+       ========================================= */
+    .scenarios-section { padding: 120px 40px; background: #041220; }
+    .scenarios-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+    .scenario-card {
+      position: relative; border-radius: var(--radius-lg); overflow: hidden; min-height: 320px;
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      transition: var(--transition); text-decoration: none; color: #FFFFFF;
+    }
+    .scenario-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(6, 21, 39, 0) 20%, rgba(6, 21, 39, 0.95) 90%); z-index: 1;
+    }
+    .scenario-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .scenario-card:hover img { transform: scale(1.08); }
+    .scenario-card:hover { border-color: var(--accent-azure); transform: translateY(-8px); }
+
+    .scenario-content { position: relative; z-index: 2; }
+    .scenario-badge { font-size: 0.75rem; font-weight: 800; color: var(--accent-azure); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .scenario-title { font-size: 1.4rem; font-weight: 800; color: #FFFFFF; margin-bottom: 8px; line-height: 1.25; }
+    .scenario-desc { font-size: 0.88rem; color: rgba(255, 255, 255, 0.8); line-height: 1.5; }
+
     /* RFQ CTA */
     .cta-banner-section { padding: 100px 40px; }
     .cta-banner-container { max-width: 1200px; margin: 0 auto; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); border-radius: var(--radius-xl); padding: 60px; color: #FFFFFF; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 25px 50px rgba(0, 82, 155, 0.3); }
@@ -160,14 +217,16 @@
     @media (max-width: 1000px) {
       .mega-menu-panel-6cat, .top-utility-bar { display: none; }
       .header { top: 0; }
-      .stack-card { grid-template-columns: 1fr; }
+      .stack-card, .intro-row-card, .intro-row-card:nth-child(even) { grid-template-columns: 1fr; }
+      .intro-row-card:nth-child(even) .intro-img-box { order: initial; }
+      .scenarios-grid { grid-template-columns: 1fr; }
       .hero-big-title { font-size: 2.4rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Utility Bar -->
+  <!-- 集團頂樓列 -->
   <div class="top-utility-bar">
     <div class="utility-left">
       <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
@@ -183,7 +242,7 @@
     </div>
   </div>
 
-  <!-- Header -->
+  <!-- Header Navbar -->
   <header class="header">
     <a href="index.html" class="header-logo">
       <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
@@ -286,18 +345,18 @@
         <a href="#productShowcase" class="btn-hero-primary" data-tw="瀏覽六大產品系列 Showcase" data-en="Explore 6 Product Lines">
           <i class="fa-solid fa-layer-group"></i> <span data-tw="瀏覽六大產品系列 Showcase" data-en="Explore 6 Product Lines">瀏覽六大產品系列 Showcase</span>
         </a>
-        <a href="contact.html" class="btn-hero-glass" data-tw="發起整櫃 RFQ 詢價" data-en="Request Container Quote">
-          <i class="fa-solid fa-paper-plane"></i> <span data-tw="發起整櫃 RFQ 詢價" data-en="Request Container Quote">發起整櫃 RFQ 詢價</span>
+        <a href="#productIntroRows" class="btn-hero-glass" data-tw="查看產品特色與應用特寫" data-en="View Product Highlights">
+          <i class="fa-solid fa-circle-check"></i> <span data-tw="查看產品特色與應用特寫" data-en="View Product Highlights">查看產品特色與應用特寫</span>
         </a>
       </div>
     </div>
   </div>
 
-  <!-- 6 大產品 Sticky Stacking Showcase -->
+  <!-- SECTION 1: 6 大產品 Sticky Stacking Showcase -->
   <section class="fashion-products-section" id="productShowcase">
     <div class="section-head">
       <span class="pill-badge" data-tw="SIX CORE CATEGORIES" data-en="SIX CORE CATEGORIES">SIX CORE CATEGORIES</span>
-      <h2 data-tw="六大核心產品展示" data-en="Six Core Product Lines">六大核心產品展示</h2>
+      <h2 data-tw="六大核心產品目錄" data-en="Six Core Product Lines">六大核心產品目錄</h2>
       <p data-tw="向下滑動即可瀏覽清潔袋、拉繩袋、耐熱袋、密封包裝類、其他類與 Scales Sheet。" data-en="Scroll to interact with full product specs and sub-categories.">
         向下滑動即可瀏覽清潔袋、拉繩袋、耐熱袋、密封包裝類、其他類與 Scales Sheet。
       </p>
@@ -434,6 +493,205 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- =========================================
+       SECTION 2 (Fused from Project_Mio product_intro.html):
+       交錯式雙欄產品靈魂特寫與勾選亮點 (Deep-Dive Checklist Rows)
+       ========================================= -->
+  <section class="mio-product-intro-section" id="productIntroRows">
+    <div class="section-head">
+      <span class="pill-badge" data-tw="PRODUCT FEATURES & CHECKLIST" data-en="PRODUCT FEATURES & CHECKLIST">PRODUCT FEATURES & CHECKLIST</span>
+      <h2 data-tw="產品使用特色與重點勾選清單" data-en="Key Product Highlights & Features">產品使用特色與重點勾選清單</h2>
+      <p data-tw="融合 Project_Mio 產品畫面，為您解析每一款產品的極致使用功能與安全承諾。" data-en="Fusing Project_Mio's product feature design for clear, user-friendly benefit checklists.">
+        融合 Project_Mio 產品畫面，為您解析每一款產品的極致使用功能與安全承諾。
+      </p>
+    </div>
+
+    <div class="intro-rows-list">
+
+      <!-- Row 1: 拉繩清潔袋 -->
+      <div class="intro-row-card">
+        <div class="intro-img-box">
+          <img src="./src/use1.png" alt="拉繩清潔袋使用情境">
+        </div>
+        <div class="intro-body-box">
+          <span class="intro-eyebrow">INTEPLAST DRAW-TAPE</span>
+          <h3 class="intro-h3" data-tw="拉繩清潔袋 · 一拉即束打包更省力" data-en="Draw-Tape Bags: Easy Tie & Carry">拉繩清潔袋 · 一拉即束打包更省力</h3>
+          <p class="intro-p" data-tw="加長拉繩設計讓封口與提取一次完成，收拾垃圾更快速，也能減少雙手直接接觸髒污的機會。" data-en="Extended drawstring makes tying and lifting effortless while preventing hands from touching waste.">
+            加長拉繩設計讓封口與提取一次完成，收拾垃圾更快速，也能減少雙手直接接觸髒污的機會。
+          </p>
+          <ul class="mio-checklist">
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="一拉即束，打包更省力" data-en="One-pull easy seal">一拉即束，打包更省力</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="提把設計，方便拎舉與搬運" data-en="Convenient handles for carrying">提把設計，方便拎舉與搬運</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="強韌袋材，安心承裝不破裂" data-en="High tensile strength PE">強韌袋材，安心承裝不破裂</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Row 2: 商業與家用清潔袋 -->
+      <div class="intro-row-card">
+        <div class="intro-img-box">
+          <img src="./src/use3.png" alt="清潔袋使用情境">
+        </div>
+        <div class="intro-body-box">
+          <span class="intro-eyebrow">INTEPLAST CAN LINERS</span>
+          <h3 class="intro-h3" data-tw="清潔袋 · Star Seal 防漏星封工藝" data-en="Can Liners: Star Seal Leak Proof">清潔袋 · Star Seal 防漏星封工藝</h3>
+          <p class="intro-p" data-tw="輕巧實用的清潔好幫手，Star Seal 底封技術確保液體不外漏，適合各式居家與商業環境。" data-en="Star Seal bottom technology eliminates leaks and distributes weight evenly for heavy-duty commercial use.">
+            輕巧實用的清潔好幫手，Star Seal 底封技術確保液體不外漏，適合各式居家與商業環境。
+          </p>
+          <ul class="mio-checklist">
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="韌性袋材，不易破損漏水" data-en="Durable & puncture resistant">韌性袋材，不易破損漏水</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="無芯捲裝抽取便利，收納簡單" data-en="Coreless roll easy dispensing">無芯捲裝抽取便利，收納簡單</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="多種容量尺寸完整供選擇" data-en="Full size range 10L to 90L">多種容量尺寸完整供選擇</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Row 3: 蔬果袋與連捲袋 -->
+      <div class="intro-row-card">
+        <div class="intro-img-box">
+          <img src="./src/use4.png" alt="蔬果袋使用情境">
+        </div>
+        <div class="intro-body-box">
+          <span class="intro-eyebrow">INTEPLAST PRODUCE ROLLS</span>
+          <h3 class="intro-h3" data-tw="蔬果袋 · 輕盈高透明，生鮮清晰辨識" data-en="Produce Bags: High Clarity Freshness">蔬果袋 · 輕盈高透明，生鮮清晰辨識</h3>
+          <p class="intro-p" data-tw="讓新鮮蔬果便於分裝、攜帶與保存，點斷撕取流暢，為每日餐桌與生鮮超市多一份便利。" data-en="High-clarity produce rolls for easy food identification, smooth tearing, and grocery retail convenience.">
+            讓新鮮蔬果便於分裝、攜帶與保存，點斷撕取流暢，為每日餐桌與生鮮超市多一份便利。
+          </p>
+          <ul class="mio-checklist">
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="輕盈高透明，快速辨識食材" data-en="High clarity produce visibility">輕盈高透明，快速辨識食材</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="點斷連捲設計，方便分裝與拿取" data-en="Easy tear-off produce roll">點斷連捲設計，方便分裝與拿取</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="適用各式生鮮蔬果與日常備料" data-en="Ideal for grocery & food prep">適用各式生鮮蔬果與日常備料</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Row 4: 食品用薄膜 -->
+      <div class="intro-row-card">
+        <div class="intro-img-box">
+          <img src="./src/use5.png" alt="食品用薄膜使用情境">
+        </div>
+        <div class="intro-body-box">
+          <span class="intro-eyebrow">INTEPLAST FOOD WRAPS</span>
+          <h3 class="intro-h3" data-tw="食品用薄膜 · 緊密貼合，保留剛好的新鮮" data-en="Food Wraps: Airtight Preservation">食品用薄膜 · 緊密貼合，保留剛好的新鮮</h3>
+          <p class="intro-p" data-tw="緊密貼合各式容器與食材表面，協助延緩食材乾燥與異味交叉，延長備料與冷藏新鮮度。" data-en="Clings tightly to containers and ingredients to prevent drying and odor cross-contamination.">
+            緊密貼合各式容器與食材表面，協助延緩食材乾燥與異味交叉，延長備料與冷藏新鮮度。
+          </p>
+          <ul class="mio-checklist">
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="服貼延展性佳，包覆更完整" data-en="Superior stretch and cling">服貼延展性佳，包覆更完整</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="透明清晰，食材保存一目了然" data-en="Clear food inspection">透明清晰，食材保存一目了然</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="適用冷藏保存與飯店餐飲備料" data-en="Cold storage & catering ready">適用冷藏保存與飯店餐飲備料</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Row 5: 密實袋與冷凍袋 -->
+      <div class="intro-row-card">
+        <div class="intro-img-box">
+          <img src="./src/use2.png" alt="密實袋使用情境">
+        </div>
+        <div class="intro-body-box">
+          <span class="intro-eyebrow">INTEPLAST ZIPPER BAGS</span>
+          <h3 class="intro-h3" data-tw="密實袋與冷凍袋 · 雙軌密封安心保鮮" data-en="Freezer Bags: Double Zipper Protection">密實袋與冷凍袋 · 雙軌密封安心保鮮</h3>
+          <p class="intro-p" data-tw="雙軌密封防漏、方便收納，協助保存冷凍食材與分類生活小物，讓冰箱與生活井然有序。" data-en="Heavy-duty double-zipper seal locking in freshness for freezer storage and organized food management.">
+            雙軌密封防漏、方便收納，協助保存冷凍食材與分類生活小物，讓冰箱與生活井然有序。
+          </p>
+          <ul class="mio-checklist">
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="雙軌密封設計，安心防漏保鮮" data-en="Double zipper leak-proof seal">雙軌密封設計，安心防漏保鮮</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="透明袋身，內容物一目了然" data-en="High clarity storage view">透明袋身，內容物一目了然</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="適合食材冷凍與日常小物分類" data-en="Freezer safe & multi-purpose">適合食材冷凍與日常小物分類</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Row 6: 衛生防護手套與遮蔽膠帶 -->
+      <div class="intro-row-card">
+        <div class="intro-img-box">
+          <img src="./src/use6.png" alt="手套與防護使用情境">
+        </div>
+        <div class="intro-body-box">
+          <span class="intro-eyebrow">SPECIALTY & PROTECTION</span>
+          <h3 class="intro-h3" data-tw="手套與台塑遮蔽防塵膠帶 · 靈活潔淨防護" data-en="Hygiene Gloves & Masking Tapes">手套與台塑遮蔽防塵膠帶 · 靈活潔淨防護</h3>
+          <p class="intro-p" data-tw="為清潔、備料與裝潢防護提供舒適保護，讓雙手與環境在每個細節中保持潔淨衛生。" data-en="Comfortable protective gloves and Formosa masking dustproof film tapes for construction and home care.">
+            為清潔、備料與裝潢防護提供舒適保護，讓雙手與環境在每個細節中保持潔淨衛生。
+          </p>
+          <ul class="mio-checklist">
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="輕薄貼手，操作靈活衛生" data-en="Flexible hygienic gloves">輕薄貼手，操作靈活衛生</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="適合清潔家務與食品備料處理" data-en="Ideal for catering & cleaning">適合清潔家務與食品備料處理</span></li>
+            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="台塑遮蔽防塵膠帶工程防護" data-en="Dustproof masking film tape">台塑遮蔽防塵膠帶工程防護</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: 應用情境 6 Grid -->
+  <section class="scenarios-section" id="applicationScenarios">
+    <div class="section-head">
+      <span class="pill-badge" data-tw="APPLICATION SCENARIOS" data-en="APPLICATION SCENARIOS">APPLICATION SCENARIOS</span>
+      <h2 data-tw="產品多元應用領域與使用情境" data-en="Versatile Industry Applications & Usage Scenarios">產品多元應用領域與使用情境</h2>
+      <p data-tw="臺灣營德品質貫穿商業清潔、工業物流、生鮮零售、冷凍保鮮與醫療防護各大領域。" data-en="Empowering commercial cleaning, industrial logistics, supermarket produce, freezer preservation, and hygienic protection.">
+        臺灣營德品質貫穿商業清潔、工業物流、生鮮零售、冷凍保鮮與醫療防護各大領域。
+      </p>
+    </div>
+
+    <div class="scenarios-grid">
+      <div class="scenario-card">
+        <img src="./src/use1.png" alt="商業與機構清潔打包">
+        <div class="scenario-content">
+          <span class="scenario-badge">CLEANING & SANITATION</span>
+          <div class="scenario-title" data-tw="商業與機構清潔打包" data-en="Commercial Sanitation">商業與機構清潔打包</div>
+          <div class="scenario-desc" data-tw="自動拉繩一拉即束、防漏星封，適用於飯店、辦公大樓、醫療院所與清潔承包商。" data-en="Easy-close drawstring and star seals for hotels, offices, hospitals, and cleaning contractors.">自動拉繩一拉即束、防漏星封，適用於飯店、辦公大樓、醫療院所與清潔承包商。</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <img src="./src/use3.png" alt="居家日常與環境管理">
+        <div class="scenario-content">
+          <span class="scenario-badge">HOME & HOUSEHOLD</span>
+          <div class="scenario-title" data-tw="居家日常與環境管理" data-en="Household Cleaning">居家日常與環境管理</div>
+          <div class="scenario-desc" data-tw="輕巧實用的清潔幫手，韌性袋材不易破裂，適合各式居家空間與日常整理。" data-en="Puncture-resistant bags designed for everyday home garbage and organization needs.">輕巧實用的清潔幫手，韌性袋材不易破裂，適合各式居家空間與日常整理。</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <img src="./src/use4.png" alt="生鮮超市與蔬果分裝">
+        <div class="scenario-content">
+          <span class="scenario-badge">GROCERY & PRODUCE</span>
+          <div class="scenario-title" data-tw="生鮮超市與蔬果分裝" data-en="Produce & Fresh Market">生鮮超市與蔬果分裝</div>
+          <div class="scenario-desc" data-tw="高透明連捲生鮮袋與點斷袋，便利分裝、快速辨識食材並確保衛生。" data-en="High-clarity produce rolls allowing easy identification and hygienic fresh food packaging.">高透明連捲生鮮袋與點斷袋，便利分裝、快速辨識食材並確保衛生。</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <img src="./src/use5.png" alt="食品包覆與食材備料">
+        <div class="scenario-content">
+          <span class="scenario-badge">FOOD PREPARATION</span>
+          <div class="scenario-title" data-tw="食品包覆與食材備料" data-en="Food Prep & Wraps">食品包覆與食材備料</div>
+          <div class="scenario-desc" data-tw="緊密貼合容器與食材表面，延緩食材乾燥與異味交叉，保留新鮮美味。" data-en="Protective wraps clinging tightly to containers and ingredients to preserve freshness.">緊密貼合容器與食材表面，延緩食材乾燥與異味交叉，保留新鮮美味。</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <img src="./src/use2.png" alt="冷凍儲存與密實保鮮">
+        <div class="scenario-content">
+          <span class="scenario-badge">FREEZER & STORAGE</span>
+          <div class="scenario-title" data-tw="冷凍儲存與密實保鮮" data-en="Freezer Preservation">冷凍儲存與密實保鮮</div>
+          <div class="scenario-desc" data-tw="雙軌密封夾鏈袋，提供極佳的密封效果，協助食材冷凍分類與生活小物收納。" data-en="Double-zipper seals keeping food fresh in freezer storage while avoiding leaks.">雙軌密封夾鏈袋，提供極佳的密封效果，協助食材冷凍分類與生活小物收納。</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <img src="./src/plant.png" alt="嘉義台塑新港廠區自動化生產">
+        <div class="scenario-content">
+          <span class="scenario-badge">AUTOMATED MANUFACTURING</span>
+          <div class="scenario-title" data-tw="嘉義台塑新港廠區基地" data-en="Chiayi Xingang Production Base">嘉義台塑新港廠區基地</div>
+          <div class="scenario-desc" data-tw="全自動拌料與原料空輸系統，榮獲集團總裁頒發 2022、2023 年卓越營運獎。" data-en="Automated extrusion & raw material handling awarded the 2022 & 2023 Excellence Award.">全自動拌料與原料空輸系統，榮獲集團總裁頒發 2022、2023 年卓越營運獎。</div>
+        </div>
+      </div>
     </div>
   </section>
 
