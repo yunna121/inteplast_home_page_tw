@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Inteplast 台灣日常清潔、保鮮與防護用品。">
+  <title>生活用品系列 | Inteplast</title>
+  <style>
+    :root { --navy:#002f62; --blue:#0065a8; --sky:#e9f4fa; --ink:#132a3a; --line:#d7e0e7; --white:#fff; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); font-family:Arial,"Helvetica Neue",sans-serif; line-height:1.55; }
+    a { color:inherit; text-decoration:none; }
+    .utility { background:var(--navy); color:#dcebf4; font-size:.72rem; }
+    .utility__inner, .nav, .container { width:min(1180px, calc(100% - 48px)); margin:auto; }
+    .utility__inner { min-height:34px; display:flex; justify-content:flex-end; align-items:center; gap:22px; }
+    .nav { min-height:86px; display:flex; align-items:center; justify-content:space-between; gap:28px; }
+    .nav-wrap { position:relative; z-index:4; background:#fff; box-shadow:0 1px 0 rgba(0,47,98,.1); }
+    .brand img { display:block; width:160px; height:auto; }
+    .menu { display:flex; align-items:center; gap:29px; color:var(--navy); font-size:.86rem; font-weight:700; letter-spacing:.02em; }
+    .menu a::after { content:'⌄'; color:var(--blue); padding-left:6px; }
+    .menu a:last-child::after { content:''; }
+    .search { width:37px; height:37px; border:1px solid #b8cbd8; border-radius:50%; display:grid; place-items:center; color:var(--navy); font-size:1.1rem; }
+    .crumbs { padding:17px 0; font-size:.76rem; color:#547082; }
+    .crumbs span { padding:0 9px; color:#87a1b2; }
+    .hero { min-height:545px; position:relative; display:grid; align-items:end; overflow:hidden; background:var(--navy); }
+    .hero::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,31,64,.93) 0%,rgba(0,47,98,.72) 42%,rgba(0,47,98,.08) 75%); z-index:1; }
+    .hero img { width:100%; height:100%; position:absolute; inset:0; object-fit:cover; object-position:center; }
+    .hero__copy { position:relative; z-index:2; width:min(1180px, calc(100% - 48px)); margin:0 auto; padding:90px 0 86px; color:#fff; }
+    .eyebrow { margin:0 0 13px; color:#78c7e7; font-size:.76rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { max-width:660px; margin-bottom:18px; font-size:clamp(3rem,6vw,5.5rem); line-height:.96; letter-spacing:-.055em; }
+    .hero__copy p:last-child { max-width:510px; margin:0; font-size:1.08rem; }
+    .intro { padding:104px 0; display:grid; grid-template-columns:minmax(250px,.85fr) minmax(300px,1.15fr); gap:90px; }
+    h2 { color:var(--navy); font-size:clamp(2.1rem,4vw,3.6rem); line-height:1.03; letter-spacing:-.04em; }
+    .intro h2 { margin:0; }
+    .intro__text { font-size:1.12rem; color:#3e596c; }
+    .intro__text p { margin:0; }
+    .products { background:#f3f8fa; padding:100px 0; }
+    .section-heading { max-width:660px; margin-bottom:45px; }
+    .section-heading p { color:#527082; font-size:1.04rem; }
+    .product-list { display:grid; gap:28px; }
+    .product { display:grid; grid-template-columns:45% 1fr; background:#fff; min-height:365px; }
+    .product:nth-child(even) { grid-template-columns:1fr 45%; }
+    .product:nth-child(even) .product__image { order:2; }
+    .product__image { min-height:300px; overflow:hidden; }
+    .product__image img { width:100%; height:100%; display:block; object-fit:cover; }
+    .product__body { display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:clamp(2rem,5vw,5rem); }
+    .product__body h3 { color:var(--navy); margin-bottom:14px; font-size:clamp(1.7rem,3vw,2.6rem); line-height:1.05; letter-spacing:-.035em; }
+    .product__body p { color:#496579; margin-bottom:21px; }
+    .features { margin:0; padding:0; list-style:none; display:grid; gap:8px; color:#254b67; font-size:.9rem; }
+    .features li { display:flex; align-items:center; gap:10px; }
+    .features li::before { content:'✓'; color:#099bce; font-weight:700; }
+    .finder { background:var(--navy); color:#fff; padding:85px 0; }
+    .finder__inner { display:grid; grid-template-columns:1fr auto; align-items:center; gap:30px; }
+    .finder h2 { color:#fff; margin:0 0 9px; }
+    .finder p { color:#c8e0ee; margin:0; }
+    .button { display:inline-flex; align-items:center; gap:18px; min-height:52px; padding:0 22px; background:#fff; color:var(--navy); font-weight:700; font-size:.84rem; }
+    .button::after { content:'→'; color:#008cc5; font-size:1.4rem; }
+    .markets { padding:104px 0; }
+    .markets__top { display:flex; align-items:end; justify-content:space-between; gap:25px; margin-bottom:35px; }
+    .markets h2 { margin:0; }
+    .link { color:var(--blue); font-size:.82rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+    .cards { display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; }
+    .card { position:relative; min-height:270px; overflow:hidden; background:#123; color:#fff; display:flex; align-items:end; padding:28px; }
+    .card::before { content:''; position:absolute; inset:0; background:linear-gradient(0deg,rgba(0,32,61,.83),rgba(0,32,61,.04) 70%); z-index:1; }
+    .card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .35s ease; }
+    .card:hover img { transform:scale(1.05); }
+    .card__title { position:relative; z-index:2; font-size:1.45rem; font-weight:700; line-height:1.1; }
+    .card__title small { display:block; margin-top:10px; color:#89d2ea; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; }
+    footer { padding:34px 0; background:#eef5f8; color:#557185; font-size:.78rem; }
+    footer .container { display:flex; justify-content:space-between; gap:18px; }
+    @media (max-width:780px) {
+      .utility { display:none; } .nav { min-height:70px; } .menu { display:none; } .brand img { width:135px; }
+      .hero { min-height:480px; } .hero__copy { padding:80px 0 62px; } .hero::before { background:linear-gradient(90deg,rgba(0,31,64,.93),rgba(0,47,98,.37)); }
+      .intro { padding:68px 0; grid-template-columns:1fr; gap:20px; } .products,.markets { padding:68px 0; }
+      .product,.product:nth-child(even) { grid-template-columns:1fr; } .product:nth-child(even) .product__image { order:initial; }
+      .product__image { min-height:235px; } .finder { padding:60px 0; } .finder__inner { grid-template-columns:1fr; }
+      .cards { grid-template-columns:1fr; } .card { min-height:220px; } footer .container { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="utility"><div class="utility__inner"><a href="#">最新消息</a><a href="#">人才招募</a><a href="#contact">聯絡我們</a></div></div>
+  <div class="nav-wrap"><nav class="nav" aria-label="Main navigation">
+    <a class="brand" href="#top"><img src="src/inteplast-logo-blue.svg" alt="Inteplast 集團"></a>
+    <div class="menu"><a href="#products">產品系列</a><a href="#products">產品簡介</a><a href="#">關於 Inteplast</a><a href="#contact">聯絡我們</a></div><a class="search" href="#" aria-label="搜尋">⌕</a>
+  </nav></div>
+  <main id="top">
+    <div class="container crumbs">首頁 <span>/</span> 產品 <span>/</span> 生活用品 <span>/</span> 清潔與保鮮系列</div>
+    <section class="hero" aria-labelledby="page-title"><img src="src/use1.png" alt="拉繩清潔袋使用情境"><div class="hero__copy"><p class="eyebrow">Inteplast 生活用品</p><h1 id="page-title">讓日常，<br>更輕鬆安心。</h1><p>從清潔、收納到食品保鮮，為每個生活環節提供可靠便利的選擇。</p></div></section>
+    <section class="container intro"><h2>為每一天而設計。</h2><div class="intro__text"><p>Inteplast 結合實用機能與穩定品質，打造拉繩清潔袋、密實袋、清潔袋、蔬果袋、食品用薄膜與手套等日常用品，讓每一次使用都更加輕鬆、衛生且安心。</p></div></section>
+    <section class="products" id="products"><div class="container"><div class="section-heading"><p class="eyebrow">探索產品系列</p><h2>每種日常需求，都有合適選擇。</h2><p>以便利、衛生與耐用為核心，滿足家庭與各式生活場域的需求。</p></div>
+      <div class="product-list">
+        <article class="product"><div class="product__image"><img src="src/use1.png" alt="拉繩清潔袋使用情境"></div><div class="product__body"><h3>拉繩清潔袋</h3><p>加長拉繩設計讓封口與提取一次完成，收拾垃圾更快速，也能減少雙手接觸髒污的機會。</p><ul class="features"><li>一拉即束，打包更省力</li><li>提把設計，方便搬運</li><li>韌性袋材，安心承裝</li></ul></div></article>
+        <article class="product"><div class="product__image"><img src="src/use3.png" alt="清潔袋使用情境"></div><div class="product__body"><h3>清潔袋</h3><p>輕巧實用的清潔好幫手，適合各式居家空間與日常整理工作。</p><ul class="features"><li>韌性袋材，不易破裂</li><li>取用便利，收納簡單</li><li>多種尺寸可供選擇</li></ul></div></article>
+        <article class="product"><div class="product__image"><img src="src/use4.png" alt="蔬果袋使用情境"></div><div class="product__body"><h3>蔬果袋</h3><p>讓新鮮蔬果便於分裝、攜帶與保存，為每日餐桌多一份便利。</p><ul class="features"><li>輕盈透明，快速辨識</li><li>方便分裝與拿取</li><li>適用各式生鮮蔬果</li></ul></div></article>
+        <article class="product"><div class="product__image"><img src="src/use5.png" alt="食品用薄膜使用情境"></div><div class="product__body"><h3>食品用薄膜</h3><p>緊密貼合各式容器與食材表面，協助延緩食材乾燥與異味交叉，保留剛好的新鮮。</p><ul class="features"><li>服貼延展，包覆更完整</li><li>透明清晰，食材容易辨識</li><li>適用冷藏保存與日常備料</li></ul></div></article>
+        <article class="product"><div class="product__image"><img src="src/use2.png" alt="密實袋使用情境"></div><div class="product__body"><h3>密實袋</h3><p>牢固密封、方便收納，協助保存食材、分類小物，讓生活井然有序。</p><ul class="features"><li>密封設計，安心保鮮</li><li>透明袋身，內容物一目了然</li><li>適合食材與日常收納</li></ul></div></article>
+        <article class="product"><div class="product__image"><img src="src/use6.png" alt="手套使用情境"></div><div class="product__body"><h3>手套</h3><p>為清潔、備料與日常家務提供舒適防護，讓雙手在每個細節中都能保持潔淨與自在。</p><ul class="features"><li>輕薄貼手，操作靈活</li><li>減少直接接觸清潔用品</li><li>適合清潔與食品處理</li></ul></div></article>
+      </div>
+    </div></section>
+  </main>
+  <footer id="contact"><div class="container"><span>© Inteplast Group. 保留一切權利。</span><span>優質解決方案，成就日常效能。</span></div></footer>
+</body>
+</html>
