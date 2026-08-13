@@ -64,7 +64,10 @@
       border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
       opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
     }
-    .nav-item:hover .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
+    .nav-item:hover .mega-menu-panel-6cat,
+    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
+    .nav-item:hover .caret-icon,
+    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
     .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
     .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
     .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -126,7 +129,7 @@
       
       <!-- 6 大產品 Mega Menu -->
       <li class="nav-item">
-        <a href="index.html" class="nav-link-item active" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <a href="index.html" class="nav-link-item active product-menu-trigger" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
         <div class="mega-menu-panel-6cat">
           <div class="mega-grid-6">
             <div>
@@ -264,6 +267,21 @@
   </footer>
 
   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const triggers = document.querySelectorAll(".product-menu-trigger");
+      triggers.forEach(t => {
+        t.addEventListener("click", function(e) {
+          const item = this.closest(".nav-item");
+          if (item) item.classList.toggle("open-dropdown");
+        });
+      });
+      document.addEventListener("click", function(e) {
+        if (!e.target.closest(".nav-item")) {
+          document.querySelectorAll(".nav-item.open-dropdown").forEach(i => i.classList.remove("open-dropdown"));
+        }
+      });
+    });
+
     let currentLang = 'tw';
     function toggleLanguage() {
       currentLang = currentLang === 'tw' ? 'en' : 'tw';
