@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>食品級包裝 (Foodservice) 專頁 | 臺灣營德 Inteplast Taiwan</title>
-  <meta name="description" content="臺灣營德 100% 食品級安全包裝、FDA 21 CFR 177.1520 合規認證、高透明生鮮連捲袋與冷藏食品夾鏈袋。">
+  <title>夾鏈袋與密封包裝 (Zipper Bags & Foodservice) 專頁 | 臺灣營德 Inteplast Taiwan</title>
+  <meta name="description" content="臺灣營德 100% 食品級安全包裝、FDA 21 CFR 177.1520 合規認證、夾鏈袋 00號至12號全系列規格對照表、高透明生鮮連捲袋與冷藏食品夾鏈袋。">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -79,9 +79,35 @@
     .section { padding: 80px 40px; }
     .container { max-width: 1200px; margin: 0 auto; }
 
-    .spec-table { width: 100%; border-collapse: collapse; background: var(--surface-white); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); margin-top: 30px; }
-    .spec-table th { background: var(--primary-navy); color: var(--surface-white); padding: 16px 20px; text-align: left; font-size: 0.95rem; font-weight: 700; }
-    .spec-table td { padding: 14px 20px; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-main); }
+    .spec-header { margin-bottom: 30px; }
+    .spec-header h2 { font-size: 2rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 8px; }
+    .spec-header p { font-size: 1rem; color: var(--text-muted); }
+
+    /* 夾鏈袋 Table */
+    .zipper-spec-table {
+      width: 100%; border-collapse: collapse; background: var(--surface-white);
+      border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color); margin-top: 20px; margin-bottom: 60px;
+    }
+    .zipper-spec-table th {
+      background: var(--primary-navy); color: var(--surface-white);
+      padding: 16px 24px; text-align: left; font-size: 0.95rem; font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .zipper-spec-table tr:nth-child(even) { background: #F8FAFC; }
+    .zipper-spec-table tr:hover { background: rgba(0, 82, 155, 0.05); }
+    .zipper-spec-table td {
+      padding: 14px 24px; border-bottom: 1px solid var(--border-color);
+      font-size: 0.95rem; color: var(--text-main); font-weight: 600;
+    }
+    .size-badge {
+      display: inline-block; background: rgba(0, 82, 155, 0.1); color: var(--brand-blue);
+      font-weight: 800; padding: 4px 12px; border-radius: var(--radius-full); font-size: 0.85rem;
+    }
+    .pack-badge {
+      display: inline-block; background: #E0F2FE; color: #0284C7;
+      font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem;
+    }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
@@ -120,56 +146,127 @@
   <section class="page-hero">
     <div class="hero-container">
       <div>
-        <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">FDA COMPLIANT PACKAGING</span>
-        <h1 class="hero-title" data-tw="食品級包裝袋與保鮮膜 (Foodservice)" data-en="Foodservice Packaging & Bags">食品級包裝袋與保鮮膜 (Foodservice)</h1>
-        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級全新塑料，無毒無味，完全遵守 FDA 21 CFR 177.1520 標準。適用於生鮮超市、餐飲備料與冷藏保存。" data-en="100% Virgin FDA-compliant polyethylene films and produce bags designed for fresh food storage and safety.">
-          嚴格採用 100% Virgin 食品級全新塑料，無毒無味，完全遵守 FDA 21 CFR 177.1520 標準。適用於生鮮超市、餐飲備料與冷藏保存。
+        <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">ZIPPER & SEALED PACKAGING</span>
+        <h1 class="hero-title" data-tw="夾鏈袋與密封包裝系列 (Zipper Bags)" data-en="Zipper Bags & Sealed Packaging">夾鏈袋與密封包裝系列 (Zipper Bags)</h1>
+        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級 LDPE 全新塑料，雙軌咬合密封，防潮防漏。提供 00號至 12號 完整標準尺寸，滿足日常零件分類與食材保鮮需求。" data-en="100% Virgin LDPE reclosable zipper bags featuring double-track seal. Available in complete sizes from #00 to #12.">
+          嚴格採用 100% Virgin 食品級 LDPE 全新塑料，雙軌咬合密封，防潮防漏。提供 00號至 12號 完整標準尺寸，滿足日常零件分類與食材保鮮需求。
         </p>
-        <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Inquire Foodservice Bags"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
+        <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Inquire Zipper Bags"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
       </div>
       <div>
-        <img src="../src/Foodservice-HERO-1.jpg" alt="Foodservice Packaging Showcase" class="product-hero-img">
+        <img src="../src/夾鏈袋.png" alt="夾鏈袋 實景展示" class="product-hero-img">
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 12px;" data-tw="食品級產品系列與規格" data-en="Foodservice Line Specifications">食品級產品系列與規格</h2>
-      <p style="color: var(--text-muted); margin-bottom: 20px;" data-tw="提供高透明生鮮捲袋 (Produce Rolls)、冷藏夾鏈袋 (Zipper Bags) 與熟食包裝袋。" data-en="Produce rolls, freezer zipper bags, and food storage solutions.">
-        提供高透明生鮮捲袋 (Produce Rolls)、冷藏夾鏈袋 (Zipper Bags) 與熟食包裝袋。
-      </p>
+      
+      <!-- 夾鏈袋專屬號數對照規格表 -->
+      <div class="spec-header">
+        <h2 data-tw="夾鏈袋標準號數與尺寸對照表 (00號 ~ 12號)" data-en="Zipper Bags Size Specification Chart (#00 to #12)">夾鏈袋標準號數與尺寸對照表 (00號 ~ 12號)</h2>
+        <p data-tw="全系列採用 100 張/包封裝，雙軌咬合密封防洩漏，方便零件分裝與食材密封保存。" data-en="Packed in 100 pcs/pack with tight reclosable seal for versatile storage.">
+          全系列採用 100 張/包封裝，雙軌咬合密封防洩漏，方便零件分裝與食材密封保存。
+        </p>
+      </div>
 
-      <table class="spec-table">
+      <table class="zipper-spec-table">
         <thead>
           <tr>
-            <th data-tw="產品類別 Category" data-en="Category">產品類別 Category</th>
-            <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
-            <th data-tw="材質 / 合規 Compliance" data-en="Compliance">材質 / 合規 Compliance</th>
-            <th data-tw="包裝形式 Format" data-en="Pack Format">包裝形式 Format</th>
+            <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+            <th data-tw="號碼 Model No." data-en="Model No.">號碼 Model No.</th>
+            <th data-tw="尺寸 Dimensions (W x L)" data-en="Dimensions (W x L)">尺寸 Dimensions (W x L)</th>
+            <th data-tw="包裝數量 Packaging" data-en="Packaging">包裝數量 Packaging</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Produce Roll Bags 超市生鮮捲袋</td>
-            <td>11" x 14" / 12" x 17" (28x35 cm)</td>
-            <td>Virgin HDPE / FDA Compliant</td>
-            <td>Continuous Roll 點斷連捲</td>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">00號 (#00)</span></td>
+            <td>3.5 x 4 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
           </tr>
           <tr>
-            <td>Food Storage Zipper Bags 食品夾鏈袋</td>
-            <td>Quart (7"x8") / Gallon (10.5"x11")</td>
-            <td>Virgin LDPE / BPA Free</td>
-            <td>Retail Box 雙軌密封彩盒裝</td>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">0號 (#0)</span></td>
+            <td>4 x 6 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
           </tr>
           <tr>
-            <td>Heavy Duty Freezer Bags 冰品/冷凍袋</td>
-            <td>Gallon / 2 Gallon (13"x15")</td>
-            <td>Extra Thick Virgin LLDPE</td>
-            <td>Color Printed Box</td>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">1號 (#1)</span></td>
+            <td>5 x 7 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
+          </tr>
+          <tr>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">2號 (#2)</span></td>
+            <td>6 x 8.5 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
+          </tr>
+          <tr>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">3號 (#3)</span></td>
+            <td>7 x 10 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
+          </tr>
+          <tr>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">4號 (#4)</span></td>
+            <td>8.5 x 12 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
+          </tr>
+          <tr>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">5號 (#5)</span></td>
+            <td>10 x 14 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
+          </tr>
+          <tr>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">6號 (#6)</span></td>
+            <td>12 x 17 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
+          </tr>
+          <tr>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">7號 (#7)</span></td>
+            <td>14 x 20 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
+          </tr>
+          <tr>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">8號 (#8)</span></td>
+            <td>17 x 24 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
+          </tr>
+          <tr>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">9號 (#9)</span></td>
+            <td>20 x 28 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
+          </tr>
+          <tr>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">10號 (#10)</span></td>
+            <td>24 x 34 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
+          </tr>
+          <tr>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">11號 (#11)</span></td>
+            <td>28 x 40 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
+          </tr>
+          <tr>
+            <td>夾鏈袋 Reclosable Zipper Bag</td>
+            <td><span class="size-badge">12號 (#12)</span></td>
+            <td>34 x 45 cm</td>
+            <td><span class="pack-badge">100張/包</span></td>
           </tr>
         </tbody>
       </table>
+
     </div>
   </section>
 
