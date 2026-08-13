@@ -66,7 +66,22 @@
       color: var(--text-main); text-decoration: none; transition: var(--transition);
       display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
     }
-    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
+    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
+    .nav-item:hover .caret-icon { transform: rotate(180deg); }
+
+    /* 6 大類 Mega Menu Panel */
+    .mega-menu-panel-6cat {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
+      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
+    }
+    .nav-item:hover .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
+    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
+    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
+    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
+    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
 
     .header-right { display: flex; align-items: center; gap: 12px; }
     .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
@@ -147,7 +162,61 @@
     <ul class="nav-menu">
       <li class="nav-item"><a href="index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
       <li class="nav-item"><a href="about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
-      <li class="nav-item"><a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心</a></li>
+      
+      <!-- 6 大產品 Mega Menu -->
+      <li class="nav-item">
+        <a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel-6cat">
+          <div class="mega-grid-6">
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/can-liners.html">連捲清潔袋</a></li>
+                <li><a href="products/can-liners.html">單張抽取</a></li>
+                <li><a href="products/can-liners.html">環保清潔袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/draw-tape.html">清潔袋</a></li>
+                <li><a href="products/draw-tape.html">醫療袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">平裝耐熱袋</a></li>
+                <li><a href="products/foodservice.html">捲裝耐熱袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">密實袋</a></li>
+                <li><a href="products/foodservice.html">立體密實袋</a></li>
+                <li><a href="products/foodservice.html">冷凍袋</a></li>
+                <li><a href="products/foodservice.html">夾鏈袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">衛生手套</a></li>
+                <li><a href="products/foodservice.html">台塑遮蔽防塵膠帶</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> 06 Scale Sheet</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/stretch-films.html">生鮮磅秤切片膜</a></li>
+                <li><a href="products/stretch-films.html">熟食肉品磅秤襯墊</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
       <li class="nav-item"><a href="sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
       <li class="nav-item"><a href="contact.html" class="nav-link-item active" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
     </ul>

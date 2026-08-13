@@ -71,22 +71,19 @@
     .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
     .nav-item:hover .caret-icon { transform: rotate(180deg); }
 
-    /* Mega Menu Panel */
-    .mega-menu-panel {
+    /* 6 大類 Mega Menu Panel */
+    .mega-menu-panel-6cat {
       position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
-      width: 1080px; background: var(--surface-white); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); box-shadow: var(--shadow-mega); padding: 32px;
-      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100;
+      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
     }
-    .nav-item:hover .mega-menu-panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
-    .mega-grid { display: grid; grid-template-columns: repeat(4, 1fr) 280px; gap: 24px; }
-    .mega-col-title { font-size: 0.88rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 8px; }
-    .mega-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .mega-links a { color: var(--text-main); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: var(--transition); display: flex; align-items: center; justify-content: space-between; }
-    .mega-links a:hover { color: var(--brand-blue); transform: translateX(4px); }
-    .mega-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
-    .badge-hot { background: #FEE2E2; color: #EF4444; }
-    .badge-iso { background: #E0F2FE; color: #0284C7; }
+    .nav-item:hover .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
+    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
+    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
+    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
+    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
 
     .mega-feature-card { background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); border-radius: var(--radius-sm); padding: 24px; color: var(--surface-white); display: flex; flex-direction: column; justify-content: space-between; }
     .mega-feature-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
@@ -157,8 +154,58 @@
         <a href="about.html" class="nav-link-item active" data-tw="關於營德" data-en="About Us">關於營德 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
       </li>
 
+      <!-- 6 大產品 Mega Menu -->
       <li class="nav-item">
         <a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel-6cat">
+          <div class="mega-grid-6">
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/can-liners.html">連捲清潔袋</a></li>
+                <li><a href="products/can-liners.html">單張抽取</a></li>
+                <li><a href="products/can-liners.html">環保清潔袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/draw-tape.html">清潔袋</a></li>
+                <li><a href="products/draw-tape.html">醫療袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">平裝耐熱袋</a></li>
+                <li><a href="products/foodservice.html">捲裝耐熱袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">密實袋</a></li>
+                <li><a href="products/foodservice.html">立體密實袋</a></li>
+                <li><a href="products/foodservice.html">冷凍袋</a></li>
+                <li><a href="products/foodservice.html">夾鏈袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">衛生手套</a></li>
+                <li><a href="products/foodservice.html">台塑遮蔽防塵膠帶</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> 06 Scale Sheet</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/stretch-films.html">生鮮磅秤切片膜</a></li>
+                <li><a href="products/stretch-films.html">熟食肉品磅秤襯墊</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </li>
 
       <li class="nav-item">
