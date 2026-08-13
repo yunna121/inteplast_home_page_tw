@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation - 跨國包裝與工業薄膜外銷製造巨頭</title>
-  <meta name="description" content="臺灣營德股份有限公司 (Inteplast Taiwan Corporation) 為全球外銷製造巨頭，專業生產垃圾袋 (Can Liners)、自動拉繩袋 (Draw-Tape)、工業棧板伸縮膜 (Stretch Film) 與 FDA 食品包裝。">
-  <meta name="keywords" content="Inteplast, 臺灣營德, 塑膠袋, 垃圾袋, 拉繩袋, 工業薄膜, 伸縮膜, Stretch Film, Can Liners, Draw Tape Bags, 外銷製造">
+  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation - ISO 9001 認證包裝與薄膜外銷製造商</title>
+  <meta name="description" content="臺灣營德股份有限公司 (Inteplast Taiwan Corporation) 為 ISO 9001:2015 品質管理體系認證大廠，專業生產商業垃圾袋 (Can Liners)、自動拉繩袋 (Draw-Tape)、工業棧板伸縮膜與食品包裝。">
+  <meta name="keywords" content="Inteplast, 臺灣營德, ISO 9001, 塑膠袋, 垃圾袋, 拉繩袋, 工業薄膜, 伸縮膜, Stretch Film, Can Liners, Draw Tape Bags, 外銷製造">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,28 +77,28 @@
     .header {
       position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
       display: flex; justify-content: space-between; align-items: center; z-index: 1000;
-      background: rgba(10, 37, 64, 0.85); backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12); box-shadow: var(--shadow-sm);
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
       transition: var(--transition);
     }
 
     .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-image { height: 40px; width: auto; object-fit: contain; filter: brightness(0) invert(1); }
+    .logo-image { height: 40px; width: auto; object-fit: contain; }
     .logo-text-wrapper { display: flex; flex-direction: column; }
-    .logo-text-tw { font-size: 1.08rem; font-weight: 800; color: #FFFFFF; letter-spacing: 0.5px; line-height: 1.2; }
-    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--accent-azure); letter-spacing: 0.5px; line-height: 1.2; }
+    .logo-text-tw { font-size: 1.08rem; font-weight: 800; color: var(--primary-navy); letter-spacing: 0.5px; line-height: 1.2; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); letter-spacing: 0.5px; line-height: 1.2; }
 
     .nav-menu { display: flex; align-items: center; gap: 6px; list-style: none; }
     .nav-item { position: relative; }
 
     .nav-link-item {
       padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
-      color: rgba(255, 255, 255, 0.9); text-decoration: none; transition: var(--transition);
+      color: var(--text-main); text-decoration: none; transition: var(--transition);
       display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
     }
 
     .nav-link-item:hover, .nav-item:hover > .nav-link-item {
-      background: rgba(255, 255, 255, 0.15); color: #FFFFFF;
+      background: rgba(0, 82, 155, 0.08); color: var(--brand-blue);
     }
 
     .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
@@ -124,7 +124,7 @@
     .mega-links a:hover { color: var(--brand-blue); transform: translateX(4px); }
     .mega-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
     .badge-hot { background: #FEE2E2; color: #EF4444; }
-    .badge-fda { background: #D1FAE5; color: #10B981; }
+    .badge-iso { background: #E0F2FE; color: #0284C7; }
 
     .mega-feature-card { background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); border-radius: var(--radius-sm); padding: 24px; color: var(--surface-white); display: flex; flex-direction: column; justify-content: space-between; }
     .mega-feature-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
@@ -133,11 +133,11 @@
     .mega-feature-btn:hover { background: var(--accent-azure); color: var(--surface-white); }
 
     .header-right { display: flex; align-items: center; gap: 12px; }
-    .lang-toggle { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.25); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: #FFFFFF; cursor: pointer; transition: var(--transition); }
-    .lang-toggle:hover { background: rgba(255, 255, 255, 0.25); }
+    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
+    .lang-toggle:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
 
-    .rfq-btn { background: linear-gradient(135deg, var(--accent-azure), #0072C6); color: var(--surface-white); border: none; padding: 10px 24px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px rgba(0, 168, 255, 0.35); transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
-    .rfq-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0, 168, 255, 0.5); }
+    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); border: none; padding: 10px 24px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(0, 82, 155, 0.35); transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+    .rfq-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 82, 155, 0.45); }
 
     /* =========================================
        2. 超級時髦視差滾動 Hero (Fashion GSAP Pinning Hero)
@@ -160,15 +160,15 @@
 
     .brand-hero-badge {
       display: inline-flex; align-items: center; gap: 20px;
-      background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2); padding: 16px 36px;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.5); padding: 16px 36px;
       border-radius: var(--radius-full); box-shadow: 0 20px 40px rgba(0,0,0,0.4);
       margin-bottom: 30px; transition: var(--transition);
     }
-    .brand-logo-img { height: 44px; width: auto; filter: brightness(0) invert(1); }
-    .brand-divider { width: 1px; height: 36px; background: rgba(0, 168, 255, 0.5); }
-    .brand-badge-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; color: #FFFFFF; }
-    .brand-badge-sub { font-size: 0.78rem; font-weight: 700; color: var(--accent-azure); letter-spacing: 1.5px; text-transform: uppercase; }
+    .brand-logo-img { height: 44px; width: auto; object-fit: contain; }
+    .brand-divider { width: 1px; height: 36px; background: rgba(0, 82, 155, 0.3); }
+    .brand-badge-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; color: var(--primary-navy); }
+    .brand-badge-sub { font-size: 0.78rem; font-weight: 700; color: var(--brand-blue); letter-spacing: 1.5px; text-transform: uppercase; }
 
     .hero-big-title {
       font-size: 3.8rem; font-weight: 900; line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px; max-width: 1000px;
@@ -183,12 +183,12 @@
 
     .hero-btn-group { display: flex; align-items: center; gap: 20px; }
     .btn-hero-primary {
-      background: linear-gradient(135deg, var(--accent-azure), #0066C0); color: #FFFFFF;
+      background: linear-gradient(135deg, var(--brand-blue), #00386B); color: #FFFFFF;
       padding: 16px 36px; border-radius: var(--radius-full); font-size: 1rem; font-weight: 800;
-      text-decoration: none; box-shadow: 0 10px 30px rgba(0, 168, 255, 0.4); transition: var(--transition);
+      text-decoration: none; box-shadow: 0 10px 30px rgba(0, 82, 155, 0.4); transition: var(--transition);
       display: inline-flex; align-items: center; gap: 10px;
     }
-    .btn-hero-primary:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(0, 168, 255, 0.6); }
+    .btn-hero-primary:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(0, 82, 155, 0.6); }
 
     .btn-hero-glass {
       background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3);
@@ -246,7 +246,7 @@
     .stack-card:hover .card-media-wrapper img { transform: scale(1.06); }
 
     /* =========================================
-       4. 數據與實力標竿 Section (Live Enterprise Metrics)
+       4. 數據與實力標竿 Section (ISO 9001 Quality Metrics)
        ========================================= */
     .metrics-section { padding: 120px 40px; background: linear-gradient(180deg, #0A192F 0%, #071627 100%); position: relative; }
     .metrics-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
@@ -255,7 +255,7 @@
       border-radius: var(--radius-md); padding: 40px 24px; text-align: center; transition: var(--transition);
     }
     .metric-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.08); border-color: var(--accent-azure); }
-    .metric-val { font-size: 3.2rem; font-weight: 900; color: var(--accent-azure); line-height: 1; margin-bottom: 10px; font-family: 'Inter', sans-serif; }
+    .metric-val { font-size: 2.8rem; font-weight: 900; color: var(--accent-azure); line-height: 1; margin-bottom: 10px; font-family: 'Inter', sans-serif; }
     .metric-lbl { font-size: 0.95rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px; }
     .metric-sub { font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); }
 
@@ -339,10 +339,8 @@
             <div>
               <div class="mega-col-title"><i class="fa-solid fa-award"></i> 品質與國際認證</div>
               <ul class="mega-links">
-                <li><a href="about.html">ISO 9001:2015 品質認證</a></li>
-                <li><a href="about.html">ISO 14001:2015 環境管理</a></li>
-                <li><a href="about.html">FDA 21 CFR 食品接觸認證 <span class="mega-badge badge-fda">FDA</span></a></li>
-                <li><a href="about.html">BRCGS 包裝材料標準</a></li>
+                <li><a href="about.html">ISO 9001:2015 品質管理系統認證 <span class="mega-badge badge-iso">ISO 9001</span></a></li>
+                <li><a href="about.html">嚴格標準品管與抗穿刺測試</a></li>
               </ul>
             </div>
             <div class="mega-feature-card">
@@ -378,9 +376,9 @@
               </ul>
             </div>
             <div>
-              <div class="mega-col-title"><i class="fa-solid fa-apple-whole"></i> Foodservice 食品袋</div>
+              <div class="mega-col-title"><i class="fa-solid fa-bag-shopping"></i> 包裝袋</div>
               <ul class="mega-links">
-                <li><a href="products/foodservice.html" data-tw="FDA 生鮮點斷連捲袋" data-en="FDA Produce Rolls">FDA 生鮮點斷連捲袋 <span class="mega-badge badge-fda">FDA</span></a></li>
+                <li><a href="products/foodservice.html" data-tw="高透明連捲生鮮袋" data-en="Produce Rolls">高透明連捲生鮮袋</a></li>
               </ul>
             </div>
             <div class="mega-feature-card">
@@ -426,8 +424,8 @@
         引領全球包裝創新 · 噸級極致吹膜工藝
       </h1>
 
-      <p class="hero-sub-tagline" data-tw="數十年專注於商業垃圾袋、自動拉繩袋、300% 工業棧板伸縮膜與 FDA 食品級包裝，為全球 40+ 國 Fortune 500 品牌提供頂級 OEM/ODM 整櫃服務。" data-en="Decades of technical excellence in Extrusion, Star-Seal Can Liners, Draw-Tape Bags, Pre-Stretch Films, and FDA Food Packaging for global Fortune 500 partners.">
-        數十年專注於商業垃圾袋、自動拉繩袋、300% 工業棧板伸縮膜與 FDA 食品級包裝，為全球 40+ 國 Fortune 500 品牌提供頂級 OEM/ODM 整櫃服務。
+      <p class="hero-sub-tagline" data-tw="數十年專注於商業垃圾袋、自動拉繩袋、300% 工業棧板伸縮膜與高品質軟包裝，為全球 40+ 國品牌提供頂級 OEM/ODM 整櫃服務。" data-en="Decades of technical excellence in Extrusion, Star-Seal Can Liners, Draw-Tape Bags, Pre-Stretch Films, and Packaging for global partners.">
+        數十年專注於商業垃圾袋、自動拉繩袋、300% 工業棧板伸縮膜與高品質軟包裝，為全球 40+ 國品牌提供頂級 OEM/ODM 整櫃服務。
       </p>
 
       <div class="hero-btn-group">
@@ -453,8 +451,8 @@
     <div class="section-head">
       <span class="pill-badge" data-tw="CORE PRODUCT MATRIX" data-en="CORE PRODUCT MATRIX">CORE PRODUCT MATRIX</span>
       <h2 data-tw="四大核心外銷產品矩陣" data-en="Four Pillars of Flexible Packaging">四大核心外銷產品矩陣</h2>
-      <p data-tw="向下滑動即可體驗層層滾動堆疊卡片，深入查看物性規格、國際合規認證與技術細節。" data-en="Scroll to interact with sticky stacking showcases engineered for global procurement managers.">
-        向下滑動即可體驗層層滾動堆疊卡片，深入查看物性規格、國際合規認證與技術細節。
+      <p data-tw="向下滑動即可體驗層層滾動堆疊卡片，深入查看物性規格與技術細節。" data-en="Scroll to interact with sticky stacking showcases engineered for global procurement managers.">
+        向下滑動即可體驗層層滾動堆疊卡片，深入查看物性規格與技術細節。
       </p>
     </div>
 
@@ -471,7 +469,7 @@
           <div class="spec-pills-list">
             <span class="spec-pill"><i class="fa-solid fa-shield-halved"></i> Star Seal 防漏星封</span>
             <span class="spec-pill"><i class="fa-solid fa-box-archive"></i> 無芯捲裝 Coreless Roll</span>
-            <span class="spec-pill"><i class="fa-solid fa-recycle"></i> 20%-100% PCR 可選</span>
+            <span class="spec-pill"><i class="fa-solid fa-certificate"></i> ISO 9001 品質認證</span>
           </div>
           <a href="products/can-liners.html" class="card-btn-explore" data-tw="進入 Can Liners 專屬規格頁" data-en="Explore Can Liners Specs">
             <span data-tw="進入 Can Liners 專屬規格頁" data-en="Explore Can Liners Specs">進入 Can Liners 專屬規格頁</span> <i class="fa-solid fa-arrow-right"></i>
@@ -530,17 +528,17 @@
       <div class="stack-card">
         <div>
           <div class="card-num">04 / FOODSERVICE</div>
-          <h3 class="card-title-lg" data-tw="FDA 食品級包裝 <span>Foodservice Bags</span>" data-en="FDA Foodservice <span>Packaging Bags</span>">FDA 食品級包裝 <span>Foodservice Bags</span></h3>
-          <p class="card-desc-lg" data-tw="100% 符合美國 FDA 21 CFR 177.1520 食品接觸安全規範。提供高透明生鮮連捲袋、超市點斷袋與雙軌冷凍夾鏈袋。" data-en="100% FDA 21 CFR 177.1520 food-contact compliant. Produce rolls, header bags, and heavy-duty double-zipper freezer bags.">
-            100% 符合美國 FDA 21 CFR 177.1520 食品接觸安全規範。提供高透明生鮮連捲袋、超市點斷袋與雙軌冷凍夾鏈袋。
+          <h3 class="card-title-lg" data-tw="包裝袋與連捲袋 <span>Poly Bags</span>" data-en="Poly Bags & <span>Produce Rolls</span>">包裝袋與連捲袋 <span>Poly Bags</span></h3>
+          <p class="card-desc-lg" data-tw="採用高品質全新的聚乙烯塑料生產，提供高透明生鮮連捲袋、超市點斷袋與雙軌冷凍夾鏈袋。" data-en="High-clarity produce rolls, header bags, and heavy-duty double-zipper freezer bags manufactured with quality PE resin.">
+            採用高品質全新的聚乙烯塑料生產，提供高透明生鮮連捲袋、超市點斷袋與雙軌冷凍夾鏈袋。
           </p>
           <div class="spec-pills-list">
-            <span class="spec-pill"><i class="fa-solid fa-check-double"></i> FDA 食品級認證</span>
+            <span class="spec-pill"><i class="fa-solid fa-certificate"></i> ISO 9001 品質管控</span>
             <span class="spec-pill"><i class="fa-solid fa-apple-whole"></i> 生鮮連捲袋 Produce Roll</span>
             <span class="spec-pill"><i class="fa-solid fa-snowflake"></i> 雙軌冷凍密封夾鏈</span>
           </div>
-          <a href="products/foodservice.html" class="card-btn-explore" data-tw="進入 Foodservice 專屬規格頁" data-en="Explore Foodservice Specs">
-            <span data-tw="進入 Foodservice 專屬規格頁" data-en="Explore Foodservice Specs">進入 Foodservice 專屬規格頁</span> <i class="fa-solid fa-arrow-right"></i>
+          <a href="products/foodservice.html" class="card-btn-explore" data-tw="進入 Poly Bags 專屬規格頁" data-en="Explore Poly Bags Specs">
+            <span data-tw="進入 Poly Bags 專屬規格頁" data-en="Explore Poly Bags Specs">進入 Poly Bags 專屬規格頁</span> <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
         <div class="card-media-wrapper">
@@ -552,7 +550,7 @@
   </section>
 
   <!-- =========================================
-       4. 數據與實力標竿 Section (Live Enterprise Metrics)
+       4. 數據與實力標竿 Section (ISO 9001 Quality Metrics)
        ========================================= -->
   <section class="metrics-section">
     <div class="metrics-grid">
@@ -567,9 +565,9 @@
         <div class="metric-sub">Export Destination Countries</div>
       </div>
       <div class="metric-card">
-        <div class="metric-val">ISO/FDA</div>
-        <div class="metric-lbl" data-tw="品質與安全認證" data-en="Global Certifications">品質與安全認證</div>
-        <div class="metric-sub">ISO 9001 · FDA 21 CFR</div>
+        <div class="metric-val">ISO 9001</div>
+        <div class="metric-lbl" data-tw="品質管理系統認證" data-en="ISO 9001:2015 Certified">品質管理系統認證</div>
+        <div class="metric-sub">ISO 9001:2015 Quality System</div>
       </div>
       <div class="metric-card">
         <div class="metric-val">100%</div>
@@ -632,7 +630,7 @@
           外銷美洲、歐洲、日本與東南亞 40+ 國家。
         </p>
         <div style="font-weight: 700; color: var(--accent-azure); font-size: 0.9rem;">
-          <i class="fa-solid fa-globe"></i> ISO 9001 / FDA / BRCGS Certified
+          <i class="fa-solid fa-award"></i> ISO 9001:2015 品質管理系統認證
         </div>
       </div>
     </div>

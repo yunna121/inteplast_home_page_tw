@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>關於我們 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
-  <meta name="description" content="了解臺灣營德股份有限公司 (Inteplast Taiwan) 的企業歷史、自動化吹膜製造實力、國際品質認證 (ISO 9001, ISO 14001, FDA) 與全球外銷服務。">
+  <meta name="description" content="了解臺灣營德股份有限公司 (Inteplast Taiwan) 的企業歷史、自動化吹膜製造實力、ISO 9001:2015 品質管理系統認證與全球外銷服務。">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -26,6 +26,7 @@
       --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
       --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+      --shadow-mega: 0 30px 60px -12px rgba(10, 37, 64, 0.22);
       --radius-sm: 8px;
       --radius-md: 16px;
       --radius-lg: 24px;
@@ -36,95 +37,119 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--surface-white); line-height: 1.6; }
 
-    /* Header Navbar */
+    /* 集團頂樓列 */
+    .top-utility-bar {
+      background: var(--primary-navy); color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
+      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: relative; z-index: 1002;
+    }
+    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
+    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
+    .utility-left a:hover, .utility-right a:hover { color: var(--accent-azure); }
+    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
+
+    /* Navbar Header */
     .header {
-      position: fixed; top: 0; left: 0; width: 100%; padding: 14px 40px;
-      display: flex; justify-content: space-between; align-items: center;
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color); z-index: 1000;
+      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
+      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
     }
     .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-image { height: 40px; width: auto; }
-    .logo-text-tw { font-size: 1.05rem; font-weight: 700; color: var(--primary-navy); display: block; }
-    .logo-text-en { font-size: 0.72rem; font-weight: 600; color: var(--brand-blue); display: block; }
+    .logo-image { height: 40px; width: auto; object-fit: contain; }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
 
-    .header-center { display: flex; gap: 8px; }
-    .nav-link {
-      padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 600;
+    .nav-menu { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-item { position: relative; }
+    .nav-link-item {
+      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
       color: var(--text-main); text-decoration: none; transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
     }
-    .nav-link:hover, .nav-link.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
+    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
+    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
+    .nav-item:hover .caret-icon { transform: rotate(180deg); }
+
+    /* Mega Menu Panel */
+    .mega-menu-panel {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
+      width: 1080px; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-mega); padding: 32px;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100;
+    }
+    .nav-item:hover .mega-menu-panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
+    .mega-grid { display: grid; grid-template-columns: repeat(4, 1fr) 280px; gap: 24px; }
+    .mega-col-title { font-size: 0.88rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 8px; }
+    .mega-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .mega-links a { color: var(--text-main); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: var(--transition); display: flex; align-items: center; justify-content: space-between; }
+    .mega-links a:hover { color: var(--brand-blue); transform: translateX(4px); }
+    .mega-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+    .badge-hot { background: #FEE2E2; color: #EF4444; }
+    .badge-iso { background: #E0F2FE; color: #0284C7; }
+
+    .mega-feature-card { background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); border-radius: var(--radius-sm); padding: 24px; color: var(--surface-white); display: flex; flex-direction: column; justify-content: space-between; }
+    .mega-feature-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+    .mega-feature-desc { font-size: 0.82rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 16px; }
+    .mega-feature-btn { background: var(--surface-white); color: var(--primary-navy); padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 800; text-decoration: none; text-align: center; transition: var(--transition); }
+    .mega-feature-btn:hover { background: var(--accent-azure); color: var(--surface-white); }
 
     .header-right { display: flex; align-items: center; gap: 12px; }
-    .lang-toggle {
-      background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px;
-      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);
-      cursor: pointer; transition: var(--transition);
-    }
-    .rfq-btn {
-      background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white);
-      padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700;
-      text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
-    }
+    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
+    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
 
     /* Page Hero */
-    .page-hero {
-      padding: 150px 40px 80px;
-      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
-      color: var(--surface-white); text-align: center; position: relative;
-    }
+    .page-hero { padding: 160px 40px 80px; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white); text-align: center; }
     .page-hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 16px; }
     .page-hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: rgba(255,255,255,0.85); }
 
-    /* Content Sections */
     .section { padding: 90px 40px; }
     .container { max-width: 1200px; margin: 0 auto; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-
-    .badge {
-      display: inline-block; padding: 6px 14px; background: rgba(0,82,155,0.1); color: var(--brand-blue);
-      border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px;
-    }
+    .badge { display: inline-block; padding: 6px 14px; background: rgba(0,82,155,0.1); color: var(--brand-blue); border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; }
     .title { font-size: 2rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 16px; }
     .desc { font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
 
-    .img-card { width: 100%; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); }
-    .img-card img { width: 100%; height: 100%; object-fit: cover; }
-
-    /* Timeline & Stats */
-    .stats-row {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 50px;
-      background: var(--bg-light); padding: 40px; border-radius: var(--radius-md); border: 1px solid var(--border-color);
-    }
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 50px; background: var(--bg-light); padding: 40px; border-radius: var(--radius-md); border: 1px solid var(--border-color); }
     .stat-item { text-align: center; }
     .stat-val { font-size: 2.4rem; font-weight: 900; color: var(--brand-blue); line-height: 1.1; margin-bottom: 6px; }
     .stat-lbl { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); }
 
-    /* Certifications Grid */
-    .cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; }
-    .cert-card {
-      background: var(--surface-white); border: 1px solid var(--border-color); padding: 30px 20px;
-      border-radius: var(--radius-md); text-align: center; box-shadow: var(--shadow-sm); transition: var(--transition);
-    }
+    .cert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 40px; }
+    .cert-card { background: var(--surface-white); border: 1px solid var(--border-color); padding: 36px 28px; border-radius: var(--radius-md); text-align: center; box-shadow: var(--shadow-sm); transition: var(--transition); }
     .cert-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--brand-blue); }
-    .cert-icon { font-size: 2.5rem; color: var(--brand-blue); margin-bottom: 16px; }
-    .cert-name { font-size: 1.1rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 6px; }
-    .cert-desc { font-size: 0.85rem; color: var(--text-muted); }
+    .cert-icon { font-size: 2.8rem; color: var(--brand-blue); margin-bottom: 16px; }
 
-    /* Footer */
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
+      .mega-menu-panel, .top-utility-bar { display: none; }
+      .header { top: 0; }
       .grid-2 { grid-template-columns: 1fr; }
-      .stats-row, .cert-grid { grid-template-columns: 1fr 1fr; }
-      .header-center { display: none; }
+      .stats-row, .cert-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Top Utility Bar -->
+  <div class="top-utility-bar">
+    <div class="utility-left">
+      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
+      <a href="#"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
+      <a href="#">USA Division 北美總部</a>
+      <a href="#">Europe Division 歐洲據點</a>
+    </div>
+    <div class="utility-right">
+      <a href="about.html" data-tw="投資人專區" data-en="Investor Relations"><i class="fa-solid fa-chart-line"></i> 投資人專區</a>
+      <a href="sustainability.html" data-tw="ESG 永續報告" data-en="ESG Report"><i class="fa-solid fa-leaf"></i> ESG 永續報告</a>
+      <a href="contact.html" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
+      <a href="contact.html" data-tw="客戶專屬登入" data-en="Client Portal"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a>
+    </div>
+  </div>
+
+  <!-- Header & Mega Menu -->
   <header class="header">
     <a href="index.html" class="header-logo">
       <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
@@ -134,13 +159,80 @@
       </div>
     </a>
     
-    <div class="header-center">
-      <a href="index.html" class="nav-link" data-tw="首頁" data-en="Home">首頁</a>
-      <a href="about.html" class="nav-link active" data-tw="關於營德" data-en="About Us">關於營德</a>
-      <a href="products/index.html" class="nav-link" data-tw="產品中心" data-en="Products">產品中心</a>
-      <a href="sustainability.html" class="nav-link" data-tw="永續 ESG" data-en="ESG">永續 ESG</a>
-      <a href="contact.html" class="nav-link" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a>
-    </div>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="about.html" class="nav-link-item active" data-tw="關於營德" data-en="About Us">關於營德 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel" style="width: 800px;">
+          <div class="mega-grid" style="grid-template-columns: 1fr 1fr 260px;">
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-building"></i> 企業規模與願景</div>
+              <ul class="mega-links">
+                <li><a href="about.html" data-tw="集團簡介與經營理念" data-en="Corporate Overview">集團簡介與經營理念</a></li>
+                <li><a href="about.html" data-tw="全球 40+ 國外銷佈局" data-en="Global Export Reach">全球 40+ 國外銷佈局</a></li>
+                <li><a href="about.html" data-tw="自動化吹膜與封切機台" data-en="Advanced Extrusion Lines">自動化吹膜與封切機台</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-award"></i> 品質與國際認證</div>
+              <ul class="mega-links">
+                <li><a href="about.html">ISO 9001:2015 品質管理認證 <span class="mega-badge badge-iso">ISO 9001</span></a></li>
+                <li><a href="about.html">嚴格標準品管與抗穿刺測試</a></li>
+              </ul>
+            </div>
+            <div class="mega-feature-card">
+              <div class="mega-feature-title" data-tw="30+ 年吹膜外銷經驗" data-en="30+ Years OEM Experience">30+ 年吹膜外銷經驗</div>
+              <div class="mega-feature-desc" data-tw="每日 500+ 噸噸級產能，國際頂尖品牌與超市通路之指定製造商。" data-en="Daily 500+ tons capacity. Premier packaging partner for global Fortune 500 brands.">每日 500+ 噸噸級產能，國際頂尖品牌與超市通路之指定製造商。</div>
+              <a href="about.html" class="mega-feature-btn" data-tw="了解製造設備" data-en="Explore Facilities">了解製造設備</a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel">
+          <div class="mega-grid">
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-dumpster"></i> Can Liners 垃圾袋</div>
+              <ul class="mega-links">
+                <li><a href="products/can-liners.html" data-tw="商業/工業重載垃圾袋" data-en="Commercial Can Liners">商業/工業重載垃圾袋 <span class="mega-badge badge-hot">HOT</span></a></li>
+                <li><a href="products/can-liners.html" data-tw="Star Seal 防漏星封內袋" data-en="Star Seal Liners">Star Seal 防漏星封內袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-ribbon"></i> Draw-Tape 拉繩袋</div>
+              <ul class="mega-links">
+                <li><a href="products/draw-tape.html" data-tw="自動拉繩垃圾袋" data-en="Draw-Tape Trash Bags">自動拉繩垃圾袋 <span class="mega-badge badge-hot">BEST</span></a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-scroll"></i> Stretch Films 薄膜</div>
+              <ul class="mega-links">
+                <li><a href="products/stretch-films.html" data-tw="300% 預拉伸棧板膜" data-en="300% Pre-Stretch Film">300% 預拉伸棧板膜</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title"><i class="fa-solid fa-bag-shopping"></i> 包裝袋</div>
+              <ul class="mega-links">
+                <li><a href="products/foodservice.html" data-tw="高透明連捲生鮮袋" data-en="Produce Rolls">高透明連捲生鮮袋</a></li>
+              </ul>
+            </div>
+            <div class="mega-feature-card">
+              <div class="mega-feature-title" data-tw="全客製化 OEM/ODM" data-en="100% Custom OEM/ODM">全客製化 OEM/ODM</div>
+              <a href="contact.html" class="mega-feature-btn" data-tw="發起 RFQ 詢價" data-en="Start RFQ">發起 RFQ 詢價</a>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a href="sustainability.html" class="nav-link-item" data-tw="永續 ESG" data-en="ESG">永續 ESG <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+      </li>
+
+      <li class="nav-item">
+        <a href="contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a>
+      </li>
+    </ul>
 
     <div class="header-right">
       <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
@@ -151,8 +243,8 @@
   <!-- Page Hero -->
   <section class="page-hero">
     <h1 data-tw="關於臺灣營德 | 卓越的包裝與薄膜製造者" data-en="About Inteplast Taiwan Corporation">關於臺灣營德 | 卓越的包裝與薄膜製造者</h1>
-    <p data-tw="數十年深耕塑膠吹膜加工與全球外銷市場，以頂尖設備、嚴格品質控管與綠色永續引領行業標竿。" data-en="Decades of innovation in extrusion processing, delivering high-performance flexible packaging to global markets.">
-      數十年深耕塑膠吹膜加工與全球外銷市場，以頂尖設備、嚴格品質控管與綠色永續引領行業標竿。
+    <p data-tw="數十年深耕塑膠吹膜加工與全球外銷市場，通過 ISO 9001:2015 認證，以頂尖設備與嚴格品質控管引領行業標竿。" data-en="Decades of innovation in extrusion processing, ISO 9001 certified quality management, delivering high-performance flexible packaging.">
+      數十年深耕塑膠吹膜加工與全球外銷市場，通過 ISO 9001:2015 認證，以頂尖設備與嚴格品質控管引領行業標竿。
     </p>
   </section>
 
@@ -163,15 +255,12 @@
         <div>
           <span class="badge" data-tw="OUR HERITAGE" data-en="OUR HERITAGE">OUR HERITAGE</span>
           <h2 class="title" data-tw="全球包裝材料領導品牌合作夥伴" data-en="Global Leader in Packaging & Films">全球包裝材料領導品牌合作夥伴</h2>
-          <p class="desc" data-tw="臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 為國際包裝材料大廠 Inteplast Group 之重要外銷夥伴。我們擁有專業的吹膜、印刷、裁切與封口技術，產品涵蓋垃圾袋 (Can Liners)、自動拉繩袋 (Draw-Tape Bags)、工業棧板伸縮膜 (Stretch Films & Sheeting) 以及食品級包裝袋。" data-en="Inteplast Taiwan Corporation is a premier manufacturer specializing in blown film extrusion, flexographic printing, and bag converting. Our products serve commercial, industrial, and retail export markets worldwide.">
-            臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 為國際包裝材料大廠 Inteplast Group 之重要外銷夥伴。我們擁有專業的吹膜、印刷、裁切與封口技術，產品涵蓋垃圾袋 (Can Liners)、自動拉繩袋 (Draw-Tape Bags)、工業棧板伸縮膜 (Stretch Films & Sheeting) 以及食品級包裝袋。
-          </p>
-          <p class="desc" data-tw="我們的生產基地配備數十條自動化多層共擠吹膜產線與 QC 檢驗實驗室，產品廣銷北美、歐洲、日本與東南亞等 40 多個國家。" data-en="Equipped with advanced multi-layer co-extrusion blown film lines, our facilities ensure rigorous QA/QC testing and deliver reliable volume to 40+ export markets.">
-            我們的生產基地配備數十條自動化多層共擠吹膜產線與 QC 檢驗實驗室，產品廣銷北美、歐洲、日本與東南亞等 40 多個國家。
+          <p class="desc" data-tw="臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 為國際包裝材料大廠 Inteplast Group 之重要外銷夥伴。我們擁有專業的吹膜、印刷、裁切與封口技術，產品涵蓋垃圾袋 (Can Liners)、自動拉繩袋 (Draw-Tape Bags)、工業棧板伸縮膜 (Stretch Films & Sheeting) 以及包裝袋。" data-en="Inteplast Taiwan Corporation is a premier manufacturer specializing in blown film extrusion, flexographic printing, and bag converting. Our products serve commercial, industrial, and retail export markets worldwide.">
+            臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 為國際包裝材料大廠 Inteplast Group 之重要外銷夥伴。我們擁有專業的吹膜、印刷、裁切與封口技術，產品涵蓋垃圾袋 (Can Liners)、自動拉繩袋 (Draw-Tape Bags)、工業棧板伸縮膜 (Stretch Films & Sheeting) 以及包裝袋。
           </p>
         </div>
-        <div class="img-card">
-          <img src="./src/stretch-films-machine-films-hero.jpg" alt="Inteplast Manufacturing Plant">
+        <div style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg);">
+          <img src="./src/stretch-films-machine-films-hero.jpg" alt="Inteplast Plant" style="width:100%; display:block;">
         </div>
       </div>
 
@@ -189,64 +278,35 @@
           <div class="stat-lbl" data-tw="年製造經驗 (Years OEM)" data-en="Years OEM Experience">年製造經驗 (Years OEM)</div>
         </div>
         <div class="stat-item">
-          <div class="stat-val">100%</div>
-          <div class="stat-lbl" data-tw="廠內廢料循環利用 (Scrap Recycled)" data-en="In-house Scrap Recycled">廠內廢料循環利用 (Scrap Recycled)</div>
+          <div class="stat-val">ISO 9001</div>
+          <div class="stat-lbl" data-tw="品質管理認證 (Quality Certified)" data-en="Quality Management System">品質管理認證 (Quality Certified)</div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Certifications Wall Section -->
-  <section class="section" style="background: var(--bg-light);">
-    <div class="container">
-      <div style="text-align: center; margin-bottom: 50px;">
-        <span class="badge" data-tw="QUALITY ASSURANCE" data-en="QUALITY ASSURANCE">QUALITY ASSURANCE</span>
-        <h2 class="title" data-tw="國際品質與安全認證牆" data-en="Global Quality Certifications">國際品質與安全認證牆</h2>
-        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;" data-tw="我們實施嚴格的 ISO 管理體系與食品安全標準，為國際買家提供合規可靠的產品保障。" data-en="Strict compliance with global quality management systems and food contact regulations.">
-          我們實施嚴格的 ISO 管理體系與食品安全標準，為國際買家提供合規可靠的產品保障。
-        </p>
-      </div>
-
+      <h2 style="text-align: center; margin-top: 70px; font-size: 1.8rem; color: var(--primary-navy);" data-tw="國際品質管理體系" data-en="Quality Management Certificate">國際品質管理體系</h2>
       <div class="cert-grid">
         <div class="cert-card">
           <i class="fa-solid fa-award cert-icon"></i>
-          <div class="cert-name">ISO 9001:2015</div>
-          <div class="cert-desc" data-tw="品質管理體系國際認證" data-en="Quality Management System">品質管理體系國際認證</div>
+          <div style="font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 8px;">ISO 9001:2015</div>
+          <div style="font-size: 0.95rem; color: var(--text-muted);" data-tw="國際品質管理體系認證，確保產品物性強度、封口密合度與厚度控制精確穩定。" data-en="ISO 9001:2015 Quality Management System Certification ensuring consistent tensile strength and precise gauge control.">
+            國際品質管理體系認證，確保產品物性強度、封口密合度與厚度控制精確穩定。
+          </div>
         </div>
 
         <div class="cert-card">
-          <i class="fa-solid fa-leaf cert-icon" style="color: var(--accent-emerald);"></i>
-          <div class="cert-name">ISO 14001:2015</div>
-          <div class="cert-desc" data-tw="環境管理體系國際認證" data-en="Environmental Management">環境管理體系國際認證</div>
-        </div>
-
-        <div class="cert-card">
-          <i class="fa-solid fa-utensils cert-icon" style="color: var(--accent-azure);"></i>
-          <div class="cert-name">FDA 21 CFR Compliant</div>
-          <div class="cert-desc" data-tw="美國 FDA 食品接觸級安全認證" data-en="US FDA Food Contact Safety">美國 FDA 食品接觸級安全認證</div>
-        </div>
-
-        <div class="cert-card">
-          <i class="fa-solid fa-shield-halved cert-icon" style="color: var(--brand-blue);"></i>
-          <div class="cert-name">BRCGS Packaging</div>
-          <div class="cert-desc" data-tw="全球食品安全包裝材料標準" data-en="Global Packaging Materials Standard">全球食品安全包裝材料標準</div>
+          <i class="fa-solid fa-shield-halved cert-icon"></i>
+          <div style="font-size: 1.3rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 8px;" data-tw="廠內標準物性測試" data-en="Strict QC Physical Testing">廠內標準物性測試</div>
+          <div style="font-size: 0.95rem; color: var(--text-muted);" data-tw="包含落球衝擊測試 (Dart Drop)、抗張拉力測試與抗穿刺物理檢驗，保障出貨最高品質。" data-en="Comprehensive dart drop impact testing, tensile strength testing, and puncture resistance verification on all batches.">
+            包含落球衝擊測試 (Dart Drop)、抗張拉力測試與抗穿刺物理檢驗，保障出貨最高品質。
+          </div>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-        <div>
-          <h3 style="color: white; margin-bottom: 6px;">臺灣營德股份有限公司 INTEPLAST TAIWAN</h3>
-          <p>地址: 台北市敦化北路 | 電話: +886-2-2717-5566 | Email: sales@inteplast.com.tw</p>
-        </div>
-        <div>
-          <a href="contact.html" class="rfq-btn" data-tw="聯繫外銷團隊" data-en="Contact Sales Team">聯繫外銷團隊</a>
-        </div>
-      </div>
       <div class="footer-bottom">
         © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
       </div>
