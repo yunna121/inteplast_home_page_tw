@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>線上詢價與聯繫我們 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
   <meta name="description" content="立即聯繫臺灣營德外銷團隊，獲取垃圾袋、拉繩袋、工業伸縮薄膜與食品包裝的最新 RFQ 詢價單與客製化 OEM/ODM 報價。">
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -33,101 +36,303 @@
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--bg-light); line-height: 1.6; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      color: var(--text-main);
+      background: var(--bg-light);
+      line-height: 1.6;
+    }
 
     /* Header Navbar */
     .header {
-      position: fixed; top: 0; left: 0; width: 100%; padding: 14px 40px;
-      display: flex; justify-content: space-between; align-items: center;
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color); z-index: 1000;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 14px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
     }
-    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-image { height: 40px; width: auto; }
-    .logo-text-tw { font-size: 1.05rem; font-weight: 700; color: var(--primary-navy); display: block; }
-    .logo-text-en { font-size: 0.72rem; font-weight: 600; color: var(--brand-blue); display: block; }
 
-    .header-center { display: flex; gap: 8px; }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .logo-image {
+      height: 40px;
+      width: auto;
+    }
+
+    .logo-text-tw {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-navy);
+      display: block;
+    }
+
+    .logo-text-en {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--brand-blue);
+      display: block;
+    }
+
+    .header-center {
+      display: flex;
+      gap: 8px;
+    }
+
     .nav-link {
-      padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 600;
-      color: var(--text-main); text-decoration: none; transition: var(--transition);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: var(--transition);
     }
-    .nav-link:hover, .nav-link.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
 
-    .header-right { display: flex; align-items: center; gap: 12px; }
+    .nav-link:hover,
+    .nav-link.active {
+      background: rgba(0, 82, 155, 0.08);
+      color: var(--brand-blue);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .lang-toggle {
-      background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px;
-      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);
-      cursor: pointer; transition: var(--transition);
+      background: var(--surface-white);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-navy);
+      cursor: pointer;
+      transition: var(--transition);
     }
 
     /* Page Hero */
     .page-hero {
       padding: 140px 40px 60px;
       background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
-      color: var(--surface-white); text-align: center;
+      color: var(--surface-white);
+      text-align: center;
     }
-    .page-hero h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 12px; }
-    .page-hero p { font-size: 1.05rem; max-width: 650px; margin: 0 auto; color: rgba(255,255,255,0.85); }
 
-    .section { padding: 70px 40px; }
-    .container { max-width: 1200px; margin: 0 auto; }
+    .page-hero h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem;
+      max-width: 650px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .section {
+      padding: 70px 40px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
     .contact-card-wrapper {
-      background: var(--surface-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border-color); overflow: hidden; display: grid; grid-template-columns: 1fr 1.3fr;
+      background: var(--surface-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
     }
 
     .contact-info-panel {
-      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white);
-      padding: 50px 40px; display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .info-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; }
-    .info-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
-    .info-icon {
-      width: 42px; height: 42px; background: rgba(255,255,255,0.15); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--accent-azure); flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
+      color: var(--surface-white);
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .rfq-form-panel { padding: 50px 40px; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .form-group { display: flex; flex-direction: column; gap: 8px; }
-    .form-group.full { grid-column: span 2; }
-    .form-label { font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); }
-    .form-input, .form-select, .form-textarea {
-      width: 100%; padding: 12px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-sm);
-      font-size: 0.92rem; font-family: inherit; transition: var(--transition); background: var(--bg-light);
+    .info-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 12px;
     }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      outline: none; border-color: var(--brand-blue); background: var(--surface-white); box-shadow: 0 0 0 3px rgba(0, 82, 155, 0.15);
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .info-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--accent-azure);
+      flex-shrink: 0;
+    }
+
+    .rfq-form-panel {
+      padding: 50px 40px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group.full {
+      grid-column: span 2;
+    }
+
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-navy);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      font-family: inherit;
+      transition: var(--transition);
+      background: var(--bg-light);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--brand-blue);
+      background: var(--surface-white);
+      box-shadow: 0 0 0 3px rgba(0, 82, 155, 0.15);
     }
 
     .submit-btn {
-      background: var(--brand-blue); color: var(--surface-white); border: none; padding: 14px 28px;
-      border-radius: var(--radius-sm); font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition);
-      width: 100%; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--brand-blue);
+      color: var(--surface-white);
+      border: none;
+      padding: 14px 28px;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
-    .submit-btn:hover { background: var(--brand-blue-hover); box-shadow: 0 6px 18px rgba(0, 82, 155, 0.35); }
+
+    .submit-btn:hover {
+      background: var(--brand-blue-hover);
+      box-shadow: 0 6px 18px rgba(0, 82, 155, 0.35);
+    }
 
     .toast {
-      position: fixed; bottom: 30px; right: 30px; background: var(--primary-navy); color: var(--surface-white);
-      padding: 16px 24px; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); display: flex; align-items: center;
-      gap: 12px; z-index: 2000; transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary-navy);
+      color: var(--surface-white);
+      padding: 16px 24px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .toast.show { transform: translateY(0); opacity: 1; }
 
-    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .footer {
+      background: var(--primary-navy);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 60px 40px 30px;
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 40px;
+      padding-top: 20px;
+      text-align: center;
+    }
 
     @media (max-width: 900px) {
-      .contact-card-wrapper { grid-template-columns: 1fr; }
-      .form-grid { grid-template-columns: 1fr; }
-      .form-group.full { grid-column: span 1; }
-      .header-center { display: none; }
+      .contact-card-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: span 1;
+      }
+
+      .header-center {
+        display: none;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <header class="header">
@@ -138,7 +343,7 @@
         <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
       </div>
     </a>
-    
+
     <div class="header-center">
       <a href="index.html" class="nav-link" data-tw="首頁" data-en="Home">首頁</a>
       <a href="about.html" class="nav-link" data-tw="關於營德" data-en="About Us">關於營德</a>
@@ -154,7 +359,8 @@
 
   <section class="page-hero">
     <h1 data-tw="聯繫外銷團隊與線上詢價" data-en="Global Sales Contact & RFQ">聯繫外銷團隊與線上詢價</h1>
-    <p data-tw="歡迎全球買家、通路商與 OEM 夥伴聯繫。我們將由專屬業務專員於 24 小時內為您服務。" data-en="Submit your product specs and order quantities. Our export specialists will respond within 24 hours.">
+    <p data-tw="歡迎全球買家、通路商與 OEM 夥伴聯繫。我們將由專屬業務專員於 24 小時內為您服務。"
+      data-en="Submit your product specs and order quantities. Our export specialists will respond within 24 hours.">
       歡迎全球買家、通路商與 OEM 夥伴聯繫。我們將由專屬業務專員於 24 小時內為您服務。
     </p>
   </section>
@@ -162,35 +368,43 @@
   <section class="section">
     <div class="container">
       <div class="contact-card-wrapper">
-        
+
         <div class="contact-info-panel">
           <div>
             <h3 class="info-title" data-tw="台灣總公司與外銷處" data-en="Taiwan HQ & Export Dept.">台灣總公司與外銷處</h3>
-            <p style="font-size: 0.95rem; color: rgba(255,255,255,0.85); margin-bottom: 30px;" data-tw="提供國際貿易、樣品寄送、FCL 整櫃報價與客製化標籤印刷討論。" data-en="Handling international trade, sample requests, FCL freight quotes, and OEM label customization.">
+            <p style="font-size: 0.95rem; color: rgba(255,255,255,0.85); margin-bottom: 30px;"
+              data-tw="提供國際貿易、樣品寄送、FCL 整櫃報價與客製化標籤印刷討論。"
+              data-en="Handling international trade, sample requests, FCL freight quotes, and OEM label customization.">
               提供國際貿易、樣品寄送、FCL 整櫃報價與客製化標籤印刷討論。
             </p>
 
             <div class="info-item">
               <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
               <div>
-                <h4 style="color: rgba(255,255,255,0.7); font-size: 0.85rem;" data-tw="總公司與廠址 Address" data-en="Address">總公司與廠址 Address</h4>
-                <p style="font-weight: 700;">臺灣營德股份有限公司 (Inteplast Taiwan Corporation)</p>
+                <h4 style="color: rgba(255,255,255,0.7); font-size: 0.85rem;" data-tw="總公司與廠址 Address"
+                  data-en="Address">總公司與廠址 Address</h4>
+                <p style="font-weight: 700;">臺灣營德股份有限公司<br>(Inteplast Taiwan
+                  Corporation)<br>臺北市松山區敦化北路205號6樓609室<br>6F., No. 205, Dunhua N. Rd., Songshan Dist., Taipei City,
+                  Taiwan (R.O.C.)
+                <p>
               </div>
             </div>
 
             <div class="info-item">
               <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
               <div>
-                <h4 style="color: rgba(255,255,255,0.7); font-size: 0.85rem;" data-tw="電話 Tel" data-en="Telephone">電話 Tel</h4>
-                <p style="font-weight: 700;">+886-2-2717-5566</p>
+                <h4 style="color: rgba(255,255,255,0.7); font-size: 0.85rem;" data-tw="電話 Tel" data-en="Telephone">電話
+                  Tel</h4>
+                <p style="font-weight: 700;">+886-2-2717-8109</p>
               </div>
             </div>
 
             <div class="info-item">
               <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
               <div>
-                <h4 style="color: rgba(255,255,255,0.7); font-size: 0.85rem;" data-tw="電子郵件 Email" data-en="Email Address">電子郵件 Email</h4>
-                <p style="font-weight: 700;">sales@inteplast.com.tw</p>
+                <h4 style="color: rgba(255,255,255,0.7); font-size: 0.85rem;" data-tw="電子郵件 Email"
+                  data-en="Email Address">電子郵件 Email</h4>
+                <p style="font-weight: 700;">yuping86@fpc.com.tw</p>
               </div>
             </div>
           </div>
@@ -201,8 +415,9 @@
         </div>
 
         <div class="rfq-form-panel">
-          <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 20px;" data-tw="線上詢價單 (RFQ Form)" data-en="Request For Quotation Form">線上詢價單 (RFQ Form)</h3>
-          
+          <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 20px;"
+            data-tw="線上詢價單 (RFQ Form)" data-en="Request For Quotation Form">線上詢價單 (RFQ Form)</h3>
+
           <form id="rfqForm" onsubmit="handleRfqSubmit(event)">
             <div class="form-grid">
               <div class="form-group">
@@ -211,24 +426,29 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label" data-tw="公司名稱 Company Name *" data-en="Company Name *">公司名稱 Company Name *</label>
+                <label class="form-label" data-tw="公司名稱 Company Name *" data-en="Company Name *">公司名稱 Company Name
+                  *</label>
                 <input type="text" class="form-input" placeholder="e.g. Apex Packaging Corp." required>
               </div>
 
               <div class="form-group">
-                <label class="form-label" data-tw="電子郵件 Business Email *" data-en="Business Email *">電子郵件 Business Email *</label>
+                <label class="form-label" data-tw="電子郵件 Business Email *" data-en="Business Email *">電子郵件 Business Email
+                  *</label>
                 <input type="email" class="form-input" placeholder="name@company.com" required>
               </div>
 
               <div class="form-group">
-                <label class="form-label" data-tw="國家 / 出口港口 Country/Port" data-en="Country / Port">國家 / 出口港口 Country/Port</label>
+                <label class="form-label" data-tw="國家 / 出口港口 Country/Port" data-en="Country / Port">國家 / 出口港口
+                  Country/Port</label>
                 <input type="text" class="form-input" placeholder="e.g. Hamburg, Germany">
               </div>
 
               <div class="form-group full">
-                <label class="form-label" data-tw="詢價產品類別 Product Category *" data-en="Product Category *">詢價產品類別 Product Category *</label>
+                <label class="form-label" data-tw="詢價產品類別 Product Category *" data-en="Product Category *">詢價產品類別
+                  Product Category *</label>
                 <select class="form-select" required>
-                  <option value="" disabled selected data-tw="-- 請選擇詢價類別 --" data-en="-- Select Category --">-- 請選擇詢價類別 --</option>
+                  <option value="" disabled selected data-tw="-- 請選擇詢價類別 --" data-en="-- Select Category --">-- 請選擇詢價類別
+                    --</option>
                   <option value="can-liners">商業與工業垃圾袋 Can Liners</option>
                   <option value="draw-tape">自動拉繩垃圾袋 Draw-Tape Bags</option>
                   <option value="stretch-films">工業棧板伸縮膜 Stretch Films</option>
@@ -238,12 +458,15 @@
               </div>
 
               <div class="form-group full">
-                <label class="form-label" data-tw="規格需求描述 (尺寸/厚度/預計採購量)" data-en="Specifications & Order Volume">規格需求描述 (尺寸/厚度/預計採購量)</label>
-                <textarea class="form-textarea" placeholder="請填寫所需的尺寸 (Size)、厚度 (Gauge/Micron)、印刷或採購數量 (貨櫃數 FCL)..."></textarea>
+                <label class="form-label" data-tw="規格需求描述 (尺寸/厚度/預計採購量)" data-en="Specifications & Order Volume">規格需求描述
+                  (尺寸/厚度/預計採購量)</label>
+                <textarea class="form-textarea"
+                  placeholder="請填寫所需的尺寸 (Size)、厚度 (Gauge/Micron)、印刷或採購數量 (貨櫃數 FCL)..."></textarea>
               </div>
             </div>
 
-            <button type="submit" class="submit-btn" data-tw="送出 RFQ 詢價單" data-en="Submit Request For Quotation"><i class="fa-solid fa-paper-plane"></i> 送出 RFQ 詢價單</button>
+            <button type="submit" class="submit-btn" data-tw="送出 RFQ 詢價單" data-en="Submit Request For Quotation"><i
+                class="fa-solid fa-paper-plane"></i> 送出 RFQ 詢價單</button>
           </form>
         </div>
 
@@ -301,4 +524,5 @@
     }
   </script>
 </body>
+
 </html>

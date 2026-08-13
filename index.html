@@ -114,10 +114,53 @@
       color: var(--text-main); text-align: center; padding: 80px 20px 40px;
     }
 
-    .center-logo { display: flex; flex-direction: column; align-items: center; margin-bottom: 24px; }
-    .center-logo-image { width: 120px; height: auto; margin-bottom: 16px; filter: drop-shadow(0 4px 8px rgba(0, 82, 155, 0.15)); }
-    .center-logo-tw { font-size: 2.5rem; font-weight: 900; color: var(--primary-navy); letter-spacing: 1px; line-height: 1.2; }
-    .center-logo-en { font-size: 1.25rem; font-weight: 600; color: var(--brand-blue); letter-spacing: 1px; margin-top: 6px; }
+    .center-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      padding: 22px 40px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 45px -15px rgba(10, 37, 64, 0.12);
+      margin-bottom: 28px;
+      transition: var(--transition);
+    }
+    .center-logo:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 25px 50px -12px rgba(0, 82, 155, 0.2);
+    }
+    .center-logo-image {
+      width: 76px;
+      height: auto;
+      filter: drop-shadow(0 4px 8px rgba(0, 82, 155, 0.15));
+    }
+    .logo-divider {
+      width: 2px;
+      height: 50px;
+      background: linear-gradient(180deg, rgba(0, 82, 155, 0.1), rgba(0, 82, 155, 0.4), rgba(0, 82, 155, 0.1));
+    }
+    .center-logo-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .center-logo-tw {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: var(--primary-navy);
+      letter-spacing: 1.5px;
+      line-height: 1.2;
+    }
+    .center-logo-en {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--brand-blue);
+      letter-spacing: 1.5px;
+      margin-top: 4px;
+    }
 
     .hero-tagline { font-size: 1.15rem; color: var(--text-muted); max-width: 650px; margin-bottom: 30px; font-weight: 500; }
     .hero-product-card {
@@ -226,6 +269,7 @@
     <div class="content-box">
       <div class="center-logo">
         <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="center-logo-image">
+        <div class="logo-divider"></div>
         <div class="center-logo-text">
           <span class="center-logo-tw" data-tw="臺灣營德股份有限公司" data-en="INTEPLAST TAIWAN CORPORATION">臺灣營德股份有限公司</span>
           <span class="center-logo-en" data-tw="INTEPLAST TAIWAN CORPORATION" data-en="Global Packaging & Industrial Film Leader">INTEPLAST TAIWAN CORPORATION</span>
