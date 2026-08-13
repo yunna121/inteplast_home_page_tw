@@ -3,68 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>永續發展與邊角料回收 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
-  <meta name="description" content="了解臺灣營德的永續發展計畫：廠內生產邊角料 100% 造粒回收再利用，達成廠內零廢棄閉環生產。">
+  <title>永續發展 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
+  <meta name="description" content="了解臺灣營德的綠色永續發展計畫：廠內生產邊角料與廢膜 100% 閉環粉碎造粒回收再利用，實踐綠色零廢棄生產。">
   
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
       --primary-navy: #0A2540;
       --brand-blue: #00529B;
-      --accent-emerald: #10B981;
-      --accent-azure: #00A8FF;
-      --bg-light: #F8FAFC;
+      --emerald-dark: #022c22;
+      --emerald-mid: #065f46;
+      --emerald-light: #10B981;
+      --emerald-glow: #34D399;
+      --bg-dark: #061A14;
+      --bg-light: #F0FDF4;
       --surface-white: #FFFFFF;
       --text-main: #1E293B;
       --text-muted: #64748B;
       --border-color: #E2E8F0;
       --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
-      --shadow-mega: 0 30px 60px -12px rgba(10, 37, 64, 0.22);
+      --shadow-lg: 0 20px 40px -15px rgba(2, 44, 34, 0.25);
+      --shadow-mega: 0 30px 60px -12px rgba(2, 44, 34, 0.35);
       --radius-sm: 8px;
       --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
       --radius-full: 9999px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--surface-white); line-height: 1.6; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #04120D; line-height: 1.6; }
 
     /* Top Utility Bar */
     .top-utility-bar {
-      background: var(--primary-navy); color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
+      background: #02140E; color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
       padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: relative; z-index: 1002;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: relative; z-index: 1002;
     }
     .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
     .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
-    .utility-left a:hover, .utility-right a:hover { color: var(--accent-azure); }
-    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
+    .utility-left a:hover, .utility-right a:hover { color: var(--emerald-glow); }
+    .region-badge { background: rgba(52, 211, 153, 0.18); color: var(--emerald-glow); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
 
-    /* Navbar Header */
+    /* Header Navbar */
     .header {
       position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
       display: flex; justify-content: space-between; align-items: center; z-index: 1000;
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
+      background: rgba(4, 18, 13, 0.85); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12); box-shadow: var(--shadow-sm); transition: var(--transition);
     }
     .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-image { height: 40px; width: auto; object-fit: contain; }
-    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
-    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
+    .logo-image { height: 40px; width: auto; object-fit: contain; filter: brightness(0) invert(1); }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: #FFFFFF; display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--emerald-glow); display: block; }
 
     .nav-menu { display: flex; align-items: center; gap: 4px; list-style: none; }
     .nav-item { position: relative; }
     .nav-link-item {
       padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
-      color: var(--text-main); text-decoration: none; transition: var(--transition);
+      color: rgba(255, 255, 255, 0.9); text-decoration: none; transition: var(--transition);
       display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
     }
-    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); }
+    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(52, 211, 153, 0.15); color: var(--emerald-glow); }
     .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
     .nav-item:hover .caret-icon { transform: rotate(180deg); }
 
@@ -73,7 +80,7 @@
       position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
       width: 1080px; background: var(--surface-white); border: 1px solid var(--border-color);
       border-radius: var(--radius-md); box-shadow: var(--shadow-mega); padding: 32px;
-      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
     }
     .nav-item:hover .mega-menu-panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
     .mega-grid { display: grid; grid-template-columns: repeat(4, 1fr) 280px; gap: 24px; }
@@ -90,33 +97,86 @@
     .mega-feature-btn { background: var(--surface-white); color: var(--primary-navy); padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 800; text-decoration: none; text-align: center; transition: var(--transition); }
 
     .header-right { display: flex; align-items: center; gap: 12px; }
-    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
-    .rfq-btn { background: linear-gradient(135deg, var(--accent-emerald), #047857); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .lang-toggle { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.25); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: #FFFFFF; cursor: pointer; transition: var(--transition); }
+    .rfq-btn { background: linear-gradient(135deg, var(--emerald-light), #047857); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
 
-    /* Page Hero */
-    .page-hero { padding: 160px 40px 80px; background: linear-gradient(135deg, #064E3B, #047857); color: var(--surface-white); text-align: center; }
-    .page-hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 16px; color: #34D399; }
-    .page-hero p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: rgba(255,255,255,0.9); }
+    /* Hero Section */
+    .hero-sustain {
+      position: relative; padding: 180px 40px 100px;
+      background: radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.25) 0%, rgba(4, 18, 13, 0.95) 70%), url('./src/esg-banner.png') center/cover no-repeat;
+      color: #FFFFFF; text-align: center; overflow: hidden;
+    }
 
-    .section { padding: 90px 40px; }
-    .container { max-width: 1200px; margin: 0 auto; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-    .badge { display: inline-block; padding: 6px 14px; background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; }
-    .title { font-size: 2rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 16px; }
-    .desc { font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.3);
+      padding: 6px 20px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800;
+      color: var(--emerald-glow); letter-spacing: 1px; margin-bottom: 24px; text-transform: uppercase;
+    }
 
-    .esg-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 40px; }
-    .esg-card { background: var(--surface-white); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 36px 28px; box-shadow: var(--shadow-sm); transition: var(--transition); }
-    .esg-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--accent-emerald); }
-    .card-icon { font-size: 2.4rem; color: var(--accent-emerald); margin-bottom: 20px; }
+    .hero-title {
+      font-size: 3.4rem; font-weight: 900; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #FFFFFF 40%, var(--emerald-glow) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
 
-    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .hero-desc { font-size: 1.15rem; max-width: 760px; margin: 0 auto; color: rgba(255, 255, 255, 0.85); font-weight: 400; line-height: 1.8; }
+
+    /* Section 1: Core Process Showcase */
+    .section { padding: 110px 40px; background: #04120D; }
+    .container { max-width: 1240px; margin: 0 auto; }
+
+    .section-header-center { text-align: center; margin-bottom: 70px; }
+    .section-title { font-size: 2.4rem; font-weight: 900; color: #FFFFFF; margin-bottom: 12px; }
+    .section-subtitle { font-size: 1.05rem; color: rgba(255, 255, 255, 0.7); max-width: 650px; margin: 0 auto; }
+
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .process-card {
+      background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-lg);
+      padding: 36px 24px; color: #FFFFFF; transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .process-card:hover { transform: translateY(-8px); border-color: var(--emerald-glow); background: rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(52, 211, 153, 0.15); }
+    
+    .step-number { font-size: 2.8rem; font-weight: 900; color: rgba(52, 211, 153, 0.25); font-family: monospace; line-height: 1; margin-bottom: 16px; }
+    .step-icon { font-size: 2.2rem; color: var(--emerald-glow); margin-bottom: 16px; }
+    .step-title { font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 10px; }
+    .step-desc { font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); line-height: 1.6; }
+
+    /* Section 2: In-Depth Features Grid */
+    .feature-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 80px; }
+    .feature-box {
+      background: linear-gradient(135deg, rgba(6, 95, 70, 0.4), rgba(2, 44, 34, 0.8));
+      border: 1px solid rgba(52, 211, 153, 0.25); border-radius: var(--radius-xl);
+      padding: 50px; color: #FFFFFF; box-shadow: var(--shadow-lg); transition: var(--transition);
+    }
+    .feature-box:hover { border-color: var(--emerald-glow); transform: translateY(-4px); }
+    .feature-title-lg { font-size: 1.8rem; font-weight: 900; color: #FFFFFF; margin-bottom: 14px; display: flex; align-items: center; gap: 14px; }
+    .feature-title-lg i { color: var(--emerald-glow); }
+    .feature-desc-lg { font-size: 1rem; color: rgba(255, 255, 255, 0.85); line-height: 1.8; }
+
+    /* Banner CTA */
+    .sustain-cta {
+      margin-top: 100px; background: linear-gradient(135deg, var(--emerald-mid), var(--emerald-dark));
+      border-radius: var(--radius-xl); padding: 60px; text-align: center; border: 1px solid rgba(52, 211, 153, 0.3);
+      color: #FFFFFF; box-shadow: var(--shadow-mega);
+    }
+    .sustain-cta h3 { font-size: 2.2rem; font-weight: 900; margin-bottom: 12px; }
+    .sustain-cta p { font-size: 1.05rem; color: rgba(255, 255, 255, 0.85); max-width: 600px; margin: 0 auto 30px; }
+    .btn-sustain-contact {
+      background: var(--surface-white); color: var(--emerald-dark); padding: 16px 36px; border-radius: var(--radius-full);
+      font-size: 1rem; font-weight: 900; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px;
+    }
+    .btn-sustain-contact:hover { background: var(--emerald-glow); color: #FFFFFF; transform: scale(1.05); }
+
+    .footer { background: #020D09; color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
 
     @media (max-width: 1100px) {
       .mega-menu-panel, .top-utility-bar { display: none; }
       .header { top: 0; }
-      .grid-2, .esg-cards { grid-template-columns: 1fr; }
+      .process-grid, .feature-grid-2 { grid-template-columns: 1fr; }
+      .hero-title { font-size: 2.4rem; }
     }
   </style>
 </head>
@@ -205,41 +265,96 @@
     </div>
   </header>
 
-  <section class="page-hero">
-    <h1 data-tw="永續發展與邊角料回收利用" data-en="Sustainability & In-House Recycling">永續發展與邊角料回收利用</h1>
-    <p data-tw="實踐環保永續，將吹膜與切袋過程中產生的廠內邊角料 100% 進行粉碎造粒再利用，達成廠內零廢棄環保閉環。" data-en="100% in-house production scrap & trim regranulation for sustainable, zero-waste manufacturing.">
-      實踐環保永續，將吹膜與切袋過程中產生的廠內邊角料 100% 進行粉碎造粒再利用，達成廠內零廢棄環保閉環。
+  <!-- Hero Section -->
+  <section class="hero-sustain">
+    <div class="hero-pill">
+      <i class="fa-solid fa-recycle"></i> <span data-tw="100% IN-HOUSE SCRAP RECYCLING | 廠內廢料零浪費" data-en="100% IN-HOUSE SCRAP RECYCLING | ZERO WASTE">100% IN-HOUSE SCRAP RECYCLING | 廠內廢料零浪費</span>
+    </div>
+    
+    <h1 class="hero-title" data-tw="綠色循環 · 廠內邊角料 100% 造粒回收" data-en="Green Circularity: 100% In-House Scrap & Trim Regranulation">
+      綠色循環 · 廠內邊角料 100% 造粒回收
+    </h1>
+    
+    <p class="hero-desc" data-tw="臺灣營德堅持資源循環與綠色製造。我們將吹膜押出與封切加工過程中產生的所有廠內廢膜與邊角料，全數於廠內即時粉碎造粒，重新投入吹膜生產線，實現真正零浪費的綠色永續發展。" data-en="Inteplast Taiwan practices responsible manufacturing. 100% of production scrap and trim generated during film extrusion and bag converting is re-granulated in-house and re-fed into our production lines for a complete zero-waste closed loop.">
+      臺灣營德堅持資源循環與綠色製造。我們將吹膜押出與封切加工過程中產生的所有廠內廢膜與邊角料，全數於廠內即時粉碎造粒，重新投入吹膜生產線，實現真正零浪費的綠色永續發展。
     </p>
   </section>
 
+  <!-- 邊角料回收四步曲流程 -->
   <section class="section">
     <div class="container">
-      <div class="grid-2">
-        <div>
-          <span class="badge" data-tw="IN-HOUSE RECYCLING" data-en="IN-HOUSE RECYCLING">IN-HOUSE RECYCLING</span>
-          <h2 class="title" data-tw="廠內邊角料 100% 回收再利用" data-en="100% Scrap & Trim Regranulation">廠內邊角料 100% 回收再利用</h2>
-          <p class="desc" data-tw="臺灣營德堅持綠色製造與資源循環。吹膜與封切加工過程中產生的所有廢膜與邊角料，均會經由廠內專業造粒機台即時回收粉碎，重新摻配回吹膜製程中，徹底杜絕資源浪費，實踐真實無負擔的綠色永續發展。" data-en="Inteplast Taiwan is committed to responsible manufacturing. 100% of production scrap and trim is re-granulated and fed back into film manufacturing lines for zero-waste production.">
-            臺灣營德堅持綠色製造與資源循環。吹膜與封切加工過程中產生的所有廢膜與邊角料，均會經由廠內專業造粒機台即時回收粉碎，重新摻配回吹膜製程中，徹底杜絕資源浪費，實踐真實無負擔的綠色永續發展。
+      <div class="section-header-center">
+        <span class="pill-badge" data-tw="CLOSED-LOOP PROCESS" data-en="CLOSED-LOOP PROCESS">CLOSED-LOOP PROCESS</span>
+        <h2 class="section-title" data-tw="廠內邊角料 100% 回收再利用四步驟" data-en="4-Step In-House Recycling Workflow">廠內邊角料 100% 回收再利用四步驟</h2>
+        <p class="section-subtitle" data-tw="無縫銜接押出與造粒工藝，將生產過程中的每寸塑料發揮最大價值。" data-en="Seamlesly combining extrusion and regranulation to maximize raw material efficiency.">
+          無縫銜接押出與造粒工藝，將生產過程中的每寸塑料發揮最大價值。
+        </p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-card">
+          <div class="step-number">01</div>
+          <i class="fa-solid fa-scissors step-icon"></i>
+          <h3 class="step-title" data-tw="邊角料自動收集" data-en="Trim Collection">邊角料自動收集</h3>
+          <p class="step-desc" data-tw="吹膜押出膜邊與封切加工機台產生的廢料，經由自動集塵抽送管線即時收集。" data-en="Production trim and scrap from extrusion and bag converting lines are automatically collected.">吹膜押出膜邊與封切加工機台產生的廢料，經由自動集塵抽送管線即時收集。</p>
+        </div>
+
+        <div class="process-card">
+          <div class="step-number">02</div>
+          <i class="fa-solid fa-cubes-stacked step-icon"></i>
+          <h3 class="step-title" data-tw="廠內高純度造粒" data-en="In-House Regranulation">廠內高純度造粒</h3>
+          <p class="step-desc" data-tw="使用廠內專用粉碎造粒機進行融熔過濾，重新製成優質高純度的再生塑料顆粒。" data-en="Dedicated in-house regranulators melt-filter scrap into high-purity recycled resin pellets.">使用廠內專用粉碎造粒機進行融熔過濾，重新製成優質高純度的再生塑料顆粒。</p>
+        </div>
+
+        <div class="process-card">
+          <div class="step-number">03</div>
+          <i class="fa-solid fa-industry step-icon"></i>
+          <h3 class="step-title" data-tw="精準混配吹膜押出" data-en="Precision Re-Extrusion">精準混配吹膜押出</h3>
+          <p class="step-desc" data-tw="將廠內再生顆粒與原料進行精準比例混配，重新充入吹膜機台進行多層共擠。" data-en="Recycled pellets are precisely blended with resins and re-fed into blown film extrusion lines.">將廠內再生顆粒與原料進行精準比例混配，重新充入吹膜機台進行多層共擠。</p>
+        </div>
+
+        <div class="process-card">
+          <div class="step-number">04</div>
+          <i class="fa-solid fa-circle-nodes step-icon"></i>
+          <h3 class="step-title" data-tw="100% 綠色零廢棄" data-en="Zero-Waste Closed-Loop">100% 綠色零廢棄</h3>
+          <p class="step-desc" data-tw="完成廠內閉環循環，不外拋任何廢塑料，為地球減少資源浪費與環境負擔。" data-en="Completes a 100% zero-waste closed loop without landfilling or discarding plastic waste.">完成廠內閉環循環，不外拋任何廢塑料，為地球減少資源浪費與環境負擔。</p>
+        </div>
+      </div>
+
+      <!-- 特點展示區 -->
+      <div class="feature-grid-2">
+        <div class="feature-box">
+          <h3 class="feature-title-lg">
+            <i class="fa-solid fa-shield-virus"></i>
+            <span data-tw="品質與物性完全不妥協" data-en="Uncompromised Tensile Strength">品質與物性完全不妥協</span>
+          </h3>
+          <p class="feature-desc-lg" data-tw="由於廠內邊角料均為單一且來源純淨的高品質原料，絕無外部回收料的雜質污染風險。經由獨家混配工藝，吹出的包裝袋與薄膜在拉伸強度、抗穿刺性與承重力上完全達到頂級外銷標準。" data-en="Because in-house trims are single-source and contaminant-free, our re-granulated film maintains premium tensile strength and puncture resistance matching export quality standards.">
+            由於廠內邊角料均為單一且來源純淨的高品質原料，絕無外部回收料的雜質污染風險。經由獨家混配工藝，吹出的包裝袋與薄膜在拉伸強度、抗穿刺性與承重力上完全達到頂級外銷標準。
           </p>
         </div>
-        <div style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg);">
-          <img src="./src/esg-banner.png" alt="Recycled Plastic Regranulation" style="width:100%; display:block;">
+
+        <div class="feature-box">
+          <h3 class="feature-title-lg">
+            <i class="fa-solid fa-leaf"></i>
+            <span data-tw="務實綠色製造與資源珍惜" data-en="Pragmatic Eco-Friendly Production">務實綠色製造與資源珍惜</span>
+          </h3>
+          <p class="feature-desc-lg" data-tw="不採用過度包裝口號，臺灣營德以極度務實的腳步，珍惜每公斤原物料。透過 100% 邊角料循環再利用，為全球客戶提供更具競爭力、同時兼具綠色價值的包裝產品。" data-en="Inteplast Taiwan practices genuine sustainability by valuing every kilogram of resin. Our 100% trim recycling provides competitive pricing and eco-friendly value to our global buyers.">
+            不採用過度包裝口號，臺灣營德以極度務實的腳步，珍惜每公斤原物料。透過 100% 邊角料循環再利用，為全球客戶提供更具競爭力、同時兼具綠色價值的包裝產品。
+          </p>
         </div>
       </div>
 
-      <div class="esg-cards">
-        <div class="esg-card">
-          <i class="fa-solid fa-recycle card-icon"></i>
-          <div style="font-size: 1.25rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 10px;" data-tw="100% 廠內廢料回收" data-en="100% In-house Scrap Recycling">100% 廠內廢料回收</div>
-          <p style="font-size: 0.9rem; color: var(--text-muted);" data-tw="所有生產過程產生的邊角料與廢膜均經由自動造粒機完全回收再利用，達成廠內零浪費循環。" data-en="100% of production scrap and trim is re-granulated and fed back into film manufacturing.">所有生產過程產生的邊角料與廢膜均經由自動造粒機完全回收再利用，達成廠內零浪費循環。</p>
-        </div>
-
-        <div class="esg-card">
-          <i class="fa-solid fa-feather-pointed card-icon"></i>
-          <div style="font-size: 1.25rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 10px;" data-tw="高效原料利用率" data-en="Efficient Material Utilization">高效原料利用率</div>
-          <p style="font-size: 0.9rem; color: var(--text-muted);" data-tw="精密混料與自動化吹膜押出系統，有效降低生產廢料率並發揮原料的最大使用效能。" data-en="Precision blending and automated extrusion lines maximize raw material efficiency and reduce waste generation.">精密混料與自動化吹膜押出系統，有效降低生產廢料率並發揮原料的最大使用效能。</p>
-        </div>
+      <!-- Banner CTA -->
+      <div class="sustain-cta">
+        <h3 data-tw="尋找高物性且具備環保價值的包裝產品？" data-en="Looking for Reliable & Eco-Friendly Packaging?">尋找高物性且具備環保價值的包裝產品？</h3>
+        <p data-tw="聯繫我們的業務團隊，獲取詳細產品規格、邊角料回收比例與客製整櫃報價。" data-en="Contact our export team to explore product specs, recycling options, and FCL container quotes.">
+          聯繫我們的業務團隊，獲取詳細產品規格、邊角料回收比例與客製整櫃報價。
+        </p>
+        <a href="contact.html" class="btn-sustain-contact" data-tw="聯繫外銷團隊 獲取報價" data-en="Contact Export Team">
+          <i class="fa-solid fa-paper-plane"></i> <span data-tw="聯繫外銷團隊 獲取報價" data-en="Contact Export Team">聯繫外銷團隊 獲取報價</span>
+        </a>
       </div>
+
     </div>
   </section>
 
