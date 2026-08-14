@@ -169,9 +169,6 @@
       background: linear-gradient(135deg, #0A2540, #004580);
       padding: 24px 20px;
       border-bottom: 1px solid #CBD5E1;
-      overflow-x: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #00A8FF #0A2540;
     }
     .scale-ramp-title-row {
       display: flex;
@@ -195,10 +192,11 @@
 
     .scale-ramp-track {
       display: flex;
+      flex-wrap: wrap;
       align-items: flex-end;
+      justify-content: center;
       gap: 12px;
       padding: 15px 5px 10px;
-      min-width: max-content;
     }
 
     .scale-ramp-item {
@@ -408,7 +406,7 @@
         <div class="scale-ramp-container">
           <div class="scale-ramp-title-row">
             <div class="scale-ramp-title"><i class="fa-solid fa-ruler-combined"></i> 尺寸從小到大等比例對比牆 (Visual Scale Ramp)</div>
-            <span class="scale-ramp-sub">← 可左右滑動檢視全尺寸比例 →</span>
+            <span class="scale-ramp-sub">全尺寸依真實身材比例併排展示，一眼看清差距</span>
           </div>
 
           <div class="scale-ramp-track">
