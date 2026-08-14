@@ -114,6 +114,31 @@
     .cat-spec-header { background: #0A2540; color: #FFFFFF; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
     .cat-spec-title { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
 
+    /* Visual Scale Cards Wall */
+    .scale-card-wall {
+      background: #F8FAFC; padding: 24px; border-bottom: 1px solid var(--border-color);
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;
+    }
+    .scale-card-item {
+      background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px;
+      display: flex; flex-direction: column; justify-content: space-between; gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .scale-card-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: var(--brand-blue); }
+    .scale-card-top { display: flex; align-items: center; justify-content: space-between; }
+    .scale-card-size { font-size: 1.3rem; font-weight: 900; color: var(--primary-navy); display: flex; align-items: baseline; gap: 6px; }
+    .scale-card-size small { font-size: 0.95rem; font-weight: 700; color: var(--brand-blue); }
+    .scale-pill-count { background: #1E293B; color: #FFFFFF; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-full); }
+    .scale-pill-red { background: #DC2626; color: #FFFFFF; font-size: 0.78rem; font-weight: 900; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .scale-card-dim { font-size: 0.9rem; font-weight: 700; color: #475569; background: #F1F5F9; padding: 6px 10px; border-radius: 6px; display: inline-block; }
+
+    /* Roll simulation graphic */
+    .roll-graphic-red {
+      height: 36px; background: linear-gradient(90deg, #DC2626, #EF4444, #B91C1C);
+      border-radius: 18px; position: relative; border: 2px solid #991B1B;
+      display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.5px;
+    }
+
     .compact-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     .compact-table th { background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; padding: 12px 24px; text-align: left; border-bottom: 1px solid #CBD5E1; }
     .compact-table td { padding: 12px 24px; border-bottom: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; }
@@ -284,8 +309,73 @@
       <!-- 1. 拉繩感染清潔袋(拉繩醫療袋) PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-medical">
         <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-notes-medical"></i> 拉繩感染清潔袋 (拉繩醫療袋) 規格對照表</h2>
+          <h2 class="cat-spec-title"><i class="fa-solid fa-notes-medical"></i> 拉繩感染清潔袋 (拉繩醫療袋) 比例與視覺牆</h2>
         </div>
+
+        <!-- VISUAL SCALE CARD WALL FOR MEDICAL ROLL BAGS (100% Matching Reference Image 1) -->
+        <div class="scale-card-wall">
+          <!-- 小 8L -->
+          <div class="scale-card-item">
+            <div class="roll-graphic-red" style="width: 70%;">8L 醫療捲袋</div>
+            <div class="scale-card-top">
+              <div class="scale-card-size">小 <small>8L</small></div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span class="scale-pill-count">40張</span>
+                <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 39 × 長 40 cm</div>
+          </div>
+          <!-- 中 20L -->
+          <div class="scale-card-item">
+            <div class="roll-graphic-red" style="width: 78%;">20L 醫療捲袋</div>
+            <div class="scale-card-top">
+              <div class="scale-card-size">中 <small>20L</small></div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span class="scale-pill-count">22張</span>
+                <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 52 × 長 55 cm</div>
+          </div>
+          <!-- 大 50L -->
+          <div class="scale-card-item">
+            <div class="roll-graphic-red" style="width: 86%;">50L 醫療捲袋</div>
+            <div class="scale-card-top">
+              <div class="scale-card-size">大 <small>50L</small></div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span class="scale-pill-count">12張</span>
+                <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 69 × 長 78 cm</div>
+          </div>
+          <!-- 特大 70L -->
+          <div class="scale-card-item">
+            <div class="roll-graphic-red" style="width: 92%;">70L 醫療捲袋</div>
+            <div class="scale-card-top">
+              <div class="scale-card-size">特大 <small>70L</small></div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span class="scale-pill-count">8張</span>
+                <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 77 × 長 92 cm</div>
+          </div>
+          <!-- 超大 90L -->
+          <div class="scale-card-item">
+            <div class="roll-graphic-red" style="width: 100%;">90L 醫療捲袋</div>
+            <div class="scale-card-top">
+              <div class="scale-card-size">超大 <small>90L</small></div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span class="scale-pill-count">12張</span>
+                <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 95 × 長 84 cm</div>
+          </div>
+        </div>
+
         <table class="compact-table">
           <thead>
             <tr>
@@ -339,8 +429,67 @@
       <!-- 2. 拉繩清潔袋 (一般與經濟/超量包) PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-general">
         <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-ribbon"></i> 拉繩清潔袋 (經濟包 / 超量包) 規格對照表</h2>
+          <h2 class="cat-spec-title"><i class="fa-solid fa-ribbon"></i> 台塑拉繩清潔袋 (經濟包 / 超量包) 視覺比例牆</h2>
         </div>
+
+        <!-- VISUAL SCALE CARD WALL FOR COMMERCIAL DRAW-TAPE BAGS (100% Matching Reference Image 2) -->
+        <div class="scale-card-wall">
+          <!-- 大 45L -->
+          <div class="scale-card-item">
+            <div class="roll-graphic-red" style="background: linear-gradient(90deg, #6366F1, #818CF8); border-color: #4338CA;">45L 台塑拉繩包裝</div>
+            <div class="scale-card-top">
+              <div class="scale-card-size">大 <small>45L</small></div>
+              <span class="scale-pill-count" style="background: #6366F1;">24張 / 經濟包</span>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 65 × 長 75 cm</div>
+          </div>
+          <!-- 特大 70L -->
+          <div class="scale-card-item">
+            <div class="roll-graphic-red" style="background: linear-gradient(90deg, #0D9488, #14B8A6); border-color: #0F766E;">70L 台塑拉繩包裝</div>
+            <div class="scale-card-top">
+              <div class="scale-card-size">特大 <small>70L</small></div>
+              <span class="scale-pill-count" style="background: #0D9488;">18張 / 經濟包</span>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 78 × 長 88 cm</div>
+          </div>
+          <!-- 超大 90L 經濟包 -->
+          <div class="scale-card-item">
+            <div class="roll-graphic-red" style="background: linear-gradient(90deg, #16A34A, #22C55E); border-color: #15803D;">90L 經濟包裝</div>
+            <div class="scale-card-top">
+              <div class="scale-card-size">超大 <small>90L</small></div>
+              <span class="scale-pill-count" style="background: #16A34A;">14張 / 經濟包</span>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 84 × 長 95 cm</div>
+          </div>
+          <!-- 超大 90L 超量包 -->
+          <div class="scale-card-item">
+            <div class="roll-graphic-red" style="background: linear-gradient(90deg, #15803D, #16A34A); border-color: #166534;">90L 超量加強包裝</div>
+            <div class="scale-card-top">
+              <div class="scale-card-size">超大 <small>90L</small></div>
+              <span class="scale-pill-count" style="background: #BE185D;">25張 / 超量包</span>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 84 × 長 95 cm</div>
+          </div>
+          <!-- 超特大 125L -->
+          <div class="scale-card-item">
+            <div class="roll-graphic-red" style="background: linear-gradient(90deg, #0284C7, #38BDF8); border-color: #0369A1;">125L 經濟包裝</div>
+            <div class="scale-card-top">
+              <div class="scale-card-size">超特大 <small>125L</small></div>
+              <span class="scale-pill-count" style="background: #0284C7;">15張 / 經濟包</span>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 93 × 長 100 cm</div>
+          </div>
+          <!-- 巨無霸 130L -->
+          <div class="scale-card-item">
+            <div class="roll-graphic-red" style="background: linear-gradient(90deg, #EA580C, #F97316); border-color: #C2410C;">130L 巨無霸超量包裝</div>
+            <div class="scale-card-top">
+              <div class="scale-card-size">巨無霸 <small>130L</small></div>
+              <span class="scale-pill-count" style="background: #EA580C;">20張 / 超量包</span>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 94 × 長 102 cm</div>
+          </div>
+        </div>
+
         <table class="compact-table">
           <thead>
             <tr>
