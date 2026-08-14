@@ -115,34 +115,32 @@
     .cat-spec-title { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
 
     /* Ultra-Modern Studio-Grade Visual Scale Cards Wall */
+    /* Sleek Modern Studio Spec Cards Wall */
     .scale-card-wall {
-      background: linear-gradient(180deg, #F1F5F9 0%, #F8FAFC 100%);
-      padding: 30px 24px; border-bottom: 1px solid var(--border-color);
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px;
+      background: #F8FAFC; padding: 24px; border-bottom: 1px solid var(--border-color);
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;
     }
     .scale-card-item {
-      background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px);
-      border: 1px solid #CBD5E1; border-radius: 16px; padding: 20px 18px;
-      display: flex; flex-direction: column; justify-content: space-between; gap: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      position: relative; overflow: hidden;
+      background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 18px;
+      display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: var(--transition); position: relative;
     }
     .scale-card-item:hover {
-      transform: translateY(-6px); box-shadow: 0 16px 32px rgba(10, 37, 64, 0.12);
-      border-color: #00A8FF; background: #FFFFFF;
+      transform: translateY(-4px); box-shadow: 0 12px 24px rgba(10, 37, 64, 0.1);
+      border-color: var(--brand-blue);
     }
     .scale-card-top { display: flex; align-items: center; justify-content: space-between; }
-    .scale-card-size { font-size: 1.35rem; font-weight: 900; color: var(--primary-navy); display: flex; align-items: baseline; gap: 6px; }
-    .scale-card-size small { font-size: 1rem; font-weight: 800; color: var(--brand-blue); }
+    .scale-card-size { font-size: 1.3rem; font-weight: 900; color: var(--primary-navy); display: flex; align-items: baseline; gap: 6px; }
+    .scale-card-size small { font-size: 0.95rem; font-weight: 800; color: var(--brand-blue); }
     
     .scale-pill-count {
       background: #0A2540; color: #FFFFFF; font-size: 0.78rem; font-weight: 800;
-      padding: 4px 12px; border-radius: var(--radius-full); letter-spacing: 0.5px;
+      padding: 4px 12px; border-radius: var(--radius-full);
     }
     .scale-pill-red {
-      background: linear-gradient(135deg, #EF4444, #DC2626); color: #FFFFFF; font-size: 0.76rem;
+      background: #DC2626; color: #FFFFFF; font-size: 0.76rem;
       font-weight: 900; width: 26px; height: 26px; border-radius: 50%; display: flex;
-      align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3);
+      align-items: center; justify-content: center;
     }
     .scale-card-dim {
       font-size: 0.88rem; font-weight: 700; color: #334155; background: #F1F5F9;
@@ -150,74 +148,17 @@
       border: 1px solid #E2E8F0;
     }
 
-    /* Angled 3D Cylindrical Roll with Revealed Hollow Core & Extended Bag Sheet */
-    .roll-mockup-wrapper {
-      height: 95px; display: flex; align-items: flex-end; justify-content: flex-start;
-      position: relative; margin: 10px 0; perspective: 800px; padding-left: 18px;
+    .studio-photo-banner {
+      background: #FFFFFF; padding: 20px 24px; border-bottom: 1px solid var(--border-color);
+      display: flex; align-items: center; gap: 24px;
     }
-    
-    .roll-cylinder-3d {
-      height: 42px; border-radius: 21px 6px 6px 21px; position: relative;
-      display: flex; align-items: center; justify-content: center; color: #FFFFFF;
-      font-weight: 800; font-size: 0.8rem; text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-      transform: rotateX(18deg) rotateY(-18deg) rotateZ(-3deg);
-      transform-style: preserve-3d;
-      box-shadow: inset 0 3px 6px rgba(255,255,255,0.5), inset 0 -6px 8px rgba(0,0,0,0.35), 8px 12px 20px rgba(0,0,0,0.2);
-      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
-      z-index: 2;
+    .studio-photo-img {
+      width: 220px; height: 130px; object-fit: cover; border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08); border: 1px solid var(--border-color);
     }
-    
-    /* Revealed Hollow Core Hole (中心孔露出來) */
-    .roll-cylinder-3d::before {
-      content: ''; position: absolute; left: -14px; top: 0; width: 28px; height: 100%;
-      border-radius: 50%; background: inherit;
-      box-shadow: inset -2px 0 4px rgba(255,255,255,0.6), inset 2px 0 4px rgba(0,0,0,0.4);
-    }
-    .roll-cylinder-3d::after {
-      content: ''; position: absolute; left: -8px; top: 50%; transform: translateY(-50%);
-      width: 12px; height: 20px; border-radius: 50%;
-      background: #051322; border: 2px solid rgba(255,255,255,0.75);
-      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.95); z-index: 3;
-    }
-
-    /* Extended Bag Sheet pulled from Roll (袋子從卷裡拉出來) */
-    .extended-bag-sheet {
-      position: absolute; left: 45px; bottom: 30px;
-      width: 80px; height: 55px;
-      border-radius: 6px 10px 2px 4px;
-      transform: rotateX(25deg) rotateY(12deg) skewX(-8deg);
-      box-shadow: 4px -4px 12px rgba(0,0,0,0.08);
-      z-index: 1; opacity: 0.9; transition: all 0.35s ease;
-      display: flex; flex-direction: column; justify-content: space-between; padding: 4px 6px;
-    }
-    .extended-bag-sheet-red {
-      background: linear-gradient(135deg, rgba(254, 226, 226, 0.9), rgba(252, 165, 165, 0.7));
-      border: 1.5px dashed #EF4444;
-    }
-    .extended-bag-sheet-color {
-      background: linear-gradient(135deg, rgba(239, 246, 255, 0.9), rgba(191, 219, 254, 0.7));
-      border: 1.5px dashed #3B82F6;
-    }
-    .bag-pull-label {
-      font-size: 0.65rem; font-weight: 800; color: #1E293B; text-align: right;
-      letter-spacing: 0.5px; text-transform: uppercase;
-    }
-    .bag-drawstring-accent {
-      height: 3px; width: 100%; background: #EF4444; border-radius: 2px;
-    }
-
-    .scale-card-item:hover .extended-bag-sheet {
-      transform: rotateX(15deg) rotateY(8deg) skewX(-4deg) translateY(-12px) scale(1.08);
-      opacity: 1; box-shadow: 6px -6px 18px rgba(0,0,0,0.14);
-    }
-    .scale-card-item:hover .roll-cylinder-3d {
-      transform: rotateX(12deg) rotateY(-12deg) rotateZ(0deg) translateY(-4px) scale(1.04);
-    }
-
-    .roll-cylinder-red {
-      background: linear-gradient(180deg, #F87171 0%, #DC2626 50%, #991B1B 100%);
-      border: 1px solid #B91C1C;
-    }
+    .studio-photo-info { flex: 1; }
+    .studio-photo-title { font-size: 1.1rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 6px; }
+    .studio-photo-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
 
     .compact-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     .compact-table th { background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; padding: 12px 24px; text-align: left; border-bottom: 1px solid #CBD5E1; }
@@ -392,17 +333,21 @@
           <h2 class="cat-spec-title"><i class="fa-solid fa-notes-medical"></i> 拉繩感染清潔袋 (拉繩醫療袋) 比例與視覺牆</h2>
         </div>
 
-        <!-- VISUAL SCALE CARD WALL FOR MEDICAL ROLL BAGS (100% Matching User Concept Diagram) -->
+        <!-- STUDIO PHOTOGRAPHY FEATURE BANNER -->
+        <div class="studio-photo-banner">
+          <img src="../src/drawtape_medical_studio.png" alt="拉繩感染醫療袋實品攝影" class="studio-photo-img">
+          <div class="studio-photo-info">
+            <div class="studio-photo-title"><i class="fa-solid fa-notes-medical"></i> 拉繩感染清潔袋 (醫療袋) 實品包裝結構</div>
+            <div class="studio-photo-desc">
+              採用高密度連捲軸心結構，開放式中心孔設計方便掛架抽拉。袋身配備頂級高韌性紅色拉繩，一拉即自動密封，防止醫療與感控廢棄物外漏。
+            </div>
+          </div>
+        </div>
+
+        <!-- VISUAL SCALE CARD WALL FOR MEDICAL ROLL BAGS (Clean Minimalist Studio Cards) -->
         <div class="scale-card-wall">
           <!-- 小 8L -->
           <div class="scale-card-item">
-            <div class="roll-mockup-wrapper">
-              <div class="extended-bag-sheet extended-bag-sheet-red">
-                <div class="bag-drawstring-accent"></div>
-                <div class="bag-pull-label">BAG 8L</div>
-              </div>
-              <div class="roll-cylinder-3d roll-cylinder-red" style="width: 65%;">8L 醫療捲袋</div>
-            </div>
             <div class="scale-card-top">
               <div class="scale-card-size">小 <small>8L</small></div>
               <div style="display: flex; gap: 6px; align-items: center;">
@@ -414,13 +359,6 @@
           </div>
           <!-- 中 20L -->
           <div class="scale-card-item">
-            <div class="roll-mockup-wrapper">
-              <div class="extended-bag-sheet extended-bag-sheet-red">
-                <div class="bag-drawstring-accent"></div>
-                <div class="bag-pull-label">BAG 20L</div>
-              </div>
-              <div class="roll-cylinder-3d roll-cylinder-red" style="width: 74%;">20L 醫療捲袋</div>
-            </div>
             <div class="scale-card-top">
               <div class="scale-card-size">中 <small>20L</small></div>
               <div style="display: flex; gap: 6px; align-items: center;">
@@ -432,13 +370,6 @@
           </div>
           <!-- 大 50L -->
           <div class="scale-card-item">
-            <div class="roll-mockup-wrapper">
-              <div class="extended-bag-sheet extended-bag-sheet-red">
-                <div class="bag-drawstring-accent"></div>
-                <div class="bag-pull-label">BAG 50L</div>
-              </div>
-              <div class="roll-cylinder-3d roll-cylinder-red" style="width: 83%;">50L 醫療捲袋</div>
-            </div>
             <div class="scale-card-top">
               <div class="scale-card-size">大 <small>50L</small></div>
               <div style="display: flex; gap: 6px; align-items: center;">
@@ -450,13 +381,6 @@
           </div>
           <!-- 特大 70L -->
           <div class="scale-card-item">
-            <div class="roll-mockup-wrapper">
-              <div class="extended-bag-sheet extended-bag-sheet-red">
-                <div class="bag-drawstring-accent"></div>
-                <div class="bag-pull-label">BAG 70L</div>
-              </div>
-              <div class="roll-cylinder-3d roll-cylinder-red" style="width: 91%;">70L 醫療捲袋</div>
-            </div>
             <div class="scale-card-top">
               <div class="scale-card-size">特大 <small>70L</small></div>
               <div style="display: flex; gap: 6px; align-items: center;">
@@ -468,13 +392,6 @@
           </div>
           <!-- 超大 90L -->
           <div class="scale-card-item">
-            <div class="roll-mockup-wrapper">
-              <div class="extended-bag-sheet extended-bag-sheet-red">
-                <div class="bag-drawstring-accent"></div>
-                <div class="bag-pull-label">BAG 90L</div>
-              </div>
-              <div class="roll-cylinder-3d roll-cylinder-red" style="width: 100%;">90L 醫療捲袋</div>
-            </div>
             <div class="scale-card-top">
               <div class="scale-card-size">超大 <small>90L</small></div>
               <div style="display: flex; gap: 6px; align-items: center;">
@@ -539,20 +456,24 @@
       <!-- 2. 拉繩清潔袋 (一般與經濟/超量包) PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-general">
         <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-ribbon"></i> 台塑拉繩清潔袋 (經濟包 / 超量包) 比例與視覺牆</h2>
+          <h2 class="cat-spec-title"><i class="fa-solid fa-ribbon"></i> 台塑拉繩清潔袋 (經濟包 / 超量包) 實品攝影與對照牆</h2>
         </div>
 
-        <!-- VISUAL SCALE CARD WALL FOR COMMERCIAL DRAW-TAPE BAGS (Premium 3D Color Pack Ramp) -->
+        <!-- STUDIO PHOTOGRAPHY FEATURE BANNER -->
+        <div class="studio-photo-banner">
+          <img src="../src/drawtape_commercial_studio.png" alt="台塑拉繩清潔袋實品攝影" class="studio-photo-img">
+          <div class="studio-photo-info">
+            <div class="studio-photo-title"><i class="fa-solid fa-box"></i> 台塑拉繩清潔袋 (經濟包與超量包) 裝箱結構</div>
+            <div class="studio-photo-desc">
+              美歐量販零售熱銷等級拉繩包裝，採用高強度抗穿刺 7 層共擠膜。提供經濟包與大容量超量包多種規格，適合家居、企業辦公室與商業環境。
+            </div>
+          </div>
+        </div>
+
+        <!-- VISUAL SCALE CARD WALL FOR COMMERCIAL DRAW-TAPE BAGS (Clean Minimalist Cards) -->
         <div class="scale-card-wall">
           <!-- 大 45L -->
           <div class="scale-card-item">
-            <div class="roll-mockup-wrapper">
-              <div class="extended-bag-sheet extended-bag-sheet-color">
-                <div class="bag-drawstring-accent" style="background: #4F46E5;"></div>
-                <div class="bag-pull-label">BAG 45L</div>
-              </div>
-              <div class="roll-cylinder-3d" style="width: 70%; background: linear-gradient(180deg, #A5B4FC 0%, #6366F1 50%, #4338CA 100%); border: 1px solid #3730A3;">45L 拉繩經濟包</div>
-            </div>
             <div class="scale-card-top">
               <div class="scale-card-size">大 <small>45L</small></div>
               <span class="scale-pill-count" style="background: #4F46E5;">24張 / 經濟包</span>
@@ -561,13 +482,6 @@
           </div>
           <!-- 特大 70L -->
           <div class="scale-card-item">
-            <div class="roll-mockup-wrapper">
-              <div class="extended-bag-sheet extended-bag-sheet-color">
-                <div class="bag-drawstring-accent" style="background: #0D9488;"></div>
-                <div class="bag-pull-label">BAG 70L</div>
-              </div>
-              <div class="roll-cylinder-3d" style="width: 78%; background: linear-gradient(180deg, #5EEAD4 0%, #0D9488 50%, #115E59 100%); border: 1px solid #0F766E;">70L 拉繩經濟包</div>
-            </div>
             <div class="scale-card-top">
               <div class="scale-card-size">特大 <small>70L</small></div>
               <span class="scale-pill-count" style="background: #0D9488;">18張 / 經濟包</span>
@@ -576,13 +490,6 @@
           </div>
           <!-- 超大 90L 經濟包 -->
           <div class="scale-card-item">
-            <div class="roll-mockup-wrapper">
-              <div class="extended-bag-sheet extended-bag-sheet-color">
-                <div class="bag-drawstring-accent" style="background: #16A34A;"></div>
-                <div class="bag-pull-label">BAG 90L</div>
-              </div>
-              <div class="roll-cylinder-3d" style="width: 86%; background: linear-gradient(180deg, #86EFAC 0%, #16A34A 50%, #14532D 100%); border: 1px solid #15803D;">90L 經濟包</div>
-            </div>
             <div class="scale-card-top">
               <div class="scale-card-size">超大 <small>90L</small></div>
               <span class="scale-pill-count" style="background: #16A34A;">14張 / 經濟包</span>
@@ -591,13 +498,6 @@
           </div>
           <!-- 超大 90L 超量包 -->
           <div class="scale-card-item">
-            <div class="roll-mockup-wrapper">
-              <div class="extended-bag-sheet extended-bag-sheet-color">
-                <div class="bag-drawstring-accent" style="background: #DB2777;"></div>
-                <div class="bag-pull-label">BAG 90L+</div>
-              </div>
-              <div class="roll-cylinder-3d" style="width: 86%; background: linear-gradient(180deg, #F472B6 0%, #DB2777 50%, #831843 100%); border: 1px solid #9D174D;">90L 超量包</div>
-            </div>
             <div class="scale-card-top">
               <div class="scale-card-size">超大 <small>90L</small></div>
               <span class="scale-pill-count" style="background: #BE185D;">25張 / 超量包</span>
@@ -606,13 +506,6 @@
           </div>
           <!-- 超特大 125L -->
           <div class="scale-card-item">
-            <div class="roll-mockup-wrapper">
-              <div class="extended-bag-sheet extended-bag-sheet-color">
-                <div class="bag-drawstring-accent" style="background: #0284C7;"></div>
-                <div class="bag-pull-label">BAG 125L</div>
-              </div>
-              <div class="roll-cylinder-3d" style="width: 93%; background: linear-gradient(180deg, #7DD3FC 0%, #0284C7 50%, #075985 100%); border: 1px solid #0369A1;">125L 經濟包</div>
-            </div>
             <div class="scale-card-top">
               <div class="scale-card-size">超特大 <small>125L</small></div>
               <span class="scale-pill-count" style="background: #0284C7;">15張 / 經濟包</span>
@@ -621,13 +514,6 @@
           </div>
           <!-- 巨無霸 130L -->
           <div class="scale-card-item">
-            <div class="roll-mockup-wrapper">
-              <div class="extended-bag-sheet extended-bag-sheet-color">
-                <div class="bag-drawstring-accent" style="background: #EA580C;"></div>
-                <div class="bag-pull-label">BAG 130L</div>
-              </div>
-              <div class="roll-cylinder-3d" style="width: 100%; background: linear-gradient(180deg, #FDBA74 0%, #EA580C 50%, #7C2D12 100%); border: 1px solid #C2410C;">130L 巨無霸超量包</div>
-            </div>
             <div class="scale-card-top">
               <div class="scale-card-size">巨無霸 <small>130L</small></div>
               <span class="scale-pill-count" style="background: #EA580C;">20張 / 超量包</span>
