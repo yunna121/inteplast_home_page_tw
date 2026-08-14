@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>六大產品系列與目錄 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
+  <meta name="description" content="臺灣營德完整六大產品目錄：清潔袋（連捲、單張抽取、環保）、拉繩袋（清潔、醫療）、耐熱袋（平裝、捲裝）、密封包裝類（密實袋、立體密實袋、冷凍袋、夾鏈袋）、其他類（手套、台塑遮蔽防塵膠帶）與 Scales Sheet。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-navy: #0A2540;
+      --brand-blue: #00529B;
+      --brand-blue-hover: #003d75;
+      --accent-azure: #00A8FF;
+      --accent-emerald: #10B981;
+      --bg-light: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+      --shadow-mega: 0 30px 60px -12px rgba(10, 37, 64, 0.22);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--bg-light); line-height: 1.6; }
+
+    /* Top Utility Bar */
+    .top-utility-bar {
+      background: var(--primary-navy); color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
+      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: relative; z-index: 1002;
+    }
+    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
+    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
+    .utility-left a:hover, .utility-right a:hover { color: var(--accent-azure); }
+    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
+
+    /* Header Navbar */
+    .header {
+      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
+      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
+    }
+    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-image { height: 40px; width: auto; object-fit: contain; }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
+
+    .nav-menu { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-item { position: relative; }
+    .nav-link-item {
+      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
+      color: var(--text-main); text-decoration: none; transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    }
+    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
+    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
+    .nav-item:hover .caret-icon { transform: rotate(180deg); }
+
+    /* 6 大分類 Mega Menu 面板 */
+    .mega-menu-panel-6cat {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
+      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-mega); padding: 32px;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100;
+    }
+    .nav-item:hover .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
+    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
+    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
+    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
+    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+
+    /* Page Hero */
+    .page-hero { padding: 160px 40px 60px; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white); text-align: center; }
+    .page-hero h1 { font-size: 2.6rem; font-weight: 900; margin-bottom: 12px; }
+    .page-hero p { font-size: 1.05rem; max-width: 700px; margin: 0 auto; color: rgba(255,255,255,0.88); }
+
+    .section { padding: 80px 40px; }
+    .container { max-width: 1240px; margin: 0 auto; }
+
+    /* 6 大類別 Grid 卡片展示 */
+    .cat-6-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .cat-card-box {
+      background: var(--surface-white); border-radius: var(--radius-md); overflow: hidden;
+      border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
+      display: flex; flex-direction: column; position: relative;
+    }
+    .cat-card-box:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--brand-blue); }
+
+    .cat-card-img-wrap { width: 100%; height: 210px; overflow: hidden; position: relative; background: #E2E8F0; }
+    .cat-card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .cat-card-box:hover .cat-card-img-wrap img { transform: scale(1.08); }
+    .cat-num-tag {
+      position: absolute; top: 12px; left: 12px; background: var(--primary-navy); color: #FFFFFF;
+      font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 4px; letter-spacing: 1px;
+    }
+
+    .cat-card-body { padding: 28px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .cat-card-title { font-size: 1.4rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 10px; }
+    .cat-card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px; }
+
+    .subcat-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .subcat-pill {
+      background: rgba(0, 82, 155, 0.08); border: 1px solid rgba(0, 82, 155, 0.18); color: var(--brand-blue);
+      font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: var(--radius-sm); display: inline-flex; align-items: center; gap: 6px;
+    }
+    .subcat-pill i { font-size: 0.75rem; }
+
+    .cat-action-btn {
+      width: 100%; background: var(--brand-blue); color: #FFFFFF; padding: 12px 18px; border-radius: var(--radius-sm);
+      font-size: 0.9rem; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: var(--transition);
+    }
+    .cat-action-btn:hover { background: var(--brand-blue-hover); }
+
+    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+
+    @media (max-width: 1000px) {
+      .mega-menu-panel-6cat, .top-utility-bar { display: none; }
+      .header { top: 0; }
+      .cat-6-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <div class="top-utility-bar">
+    <div class="utility-left">
+      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
+      <a href="../index.html"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
+      <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 北美總部</a>
+    </div>
+    <div class="utility-right">
+      <a href="../about.html" data-tw="投資人專區" data-en="Investor Relations"><i class="fa-solid fa-chart-line"></i> 投資人專區</a>
+      <a href="../sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> 永續發展</a>
+      <a href="../contact.html" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
+      <a href="../contact.html" data-tw="客戶專屬登入" data-en="Client Portal"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="../index.html" class="header-logo">
+      <img src="../src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
+      <div>
+        <span class="logo-text-tw">臺灣營德股份有限公司</span>
+        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
+      </div>
+    </a>
+    
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="../index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
+      <li class="nav-item"><a href="../about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
+      
+      <!-- 6 大產品 Mega Menu -->
+      <li class="nav-item">
+        <a href="index.html" class="nav-link-item active" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel-6cat">
+          <div class="mega-grid-6">
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="can-liners.html">連捲清潔袋</a></li>
+                <li><a href="can-liners.html">單張抽取</a></li>
+                <li><a href="can-liners.html">環保清潔袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="draw-tape.html">清潔袋</a></li>
+                <li><a href="draw-tape.html">醫療袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="foodservice.html">平裝耐熱袋</a></li>
+                <li><a href="foodservice.html">捲裝耐熱袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+              <ul class="mega-sub-links">
+                <li><a href="foodservice.html">密實袋</a></li>
+                <li><a href="foodservice.html">立體密實袋</a></li>
+                <li><a href="foodservice.html">冷凍袋</a></li>
+                <li><a href="foodservice.html">夾鏈袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
+              <ul class="mega-sub-links">
+                <li><a href="foodservice.html">衛生手套</a></li>
+                <li><a href="foodservice.html">台塑遮蔽防塵膠帶</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> 06 Scales Sheet</div>
+              <ul class="mega-sub-links">
+                <li><a href="stretch-films.html">工業保護片材</a></li>
+                <li><a href="stretch-films.html">商業包裝片膜</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
+      <li class="nav-item"><a href="../contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
+    </ul>
+
+    <div class="header-right">
+      <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
+      <a href="../contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <h1 data-tw="六大產品系列總覽" data-en="Six Core Product Categories">六大產品系列總覽</h1>
+    <p data-tw="臺灣營德完整產品分類：清潔袋、拉繩袋、耐熱袋、密封包裝類、其他類與 Scales Sheet。" data-en="Comprehensive product catalog across six core extrusion and converting lines for global buyers.">
+      臺灣營德完整產品分類：清潔袋、拉繩袋、耐熱袋、密封包裝類、其他類與 Scales Sheet。
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cat-6-grid">
+        
+        <!-- 01 清潔袋 -->
+        <div class="cat-card-box">
+          <div class="cat-card-img-wrap">
+            <span class="cat-num-tag">01 CATEGORY</span>
+            <img src="../src/Can-Liners-HERO-1.jpg" alt="清潔袋">
+          </div>
+          <div class="cat-card-body">
+            <div>
+              <h2 class="cat-card-title" data-tw="清潔袋系列 (Can Liners)" data-en="Can Liners & Trash Bags">清潔袋系列 (Can Liners)</h2>
+              <p class="cat-card-desc" data-tw="商業機構、工業與居家環境必備。具備 Star Seal 防漏底封與高品質韌性配方。" data-en="Institutional and heavy-duty trash liners engineered for superior leak prevention and high strength.">
+                商業機構、工業與居家環境必備。具備 Star Seal 防漏底封與高品質韌性配方。
+              </p>
+              <div class="subcat-list">
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 連捲清潔袋</span>
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 單張抽取</span>
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 環保清潔袋</span>
+              </div>
+            </div>
+            <a href="can-liners.html" class="cat-action-btn" data-tw="進入 清潔袋 專區與規格" data-en="View Can Liners Specs">
+              <span data-tw="進入 清潔袋 專區與規格" data-en="View Can Liners Specs">進入 清潔袋 專區與規格</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 02 拉繩袋 -->
+        <div class="cat-card-box">
+          <div class="cat-card-img-wrap">
+            <span class="cat-num-tag">02 CATEGORY</span>
+            <img src="../src/use1.png" alt="拉繩袋">
+          </div>
+          <div class="cat-card-body">
+            <div>
+              <h2 class="cat-card-title" data-tw="拉繩袋系列 (Draw-Tape Bags)" data-en="Draw-Tape Bags">拉繩袋系列 (Draw-Tape Bags)</h2>
+              <p class="cat-card-desc" data-tw="一拉即束封口，打包省力不髒手。廣泛應用於美歐零售超市與醫療專用防護。" data-en="Easy-close drawstring technology for commercial cleaning and medical packaging applications.">
+                一拉即束封口，打包省力不髒手。廣泛應用於美歐零售超市與醫療專用防護。
+              </p>
+              <div class="subcat-list">
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 清潔袋</span>
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 醫療袋</span>
+              </div>
+            </div>
+            <a href="draw-tape.html" class="cat-action-btn" data-tw="進入 拉繩袋 專區與規格" data-en="View Draw-Tape Specs">
+              <span data-tw="進入 拉繩袋 專區與規格" data-en="View Draw-Tape Specs">進入 拉繩袋 專區與規格</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 03 耐熱袋 -->
+        <div class="cat-card-box">
+          <div class="cat-card-img-wrap">
+            <span class="cat-num-tag">03 CATEGORY</span>
+            <img src="../src/耐熱袋.png" alt="耐熱袋 實景原圖">
+          </div>
+          <div class="cat-card-body">
+            <div>
+              <h2 class="cat-card-title" data-tw="耐熱袋系列 (Heat-Resistant Bags)" data-en="Heat-Resistant Bags">耐熱袋系列 (Heat-Resistant Bags)</h2>
+              <p class="cat-card-desc" data-tw="高溫耐熱全新聚乙烯配方，適用於熱食盛裝、餐飲備料與高溫包裝需求。" data-en="High-temperature resistant bags designed for foodservice prep and hot food packaging.">
+                高溫耐熱全新聚乙烯配方，適用於熱食盛裝、餐飲備料與高溫包裝需求。
+              </p>
+              <div class="subcat-list">
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 平裝耐熱袋</span>
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 捲裝耐熱袋</span>
+              </div>
+            </div>
+            <a href="foodservice.html" class="cat-action-btn" data-tw="進入 耐熱袋 專區與規格" data-en="View Heat-Resistant Specs">
+              <span data-tw="進入 耐熱袋 專區與規格" data-en="View Heat-Resistant Specs">進入 耐熱袋 專區與規格</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 04 密封包裝類 -->
+        <div class="cat-card-box">
+          <div class="cat-card-img-wrap">
+            <span class="cat-num-tag">04 CATEGORY</span>
+            <img src="../src/use2.png" alt="密封包裝類">
+          </div>
+          <div class="cat-card-body">
+            <div>
+              <h2 class="cat-card-title" data-tw="密封包裝類 (Sealed & Zipper Bags)" data-en="Sealed & Zipper Bags">密封包裝類 (Sealed & Zipper Bags)</h2>
+              <p class="cat-card-desc" data-tw="雙軌密封防漏設計，提供極佳保鮮與冷藏冷凍防護，食材內容物一目了然。" data-en="Double-zipper and stand-up pouches providing airtight preservation for freezer food storage.">
+                雙軌密封防漏設計，提供極佳保鮮與冷藏冷凍防護，食材內容物一目了然。
+              </p>
+              <div class="subcat-list">
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 密實袋</span>
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 立體密實袋</span>
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 冷凍袋</span>
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 夾鏈袋</span>
+              </div>
+            </div>
+            <a href="foodservice.html" class="cat-action-btn" data-tw="進入 密封包裝類 專區與規格" data-en="View Sealed Bags Specs">
+              <span data-tw="進入 密封包裝類 專區與規格" data-en="View Sealed Bags Specs">進入 密封包裝類 專區與規格</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 05 其他類 -->
+        <div class="cat-card-box">
+          <div class="cat-card-img-wrap">
+            <span class="cat-num-tag">05 CATEGORY</span>
+            <img src="../src/use6.png" alt="其他類">
+          </div>
+          <div class="cat-card-body">
+            <div>
+              <h2 class="cat-card-title" data-tw="其他類 (Miscellaneous & Specialty)" data-en="Specialty Products">其他類 (Miscellaneous & Specialty)</h2>
+              <p class="cat-card-desc" data-tw="提供衛生防護手套與台塑遮蔽防塵膠帶，適合建築施工裝潢防護與日常備料。" data-en="Protective hygiene gloves and Formosa masking dustproof film tapes for construction and home protection.">
+                提供衛生防護手套與台塑遮蔽防塵膠帶，適合建築施工裝潢防護與日常備料。
+              </p>
+              <div class="subcat-list">
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 衛生手套</span>
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 台塑遮蔽防塵膠帶</span>
+              </div>
+            </div>
+            <a href="foodservice.html" class="cat-action-btn" data-tw="進入 其他類 專區與規格" data-en="View Specialty Specs">
+              <span data-tw="進入 其他類 專區與規格" data-en="View Specialty Specs">進入 其他類 專區與規格</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 06 Scale Sheet -->
+        <div class="cat-card-box">
+          <div class="cat-card-img-wrap">
+            <span class="cat-num-tag">06 CATEGORY</span>
+            <img src="../src/scale sheet.png" alt="Scale Sheet 生鮮磅秤切片膜">
+          </div>
+          <div class="cat-card-body">
+            <div>
+              <h2 class="cat-card-title" data-tw="Scale Sheet (生鮮磅秤切片膜)" data-en="Scale Sheet Deli Sheeting">Scale Sheet (生鮮磅秤切片膜)</h2>
+              <p class="cat-card-desc" data-tw="專為超市生鮮櫃檯、熟食與肉品磅秤分裝設計之食品級切片膜，具備優秀防油防水性，方便磅秤秤重與防污染保護。" data-en="Food-grade scale sheets designed for deli counters, butcher shops, and seafood weighing stations.">
+                專為超市生鮮櫃檯、熟食與肉品磅秤分裝設計之食品級切片膜，具備優秀防油防水性，方便磅秤秤重與防污染保護。
+              </p>
+              <div class="subcat-list">
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 生鮮磅秤切片膜</span>
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 熟食肉品磅秤襯墊</span>
+                <span class="subcat-pill"><i class="fa-solid fa-check"></i> 食品級 PE 認證</span>
+              </div>
+            </div>
+            <a href="stretch-films.html" class="cat-action-btn" data-tw="進入 Scale Sheet 專區與規格" data-en="View Scale Sheet Specs">
+              <span data-tw="進入 Scale Sheet 專區與規格" data-en="View Scale Sheet Specs">進入 Scale Sheet 專區與規格</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'tw';
+    function toggleLanguage() {
+      currentLang = currentLang === 'tw' ? 'en' : 'tw';
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) {
+        langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+      }
+      document.querySelectorAll("[data-tw]").forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) {
+          const icon = el.querySelector('i');
+          if (icon) {
+            const iconClone = icon.cloneNode(true);
+            el.innerHTML = '';
+            el.appendChild(iconClone);
+            el.appendChild(document.createTextNode(' ' + text));
+          } else {
+            el.innerText = text;
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

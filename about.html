@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>關於我們 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
+  <meta name="description" content="了解臺灣營德股份有限公司 (Inteplast Taiwan) 的企業歷史：美商營德集團與台塑企業合資，嘉義新港廠區自動化吹膜，榮獲 2022/2023 卓越營運獎。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-navy: #0A2540;
+      --brand-blue: #00529B;
+      --brand-blue-hover: #003d75;
+      --accent-azure: #00A8FF;
+      --accent-emerald: #10B981;
+      --bg-light: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+      --shadow-mega: 0 30px 60px -12px rgba(10, 37, 64, 0.22);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--surface-white); line-height: 1.6; }
+
+    /* 集團頂樓列 */
+    .top-utility-bar {
+      background: var(--primary-navy); color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
+      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: relative; z-index: 1002;
+    }
+    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
+    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
+    .utility-left a:hover, .utility-right a:hover { color: var(--accent-azure); }
+    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
+
+    /* Navbar Header */
+    .header {
+      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
+      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
+    }
+    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-image { height: 40px; width: auto; object-fit: contain; }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
+
+    .nav-menu { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-item { position: relative; }
+    .nav-link-item {
+      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
+      color: var(--text-main); text-decoration: none; transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    }
+    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
+    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
+    .nav-item:hover .caret-icon { transform: rotate(180deg); }
+
+    /* 6 大類 Mega Menu Panel */
+    .mega-menu-panel-6cat {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
+      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
+    }
+    .nav-item:hover .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
+    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
+    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
+    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
+    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
+
+    .mega-feature-card { background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); border-radius: var(--radius-sm); padding: 24px; color: var(--surface-white); display: flex; flex-direction: column; justify-content: space-between; }
+    .mega-feature-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+    .mega-feature-desc { font-size: 0.82rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 16px; }
+    .mega-feature-btn { background: var(--surface-white); color: var(--primary-navy); padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 800; text-decoration: none; text-align: center; transition: var(--transition); }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
+    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+
+    /* Page Hero */
+    .page-hero { padding: 160px 40px 80px; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white); text-align: center; }
+    .page-hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 16px; }
+    .page-hero p { font-size: 1.1rem; max-width: 750px; margin: 0 auto; color: rgba(255,255,255,0.85); }
+
+    .section { padding: 90px 40px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+    .badge { display: inline-block; padding: 6px 14px; background: rgba(0,82,155,0.1); color: var(--brand-blue); border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 12px; }
+    .title { font-size: 2rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 16px; }
+    .desc { font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+
+    .award-card { background: linear-gradient(135deg, #FFFBEB, #FEF3C7); border: 1px solid #F59E0B; border-radius: var(--radius-md); padding: 30px; margin-top: 40px; display: flex; align-items: center; gap: 24px; }
+    .award-icon { font-size: 3rem; color: #D97706; }
+
+    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+
+    @media (max-width: 1100px) {
+      .mega-menu-panel, .top-utility-bar { display: none; }
+      .header { top: 0; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <div class="top-utility-bar">
+    <div class="utility-left">
+      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
+      <a href="index.html"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
+      <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 北美總部</a>
+    </div>
+    <div class="utility-right">
+      <a href="about.html" data-tw="投資人專區" data-en="Investor Relations"><i class="fa-solid fa-chart-line"></i> 投資人專區</a>
+      <a href="sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> 永續發展</a>
+      <a href="contact.html" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
+      <a href="contact.html" data-tw="客戶專屬登入" data-en="Client Portal"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a>
+    </div>
+  </div>
+
+  <!-- Header & Mega Menu -->
+  <header class="header">
+    <a href="index.html" class="header-logo">
+      <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
+      <div>
+        <span class="logo-text-tw">臺灣營德股份有限公司</span>
+        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
+      </div>
+    </a>
+    
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a>
+      </li>
+      <li class="nav-item">
+        <a href="about.html" class="nav-link-item active" data-tw="關於營德" data-en="About Us">關於營德 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+      </li>
+
+      <!-- 6 大產品 Mega Menu -->
+      <li class="nav-item">
+        <a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel-6cat">
+          <div class="mega-grid-6">
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/can-liners.html">連捲清潔袋</a></li>
+                <li><a href="products/can-liners.html">單張抽取</a></li>
+                <li><a href="products/can-liners.html">環保清潔袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/draw-tape.html">清潔袋</a></li>
+                <li><a href="products/draw-tape.html">醫療袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">平裝耐熱袋</a></li>
+                <li><a href="products/foodservice.html">捲裝耐熱袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">密實袋</a></li>
+                <li><a href="products/foodservice.html">立體密實袋</a></li>
+                <li><a href="products/foodservice.html">冷凍袋</a></li>
+                <li><a href="products/foodservice.html">夾鏈袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">衛生手套</a></li>
+                <li><a href="products/foodservice.html">台塑遮蔽防塵膠帶</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> 06 Scale Sheet</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/stretch-films.html">生鮮磅秤切片膜</a></li>
+                <li><a href="products/stretch-films.html">熟食肉品磅秤襯墊</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a href="sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+      </li>
+
+      <li class="nav-item">
+        <a href="contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a>
+      </li>
+    </ul>
+
+    <div class="header-right">
+      <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
+      <a href="contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+    </div>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <h1 data-tw="關於臺灣營德 | 台塑關係企業與美商營德合資大廠" data-en="About Inteplast Taiwan Corporation">關於臺灣營德 | 台塑關係企業與美商營德合資大廠</h1>
+    <p data-tw="由美商營德集團 (Inteplast Group)、台灣塑膠公司 (Formosa Plastics Corp.) 及長庚生物科技共同出資成立。生產基地座落於嘉義台塑企業新港廠區。" data-en="Jointly established by Inteplast Group, Formosa Plastics Corp., and Chang Gung Biotechnology. Production hub located in Formosa Plastics Xingang Complex, Chiayi.">
+      由美商營德集團 (Inteplast Group)、台灣塑膠公司 (Formosa Plastics Corp.) 及長庚生物科技共同出資成立。生產基地座落於嘉義台塑企業新港廠區。
+    </p>
+  </section>
+
+  <!-- Overview Section -->
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <span class="badge" data-tw="CORPORATE OVERVIEW" data-en="CORPORATE OVERVIEW">CORPORATE OVERVIEW</span>
+          <h2 class="title" data-tw="勤勞樸實 · 永續經營" data-en="Diligent, Frugal & Sustainable Management">勤勞樸實 · 永續經營</h2>
+          <p class="desc" data-tw="臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 作為 Inteplast Group 全球下游塑膠加工產業鏈的核心據點之一，結合台塑企業豐富的原料資源與營德集團的全球加工技術背景。新港生產基地配備全自動拌料與原料空輸系統，並採用 PLC 自動化控制吹膜設備與精密點斷熱封技術。" data-en="As a core hub of Inteplast Group's global downstream plastic processing chain, Inteplast Taiwan combines Formosa Plastics' rich raw material resources with Inteplast's processing technology. Our Chiayi Xingang plant features fully automated resin pneumatic transport and PLC extrusion controls.">
+            臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 作為 Inteplast Group 全球下游塑膠加工產業鏈的核心據點之一，結合台塑企業豐富的原料資源與營德集團的全球加工技術背景。新港生產基地配備全自動拌料與原料空輸系統，並採用 PLC 自動化控制吹膜設備與精密點斷熱封技術。
+          </p>
+        </div>
+        <div style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg);">
+          <img src="./src/plant.png" alt="嘉義台塑新港廠區" style="width:100%; display:block;">
+        </div>
+      </div>
+
+      <!-- 卓越營運獎 Award -->
+      <div class="award-card">
+        <i class="fa-solid fa-trophy award-icon"></i>
+        <div>
+          <div style="font-size: 1.3rem; font-weight: 800; color: #92400E; margin-bottom: 4px;" data-tw="連續榮獲 2022、2023 年集團卓越營運獎 (Excellence Award)" data-en="Recipient of 2022 & 2023 Group Excellence Awards">
+            連續榮獲 2022、2023 年集團卓越營運獎 (Excellence Award)
+          </div>
+          <div style="font-size: 0.95rem; color: #78350F;" data-tw="在 Inteplast Group 全球眾多生產基地的內部營運評比中，憑藉穩定且優異的生產品質與高良率，連續獲得集團總裁頒發最高榮譽代表。" data-en="Recognized by the Group President for outstanding operational efficiency, quality yield, and manufacturing perfection.">
+            在 Inteplast Group 全球眾多生產基地的內部營運評比中，憑藉穩定且優異的生產品質與高良率，連續獲得集團總裁頒發最高榮譽代表。
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'tw';
+    function toggleLanguage() {
+      currentLang = currentLang === 'tw' ? 'en' : 'tw';
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) {
+        langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+      }
+      document.querySelectorAll("[data-tw]").forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) {
+          const icon = el.querySelector('i');
+          if (icon) {
+            const iconClone = icon.cloneNode(true);
+            el.innerHTML = '';
+            el.appendChild(iconClone);
+            el.appendChild(document.createTextNode(' ' + text));
+          } else {
+            el.innerText = text;
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

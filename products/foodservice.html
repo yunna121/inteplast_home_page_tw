@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>耐熱袋、夾鏈袋與食品級包裝 (Heat-Resistant & Zipper Bags) 專頁 | 臺灣營德 Inteplast Taiwan</title>
+  <meta name="description" content="臺灣營德 100% 食品級耐熱袋與夾鏈袋專頁：平裝耐熱袋（四兩至15斤）、卷裝耐熱袋（四兩至5斤）與夾鏈袋 00號至12號精準對照表。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-navy: #0A2540;
+      --brand-blue: #00529B;
+      --brand-blue-hover: #003d75;
+      --accent-azure: #00A8FF;
+      --bg-light: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #F8FAFC; line-height: 1.6; }
+
+    .header {
+      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
+      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
+    }
+    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-image { height: 40px; width: auto; }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
+
+    .nav-menu { display: flex; align-items: center; gap: 6px; list-style: none; }
+    .nav-item { position: relative; }
+    .nav-link-item {
+      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
+      color: var(--text-main); text-decoration: none; transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    }
+    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
+    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
+    .mega-menu-panel-6cat {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
+      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
+    }
+    .mega-menu-panel-6cat::before {
+      content: ''; position: absolute; top: -25px; left: 0; width: 100%; height: 30px; background: transparent;
+    }
+    .nav-item:hover .mega-menu-panel-6cat,
+    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(4px); }
+    .nav-item:hover .caret-icon,
+    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
+    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
+    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
+    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
+    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .lang-toggle {
+      background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px;
+      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);
+      cursor: pointer; transition: var(--transition);
+    }
+    .rfq-btn {
+      background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white);
+      padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700;
+      text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    /* Top Utility Bar */
+    .top-utility-bar {
+      background: #051322; color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
+      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: relative; z-index: 1002;
+    }
+    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
+    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
+    .utility-left a:hover, .utility-right a:hover { color: var(--accent-azure); }
+    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
+
+    .page-hero {
+      padding: 150px 40px 60px;
+      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
+      color: var(--surface-white); margin-top: 31px;
+    }
+    .hero-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+    .hero-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+    .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 24px; }
+    .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
+
+    .section { padding: 60px 40px; }
+    
+    /* COMPACT NEAT SPEC CONTAINER (MAX 860px CENTERED) */
+    .compact-spec-container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Filter Pills Bar */
+    .filter-pills-bar {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      background: #FFFFFF; border: 1px solid #CBD5E1; color: var(--text-main);
+      padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s ease;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
+    .filter-btn.active {
+      background: var(--primary-navy); color: #FFFFFF; border-color: var(--primary-navy);
+    }
+
+    /* NEAT COMPACT SPEC TABLES */
+    .cat-spec-block {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      margin-bottom: 35px;
+      overflow: hidden;
+    }
+
+    .cat-spec-header {
+      background: #0A2540;
+      color: #FFFFFF;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cat-spec-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cat-spec-sub {
+      font-size: 0.8rem;
+      color: #94A3B8;
+      font-weight: 600;
+    }
+
+    .compact-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .compact-table th {
+      background: #F1F5F9;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      text-align: left;
+      border-bottom: 1px solid #CBD5E1;
+    }
+    .compact-table td {
+      padding: 11px 24px;
+      border-bottom: 1px solid #E2E8F0;
+      color: #1E293B;
+      font-weight: 600;
+    }
+    .compact-table tr:last-child td {
+      border-bottom: none;
+    }
+    .compact-table tr:nth-child(even) td {
+      background: #F8FAFC;
+    }
+    .compact-table tr:hover td {
+      background: #EFF6FF;
+    }
+
+    .tag-size {
+      display: inline-block;
+      background: #E0F2FE;
+      color: #0284C7;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
+    .tag-qty {
+      display: inline-block;
+      background: #F0FDF4;
+      color: #16A34A;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
+
+    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+
+    @media (max-width: 900px) {
+      .hero-container { grid-template-columns: 1fr; }
+      .mega-menu-panel-6cat, .top-utility-bar { display: none; }
+      .header { top: 0; }
+      .compact-table th, .compact-table td { padding: 10px 14px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <div class="top-utility-bar">
+    <div class="utility-left">
+      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
+      <a href="../index.html"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
+      <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 北美總部</a>
+    </div>
+    <div class="utility-right">
+      <a href="../about.html" data-tw="投資人專區" data-en="Investor Relations"><i class="fa-solid fa-chart-line"></i> 投資人專區</a>
+      <a href="../sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> 永續發展</a>
+      <a href="../contact.html" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
+      <a href="../contact.html" data-tw="客戶專屬登入" data-en="Client Portal"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a>
+    </div>
+  </div>
+
+  <header class="header">
+    <a href="../index.html" class="header-logo">
+      <img src="../src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
+      <div>
+        <span class="logo-text-tw">臺灣營德股份有限公司</span>
+        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
+      </div>
+    </a>
+    
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="../index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
+      <li class="nav-item"><a href="../about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
+      
+      <!-- 6 大產品 Mega Menu -->
+      <li class="nav-item">
+        <a href="index.html" class="nav-link-item active product-menu-trigger" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel-6cat">
+          <div class="mega-grid-6">
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="can-liners.html">連捲清潔袋</a></li>
+                <li><a href="can-liners.html">單張抽取</a></li>
+                <li><a href="can-liners.html">環保清潔袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="draw-tape.html">清潔袋</a></li>
+                <li><a href="draw-tape.html">醫療袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="foodservice.html">平裝耐熱袋</a></li>
+                <li><a href="foodservice.html">捲裝耐熱袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+              <ul class="mega-sub-links">
+                <li><a href="foodservice.html">密實袋</a></li>
+                <li><a href="foodservice.html">立體密實袋</a></li>
+                <li><a href="foodservice.html">冷凍袋</a></li>
+                <li><a href="foodservice.html">夾鏈袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
+              <ul class="mega-sub-links">
+                <li><a href="foodservice.html">衛生手套</a></li>
+                <li><a href="foodservice.html">台塑遮蔽防塵膠帶</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> 06 Scale Sheet</div>
+              <ul class="mega-sub-links">
+                <li><a href="stretch-films.html">生鮮磅秤切片膜</a></li>
+                <li><a href="stretch-films.html">熟食肉品磅秤襯墊</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
+      <li class="nav-item"><a href="../contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
+    </ul>
+
+    <div class="header-right">
+      <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
+      <a href="../contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="hero-container">
+      <div>
+        <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">HEAT-RESISTANT & ZIPPER PACKAGING</span>
+        <h1 class="hero-title" data-tw="耐熱袋與夾鏈密封包裝系列" data-en="Heat-Resistant & Zipper Bags">耐熱袋與夾鏈密封包裝系列</h1>
+        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整技術規格。" data-en="High-temperature resistant & FDA-compliant PE heat bags (flat/roll) and 00-12 reclosable zipper bags for food prep.">
+          嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整技術規格。
+        </p>
+        <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Inquire Heat Bags"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
+      </div>
+      <div>
+        <img src="../src/耐熱袋.png" alt="耐熱袋 實景展示" class="product-hero-img">
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="compact-spec-container">
+
+      <!-- Category Filter Pills Bar -->
+      <div class="filter-pills-bar">
+        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 全部規格 All</button>
+        <button class="filter-btn" onclick="filterCategory('flat-heat', this)">平裝耐熱袋</button>
+        <button class="filter-btn" onclick="filterCategory('roll-heat', this)">卷裝耐熱袋</button>
+        <button class="filter-btn" onclick="filterCategory('zipper', this)">夾鏈袋</button>
+        <button class="filter-btn" onclick="filterCategory('slider', this)">密實袋</button>
+        <button class="filter-btn" onclick="filterCategory('standup', this)">立體密實袋</button>
+        <button class="filter-btn" onclick="filterCategory('freezer', this)">冷凍袋</button>
+        <button class="filter-btn" onclick="filterCategory('tape', this)">台塑遮蔽膠帶</button>
+        <button class="filter-btn" onclick="filterCategory('gloves', this)">衛生手套</button>
+      </div>
+
+      <!-- 1. 平裝耐熱袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-flat-heat">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-temperature-high"></i> 平裝耐熱袋規格對照表</h2>
+          <span class="cat-spec-sub">食品級高溫耐熱配方</span>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">四兩</span></td>
+              <td>15.5 x 19.5 cm</td>
+              <td><span class="tag-qty">360張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">六兩</span></td>
+              <td>18.5 x 23 cm</td>
+              <td><span class="tag-qty">255張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">半斤</span></td>
+              <td>22 x 27 cm</td>
+              <td><span class="tag-qty">183張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">1斤</span></td>
+              <td>24 x 31 cm</td>
+              <td><span class="tag-qty">146張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">2斤</span></td>
+              <td>28 x 39 cm</td>
+              <td><span class="tag-qty">99張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">3斤</span></td>
+              <td>32 x 43 cm</td>
+              <td><span class="tag-qty">79張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">5斤</span></td>
+              <td>35 x 50 cm</td>
+              <td><span class="tag-qty">52張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">10斤</span></td>
+              <td>45 x 62 cm</td>
+              <td><span class="tag-qty">26張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">15斤</span></td>
+              <td>48 x 65 cm</td>
+              <td><span class="tag-qty">22張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 2. 卷裝耐熱袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-roll-heat">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-scroll"></i> 卷裝耐熱袋規格對照表</h2>
+          <span class="cat-spec-sub">包裝規範：100PCS (大) / 150PCS (小)</span>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="數量 / 包裝 Qty per Roll/Pack" data-en="Qty per Roll/Pack">數量 / 包裝 Qty per Roll/Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">四兩</span></td>
+              <td>15.5 x 19.5 cm</td>
+              <td><span class="tag-qty">1822張/卷</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">六兩</span></td>
+              <td>18.5 x 23 cm</td>
+              <td><span class="tag-qty">1275張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">半斤</span></td>
+              <td>22 x 27 cm</td>
+              <td><span class="tag-qty">897張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">1斤</span></td>
+              <td>24 x 31 cm</td>
+              <td><span class="tag-qty">708張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">2斤</span></td>
+              <td>28 x 39 cm</td>
+              <td><span class="tag-qty">472張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">3斤</span></td>
+              <td>32 x 43 cm</td>
+              <td><span class="tag-qty">367張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">5斤</span></td>
+              <td>35 x 50 cm</td>
+              <td><span class="tag-qty">236張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 3. 夾鏈袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-zipper">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-lock"></i> 夾鏈袋號數對照表 (00號 ~ 12號)</h2>
+          <span class="cat-spec-sub">標準包裝：100張/包</span>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">00號 (#00)</span></td>
+              <td>3.5 x 4 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">0號 (#0)</span></td>
+              <td>4 x 6 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">1號 (#1)</span></td>
+              <td>5 x 7 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">2號 (#2)</span></td>
+              <td>6 x 8.5 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">3號 (#3)</span></td>
+              <td>7 x 10 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">4號 (#4)</span></td>
+              <td>8.5 x 12 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">5號 (#5)</span></td>
+              <td>10 x 14 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">6號 (#6)</span></td>
+              <td>12 x 17 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">7號 (#7)</span></td>
+              <td>14 x 20 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">8號 (#8)</span></td>
+              <td>17 x 24 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">9號 (#9)</span></td>
+              <td>20 x 28 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">10號 (#10)</span></td>
+              <td>24 x 34 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">11號 (#11)</span></td>
+              <td>28 x 40 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">12號 (#12)</span></td>
+              <td>34 x 45 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 4. 密實袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-slider">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-box-archive"></i> 密實袋裝箱與棧板規範對照表</h2>
+          <span class="cat-spec-sub">獨家拉鍊密封保鮮</span>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="裝箱與棧板規範 Pallet Specification" data-en="Pallet Spec">裝箱與棧板規範 Pallet Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>密實袋 Slider Storage Bag</td>
+              <td><span class="tag-size">中 (Medium)</span></td>
+              <td><span class="tag-qty">45箱/板</span></td>
+            </tr>
+            <tr>
+              <td>密實袋 Slider Storage Bag</td>
+              <td><span class="tag-size">大 (Large)</span></td>
+              <td><span class="tag-qty">48箱/板</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 5. 立體密實袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-standup">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-cube"></i> 立體密實袋規格對照表</h2>
+          <span class="cat-spec-sub">底部加寬立體站立設計</span>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>立體密實袋 Stand-Up Bag</td>
+              <td><span class="tag-size">小 (Small)</span></td>
+              <td>13 x 13.5 cm</td>
+              <td><span class="tag-qty">40張/包</span></td>
+            </tr>
+            <tr>
+              <td>立體密實袋 Stand-Up Bag</td>
+              <td><span class="tag-size">中 (Medium)</span></td>
+              <td>17 x 15.5 cm</td>
+              <td><span class="tag-qty">30張/包</span></td>
+            </tr>
+            <tr>
+              <td>立體密實袋 Stand-Up Bag</td>
+              <td><span class="tag-size">大 (Large)</span></td>
+              <td>26 x 25.5 cm</td>
+              <td><span class="tag-qty">16張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 6. 冷凍袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-freezer">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-snowflake"></i> 冷凍袋裝箱與棧板規範對照表</h2>
+          <span class="cat-spec-sub">耐低溫防凍裂特別配方</span>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="裝箱與棧板規範 Pallet Specification" data-en="Pallet Spec">裝箱與棧板規範 Pallet Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>冷凍袋 Freezer Bag</td>
+              <td><span class="tag-size">中 (Medium)</span></td>
+              <td><span class="tag-qty">45箱/板</span></td>
+            </tr>
+            <tr>
+              <td>冷凍袋 Freezer Bag</td>
+              <td><span class="tag-size">大 (Large)</span></td>
+              <td><span class="tag-qty">48箱/板</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 7. 台塑遮蔽膠帶 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-tape">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-tape"></i> 台塑遮蔽防塵膠帶規格對照表</h2>
+          <span class="cat-spec-sub">建築裝潢與噴漆防塵保護</span>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification (幅寬 x 長度)" data-en="Spec (Width x Length)">規格 Specification (幅寬 x 長度)</th>
+              <th data-tw="長度換算 Length (Meters)" data-en="Length (Meters)">長度換算 Length (Meters)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">550 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">1100 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">1500 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">2100 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">2700 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">3200 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 8. 衛生手套 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-gloves">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-hand"></i> 衛生防護手套尺寸規格對照表</h2>
+          <span class="cat-spec-sub">食品級 PE 高純度防護</span>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格/尺寸 Specification" data-en="Size">規格/尺寸 Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>衛生手套 Protective Gloves</td>
+              <td><span class="tag-size">小</span></td>
+            </tr>
+            <tr>
+              <td>衛生手套 Protective Gloves</td>
+              <td><span class="tag-size">中</span></td>
+            </tr>
+            <tr>
+              <td>衛生手套 Protective Gloves</td>
+              <td><span class="tag-size">大</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="compact-spec-container">
+      <div class="footer-bottom">
+        © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function filterCategory(category, btn) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const blocks = document.querySelectorAll('.spec-block');
+      blocks.forEach(block => {
+        if (category === 'all') {
+          block.style.display = 'block';
+        } else {
+          if (block.id === `cat-${category}`) {
+            block.style.display = 'block';
+          } else {
+            block.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const navItems = document.querySelectorAll(".nav-item");
+      navItems.forEach(item => {
+        let timer;
+        const panel = item.querySelector(".mega-menu-panel-6cat");
+        if (!panel) return;
+
+        item.addEventListener("mouseenter", function() {
+          clearTimeout(timer);
+          item.classList.add("open-dropdown");
+        });
+
+        item.addEventListener("mouseleave", function() {
+          timer = setTimeout(() => {
+            item.classList.remove("open-dropdown");
+          }, 250);
+        });
+
+        const trigger = item.querySelector(".product-menu-trigger");
+        if (trigger) {
+          trigger.addEventListener("click", function(e) {
+            e.preventDefault();
+            item.classList.toggle("open-dropdown");
+          });
+        }
+      });
+
+      document.addEventListener("click", function(e) {
+        if (!e.target.closest(".nav-item")) {
+          document.querySelectorAll(".nav-item.open-dropdown").forEach(i => i.classList.remove("open-dropdown"));
+        }
+      });
+    });
+
+    let currentLang = 'tw';
+    function toggleLanguage() {
+      currentLang = currentLang === 'tw' ? 'en' : 'tw';
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) {
+        langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+      }
+      document.querySelectorAll("[data-tw]").forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) {
+          const icon = el.querySelector('i');
+          if (icon) {
+            const iconClone = icon.cloneNode(true);
+            el.innerHTML = '';
+            el.appendChild(iconClone);
+            el.appendChild(document.createTextNode(' ' + text));
+          } else {
+            el.innerText = text;
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>垃圾袋與內袋 (Can Liners) 專頁 | 臺灣營德 Inteplast Taiwan</title>
+  <meta name="description" content="臺灣營德 Can Liners 垃圾袋與內袋詳細規格、防漏星封 (Star Seal) 配方、加侖數對照與外銷裝櫃規範。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-navy: #0A2540;
+      --brand-blue: #00529B;
+      --brand-blue-hover: #003d75;
+      --accent-azure: #00A8FF;
+      --accent-emerald: #10B981;
+      --bg-light: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--surface-white); line-height: 1.6; }
+
+    /* Header Navbar */
+    .header {
+      position: fixed; top: 0; left: 0; width: 100%; padding: 14px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color); z-index: 1000;
+    }
+    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-image { height: 40px; width: auto; }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 700; color: var(--primary-navy); display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 600; color: var(--brand-blue); display: block; }
+
+    .nav-menu { display: flex; align-items: center; gap: 6px; list-style: none; }
+    .nav-item { position: relative; }
+    .nav-link-item {
+      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
+      color: var(--text-main); text-decoration: none; transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    }
+    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
+    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
+    .nav-item:hover .caret-icon { transform: rotate(180deg); }
+
+    .mega-menu-panel-6cat {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
+      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
+    }
+    .mega-menu-panel-6cat::before {
+      content: ''; position: absolute; top: -25px; left: 0; width: 100%; height: 30px; background: transparent;
+    }
+    .nav-item:hover .mega-menu-panel-6cat,
+    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(4px); }
+    .nav-item:hover .caret-icon,
+    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
+    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
+    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
+    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
+    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .lang-toggle {
+      background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px;
+      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);
+      cursor: pointer; transition: var(--transition);
+    }
+    .rfq-btn {
+      background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white);
+      padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700;
+      text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    /* Product Page Hero */
+    .page-hero {
+      padding: 140px 40px 60px;
+      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
+      color: var(--surface-white);
+    }
+    .hero-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+    .hero-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+    .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 24px; }
+
+    .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
+
+    .section { padding: 80px 40px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* Ultra-Modern Spec Card Block */
+    .modern-spec-card {
+      background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px;
+      box-shadow: 0 10px 30px -10px rgba(10, 37, 64, 0.08); margin-bottom: 40px;
+      overflow: hidden; transition: all 0.3s ease;
+    }
+    .modern-spec-card:hover {
+      border-color: rgba(0, 82, 155, 0.3);
+      box-shadow: 0 20px 40px -12px rgba(10, 37, 64, 0.12);
+    }
+
+    .spec-card-header {
+      padding: 24px 32px; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+      border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .spec-card-title-box { display: flex; align-items: center; gap: 16px; }
+    .spec-card-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      background: rgba(0, 82, 155, 0.08); border: 1px solid rgba(0, 82, 155, 0.15);
+      color: var(--brand-blue); display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .spec-card-h3 { font-size: 1.35rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 4px; }
+    .spec-card-p { font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
+    
+    .spec-count-tag {
+      font-size: 0.8rem; font-weight: 800; color: var(--brand-blue);
+      background: #E0F2FE; border: 1px solid #BAE6FD; padding: 6px 14px; border-radius: var(--radius-full);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+
+    /* Ultra-Clean Modern Table */
+    .modern-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+    .modern-table th {
+      background: #F8FAFC; color: var(--text-muted); font-size: 0.8rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.8px; padding: 16px 32px; text-align: left;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .modern-table td {
+      padding: 16px 32px; border-bottom: 1px solid #F1F5F9;
+      font-size: 0.93rem; font-weight: 600; color: var(--text-main);
+      transition: background 0.2s ease;
+    }
+    .modern-table tr:last-child td { border-bottom: none; }
+    .modern-table tr:hover td { background: #F8FAFC; }
+
+    /* Custom Pastel Pill Badges */
+    .pill-badge-indigo {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #EFF6FF; color: #1D4ED8; font-weight: 800;
+      padding: 6px 14px; border-radius: 8px; font-size: 0.88rem;
+      border: 1px solid #DBEAFE;
+    }
+    .pill-badge-emerald {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #F0FDF4; color: #15803D; font-weight: 700;
+      padding: 6px 14px; border-radius: 8px; font-size: 0.88rem;
+      border: 1px solid #DCFCE7;
+    }
+
+    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+
+    @media (max-width: 900px) {
+      .hero-container { grid-template-columns: 1fr; }
+      .header-center { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="../index.html" class="header-logo">
+      <img src="../src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
+      <div>
+        <span class="logo-text-tw">臺灣營德股份有限公司</span>
+        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
+      </div>
+    </a>
+    
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="../index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
+      <li class="nav-item"><a href="../about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
+      
+      <!-- 6 大產品 Mega Menu -->
+      <li class="nav-item">
+        <a href="index.html" class="nav-link-item active product-menu-trigger" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel-6cat">
+          <div class="mega-grid-6">
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="can-liners.html">連捲清潔袋</a></li>
+                <li><a href="can-liners.html">單張抽取</a></li>
+                <li><a href="can-liners.html">環保清潔袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="draw-tape.html">清潔袋</a></li>
+                <li><a href="draw-tape.html">醫療袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="foodservice.html">平裝耐熱袋</a></li>
+                <li><a href="foodservice.html">捲裝耐熱袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+              <ul class="mega-sub-links">
+                <li><a href="foodservice.html">密實袋</a></li>
+                <li><a href="foodservice.html">立體密實袋</a></li>
+                <li><a href="foodservice.html">冷凍袋</a></li>
+                <li><a href="foodservice.html">夾鏈袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
+              <ul class="mega-sub-links">
+                <li><a href="foodservice.html">衛生手套</a></li>
+                <li><a href="foodservice.html">台塑遮蔽防塵膠帶</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> 06 Scale Sheet</div>
+              <ul class="mega-sub-links">
+                <li><a href="stretch-films.html">生鮮磅秤切片膜</a></li>
+                <li><a href="stretch-films.html">熟食肉品磅秤襯墊</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
+      <li class="nav-item"><a href="../contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
+    </ul>
+
+    <div class="header-right">
+      <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
+      <a href="../contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="hero-container">
+      <div>
+        <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">COMMERCIAL & INDUSTRIAL</span>
+        <h1 class="hero-title" data-tw="垃圾袋與內袋 (Can Liners)" data-en="Can Liners & Trash Bags">垃圾袋與內袋 (Can Liners)</h1>
+        <p class="hero-desc" data-tw="臺灣營德 Can Liners 專為商業機構、飯店清潔、醫療衛生與工業環境打造。配備星形底封 (Star Seal) 防漏專利，重量分佈均勻，絕不洩漏。" data-en="Heavy-duty commercial and institutional can liners featuring Star Seal leak protection and uniform weight distribution for maximum reliability.">
+          臺灣營德 Can Liners 專為商業機構、飯店清潔、醫療衛生與工業環境打造。配備星形底封 (Star Seal) 防漏專利，重量分佈均勻，絕不洩漏。
+        </p>
+        <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Request Quote For Can Liners"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
+      </div>
+      <div>
+        <img src="../src/Can-Liners-HERO-1.jpg" alt="Can Liners Showcase" class="product-hero-img">
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="compact-spec-container" style="max-width: 860px; margin: 0 auto;">
+      <div class="cat-spec-block" style="background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); overflow: hidden; margin-bottom: 35px;">
+        <div class="cat-spec-header" style="background: #0A2540; color: #FFFFFF; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center;">
+          <h2 style="font-size: 1.15rem; font-weight: 800; display: flex; align-items: center; gap: 10px;"><i class="fa-solid fa-dumpster"></i> 清潔袋標準產品規格對照表</h2>
+          <span style="font-size: 0.8rem; color: #94A3B8; font-weight: 600;">Star Seal 防漏認證</span>
+        </div>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+          <thead>
+            <tr style="background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase;">
+              <th style="padding: 10px 20px; text-align: left; border-bottom: 1px solid #CBD5E1;">容量 Size (Gal)</th>
+              <th style="padding: 10px 20px; text-align: left; border-bottom: 1px solid #CBD5E1;">尺寸 Dimensions</th>
+              <th style="padding: 10px 20px; text-align: left; border-bottom: 1px solid #CBD5E1;">厚度 Gauge / Micron</th>
+              <th style="padding: 10px 20px; text-align: left; border-bottom: 1px solid #CBD5E1;">底封型態 Seal Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #E2E8F0;">
+              <td style="padding: 11px 20px; font-weight: 700; color: #0A2540;">12 - 15 Gal</td>
+              <td style="padding: 11px 20px;">24" x 33" (61 × 84 cm)</td>
+              <td style="padding: 11px 20px;">0.35 - 0.70 mil (9 - 18 µm)</td>
+              <td style="padding: 11px 20px;"><span style="background: #F0FDF4; color: #16A34A; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Star Seal 防漏星封</span></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #E2E8F0; background: #F8FAFC;">
+              <td style="padding: 11px 20px; font-weight: 700; color: #0A2540;">30 Gal</td>
+              <td style="padding: 11px 20px;">30" x 36" (76 × 91 cm)</td>
+              <td style="padding: 11px 20px;">0.50 - 1.20 mil (13 - 30 µm)</td>
+              <td style="padding: 11px 20px;"><span style="background: #F0FDF4; color: #16A34A; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Star Seal 防漏星封</span></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #E2E8F0;">
+              <td style="padding: 11px 20px; font-weight: 700; color: #0A2540;">33 Gal</td>
+              <td style="padding: 11px 20px;">33" x 39" (84 × 99 cm)</td>
+              <td style="padding: 11px 20px;">0.70 - 1.50 mil (18 - 38 µm)</td>
+              <td style="padding: 11px 20px;"><span style="background: #F0FDF4; color: #16A34A; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Star Seal 防漏星封</span></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #E2E8F0; background: #F8FAFC;">
+              <td style="padding: 11px 20px; font-weight: 700; color: #0A2540;">40 - 45 Gal Heavy Duty</td>
+              <td style="padding: 11px 20px;">40" x 46" (102 × 117 cm)</td>
+              <td style="padding: 11px 20px;">1.00 - 2.00 mil (25 - 50 µm)</td>
+              <td style="padding: 11px 20px;"><span style="background: #FEF3C7; color: #D97706; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Heavy Duty 強韌底封</span></td>
+            </tr>
+            <tr style="background: #FFFFFF;">
+              <td style="padding: 11px 20px; font-weight: 700; color: #0A2540;">55 - 60 Gal Super Heavy</td>
+              <td style="padding: 11px 20px;">38" x 58" (97 × 147 cm)</td>
+              <td style="padding: 11px 20px;">1.50 - 3.00 mil (38 - 75 µm)</td>
+              <td style="padding: 11px 20px;"><span style="background: #FEF3C7; color: #D97706; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Super Heavy 超重底封</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const navItems = document.querySelectorAll(".nav-item");
+      navItems.forEach(item => {
+        let timer;
+        const panel = item.querySelector(".mega-menu-panel-6cat");
+        if (!panel) return;
+
+        item.addEventListener("mouseenter", function() {
+          clearTimeout(timer);
+          item.classList.add("open-dropdown");
+        });
+
+        item.addEventListener("mouseleave", function() {
+          timer = setTimeout(() => {
+            item.classList.remove("open-dropdown");
+          }, 250);
+        });
+
+        const trigger = item.querySelector(".product-menu-trigger");
+        if (trigger) {
+          trigger.addEventListener("click", function(e) {
+            e.preventDefault();
+            item.classList.toggle("open-dropdown");
+          });
+        }
+      });
+
+      document.addEventListener("click", function(e) {
+        if (!e.target.closest(".nav-item")) {
+          document.querySelectorAll(".nav-item.open-dropdown").forEach(i => i.classList.remove("open-dropdown"));
+        }
+      });
+    });
+
+    let currentLang = 'tw';
+    function toggleLanguage() {
+      currentLang = currentLang === 'tw' ? 'en' : 'tw';
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) {
+        langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+      }
+      document.querySelectorAll("[data-tw]").forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) {
+          const icon = el.querySelector('i');
+          if (icon) {
+            const iconClone = icon.cloneNode(true);
+            el.innerHTML = '';
+            el.appendChild(iconClone);
+            el.appendChild(document.createTextNode(' ' + text));
+          } else {
+            el.innerText = text;
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
