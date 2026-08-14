@@ -164,14 +164,11 @@
       font-weight: 600;
     }
 
-    /* VISUAL SCALE COMPARISON RAMP WALL */
+    /* SMART ADAPTIVE SCALE RAMP LAYOUTS */
     .scale-ramp-container {
       background: linear-gradient(135deg, #0A2540, #004580);
-      padding: 24px 20px;
+      padding: 24px 24px;
       border-bottom: 1px solid #CBD5E1;
-      overflow-x: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #00A8FF #0A2540;
     }
     .scale-ramp-title-row {
       display: flex;
@@ -187,30 +184,44 @@
       align-items: center;
       gap: 8px;
     }
-    .scale-ramp-sub {
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.7);
-      font-weight: 600;
-    }
 
-    .scale-ramp-track {
+    /* 1. FEWER SIZES (e.g. 7~9 sizes for Heat Bags): Generous, Spacious 1-Row Stretch Layout */
+    .track-spacious {
       display: flex;
       align-items: flex-end;
+      justify-content: space-between;
       gap: 12px;
       padding: 15px 5px 10px;
-      min-width: max-content;
+      width: 100%;
+    }
+    .track-spacious .scale-ramp-item {
+      flex: 1;
+      min-width: 110px;
+      padding: 14px 10px;
+    }
+
+    /* 2. MANY SIZES (e.g. 14 sizes for Zipper Bags 00號~12號): Smart Grid Wrap Layout */
+    .track-grid-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 14px;
+      padding: 15px 5px 10px;
+    }
+    .track-grid-wrap .scale-ramp-item {
+      width: calc(14.28% - 12px);
+      min-width: 110px;
+      padding: 14px 10px;
     }
 
     .scale-ramp-item {
-      flex-shrink: 0;
-      min-width: 90px;
       display: flex;
       flex-direction: column;
       align-items: center;
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 10px;
-      padding: 10px 8px;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.25s ease;
     }
@@ -410,7 +421,7 @@
             <div class="scale-ramp-title"><i class="fa-solid fa-ruler-combined"></i> 尺寸從小到大等比例對比牆 (Visual Scale Ramp)</div>
           </div>
 
-          <div class="scale-ramp-track">
+          <div class="scale-ramp-track track-spacious">
             <!-- 四兩 -->
             <div class="scale-ramp-item">
               <div class="scale-bag-shape" style="width: 48px; height: 60px;">
@@ -520,7 +531,7 @@
             <div class="scale-ramp-title"><i class="fa-solid fa-ruler-combined"></i> 卷裝尺寸等比例對比牆</div>
           </div>
 
-          <div class="scale-ramp-track">
+          <div class="scale-ramp-track track-spacious">
             <div class="scale-ramp-item">
               <div class="scale-bag-shape" style="width: 48px; height: 60px;">
                 <span class="scale-bag-tag">四兩</span>
@@ -605,7 +616,7 @@
             <div class="scale-ramp-title"><i class="fa-solid fa-ruler-combined"></i> 夾鏈袋 00號~12號 等比例視覺對比牆</div>
           </div>
 
-          <div class="scale-ramp-track">
+          <div class="scale-ramp-track track-grid-wrap">
             <div class="scale-ramp-item">
               <div class="scale-bag-shape" style="width: 25px; height: 30px;">
                 <span class="scale-bag-tag" style="font-size: 0.65rem;">00號</span>
