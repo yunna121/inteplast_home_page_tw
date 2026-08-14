@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>耐熱袋、夾鏈袋與食品級包裝 (Heat-Resistant & Zipper Bags) 專頁 | 臺灣營德 Inteplast Taiwan</title>
-  <meta name="description" content="臺灣營德 100% 食品級耐熱袋與夾鏈袋專頁：平裝耐熱袋（四兩至15斤）、卷裝耐熱袋（四兩至5斤）與夾鏈袋 00號至12號完整規格視覺展演。">
+  <meta name="description" content="臺灣營德 100% 食品級耐熱袋與夾鏈袋專頁：平裝耐熱袋（四兩至15斤）、卷裝耐熱袋（四兩至5斤）與夾鏈袋 00號至12號極簡技術規格清單。">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -17,7 +17,6 @@
       --brand-blue: #00529B;
       --brand-blue-hover: #003d75;
       --accent-azure: #00A8FF;
-      --accent-emerald: #10B981;
       --bg-light: #F8FAFC;
       --surface-white: #FFFFFF;
       --text-main: #1E293B;
@@ -25,7 +24,6 @@
       --border-color: #E2E8F0;
       --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
       --radius-sm: 8px;
       --radius-md: 16px;
       --radius-lg: 24px;
@@ -34,7 +32,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #F8FAFC; line-height: 1.6; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #FAFAFA; line-height: 1.6; }
 
     .header {
       position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
@@ -103,99 +101,99 @@
       background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
       color: var(--surface-white); margin-top: 31px;
     }
-    .hero-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+    .hero-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
     .hero-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
     .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 24px; }
     .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
 
     .section { padding: 60px 40px; }
-    .container { max-width: 1200px; margin: 0 auto; }
+    .container-apple { max-width: 900px; margin: 0 auto; }
 
-    /* Modern Category Filter Pills */
+    /* Filter Pills Bar */
     .filter-pills-bar {
       display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
-      margin-bottom: 45px;
+      margin-bottom: 50px;
     }
     .filter-btn {
       background: #FFFFFF; border: 1px solid #CBD5E1; color: var(--text-main);
       padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 700;
-      cursor: pointer; transition: all 0.25s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+      cursor: pointer; transition: all 0.25s ease;
       display: inline-flex; align-items: center; gap: 8px;
     }
-    .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); transform: translateY(-2px); }
+    .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
     .filter-btn.active {
-      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
-      color: #FFFFFF; border-color: var(--primary-navy); box-shadow: 0 8px 20px rgba(0, 82, 155, 0.25);
-      transform: translateY(-2px);
+      background: var(--primary-navy); color: #FFFFFF; border-color: var(--primary-navy);
     }
 
-    /* 100% NON-TABLE SPEC CARD CONTAINER */
-    .non-table-spec-block {
-      background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 24px;
-      box-shadow: 0 10px 30px -10px rgba(10, 37, 64, 0.08); margin-bottom: 45px;
-      overflow: hidden; transition: all 0.3s ease;
+    /* APPLE TECH SPECS MINIMALIST LIST (NO BOXES, NO CARDS, NO TABLE BORDERS) */
+    .apple-spec-group {
+      margin-bottom: 55px;
     }
-    .non-table-spec-block:hover {
-      border-color: rgba(0, 82, 155, 0.3);
-      box-shadow: 0 20px 45px -12px rgba(10, 37, 64, 0.12);
+    .apple-group-header {
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--primary-navy);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
-
-    .spec-block-header {
-      padding: 28px 36px; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
-      border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 16px;
+    .apple-group-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-navy);
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-    .spec-header-left { display: flex; align-items: center; gap: 18px; }
-    .spec-header-icon {
-      width: 50px; height: 50px; border-radius: 14px;
-      background: rgba(0, 82, 155, 0.08); border: 1px solid rgba(0, 82, 155, 0.15);
-      color: var(--brand-blue); display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-    }
-    .spec-header-h3 { font-size: 1.4rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 4px; }
-    .spec-header-p { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
-    .spec-count-tag {
-      font-size: 0.8rem; font-weight: 800; color: var(--brand-blue);
-      background: #E0F2FE; border: 1px solid #BAE6FD; padding: 6px 16px; border-radius: var(--radius-full);
-      display: inline-flex; align-items: center; gap: 6px;
+    .apple-group-sub {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--brand-blue);
     }
 
-    /* 100% NON-TABLE SPEC CARDS GRID */
-    .spec-cards-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px; padding: 32px; background: #FFFFFF;
+    .apple-spec-list {
+      display: flex;
+      flex-direction: column;
     }
 
-    .spec-chip-card {
-      background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px;
-      padding: 20px; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      display: flex; flex-direction: column; justify-content: space-between;
-      position: relative; overflow: hidden;
+    .apple-list-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 12px;
+      border-bottom: 1px solid #E2E8F0;
+      transition: background 0.2s ease, padding 0.2s ease;
     }
-    .spec-chip-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-      background: linear-gradient(180deg, var(--brand-blue), var(--accent-azure));
-      border-radius: 4px 0 0 4px; opacity: 0.8;
+    .apple-list-row:last-child {
+      border-bottom: 1px solid #CBD5E1;
     }
-    .spec-chip-card:hover {
-      transform: translateY(-4px); background: #FFFFFF; border-color: var(--accent-azure);
-      box-shadow: 0 12px 28px -6px rgba(0, 82, 155, 0.16);
+    .apple-list-row:hover {
+      background: #F1F5F9;
+      border-radius: 8px;
+      padding-left: 20px;
+      padding-right: 20px;
     }
 
-    .spec-chip-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .spec-chip-size { font-size: 1.2rem; font-weight: 800; color: var(--primary-navy); }
-    .spec-chip-qty {
-      font-size: 0.82rem; font-weight: 800; color: #15803D;
-      background: #F0FDF4; border: 1px solid #DCFCE7; padding: 4px 10px; border-radius: 9999px;
-      display: inline-flex; align-items: center; gap: 4px;
+    .apple-label {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--primary-navy);
     }
-    .spec-chip-qty.amber { color: #B45309; background: #FEF3C7; border-color: #FDE68A; }
-    
-    .spec-chip-dim {
-      font-size: 0.95rem; font-weight: 600; color: #475569;
-      display: flex; align-items: center; gap: 8px; margin-top: 6px;
+    .apple-meta {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 0.95rem;
     }
-    .spec-chip-dim i { color: var(--brand-blue); font-size: 0.9rem; }
+    .apple-dim {
+      font-family: 'Inter', monospace, sans-serif;
+      font-weight: 600;
+      color: #334155;
+    }
+    .apple-qty {
+      font-weight: 700;
+      color: var(--brand-blue);
+    }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
@@ -204,7 +202,8 @@
       .hero-container { grid-template-columns: 1fr; }
       .mega-menu-panel-6cat, .top-utility-bar { display: none; }
       .header { top: 0; }
-      .spec-cards-grid { grid-template-columns: 1fr; padding: 20px; }
+      .apple-list-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .apple-meta { gap: 16px; }
     }
   </style>
 </head>
@@ -307,8 +306,8 @@
       <div>
         <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">HEAT-RESISTANT & ZIPPER PACKAGING</span>
         <h1 class="hero-title" data-tw="耐熱袋與夾鏈密封包裝系列" data-en="Heat-Resistant & Zipper Bags">耐熱袋與夾鏈密封包裝系列</h1>
-        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋（四兩至15斤）、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整標準規格展示。" data-en="High-temperature resistant & FDA-compliant PE heat bags (flat/roll) and 00-12 reclosable zipper bags for food prep.">
-          嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋（四兩至15斤）、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整標準規格展示。
+        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整技術規格列表。" data-en="High-temperature resistant & FDA-compliant PE heat bags (flat/roll) and 00-12 reclosable zipper bags for food prep.">
+          嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整技術規格列表。
         </p>
         <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Inquire Heat Bags"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
       </div>
@@ -319,467 +318,406 @@
   </section>
 
   <section class="section">
-    <div class="container">
+    <div class="container-apple">
 
       <!-- Category Filter Pills Bar -->
       <div class="filter-pills-bar">
         <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 全部規格 All</button>
-        <button class="filter-btn" onclick="filterCategory('flat-heat', this)"><i class="fa-solid fa-temperature-high"></i> 平裝耐熱袋</button>
-        <button class="filter-btn" onclick="filterCategory('roll-heat', this)"><i class="fa-solid fa-scroll"></i> 卷裝耐熱袋</button>
-        <button class="filter-btn" onclick="filterCategory('zipper', this)"><i class="fa-solid fa-lock"></i> 夾鏈袋 (00~12號)</button>
-        <button class="filter-btn" onclick="filterCategory('slider', this)"><i class="fa-solid fa-box-archive"></i> 密實袋</button>
-        <button class="filter-btn" onclick="filterCategory('standup', this)"><i class="fa-solid fa-cube"></i> 立體密實袋</button>
-        <button class="filter-btn" onclick="filterCategory('freezer', this)"><i class="fa-solid fa-snowflake"></i> 冷凍袋</button>
-        <button class="filter-btn" onclick="filterCategory('tape', this)"><i class="fa-solid fa-tape"></i> 台塑遮蔽膠帶</button>
-        <button class="filter-btn" onclick="filterCategory('gloves', this)"><i class="fa-solid fa-hand"></i> 衛生手套</button>
+        <button class="filter-btn" onclick="filterCategory('flat-heat', this)">平裝耐熱袋</button>
+        <button class="filter-btn" onclick="filterCategory('roll-heat', this)">卷裝耐熱袋</button>
+        <button class="filter-btn" onclick="filterCategory('zipper', this)">夾鏈袋 (00~12號)</button>
+        <button class="filter-btn" onclick="filterCategory('slider', this)">密實袋</button>
+        <button class="filter-btn" onclick="filterCategory('standup', this)">立體密實袋</button>
+        <button class="filter-btn" onclick="filterCategory('freezer', this)">冷凍袋</button>
+        <button class="filter-btn" onclick="filterCategory('tape', this)">台塑遮蔽膠帶</button>
+        <button class="filter-btn" onclick="filterCategory('gloves', this)">衛生手套</button>
       </div>
-      
-      <!-- 1. 平裝耐熱袋 100% NON-TABLE visual cards -->
-      <div class="non-table-spec-block spec-block" id="cat-flat-heat">
-        <div class="spec-block-header">
-          <div class="spec-header-left">
-            <div class="spec-header-icon"><i class="fa-solid fa-temperature-high"></i></div>
-            <div>
-              <h3 class="spec-header-h3" data-tw="平裝耐熱袋標準規格" data-en="Flat Heat-Resistant Bags">平裝耐熱袋標準規格</h3>
-              <p class="spec-header-p" data-tw="食品級高溫耐熱配方，耐高溫盛裝，適合熱食外帶與餐飲備料。" data-en="High-temp resistant food bags for hot food packaging.">食品級高溫耐熱配方，耐高溫盛裝，適合熱食外帶與餐飲備料。</p>
-            </div>
-          </div>
-          <span class="spec-count-tag"><i class="fa-solid fa-cubes"></i> 共 9 款規格</span>
+
+      <!-- 1. 平裝耐熱袋 APPLE MINIMALIST LIST -->
+      <div class="apple-spec-group spec-block" id="cat-flat-heat">
+        <div class="apple-group-header">
+          <h2 class="apple-group-title"><i class="fa-solid fa-temperature-high" style="color: var(--brand-blue);"></i> 平裝耐熱袋</h2>
+          <span class="apple-group-sub">食品級高溫耐熱配方</span>
         </div>
-        <div class="spec-cards-grid">
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">四兩</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 360張/包</span>
+        <div class="apple-spec-list">
+          <div class="apple-list-row">
+            <span class="apple-label">四兩</span>
+            <div class="apple-meta">
+              <span class="apple-dim">15.5 × 19.5 cm</span>
+              <span class="apple-qty">360 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 15.5 × 19.5 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">六兩</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 255張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">六兩</span>
+            <div class="apple-meta">
+              <span class="apple-dim">18.5 × 23 cm</span>
+              <span class="apple-qty">255 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 18.5 × 23 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">半斤</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 183張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">半斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">22 × 27 cm</span>
+              <span class="apple-qty">183 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 22 × 27 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">1斤</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 146張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">1斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">24 × 31 cm</span>
+              <span class="apple-qty">146 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 24 × 31 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">2斤</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 99張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">2斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">28 × 39 cm</span>
+              <span class="apple-qty">99 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 28 × 39 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">3斤</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 79張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">3斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">32 × 43 cm</span>
+              <span class="apple-qty">79 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 32 × 43 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">5斤</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 52張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">5斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">35 × 50 cm</span>
+              <span class="apple-qty">52 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 35 × 50 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">10斤</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 26張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">10斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">45 × 62 cm</span>
+              <span class="apple-qty">26 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 45 × 62 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">15斤</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 22張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">15斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">48 × 65 cm</span>
+              <span class="apple-qty">22 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 48 × 65 cm</div>
           </div>
         </div>
       </div>
 
-      <!-- 2. 卷裝耐熱袋 100% NON-TABLE visual cards -->
-      <div class="non-table-spec-block spec-block" id="cat-roll-heat">
-        <div class="spec-block-header">
-          <div class="spec-header-left">
-            <div class="spec-header-icon"><i class="fa-solid fa-scroll"></i></div>
-            <div>
-              <h3 class="spec-header-h3" data-tw="卷裝耐熱袋標準規格" data-en="Roll Heat-Resistant Bags">卷裝耐熱袋標準規格</h3>
-              <p class="spec-header-p" data-tw="點斷連卷撕取流暢，包裝規範：100PCS (大) / 150PCS (小)。" data-en="Continuous roll tear-off bags. 100PCS (L) / 150PCS (S).">點斷連卷撕取流暢，包裝規範：<strong>100PCS (大) / 150PCS (小)</strong>。</p>
-            </div>
-          </div>
-          <span class="spec-count-tag"><i class="fa-solid fa-cubes"></i> 共 7 款規格</span>
+      <!-- 2. 卷裝耐熱袋 APPLE MINIMALIST LIST -->
+      <div class="apple-spec-group spec-block" id="cat-roll-heat">
+        <div class="apple-group-header">
+          <h2 class="apple-group-title"><i class="fa-solid fa-scroll" style="color: var(--brand-blue);"></i> 卷裝耐熱袋</h2>
+          <span class="apple-group-sub">包裝規範：100PCS (大) / 150PCS (小)</span>
         </div>
-        <div class="spec-cards-grid">
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">四兩</span>
-              <span class="spec-chip-qty amber"><i class="fa-solid fa-scroll"></i> 1822張/卷</span>
+        <div class="apple-spec-list">
+          <div class="apple-list-row">
+            <span class="apple-label">四兩</span>
+            <div class="apple-meta">
+              <span class="apple-dim">15.5 × 19.5 cm</span>
+              <span class="apple-qty">1822 張 / 卷</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 15.5 × 19.5 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">六兩</span>
-              <span class="spec-chip-qty amber"><i class="fa-solid fa-scroll"></i> 1275張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">六兩</span>
+            <div class="apple-meta">
+              <span class="apple-dim">18.5 × 23 cm</span>
+              <span class="apple-qty">1275 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 18.5 × 23 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">半斤</span>
-              <span class="spec-chip-qty amber"><i class="fa-solid fa-scroll"></i> 897張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">半斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">22 × 27 cm</span>
+              <span class="apple-qty">897 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 22 × 27 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">1斤</span>
-              <span class="spec-chip-qty amber"><i class="fa-solid fa-scroll"></i> 708張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">1斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">24 × 31 cm</span>
+              <span class="apple-qty">708 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 24 × 31 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">2斤</span>
-              <span class="spec-chip-qty amber"><i class="fa-solid fa-scroll"></i> 472張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">2斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">28 × 39 cm</span>
+              <span class="apple-qty">472 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 28 × 39 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">3斤</span>
-              <span class="spec-chip-qty amber"><i class="fa-solid fa-scroll"></i> 367張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">3斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">32 × 43 cm</span>
+              <span class="apple-qty">367 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 32 × 43 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">5斤</span>
-              <span class="spec-chip-qty amber"><i class="fa-solid fa-scroll"></i> 236張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">5斤</span>
+            <div class="apple-meta">
+              <span class="apple-dim">35 × 50 cm</span>
+              <span class="apple-qty">236 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 35 × 50 cm</div>
           </div>
         </div>
       </div>
 
-      <!-- 3. 夾鏈袋 100% NON-TABLE visual cards -->
-      <div class="non-table-spec-block spec-block" id="cat-zipper">
-        <div class="spec-block-header">
-          <div class="spec-header-left">
-            <div class="spec-header-icon"><i class="fa-solid fa-lock"></i></div>
-            <div>
-              <h3 class="spec-header-h3" data-tw="夾鏈袋標準號數 (00號 ~ 12號)" data-en="Zipper Bags (#00 to #12)">夾鏈袋標準號數 (00號 ~ 12號)</h3>
-              <p class="spec-header-p" data-tw="全系列採用 100 張/包封裝，雙軌咬合密封防洩漏。" data-en="Packed in 100 pcs/pack with tight reclosable seal.">全系列採用 100 張/包封裝，雙軌咬合密封防洩漏。</p>
-            </div>
-          </div>
-          <span class="spec-count-tag"><i class="fa-solid fa-cubes"></i> 共 14 款號數</span>
+      <!-- 3. 夾鏈袋 APPLE MINIMALIST LIST -->
+      <div class="apple-spec-group spec-block" id="cat-zipper">
+        <div class="apple-group-header">
+          <h2 class="apple-group-title"><i class="fa-solid fa-lock" style="color: var(--brand-blue);"></i> 夾鏈袋 (00號 ~ 12號)</h2>
+          <span class="apple-group-sub">標準封裝：100 張 / 包</span>
         </div>
-        <div class="spec-cards-grid">
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">00號 (#00)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+        <div class="apple-spec-list">
+          <div class="apple-list-row">
+            <span class="apple-label">00號 (#00)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">3.5 × 4 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 3.5 × 4 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">0號 (#0)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">0號 (#0)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">4 × 6 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 4 × 6 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">1號 (#1)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">1號 (#1)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">5 × 7 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 5 × 7 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">2號 (#2)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">2號 (#2)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">6 × 8.5 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 6 × 8.5 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">3號 (#3)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">3號 (#3)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">7 × 10 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 7 × 10 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">4號 (#4)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">4號 (#4)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">8.5 × 12 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 8.5 × 12 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">5號 (#5)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">5號 (#5)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">10 × 14 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 10 × 14 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">6號 (#6)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">6號 (#6)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">12 × 17 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 12 × 17 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">7號 (#7)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">7號 (#7)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">14 × 20 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 14 × 20 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">8號 (#8)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">8號 (#8)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">17 × 24 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 17 × 24 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">9號 (#9)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">9號 (#9)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">20 × 28 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 20 × 28 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">10號 (#10)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">10號 (#10)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">24 × 34 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 24 × 34 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">11號 (#11)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">11號 (#11)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">28 × 40 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 28 × 40 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">12號 (#12)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 100張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">12號 (#12)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">34 × 45 cm</span>
+              <span class="apple-qty">100 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 34 × 45 cm</div>
           </div>
         </div>
       </div>
 
-      <!-- 4. 密實袋 100% NON-TABLE visual cards -->
-      <div class="non-table-spec-block spec-block" id="cat-slider">
-        <div class="spec-block-header">
-          <div class="spec-header-left">
-            <div class="spec-header-icon"><i class="fa-solid fa-box-archive"></i></div>
-            <div>
-              <h3 class="spec-header-h3" data-tw="密實袋裝箱與棧板規範" data-en="Slider Storage Bags">密實袋裝箱與棧板規範</h3>
-              <p class="spec-header-p" data-tw="採用獨家拉鍊密封保鮮設計，提供優異封口拉伸強度與標準化棧板裝箱率。" data-en="Heavy-duty slider storage bags with standardized pallet stacking ratios.">採用獨家拉鍊密封保鮮設計，提供優異封口拉伸強度與標準化棧板裝箱率。</p>
-            </div>
-          </div>
-          <span class="spec-count-tag"><i class="fa-solid fa-cubes"></i> 共 2 款規格</span>
+      <!-- 4. 密實袋 APPLE MINIMALIST LIST -->
+      <div class="apple-spec-group spec-block" id="cat-slider">
+        <div class="apple-group-header">
+          <h2 class="apple-group-title"><i class="fa-solid fa-box-archive" style="color: var(--brand-blue);"></i> 密實袋</h2>
+          <span class="apple-group-sub">獨家拉鍊密封保鮮</span>
         </div>
-        <div class="spec-cards-grid">
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">中 (Medium)</span>
-              <span class="spec-chip-qty amber"><i class="fa-solid fa-truck-ramp-box"></i> 45箱/板</span>
+        <div class="apple-spec-list">
+          <div class="apple-list-row">
+            <span class="apple-label">中 (Medium)</span>
+            <div class="apple-meta">
+              <span class="apple-qty">45 箱 / 板</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-shield-halved"></i> 獨家拉鍊密封保鮮</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">大 (Large)</span>
-              <span class="spec-chip-qty amber"><i class="fa-solid fa-truck-ramp-box"></i> 48箱/板</span>
+          <div class="apple-list-row">
+            <span class="apple-label">大 (Large)</span>
+            <div class="apple-meta">
+              <span class="apple-qty">48 箱 / 板</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-shield-halved"></i> 獨家拉鍊密封保鮮</div>
           </div>
         </div>
       </div>
 
-      <!-- 5. 立體密實袋 100% NON-TABLE visual cards -->
-      <div class="non-table-spec-block spec-block" id="cat-standup">
-        <div class="spec-block-header">
-          <div class="spec-header-left">
-            <div class="spec-header-icon"><i class="fa-solid fa-cube"></i></div>
-            <div>
-              <h3 class="spec-header-h3" data-tw="立體密實袋標準規格" data-en="Stand-Up Storage Bags">立體密實袋標準規格</h3>
-              <p class="spec-header-p" data-tw="底部加寬立體站立設計，容量更大且便於液體與大量食材儲存。" data-en="Expanded bottom gusset stand-up design for increased storage capacity.">底部加寬立體站立設計，容量更大且便於液體與大量食材儲存。</p>
-            </div>
-          </div>
-          <span class="spec-count-tag"><i class="fa-solid fa-cubes"></i> 共 3 款規格</span>
+      <!-- 5. 立體密實袋 APPLE MINIMALIST LIST -->
+      <div class="apple-spec-group spec-block" id="cat-standup">
+        <div class="apple-group-header">
+          <h2 class="apple-group-title"><i class="fa-solid fa-cube" style="color: var(--brand-blue);"></i> 立體密實袋</h2>
+          <span class="apple-group-sub">底部加寬立體站立設計</span>
         </div>
-        <div class="spec-cards-grid">
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">小 (Small)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 40張/包</span>
+        <div class="apple-spec-list">
+          <div class="apple-list-row">
+            <span class="apple-label">小 (Small)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">13 × 13.5 cm</span>
+              <span class="apple-qty">40 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 13 × 13.5 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">中 (Medium)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 30張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">中 (Medium)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">17 × 15.5 cm</span>
+              <span class="apple-qty">30 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 17 × 15.5 cm</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">大 (Large)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-box-open"></i> 16張/包</span>
+          <div class="apple-list-row">
+            <span class="apple-label">大 (Large)</span>
+            <div class="apple-meta">
+              <span class="apple-dim">26 × 25.5 cm</span>
+              <span class="apple-qty">16 張 / 包</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-ruler-combined"></i> 26 × 25.5 cm</div>
           </div>
         </div>
       </div>
 
-      <!-- 6. 冷凍袋 100% NON-TABLE visual cards -->
-      <div class="non-table-spec-block spec-block" id="cat-freezer">
-        <div class="spec-block-header">
-          <div class="spec-header-left">
-            <div class="spec-header-icon"><i class="fa-solid fa-snowflake"></i></div>
-            <div>
-              <h3 class="spec-header-h3" data-tw="冷凍袋裝箱與棧板規範" data-en="Freezer Bags">冷凍袋裝箱與棧板規範</h3>
-              <p class="spec-header-p" data-tw="耐低溫凍裂特別配方，防止冷凍燒與食材異味交叉感染。" data-en="Cold-resistant PE film engineered to prevent freezer burn.">耐低溫凍裂特別配方，防止冷凍燒與食材異味交叉感染。</p>
-            </div>
-          </div>
-          <span class="spec-count-tag"><i class="fa-solid fa-cubes"></i> 共 2 款規格</span>
+      <!-- 6. 冷凍袋 APPLE MINIMALIST LIST -->
+      <div class="apple-spec-group spec-block" id="cat-freezer">
+        <div class="apple-group-header">
+          <h2 class="apple-group-title"><i class="fa-solid fa-snowflake" style="color: var(--brand-blue);"></i> 冷凍袋</h2>
+          <span class="apple-group-sub">耐低溫凍裂防燒特別配方</span>
         </div>
-        <div class="spec-cards-grid">
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">中 (Medium)</span>
-              <span class="spec-chip-qty amber"><i class="fa-solid fa-truck-ramp-box"></i> 45箱/板</span>
+        <div class="apple-spec-list">
+          <div class="apple-list-row">
+            <span class="apple-label">中 (Medium)</span>
+            <div class="apple-meta">
+              <span class="apple-qty">45 箱 / 板</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-snowflake"></i> 耐低溫防凍裂配方</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">大 (Large)</span>
-              <span class="spec-chip-qty amber"><i class="fa-solid fa-truck-ramp-box"></i> 48箱/板</span>
+          <div class="apple-list-row">
+            <span class="apple-label">大 (Large)</span>
+            <div class="apple-meta">
+              <span class="apple-qty">48 箱 / 板</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-snowflake"></i> 耐低溫防凍裂配方</div>
           </div>
         </div>
       </div>
 
-      <!-- 7. 台塑遮蔽膠帶 100% NON-TABLE visual cards -->
-      <div class="non-table-spec-block spec-block" id="cat-tape">
-        <div class="spec-block-header">
-          <div class="spec-header-left">
-            <div class="spec-header-icon"><i class="fa-solid fa-tape"></i></div>
-            <div>
-              <h3 class="spec-header-h3" data-tw="台塑遮蔽防塵膠帶規格" data-en="Formosa Masking Dustproof Tapes">台塑遮蔽防塵膠帶規格</h3>
-              <p class="spec-header-p" data-tw="結合防塵保護膜與高黏性遮蔽膠帶，專為建築工程、室內裝潢與噴漆遮蔽保護設計。" data-en="Integrated masking tape and electrostatic protective film.">結合防塵保護膜與高黏性遮蔽膠帶，專為建築工程、室內裝潢與噴漆遮蔽保護設計。</p>
-            </div>
-          </div>
-          <span class="spec-count-tag"><i class="fa-solid fa-cubes"></i> 共 6 款幅寬</span>
+      <!-- 7. 台塑遮蔽膠帶 APPLE MINIMALIST LIST -->
+      <div class="apple-spec-group spec-block" id="cat-tape">
+        <div class="apple-group-header">
+          <h2 class="apple-group-title"><i class="fa-solid fa-tape" style="color: var(--brand-blue);"></i> 台塑遮蔽防塵膠帶</h2>
+          <span class="apple-group-sub">建築裝潢與噴漆防塵保護</span>
         </div>
-        <div class="spec-cards-grid">
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">550 mm * 25 y</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-tape"></i> 22.8 m</span>
+        <div class="apple-spec-list">
+          <div class="apple-list-row">
+            <span class="apple-label">550 mm × 25 y</span>
+            <div class="apple-meta">
+              <span class="apple-qty">22.8 m</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-paint-roller"></i> 室內裝潢噴漆遮蔽</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">1100 mm * 25 y</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-tape"></i> 22.8 m</span>
+          <div class="apple-list-row">
+            <span class="apple-label">1100 mm × 25 y</span>
+            <div class="apple-meta">
+              <span class="apple-qty">22.8 m</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-paint-roller"></i> 室內裝潢噴漆遮蔽</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">1500 mm * 25 y</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-tape"></i> 22.8 m</span>
+          <div class="apple-list-row">
+            <span class="apple-label">1500 mm × 25 y</span>
+            <div class="apple-meta">
+              <span class="apple-qty">22.8 m</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-paint-roller"></i> 室內裝潢噴漆遮蔽</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">2100 mm * 25 y</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-tape"></i> 22.8 m</span>
+          <div class="apple-list-row">
+            <span class="apple-label">2100 mm × 25 y</span>
+            <div class="apple-meta">
+              <span class="apple-qty">22.8 m</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-paint-roller"></i> 大面積防塵工程隔離</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">2700 mm * 25 y</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-tape"></i> 22.8 m</span>
+          <div class="apple-list-row">
+            <span class="apple-label">2700 mm × 25 y</span>
+            <div class="apple-meta">
+              <span class="apple-qty">22.8 m</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-paint-roller"></i> 大面積防塵工程隔離</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">3200 mm * 25 y</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-tape"></i> 22.8 m</span>
+          <div class="apple-list-row">
+            <span class="apple-label">3200 mm × 25 y</span>
+            <div class="apple-meta">
+              <span class="apple-qty">22.8 m</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-paint-roller"></i> 超大幅寬建築工程專用</div>
           </div>
         </div>
       </div>
 
-      <!-- 8. 衛生手套 100% NON-TABLE visual cards -->
-      <div class="non-table-spec-block spec-block" id="cat-gloves">
-        <div class="spec-block-header">
-          <div class="spec-header-left">
-            <div class="spec-header-icon"><i class="fa-solid fa-hand"></i></div>
-            <div>
-              <h3 class="spec-header-h3" data-tw="衛生防護手套尺寸" data-en="Hygiene Protection Gloves">衛生防護手套尺寸</h3>
-              <p class="spec-header-p" data-tw="食品級高純度 PE 材質，舒適貼合，為食品備料、家務清潔與商業環境提供潔淨衛生隔離。" data-en="Food-grade hygienic PE gloves for food handling and sanitary protection.">食品級高純度 PE 材質，舒適貼合，為食品備料、家務清潔與商業環境提供潔淨衛生隔離。</p>
-            </div>
-          </div>
-          <span class="spec-count-tag"><i class="fa-solid fa-cubes"></i> 共 3 款尺寸</span>
+      <!-- 8. 衛生手套 APPLE MINIMALIST LIST -->
+      <div class="apple-spec-group spec-block" id="cat-gloves">
+        <div class="apple-group-header">
+          <h2 class="apple-group-title"><i class="fa-solid fa-hand" style="color: var(--brand-blue);"></i> 衛生手套</h2>
+          <span class="apple-group-sub">食品級 PE 高純度防護</span>
         </div>
-        <div class="spec-cards-grid">
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">小 (S)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-hand"></i> PE 衛生防護</span>
+        <div class="apple-spec-list">
+          <div class="apple-list-row">
+            <span class="apple-label">小 (S)</span>
+            <div class="apple-meta">
+              <span class="apple-qty">衛生防護手套</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-circle-check"></i> 輕薄貼手、食材備料</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">中 (M)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-hand"></i> PE 衛生防護</span>
+          <div class="apple-list-row">
+            <span class="apple-label">中 (M)</span>
+            <div class="apple-meta">
+              <span class="apple-qty">衛生防護手套</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-circle-check"></i> 靈活舒適、家務清潔</div>
           </div>
-          <div class="spec-chip-card">
-            <div class="spec-chip-top">
-              <span class="spec-chip-size">大 (L)</span>
-              <span class="spec-chip-qty"><i class="fa-solid fa-hand"></i> PE 衛生防護</span>
+          <div class="apple-list-row">
+            <span class="apple-label">大 (L)</span>
+            <div class="apple-meta">
+              <span class="apple-qty">衛生防護手套</span>
             </div>
-            <div class="spec-chip-dim"><i class="fa-solid fa-circle-check"></i> 絕佳韌性、商業隔離</div>
           </div>
         </div>
       </div>
@@ -788,7 +726,7 @@
   </section>
 
   <footer class="footer">
-    <div class="container">
+    <div class="container-apple">
       <div class="footer-bottom">
         © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
       </div>
