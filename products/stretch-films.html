@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>工業棧板伸縮膜 & 片材 (Stretch Films) 專頁 | 臺灣營德 Inteplast Taiwan</title>
-  <meta name="description" content="臺灣營德 7 層 LLDPE 工業伸縮薄膜 (Stretch Film / Scale Sheet)，300% 預拉伸率，棧板打包與運輸保護最佳選擇。">
+  <title>Scale Sheet (生鮮與熟食磅秤襯墊) 專頁 | 臺灣營德 Inteplast Taiwan</title>
+  <meta name="description" content="臺灣營德 Scale Sheet 生鮮磅秤切片膜與熟食肉品磅秤襯墊，專為超市生鮮櫃檯、熟食與肉品磅秤分裝設計，100% FDA 食品級 PE 認證。">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -34,18 +34,18 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--surface-white); line-height: 1.6; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #F8FAFC; line-height: 1.6; }
 
     .header {
-      position: fixed; top: 0; left: 0; width: 100%; padding: 14px 40px;
-      display: flex; justify-content: space-between; align-items: center;
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color); z-index: 1000;
+      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
+      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
     }
     .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
     .logo-image { height: 40px; width: auto; }
-    .logo-text-tw { font-size: 1.05rem; font-weight: 700; color: var(--primary-navy); display: block; }
-    .logo-text-en { font-size: 0.72rem; font-weight: 600; color: var(--brand-blue); display: block; }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
 
     .nav-menu { display: flex; align-items: center; gap: 6px; list-style: none; }
     .nav-item { position: relative; }
@@ -56,21 +56,14 @@
     }
     .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
     .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
-    .nav-item:hover .caret-icon { transform: rotate(180deg); }
-
+    
     .mega-menu-panel-6cat {
       position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
       width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
       border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
       opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
     }
-    .mega-menu-panel-6cat::before {
-      content: ''; position: absolute; top: -25px; left: 0; width: 100%; height: 30px; background: transparent;
-    }
-    .nav-item:hover .mega-menu-panel-6cat,
-    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(4px); }
-    .nav-item:hover .caret-icon,
-    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
+    .nav-item:hover .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(4px); }
     .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
     .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
     .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -78,44 +71,111 @@
     .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
 
     .header-right { display: flex; align-items: center; gap: 12px; }
-    .lang-toggle {
-      background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px;
-      border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);
-      cursor: pointer; transition: var(--transition);
-    }
-    .rfq-btn {
-      background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white);
-      padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700;
-      text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
-    }
+    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
+    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
 
-    .page-hero {
-      padding: 140px 40px 60px;
-      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
-      color: var(--surface-white);
+    .top-utility-bar {
+      background: #051322; color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
+      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: relative; z-index: 1002;
     }
+    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
+    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
+    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
+
+    .page-hero { padding: 140px 40px 50px; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white); margin-top: 31px; }
     .hero-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
-    .hero-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
-    .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 24px; }
+    .hero-title { font-size: 2.3rem; font-weight: 800; margin-bottom: 14px; }
+    .hero-desc { font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 20px; }
     .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
 
-    .section { padding: 80px 40px; }
-    .container { max-width: 1200px; margin: 0 auto; }
+    .section { padding: 40px 40px; }
+    .compact-spec-container { max-width: 1400px; margin: 0 auto; }
 
-    .spec-table { width: 100%; border-collapse: collapse; background: var(--surface-white); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); margin-top: 30px; }
-    .spec-table th { background: var(--primary-navy); color: var(--surface-white); padding: 16px 20px; text-align: left; font-size: 0.95rem; font-weight: 700; }
-    .spec-table td { padding: 14px 20px; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-main); }
+    .filter-pills-bar {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+      margin-bottom: 35px; background: #FFFFFF; padding: 16px; border-radius: 16px;
+      border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+      position: sticky; top: 90px; z-index: 900; backdrop-filter: blur(12px);
+    }
+    .filter-btn {
+      background: #F1F5F9; border: 1px solid #CBD5E1; color: var(--text-main);
+      padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.86rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); background: #EFF6FF; }
+    .filter-btn.active { background: var(--primary-navy); color: #FFFFFF; border-color: var(--primary-navy); box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2); }
+
+    .cat-spec-block {
+      background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05); margin-bottom: 45px;
+      overflow: hidden; scroll-margin-top: 170px; transition: all 0.3s ease;
+    }
+    .cat-spec-header { background: #0A2540; color: #FFFFFF; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .cat-spec-title { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+
+    .compact-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .compact-table th { background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; padding: 12px 24px; text-align: left; border-bottom: 1px solid #CBD5E1; }
+    .compact-table td { padding: 12px 24px; border-bottom: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; }
+    .compact-table tr:nth-child(even) td { background: #F8FAFC; }
+    .compact-table tr:hover td { background: #EFF6FF; }
+
+    .tag-size { display: inline-block; background: #E0F2FE; color: #0284C7; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
+    .tag-qty { display: inline-block; background: #FEF3C7; color: #D97706; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
+
+    .btn-quote-add {
+      background: #EFF6FF; border: 1px solid #BFDBFE; color: var(--brand-blue);
+      padding: 5px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 800;
+      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-quote-add:hover { background: var(--brand-blue); color: #FFFFFF; border-color: var(--brand-blue); }
+    .btn-quote-add.added { background: #10B981; color: #FFFFFF; border-color: #10B981; }
+
+    tr.row-selected td { background: #F0FDF4 !important; }
+
+    .rfq-floating-basket {
+      position: fixed; bottom: 25px; right: 25px; z-index: 9999;
+      background: #0A2540; color: #FFFFFF; border: 1px solid #00A8FF;
+      border-radius: 16px; padding: 14px 22px; box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+      display: flex; align-items: center; gap: 18px; transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: translateY(100px); opacity: 0; pointer-events: none;
+    }
+    .rfq-floating-basket.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .basket-info { font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .basket-count-badge { background: #00A8FF; color: #0A2540; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 900; font-size: 0.85rem; }
+    .basket-submit-btn {
+      background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;
+      border: none; padding: 8px 18px; border-radius: var(--radius-full);
+      font-size: 0.86rem; font-weight: 800; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease;
+    }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
 
     @media (max-width: 900px) {
       .hero-container { grid-template-columns: 1fr; }
-      .header-center { display: none; }
+      .mega-menu-panel-6cat, .top-utility-bar { display: none; }
+      .header { top: 0; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Top Utility Bar -->
+  <div class="top-utility-bar">
+    <div class="utility-left">
+      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
+      <a href="../index.html"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
+      <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 北美總部</a>
+    </div>
+    <div class="utility-right">
+      <a href="../about.html"><i class="fa-solid fa-chart-line"></i> 投資人專區</a>
+      <a href="../sustainability.html"><i class="fa-solid fa-leaf"></i> 永續發展</a>
+      <a href="../contact.html"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
+      <a href="../contact.html"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a>
+    </div>
+  </div>
 
   <header class="header">
     <a href="../index.html" class="header-logo">
@@ -127,12 +187,12 @@
     </a>
     
     <ul class="nav-menu">
-      <li class="nav-item"><a href="../index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
-      <li class="nav-item"><a href="../about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
+      <li class="nav-item"><a href="../index.html" class="nav-link-item">首頁</a></li>
+      <li class="nav-item"><a href="../about.html" class="nav-link-item">關於營德</a></li>
       
       <!-- 6 大產品 Mega Menu -->
       <li class="nav-item">
-        <a href="index.html" class="nav-link-item active product-menu-trigger" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <a href="index.html" class="nav-link-item active">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
         <div class="mega-menu-panel-6cat">
           <div class="mega-grid-6">
             <div>
@@ -160,17 +220,17 @@
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
               <ul class="mega-sub-links">
-                <li><a href="foodservice.html">密實袋</a></li>
-                <li><a href="foodservice.html">立體密實袋</a></li>
-                <li><a href="foodservice.html">冷凍袋</a></li>
-                <li><a href="foodservice.html">夾鏈袋</a></li>
+                <li><a href="zipper-bags.html">夾鏈袋 (00~12號)</a></li>
+                <li><a href="zipper-bags.html">密實袋</a></li>
+                <li><a href="zipper-bags.html">立體密實袋</a></li>
+                <li><a href="zipper-bags.html">冷凍袋</a></li>
               </ul>
             </div>
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
               <ul class="mega-sub-links">
-                <li><a href="foodservice.html">衛生手套</a></li>
-                <li><a href="foodservice.html">台塑遮蔽防塵膠帶</a></li>
+                <li><a href="specialty.html">台塑遮蔽防塵膠帶</a></li>
+                <li><a href="specialty.html">衛生手套</a></li>
               </ul>
             </div>
             <div>
@@ -184,78 +244,129 @@
         </div>
       </li>
 
-      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
-      <li class="nav-item"><a href="../contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
+      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item">永續發展</a></li>
+      <li class="nav-item"><a href="../contact.html" class="nav-link-item">聯繫與詢價</a></li>
     </ul>
 
     <div class="header-right">
       <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
-      <a href="../contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+      <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
     </div>
   </header>
 
   <section class="page-hero">
     <div class="hero-container">
       <div>
-        <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">INDUSTRIAL PACKAGING</span>
-        <h1 class="hero-title" data-tw="棧板伸縮膜 & 薄膜片材 (Stretch Films)" data-en="Industrial Stretch Films & Sheeting">棧板伸縮膜 & 薄膜片材 (Stretch Films)</h1>
-        <p class="hero-desc" data-tw="採用 7 層共擠鑄造/吹塑 LLDPE 膜技術，具備高達 300% 之預拉伸率與頂級包覆張力，專為工業物流與棧板裹膜保護設計。" data-en="Advanced 7-layer LLDPE cast and blown stretch film engineered for high load retention and 300% elongation performance.">
-          採用 7 層共擠鑄造/吹塑 LLDPE 膜技術，具備高達 300% 之預拉伸率與頂級包覆張力，專為工業物流與棧板裹膜保護設計。
+        <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">DELI & PRODUCE SCALE SHEETS</span>
+        <h1 class="hero-title">Scale Sheet (生鮮與熟食磅秤襯墊) 專頁</h1>
+        <p class="hero-desc">
+          專為超市生鮮櫃檯、熟食專櫃、精緻肉品與海鮮磅秤分裝設計之 FDA 食品級高密度薄膜片材。具備優異之防油、防水性與抗撕裂韌性，輕鬆抽取方便秤重。
         </p>
-        <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Inquire Stretch Films"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
+        <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
       </div>
       <div>
-        <img src="../src/stretch-film-bopp.png" alt="Stretch Films Showcase" class="product-hero-img">
+        <img src="../src/scale sheet.png" alt="Scale Sheet 展示" class="product-hero-img">
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="container">
-      <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 12px;" data-tw="伸縮薄膜技術規格與物性數據" data-en="Technical & Physical Properties">伸縮薄膜技術規格與物性數據</h2>
-      <p style="color: var(--text-muted); margin-bottom: 20px;" data-tw="提供機械膜 (Machine Roll)、人工手打膜 (Hand Wrap) 與客製薄膜片材 (Scale Sheeting)。" data-en="Available in automatic machine rolls, hand wrap, and custom scale sheets.">
-        提供機械膜 (Machine Roll)、人工手打膜 (Hand Wrap) 與客製薄膜片材 (Scale Sheeting)。
-      </p>
+    <div class="compact-spec-container">
 
-      <table class="spec-table">
-        <thead>
-          <tr>
-            <th data-tw="種類 Type" data-en="Type">種類 Type</th>
-            <th data-tw="寬度 Width" data-en="Width">寬度 Width</th>
-            <th data-tw="厚度 Gauge/Micron" data-en="Thickness">厚度 Gauge/Micron</th>
-            <th data-tw="延伸率 Pre-Stretch" data-en="Pre-Stretch Ratio">延伸率 Pre-Stretch</th>
-            <th data-tw="包裝 / 紙芯 Core" data-en="Core Style">包裝 / 紙芯 Core</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Automatic Machine Film 自動機械膜</td>
-            <td>500 mm / 750 mm (20" / 30")</td>
-            <td>12 - 25 Micron (47 - 100 Gauge)</td>
-            <td>250% - 300% High Stretch</td>
-            <td>3" Paper Core / Coreless</td>
-          </tr>
-          <tr>
-            <td>Hand Stretch Film 手打包膜</td>
-            <td>450 mm / 500 mm (18" / 20")</td>
-            <td>8 - 20 Micron (32 - 80 Gauge)</td>
-            <td>150% - 200% Standard</td>
-            <td>Extended Core / Standard 3"</td>
-          </tr>
-          <tr>
-            <td>Scale Sheeting 工業薄膜片材</td>
-            <td>Custom Cut Sheet / Roll</td>
-            <td>20 - 100 Micron</td>
-            <td>High Tear Resistance</td>
-            <td>Roll / Folded Sheet Box</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Filter Pills Bar -->
+      <div class="filter-pills-bar">
+        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
+        <button class="filter-btn" onclick="filterCategory('produce-scale', this)">生鮮磅秤切片膜</button>
+        <button class="filter-btn" onclick="filterCategory('deli-interleave', this)">熟食肉品磅秤襯墊</button>
+      </div>
+
+      <!-- 1. 生鮮磅秤切片膜 PRODUCT BLOCK -->
+      <div class="cat-spec-block spec-block" id="cat-produce-scale">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-scale-balanced"></i> 生鮮磅秤切片膜規格對照表</h2>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th>種類 / 應用 Type</th>
+              <th>尺寸 Dimensions</th>
+              <th>材質與厚度 Material & Gauge</th>
+              <th>包裝型式 Packaging</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>生鮮魚肉磅秤切片膜 (Standard Scale Sheet)</td>
+              <td>8" × 10.75" (20.3 × 27.3 cm)</td>
+              <td>100% Virgin Food-Grade PE (HDPE/LDPE)</td>
+              <td>抽出式盒裝 (Dispenser Box)</td>
+              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('生鮮磅秤切片膜 · 8x10.75英吋', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
+            </tr>
+            <tr>
+              <td>大尺寸生鮮磅秤膜 (Large Scale Sheet)</td>
+              <td>10" × 10.75" (25.4 × 27.3 cm)</td>
+              <td>100% Virgin Food-Grade PE (HDPE/LDPE)</td>
+              <td>抽出式盒裝 (Dispenser Box)</td>
+              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('生鮮磅秤切片膜 · 10x10.75英吋', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
+            </tr>
+            <tr>
+              <td>特大號生鮮海鮮切片膜 (Jumbo Scale Sheet)</td>
+              <td>12" × 10.75" (30.5 × 27.3 cm)</td>
+              <td>100% Virgin Food-Grade PE (HDPE/LDPE)</td>
+              <td>抽出式盒裝 (Dispenser Box)</td>
+              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('生鮮磅秤切片膜 · 12x10.75英吋', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 2. 熟食肉品磅秤襯墊 PRODUCT BLOCK -->
+      <div class="cat-spec-block spec-block" id="cat-deli-interleave">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-drumstick-bite"></i> 熟食肉品磅秤襯墊 (Deli Interleaved Sheets)</h2>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th>種類 / 應用 Type</th>
+              <th>尺寸 Dimensions</th>
+              <th>功能特性 Features</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>熟食肉品切片隔頁襯墊 (Deli Slice Interleaved Sheet)</td>
+              <td>6" × 10.75" (15.2 × 27.3 cm)</td>
+              <td>防沾黏防油脂透印、易於單張抽取離型</td>
+              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('熟食肉品襯墊 · 6x10.75英吋', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
+            </tr>
+            <tr>
+              <td>起司火腿厚切隔頁襯墊 (Cheese & Patty Interleaved Sheet)</td>
+              <td>8" × 8" (20.3 × 20.3 cm)</td>
+              <td>高防油性、符合 FDA 規範直接接觸食品</td>
+              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('熟食肉品襯墊 · 8x8英吋', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </section>
 
+  <!-- Floating RFQ Quote Basket -->
+  <div id="rfqFloatingBasket" class="rfq-floating-basket">
+    <div class="basket-info">
+      <i class="fa-solid fa-cart-flatbed" style="color: #00A8FF;"></i> 已選擇 <span id="quoteCountBadge" class="basket-count-badge">0</span> 項產品規格
+    </div>
+    <button onclick="goToRfqPage()" class="basket-submit-btn">
+      前往線上詢價單 <i class="fa-solid fa-paper-plane"></i>
+    </button>
+  </div>
+
   <footer class="footer">
-    <div class="container">
+    <div class="compact-spec-container">
       <div class="footer-bottom">
         © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
       </div>
@@ -263,61 +374,64 @@
   </footer>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const navItems = document.querySelectorAll(".nav-item");
-      navItems.forEach(item => {
-        let timer;
-        const panel = item.querySelector(".mega-menu-panel-6cat");
-        if (!panel) return;
-
-        item.addEventListener("mouseenter", function() {
-          clearTimeout(timer);
-          item.classList.add("open-dropdown");
-        });
-
-        item.addEventListener("mouseleave", function() {
-          timer = setTimeout(() => {
-            item.classList.remove("open-dropdown");
-          }, 250);
-        });
-
-        const trigger = item.querySelector(".product-menu-trigger");
-        if (trigger) {
-          trigger.addEventListener("click", function(e) {
-            e.preventDefault();
-            item.classList.toggle("open-dropdown");
-          });
-        }
-      });
-
-      document.addEventListener("click", function(e) {
-        if (!e.target.closest(".nav-item")) {
-          document.querySelectorAll(".nav-item.open-dropdown").forEach(i => i.classList.remove("open-dropdown"));
-        }
-      });
-    });
-
-    let currentLang = 'tw';
-    function toggleLanguage() {
-      currentLang = currentLang === 'tw' ? 'en' : 'tw';
-      const langBtn = document.getElementById("langBtn");
-      if (langBtn) {
-        langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+    let selectedQuotes = new Set();
+    function toggleQuoteItem(itemSpec, btn) {
+      const row = btn.closest('tr');
+      if (selectedQuotes.has(itemSpec)) {
+        selectedQuotes.delete(itemSpec);
+        btn.classList.remove('added');
+        btn.innerHTML = '<i class="fa-solid fa-plus"></i> 勾選詢價';
+        if (row) row.classList.remove('row-selected');
+      } else {
+        selectedQuotes.add(itemSpec);
+        btn.classList.add('added');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> 已加入詢價';
+        if (row) row.classList.add('row-selected');
       }
-      document.querySelectorAll("[data-tw]").forEach(el => {
-        const text = el.getAttribute(`data-${currentLang}`);
-        if (text) {
-          const icon = el.querySelector('i');
-          if (icon) {
-            const iconClone = icon.cloneNode(true);
-            el.innerHTML = '';
-            el.appendChild(iconClone);
-            el.appendChild(document.createTextNode(' ' + text));
+
+      const basket = document.getElementById('rfqFloatingBasket');
+      const badge = document.getElementById('quoteCountBadge');
+      if (selectedQuotes.size > 0) {
+        basket.classList.add('active');
+        badge.innerText = selectedQuotes.size;
+      } else {
+        basket.classList.remove('active');
+      }
+    }
+
+    function goToRfqPage() {
+      const itemsArr = Array.from(selectedQuotes);
+      const query = encodeURIComponent(itemsArr.join(' ; '));
+      window.location.href = `../contact.html?specs=${query}`;
+    }
+
+    function filterCategory(category, btn) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const blocks = document.querySelectorAll('.spec-block');
+      let targetBlock = null;
+
+      blocks.forEach(block => {
+        if (category === 'all') {
+          block.style.display = 'block';
+        } else {
+          if (block.id === `cat-${category}`) {
+            block.style.display = 'block';
+            targetBlock = block;
           } else {
-            el.innerText = text;
+            block.style.display = 'none';
           }
         }
       });
+
+      if (targetBlock) {
+        const headerOffset = 160;
+        const elementPosition = targetBlock.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
     }
   </script>
 </body>
