@@ -109,11 +109,7 @@
     .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
 
     .section { padding: 40px 40px; }
-    
-    .compact-spec-container {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+    .compact-spec-container { max-width: 1400px; margin: 0 auto; }
 
     /* Sticky Filter Pills Bar */
     .filter-pills-bar {
@@ -125,8 +121,7 @@
     .filter-btn {
       background: #F1F5F9; border: 1px solid #CBD5E1; color: var(--text-main);
       padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.86rem; font-weight: 700;
-      cursor: pointer; transition: all 0.2s ease;
-      display: inline-flex; align-items: center; gap: 6px;
+      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
     }
     .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); background: #EFF6FF; }
     .filter-btn.active {
@@ -150,7 +145,7 @@
     /* COMPACT TABLE STYLING */
     .compact-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     .compact-table th { background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; padding: 12px 24px; text-align: left; border-bottom: 1px solid #CBD5E1; }
-    .compact-table td { padding: 12px 24px; border-bottom: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; }
+    .compact-table td { padding: 12px 24px; border-bottom: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; transition: background 0.2s ease; }
     .compact-table tr:last-child td { border-bottom: none; }
     .compact-table tr:nth-child(even) td { background: #F8FAFC; }
     .compact-table tr:hover td { background: #EFF6FF; }
@@ -163,6 +158,35 @@
     .color-pill-pink { background: #FCE7F3; color: #DB2777; border: 1px solid #FBCFE8; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
     .color-pill-blue { background: #DBEAFE; color: #1D4ED8; border: 1px solid #BFDBFE; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
     .tag-green-eco { background: #D1FAE5; color: #059669; border: 1px solid #A7F3D0; padding: 2px 10px; border-radius: 4px; font-weight: 800; font-size: 0.8rem; }
+
+    /* RFQ QUOTE BASKET STYLING */
+    .btn-quote-add {
+      background: #EFF6FF; border: 1px solid #BFDBFE; color: var(--brand-blue);
+      padding: 5px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 800;
+      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-quote-add:hover { background: var(--brand-blue); color: #FFFFFF; border-color: var(--brand-blue); }
+    .btn-quote-add.added { background: #10B981; color: #FFFFFF; border-color: #10B981; }
+
+    tr.row-selected td { background: #F0FDF4 !important; }
+
+    .rfq-floating-basket {
+      position: fixed; bottom: 25px; right: 25px; z-index: 9999;
+      background: #0A2540; color: #FFFFFF; border: 1px solid #00A8FF;
+      border-radius: 16px; padding: 14px 22px; box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+      display: flex; align-items: center; gap: 18px; transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: translateY(100px); opacity: 0; pointer-events: none;
+    }
+    .rfq-floating-basket.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .basket-info { font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .basket-count-badge { background: #00A8FF; color: #0A2540; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 900; font-size: 0.85rem; }
+    .basket-submit-btn {
+      background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;
+      border: none; padding: 8px 18px; border-radius: var(--radius-full);
+      font-size: 0.86rem; font-weight: 800; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease;
+    }
+    .basket-submit-btn:hover { background: #059669; transform: scale(1.04); }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
@@ -273,8 +297,8 @@
       <div>
         <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">COMMERCIAL & INDUSTRIAL CAN LINERS</span>
         <h1 class="hero-title" data-tw="清潔袋與商業內袋系列" data-en="Can Liners & Trash Bags">清潔袋與商業內袋系列</h1>
-        <p class="hero-desc" data-tw="包含連捲清潔袋、單張抽取清潔袋與 100% 綠能環保清潔袋。全系列提供豐富尺寸（超小、特小、小、中、大、特大、超大、超特大）與色系選配。" data-en="Comprehensive commercial can liner series including coreless roll, flat interleaved, and eco-recycled trash bags.">
-          包含連捲清潔袋、單張抽取清潔袋與 100% 綠能環保清潔袋。全系列提供豐富尺寸（超小、特小、小、中、大、特大、超大、超特大）與色系選配。
+        <p class="hero-desc" data-tw="包含連捲清潔袋、單張抽取清潔袋與 100% 綠能環保清潔袋。全系列提供多種容量與色系，可直接勾選加入批量詢價單。" data-en="Comprehensive commercial can liner series including coreless roll, flat interleaved, and eco-recycled trash bags.">
+          包含連捲清潔袋、單張抽取清潔袋與 100% 綠能環保清潔袋。全系列提供多種容量與色系，可直接勾選加入批量詢價單。
         </p>
         <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Request Quote For Can Liners"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
       </div>
@@ -307,19 +331,20 @@
               <th data-tw="尺寸等級 Size Level" data-en="Size Level">尺寸等級 Size Level</th>
               <th data-tw="包裝規格 Packing Spec" data-en="Packing Spec">包裝規格 Packing Spec</th>
               <th data-tw="可選顏色 Available Colors" data-en="Available Colors">可選顏色 Available Colors</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><strong style="color: var(--primary-navy);">15L</strong></td><td><span class="tag-size">小</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">20L</strong></td><td><span class="tag-size">中</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">45L</strong></td><td><span class="tag-size">大</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">70L</strong></td><td><span class="tag-size">特大</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">90L</strong></td><td><span class="tag-size">超大</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
-            <tr><td>—</td><td><span class="tag-size">超特大</span></td><td>標準量販包裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
-            <tr><td>—</td><td><span class="tag-size">加厚</span></td><td>重量級耐重強化</td><td><span class="color-pill-black">黑色</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">165L</strong></td><td><span class="tag-size">超巨大</span></td><td>大容量工業規格</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">260L</strong></td><td><span class="tag-size">超巨霸</span></td><td>特大容量工業規格</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
-            <tr><td>—</td><td><span class="tag-size">經濟款</span></td><td>21張 / 支 經濟規格</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">15L</strong></td><td><span class="tag-size">小</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 15L小 (3支/2支裝)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">20L</strong></td><td><span class="tag-size">中</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 20L中 (3支/2支裝)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">45L</strong></td><td><span class="tag-size">大</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 45L大 (3支/2支裝)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">70L</strong></td><td><span class="tag-size">特大</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 70L特大 (3支/2支裝)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">90L</strong></td><td><span class="tag-size">超大</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 90L超大 (3支/2支裝)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td>—</td><td><span class="tag-size">超特大</span></td><td>標準量販包裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 超特大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td>—</td><td><span class="tag-size">加厚</span></td><td>重量級耐重強化</td><td><span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 加厚黑色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">165L</strong></td><td><span class="tag-size">超巨大</span></td><td>大容量工業規格</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 165L超巨大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">260L</strong></td><td><span class="tag-size">超巨霸</span></td><td>特大容量工業規格</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 260L超巨霸', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td>—</td><td><span class="tag-size">經濟款</span></td><td>21張 / 支 經濟規格</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 經濟款 (21張/支)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
           </tbody>
         </table>
       </div>
@@ -336,17 +361,18 @@
               <th data-tw="尺寸等級 Size Level" data-en="Size Level">尺寸等級 Size Level</th>
               <th data-tw="詳細尺寸 Dimensions" data-en="Dimensions">詳細尺寸 Dimensions</th>
               <th data-tw="可選顏色 Available Colors" data-en="Available Colors">可選顏色 Available Colors</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><strong style="color: var(--primary-navy);">10L</strong></td><td><span class="tag-size">超小</span></td><td>38 x 45 cm</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">12L</strong></td><td><span class="tag-size">特小</span></td><td>—</td><td><span class="color-pill-clear">透明</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">15L</strong></td><td><span class="tag-size">小</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">20L</strong></td><td><span class="tag-size">中</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">45L</strong></td><td><span class="tag-size">大</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span> <span class="color-pill-blue">藍色</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">70L</strong></td><td><span class="tag-size">特大</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">90L</strong></td><td><span class="tag-size">超大</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
-            <tr><td>—</td><td><span class="tag-size">特大規格</span></td><td>91 x 110 cm (910x1100mm)</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">10L</strong></td><td><span class="tag-size">超小</span></td><td>38 x 45 cm</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 10L超小 (38x45cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">12L</strong></td><td><span class="tag-size">特小</span></td><td>—</td><td><span class="color-pill-clear">透明</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 12L特小', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">15L</strong></td><td><span class="tag-size">小</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 15L小', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">20L</strong></td><td><span class="tag-size">中</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 20L中', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">45L</strong></td><td><span class="tag-size">大</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span> <span class="color-pill-blue">藍色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 45L大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">70L</strong></td><td><span class="tag-size">特大</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 70L特大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">90L</strong></td><td><span class="tag-size">超大</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 90L超大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td>—</td><td><span class="tag-size">特大規格</span></td><td>91 x 110 cm (910x1100mm)</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 91x110cm特大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
           </tbody>
         </table>
       </div>
@@ -364,21 +390,32 @@
               <th data-tw="厚度規格 Micron" data-en="Micron">厚度規格 Micron</th>
               <th data-tw="顏色 Color" data-en="Color">顏色 Color</th>
               <th data-tw="環保屬性 Eco Feature" data-en="Eco Feature">環保屬性 Eco Feature</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><strong style="color: var(--primary-navy);">15L</strong></td><td><span class="tag-size">小</span></td><td>25 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">20L</strong></td><td><span class="tag-size">中</span></td><td>25 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">45L</strong></td><td><span class="tag-size">大</span></td><td>25 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">70L</strong></td><td><span class="tag-size">特大</span></td><td>27 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">90L</strong></td><td><span class="tag-size">超大</span></td><td>28 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">115L</strong></td><td><span class="tag-size">超特大</span></td><td>30 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">15L</strong></td><td><span class="tag-size">小</span></td><td>25 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 15L (25mic)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">20L</strong></td><td><span class="tag-size">中</span></td><td>25 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 20L (25mic)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">45L</strong></td><td><span class="tag-size">大</span></td><td>25 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 45L (25mic)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">70L</strong></td><td><span class="tag-size">特大</span></td><td>27 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 70L (27mic)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">90L</strong></td><td><span class="tag-size">超大</span></td><td>28 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 90L (28mic)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><strong style="color: var(--primary-navy);">115L</strong></td><td><span class="tag-size">超特大</span></td><td>30 mic</td><td><span class="color-pill-clear">透明</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 綠能環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 115L (30mic)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
           </tbody>
         </table>
       </div>
 
     </div>
   </section>
+
+  <!-- Floating RFQ Quote Basket -->
+  <div id="rfqFloatingBasket" class="rfq-floating-basket">
+    <div class="basket-info">
+      <i class="fa-solid fa-cart-flatbed" style="color: #00A8FF;"></i> 已選擇 <span id="quoteCountBadge" class="basket-count-badge">0</span> 項產品規格
+    </div>
+    <button onclick="goToRfqPage()" class="basket-submit-btn">
+      前往線上詢價單 <i class="fa-solid fa-paper-plane"></i>
+    </button>
+  </div>
 
   <footer class="footer">
     <div class="compact-spec-container">
@@ -389,6 +426,38 @@
   </footer>
 
   <script>
+    // RFQ Basket Management
+    let selectedQuotes = new Set();
+    function toggleQuoteItem(itemSpec, btn) {
+      const row = btn.closest('tr');
+      if (selectedQuotes.has(itemSpec)) {
+        selectedQuotes.delete(itemSpec);
+        btn.classList.remove('added');
+        btn.innerHTML = '<i class="fa-solid fa-plus"></i> 勾選詢價';
+        if (row) row.classList.remove('row-selected');
+      } else {
+        selectedQuotes.add(itemSpec);
+        btn.classList.add('added');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> 已加入詢價';
+        if (row) row.classList.add('row-selected');
+      }
+
+      const basket = document.getElementById('rfqFloatingBasket');
+      const badge = document.getElementById('quoteCountBadge');
+      if (selectedQuotes.size > 0) {
+        basket.classList.add('active');
+        badge.innerText = selectedQuotes.size;
+      } else {
+        basket.classList.remove('active');
+      }
+    }
+
+    function goToRfqPage() {
+      const itemsArr = Array.from(selectedQuotes);
+      const query = encodeURIComponent(itemsArr.join(' ; '));
+      window.location.href = `../contact.html?specs=${query}`;
+    }
+
     // SMART PRODUCT FILTER & FOCUS NAVIGATION
     function filterCategory(category, btn) {
       const buttons = document.querySelectorAll('.filter-btn');

@@ -357,6 +357,17 @@
       }, 1000);
     });
 
+    document.addEventListener("DOMContentLoaded", function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const specs = urlParams.get('specs');
+      if (specs) {
+        const msgField = document.getElementById('message');
+        if (msgField) {
+          msgField.value = `您好，我需要針對以下預先勾選的產品規格進行批量採購詢價：\n\n• ${decodeURIComponent(specs).split(' ; ').join('\n• ')}\n\n預計採購數量與交期需求：`;
+        }
+      }
+    });
+
     let currentLang = 'tw';
     function toggleLanguage() {
       currentLang = currentLang === 'tw' ? 'en' : 'tw';

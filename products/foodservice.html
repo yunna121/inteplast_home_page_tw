@@ -271,7 +271,36 @@
     .compact-table tr:hover td { background: #EFF6FF; }
 
     .tag-size { display: inline-block; background: #E0F2FE; color: #0284C7; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
-    .tag-qty { display: inline-block; background: #F0FDF4; color: #16A34A; font-weight: 700; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
+    .tag-qty { display: inline-block; background: #FEF3C7; color: #D97706; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
+
+    /* RFQ QUOTE BASKET STYLING */
+    .btn-quote-add {
+      background: #EFF6FF; border: 1px solid #BFDBFE; color: var(--brand-blue);
+      padding: 5px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 800;
+      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-quote-add:hover { background: var(--brand-blue); color: #FFFFFF; border-color: var(--brand-blue); }
+    .btn-quote-add.added { background: #10B981; color: #FFFFFF; border-color: #10B981; }
+
+    tr.row-selected td { background: #F0FDF4 !important; }
+
+    .rfq-floating-basket {
+      position: fixed; bottom: 25px; right: 25px; z-index: 9999;
+      background: #0A2540; color: #FFFFFF; border: 1px solid #00A8FF;
+      border-radius: 16px; padding: 14px 22px; box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+      display: flex; align-items: center; gap: 18px; transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: translateY(100px); opacity: 0; pointer-events: none;
+    }
+    .rfq-floating-basket.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .basket-info { font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .basket-count-badge { background: #00A8FF; color: #0A2540; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 900; font-size: 0.85rem; }
+    .basket-submit-btn {
+      background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;
+      border: none; padding: 8px 18px; border-radius: var(--radius-full);
+      font-size: 0.86rem; font-weight: 800; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease;
+    }
+    .basket-submit-btn:hover { background: #059669; transform: scale(1.04); }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
@@ -503,18 +532,19 @@
               <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
               <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
               <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><span class="tag-size">四兩</span></td><td>15.5 x 19.5 cm</td><td><span class="tag-qty">360張/包</span></td></tr>
-            <tr><td><span class="tag-size">六兩</span></td><td>18.5 x 23 cm</td><td><span class="tag-qty">255張/包</span></td></tr>
-            <tr><td><span class="tag-size">半斤</span></td><td>22 x 27 cm</td><td><span class="tag-qty">183張/包</span></td></tr>
-            <tr><td><span class="tag-size">1斤</span></td><td>24 x 31 cm</td><td><span class="tag-qty">146張/包</span></td></tr>
-            <tr><td><span class="tag-size">2斤</span></td><td>28 x 39 cm</td><td><span class="tag-qty">99張/包</span></td></tr>
-            <tr><td><span class="tag-size">3斤</span></td><td>32 x 43 cm</td><td><span class="tag-qty">79張/包</span></td></tr>
-            <tr><td><span class="tag-size">5斤</span></td><td>35 x 50 cm</td><td><span class="tag-qty">52張/包</span></td></tr>
-            <tr><td><span class="tag-size">10斤</span></td><td>45 x 62 cm</td><td><span class="tag-qty">26張/包</span></td></tr>
-            <tr><td><span class="tag-size">15斤</span></td><td>48 x 65 cm</td><td><span class="tag-qty">22張/包</span></td></tr>
+            <tr><td><span class="tag-size">四兩</span></td><td>15.5 x 19.5 cm</td><td><span class="tag-qty">360張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('平裝耐熱袋 · 四兩 (15.5x19.5cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">六兩</span></td><td>18.5 x 23 cm</td><td><span class="tag-qty">255張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('平裝耐熱袋 · 六兩 (18.5x23cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">半斤</span></td><td>22 x 27 cm</td><td><span class="tag-qty">183張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('平裝耐熱袋 · 半斤 (22x27cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">1斤</span></td><td>24 x 31 cm</td><td><span class="tag-qty">146張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('平裝耐熱袋 · 1斤 (24x31cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">2斤</span></td><td>28 x 39 cm</td><td><span class="tag-qty">99張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('平裝耐熱袋 · 2斤 (28x39cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">3斤</span></td><td>32 x 43 cm</td><td><span class="tag-qty">79張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('平裝耐熱袋 · 3斤 (32x43cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">5斤</span></td><td>35 x 50 cm</td><td><span class="tag-qty">52張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('平裝耐熱袋 · 5斤 (35x50cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">10斤</span></td><td>45 x 62 cm</td><td><span class="tag-qty">26張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('平裝耐熱袋 · 10斤 (45x62cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">15斤</span></td><td>48 x 65 cm</td><td><span class="tag-qty">22張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('平裝耐熱袋 · 15斤 (48x65cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
           </tbody>
         </table>
       </div>
@@ -590,16 +620,17 @@
               <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
               <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
               <th data-tw="數量 / 包裝 Qty per Roll/Pack" data-en="Qty per Roll/Pack">數量 / 包裝 Qty per Roll/Pack</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><span class="tag-size">四兩</span></td><td>15.5 x 19.5 cm</td><td><span class="tag-qty">1822張/卷</span></td></tr>
-            <tr><td><span class="tag-size">六兩</span></td><td>18.5 x 23 cm</td><td><span class="tag-qty">1275張/包</span></td></tr>
-            <tr><td><span class="tag-size">半斤</span></td><td>22 x 27 cm</td><td><span class="tag-qty">897張/包</span></td></tr>
-            <tr><td><span class="tag-size">1斤</span></td><td>24 x 31 cm</td><td><span class="tag-qty">708張/包</span></td></tr>
-            <tr><td><span class="tag-size">2斤</span></td><td>28 x 39 cm</td><td><span class="tag-qty">472張/包</span></td></tr>
-            <tr><td><span class="tag-size">3斤</span></td><td>32 x 43 cm</td><td><span class="tag-qty">367張/包</span></td></tr>
-            <tr><td><span class="tag-size">5斤</span></td><td>35 x 50 cm</td><td><span class="tag-qty">236張/包</span></td></tr>
+            <tr><td><span class="tag-size">四兩</span></td><td>15.5 x 19.5 cm</td><td><span class="tag-qty">1822張/卷</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('卷裝耐熱袋 · 四兩 (15.5x19.5cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">六兩</span></td><td>18.5 x 23 cm</td><td><span class="tag-qty">1275張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('卷裝耐熱袋 · 六兩 (18.5x23cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">半斤</span></td><td>22 x 27 cm</td><td><span class="tag-qty">897張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('卷裝耐熱袋 · 半斤 (22x27cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">1斤</span></td><td>24 x 31 cm</td><td><span class="tag-qty">708張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('卷裝耐熱袋 · 1斤 (24x31cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">2斤</span></td><td>28 x 39 cm</td><td><span class="tag-qty">472張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('卷裝耐熱袋 · 2斤 (28x39cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">3斤</span></td><td>32 x 43 cm</td><td><span class="tag-qty">367張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('卷裝耐熱袋 · 3斤 (32x43cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">5斤</span></td><td>35 x 50 cm</td><td><span class="tag-qty">236張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('卷裝耐熱袋 · 5斤 (35x50cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
           </tbody>
         </table>
       </div>
@@ -710,23 +741,24 @@
               <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
               <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
               <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><span class="tag-size">00號</span></td><td>3.5 x 4 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">0號</span></td><td>4 x 6 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">1號</span></td><td>5 x 7 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">2號</span></td><td>6 x 8.5 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">3號</span></td><td>7 x 10 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">4號</span></td><td>8.5 x 12 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">5號</span></td><td>10 x 14 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">6號</span></td><td>12 x 17 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">7號</span></td><td>14 x 20 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">8號</span></td><td>17 x 24 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">9號</span></td><td>20 x 28 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">10號</span></td><td>24 x 34 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">11號</span></td><td>28 x 40 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
-            <tr><td><span class="tag-size">12號</span></td><td>34 x 45 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">00號</span></td><td>3.5 x 4 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 00號 (3.5x4cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">0號</span></td><td>4 x 6 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 0號 (4x6cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">1號</span></td><td>5 x 7 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 1號 (5x7cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">2號</span></td><td>6 x 8.5 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 2號 (6x8.5cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">3號</span></td><td>7 x 10 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 3號 (7x10cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">4號</span></td><td>8.5 x 12 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 4號 (8.5x12cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">5號</span></td><td>10 x 14 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 5號 (10x14cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">6號</span></td><td>12 x 17 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 6號 (12x17cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">7號</span></td><td>14 x 20 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 7號 (14x20cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">8號</span></td><td>17 x 24 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 8號 (17x24cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">9號</span></td><td>20 x 28 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 9號 (20x28cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">10號</span></td><td>24 x 34 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 10號 (24x34cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">11號</span></td><td>28 x 40 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 11號 (28x40cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">12號</span></td><td>34 x 45 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 12號 (34x45cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
           </tbody>
         </table>
       </div>
@@ -835,6 +867,16 @@
     </div>
   </section>
 
+  <!-- Floating RFQ Quote Basket -->
+  <div id="rfqFloatingBasket" class="rfq-floating-basket">
+    <div class="basket-info">
+      <i class="fa-solid fa-cart-flatbed" style="color: #00A8FF;"></i> 已選擇 <span id="quoteCountBadge" class="basket-count-badge">0</span> 項產品規格
+    </div>
+    <button onclick="goToRfqPage()" class="basket-submit-btn">
+      前往線上詢價單 <i class="fa-solid fa-paper-plane"></i>
+    </button>
+  </div>
+
   <footer class="footer">
     <div class="compact-spec-container">
       <div class="footer-bottom">
@@ -844,6 +886,38 @@
   </footer>
 
   <script>
+    // RFQ Basket Management
+    let selectedQuotes = new Set();
+    function toggleQuoteItem(itemSpec, btn) {
+      const row = btn.closest('tr');
+      if (selectedQuotes.has(itemSpec)) {
+        selectedQuotes.delete(itemSpec);
+        btn.classList.remove('added');
+        btn.innerHTML = '<i class="fa-solid fa-plus"></i> 勾選詢價';
+        if (row) row.classList.remove('row-selected');
+      } else {
+        selectedQuotes.add(itemSpec);
+        btn.classList.add('added');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> 已加入詢價';
+        if (row) row.classList.add('row-selected');
+      }
+
+      const basket = document.getElementById('rfqFloatingBasket');
+      const badge = document.getElementById('quoteCountBadge');
+      if (selectedQuotes.size > 0) {
+        basket.classList.add('active');
+        badge.innerText = selectedQuotes.size;
+      } else {
+        basket.classList.remove('active');
+      }
+    }
+
+    function goToRfqPage() {
+      const itemsArr = Array.from(selectedQuotes);
+      const query = encodeURIComponent(itemsArr.join(' ; '));
+      window.location.href = `../contact.html?specs=${query}`;
+    }
+
     // SMART PRODUCT FILTER & FOCUS NAVIGATION
     function filterCategory(category, btn) {
       const buttons = document.querySelectorAll('.filter-btn');
