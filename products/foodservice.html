@@ -980,14 +980,6 @@
             item.classList.remove("open-dropdown");
           }, 250);
         });
-
-        const trigger = item.querySelector(".product-menu-trigger");
-        if (trigger) {
-          trigger.addEventListener("click", function(e) {
-            e.preventDefault();
-            item.classList.toggle("open-dropdown");
-          });
-        }
       });
 
       document.addEventListener("click", function(e) {
