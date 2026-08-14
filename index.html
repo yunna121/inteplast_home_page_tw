@@ -417,8 +417,70 @@
 
     .hero-btn-group {
       display: flex;
-      align-items: center;
-      gap: 20px;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Hero 底部 4 大核心特色列 */
+    .hero-stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 35px;
+      width: 100%;
+      max-width: 1050px;
+    }
+
+    .hero-stat-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 16px;
+      padding: 18px 14px;
+      text-align: center;
+      color: #FFFFFF;
+      transition: all 0.35s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-stat-card:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-5px);
+      border-color: var(--accent-azure);
+      box-shadow: 0 12px 30px rgba(0, 168, 255, 0.3);
+    }
+
+    .stat-icon {
+      font-size: 1.35rem;
+      color: var(--accent-azure);
+      margin-bottom: 6px;
+    }
+
+    .stat-num {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1.15;
+      margin-bottom: 3px;
+    }
+
+    .stat-num small {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-azure);
+    }
+
+    .stat-label {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 2px;
+    }
+
+    .stat-sub {
+      font-size: 0.74rem;
+      color: rgba(255, 255, 255, 0.75);
     }
 
     .btn-hero-primary {
@@ -1023,6 +1085,37 @@
           <i class="fa-solid fa-circle-check"></i> <span data-tw="查看產品特色與應用特寫"
             data-en="View Product Highlights">查看產品特色與應用特寫</span>
         </a>
+      </div>
+
+      <!-- 4 大核心優勢與實力指標列 (Hero 底部 4 項特色) -->
+      <div class="hero-stats-row">
+        <div class="hero-stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-industry"></i></div>
+          <div class="stat-num">500+ <small>Tons/Day</small></div>
+          <div class="stat-label" data-tw="每日噸級產能" data-en="Tons Daily Extrusion">每日噸級產能</div>
+          <div class="stat-sub" data-tw="嘉義新港自動化吹膜生產" data-en="Automated Extrusion Base">嘉義新港自動化吹膜生產</div>
+        </div>
+
+        <div class="hero-stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-earth-americas"></i></div>
+          <div class="stat-num">40+ <small>Countries</small></div>
+          <div class="stat-label" data-tw="全球外銷國家" data-en="Global Export Markets">全球外銷國家</div>
+          <div class="stat-sub" data-tw="美歐日零售與量販熱銷" data-en="USA, Europe & Japan Retail">美歐日零售與量販熱銷</div>
+        </div>
+
+        <div class="hero-stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
+          <div class="stat-num">ISO 9001</div>
+          <div class="stat-label" data-tw="品質管理系統認證" data-en="ISO 9001:2015 Certified">品質管理系統認證</div>
+          <div class="stat-sub" data-tw="ISO 9001:2015 嚴格把關" data-en="ISO 9001 Quality Control">ISO 9001:2015 嚴格把關</div>
+        </div>
+
+        <div class="hero-stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-recycle"></i></div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label" data-tw="廠內廢料閉環回收" data-en="In-House Scrap Recycling">廠內廢料閉環回收</div>
+          <div class="stat-sub" data-tw="100% 邊角料即時粉碎造粒" data-en="100% Zero Waste Recycling">100% 邊角料即時粉碎造粒</div>
+        </div>
       </div>
     </div>
   </div>
