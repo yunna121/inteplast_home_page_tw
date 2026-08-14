@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scale Sheet (生鮮與熟食磅秤襯墊) 專頁 | 臺灣營德 Inteplast Taiwan</title>
-  <meta name="description" content="臺灣營德 Scale Sheet 生鮮磅秤切片膜與熟食肉品磅秤襯墊，專為超市生鮮櫃檯、熟食與肉品磅秤分裝設計，100% FDA 食品級 PE 認證。">
+  <meta name="description" content="臺灣營德 Scale Sheet 生鮮與熟食磅秤襯墊專頁。">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -89,66 +89,14 @@
     .hero-desc { font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 20px; }
     .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
 
-    .section { padding: 40px 40px; }
-    .compact-spec-container { max-width: 1400px; margin: 0 auto; }
-
-    .filter-pills-bar {
-      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-      margin-bottom: 35px; background: #FFFFFF; padding: 16px; border-radius: 16px;
-      border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
-      position: sticky; top: 90px; z-index: 900; backdrop-filter: blur(12px);
+    .section { padding: 80px 40px; }
+    .coming-soon-card {
+      max-width: 800px; margin: 0 auto; background: #FFFFFF; border: 1px solid var(--border-color);
+      border-radius: 20px; padding: 60px 40px; text-align: center; box-shadow: var(--shadow-md);
     }
-    .filter-btn {
-      background: #F1F5F9; border: 1px solid #CBD5E1; color: var(--text-main);
-      padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.86rem; font-weight: 700;
-      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
-    }
-    .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); background: #EFF6FF; }
-    .filter-btn.active { background: var(--primary-navy); color: #FFFFFF; border-color: var(--primary-navy); box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2); }
-
-    .cat-spec-block {
-      background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05); margin-bottom: 45px;
-      overflow: hidden; scroll-margin-top: 170px; transition: all 0.3s ease;
-    }
-    .cat-spec-header { background: #0A2540; color: #FFFFFF; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
-    .cat-spec-title { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-
-    .compact-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    .compact-table th { background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; padding: 12px 24px; text-align: left; border-bottom: 1px solid #CBD5E1; }
-    .compact-table td { padding: 12px 24px; border-bottom: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; }
-    .compact-table tr:nth-child(even) td { background: #F8FAFC; }
-    .compact-table tr:hover td { background: #EFF6FF; }
-
-    .tag-size { display: inline-block; background: #E0F2FE; color: #0284C7; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
-    .tag-qty { display: inline-block; background: #FEF3C7; color: #D97706; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
-
-    .btn-quote-add {
-      background: #EFF6FF; border: 1px solid #BFDBFE; color: var(--brand-blue);
-      padding: 5px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 800;
-      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
-    }
-    .btn-quote-add:hover { background: var(--brand-blue); color: #FFFFFF; border-color: var(--brand-blue); }
-    .btn-quote-add.added { background: #10B981; color: #FFFFFF; border-color: #10B981; }
-
-    tr.row-selected td { background: #F0FDF4 !important; }
-
-    .rfq-floating-basket {
-      position: fixed; bottom: 25px; right: 25px; z-index: 9999;
-      background: #0A2540; color: #FFFFFF; border: 1px solid #00A8FF;
-      border-radius: 16px; padding: 14px 22px; box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-      display: flex; align-items: center; gap: 18px; transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      transform: translateY(100px); opacity: 0; pointer-events: none;
-    }
-    .rfq-floating-basket.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
-    .basket-info { font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-    .basket-count-badge { background: #00A8FF; color: #0A2540; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 900; font-size: 0.85rem; }
-    .basket-submit-btn {
-      background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;
-      border: none; padding: 8px 18px; border-radius: var(--radius-full);
-      font-size: 0.86rem; font-weight: 800; cursor: pointer; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease;
-    }
+    .coming-soon-icon { font-size: 3.5rem; color: var(--brand-blue); margin-bottom: 20px; }
+    .coming-soon-title { font-size: 1.6rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 12px; }
+    .coming-soon-desc { font-size: 1rem; color: var(--text-muted); max-width: 550px; margin: 0 auto 30px; }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
@@ -260,9 +208,9 @@
         <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">DELI & PRODUCE SCALE SHEETS</span>
         <h1 class="hero-title">Scale Sheet (生鮮與熟食磅秤襯墊) 專頁</h1>
         <p class="hero-desc">
-          專為超市生鮮櫃檯、熟食專櫃、精緻肉品與海鮮磅秤分裝設計之 FDA 食品級高密度薄膜片材。具備優異之防油、防水性與抗撕裂韌性，輕鬆抽取方便秤重。
+          專為超市生鮮櫃檯、熟食專櫃、精緻肉品與海鮮磅秤分裝設計之 FDA 食品級薄膜片材。
         </p>
-        <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
+        <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-calculator"></i> 專人諮詢與詢價</a>
       </div>
       <div>
         <img src="../src/scale sheet.png" alt="Scale Sheet 展示" class="product-hero-img">
@@ -271,102 +219,18 @@
   </section>
 
   <section class="section">
-    <div class="compact-spec-container">
-
-      <!-- Filter Pills Bar -->
-      <div class="filter-pills-bar">
-        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
-        <button class="filter-btn" onclick="filterCategory('produce-scale', this)">生鮮磅秤切片膜</button>
-        <button class="filter-btn" onclick="filterCategory('deli-interleave', this)">熟食肉品磅秤襯墊</button>
-      </div>
-
-      <!-- 1. 生鮮磅秤切片膜 PRODUCT BLOCK -->
-      <div class="cat-spec-block spec-block" id="cat-produce-scale">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-scale-balanced"></i> 生鮮磅秤切片膜規格對照表</h2>
-        </div>
-        <table class="compact-table">
-          <thead>
-            <tr>
-              <th>種類 / 應用 Type</th>
-              <th>尺寸 Dimensions</th>
-              <th>材質與厚度 Material & Gauge</th>
-              <th>包裝型式 Packaging</th>
-              <th style="width: 140px; text-align: center;">批量詢價</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>生鮮魚肉磅秤切片膜 (Standard Scale Sheet)</td>
-              <td>8" × 10.75" (20.3 × 27.3 cm)</td>
-              <td>100% Virgin Food-Grade PE (HDPE/LDPE)</td>
-              <td>抽出式盒裝 (Dispenser Box)</td>
-              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('生鮮磅秤切片膜 · 8x10.75英吋', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
-            </tr>
-            <tr>
-              <td>大尺寸生鮮磅秤膜 (Large Scale Sheet)</td>
-              <td>10" × 10.75" (25.4 × 27.3 cm)</td>
-              <td>100% Virgin Food-Grade PE (HDPE/LDPE)</td>
-              <td>抽出式盒裝 (Dispenser Box)</td>
-              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('生鮮磅秤切片膜 · 10x10.75英吋', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
-            </tr>
-            <tr>
-              <td>特大號生鮮海鮮切片膜 (Jumbo Scale Sheet)</td>
-              <td>12" × 10.75" (30.5 × 27.3 cm)</td>
-              <td>100% Virgin Food-Grade PE (HDPE/LDPE)</td>
-              <td>抽出式盒裝 (Dispenser Box)</td>
-              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('生鮮磅秤切片膜 · 12x10.75英吋', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- 2. 熟食肉品磅秤襯墊 PRODUCT BLOCK -->
-      <div class="cat-spec-block spec-block" id="cat-deli-interleave">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-drumstick-bite"></i> 熟食肉品磅秤襯墊 (Deli Interleaved Sheets)</h2>
-        </div>
-        <table class="compact-table">
-          <thead>
-            <tr>
-              <th>種類 / 應用 Type</th>
-              <th>尺寸 Dimensions</th>
-              <th>功能特性 Features</th>
-              <th style="width: 140px; text-align: center;">批量詢價</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>熟食肉品切片隔頁襯墊 (Deli Slice Interleaved Sheet)</td>
-              <td>6" × 10.75" (15.2 × 27.3 cm)</td>
-              <td>防沾黏防油脂透印、易於單張抽取離型</td>
-              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('熟食肉品襯墊 · 6x10.75英吋', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
-            </tr>
-            <tr>
-              <td>起司火腿厚切隔頁襯墊 (Cheese & Patty Interleaved Sheet)</td>
-              <td>8" × 8" (20.3 × 20.3 cm)</td>
-              <td>高防油性、符合 FDA 規範直接接觸食品</td>
-              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('熟食肉品襯墊 · 8x8英吋', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
+    <div class="coming-soon-card">
+      <div class="coming-soon-icon"><i class="fa-solid fa-folder-open"></i></div>
+      <h2 class="coming-soon-title">產品詳細規格整理中</h2>
+      <p class="coming-soon-desc">
+        Scale Sheet 相關詳細產品規格對照數據正由營德專業團隊建置整理中。若您有即時採購需求或欲索取樣品，歡迎隨時透過線上詢價與我們的外銷業務專員聯繫！
+      </p>
+      <a href="../contact.html" class="rfq-btn" style="display: inline-flex;"><i class="fa-solid fa-paper-plane"></i> 聯絡業務專員專人諮詢</a>
     </div>
   </section>
 
-  <!-- Floating RFQ Quote Basket -->
-  <div id="rfqFloatingBasket" class="rfq-floating-basket">
-    <div class="basket-info">
-      <i class="fa-solid fa-cart-flatbed" style="color: #00A8FF;"></i> 已選擇 <span id="quoteCountBadge" class="basket-count-badge">0</span> 項產品規格
-    </div>
-    <button onclick="goToRfqPage()" class="basket-submit-btn">
-      前往線上詢價單 <i class="fa-solid fa-paper-plane"></i>
-    </button>
-  </div>
-
   <footer class="footer">
-    <div class="compact-spec-container">
+    <div class="container">
       <div class="footer-bottom">
         © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
       </div>
@@ -374,65 +238,25 @@
   </footer>
 
   <script>
-    let selectedQuotes = new Set();
-    function toggleQuoteItem(itemSpec, btn) {
-      const row = btn.closest('tr');
-      if (selectedQuotes.has(itemSpec)) {
-        selectedQuotes.delete(itemSpec);
-        btn.classList.remove('added');
-        btn.innerHTML = '<i class="fa-solid fa-plus"></i> 勾選詢價';
-        if (row) row.classList.remove('row-selected');
-      } else {
-        selectedQuotes.add(itemSpec);
-        btn.classList.add('added');
-        btn.innerHTML = '<i class="fa-solid fa-check"></i> 已加入詢價';
-        if (row) row.classList.add('row-selected');
-      }
+    document.addEventListener("DOMContentLoaded", function() {
+      const navItems = document.querySelectorAll(".nav-item");
+      navItems.forEach(item => {
+        let timer;
+        const panel = item.querySelector(".mega-menu-panel-6cat");
+        if (!panel) return;
 
-      const basket = document.getElementById('rfqFloatingBasket');
-      const badge = document.getElementById('quoteCountBadge');
-      if (selectedQuotes.size > 0) {
-        basket.classList.add('active');
-        badge.innerText = selectedQuotes.size;
-      } else {
-        basket.classList.remove('active');
-      }
-    }
+        item.addEventListener("mouseenter", function() {
+          clearTimeout(timer);
+          item.classList.add("open-dropdown");
+        });
 
-    function goToRfqPage() {
-      const itemsArr = Array.from(selectedQuotes);
-      const query = encodeURIComponent(itemsArr.join(' ; '));
-      window.location.href = `../contact.html?specs=${query}`;
-    }
-
-    function filterCategory(category, btn) {
-      const buttons = document.querySelectorAll('.filter-btn');
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const blocks = document.querySelectorAll('.spec-block');
-      let targetBlock = null;
-
-      blocks.forEach(block => {
-        if (category === 'all') {
-          block.style.display = 'block';
-        } else {
-          if (block.id === `cat-${category}`) {
-            block.style.display = 'block';
-            targetBlock = block;
-          } else {
-            block.style.display = 'none';
-          }
-        }
+        item.addEventListener("mouseleave", function() {
+          timer = setTimeout(() => {
+            item.classList.remove("open-dropdown");
+          }, 250);
+        });
       });
-
-      if (targetBlock) {
-        const headerOffset = 160;
-        const elementPosition = targetBlock.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-      }
-    }
+    });
   </script>
 </body>
 </html>
