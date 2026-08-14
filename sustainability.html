@@ -75,21 +75,24 @@
     .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
     .nav-item:hover .caret-icon { transform: rotate(180deg); }
 
-    /* Mega Menu Panel */
-    .mega-menu-panel {
-      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
-      width: 1080px; background: var(--surface-white); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); box-shadow: var(--shadow-mega); padding: 32px;
-      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
+    .mega-menu-panel-6cat {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
+      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
     }
-    .nav-item:hover .mega-menu-panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
-    .mega-grid { display: grid; grid-template-columns: repeat(4, 1fr) 280px; gap: 24px; }
-    .mega-col-title { font-size: 0.88rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 8px; }
-    .mega-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .mega-links a { color: var(--text-main); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: var(--transition); display: flex; align-items: center; justify-content: space-between; }
-    .mega-links a:hover { color: var(--brand-blue); transform: translateX(4px); }
-    .mega-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
-    .badge-hot { background: #FEE2E2; color: #EF4444; }
+    .mega-menu-panel-6cat::before {
+      content: ''; position: absolute; top: -25px; left: 0; width: 100%; height: 30px; background: transparent;
+    }
+    .nav-item:hover .mega-menu-panel-6cat,
+    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(4px); }
+    .nav-item:hover .caret-icon,
+    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
+    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
+    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
+    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
+    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
 
     .mega-feature-card { background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); border-radius: var(--radius-sm); padding: 24px; color: var(--surface-white); display: flex; flex-direction: column; justify-content: space-between; }
     .mega-feature-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
@@ -108,52 +111,58 @@
     }
 
     .hero-pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.3);
-      padding: 6px 20px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800;
-      color: var(--emerald-glow); letter-spacing: 1px; margin-bottom: 24px; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px;
+      background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.3);
+      border-radius: var(--radius-full); color: var(--emerald-glow); font-size: 0.85rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px;
     }
 
-    .hero-title {
-      font-size: 3.4rem; font-weight: 900; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #FFFFFF 40%, var(--emerald-glow) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    .hero-title-lg { font-size: 3.2rem; font-weight: 900; line-height: 1.15; margin-bottom: 20px; color: #FFFFFF; }
+    .hero-title-lg span { color: var(--emerald-glow); }
+    .hero-desc-lg { font-size: 1.15rem; color: rgba(255, 255, 255, 0.85); max-width: 780px; margin: 0 auto 36px; line-height: 1.7; }
+
+    .hero-stats-row { display: flex; justify-content: center; gap: 50px; margin-top: 40px; }
+    .stat-box { text-align: center; }
+    .stat-num { font-size: 2.4rem; font-weight: 900; color: var(--emerald-glow); display: block; line-height: 1; }
+    .stat-lbl { font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); margin-top: 6px; }
+
+    /* Section 1: 5 Core ESG Pillars */
+    .section-dark { padding: 100px 40px; background: #03100B; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-head { text-align: center; max-width: 750px; margin: 0 auto 60px; }
+    .section-head h2 { font-size: 2.4rem; font-weight: 900; color: #FFFFFF; margin-bottom: 14px; }
+    .section-head p { font-size: 1rem; color: rgba(255, 255, 255, 0.7); }
+
+    .pillars-grid-5 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .pillar-card {
+      background: rgba(6, 95, 70, 0.2); backdrop-filter: blur(16px);
+      border: 1px solid rgba(52, 211, 153, 0.2); border-radius: var(--radius-xl);
+      padding: 40px 32px; color: #FFFFFF; box-shadow: var(--shadow-lg); transition: var(--transition);
+      display: flex; flex-direction: column; justify-content: space-between;
     }
-
-    .hero-desc { font-size: 1.15rem; max-width: 760px; margin: 0 auto; color: rgba(255, 255, 255, 0.85); font-weight: 400; line-height: 1.8; }
-
-    /* Section 1: Core Process Showcase */
-    .section { padding: 110px 40px; background: #04120D; }
-    .container { max-width: 1240px; margin: 0 auto; }
-
-    .section-header-center { text-align: center; margin-bottom: 70px; }
-    .section-title { font-size: 2.4rem; font-weight: 900; color: #FFFFFF; margin-bottom: 12px; }
-    .section-subtitle { font-size: 1.05rem; color: rgba(255, 255, 255, 0.7); max-width: 650px; margin: 0 auto; }
-
-    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-    .process-card {
-      background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-lg);
-      padding: 36px 24px; color: #FFFFFF; transition: var(--transition); position: relative; overflow: hidden;
+    .pillar-card:hover { border-color: var(--emerald-glow); transform: translateY(-6px); background: rgba(6, 95, 70, 0.35); }
+    
+    .pillar-icon-box {
+      width: 60px; height: 60px; border-radius: var(--radius-md); background: rgba(52, 211, 153, 0.15);
+      border: 1px solid rgba(52, 211, 153, 0.3); display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; color: var(--emerald-glow); margin-bottom: 24px;
     }
-    .process-card:hover { transform: translateY(-8px); border-color: var(--emerald-glow); background: rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(52, 211, 153, 0.15); }
+    .pillar-title { font-size: 1.4rem; font-weight: 800; color: #FFFFFF; margin-bottom: 12px; }
+    .pillar-desc { font-size: 0.92rem; color: rgba(255, 255, 255, 0.78); line-height: 1.65; margin-bottom: 20px; }
+    .pillar-tag { font-size: 0.75rem; font-weight: 700; color: var(--emerald-glow); letter-spacing: 1px; text-transform: uppercase; }
+
+    /* Timeline Section */
+    .timeline-section { padding: 100px 40px; background: #020C08; }
+    .timeline-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 60px; }
+    .timeline-card {
+      background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg); padding: 30px 24px; color: #FFFFFF; position: relative;
+    }
     
     .step-number { font-size: 2.8rem; font-weight: 900; color: rgba(52, 211, 153, 0.25); font-family: monospace; line-height: 1; margin-bottom: 16px; }
     .step-icon { font-size: 2.2rem; color: var(--emerald-glow); margin-bottom: 16px; }
     .step-title { font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 10px; }
     .step-desc { font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); line-height: 1.6; }
-
-    /* Section 2: In-Depth Features Grid */
-    .feature-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 80px; }
-    .feature-box {
-      background: linear-gradient(135deg, rgba(6, 95, 70, 0.4), rgba(2, 44, 34, 0.8));
-      border: 1px solid rgba(52, 211, 153, 0.25); border-radius: var(--radius-xl);
-      padding: 50px; color: #FFFFFF; box-shadow: var(--shadow-lg); transition: var(--transition);
-    }
-    .feature-box:hover { border-color: var(--emerald-glow); transform: translateY(-4px); }
-    .feature-title-lg { font-size: 1.8rem; font-weight: 900; color: #FFFFFF; margin-bottom: 14px; display: flex; align-items: center; gap: 14px; }
-    .feature-title-lg i { color: var(--emerald-glow); }
-    .feature-desc-lg { font-size: 1rem; color: rgba(255, 255, 255, 0.85); line-height: 1.8; }
 
     /* Banner CTA */
     .sustain-cta {
@@ -169,14 +178,16 @@
     }
     .btn-sustain-contact:hover { background: var(--emerald-glow); color: #FFFFFF; transform: scale(1.05); }
 
-    .footer { background: #020D09; color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+    .footer { background: #010805; color: rgba(255, 255, 255, 0.6); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 24px; text-align: center; }
 
-    @media (max-width: 1100px) {
-      .mega-menu-panel, .top-utility-bar { display: none; }
+    @media (max-width: 1000px) {
+      .pillars-grid-5 { grid-template-columns: 1fr; }
+      .timeline-grid { grid-template-columns: 1fr 1fr; }
+      .feature-grid-2 { grid-template-columns: 1fr; }
+      .hero-title-lg { font-size: 2.2rem; }
+      .mega-menu-panel-6cat, .top-utility-bar { display: none; }
       .header { top: 0; }
-      .process-grid, .feature-grid-2 { grid-template-columns: 1fr; }
-      .hero-title { font-size: 2.4rem; }
     }
   </style>
 </head>
@@ -186,9 +197,8 @@
   <div class="top-utility-bar">
     <div class="utility-left">
       <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="#"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
-      <a href="#">USA Division 北美總部</a>
-      <a href="#">Europe Division 歐洲據點</a>
+      <a href="index.html"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
+      <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 北美總部</a>
     </div>
     <div class="utility-right">
       <a href="about.html" data-tw="投資人專區" data-en="Investor Relations"><i class="fa-solid fa-chart-line"></i> 投資人專區</a>
@@ -210,41 +220,61 @@
     
     <ul class="nav-menu">
       <li class="nav-item">
+        <a href="index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a>
+      </li>
+      <li class="nav-item">
         <a href="about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
       </li>
 
+      <!-- 6 大產品 Mega Menu -->
       <li class="nav-item">
-        <a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
-        <div class="mega-menu-panel">
-          <div class="mega-grid">
+        <a href="products/index.html" class="nav-link-item product-menu-trigger" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel-6cat">
+          <div class="mega-grid-6">
             <div>
-              <div class="mega-col-title"><i class="fa-solid fa-dumpster"></i> Can Liners 垃圾袋</div>
-              <ul class="mega-links">
-                <li><a href="products/can-liners.html" data-tw="商業/工業重載垃圾袋" data-en="Commercial Can Liners">商業/工業重載垃圾袋 <span class="mega-badge badge-hot">HOT</span></a></li>
-                <li><a href="products/can-liners.html" data-tw="Star Seal 防漏星封內袋" data-en="Star Seal Liners">Star Seal 防漏星封內袋</a></li>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/can-liners.html">連捲清潔袋</a></li>
+                <li><a href="products/can-liners.html">單張抽取</a></li>
+                <li><a href="products/can-liners.html">環保清潔袋</a></li>
               </ul>
             </div>
             <div>
-              <div class="mega-col-title"><i class="fa-solid fa-ribbon"></i> Draw-Tape 拉繩袋</div>
-              <ul class="mega-links">
-                <li><a href="products/draw-tape.html" data-tw="自動拉繩垃圾袋" data-en="Draw-Tape Trash Bags">自動拉繩垃圾袋 <span class="mega-badge badge-hot">BEST</span></a></li>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/draw-tape.html">清潔袋</a></li>
+                <li><a href="products/draw-tape.html">醫療袋</a></li>
               </ul>
             </div>
             <div>
-              <div class="mega-col-title"><i class="fa-solid fa-scroll"></i> Stretch Films 薄膜</div>
-              <ul class="mega-links">
-                <li><a href="products/stretch-films.html" data-tw="300% 預拉伸棧板膜" data-en="300% Pre-Stretch Film">300% 預拉伸棧板膜</a></li>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">平裝耐熱袋</a></li>
+                <li><a href="products/foodservice.html">捲裝耐熱袋</a></li>
               </ul>
             </div>
             <div>
-              <div class="mega-col-title"><i class="fa-solid fa-bag-shopping"></i> 包裝袋</div>
-              <ul class="mega-links">
-                <li><a href="products/foodservice.html" data-tw="高透明連捲生鮮袋" data-en="Produce Rolls">高透明連捲生鮮袋</a></li>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">密實袋</a></li>
+                <li><a href="products/foodservice.html">立體密實袋</a></li>
+                <li><a href="products/foodservice.html">冷凍袋</a></li>
+                <li><a href="products/foodservice.html">夾鏈袋</a></li>
               </ul>
             </div>
-            <div class="mega-feature-card">
-              <div class="mega-feature-title" data-tw="全客製化 OEM/ODM" data-en="100% Custom OEM/ODM">全客製化 OEM/ODM</div>
-              <a href="contact.html" class="mega-feature-btn" data-tw="發起 RFQ 詢價" data-en="Start RFQ">發起 RFQ 詢價</a>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">衛生手套</a></li>
+                <li><a href="products/foodservice.html">台塑遮蔽防塵膠帶</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> 06 Scale Sheet</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/stretch-films.html">生鮮磅秤切片膜</a></li>
+                <li><a href="products/stretch-films.html">熟食肉品磅秤襯墊</a></li>
+              </ul>
             </div>
           </div>
         </div>
@@ -367,6 +397,40 @@
   </footer>
 
   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const navItems = document.querySelectorAll(".nav-item");
+      navItems.forEach(item => {
+        let timer;
+        const panel = item.querySelector(".mega-menu-panel-6cat");
+        if (!panel) return;
+
+        item.addEventListener("mouseenter", function() {
+          clearTimeout(timer);
+          item.classList.add("open-dropdown");
+        });
+
+        item.addEventListener("mouseleave", function() {
+          timer = setTimeout(() => {
+            item.classList.remove("open-dropdown");
+          }, 250);
+        });
+
+        const trigger = item.querySelector(".product-menu-trigger");
+        if (trigger) {
+          trigger.addEventListener("click", function(e) {
+            e.preventDefault();
+            item.classList.toggle("open-dropdown");
+          });
+        }
+      });
+
+      document.addEventListener("click", function(e) {
+        if (!e.target.closest(".nav-item")) {
+          document.querySelectorAll(".nav-item.open-dropdown").forEach(i => i.classList.remove("open-dropdown"));
+        }
+      });
+    });
+
     let currentLang = 'tw';
     function toggleLanguage() {
       currentLang = currentLang === 'tw' ? 'en' : 'tw';
