@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>密封與夾鏈包裝類 (Sealed & Zipper Bags) 專頁 | 臺灣營德 Inteplast Taiwan</title>
+  <meta name="description" content="臺灣營德密封包裝類全系列對照：雙軌密封密實袋、立體密實袋、冷凍保鮮袋與夾鏈袋 (00號至12號全規格)。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-navy: #0A2540;
+      --brand-blue: #00529B;
+      --brand-blue-hover: #003d75;
+      --accent-azure: #00A8FF;
+      --accent-emerald: #10B981;
+      --bg-light: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #F8FAFC; line-height: 1.6; }
+
+    .header {
+      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
+      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
+    }
+    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-image { height: 40px; width: auto; }
+    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
+    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
+
+    .nav-menu { display: flex; align-items: center; gap: 6px; list-style: none; }
+    .nav-item { position: relative; }
+    .nav-link-item {
+      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
+      color: var(--text-main); text-decoration: none; transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    }
+    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
+    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
+    
+    .mega-menu-panel-6cat {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
+      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
+    }
+    .nav-item:hover .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(4px); }
+    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
+    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
+    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
+    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
+    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+
+    .top-utility-bar {
+      background: #051322; color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
+      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: relative; z-index: 1002;
+    }
+    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
+    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
+    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
+
+    .page-hero { padding: 140px 40px 50px; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white); margin-top: 31px; }
+    .hero-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+    .hero-title { font-size: 2.3rem; font-weight: 800; margin-bottom: 14px; }
+    .hero-desc { font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 20px; }
+    .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
+
+    .section { padding: 40px 40px; }
+    .compact-spec-container { max-width: 1400px; margin: 0 auto; }
+
+    .filter-pills-bar {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+      margin-bottom: 35px; background: #FFFFFF; padding: 16px; border-radius: 16px;
+      border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+      position: sticky; top: 90px; z-index: 900; backdrop-filter: blur(12px);
+    }
+    .filter-btn {
+      background: #F1F5F9; border: 1px solid #CBD5E1; color: var(--text-main);
+      padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.86rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); background: #EFF6FF; }
+    .filter-btn.active { background: var(--primary-navy); color: #FFFFFF; border-color: var(--primary-navy); box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2); }
+
+    .cat-spec-block {
+      background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05); margin-bottom: 45px;
+      overflow: hidden; scroll-margin-top: 170px; transition: all 0.3s ease;
+    }
+    .cat-spec-header { background: #0A2540; color: #FFFFFF; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .cat-spec-title { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+
+    .scale-ramp-container { background: #0F172A; padding: 24px; border-bottom: 1px solid var(--border-color); }
+    .scale-ramp-title { font-size: 0.95rem; font-weight: 800; color: #00A8FF; margin-bottom: 15px; }
+    .track-grid-wrap { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 14px; }
+    .scale-ramp-item {
+      display: flex; flex-direction: column; align-items: center; background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 12px; cursor: pointer; transition: all 0.25s ease;
+      width: calc(14.28% - 12px); min-width: 110px; padding: 14px 10px;
+    }
+    .scale-ramp-item:hover, .scale-ramp-item.active { background: rgba(0, 168, 255, 0.22); border-color: #00A8FF; transform: translateY(-4px); }
+    .scale-bag-shape { border: 2px dashed #00A8FF; background: rgba(0, 168, 255, 0.18); border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+    .scale-bag-tag { font-size: 0.8rem; font-weight: 800; color: #FFFFFF; }
+    .scale-dim-label { font-size: 0.72rem; color: rgba(255, 255, 255, 0.8); font-weight: 600; }
+
+    .compact-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .compact-table th { background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; padding: 12px 24px; text-align: left; border-bottom: 1px solid #CBD5E1; }
+    .compact-table td { padding: 12px 24px; border-bottom: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; }
+    .compact-table tr:nth-child(even) td { background: #F8FAFC; }
+    .compact-table tr:hover td { background: #EFF6FF; }
+
+    .tag-size { display: inline-block; background: #E0F2FE; color: #0284C7; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
+    .tag-qty { display: inline-block; background: #FEF3C7; color: #D97706; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
+
+    .btn-quote-add {
+      background: #EFF6FF; border: 1px solid #BFDBFE; color: var(--brand-blue);
+      padding: 5px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 800;
+      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-quote-add:hover { background: var(--brand-blue); color: #FFFFFF; border-color: var(--brand-blue); }
+    .btn-quote-add.added { background: #10B981; color: #FFFFFF; border-color: #10B981; }
+
+    tr.row-selected td { background: #F0FDF4 !important; }
+
+    .rfq-floating-basket {
+      position: fixed; bottom: 25px; right: 25px; z-index: 9999;
+      background: #0A2540; color: #FFFFFF; border: 1px solid #00A8FF;
+      border-radius: 16px; padding: 14px 22px; box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+      display: flex; align-items: center; gap: 18px; transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: translateY(100px); opacity: 0; pointer-events: none;
+    }
+    .rfq-floating-basket.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .basket-info { font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .basket-count-badge { background: #00A8FF; color: #0A2540; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 900; font-size: 0.85rem; }
+    .basket-submit-btn {
+      background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;
+      border: none; padding: 8px 18px; border-radius: var(--radius-full);
+      font-size: 0.86rem; font-weight: 800; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease;
+    }
+
+    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+
+    @media (max-width: 900px) {
+      .hero-container { grid-template-columns: 1fr; }
+      .mega-menu-panel-6cat, .top-utility-bar { display: none; }
+      .header { top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <div class="top-utility-bar">
+    <div class="utility-left">
+      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
+      <a href="../index.html"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
+      <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 北美總部</a>
+    </div>
+    <div class="utility-right">
+      <a href="../about.html"><i class="fa-solid fa-chart-line"></i> 投資人專區</a>
+      <a href="../sustainability.html"><i class="fa-solid fa-leaf"></i> 永續發展</a>
+      <a href="../contact.html"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
+      <a href="../contact.html"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a>
+    </div>
+  </div>
+
+  <header class="header">
+    <a href="../index.html" class="header-logo">
+      <img src="../src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
+      <div>
+        <span class="logo-text-tw">臺灣營德股份有限公司</span>
+        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
+      </div>
+    </a>
+    
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="../index.html" class="nav-link-item">首頁</a></li>
+      <li class="nav-item"><a href="../about.html" class="nav-link-item">關於營德</a></li>
+      
+      <!-- 6 大產品 Mega Menu -->
+      <li class="nav-item">
+        <a href="index.html" class="nav-link-item active">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel-6cat">
+          <div class="mega-grid-6">
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="can-liners.html">連捲清潔袋</a></li>
+                <li><a href="can-liners.html">單張抽取</a></li>
+                <li><a href="can-liners.html">環保清潔袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="draw-tape.html">清潔袋</a></li>
+                <li><a href="draw-tape.html">醫療袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="foodservice.html">平裝耐熱袋</a></li>
+                <li><a href="foodservice.html">捲裝耐熱袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+              <ul class="mega-sub-links">
+                <li><a href="zipper-bags.html">夾鏈袋 (00~12號)</a></li>
+                <li><a href="zipper-bags.html">密實袋</a></li>
+                <li><a href="zipper-bags.html">立體密實袋</a></li>
+                <li><a href="zipper-bags.html">冷凍袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
+              <ul class="mega-sub-links">
+                <li><a href="specialty.html">台塑遮蔽防塵膠帶</a></li>
+                <li><a href="specialty.html">衛生手套</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> 06 Scale Sheet</div>
+              <ul class="mega-sub-links">
+                <li><a href="stretch-films.html">生鮮磅秤切片膜</a></li>
+                <li><a href="stretch-films.html">熟食肉品磅秤襯墊</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item">永續發展</a></li>
+      <li class="nav-item"><a href="../contact.html" class="nav-link-item">聯繫與詢價</a></li>
+    </ul>
+
+    <div class="header-right">
+      <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
+      <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="hero-container">
+      <div>
+        <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">RECLOSABLE & ZIPPER PACKAGING</span>
+        <h1 class="hero-title">密封與夾鏈包裝類專頁</h1>
+        <p class="hero-desc">
+          包含雙軌密封密實袋、立體密實袋、冷凍袋與完整夾鏈袋 (00號~12號)。提供 100% 密封防漏、食材保鮮與防塵收納保護。
+        </p>
+        <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
+      </div>
+      <div>
+        <img src="../src/use2.png" alt="密封包裝類展示" class="product-hero-img">
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="compact-spec-container">
+
+      <!-- Filter Pills Bar -->
+      <div class="filter-pills-bar">
+        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
+        <button class="filter-btn" onclick="filterCategory('zipper', this)">夾鏈袋 (00~12號)</button>
+        <button class="filter-btn" onclick="filterCategory('slider', this)">密實袋</button>
+        <button class="filter-btn" onclick="filterCategory('standup', this)">立體密實袋</button>
+        <button class="filter-btn" onclick="filterCategory('freezer', this)">冷凍袋</button>
+      </div>
+
+      <!-- 1. 夾鏈袋 PRODUCT BLOCK WITH VISUAL SCALE RAMP -->
+      <div class="cat-spec-block spec-block" id="cat-zipper">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-lock"></i> 夾鏈袋號數對照表 (00號 ~ 12號)</h2>
+        </div>
+        
+        <div class="scale-ramp-container">
+          <div class="scale-ramp-title"><i class="fa-solid fa-ruler-combined"></i> 夾鏈袋 00號~12號 等比例視覺對比牆</div>
+          <div class="scale-ramp-track track-grid-wrap">
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 25px; height: 30px;"><span class="scale-bag-tag" style="font-size: 0.65rem;">00號</span></div><span class="scale-dim-label">3.5 × 4 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 30px; height: 40px;"><span class="scale-bag-tag" style="font-size: 0.7rem;">0號</span></div><span class="scale-dim-label">4 × 6 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 38px; height: 48px;"><span class="scale-bag-tag">1號</span></div><span class="scale-dim-label">5 × 7 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 44px; height: 58px;"><span class="scale-bag-tag">2號</span></div><span class="scale-dim-label">6 × 8.5 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 50px; height: 68px;"><span class="scale-bag-tag">3號</span></div><span class="scale-dim-label">7 × 10 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 60px; height: 82px;"><span class="scale-bag-tag">4號</span></div><span class="scale-dim-label">8.5 × 12 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 70px; height: 95px;"><span class="scale-bag-tag">5號</span></div><span class="scale-dim-label">10 × 14 cm</span></div>
+            <div class="scale-ramp-item active"><div class="scale-bag-shape" style="width: 82px; height: 112px;"><span class="scale-bag-tag">6號</span></div><span class="scale-dim-label">12 × 17 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 94px; height: 130px;"><span class="scale-bag-tag">7號</span></div><span class="scale-dim-label">14 × 20 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 110px; height: 150px;"><span class="scale-bag-tag">8號</span></div><span class="scale-dim-label">17 × 24 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 125px; height: 170px;"><span class="scale-bag-tag">9號</span></div><span class="scale-dim-label">20 × 28 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 145px; height: 195px;"><span class="scale-bag-tag">10號</span></div><span class="scale-dim-label">24 × 34 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 165px; height: 220px;"><span class="scale-bag-tag">11號</span></div><span class="scale-dim-label">28 × 40 cm</span></div>
+            <div class="scale-ramp-item"><div class="scale-bag-shape" style="width: 185px; height: 240px;"><span class="scale-bag-tag">12號</span></div><span class="scale-dim-label">34 × 45 cm</span></div>
+          </div>
+        </div>
+
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th>規格 Specification</th>
+              <th>尺寸 Dimensions</th>
+              <th>一包的數量 Qty per Pack</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="tag-size">00號</span></td><td>3.5 x 4 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 00號 (3.5x4cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">0號</span></td><td>4 x 6 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 0號 (4x6cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">1號</span></td><td>5 x 7 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 1號 (5x7cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">2號</span></td><td>6 x 8.5 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 2號 (6x8.5cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">3號</span></td><td>7 x 10 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 3號 (7x10cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">4號</span></td><td>8.5 x 12 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 4號 (8.5x12cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">5號</span></td><td>10 x 14 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 5號 (10x14cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">6號</span></td><td>12 x 17 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 6號 (12x17cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">7號</span></td><td>14 x 20 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 7號 (14x20cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">8號</span></td><td>17 x 24 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 8號 (17x24cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">9號</span></td><td>20 x 28 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 9號 (20x28cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">10號</span></td><td>24 x 34 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 10號 (24x34cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">11號</span></td><td>28 x 40 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 11號 (28x40cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">12號</span></td><td>34 x 45 cm</td><td><span class="tag-qty">100張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('夾鏈袋 · 12號 (34x45cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 2. 密實袋 PRODUCT BLOCK -->
+      <div class="cat-spec-block spec-block" id="cat-slider">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-box-archive"></i> 密實袋裝箱與棧板規範對照表</h2>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th>規格 Specification</th>
+              <th>裝箱與棧板規範 Pallet Specification</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="tag-size">中 (Medium)</span></td><td><span class="tag-qty">45箱/板</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('密實袋 · 中 (45箱/板)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">大 (Large)</span></td><td><span class="tag-qty">48箱/板</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('密實袋 · 大 (48箱/板)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 3. 立體密實袋 PRODUCT BLOCK -->
+      <div class="cat-spec-block spec-block" id="cat-standup">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-cube"></i> 立體密實袋規格對照表</h2>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th>規格 Specification</th>
+              <th>尺寸 Dimensions</th>
+              <th>一包的數量 Quantity per Pack</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="tag-size">小 (Small)</span></td><td>13 x 13.5 cm</td><td><span class="tag-qty">40張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('立體密實袋 · 小 (13x13.5cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">中 (Medium)</span></td><td>17 x 15.5 cm</td><td><span class="tag-qty">30張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('立體密實袋 · 中 (17x15.5cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">大 (Large)</span></td><td>26 x 25.5 cm</td><td><span class="tag-qty">16張/包</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('立體密實袋 · 大 (26x25.5cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 4. 冷凍袋 PRODUCT BLOCK -->
+      <div class="cat-spec-block spec-block" id="cat-freezer">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-snowflake"></i> 冷凍袋裝箱與棧板規範對照表</h2>
+        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th>規格 Specification</th>
+              <th>裝箱與棧板規範 Pallet Specification</th>
+              <th style="width: 140px; text-align: center;">批量詢價</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="tag-size">中 (Medium)</span></td><td><span class="tag-qty">45箱/板</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('冷凍袋 · 中 (45箱/板)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">大 (Large)</span></td><td><span class="tag-qty">48箱/板</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('冷凍袋 · 大 (48箱/板)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Floating RFQ Quote Basket -->
+  <div id="rfqFloatingBasket" class="rfq-floating-basket">
+    <div class="basket-info">
+      <i class="fa-solid fa-cart-flatbed" style="color: #00A8FF;"></i> 已選擇 <span id="quoteCountBadge" class="basket-count-badge">0</span> 項產品規格
+    </div>
+    <button onclick="goToRfqPage()" class="basket-submit-btn">
+      前往線上詢價單 <i class="fa-solid fa-paper-plane"></i>
+    </button>
+  </div>
+
+  <footer class="footer">
+    <div class="compact-spec-container">
+      <div class="footer-bottom">
+        © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let selectedQuotes = new Set();
+    function toggleQuoteItem(itemSpec, btn) {
+      const row = btn.closest('tr');
+      if (selectedQuotes.has(itemSpec)) {
+        selectedQuotes.delete(itemSpec);
+        btn.classList.remove('added');
+        btn.innerHTML = '<i class="fa-solid fa-plus"></i> 勾選詢價';
+        if (row) row.classList.remove('row-selected');
+      } else {
+        selectedQuotes.add(itemSpec);
+        btn.classList.add('added');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> 已加入詢價';
+        if (row) row.classList.add('row-selected');
+      }
+
+      const basket = document.getElementById('rfqFloatingBasket');
+      const badge = document.getElementById('quoteCountBadge');
+      if (selectedQuotes.size > 0) {
+        basket.classList.add('active');
+        badge.innerText = selectedQuotes.size;
+      } else {
+        basket.classList.remove('active');
+      }
+    }
+
+    function goToRfqPage() {
+      const itemsArr = Array.from(selectedQuotes);
+      const query = encodeURIComponent(itemsArr.join(' ; '));
+      window.location.href = `../contact.html?specs=${query}`;
+    }
+
+    function filterCategory(category, btn) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const blocks = document.querySelectorAll('.spec-block');
+      let targetBlock = null;
+
+      blocks.forEach(block => {
+        if (category === 'all') {
+          block.style.display = 'block';
+        } else {
+          if (block.id === `cat-${category}`) {
+            block.style.display = 'block';
+            targetBlock = block;
+          } else {
+            block.style.display = 'none';
+          }
+        }
+      });
+
+      if (targetBlock) {
+        const headerOffset = 160;
+        const elementPosition = targetBlock.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+</html>
