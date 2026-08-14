@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>耐熱袋、夾鏈袋與食品級包裝 (Heat-Resistant & Zipper Bags) 專頁 | 臺灣營德 Inteplast Taiwan</title>
-  <meta name="description" content="臺灣營德 100% 食品級耐熱袋與夾鏈袋專頁：平裝耐熱袋（四兩至15斤）、卷裝耐熱袋（四兩至5斤）與夾鏈袋 00號至12號極簡技術規格清單。">
+  <meta name="description" content="臺灣營德 100% 食品級耐熱袋與夾鏈袋專頁：平裝耐熱袋（四兩至15斤）、卷裝耐熱袋（四兩至5斤）與夾鏈袋 00號至12號精準對照表。">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -32,7 +32,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #FAFAFA; line-height: 1.6; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #F8FAFC; line-height: 1.6; }
 
     .header {
       position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
@@ -107,92 +107,108 @@
     .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
 
     .section { padding: 60px 40px; }
-    .container-apple { max-width: 900px; margin: 0 auto; }
+    
+    /* COMPACT NEAT SPEC CONTAINER (MAX 860px CENTERED) */
+    .compact-spec-container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
 
     /* Filter Pills Bar */
     .filter-pills-bar {
-      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
-      margin-bottom: 50px;
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+      margin-bottom: 40px;
     }
     .filter-btn {
       background: #FFFFFF; border: 1px solid #CBD5E1; color: var(--text-main);
-      padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 700;
-      cursor: pointer; transition: all 0.25s ease;
-      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s ease;
+      display: inline-flex; align-items: center; gap: 6px;
     }
     .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
     .filter-btn.active {
       background: var(--primary-navy); color: #FFFFFF; border-color: var(--primary-navy);
     }
 
-    /* APPLE TECH SPECS MINIMALIST LIST (NO BOXES, NO CARDS, NO TABLE BORDERS) */
-    .apple-spec-group {
-      margin-bottom: 55px;
+    /* NEAT COMPACT SPEC TABLES */
+    .cat-spec-block {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      margin-bottom: 35px;
+      overflow: hidden;
     }
-    .apple-group-header {
-      padding-bottom: 16px;
-      border-bottom: 2px solid var(--primary-navy);
-      margin-bottom: 8px;
+
+    .cat-spec-header {
+      background: #0A2540;
+      color: #FFFFFF;
+      padding: 14px 24px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
     }
-    .apple-group-title {
-      font-size: 1.5rem;
+    .cat-spec-title {
+      font-size: 1.15rem;
       font-weight: 800;
-      color: var(--primary-navy);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
-    .apple-group-sub {
-      font-size: 0.88rem;
+    .cat-spec-sub {
+      font-size: 0.8rem;
+      color: #94A3B8;
       font-weight: 600;
-      color: var(--brand-blue);
     }
 
-    .apple-spec-list {
-      display: flex;
-      flex-direction: column;
+    .compact-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
     }
-
-    .apple-list-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 12px;
-      border-bottom: 1px solid #E2E8F0;
-      transition: background 0.2s ease, padding 0.2s ease;
-    }
-    .apple-list-row:last-child {
+    .compact-table th {
+      background: #F1F5F9;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      text-align: left;
       border-bottom: 1px solid #CBD5E1;
     }
-    .apple-list-row:hover {
-      background: #F1F5F9;
-      border-radius: 8px;
-      padding-left: 20px;
-      padding-right: 20px;
+    .compact-table td {
+      padding: 11px 24px;
+      border-bottom: 1px solid #E2E8F0;
+      color: #1E293B;
+      font-weight: 600;
+    }
+    .compact-table tr:last-child td {
+      border-bottom: none;
+    }
+    .compact-table tr:nth-child(even) td {
+      background: #F8FAFC;
+    }
+    .compact-table tr:hover td {
+      background: #EFF6FF;
     }
 
-    .apple-label {
-      font-size: 1.08rem;
+    .tag-size {
+      display: inline-block;
+      background: #E0F2FE;
+      color: #0284C7;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
+    .tag-qty {
+      display: inline-block;
+      background: #F0FDF4;
+      color: #16A34A;
       font-weight: 700;
-      color: var(--primary-navy);
-    }
-    .apple-meta {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      font-size: 0.95rem;
-    }
-    .apple-dim {
-      font-family: 'Inter', monospace, sans-serif;
-      font-weight: 600;
-      color: #334155;
-    }
-    .apple-qty {
-      font-weight: 700;
-      color: var(--brand-blue);
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.82rem;
     }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
@@ -202,8 +218,7 @@
       .hero-container { grid-template-columns: 1fr; }
       .mega-menu-panel-6cat, .top-utility-bar { display: none; }
       .header { top: 0; }
-      .apple-list-row { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .apple-meta { gap: 16px; }
+      .compact-table th, .compact-table td { padding: 10px 14px; font-size: 0.85rem; }
     }
   </style>
 </head>
@@ -306,8 +321,8 @@
       <div>
         <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">HEAT-RESISTANT & ZIPPER PACKAGING</span>
         <h1 class="hero-title" data-tw="耐熱袋與夾鏈密封包裝系列" data-en="Heat-Resistant & Zipper Bags">耐熱袋與夾鏈密封包裝系列</h1>
-        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整技術規格列表。" data-en="High-temperature resistant & FDA-compliant PE heat bags (flat/roll) and 00-12 reclosable zipper bags for food prep.">
-          嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整技術規格列表。
+        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整技術規格。" data-en="High-temperature resistant & FDA-compliant PE heat bags (flat/roll) and 00-12 reclosable zipper bags for food prep.">
+          嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整技術規格。
         </p>
         <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Inquire Heat Bags"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
       </div>
@@ -318,14 +333,14 @@
   </section>
 
   <section class="section">
-    <div class="container-apple">
+    <div class="compact-spec-container">
 
       <!-- Category Filter Pills Bar -->
       <div class="filter-pills-bar">
         <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 全部規格 All</button>
         <button class="filter-btn" onclick="filterCategory('flat-heat', this)">平裝耐熱袋</button>
         <button class="filter-btn" onclick="filterCategory('roll-heat', this)">卷裝耐熱袋</button>
-        <button class="filter-btn" onclick="filterCategory('zipper', this)">夾鏈袋 (00~12號)</button>
+        <button class="filter-btn" onclick="filterCategory('zipper', this)">夾鏈袋</button>
         <button class="filter-btn" onclick="filterCategory('slider', this)">密實袋</button>
         <button class="filter-btn" onclick="filterCategory('standup', this)">立體密實袋</button>
         <button class="filter-btn" onclick="filterCategory('freezer', this)">冷凍袋</button>
@@ -333,400 +348,426 @@
         <button class="filter-btn" onclick="filterCategory('gloves', this)">衛生手套</button>
       </div>
 
-      <!-- 1. 平裝耐熱袋 APPLE MINIMALIST LIST -->
-      <div class="apple-spec-group spec-block" id="cat-flat-heat">
-        <div class="apple-group-header">
-          <h2 class="apple-group-title"><i class="fa-solid fa-temperature-high" style="color: var(--brand-blue);"></i> 平裝耐熱袋</h2>
-          <span class="apple-group-sub">食品級高溫耐熱配方</span>
+      <!-- 1. 平裝耐熱袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-flat-heat">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-temperature-high"></i> 平裝耐熱袋規格對照表</h2>
+          <span class="cat-spec-sub">食品級高溫耐熱配方</span>
         </div>
-        <div class="apple-spec-list">
-          <div class="apple-list-row">
-            <span class="apple-label">四兩</span>
-            <div class="apple-meta">
-              <span class="apple-dim">15.5 × 19.5 cm</span>
-              <span class="apple-qty">360 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">六兩</span>
-            <div class="apple-meta">
-              <span class="apple-dim">18.5 × 23 cm</span>
-              <span class="apple-qty">255 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">半斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">22 × 27 cm</span>
-              <span class="apple-qty">183 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">1斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">24 × 31 cm</span>
-              <span class="apple-qty">146 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">2斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">28 × 39 cm</span>
-              <span class="apple-qty">99 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">3斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">32 × 43 cm</span>
-              <span class="apple-qty">79 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">5斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">35 × 50 cm</span>
-              <span class="apple-qty">52 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">10斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">45 × 62 cm</span>
-              <span class="apple-qty">26 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">15斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">48 × 65 cm</span>
-              <span class="apple-qty">22 張 / 包</span>
-            </div>
-          </div>
-        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">四兩</span></td>
+              <td>15.5 x 19.5 cm</td>
+              <td><span class="tag-qty">360張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">六兩</span></td>
+              <td>18.5 x 23 cm</td>
+              <td><span class="tag-qty">255張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">半斤</span></td>
+              <td>22 x 27 cm</td>
+              <td><span class="tag-qty">183張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">1斤</span></td>
+              <td>24 x 31 cm</td>
+              <td><span class="tag-qty">146張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">2斤</span></td>
+              <td>28 x 39 cm</td>
+              <td><span class="tag-qty">99張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">3斤</span></td>
+              <td>32 x 43 cm</td>
+              <td><span class="tag-qty">79張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">5斤</span></td>
+              <td>35 x 50 cm</td>
+              <td><span class="tag-qty">52張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">10斤</span></td>
+              <td>45 x 62 cm</td>
+              <td><span class="tag-qty">26張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="tag-size">15斤</span></td>
+              <td>48 x 65 cm</td>
+              <td><span class="tag-qty">22張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- 2. 卷裝耐熱袋 APPLE MINIMALIST LIST -->
-      <div class="apple-spec-group spec-block" id="cat-roll-heat">
-        <div class="apple-group-header">
-          <h2 class="apple-group-title"><i class="fa-solid fa-scroll" style="color: var(--brand-blue);"></i> 卷裝耐熱袋</h2>
-          <span class="apple-group-sub">包裝規範：100PCS (大) / 150PCS (小)</span>
+      <!-- 2. 卷裝耐熱袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-roll-heat">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-scroll"></i> 卷裝耐熱袋規格對照表</h2>
+          <span class="cat-spec-sub">包裝規範：100PCS (大) / 150PCS (小)</span>
         </div>
-        <div class="apple-spec-list">
-          <div class="apple-list-row">
-            <span class="apple-label">四兩</span>
-            <div class="apple-meta">
-              <span class="apple-dim">15.5 × 19.5 cm</span>
-              <span class="apple-qty">1822 張 / 卷</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">六兩</span>
-            <div class="apple-meta">
-              <span class="apple-dim">18.5 × 23 cm</span>
-              <span class="apple-qty">1275 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">半斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">22 × 27 cm</span>
-              <span class="apple-qty">897 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">1斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">24 × 31 cm</span>
-              <span class="apple-qty">708 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">2斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">28 × 39 cm</span>
-              <span class="apple-qty">472 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">3斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">32 × 43 cm</span>
-              <span class="apple-qty">367 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">5斤</span>
-            <div class="apple-meta">
-              <span class="apple-dim">35 × 50 cm</span>
-              <span class="apple-qty">236 張 / 包</span>
-            </div>
-          </div>
-        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="數量 / 包裝 Qty per Roll/Pack" data-en="Qty per Roll/Pack">數量 / 包裝 Qty per Roll/Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">四兩</span></td>
+              <td>15.5 x 19.5 cm</td>
+              <td><span class="tag-qty">1822張/卷</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">六兩</span></td>
+              <td>18.5 x 23 cm</td>
+              <td><span class="tag-qty">1275張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">半斤</span></td>
+              <td>22 x 27 cm</td>
+              <td><span class="tag-qty">897張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">1斤</span></td>
+              <td>24 x 31 cm</td>
+              <td><span class="tag-qty">708張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">2斤</span></td>
+              <td>28 x 39 cm</td>
+              <td><span class="tag-qty">472張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">3斤</span></td>
+              <td>32 x 43 cm</td>
+              <td><span class="tag-qty">367張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="tag-size">5斤</span></td>
+              <td>35 x 50 cm</td>
+              <td><span class="tag-qty">236張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- 3. 夾鏈袋 APPLE MINIMALIST LIST -->
-      <div class="apple-spec-group spec-block" id="cat-zipper">
-        <div class="apple-group-header">
-          <h2 class="apple-group-title"><i class="fa-solid fa-lock" style="color: var(--brand-blue);"></i> 夾鏈袋 (00號 ~ 12號)</h2>
-          <span class="apple-group-sub">標準封裝：100 張 / 包</span>
+      <!-- 3. 夾鏈袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-zipper">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-lock"></i> 夾鏈袋號數對照表 (00號 ~ 12號)</h2>
+          <span class="cat-spec-sub">標準包裝：100張/包</span>
         </div>
-        <div class="apple-spec-list">
-          <div class="apple-list-row">
-            <span class="apple-label">00號 (#00)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">3.5 × 4 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">0號 (#0)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">4 × 6 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">1號 (#1)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">5 × 7 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">2號 (#2)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">6 × 8.5 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">3號 (#3)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">7 × 10 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">4號 (#4)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">8.5 × 12 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">5號 (#5)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">10 × 14 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">6號 (#6)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">12 × 17 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">7號 (#7)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">14 × 20 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">8號 (#8)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">17 × 24 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">9號 (#9)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">20 × 28 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">10號 (#10)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">24 × 34 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">11號 (#11)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">28 × 40 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">12號 (#12)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">34 × 45 cm</span>
-              <span class="apple-qty">100 張 / 包</span>
-            </div>
-          </div>
-        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">00號 (#00)</span></td>
+              <td>3.5 x 4 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">0號 (#0)</span></td>
+              <td>4 x 6 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">1號 (#1)</span></td>
+              <td>5 x 7 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">2號 (#2)</span></td>
+              <td>6 x 8.5 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">3號 (#3)</span></td>
+              <td>7 x 10 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">4號 (#4)</span></td>
+              <td>8.5 x 12 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">5號 (#5)</span></td>
+              <td>10 x 14 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">6號 (#6)</span></td>
+              <td>12 x 17 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">7號 (#7)</span></td>
+              <td>14 x 20 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">8號 (#8)</span></td>
+              <td>17 x 24 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">9號 (#9)</span></td>
+              <td>20 x 28 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">10號 (#10)</span></td>
+              <td>24 x 34 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">11號 (#11)</span></td>
+              <td>28 x 40 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="tag-size">12號 (#12)</span></td>
+              <td>34 x 45 cm</td>
+              <td><span class="tag-qty">100張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- 4. 密實袋 APPLE MINIMALIST LIST -->
-      <div class="apple-spec-group spec-block" id="cat-slider">
-        <div class="apple-group-header">
-          <h2 class="apple-group-title"><i class="fa-solid fa-box-archive" style="color: var(--brand-blue);"></i> 密實袋</h2>
-          <span class="apple-group-sub">獨家拉鍊密封保鮮</span>
+      <!-- 4. 密實袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-slider">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-box-archive"></i> 密實袋裝箱與棧板規範對照表</h2>
+          <span class="cat-spec-sub">獨家拉鍊密封保鮮</span>
         </div>
-        <div class="apple-spec-list">
-          <div class="apple-list-row">
-            <span class="apple-label">中 (Medium)</span>
-            <div class="apple-meta">
-              <span class="apple-qty">45 箱 / 板</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">大 (Large)</span>
-            <div class="apple-meta">
-              <span class="apple-qty">48 箱 / 板</span>
-            </div>
-          </div>
-        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="裝箱與棧板規範 Pallet Specification" data-en="Pallet Spec">裝箱與棧板規範 Pallet Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>密實袋 Slider Storage Bag</td>
+              <td><span class="tag-size">中 (Medium)</span></td>
+              <td><span class="tag-qty">45箱/板</span></td>
+            </tr>
+            <tr>
+              <td>密實袋 Slider Storage Bag</td>
+              <td><span class="tag-size">大 (Large)</span></td>
+              <td><span class="tag-qty">48箱/板</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- 5. 立體密實袋 APPLE MINIMALIST LIST -->
-      <div class="apple-spec-group spec-block" id="cat-standup">
-        <div class="apple-group-header">
-          <h2 class="apple-group-title"><i class="fa-solid fa-cube" style="color: var(--brand-blue);"></i> 立體密實袋</h2>
-          <span class="apple-group-sub">底部加寬立體站立設計</span>
+      <!-- 5. 立體密實袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-standup">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-cube"></i> 立體密實袋規格對照表</h2>
+          <span class="cat-spec-sub">底部加寬立體站立設計</span>
         </div>
-        <div class="apple-spec-list">
-          <div class="apple-list-row">
-            <span class="apple-label">小 (Small)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">13 × 13.5 cm</span>
-              <span class="apple-qty">40 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">中 (Medium)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">17 × 15.5 cm</span>
-              <span class="apple-qty">30 張 / 包</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">大 (Large)</span>
-            <div class="apple-meta">
-              <span class="apple-dim">26 × 25.5 cm</span>
-              <span class="apple-qty">16 張 / 包</span>
-            </div>
-          </div>
-        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>立體密實袋 Stand-Up Bag</td>
+              <td><span class="tag-size">小 (Small)</span></td>
+              <td>13 x 13.5 cm</td>
+              <td><span class="tag-qty">40張/包</span></td>
+            </tr>
+            <tr>
+              <td>立體密實袋 Stand-Up Bag</td>
+              <td><span class="tag-size">中 (Medium)</span></td>
+              <td>17 x 15.5 cm</td>
+              <td><span class="tag-qty">30張/包</span></td>
+            </tr>
+            <tr>
+              <td>立體密實袋 Stand-Up Bag</td>
+              <td><span class="tag-size">大 (Large)</span></td>
+              <td>26 x 25.5 cm</td>
+              <td><span class="tag-qty">16張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- 6. 冷凍袋 APPLE MINIMALIST LIST -->
-      <div class="apple-spec-group spec-block" id="cat-freezer">
-        <div class="apple-group-header">
-          <h2 class="apple-group-title"><i class="fa-solid fa-snowflake" style="color: var(--brand-blue);"></i> 冷凍袋</h2>
-          <span class="apple-group-sub">耐低溫凍裂防燒特別配方</span>
+      <!-- 6. 冷凍袋 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-freezer">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-snowflake"></i> 冷凍袋裝箱與棧板規範對照表</h2>
+          <span class="cat-spec-sub">耐低溫防凍裂特別配方</span>
         </div>
-        <div class="apple-spec-list">
-          <div class="apple-list-row">
-            <span class="apple-label">中 (Medium)</span>
-            <div class="apple-meta">
-              <span class="apple-qty">45 箱 / 板</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">大 (Large)</span>
-            <div class="apple-meta">
-              <span class="apple-qty">48 箱 / 板</span>
-            </div>
-          </div>
-        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="裝箱與棧板規範 Pallet Specification" data-en="Pallet Spec">裝箱與棧板規範 Pallet Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>冷凍袋 Freezer Bag</td>
+              <td><span class="tag-size">中 (Medium)</span></td>
+              <td><span class="tag-qty">45箱/板</span></td>
+            </tr>
+            <tr>
+              <td>冷凍袋 Freezer Bag</td>
+              <td><span class="tag-size">大 (Large)</span></td>
+              <td><span class="tag-qty">48箱/板</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- 7. 台塑遮蔽膠帶 APPLE MINIMALIST LIST -->
-      <div class="apple-spec-group spec-block" id="cat-tape">
-        <div class="apple-group-header">
-          <h2 class="apple-group-title"><i class="fa-solid fa-tape" style="color: var(--brand-blue);"></i> 台塑遮蔽防塵膠帶</h2>
-          <span class="apple-group-sub">建築裝潢與噴漆防塵保護</span>
+      <!-- 7. 台塑遮蔽膠帶 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-tape">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-tape"></i> 台塑遮蔽防塵膠帶規格對照表</h2>
+          <span class="cat-spec-sub">建築裝潢與噴漆防塵保護</span>
         </div>
-        <div class="apple-spec-list">
-          <div class="apple-list-row">
-            <span class="apple-label">550 mm × 25 y</span>
-            <div class="apple-meta">
-              <span class="apple-qty">22.8 m</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">1100 mm × 25 y</span>
-            <div class="apple-meta">
-              <span class="apple-qty">22.8 m</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">1500 mm × 25 y</span>
-            <div class="apple-meta">
-              <span class="apple-qty">22.8 m</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">2100 mm × 25 y</span>
-            <div class="apple-meta">
-              <span class="apple-qty">22.8 m</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">2700 mm × 25 y</span>
-            <div class="apple-meta">
-              <span class="apple-qty">22.8 m</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">3200 mm × 25 y</span>
-            <div class="apple-meta">
-              <span class="apple-qty">22.8 m</span>
-            </div>
-          </div>
-        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification (幅寬 x 長度)" data-en="Spec (Width x Length)">規格 Specification (幅寬 x 長度)</th>
+              <th data-tw="長度換算 Length (Meters)" data-en="Length (Meters)">長度換算 Length (Meters)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">550 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">1100 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">1500 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">2100 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">2700 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="tag-size">3200 mm * 25 y</span></td>
+              <td><span class="tag-qty">22.8 m</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- 8. 衛生手套 APPLE MINIMALIST LIST -->
-      <div class="apple-spec-group spec-block" id="cat-gloves">
-        <div class="apple-group-header">
-          <h2 class="apple-group-title"><i class="fa-solid fa-hand" style="color: var(--brand-blue);"></i> 衛生手套</h2>
-          <span class="apple-group-sub">食品級 PE 高純度防護</span>
+      <!-- 8. 衛生手套 COMPACT TABLE -->
+      <div class="cat-spec-block spec-block" id="cat-gloves">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-hand"></i> 衛生防護手套尺寸規格對照表</h2>
+          <span class="cat-spec-sub">食品級 PE 高純度防護</span>
         </div>
-        <div class="apple-spec-list">
-          <div class="apple-list-row">
-            <span class="apple-label">小 (S)</span>
-            <div class="apple-meta">
-              <span class="apple-qty">衛生防護手套</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">中 (M)</span>
-            <div class="apple-meta">
-              <span class="apple-qty">衛生防護手套</span>
-            </div>
-          </div>
-          <div class="apple-list-row">
-            <span class="apple-label">大 (L)</span>
-            <div class="apple-meta">
-              <span class="apple-qty">衛生防護手套</span>
-            </div>
-          </div>
-        </div>
+        <table class="compact-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格/尺寸 Specification" data-en="Size">規格/尺寸 Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>衛生手套 Protective Gloves</td>
+              <td><span class="tag-size">小</span></td>
+            </tr>
+            <tr>
+              <td>衛生手套 Protective Gloves</td>
+              <td><span class="tag-size">中</span></td>
+            </tr>
+            <tr>
+              <td>衛生手套 Protective Gloves</td>
+              <td><span class="tag-size">大</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
     </div>
   </section>
 
   <footer class="footer">
-    <div class="container-apple">
+    <div class="compact-spec-container">
       <div class="footer-bottom">
         © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
       </div>
