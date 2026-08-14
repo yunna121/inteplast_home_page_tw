@@ -105,11 +105,66 @@
     .section { padding: 80px 40px; }
     .container { max-width: 1200px; margin: 0 auto; }
 
-    /* Spec Table */
-    .spec-table { width: 100%; border-collapse: collapse; background: var(--surface-white); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); margin-top: 30px; }
-    .spec-table th { background: var(--primary-navy); color: var(--surface-white); padding: 16px 20px; text-align: left; font-size: 0.95rem; font-weight: 700; }
-    .spec-table td { padding: 14px 20px; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-main); }
-    .spec-table tr:hover { background: var(--bg-light); }
+    /* Ultra-Modern Spec Card Block */
+    .modern-spec-card {
+      background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px;
+      box-shadow: 0 10px 30px -10px rgba(10, 37, 64, 0.08); margin-bottom: 40px;
+      overflow: hidden; transition: all 0.3s ease;
+    }
+    .modern-spec-card:hover {
+      border-color: rgba(0, 82, 155, 0.3);
+      box-shadow: 0 20px 40px -12px rgba(10, 37, 64, 0.12);
+    }
+
+    .spec-card-header {
+      padding: 24px 32px; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+      border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .spec-card-title-box { display: flex; align-items: center; gap: 16px; }
+    .spec-card-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      background: rgba(0, 82, 155, 0.08); border: 1px solid rgba(0, 82, 155, 0.15);
+      color: var(--brand-blue); display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .spec-card-h3 { font-size: 1.35rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 4px; }
+    .spec-card-p { font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
+    
+    .spec-count-tag {
+      font-size: 0.8rem; font-weight: 800; color: var(--brand-blue);
+      background: #E0F2FE; border: 1px solid #BAE6FD; padding: 6px 14px; border-radius: var(--radius-full);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+
+    /* Ultra-Clean Modern Table */
+    .modern-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+    .modern-table th {
+      background: #F8FAFC; color: var(--text-muted); font-size: 0.8rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.8px; padding: 16px 32px; text-align: left;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .modern-table td {
+      padding: 16px 32px; border-bottom: 1px solid #F1F5F9;
+      font-size: 0.93rem; font-weight: 600; color: var(--text-main);
+      transition: background 0.2s ease;
+    }
+    .modern-table tr:last-child td { border-bottom: none; }
+    .modern-table tr:hover td { background: #F8FAFC; }
+
+    /* Custom Pastel Pill Badges */
+    .pill-badge-indigo {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #EFF6FF; color: #1D4ED8; font-weight: 800;
+      padding: 6px 14px; border-radius: 8px; font-size: 0.88rem;
+      border: 1px solid #DBEAFE;
+    }
+    .pill-badge-emerald {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #F0FDF4; color: #15803D; font-weight: 700;
+      padding: 6px 14px; border-radius: 8px; font-size: 0.88rem;
+      border: 1px solid #DCFCE7;
+    }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
@@ -217,59 +272,66 @@
 
   <section class="section">
     <div class="container">
-      <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 12px;" data-tw="標準產品規格對照表 (Specifications Matrix)" data-en="Technical Specifications Matrix">標準產品規格對照表 (Specifications Matrix)</h2>
-      <p style="color: var(--text-muted); margin-bottom: 20px;" data-tw="支援 HDPE / LDPE / LLDPE 以及 20%-100% PCR 再生材料客製化代工。" data-en="Available in HDPE, LDPE, LLDPE, and 20%-100% PCR recycled material options.">
-        支援 HDPE / LDPE / LLDPE 以及 20%-100% PCR 再生材料客製化代工。
-      </p>
-
-      <table class="spec-table">
-        <thead>
-          <tr>
-            <th data-tw="容量 Size (Gal)" data-en="Capacity (Gal)">容量 Size (Gal)</th>
-            <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
-            <th data-tw="厚度 Gauge / Micron" data-en="Gauge / Micron">厚度 Gauge / Micron</th>
-            <th data-tw="底封型態 Seal Type" data-en="Seal Type">底封型態 Seal Type</th>
-            <th data-tw="包裝 Pack Style" data-en="Pack Style">包裝 Pack Style</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>12-15 Gal</td>
-            <td>24" x 33" (61 cm x 84 cm)</td>
-            <td>0.35 mil - 0.70 mil (9 - 18 Micron)</td>
-            <td>Star Seal 防漏星封</td>
-            <td>Coreless Roll 無芯捲 / Interfolded</td>
-          </tr>
-          <tr>
-            <td>30 Gal</td>
-            <td>30" x 36" (76 cm x 91 cm)</td>
-            <td>0.50 mil - 1.20 mil (13 - 30 Micron)</td>
-            <td>Star Seal 防漏星封</td>
-            <td>Coreless Roll 無芯捲</td>
-          </tr>
-          <tr>
-            <td>33 Gal</td>
-            <td>33" x 39" (84 cm x 99 cm)</td>
-            <td>0.70 mil - 1.50 mil (18 - 38 Micron)</td>
-            <td>Star Seal 防漏星封</td>
-            <td>Flat Pack / Roll</td>
-          </tr>
-          <tr>
-            <td>40-45 Gal Heavy Duty</td>
-            <td>40" x 46" (102 cm x 117 cm)</td>
-            <td>1.00 mil - 2.00 mil (25 - 50 Micron)</td>
-            <td>Star Seal 防漏星封</td>
-            <td>Flat Pack 盒裝</td>
-          </tr>
-          <tr>
-            <td>55-60 Gal Super Heavy</td>
-            <td>38" x 58" (97 cm x 147 cm)</td>
-            <td>1.50 mil - 3.00 mil (38 - 75 Micron)</td>
-            <td>Star Seal 防漏星封</td>
-            <td>Flat Pack / Heavy Roll</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="modern-spec-card">
+        <div class="spec-card-header">
+          <div class="spec-card-title-box">
+            <div class="spec-card-icon"><i class="fa-solid fa-dumpster"></i></div>
+            <div>
+              <h3 class="spec-card-h3" data-tw="清潔袋標準產品規格對照表" data-en="Can Liners Specifications Matrix">清潔袋標準產品規格對照表</h3>
+              <p class="spec-card-p" data-tw="支援 HDPE / LDPE / LLDPE 以及 20%-100% PCR 再生材料客製化代工。" data-en="Available in HDPE, LDPE, LLDPE, and 20%-100% PCR options.">支援 HDPE / LDPE / LLDPE 以及 20%-100% PCR 再生材料客製化代工。</p>
+            </div>
+          </div>
+          <span class="spec-count-tag"><i class="fa-solid fa-shield-halved"></i> Star Seal 防漏認證</span>
+        </div>
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th data-tw="容量 Size (Gal)" data-en="Capacity (Gal)">容量 Size (Gal)</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="厚度 Gauge / Micron" data-en="Gauge / Micron">厚度 Gauge / Micron</th>
+              <th data-tw="底封型態 Seal Type" data-en="Seal Type">底封型態 Seal Type</th>
+              <th data-tw="包裝 Pack Style" data-en="Pack Style">包裝 Pack Style</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="pill-badge-indigo">12-15 Gal</span></td>
+              <td>24" x 33" (61 cm x 84 cm)</td>
+              <td>0.35 mil - 0.70 mil (9 - 18 Micron)</td>
+              <td><span class="pill-badge-emerald">Star Seal 防漏星封</span></td>
+              <td>Coreless Roll 無芯捲 / Interfolded</td>
+            </tr>
+            <tr>
+              <td><span class="pill-badge-indigo">30 Gal</span></td>
+              <td>30" x 36" (76 cm x 91 cm)</td>
+              <td>0.50 mil - 1.20 mil (13 - 30 Micron)</td>
+              <td><span class="pill-badge-emerald">Star Seal 防漏星封</span></td>
+              <td>Coreless Roll 無芯捲</td>
+            </tr>
+            <tr>
+              <td><span class="pill-badge-indigo">33 Gal</span></td>
+              <td>33" x 39" (84 cm x 99 cm)</td>
+              <td>0.70 mil - 1.50 mil (18 - 38 Micron)</td>
+              <td><span class="pill-badge-emerald">Star Seal 防漏星封</span></td>
+              <td>Flat Pack / Roll</td>
+            </tr>
+            <tr>
+              <td><span class="pill-badge-indigo">40-45 Gal Heavy Duty</span></td>
+              <td>40" x 46" (102 cm x 117 cm)</td>
+              <td>1.00 mil - 2.00 mil (25 - 50 Micron)</td>
+              <td><span class="pill-badge-emerald">Star Seal 防漏星封</span></td>
+              <td>Flat Pack 盒裝</td>
+            </tr>
+            <tr>
+              <td><span class="pill-badge-indigo">55-60 Gal Super Heavy</span></td>
+              <td>38" x 58" (97 cm x 147 cm)</td>
+              <td>1.50 mil - 3.00 mil (38 - 75 Micron)</td>
+              <td><span class="pill-badge-emerald">Star Seal 防漏星封</span></td>
+              <td>Flat Pack / Heavy Roll</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 

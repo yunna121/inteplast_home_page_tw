@@ -8,7 +8,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -34,7 +34,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--surface-white); line-height: 1.6; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #F8FAFC; line-height: 1.6; }
 
     .header {
       position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
@@ -111,38 +111,89 @@
     .section { padding: 60px 40px; }
     .container { max-width: 1200px; margin: 0 auto; }
 
-    .spec-header { margin-bottom: 24px; border-bottom: 2px solid var(--border-color); padding-bottom: 12px; }
-    .spec-header h2 { font-size: 1.8rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
-    .spec-header p { font-size: 0.95rem; color: var(--text-muted); }
+    /* Modern Category Filter Pills */
+    .filter-pills-bar {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+      margin-bottom: 45px;
+    }
+    .filter-btn {
+      background: #FFFFFF; border: 1px solid #CBD5E1; color: var(--text-main);
+      padding: 10px 20px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; transition: all 0.25s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); transform: translateY(-2px); }
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
+      color: #FFFFFF; border-color: var(--primary-navy); box-shadow: 0 8px 20px rgba(0, 82, 155, 0.25);
+      transform: translateY(-2px);
+    }
 
-    /* Custom Tables */
-    .custom-spec-table {
-      width: 100%; border-collapse: collapse; background: var(--surface-white);
-      border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-md);
-      border: 1px solid var(--border-color); margin-bottom: 50px;
+    /* Ultra-Modern Spec Card Block */
+    .modern-spec-card {
+      background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px;
+      box-shadow: 0 10px 30px -10px rgba(10, 37, 64, 0.08); margin-bottom: 40px;
+      overflow: hidden; transition: all 0.3s ease;
     }
-    .custom-spec-table th {
-      background: var(--primary-navy); color: var(--surface-white);
-      padding: 14px 20px; text-align: left; font-size: 0.92rem; font-weight: 800;
-      letter-spacing: 0.5px;
+    .modern-spec-card:hover {
+      border-color: rgba(0, 82, 155, 0.3);
+      box-shadow: 0 20px 40px -12px rgba(10, 37, 64, 0.12);
     }
-    .custom-spec-table tr:nth-child(even) { background: #F8FAFC; }
-    .custom-spec-table tr:hover { background: rgba(0, 82, 155, 0.05); }
-    .custom-spec-table td {
-      padding: 12px 20px; border-bottom: 1px solid var(--border-color);
-      font-size: 0.92rem; color: var(--text-main); font-weight: 600;
+
+    .spec-card-header {
+      padding: 24px 32px; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+      border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
     }
-    .size-badge {
-      display: inline-block; background: rgba(0, 82, 155, 0.1); color: var(--brand-blue);
-      font-weight: 800; padding: 4px 12px; border-radius: var(--radius-full); font-size: 0.85rem;
+    .spec-card-title-box { display: flex; align-items: center; gap: 16px; }
+    .spec-card-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      background: rgba(0, 82, 155, 0.08); border: 1px solid rgba(0, 82, 155, 0.15);
+      color: var(--brand-blue); display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
     }
-    .pack-badge {
-      display: inline-block; background: #E0F2FE; color: #0284C7;
-      font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem;
+    .spec-card-h3 { font-size: 1.35rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 4px; }
+    .spec-card-p { font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
+    
+    .spec-count-tag {
+      font-size: 0.8rem; font-weight: 800; color: var(--brand-blue);
+      background: #E0F2FE; border: 1px solid #BAE6FD; padding: 6px 14px; border-radius: var(--radius-full);
+      display: inline-flex; align-items: center; gap: 6px;
     }
-    .roll-badge {
-      display: inline-block; background: #FEF3C7; color: #D97706;
-      font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem;
+
+    /* Ultra-Clean Modern Table */
+    .modern-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+    .modern-table th {
+      background: #F8FAFC; color: var(--text-muted); font-size: 0.8rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.8px; padding: 16px 32px; text-align: left;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .modern-table td {
+      padding: 16px 32px; border-bottom: 1px solid #F1F5F9;
+      font-size: 0.93rem; font-weight: 600; color: var(--text-main);
+      transition: background 0.2s ease;
+    }
+    .modern-table tr:last-child td { border-bottom: none; }
+    .modern-table tr:hover td { background: #F8FAFC; }
+
+    /* Custom Pastel Pill Badges */
+    .pill-badge-indigo {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #EFF6FF; color: #1D4ED8; font-weight: 800;
+      padding: 6px 14px; border-radius: 8px; font-size: 0.88rem;
+      border: 1px solid #DBEAFE;
+    }
+    .pill-badge-emerald {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #F0FDF4; color: #15803D; font-weight: 700;
+      padding: 6px 14px; border-radius: 8px; font-size: 0.88rem;
+      border: 1px solid #DCFCE7;
+    }
+    .pill-badge-amber {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #FEF3C7; color: #B45309; font-weight: 700;
+      padding: 6px 14px; border-radius: 8px; font-size: 0.88rem;
+      border: 1px solid #FDE68A;
     }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
@@ -152,6 +203,7 @@
       .hero-container { grid-template-columns: 1fr; }
       .mega-menu-panel-6cat, .top-utility-bar { display: none; }
       .header { top: 0; }
+      .modern-table th, .modern-table td { padding: 12px 16px; font-size: 0.85rem; }
     }
   </style>
 </head>
@@ -254,8 +306,8 @@
       <div>
         <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">HEAT-RESISTANT & ZIPPER PACKAGING</span>
         <h1 class="hero-title" data-tw="耐熱袋與夾鏈密封包裝系列" data-en="Heat-Resistant & Zipper Bags">耐熱袋與夾鏈密封包裝系列</h1>
-        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋（四兩至15斤）、卷裝耐熱袋與夾鏈袋（00號至12號）完整標準規格對照表。" data-en="High-temperature resistant & FDA-compliant PE heat bags (flat/roll) and 00-12 reclosable zipper bags for food prep.">
-          嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋（四兩至15斤）、卷裝耐熱袋與夾鏈袋（00號至12號）完整標準規格對照表。
+        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋（四兩至15斤）、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整標準規格對照表。" data-en="High-temperature resistant & FDA-compliant PE heat bags (flat/roll) and 00-12 reclosable zipper bags for food prep.">
+          嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋（四兩至15斤）、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整標準規格對照表。
         </p>
         <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Inquire Heat Bags"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
       </div>
@@ -267,445 +319,482 @@
 
   <section class="section">
     <div class="container">
+
+      <!-- Category Filter Pills Bar -->
+      <div class="filter-pills-bar">
+        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 全部規格 All</button>
+        <button class="filter-btn" onclick="filterCategory('flat-heat', this)"><i class="fa-solid fa-temperature-high"></i> 平裝耐熱袋</button>
+        <button class="filter-btn" onclick="filterCategory('roll-heat', this)"><i class="fa-solid fa-scroll"></i> 卷裝耐熱袋</button>
+        <button class="filter-btn" onclick="filterCategory('zipper', this)"><i class="fa-solid fa-lock"></i> 夾鏈袋 (00~12號)</button>
+        <button class="filter-btn" onclick="filterCategory('slider', this)"><i class="fa-solid fa-box-archive"></i> 密實袋</button>
+        <button class="filter-btn" onclick="filterCategory('standup', this)"><i class="fa-solid fa-cube"></i> 立體密實袋</button>
+        <button class="filter-btn" onclick="filterCategory('freezer', this)"><i class="fa-solid fa-snowflake"></i> 冷凍袋</button>
+        <button class="filter-btn" onclick="filterCategory('tape', this)"><i class="fa-solid fa-tape"></i> 台塑遮蔽膠帶</button>
+        <button class="filter-btn" onclick="filterCategory('gloves', this)"><i class="fa-solid fa-hand"></i> 衛生手套</button>
+      </div>
       
-      <!-- 1. 平裝耐熱袋對照規格表 -->
-      <div class="spec-header">
-        <h2 data-tw="平裝耐熱袋標準規格與張數對照表" data-en="Flat Heat-Resistant Bags Size Chart">
-          <i class="fa-solid fa-temperature-high" style="color: var(--brand-blue);"></i> 平裝耐熱袋標準規格與張數對照表
-        </h2>
-        <p data-tw="食品級高溫耐熱配方，耐高溫盛裝，適合熱食外帶與餐飲備料。" data-en="High-temperature resistant food bags designed for hot food packaging and catering.">
-          食品級高溫耐熱配方，耐高溫盛裝，適合熱食外帶與餐飲備料。
-        </p>
+      <!-- 1. 平裝耐熱袋 Card -->
+      <div class="modern-spec-card spec-block" id="cat-flat-heat">
+        <div class="spec-card-header">
+          <div class="spec-card-title-box">
+            <div class="spec-card-icon"><i class="fa-solid fa-temperature-high"></i></div>
+            <div>
+              <h3 class="spec-card-h3" data-tw="平裝耐熱袋標準規格對照表" data-en="Flat Heat-Resistant Bags">平裝耐熱袋標準規格對照表</h3>
+              <p class="spec-card-p" data-tw="食品級高溫耐熱配方，耐高溫盛裝，適合熱食外帶與餐飲備料。" data-en="High-temp resistant food bags for hot food packaging.">食品級高溫耐熱配方，耐高溫盛裝，適合熱食外帶與餐飲備料。</p>
+            </div>
+          </div>
+          <span class="spec-count-tag"><i class="fa-solid fa-tags"></i> 9 種尺寸規格</span>
+        </div>
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="pill-badge-indigo">四兩</span></td>
+              <td>15.5 x 19.5 cm</td>
+              <td><span class="pill-badge-emerald">360張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="pill-badge-indigo">六兩</span></td>
+              <td>18.5 x 23 cm</td>
+              <td><span class="pill-badge-emerald">255張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="pill-badge-indigo">半斤</span></td>
+              <td>22 x 27 cm</td>
+              <td><span class="pill-badge-emerald">183張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="pill-badge-indigo">1斤</span></td>
+              <td>24 x 31 cm</td>
+              <td><span class="pill-badge-emerald">146張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="pill-badge-indigo">2斤</span></td>
+              <td>28 x 39 cm</td>
+              <td><span class="pill-badge-emerald">99張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="pill-badge-indigo">3斤</span></td>
+              <td>32 x 43 cm</td>
+              <td><span class="pill-badge-emerald">79張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="pill-badge-indigo">5斤</span></td>
+              <td>35 x 50 cm</td>
+              <td><span class="pill-badge-emerald">52張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="pill-badge-indigo">10斤</span></td>
+              <td>45 x 62 cm</td>
+              <td><span class="pill-badge-emerald">26張/包</span></td>
+            </tr>
+            <tr>
+              <td>平裝耐熱袋 Flat Heat Bag</td>
+              <td><span class="pill-badge-indigo">15斤</span></td>
+              <td>48 x 65 cm</td>
+              <td><span class="pill-badge-emerald">22張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <table class="custom-spec-table">
-        <thead>
-          <tr>
-            <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
-            <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
-            <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
-            <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>平裝耐熱袋 Flat Heat-Resistant Bag</td>
-            <td><span class="size-badge">四兩</span></td>
-            <td>15.5 x 19.5 cm</td>
-            <td><span class="pack-badge">360張/包</span></td>
-          </tr>
-          <tr>
-            <td>平裝耐熱袋 Flat Heat-Resistant Bag</td>
-            <td><span class="size-badge">六兩</span></td>
-            <td>18.5 x 23 cm</td>
-            <td><span class="pack-badge">255張/包</span></td>
-          </tr>
-          <tr>
-            <td>平裝耐熱袋 Flat Heat-Resistant Bag</td>
-            <td><span class="size-badge">半斤</span></td>
-            <td>22 x 27 cm</td>
-            <td><span class="pack-badge">183張/包</span></td>
-          </tr>
-          <tr>
-            <td>平裝耐熱袋 Flat Heat-Resistant Bag</td>
-            <td><span class="size-badge">1斤</span></td>
-            <td>24 x 31 cm</td>
-            <td><span class="pack-badge">146張/包</span></td>
-          </tr>
-          <tr>
-            <td>平裝耐熱袋 Flat Heat-Resistant Bag</td>
-            <td><span class="size-badge">2斤</span></td>
-            <td>28 x 39 cm</td>
-            <td><span class="pack-badge">99張/包</span></td>
-          </tr>
-          <tr>
-            <td>平裝耐熱袋 Flat Heat-Resistant Bag</td>
-            <td><span class="size-badge">3斤</span></td>
-            <td>32 x 43 cm</td>
-            <td><span class="pack-badge">79張/包</span></td>
-          </tr>
-          <tr>
-            <td>平裝耐熱袋 Flat Heat-Resistant Bag</td>
-            <td><span class="size-badge">5斤</span></td>
-            <td>35 x 50 cm</td>
-            <td><span class="pack-badge">52張/包</span></td>
-          </tr>
-          <tr>
-            <td>平裝耐熱袋 Flat Heat-Resistant Bag</td>
-            <td><span class="size-badge">10斤</span></td>
-            <td>45 x 62 cm</td>
-            <td><span class="pack-badge">26張/包</span></td>
-          </tr>
-          <tr>
-            <td>平裝耐熱袋 Flat Heat-Resistant Bag</td>
-            <td><span class="size-badge">15斤</span></td>
-            <td>48 x 65 cm</td>
-            <td><span class="pack-badge">22張/包</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- 2. 卷裝耐熱袋對照規格表 -->
-      <div class="spec-header">
-        <h2 data-tw="卷裝耐熱袋標準規格與張數對照表" data-en="Roll Heat-Resistant Bags Size Chart">
-          <i class="fa-solid fa-scroll" style="color: var(--brand-blue);"></i> 卷裝耐熱袋標準規格與張數對照表
-        </h2>
-        <p data-tw="點斷連卷撕取流暢，包裝規範：100PCS (大) / 150PCS (小)，便利生鮮與熱食備料分裝。" data-en="Continuous roll tear-off bags. Packaging options: 100PCS (Large) / 150PCS (Small).">
-          點斷連卷撕取流暢，包裝規範：<strong>100PCS (大) / 150PCS (小)</strong>，便利生鮮與熱食備料分裝。
-        </p>
+      <!-- 2. 卷裝耐熱袋 Card -->
+      <div class="modern-spec-card spec-block" id="cat-roll-heat">
+        <div class="spec-card-header">
+          <div class="spec-card-title-box">
+            <div class="spec-card-icon"><i class="fa-solid fa-scroll"></i></div>
+            <div>
+              <h3 class="spec-card-h3" data-tw="卷裝耐熱袋標準規格對照表" data-en="Roll Heat-Resistant Bags">卷裝耐熱袋標準規格對照表</h3>
+              <p class="spec-card-p" data-tw="點斷連卷撕取流暢，包裝規範：100PCS (大) / 150PCS (小)。" data-en="Continuous roll tear-off bags. 100PCS (L) / 150PCS (S).">點斷連卷撕取流暢，包裝規範：<strong>100PCS (大) / 150PCS (小)</strong>。</p>
+            </div>
+          </div>
+          <span class="spec-count-tag"><i class="fa-solid fa-tags"></i> 7 種尺寸規格</span>
+        </div>
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="數量 / 包裝 Qty per Roll/Pack" data-en="Qty per Roll/Pack">數量 / 包裝 Qty per Roll/Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="pill-badge-indigo">四兩</span></td>
+              <td>15.5 x 19.5 cm</td>
+              <td><span class="pill-badge-amber">1822張/卷</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="pill-badge-indigo">六兩</span></td>
+              <td>18.5 x 23 cm</td>
+              <td><span class="pill-badge-amber">1275張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="pill-badge-indigo">半斤</span></td>
+              <td>22 x 27 cm</td>
+              <td><span class="pill-badge-amber">897張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="pill-badge-indigo">1斤</span></td>
+              <td>24 x 31 cm</td>
+              <td><span class="pill-badge-amber">708張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="pill-badge-indigo">2斤</span></td>
+              <td>28 x 39 cm</td>
+              <td><span class="pill-badge-amber">472張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="pill-badge-indigo">3斤</span></td>
+              <td>32 x 43 cm</td>
+              <td><span class="pill-badge-amber">367張/包</span></td>
+            </tr>
+            <tr>
+              <td>卷裝耐熱袋 Roll Heat Bag</td>
+              <td><span class="pill-badge-indigo">5斤</span></td>
+              <td>35 x 50 cm</td>
+              <td><span class="pill-badge-amber">236張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <table class="custom-spec-table">
-        <thead>
-          <tr>
-            <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
-            <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
-            <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
-            <th data-tw="數量 / 包裝 Qty per Roll/Pack" data-en="Qty per Roll/Pack">數量 / 包裝 Qty per Roll/Pack</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>卷裝耐熱袋 Roll Heat-Resistant Bag</td>
-            <td><span class="size-badge">四兩</span></td>
-            <td>15.5 x 19.5 cm</td>
-            <td><span class="roll-badge">1822張/卷</span></td>
-          </tr>
-          <tr>
-            <td>卷裝耐熱袋 Roll Heat-Resistant Bag</td>
-            <td><span class="size-badge">六兩</span></td>
-            <td>18.5 x 23 cm</td>
-            <td><span class="roll-badge">1275張/包</span></td>
-          </tr>
-          <tr>
-            <td>卷裝耐熱袋 Roll Heat-Resistant Bag</td>
-            <td><span class="size-badge">半斤</span></td>
-            <td>22 x 27 cm</td>
-            <td><span class="roll-badge">897張/包</span></td>
-          </tr>
-          <tr>
-            <td>卷裝耐熱袋 Roll Heat-Resistant Bag</td>
-            <td><span class="size-badge">1斤</span></td>
-            <td>24 x 31 cm</td>
-            <td><span class="roll-badge">708張/包</span></td>
-          </tr>
-          <tr>
-            <td>卷裝耐熱袋 Roll Heat-Resistant Bag</td>
-            <td><span class="size-badge">2斤</span></td>
-            <td>28 x 39 cm</td>
-            <td><span class="roll-badge">472張/包</span></td>
-          </tr>
-          <tr>
-            <td>卷裝耐熱袋 Roll Heat-Resistant Bag</td>
-            <td><span class="size-badge">3斤</span></td>
-            <td>32 x 43 cm</td>
-            <td><span class="roll-badge">367張/包</span></td>
-          </tr>
-          <tr>
-            <td>卷裝耐熱袋 Roll Heat-Resistant Bag</td>
-            <td><span class="size-badge">5斤</span></td>
-            <td>35 x 50 cm</td>
-            <td><span class="roll-badge">236張/包</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- 3. 夾鏈袋對照規格表 -->
-      <div class="spec-header">
-        <h2 data-tw="夾鏈袋標準號數與尺寸對照表 (00號 ~ 12號)" data-en="Zipper Bags Size Specification Chart (#00 to #12)">
-          <i class="fa-solid fa-lock" style="color: var(--brand-blue);"></i> 夾鏈袋標準號數與尺寸對照表 (00號 ~ 12號)
-        </h2>
-        <p data-tw="全系列採用 100 張/包封裝，雙軌咬合密封防洩漏，方便零件分裝與食材密封保存。" data-en="Packed in 100 pcs/pack with tight reclosable seal for versatile storage.">
-          全系列採用 100 張/包封裝，雙軌咬合密封防洩漏，方便零件分裝與食材密封保存。
-        </p>
+      <!-- 3. 夾鏈袋 Card -->
+      <div class="modern-spec-card spec-block" id="cat-zipper">
+        <div class="spec-card-header">
+          <div class="spec-card-title-box">
+            <div class="spec-card-icon"><i class="fa-solid fa-lock"></i></div>
+            <div>
+              <h3 class="spec-card-h3" data-tw="夾鏈袋標準號數對照表 (00號 ~ 12號)" data-en="Zipper Bags (#00 to #12)">夾鏈袋標準號數對照表 (00號 ~ 12號)</h3>
+              <p class="spec-card-p" data-tw="全系列採用 100 張/包封裝，雙軌咬合密封防洩漏。" data-en="Packed in 100 pcs/pack with tight reclosable seal.">全系列採用 100 張/包封裝，雙軌咬合密封防洩漏。</p>
+            </div>
+          </div>
+          <span class="spec-count-tag"><i class="fa-solid fa-tags"></i> 14 種標準號數</span>
+        </div>
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">00號 (#00)</span></td>
+              <td>3.5 x 4 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">0號 (#0)</span></td>
+              <td>4 x 6 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">1號 (#1)</span></td>
+              <td>5 x 7 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">2號 (#2)</span></td>
+              <td>6 x 8.5 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">3號 (#3)</span></td>
+              <td>7 x 10 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">4號 (#4)</span></td>
+              <td>8.5 x 12 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">5號 (#5)</span></td>
+              <td>10 x 14 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">6號 (#6)</span></td>
+              <td>12 x 17 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">7號 (#7)</span></td>
+              <td>14 x 20 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">8號 (#8)</span></td>
+              <td>17 x 24 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">9號 (#9)</span></td>
+              <td>20 x 28 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">10號 (#10)</span></td>
+              <td>24 x 34 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">11號 (#11)</span></td>
+              <td>28 x 40 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+            <tr>
+              <td>夾鏈袋 Reclosable Zipper Bag</td>
+              <td><span class="pill-badge-indigo">12號 (#12)</span></td>
+              <td>34 x 45 cm</td>
+              <td><span class="pill-badge-emerald">100張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <table class="custom-spec-table">
-        <thead>
-          <tr>
-            <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
-            <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
-            <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
-            <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">00號 (#00)</span></td>
-            <td>3.5 x 4 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">0號 (#0)</span></td>
-            <td>4 x 6 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">1號 (#1)</span></td>
-            <td>5 x 7 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">2號 (#2)</span></td>
-            <td>6 x 8.5 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">3號 (#3)</span></td>
-            <td>7 x 10 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">4號 (#4)</span></td>
-            <td>8.5 x 12 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">5號 (#5)</span></td>
-            <td>10 x 14 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">6號 (#6)</span></td>
-            <td>12 x 17 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">7號 (#7)</span></td>
-            <td>14 x 20 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">8號 (#8)</span></td>
-            <td>17 x 24 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">9號 (#9)</span></td>
-            <td>20 x 28 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">10號 (#10)</span></td>
-            <td>24 x 34 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">11號 (#11)</span></td>
-            <td>28 x 40 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-          <tr>
-            <td>夾鏈袋 Reclosable Zipper Bag</td>
-            <td><span class="size-badge">12號 (#12)</span></td>
-            <td>34 x 45 cm</td>
-            <td><span class="pack-badge">100張/包</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- 4. 密實袋規格表 -->
-      <div class="spec-header">
-        <h2 data-tw="密實袋裝箱與棧板規範對照表" data-en="Slider Storage Bags Pallet Specifications">
-          <i class="fa-solid fa-box-archive" style="color: var(--brand-blue);"></i> 密實袋裝箱與棧板規範對照表
-        </h2>
-        <p data-tw="採用獨家拉鍊密封保鮮設計，提供優異封口拉伸強度與標準化棧板裝箱率。" data-en="Heavy-duty slider storage bags with standardized container and pallet stacking ratios.">
-          採用獨家拉鍊密封保鮮設計，提供優異封口拉伸強度與標準化棧板裝箱率。
-        </p>
+      <!-- 4. 密實袋 Card -->
+      <div class="modern-spec-card spec-block" id="cat-slider">
+        <div class="spec-card-header">
+          <div class="spec-card-title-box">
+            <div class="spec-card-icon"><i class="fa-solid fa-box-archive"></i></div>
+            <div>
+              <h3 class="spec-card-h3" data-tw="密實袋裝箱與棧板規範對照表" data-en="Slider Storage Bags">密實袋裝箱與棧板規範對照表</h3>
+              <p class="spec-card-p" data-tw="採用獨家拉鍊密封保鮮設計，提供優異封口拉伸強度與標準化棧板裝箱率。" data-en="Heavy-duty slider storage bags with standardized pallet stacking ratios.">採用獨家拉鍊密封保鮮設計，提供優異封口拉伸強度與標準化棧板裝箱率。</p>
+            </div>
+          </div>
+          <span class="spec-count-tag"><i class="fa-solid fa-tags"></i> 2 種裝箱規格</span>
+        </div>
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="裝箱與棧板規範 Pallet Specification" data-en="Pallet Spec">裝箱與棧板規範 Pallet Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>密實袋 Slider Storage Bag</td>
+              <td><span class="pill-badge-indigo">中 (Medium)</span></td>
+              <td><span class="pill-badge-amber">45箱/板</span></td>
+            </tr>
+            <tr>
+              <td>密實袋 Slider Storage Bag</td>
+              <td><span class="pill-badge-indigo">大 (Large)</span></td>
+              <td><span class="pill-badge-amber">48箱/板</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <table class="custom-spec-table">
-        <thead>
-          <tr>
-            <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
-            <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
-            <th data-tw="裝箱與棧板規範 Pallet Specification" data-en="Pallet Spec">裝箱與棧板規範 Pallet Specification</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>密實袋 Slider Storage Bag</td>
-            <td><span class="size-badge">中 (Medium)</span></td>
-            <td><span class="pack-badge">45箱/板</span></td>
-          </tr>
-          <tr>
-            <td>密實袋 Slider Storage Bag</td>
-            <td><span class="size-badge">大 (Large)</span></td>
-            <td><span class="pack-badge">48箱/板</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- 5. 立體密實袋規格表 -->
-      <div class="spec-header">
-        <h2 data-tw="立體密實袋標準規格與張數對照表" data-en="Stand-Up Storage Bags Size Chart">
-          <i class="fa-solid fa-layer-group" style="color: var(--brand-blue);"></i> 立體密實袋標準規格與張數對照表
-        </h2>
-        <p data-tw="底部加寬立體站立設計，容量更大且便於液體與大量食材儲存。" data-en="Expanded bottom gusset stand-up design for increased storage capacity.">
-          底部加寬立體站立設計，容量更大且便於液體與大量食材儲存。
-        </p>
+      <!-- 5. 立體密實袋 Card -->
+      <div class="modern-spec-card spec-block" id="cat-standup">
+        <div class="spec-card-header">
+          <div class="spec-card-title-box">
+            <div class="spec-card-icon"><i class="fa-solid fa-cube"></i></div>
+            <div>
+              <h3 class="spec-card-h3" data-tw="立體密實袋標準規格與張數對照表" data-en="Stand-Up Storage Bags">立體密實袋標準規格與張數對照表</h3>
+              <p class="spec-card-p" data-tw="底部加寬立體站立設計，容量更大且便於液體與大量食材儲存。" data-en="Expanded bottom gusset stand-up design for increased storage capacity.">底部加寬立體站立設計，容量更大且便於液體與大量食材儲存。</p>
+            </div>
+          </div>
+          <span class="spec-count-tag"><i class="fa-solid fa-tags"></i> 3 種尺寸規格</span>
+        </div>
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
+              <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>立體密實袋 Stand-Up Bag</td>
+              <td><span class="pill-badge-indigo">小 (Small)</span></td>
+              <td>13 x 13.5 cm</td>
+              <td><span class="pill-badge-emerald">40張/包</span></td>
+            </tr>
+            <tr>
+              <td>立體密實袋 Stand-Up Bag</td>
+              <td><span class="pill-badge-indigo">中 (Medium)</span></td>
+              <td>17 x 15.5 cm</td>
+              <td><span class="pill-badge-emerald">30張/包</span></td>
+            </tr>
+            <tr>
+              <td>立體密實袋 Stand-Up Bag</td>
+              <td><span class="pill-badge-indigo">大 (Large)</span></td>
+              <td>26 x 25.5 cm</td>
+              <td><span class="pill-badge-emerald">16張/包</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <table class="custom-spec-table">
-        <thead>
-          <tr>
-            <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
-            <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
-            <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
-            <th data-tw="一包的數量 Quantity per Pack" data-en="Qty per Pack">一包的數量 Quantity per Pack</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>立體密實袋 Stand-Up Storage Bag</td>
-            <td><span class="size-badge">小 (Small)</span></td>
-            <td>13 x 13.5 cm</td>
-            <td><span class="pack-badge">40張/包</span></td>
-          </tr>
-          <tr>
-            <td>立體密實袋 Stand-Up Storage Bag</td>
-            <td><span class="size-badge">中 (Medium)</span></td>
-            <td>17 x 15.5 cm</td>
-            <td><span class="pack-badge">30張/包</span></td>
-          </tr>
-          <tr>
-            <td>立體密實袋 Stand-Up Storage Bag</td>
-            <td><span class="size-badge">大 (Large)</span></td>
-            <td>26 x 25.5 cm</td>
-            <td><span class="pack-badge">16張/包</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- 6. 冷凍袋規格表 -->
-      <div class="spec-header">
-        <h2 data-tw="冷凍袋裝箱與棧板規範對照表" data-en="Freezer Bags Pallet Specifications">
-          <i class="fa-solid fa-snowflake" style="color: var(--brand-blue);"></i> 冷凍袋裝箱與棧板規範對照表
-        </h2>
-        <p data-tw="耐低溫凍裂特別配方，防止冷凍燒與食材異味交叉感染。" data-en="Cold-resistant PE film engineered to prevent freezer burn.">
-          耐低溫凍裂特別配方，防止冷凍燒與食材異味交叉感染。
-        </p>
+      <!-- 6. 冷凍袋 Card -->
+      <div class="modern-spec-card spec-block" id="cat-freezer">
+        <div class="spec-card-header">
+          <div class="spec-card-title-box">
+            <div class="spec-card-icon"><i class="fa-solid fa-snowflake"></i></div>
+            <div>
+              <h3 class="spec-card-h3" data-tw="冷凍袋裝箱與棧板規範對照表" data-en="Freezer Bags">冷凍袋裝箱與棧板規範對照表</h3>
+              <p class="spec-card-p" data-tw="耐低溫凍裂特別配方，防止冷凍燒與食材異味交叉感染。" data-en="Cold-resistant PE film engineered to prevent freezer burn.">耐低溫凍裂特別配方，防止冷凍燒與食材異味交叉感染。</p>
+            </div>
+          </div>
+          <span class="spec-count-tag"><i class="fa-solid fa-tags"></i> 2 種裝箱規格</span>
+        </div>
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
+              <th data-tw="裝箱與棧板規範 Pallet Specification" data-en="Pallet Spec">裝箱與棧板規範 Pallet Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>冷凍袋 Freezer Bag</td>
+              <td><span class="pill-badge-indigo">中 (Medium)</span></td>
+              <td><span class="pill-badge-amber">45箱/板</span></td>
+            </tr>
+            <tr>
+              <td>冷凍袋 Freezer Bag</td>
+              <td><span class="pill-badge-indigo">大 (Large)</span></td>
+              <td><span class="pill-badge-amber">48箱/板</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <table class="custom-spec-table">
-        <thead>
-          <tr>
-            <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
-            <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
-            <th data-tw="裝箱與棧板規範 Pallet Specification" data-en="Pallet Spec">裝箱與棧板規範 Pallet Specification</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>冷凍袋 Heavy-Duty Freezer Bag</td>
-            <td><span class="size-badge">中 (Medium)</span></td>
-            <td><span class="pack-badge">45箱/板</span></td>
-          </tr>
-          <tr>
-            <td>冷凍袋 Heavy-Duty Freezer Bag</td>
-            <td><span class="size-badge">大 (Large)</span></td>
-            <td><span class="pack-badge">48箱/板</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- 7. 台塑遮蔽防塵膠帶規格表 -->
-      <div class="spec-header">
-        <h2 data-tw="台塑遮蔽防塵膠帶標準規格對照表" data-en="Formosa Masking Dustproof Tapes Size Chart">
-          <i class="fa-solid fa-tape" style="color: var(--brand-blue);"></i> 台塑遮蔽防塵膠帶標準規格對照表
-        </h2>
-        <p data-tw="結合防塵保護膜與高黏性遮蔽膠帶，專為建築工程、室內裝潢與噴漆遮蔽保護設計。" data-en="Integrated masking tape and electrostatic protective film for painting and construction shielding.">
-          結合防塵保護膜與高黏性遮蔽膠帶，專為建築工程、室內裝潢與噴漆遮蔽保護設計。
-        </p>
+      <!-- 7. 台塑遮蔽膠帶 Card -->
+      <div class="modern-spec-card spec-block" id="cat-tape">
+        <div class="spec-card-header">
+          <div class="spec-card-title-box">
+            <div class="spec-card-icon"><i class="fa-solid fa-tape"></i></div>
+            <div>
+              <h3 class="spec-card-h3" data-tw="台塑遮蔽防塵膠帶標準規格對照表" data-en="Formosa Masking Dustproof Tapes">台塑遮蔽防塵膠帶標準規格對照表</h3>
+              <p class="spec-card-p" data-tw="結合防塵保護膜與高黏性遮蔽膠帶，專為建築工程、室內裝潢與噴漆遮蔽保護設計。" data-en="Integrated masking tape and electrostatic protective film.">結合防塵保護膜與高黏性遮蔽膠帶，專為建築工程、室內裝潢與噴漆遮蔽保護設計。</p>
+            </div>
+          </div>
+          <span class="spec-count-tag"><i class="fa-solid fa-tags"></i> 6 種幅寬規格</span>
+        </div>
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格 Specification (幅寬 x 長度)" data-en="Spec (Width x Length)">規格 Specification (幅寬 x 長度)</th>
+              <th data-tw="長度換算 Length (Meters)" data-en="Length (Meters)">長度換算 Length (Meters)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="pill-badge-indigo">550 mm * 25 y</span></td>
+              <td><span class="pill-badge-emerald">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="pill-badge-indigo">1100 mm * 25 y</span></td>
+              <td><span class="pill-badge-emerald">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="pill-badge-indigo">1500 mm * 25 y</span></td>
+              <td><span class="pill-badge-emerald">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="pill-badge-indigo">2100 mm * 25 y</span></td>
+              <td><span class="pill-badge-emerald">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="pill-badge-indigo">2700 mm * 25 y</span></td>
+              <td><span class="pill-badge-emerald">22.8 m</span></td>
+            </tr>
+            <tr>
+              <td>台塑遮蔽防塵膠帶 Masking Tape</td>
+              <td><span class="pill-badge-indigo">3200 mm * 25 y</span></td>
+              <td><span class="pill-badge-emerald">22.8 m</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <table class="custom-spec-table">
-        <thead>
-          <tr>
-            <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
-            <th data-tw="規格 Specification (幅寬 x 長度)" data-en="Spec (Width x Length)">規格 Specification (幅寬 x 長度)</th>
-            <th data-tw="長度換算 Length (Meters)" data-en="Length (Meters)">長度換算 Length (Meters)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>台塑遮蔽防塵膠帶 Masking Dustproof Tape</td>
-            <td><span class="size-badge">550 mm * 25 y</span></td>
-            <td><span class="pack-badge">22.8 m</span></td>
-          </tr>
-          <tr>
-            <td>台塑遮蔽防塵膠帶 Masking Dustproof Tape</td>
-            <td><span class="size-badge">1100 mm * 25 y</span></td>
-            <td><span class="pack-badge">22.8 m</span></td>
-          </tr>
-          <tr>
-            <td>台塑遮蔽防塵膠帶 Masking Dustproof Tape</td>
-            <td><span class="size-badge">1500 mm * 25 y</span></td>
-            <td><span class="pack-badge">22.8 m</span></td>
-          </tr>
-          <tr>
-            <td>台塑遮蔽防塵膠帶 Masking Dustproof Tape</td>
-            <td><span class="size-badge">2100 mm * 25 y</span></td>
-            <td><span class="pack-badge">22.8 m</span></td>
-          </tr>
-          <tr>
-            <td>台塑遮蔽防塵膠帶 Masking Dustproof Tape</td>
-            <td><span class="size-badge">2700 mm * 25 y</span></td>
-            <td><span class="pack-badge">22.8 m</span></td>
-          </tr>
-          <tr>
-            <td>台塑遮蔽防塵膠帶 Masking Dustproof Tape</td>
-            <td><span class="size-badge">3200 mm * 25 y</span></td>
-            <td><span class="pack-badge">22.8 m</span></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- 8. 衛生手套規格表 -->
-      <div class="spec-header">
-        <h2 data-tw="衛生防護手套尺寸規格對照表" data-en="Hygiene Protection Gloves Size Chart">
-          <i class="fa-solid fa-hand" style="color: var(--brand-blue);"></i> 衛生防護手套尺寸規格對照表
-        </h2>
-        <p data-tw="食品級高純度 PE 材質，舒適貼合，為食品備料、家務清潔與商業環境提供潔淨衛生隔離。" data-en="Food-grade hygienic PE gloves for food handling, cleaning, and sanitary protection.">
-          食品級高純度 PE 材質，舒適貼合，為食品備料、家務清潔與商業環境提供潔淨衛生隔離。
-        </p>
+      <!-- 8. 衛生手套 Card -->
+      <div class="modern-spec-card spec-block" id="cat-gloves">
+        <div class="spec-card-header">
+          <div class="spec-card-title-box">
+            <div class="spec-card-icon"><i class="fa-solid fa-hand"></i></div>
+            <div>
+              <h3 class="spec-card-h3" data-tw="衛生防護手套尺寸對照表" data-en="Hygiene Protection Gloves">衛生防護手套尺寸對照表</h3>
+              <p class="spec-card-p" data-tw="食品級高純度 PE 材質，舒適貼合，為食品備料、家務清潔與商業環境提供潔淨衛生隔離。" data-en="Food-grade hygienic PE gloves for food handling and sanitary protection.">食品級高純度 PE 材質，舒適貼合，為食品備料、家務清潔與商業環境提供潔淨衛生隔離。</p>
+            </div>
+          </div>
+          <span class="spec-count-tag"><i class="fa-solid fa-tags"></i> 3 種尺寸規格</span>
+        </div>
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
+              <th data-tw="規格/尺寸 Specification" data-en="Size">規格/尺寸 Specification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>衛生手套 Protective Gloves</td>
+              <td><span class="pill-badge-indigo">小</span></td>
+            </tr>
+            <tr>
+              <td>衛生手套 Protective Gloves</td>
+              <td><span class="pill-badge-indigo">中</span></td>
+            </tr>
+            <tr>
+              <td>衛生手套 Protective Gloves</td>
+              <td><span class="pill-badge-indigo">大</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-      <table class="custom-spec-table">
-        <thead>
-          <tr>
-            <th data-tw="品名 Product Name" data-en="Product Name">品名 Product Name</th>
-            <th data-tw="規格/尺寸 Specification" data-en="Size">規格/尺寸 Specification</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>衛生手套 Protective Gloves</td>
-            <td><span class="size-badge">小</span></td>
-          </tr>
-          <tr>
-            <td>衛生手套 Protective Gloves</td>
-            <td><span class="size-badge">中</span></td>
-          </tr>
-          <tr>
-            <td>衛生手套 Protective Gloves</td>
-            <td><span class="size-badge">大</span></td>
-          </tr>
-        </tbody>
-      </table>
 
     </div>
   </section>
@@ -719,6 +808,25 @@
   </footer>
 
   <script>
+    function filterCategory(category, btn) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const blocks = document.querySelectorAll('.spec-block');
+      blocks.forEach(block => {
+        if (category === 'all') {
+          block.style.display = 'block';
+        } else {
+          if (block.id === `cat-${category}`) {
+            block.style.display = 'block';
+          } else {
+            block.style.display = 'none';
+          }
+        }
+      });
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
       const navItems = document.querySelectorAll(".nav-item");
       navItems.forEach(item => {
