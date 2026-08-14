@@ -85,7 +85,6 @@
       text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
     }
 
-    /* Top Utility Bar */
     .top-utility-bar {
       background: #051322; color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
       padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
@@ -97,167 +96,105 @@
     .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
 
     .page-hero {
-      padding: 150px 40px 60px;
+      padding: 140px 40px 50px;
       background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
       color: var(--surface-white); margin-top: 31px;
     }
     .hero-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
-    .hero-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
-    .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 24px; }
+    .hero-title { font-size: 2.3rem; font-weight: 800; margin-bottom: 14px; }
+    .hero-desc { font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 20px; }
     .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
 
-    .section { padding: 60px 40px; }
+    .section { padding: 40px 40px; }
     
-    /* COMPACT NEAT SPEC CONTAINER (MAX 860px CENTERED) */
     .compact-spec-container {
-      max-width: 860px;
+      max-width: 880px;
       margin: 0 auto;
     }
 
     /* Filter Pills Bar */
     .filter-pills-bar {
       display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-      margin-bottom: 40px;
+      margin-bottom: 35px; background: #FFFFFF; padding: 16px; border-radius: 16px;
+      border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+      position: sticky; top: 90px; z-index: 900; backdrop-filter: blur(12px);
     }
     .filter-btn {
-      background: #FFFFFF; border: 1px solid #CBD5E1; color: var(--text-main);
-      padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700;
+      background: #F1F5F9; border: 1px solid #CBD5E1; color: var(--text-main);
+      padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.86rem; font-weight: 700;
       cursor: pointer; transition: all 0.2s ease;
       display: inline-flex; align-items: center; gap: 6px;
     }
-    .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
+    .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); background: #EFF6FF; }
     .filter-btn.active {
       background: var(--primary-navy); color: #FFFFFF; border-color: var(--primary-navy);
+      box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2);
     }
 
-    /* NEAT COMPACT SPEC TABLES */
+    /* INDIVIDUAL PRODUCT BLOCK WITH DEDICATED VISUALIZER */
     .cat-spec-block {
       background: #FFFFFF;
       border: 1px solid #CBD5E1;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-      margin-bottom: 35px;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      margin-bottom: 40px;
       overflow: hidden;
+      scroll-margin-top: 170px;
+      transition: all 0.3s ease;
     }
 
     .cat-spec-header {
       background: #0A2540;
       color: #FFFFFF;
-      padding: 14px 24px;
+      padding: 16px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .cat-spec-title {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       gap: 10px;
     }
     .cat-spec-sub {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #94A3B8;
       font-weight: 600;
     }
 
-    .compact-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-    }
-    .compact-table th {
-      background: #F1F5F9;
-      color: #334155;
-      font-weight: 700;
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      padding: 10px 24px;
-      text-align: left;
+    /* DEDICATED PRODUCT VISUALIZER CARD */
+    .product-visualizer-box {
+      background: linear-gradient(135deg, #0F2A4A, #004580);
+      padding: 22px 24px;
+      color: #FFFFFF;
       border-bottom: 1px solid #CBD5E1;
     }
-    .compact-table td {
-      padding: 11px 24px;
-      border-bottom: 1px solid #E2E8F0;
-      color: #1E293B;
-      font-weight: 600;
-    }
-    .compact-table tr:last-child td {
-      border-bottom: none;
-    }
-    .compact-table tr:nth-child(even) td {
-      background: #F8FAFC;
-    }
-    .compact-table tr:hover td {
-      background: #EFF6FF;
-    }
-
-    .tag-size {
-      display: inline-block;
-      background: #E0F2FE;
-      color: #0284C7;
-      font-weight: 800;
-      padding: 2px 10px;
-      border-radius: 4px;
+    .visualizer-sub-title {
       font-size: 0.82rem;
-    }
-    .tag-qty {
-      display: inline-block;
-      background: #F0FDF4;
-      color: #16A34A;
-      font-weight: 700;
-      padding: 2px 10px;
-      border-radius: 4px;
-      font-size: 0.82rem;
-    }
-
-    /* INTERACTIVE VISUAL SPEC BLUEPRINT CARD */
-    .visualizer-hero-box {
-      background: linear-gradient(135deg, #0A2540, #00529B);
-      border-radius: 16px;
-      padding: 28px;
-      color: #FFFFFF;
-      margin-bottom: 35px;
-      box-shadow: 0 15px 35px rgba(10, 37, 64, 0.2);
-    }
-    .visualizer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      padding-bottom: 12px;
-    }
-    .visualizer-title {
-      font-size: 1.2rem;
       font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #FFFFFF;
-    }
-    .visualizer-badge {
-      background: rgba(0, 168, 255, 0.2);
       color: #00A8FF;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 99px;
-      border: 1px solid rgba(0, 168, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .size-pill-selector {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 20px;
+      gap: 6px;
+      margin-bottom: 16px;
     }
     .size-pill {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: rgba(255, 255, 255, 0.85);
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 0.84rem;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: rgba(255, 255, 255, 0.9);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -266,27 +203,24 @@
       background: #00A8FF;
       color: #0A2540;
       border-color: #00A8FF;
-      transform: translateY(-2px);
+      font-weight: 800;
     }
     .visual-blueprint-stage {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.25);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
-      padding: 20px;
+      border-radius: 10px;
+      padding: 16px 20px;
       display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 25px;
+      grid-template-columns: 180px 1fr;
+      gap: 20px;
       align-items: center;
     }
     .stage-left-diagram {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 200px;
-      background: rgba(0, 0, 0, 0.25);
-      border-radius: 10px;
+      height: 150px;
       position: relative;
-      overflow: visible;
     }
     .diagram-bag-box {
       border: 2px dashed #00A8FF;
@@ -297,7 +231,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .dimension-arrow {
       position: absolute;
@@ -307,79 +241,29 @@
       letter-spacing: 0.5px;
       white-space: nowrap;
     }
-    .arrow-width {
-      top: -22px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    .arrow-height {
-      right: -58px;
-      top: 50%;
-      transform: translateY(-50%) rotate(90deg);
-    }
-    .bag-inner-icon {
-      font-size: 1.8rem;
-      color: rgba(255, 255, 255, 0.5);
-    }
-    .bag-watermark {
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: #FFFFFF;
-      margin-top: 4px;
-    }
-    .info-size-title {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #00A8FF;
-      letter-spacing: 0.5px;
-    }
-    .info-dimension-big {
-      font-size: 2.3rem;
-      font-weight: 900;
-      color: #FFFFFF;
-      line-height: 1.2;
-      margin: 4px 0 14px;
-    }
-    .info-dimension-big span {
-      font-size: 1.1rem;
-      color: #94A3B8;
-      font-weight: 600;
-    }
-    .info-meta-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    .info-tag-blue {
-      background: rgba(0, 168, 255, 0.2);
-      color: #00A8FF;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-size: 0.82rem;
-    }
-    .info-tag-green {
-      background: rgba(16, 185, 129, 0.2);
-      color: #34D399;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-size: 0.82rem;
-    }
-    .info-tag-purple {
-      background: rgba(168, 85, 247, 0.2);
-      color: #C084FC;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-size: 0.82rem;
-    }
-    .info-desc {
-      font-size: 0.88rem;
-      color: rgba(255, 255, 255, 0.85);
-      line-height: 1.5;
-    }
+    .arrow-width { top: -20px; left: 50%; transform: translateX(-50%); }
+    .arrow-height { right: -54px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+    .bag-inner-icon { font-size: 1.5rem; color: rgba(255, 255, 255, 0.5); }
+    .bag-watermark { font-size: 0.82rem; font-weight: 800; color: #FFFFFF; margin-top: 2px; }
+    
+    .info-size-title { font-size: 1rem; font-weight: 800; color: #00A8FF; }
+    .info-dimension-big { font-size: 2.1rem; font-weight: 900; color: #FFFFFF; line-height: 1.1; margin: 2px 0 10px; }
+    .info-dimension-big span { font-size: 1rem; color: #94A3B8; font-weight: 600; }
+    .info-meta-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .info-tag-blue { background: rgba(0, 168, 255, 0.2); color: #00A8FF; font-weight: 800; padding: 2px 8px; border-radius: 4px; font-size: 0.78rem; }
+    .info-tag-green { background: rgba(16, 185, 129, 0.2); color: #34D399; font-weight: 800; padding: 2px 8px; border-radius: 4px; font-size: 0.78rem; }
+    .info-desc { font-size: 0.84rem; color: rgba(255, 255, 255, 0.85); line-height: 1.45; }
+
+    /* COMPACT TABLE */
+    .compact-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .compact-table th { background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; padding: 10px 24px; text-align: left; border-bottom: 1px solid #CBD5E1; }
+    .compact-table td { padding: 11px 24px; border-bottom: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; }
+    .compact-table tr:last-child td { border-bottom: none; }
+    .compact-table tr:nth-child(even) td { background: #F8FAFC; }
+    .compact-table tr:hover td { background: #EFF6FF; }
+
+    .tag-size { display: inline-block; background: #E0F2FE; color: #0284C7; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
+    .tag-qty { display: inline-block; background: #F0FDF4; color: #16A34A; font-weight: 700; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
@@ -388,7 +272,8 @@
       .hero-container { grid-template-columns: 1fr; }
       .mega-menu-panel-6cat, .top-utility-bar { display: none; }
       .header { top: 0; }
-      .compact-table th, .compact-table td { padding: 10px 14px; font-size: 0.85rem; }
+      .visual-blueprint-stage { grid-template-columns: 1fr; }
+      .stage-left-diagram { height: 120px; }
     }
   </style>
 </head>
@@ -398,8 +283,8 @@
   <div class="top-utility-bar">
     <div class="utility-left">
       <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="../index.html"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
-      <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 北美總部</a>
+      <a href="https://www.fpc.com.tw/fpcw/" target="_blank"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
+      <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 美國總部</a>
     </div>
     <div class="utility-right">
       <a href="../about.html" data-tw="投資人專區" data-en="Investor Relations"><i class="fa-solid fa-chart-line"></i> 投資人專區</a>
@@ -491,8 +376,8 @@
       <div>
         <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">HEAT-RESISTANT & ZIPPER PACKAGING</span>
         <h1 class="hero-title" data-tw="耐熱袋與夾鏈密封包裝系列" data-en="Heat-Resistant & Zipper Bags">耐熱袋與夾鏈密封包裝系列</h1>
-        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整技術規格。" data-en="High-temperature resistant & FDA-compliant PE heat bags (flat/roll) and 00-12 reclosable zipper bags for food prep.">
-          嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋、夾鏈袋（00號至12號）、密實袋、立體密實袋、冷凍袋、遮蔽膠帶與衛生手套完整技術規格。
+        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。點選下方產品分類按鈕，可即時自動聚焦並收合不相干產品。" data-en="FDA-compliant PE heat bags & reclosable zipper bags. Select a product category below for instant focus.">
+          嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。點選下方產品分類按鈕，可即時自動聚焦並收合不相干產品。
         </p>
         <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Inquire Heat Bags"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
       </div>
@@ -505,9 +390,9 @@
   <section class="section">
     <div class="compact-spec-container">
 
-      <!-- Category Filter Pills Bar -->
+      <!-- Fixed Category Navigation Filter Bar -->
       <div class="filter-pills-bar">
-        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 全部規格 All</button>
+        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
         <button class="filter-btn" onclick="filterCategory('flat-heat', this)">平裝耐熱袋</button>
         <button class="filter-btn" onclick="filterCategory('roll-heat', this)">卷裝耐熱袋</button>
         <button class="filter-btn" onclick="filterCategory('zipper', this)">夾鏈袋</button>
@@ -516,60 +401,50 @@
         <button class="filter-btn" onclick="filterCategory('freezer', this)">冷凍袋</button>
         <button class="filter-btn" onclick="filterCategory('tape', this)">台塑遮蔽膠帶</button>
         <button class="filter-btn" onclick="filterCategory('gloves', this)">衛生手套</button>
-      <!-- INTERACTIVE VISUAL SPEC BLUEPRINT CARD -->
-      <div class="visualizer-hero-box">
-        <div class="visualizer-header">
-          <div class="visualizer-title">
-            <i class="fa-solid fa-ruler-combined" style="color: #00A8FF;"></i> 產品規格尺寸圖解對照器 (Visual Size Blueprint)
-          </div>
-          <span class="visualizer-badge"><i class="fa-solid fa-hand-pointer"></i> 點選下方尺寸，動態展示等比例圖解與數據</span>
-        </div>
-
-        <!-- Size Pill Selector -->
-        <div class="size-pill-selector">
-          <button class="size-pill active" onclick="selectVisualSize('flat-1jin', this)">1斤 (24 × 31 cm)</button>
-          <button class="size-pill" onclick="selectVisualSize('flat-4liang', this)">四兩 (15.5 × 19.5 cm)</button>
-          <button class="size-pill" onclick="selectVisualSize('flat-6liang', this)">六兩 (18.5 × 23 cm)</button>
-          <button class="size-pill" onclick="selectVisualSize('flat-banjin', this)">半斤 (22 × 27 cm)</button>
-          <button class="size-pill" onclick="selectVisualSize('flat-2jin', this)">2斤 (28 × 39 cm)</button>
-          <button class="size-pill" onclick="selectVisualSize('flat-3jin', this)">3斤 (32 × 43 cm)</button>
-          <button class="size-pill" onclick="selectVisualSize('flat-5jin', this)">5斤 (35 × 50 cm)</button>
-          <button class="size-pill" onclick="selectVisualSize('flat-10jin', this)">10斤 (45 × 62 cm)</button>
-          <button class="size-pill" onclick="selectVisualSize('flat-15jin', this)">15斤 (48 × 65 cm)</button>
-          <button class="size-pill" onclick="selectVisualSize('zip-00', this)">夾鏈袋 00號 (3.5 × 4 cm)</button>
-          <button class="size-pill" onclick="selectVisualSize('zip-6', this)">夾鏈袋 6號 (12 × 17 cm)</button>
-          <button class="size-pill" onclick="selectVisualSize('zip-12', this)">夾鏈袋 12號 (34 × 45 cm)</button>
-        </div>
-
-        <!-- Blueprint Stage -->
-        <div class="visual-blueprint-stage">
-          <div class="stage-left-diagram">
-            <div class="diagram-bag-box" id="diagramBag" style="width: 140px; height: 170px;">
-              <div class="dimension-arrow arrow-width"><span id="labelWidth">24 cm</span></div>
-              <div class="dimension-arrow arrow-height"><span id="labelHeight">31 cm</span></div>
-              <div class="bag-inner-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-              <span class="bag-watermark" id="labelWatermark">1斤</span>
-            </div>
-          </div>
-          <div class="stage-right-info">
-            <div class="info-size-title" id="infoSizeTitle">平裝耐熱袋 · 1斤</div>
-            <div class="info-dimension-big" id="infoDimBig">24 <span>cm (寬)</span> ✕ 31 <span>cm (長)</span></div>
-            <div class="info-meta-tags">
-              <span class="info-tag-blue" id="infoQty"><i class="fa-solid fa-box-archive"></i> 包裝：146 張 / 包</span>
-              <span class="info-tag-green"><i class="fa-solid fa-shield-halved"></i> 100% Virgin PE 食品級</span>
-              <span class="info-tag-purple"><i class="fa-solid fa-fire-burner"></i> 耐高溫 110°C</span>
-            </div>
-            <p class="info-desc" id="infoDesc">
-              廣泛應用於餐飲熱食、湯汁、肉品與熟食打包。具備極佳防穿刺力與強勁承重韌性。
-            </p>
-          </div>
-        </div>
       </div>
+
+      <!-- 1. 平裝耐熱袋 PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-flat-heat">
         <div class="cat-spec-header">
           <h2 class="cat-spec-title"><i class="fa-solid fa-temperature-high"></i> 平裝耐熱袋規格對照表</h2>
           <span class="cat-spec-sub">食品級高溫耐熱配方</span>
         </div>
+        
+        <!-- Dedicated Visualizer Card for 平裝耐熱袋 -->
+        <div class="product-visualizer-box">
+          <div class="visualizer-sub-title"><i class="fa-solid fa-ruler-combined"></i> 平裝耐熱袋動態尺寸對照</div>
+          <div class="size-pill-selector">
+            <button class="size-pill active" onclick="updateFlatHeat('flat-1jin', this)">1斤 (24×31cm)</button>
+            <button class="size-pill" onclick="updateFlatHeat('flat-4liang', this)">四兩 (15.5×19.5cm)</button>
+            <button class="size-pill" onclick="updateFlatHeat('flat-6liang', this)">六兩 (18.5×23cm)</button>
+            <button class="size-pill" onclick="updateFlatHeat('flat-banjin', this)">半斤 (22×27cm)</button>
+            <button class="size-pill" onclick="updateFlatHeat('flat-2jin', this)">2斤 (28×39cm)</button>
+            <button class="size-pill" onclick="updateFlatHeat('flat-3jin', this)">3斤 (32×43cm)</button>
+            <button class="size-pill" onclick="updateFlatHeat('flat-5jin', this)">5斤 (35×50cm)</button>
+            <button class="size-pill" onclick="updateFlatHeat('flat-10jin', this)">10斤 (45×62cm)</button>
+            <button class="size-pill" onclick="updateFlatHeat('flat-15jin', this)">15斤 (48×65cm)</button>
+          </div>
+          <div class="visual-blueprint-stage">
+            <div class="stage-left-diagram">
+              <div class="diagram-bag-box" id="bagFlat" style="width: 120px; height: 145px;">
+                <div class="dimension-arrow arrow-width"><span id="wFlat">24 cm</span></div>
+                <div class="dimension-arrow arrow-height"><span id="lFlat">31 cm</span></div>
+                <div class="bag-inner-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                <span class="bag-watermark" id="wmFlat">1斤</span>
+              </div>
+            </div>
+            <div>
+              <div class="info-size-title" id="titleFlat">平裝耐熱袋 · 1斤</div>
+              <div class="info-dimension-big" id="dimFlat">24 <span>cm</span> ✕ 31 <span>cm</span></div>
+              <div class="info-meta-tags">
+                <span class="info-tag-blue" id="qtyFlat"><i class="fa-solid fa-box-archive"></i> 146 張 / 包</span>
+                <span class="info-tag-green"><i class="fa-solid fa-shield-halved"></i> 100% Virgin PE</span>
+              </div>
+              <p class="info-desc" id="descFlat">廣泛應用於餐飲熱食、湯汁、肉品與熟食打包。具備極佳防穿刺力與承重韌性。</p>
+            </div>
+          </div>
+        </div>
+
         <table class="compact-table">
           <thead>
             <tr>
@@ -579,61 +454,59 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><span class="tag-size">四兩</span></td>
-              <td>15.5 x 19.5 cm</td>
-              <td><span class="tag-qty">360張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">六兩</span></td>
-              <td>18.5 x 23 cm</td>
-              <td><span class="tag-qty">255張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">半斤</span></td>
-              <td>22 x 27 cm</td>
-              <td><span class="tag-qty">183張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">1斤</span></td>
-              <td>24 x 31 cm</td>
-              <td><span class="tag-qty">146張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">2斤</span></td>
-              <td>28 x 39 cm</td>
-              <td><span class="tag-qty">99張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">3斤</span></td>
-              <td>32 x 43 cm</td>
-              <td><span class="tag-qty">79張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">5斤</span></td>
-              <td>35 x 50 cm</td>
-              <td><span class="tag-qty">52張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">10斤</span></td>
-              <td>45 x 62 cm</td>
-              <td><span class="tag-qty">26張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">15斤</span></td>
-              <td>48 x 65 cm</td>
-              <td><span class="tag-qty">22張/包</span></td>
-            </tr>
+            <tr><td><span class="tag-size">四兩</span></td><td>15.5 x 19.5 cm</td><td><span class="tag-qty">360張/包</span></td></tr>
+            <tr><td><span class="tag-size">六兩</span></td><td>18.5 x 23 cm</td><td><span class="tag-qty">255張/包</span></td></tr>
+            <tr><td><span class="tag-size">半斤</span></td><td>22 x 27 cm</td><td><span class="tag-qty">183張/包</span></td></tr>
+            <tr><td><span class="tag-size">1斤</span></td><td>24 x 31 cm</td><td><span class="tag-qty">146張/包</span></td></tr>
+            <tr><td><span class="tag-size">2斤</span></td><td>28 x 39 cm</td><td><span class="tag-qty">99張/包</span></td></tr>
+            <tr><td><span class="tag-size">3斤</span></td><td>32 x 43 cm</td><td><span class="tag-qty">79張/包</span></td></tr>
+            <tr><td><span class="tag-size">5斤</span></td><td>35 x 50 cm</td><td><span class="tag-qty">52張/包</span></td></tr>
+            <tr><td><span class="tag-size">10斤</span></td><td>45 x 62 cm</td><td><span class="tag-qty">26張/包</span></td></tr>
+            <tr><td><span class="tag-size">15斤</span></td><td>48 x 65 cm</td><td><span class="tag-qty">22張/包</span></td></tr>
           </tbody>
         </table>
       </div>
 
-      <!-- 2. 卷裝耐熱袋 COMPACT TABLE -->
+      <!-- 2. 卷裝耐熱袋 PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-roll-heat">
         <div class="cat-spec-header">
           <h2 class="cat-spec-title"><i class="fa-solid fa-scroll"></i> 卷裝耐熱袋規格對照表</h2>
           <span class="cat-spec-sub">包裝規範：100PCS (大) / 150PCS (小)</span>
         </div>
+        
+        <!-- Dedicated Visualizer Card for 卷裝耐熱袋 -->
+        <div class="product-visualizer-box">
+          <div class="visualizer-sub-title"><i class="fa-solid fa-scroll"></i> 卷裝耐熱袋動態尺寸對照</div>
+          <div class="size-pill-selector">
+            <button class="size-pill active" onclick="updateRollHeat('roll-1jin', this)">1斤 (24×31cm)</button>
+            <button class="size-pill" onclick="updateRollHeat('roll-4liang', this)">四兩 (15.5×19.5cm)</button>
+            <button class="size-pill" onclick="updateRollHeat('roll-6liang', this)">六兩 (18.5×23cm)</button>
+            <button class="size-pill" onclick="updateRollHeat('roll-banjin', this)">半斤 (22×27cm)</button>
+            <button class="size-pill" onclick="updateRollHeat('roll-2jin', this)">2斤 (28×39cm)</button>
+            <button class="size-pill" onclick="updateRollHeat('roll-3jin', this)">3斤 (32×43cm)</button>
+            <button class="size-pill" onclick="updateRollHeat('roll-5jin', this)">5斤 (35×50cm)</button>
+          </div>
+          <div class="visual-blueprint-stage">
+            <div class="stage-left-diagram">
+              <div class="diagram-bag-box" id="bagRoll" style="width: 120px; height: 145px;">
+                <div class="dimension-arrow arrow-width"><span id="wRoll">24 cm</span></div>
+                <div class="dimension-arrow arrow-height"><span id="lRoll">31 cm</span></div>
+                <div class="bag-inner-icon"><i class="fa-solid fa-scroll"></i></div>
+                <span class="bag-watermark" id="wmRoll">1斤</span>
+              </div>
+            </div>
+            <div>
+              <div class="info-size-title" id="titleRoll">卷裝耐熱袋 · 1斤</div>
+              <div class="info-dimension-big" id="dimRoll">24 <span>cm</span> ✕ 31 <span>cm</span></div>
+              <div class="info-meta-tags">
+                <span class="info-tag-blue" id="qtyRoll"><i class="fa-solid fa-box-archive"></i> 708 張 / 包</span>
+                <span class="info-tag-green"><i class="fa-solid fa-arrows-spin"></i> 連卷易撕線設計</span>
+              </div>
+              <p class="info-desc" id="descRoll">點斷式連卷撕取設計，便於超市、小吃攤與店家快速抽拉取用。</p>
+            </div>
+          </div>
+        </div>
+
         <table class="compact-table">
           <thead>
             <tr>
@@ -643,51 +516,64 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><span class="tag-size">四兩</span></td>
-              <td>15.5 x 19.5 cm</td>
-              <td><span class="tag-qty">1822張/卷</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">六兩</span></td>
-              <td>18.5 x 23 cm</td>
-              <td><span class="tag-qty">1275張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">半斤</span></td>
-              <td>22 x 27 cm</td>
-              <td><span class="tag-qty">897張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">1斤</span></td>
-              <td>24 x 31 cm</td>
-              <td><span class="tag-qty">708張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">2斤</span></td>
-              <td>28 x 39 cm</td>
-              <td><span class="tag-qty">472張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">3斤</span></td>
-              <td>32 x 43 cm</td>
-              <td><span class="tag-qty">367張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">5斤</span></td>
-              <td>35 x 50 cm</td>
-              <td><span class="tag-qty">236張/包</span></td>
-            </tr>
+            <tr><td><span class="tag-size">四兩</span></td><td>15.5 x 19.5 cm</td><td><span class="tag-qty">1822張/卷</span></td></tr>
+            <tr><td><span class="tag-size">六兩</span></td><td>18.5 x 23 cm</td><td><span class="tag-qty">1275張/包</span></td></tr>
+            <tr><td><span class="tag-size">半斤</span></td><td>22 x 27 cm</td><td><span class="tag-qty">897張/包</span></td></tr>
+            <tr><td><span class="tag-size">1斤</span></td><td>24 x 31 cm</td><td><span class="tag-qty">708張/包</span></td></tr>
+            <tr><td><span class="tag-size">2斤</span></td><td>28 x 39 cm</td><td><span class="tag-qty">472張/包</span></td></tr>
+            <tr><td><span class="tag-size">3斤</span></td><td>32 x 43 cm</td><td><span class="tag-qty">367張/包</span></td></tr>
+            <tr><td><span class="tag-size">5斤</span></td><td>35 x 50 cm</td><td><span class="tag-qty">236張/包</span></td></tr>
           </tbody>
         </table>
       </div>
 
-      <!-- 3. 夾鏈袋 COMPACT TABLE -->
+      <!-- 3. 夾鏈袋 PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-zipper">
         <div class="cat-spec-header">
           <h2 class="cat-spec-title"><i class="fa-solid fa-lock"></i> 夾鏈袋號數對照表 (00號 ~ 12號)</h2>
           <span class="cat-spec-sub">標準包裝：100張/包</span>
         </div>
+        
+        <!-- Dedicated Visualizer Card for 夾鏈袋 -->
+        <div class="product-visualizer-box">
+          <div class="visualizer-sub-title"><i class="fa-solid fa-lock"></i> 夾鏈袋動態尺寸對照</div>
+          <div class="size-pill-selector">
+            <button class="size-pill active" onclick="updateZipper('zip-6', this)">6號 (12×17cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-00', this)">00號 (3.5×4cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-0', this)">0號 (4×6cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-1', this)">1號 (5×7cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-2', this)">2號 (6×8.5cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-3', this)">3號 (7×10cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-4', this)">4號 (8.5×12cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-5', this)">5號 (10×14cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-7', this)">7號 (14×20cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-8', this)">8號 (17×24cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-9', this)">9號 (20×28cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-10', this)">10號 (24×34cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-11', this)">11號 (28×40cm)</button>
+            <button class="size-pill" onclick="updateZipper('zip-12', this)">12號 (34×45cm)</button>
+          </div>
+          <div class="visual-blueprint-stage">
+            <div class="stage-left-diagram">
+              <div class="diagram-bag-box" id="bagZip" style="width: 100px; height: 130px;">
+                <div class="dimension-arrow arrow-width"><span id="wZip">12 cm</span></div>
+                <div class="dimension-arrow arrow-height"><span id="lZip">17 cm</span></div>
+                <div class="bag-inner-icon"><i class="fa-solid fa-lock"></i></div>
+                <span class="bag-watermark" id="wmZip">6號</span>
+              </div>
+            </div>
+            <div>
+              <div class="info-size-title" id="titleZip">夾鏈袋 · 6號</div>
+              <div class="info-dimension-big" id="dimZip">12 <span>cm</span> ✕ 17 <span>cm</span></div>
+              <div class="info-meta-tags">
+                <span class="info-tag-blue"><i class="fa-solid fa-box-archive"></i> 100 張 / 包</span>
+                <span class="info-tag-green"><i class="fa-solid fa-key"></i> 高咬合密合凹凸扣</span>
+              </div>
+              <p class="info-desc" id="descZip">通用型中尺寸夾鏈袋，防潮防塵，重複拉開密封表現絕佳。</p>
+            </div>
+          </div>
+        </div>
+
         <table class="compact-table">
           <thead>
             <tr>
@@ -697,81 +583,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><span class="tag-size">00號</span></td>
-              <td>3.5 x 4 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">0號</span></td>
-              <td>4 x 6 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">1號</span></td>
-              <td>5 x 7 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">2號</span></td>
-              <td>6 x 8.5 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">3號</span></td>
-              <td>7 x 10 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">4號</span></td>
-              <td>8.5 x 12 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">5號</span></td>
-              <td>10 x 14 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">6號</span></td>
-              <td>12 x 17 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">7號</span></td>
-              <td>14 x 20 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">8號</span></td>
-              <td>17 x 24 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">9號</span></td>
-              <td>20 x 28 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">10號</span></td>
-              <td>24 x 34 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">11號</span></td>
-              <td>28 x 40 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">12號</span></td>
-              <td>34 x 45 cm</td>
-              <td><span class="tag-qty">100張/包</span></td>
-            </tr>
+            <tr><td><span class="tag-size">00號</span></td><td>3.5 x 4 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">0號</span></td><td>4 x 6 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">1號</span></td><td>5 x 7 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">2號</span></td><td>6 x 8.5 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">3號</span></td><td>7 x 10 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">4號</span></td><td>8.5 x 12 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">5號</span></td><td>10 x 14 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">6號</span></td><td>12 x 17 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">7號</span></td><td>14 x 20 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">8號</span></td><td>17 x 24 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">9號</span></td><td>20 x 28 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">10號</span></td><td>24 x 34 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">11號</span></td><td>28 x 40 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
+            <tr><td><span class="tag-size">12號</span></td><td>34 x 45 cm</td><td><span class="tag-qty">100張/包</span></td></tr>
           </tbody>
         </table>
       </div>
 
-      <!-- 4. 密實袋 COMPACT TABLE -->
+      <!-- 4. 密實袋 PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-slider">
         <div class="cat-spec-header">
           <h2 class="cat-spec-title"><i class="fa-solid fa-box-archive"></i> 密實袋裝箱與棧板規範對照表</h2>
@@ -785,19 +615,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><span class="tag-size">中 (Medium)</span></td>
-              <td><span class="tag-qty">45箱/板</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">大 (Large)</span></td>
-              <td><span class="tag-qty">48箱/板</span></td>
-            </tr>
+            <tr><td><span class="tag-size">中 (Medium)</span></td><td><span class="tag-qty">45箱/板</span></td></tr>
+            <tr><td><span class="tag-size">大 (Large)</span></td><td><span class="tag-qty">48箱/板</span></td></tr>
           </tbody>
         </table>
       </div>
 
-      <!-- 5. 立體密實袋 COMPACT TABLE -->
+      <!-- 5. 立體密實袋 PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-standup">
         <div class="cat-spec-header">
           <h2 class="cat-spec-title"><i class="fa-solid fa-cube"></i> 立體密實袋規格對照表</h2>
@@ -812,26 +636,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><span class="tag-size">小 (Small)</span></td>
-              <td>13 x 13.5 cm</td>
-              <td><span class="tag-qty">40張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">中 (Medium)</span></td>
-              <td>17 x 15.5 cm</td>
-              <td><span class="tag-qty">30張/包</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">大 (Large)</span></td>
-              <td>26 x 25.5 cm</td>
-              <td><span class="tag-qty">16張/包</span></td>
-            </tr>
+            <tr><td><span class="tag-size">小 (Small)</span></td><td>13 x 13.5 cm</td><td><span class="tag-qty">40張/包</span></td></tr>
+            <tr><td><span class="tag-size">中 (Medium)</span></td><td>17 x 15.5 cm</td><td><span class="tag-qty">30張/包</span></td></tr>
+            <tr><td><span class="tag-size">大 (Large)</span></td><td>26 x 25.5 cm</td><td><span class="tag-qty">16張/包</span></td></tr>
           </tbody>
         </table>
       </div>
 
-      <!-- 6. 冷凍袋 COMPACT TABLE -->
+      <!-- 6. 冷凍袋 PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-freezer">
         <div class="cat-spec-header">
           <h2 class="cat-spec-title"><i class="fa-solid fa-snowflake"></i> 冷凍袋裝箱與棧板規範對照表</h2>
@@ -845,19 +657,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><span class="tag-size">中 (Medium)</span></td>
-              <td><span class="tag-qty">45箱/板</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">大 (Large)</span></td>
-              <td><span class="tag-qty">48箱/板</span></td>
-            </tr>
+            <tr><td><span class="tag-size">中 (Medium)</span></td><td><span class="tag-qty">45箱/板</span></td></tr>
+            <tr><td><span class="tag-size">大 (Large)</span></td><td><span class="tag-qty">48箱/板</span></td></tr>
           </tbody>
         </table>
       </div>
 
-      <!-- 7. 台塑遮蔽膠帶 COMPACT TABLE -->
+      <!-- 7. 台塑遮蔽膠帶 PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-tape">
         <div class="cat-spec-header">
           <h2 class="cat-spec-title"><i class="fa-solid fa-tape"></i> 台塑遮蔽防塵膠帶規格對照表</h2>
@@ -871,35 +677,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><span class="tag-size">550 mm * 25 y</span></td>
-              <td><span class="tag-qty">22.8 m</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">1100 mm * 25 y</span></td>
-              <td><span class="tag-qty">22.8 m</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">1500 mm * 25 y</span></td>
-              <td><span class="tag-qty">22.8 m</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">2100 mm * 25 y</span></td>
-              <td><span class="tag-qty">22.8 m</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">2700 mm * 25 y</span></td>
-              <td><span class="tag-qty">22.8 m</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">3200 mm * 25 y</span></td>
-              <td><span class="tag-qty">22.8 m</span></td>
-            </tr>
+            <tr><td><span class="tag-size">550 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td></tr>
+            <tr><td><span class="tag-size">1100 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td></tr>
+            <tr><td><span class="tag-size">1500 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td></tr>
+            <tr><td><span class="tag-size">2100 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td></tr>
+            <tr><td><span class="tag-size">2700 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td></tr>
+            <tr><td><span class="tag-size">3200 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td></tr>
           </tbody>
         </table>
       </div>
 
-      <!-- 8. 衛生手套 COMPACT TABLE -->
+      <!-- 8. 衛生手套 PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-gloves">
         <div class="cat-spec-header">
           <h2 class="cat-spec-title"><i class="fa-solid fa-hand"></i> 衛生防護手套尺寸規格對照表</h2>
@@ -912,15 +700,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><span class="tag-size">小</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">中</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">大</span></td>
-            </tr>
+            <tr><td><span class="tag-size">小</span></td></tr>
+            <tr><td><span class="tag-size">中</span></td></tr>
+            <tr><td><span class="tag-size">大</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -937,61 +719,131 @@
   </footer>
 
   <script>
-    const sizeDataMap = {
-      'flat-4liang': { name: '平裝耐熱袋 · 四兩', w: '15.5 cm', l: '19.5 cm', boxW: 100, boxH: 125, qty: '包裝：360 張 / 包', watermark: '四兩', desc: '適用於小份熱食、醬料或小吃點心外帶裝袋。' },
-      'flat-6liang': { name: '平裝耐熱袋 · 六兩', w: '18.5 cm', l: '23 cm', boxW: 115, boxH: 140, qty: '包裝：255 張 / 包', watermark: '六兩', desc: '適用於單人份早餐、漢堡、吐司與一般熱食小吃打包。' },
-      'flat-banjin': { name: '平裝耐熱袋 · 半斤', w: '22 cm', l: '27 cm', boxW: 130, boxH: 155, qty: '包裝：183 張 / 包', watermark: '半斤', desc: '常見於市場蔬果、肉品與小份熱湯外帶，承重表現優異。' },
-      'flat-1jin': { name: '平裝耐熱袋 · 1斤', w: '24 cm', l: '31 cm', boxW: 140, boxH: 170, qty: '包裝：146 張 / 包', watermark: '1斤', desc: '廣泛應用於餐飲熱食、湯汁、肉品與熟食打包。具備極佳防穿刺力。' },
-      'flat-2jin': { name: '平裝耐熱袋 · 2斤', w: '28 cm', l: '39 cm', boxW: 155, boxH: 185, qty: '包裝：99 張 / 包', watermark: '2斤', desc: '適合中大份量熟食外帶、大碗湯品與市場生鮮食材裝袋。' },
-      'flat-3jin': { name: '平裝耐熱袋 · 3斤', w: '32 cm', l: '43 cm', boxW: 165, boxH: 195, qty: '包裝：79 張 / 包', watermark: '3斤', desc: '適合全雞、大份量外帶熱食與批發市場打包。' },
-      'flat-5jin': { name: '平裝耐熱袋 · 5斤', w: '35 cm', l: '50 cm', boxW: 175, boxH: 210, qty: '包裝：52 張 / 包', watermark: '5斤', desc: '大容量商用規格，適合餐館大宗食材備料與生鮮保存。' },
-      'flat-10jin': { name: '平裝耐熱袋 · 10斤', w: '45 cm', l: '62 cm', boxW: 190, boxH: 230, qty: '包裝：26 張 / 包', watermark: '10斤', desc: '超大商用耐熱袋，適用於工廠、大型食品備料與水產冷凍。' },
-      'flat-15jin': { name: '平裝耐熱袋 · 15斤', w: '48 cm', l: '65 cm', boxW: 200, boxH: 240, qty: '包裝：22 張 / 包', watermark: '15斤', desc: '特大工業與批發商用耐熱袋，承重極佳。' },
-      'zip-00': { name: '夾鏈袋 · 00號', w: '3.5 cm', l: '4 cm', boxW: 60, boxH: 70, qty: '包裝：100 張 / 包', watermark: '00號', desc: '超小型夾鏈密封袋，適用於藥品、小型電子零件與微型配件。' },
-      'zip-6': { name: '夾鏈袋 · 6號', w: '12 cm', l: '17 cm', boxW: 110, boxH: 140, qty: '包裝：100 張 / 包', watermark: '6號', desc: '通用型中尺寸夾鏈袋，適合食品保鮮、護照口罩保鮮與小物分類。' },
-      'zip-12': { name: '夾鏈袋 · 12號', w: '34 cm', l: '45 cm', boxW: 170, boxH: 210, qty: '包裝：100 張 / 包', watermark: '12號', desc: '特大尺寸密封夾鏈袋，適用於大型衣物、文件收納與海鮮冷凍。' }
+    // DEDICATED PRODUCT VISUALIZER SCRIPT DATA
+    const flatHeatData = {
+      'flat-4liang': { name: '平裝耐熱袋 · 四兩', w: '15.5 cm', l: '19.5 cm', bw: 80, bh: 100, qty: '360 張 / 包', wm: '四兩', desc: '適用於小份熱食、醬料或小吃點心外帶裝袋。' },
+      'flat-6liang': { name: '平裝耐熱袋 · 六兩', w: '18.5 cm', l: '23 cm', bw: 95, bh: 115, qty: '255 張 / 包', wm: '六兩', desc: '適用於單人份早餐、漢堡、吐司與一般熱食打包。' },
+      'flat-banjin': { name: '平裝耐熱袋 · 半斤', w: '22 cm', l: '27 cm', bw: 110, bh: 130, qty: '183 張 / 包', wm: '半斤', desc: '常見於市場蔬果、肉品與小份熱湯外帶，承重表現優異。' },
+      'flat-1jin': { name: '平裝耐熱袋 · 1斤', w: '24 cm', l: '31 cm', bw: 120, bh: 145, qty: '146 張 / 包', wm: '1斤', desc: '廣泛應用於餐飲熱食、湯汁、肉品與熟食打包。具備極佳防穿刺力。' },
+      'flat-2jin': { name: '平裝耐熱袋 · 2斤', w: '28 cm', l: '39 cm', bw: 135, bh: 160, qty: '99 張 / 包', wm: '2斤', desc: '適合中大份量熟食外帶、大碗湯品與市場生鮮食材裝袋。' },
+      'flat-3jin': { name: '平裝耐熱袋 · 3斤', w: '32 cm', l: '43 cm', bw: 145, bh: 175, qty: '79 張 / 包', wm: '3斤', desc: '適合全雞、大份量外帶熱食與批發市場打包。' },
+      'flat-5jin': { name: '平裝耐熱袋 · 5斤', w: '35 cm', l: '50 cm', bw: 155, bh: 190, qty: '52 張 / 包', wm: '5斤', desc: '大容量商用規格，適合餐館大宗食材備料與生鮮保存。' },
+      'flat-10jin': { name: '平裝耐熱袋 · 10斤', w: '45 cm', l: '62 cm', bw: 170, bh: 210, qty: '26 張 / 包', wm: '10斤', desc: '超大商用耐熱袋，適用於工廠、大型食品備料與水產冷凍。' },
+      'flat-15jin': { name: '平裝耐熱袋 · 15斤', w: '48 cm', l: '65 cm', bw: 180, bh: 220, qty: '22 張 / 包', wm: '15斤', desc: '特大工業與批發商用耐熱袋，承重極佳。' }
     };
 
-    function selectVisualSize(sizeKey, btn) {
-      document.querySelectorAll('.size-pill').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-
-      const data = sizeDataMap[sizeKey];
-      if (!data) return;
-
-      const bag = document.getElementById('diagramBag');
-      if (bag) {
-        bag.style.width = `${data.boxW}px`;
-        bag.style.height = `${data.boxH}px`;
-      }
-
-      document.getElementById('labelWidth').innerText = `${data.w}`;
-      document.getElementById('labelHeight').innerText = `${data.l}`;
-      document.getElementById('labelWatermark').innerText = `${data.watermark}`;
-
-      document.getElementById('infoSizeTitle').innerText = `${data.name}`;
-      document.getElementById('infoDimBig').innerHTML = `${data.w.replace(' cm','')} <span>cm (寬)</span> ✕ ${data.l.replace(' cm','')} <span>cm (長)</span>`;
-      document.getElementById('infoQty').innerHTML = `<i class="fa-solid fa-box-archive"></i> ${data.qty}`;
-      document.getElementById('infoDesc').innerText = `${data.desc}`;
+    function updateFlatHeat(key, btn) {
+      btn.parentElement.querySelectorAll('.size-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const d = flatHeatData[key]; if (!d) return;
+      document.getElementById('bagFlat').style.width = `${d.bw}px`;
+      document.getElementById('bagFlat').style.height = `${d.bh}px`;
+      document.getElementById('wFlat').innerText = d.w;
+      document.getElementById('lFlat').innerText = d.l;
+      document.getElementById('wmFlat').innerText = d.wm;
+      document.getElementById('titleFlat').innerText = d.name;
+      document.getElementById('dimFlat').innerHTML = `${d.w.replace(' cm','')} <span>cm</span> ✕ ${d.l.replace(' cm','')} <span>cm</span>`;
+      document.getElementById('qtyFlat').innerHTML = `<i class="fa-solid fa-box-archive"></i> ${d.qty}`;
+      document.getElementById('descFlat').innerText = d.desc;
     }
 
+    const rollHeatData = {
+      'roll-4liang': { name: '卷裝耐熱袋 · 四兩', w: '15.5 cm', l: '19.5 cm', bw: 80, bh: 100, qty: '1822 張 / 卷', wm: '四兩', desc: '卷裝連撕設計，適用於小份熱食打包。' },
+      'roll-6liang': { name: '卷裝耐熱袋 · 六兩', w: '18.5 cm', l: '23 cm', bw: 95, bh: 115, qty: '1275 張 / 包', wm: '六兩', desc: '點斷式連卷撕取，適用於早餐與外帶小吃裝袋。' },
+      'roll-banjin': { name: '卷裝耐熱袋 · 半斤', w: '22 cm', l: '27 cm', bw: 110, bh: 130, qty: '897 張 / 包', wm: '半斤', desc: '生鮮市場與熱食外帶常用卷裝規格。' },
+      'roll-1jin': { name: '卷裝耐熱袋 · 1斤', w: '24 cm', l: '31 cm', bw: 120, bh: 145, qty: '708 張 / 包', wm: '1斤', desc: '標準 1 斤容量卷裝袋，抽拉順暢，耐溫性好。' },
+      'roll-2jin': { name: '卷裝耐熱袋 · 2斤', w: '28 cm', l: '39 cm', bw: 135, bh: 160, qty: '472 張 / 包', wm: '2斤', desc: '中大容量連卷袋，適合熟食大碗裝與水果打包。' },
+      'roll-3jin': { name: '卷裝耐熱袋 · 3斤', w: '32 cm', l: '43 cm', bw: 145, bh: 175, qty: '367 張 / 包', wm: '3斤', desc: '大份量卷裝外帶袋，強韌易撕。' },
+      'roll-5jin': { name: '卷裝耐熱袋 · 5斤', w: '35 cm', l: '50 cm', bw: 155, bh: 190, qty: '236 張 / 包', wm: '5斤', desc: '大容量商用卷裝規格，高效率抽取裝袋。' }
+    };
+
+    function updateRollHeat(key, btn) {
+      btn.parentElement.querySelectorAll('.size-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const d = rollHeatData[key]; if (!d) return;
+      document.getElementById('bagRoll').style.width = `${d.bw}px`;
+      document.getElementById('bagRoll').style.height = `${d.bh}px`;
+      document.getElementById('wRoll').innerText = d.w;
+      document.getElementById('lRoll').innerText = d.l;
+      document.getElementById('wmRoll').innerText = d.wm;
+      document.getElementById('titleRoll').innerText = d.name;
+      document.getElementById('dimRoll').innerHTML = `${d.w.replace(' cm','')} <span>cm</span> ✕ ${d.l.replace(' cm','')} <span>cm</span>`;
+      document.getElementById('qtyRoll').innerHTML = `<i class="fa-solid fa-box-archive"></i> ${d.qty}`;
+      document.getElementById('descRoll').innerText = d.desc;
+    }
+
+    const zipperData = {
+      'zip-00': { name: '夾鏈袋 · 00號', w: '3.5 cm', l: '4 cm', bw: 50, bh: 60, wm: '00號', desc: '超微型夾鏈袋，適用於藥丸、微型電子零件與配件。' },
+      'zip-0': { name: '夾鏈袋 · 0號', w: '4 cm', l: '6 cm', bw: 60, bh: 75, wm: '0號', desc: '小型密封袋，適用於耳環飾品與小零件收納。' },
+      'zip-1': { name: '夾鏈袋 · 1號', w: '5 cm', l: '7 cm', bw: 70, bh: 85, wm: '1號', desc: '印章、零錢與小螺絲密封儲放。' },
+      'zip-2': { name: '夾鏈袋 · 2號', w: '6 cm', l: '8.5 cm', bw: 80, bh: 95, wm: '2號', desc: '名片、卡片與小型樣品包裝。' },
+      'zip-3': { name: '夾鏈袋 · 3號', w: '7 cm', l: '10 cm', bw: 88, bh: 105, wm: '3號', desc: '證件、茶包與中藥分裝袋。' },
+      'zip-4': { name: '夾鏈袋 · 4號', w: '8.5 cm', l: '12 cm', bw: 95, bh: 115, wm: '4號', desc: '手機配件、醬料包與小型文具防塵。' },
+      'zip-5': { name: '夾鏈袋 · 5號', w: '10 cm', l: '14 cm', bw: 105, bh: 125, wm: '5號', desc: '口罩、乾糧與旅行保養品分裝。' },
+      'zip-6': { name: '夾鏈袋 · 6號', w: '12 cm', l: '17 cm', bw: 115, bh: 135, wm: '6號', desc: '通用型中尺寸夾鏈袋，防潮防塵。' },
+      'zip-7': { name: '夾鏈袋 · 7號', w: '14 cm', l: '20 cm', bw: 125, bh: 145, wm: '7號', desc: 'A5尺寸文件、書籍與食品保鮮。' },
+      'zip-8': { name: '夾鏈袋 · 8號', w: '17 cm', l: '24 cm', bw: 135, bh: 155, wm: '8號', desc: '中型生鮮肉品與海鮮冷凍密封。' },
+      'zip-9': { name: '夾鏈袋 · 9號', w: '20 cm', l: '28 cm', bw: 145, bh: 165, wm: '9號', desc: '平板電腦、衣物防塵與乾糧大包裝。' },
+      'zip-10': { name: '夾鏈袋 · 10號', w: '24 cm', l: '34 cm', bw: 155, bh: 180, wm: '10號', desc: 'A4文件資料與衣物防潮密封收納。' },
+      'zip-11': { name: '夾鏈袋 · 11號', w: '28 cm', l: '40 cm', bw: 165, bh: 195, wm: '11號', desc: '大尺寸衣物、鞋款與食材批量密封。' },
+      'zip-12': { name: '夾鏈袋 · 12號', w: '34 cm', l: '45 cm', bw: 175, bh: 210, wm: '12號', desc: '特大號夾鏈袋，大容量保護防塵。' }
+    };
+
+    function updateZipper(key, btn) {
+      btn.parentElement.querySelectorAll('.size-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const d = zipperData[key]; if (!d) return;
+      document.getElementById('bagZip').style.width = `${d.bw}px`;
+      document.getElementById('bagZip').style.height = `${d.bh}px`;
+      document.getElementById('wZip').innerText = d.w;
+      document.getElementById('lZip').innerText = d.l;
+      document.getElementById('wmZip').innerText = d.wm;
+      document.getElementById('titleZip').innerText = d.name;
+      document.getElementById('dimZip').innerHTML = `${d.w.replace(' cm','')} <span>cm</span> ✕ ${d.l.replace(' cm','')} <span>cm</span>`;
+      document.getElementById('descZip').innerText = d.desc;
+    }
+
+    // SMART PRODUCT FILTER & FOCUS NAVIGATION
     function filterCategory(category, btn) {
       const buttons = document.querySelectorAll('.filter-btn');
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
       const blocks = document.querySelectorAll('.spec-block');
+      let targetBlock = null;
+
       blocks.forEach(block => {
         if (category === 'all') {
           block.style.display = 'block';
         } else {
           if (block.id === `cat-${category}`) {
             block.style.display = 'block';
+            targetBlock = block;
           } else {
             block.style.display = 'none';
           }
         }
       });
+
+      if (targetBlock) {
+        // Smoothly scroll and focus target product block to top
+        const headerOffset = 160;
+        const elementPosition = targetBlock.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      } else if (category === 'all') {
+        const firstBlock = document.querySelector('.spec-block');
+        if (firstBlock) {
+          const headerOffset = 160;
+          const elementPosition = firstBlock.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+      }
     }
 
     document.addEventListener("DOMContentLoaded", function() {
