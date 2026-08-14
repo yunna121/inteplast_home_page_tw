@@ -1087,18 +1087,18 @@
         </a>
       </div>
 
-      <!-- 4 大核心優勢與實力指標列 (Hero 底部 4 項特色) -->
+      <!-- 4 大核心優勢與實力指標列 (Hero 底部 4 項特色：支援動態計數動畫) -->
       <div class="hero-stats-row">
         <div class="hero-stat-card">
           <div class="stat-icon"><i class="fa-solid fa-industry"></i></div>
-          <div class="stat-num">500+ <small>Tons/Day</small></div>
+          <div class="stat-num"><span class="counter-num" data-target="500">0</span>+ <small>Tons/Day</small></div>
           <div class="stat-label" data-tw="每日噸級產能" data-en="Tons Daily Extrusion">每日噸級產能</div>
           <div class="stat-sub" data-tw="嘉義新港自動化吹膜生產" data-en="Automated Extrusion Base">嘉義新港自動化吹膜生產</div>
         </div>
 
         <div class="hero-stat-card">
           <div class="stat-icon"><i class="fa-solid fa-earth-americas"></i></div>
-          <div class="stat-num">40+ <small>Countries</small></div>
+          <div class="stat-num"><span class="counter-num" data-target="40">0</span>+ <small>Countries</small></div>
           <div class="stat-label" data-tw="全球外銷國家" data-en="Global Export Markets">全球外銷國家</div>
           <div class="stat-sub" data-tw="美歐日零售與量販熱銷" data-en="USA, Europe & Japan Retail">美歐日零售與量販熱銷</div>
         </div>
@@ -1112,7 +1112,7 @@
 
         <div class="hero-stat-card">
           <div class="stat-icon"><i class="fa-solid fa-recycle"></i></div>
-          <div class="stat-num">100%</div>
+          <div class="stat-num"><span class="counter-num" data-target="100">0</span>%</div>
           <div class="stat-label" data-tw="廠內廢料閉環回收" data-en="In-House Scrap Recycling">廠內廢料閉環回收</div>
           <div class="stat-sub" data-tw="100% 邊角料即時粉碎造粒" data-en="100% Zero Waste Recycling">100% 邊角料即時粉碎造粒</div>
         </div>
@@ -1576,6 +1576,29 @@
           document.querySelectorAll(".nav-item.open-dropdown").forEach(i => i.classList.remove("open-dropdown"));
         }
       });
+
+      // 4 大指標動態數字計數跑號動畫
+      function animateCounters() {
+        const counters = document.querySelectorAll(".counter-num");
+        counters.forEach(counter => {
+          const target = +counter.getAttribute("data-target");
+          const duration = 1800; // 1.8 秒完成動態計數
+          const step = target / (duration / 16);
+          let count = 0;
+
+          const updateCount = () => {
+            count += step;
+            if (count < target) {
+              counter.innerText = Math.ceil(count);
+              requestAnimationFrame(updateCount);
+            } else {
+              counter.innerText = target;
+            }
+          };
+          updateCount();
+        });
+      }
+      setTimeout(animateCounters, 300);
     });
 
     gsap.registerPlugin(ScrollTrigger);
