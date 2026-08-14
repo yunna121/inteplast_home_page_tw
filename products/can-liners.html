@@ -290,56 +290,35 @@
       <!-- Sticky Category Filter Pills Bar -->
       <div class="filter-pills-bar">
         <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
-        <button class="filter-btn" onclick="filterCategory('roll-liners', this)">連捲清潔袋 (外銷美規)</button>
+        <button class="filter-btn" onclick="filterCategory('roll-liners', this)">連捲清潔袋</button>
         <button class="filter-btn" onclick="filterCategory('flat-draw', this)">單張 / 抽取清潔袋</button>
         <button class="filter-btn" onclick="filterCategory('eco-liners', this)">環保清潔袋</button>
       </div>
 
-      <!-- 1. 連捲清潔袋 (外銷美規) PRODUCT BLOCK -->
+      <!-- 1. 連捲清潔袋 PRODUCT BLOCK -->
       <div class="cat-spec-block spec-block" id="cat-roll-liners">
         <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-dumpster"></i> 連捲清潔袋規格對照表 (美規 Star Seal 防漏星封)</h2>
+          <h2 class="cat-spec-title"><i class="fa-solid fa-dumpster"></i> 連捲清潔袋規格對照表</h2>
         </div>
         <table class="compact-table">
           <thead>
             <tr>
-              <th data-tw="容量 Size" data-en="Size">容量 Size</th>
-              <th data-tw="尺寸 Dimensions" data-en="Dimensions">尺寸 Dimensions</th>
-              <th data-tw="厚度 Gauge / Micron" data-en="Gauge / Micron">厚度 Gauge / Micron</th>
-              <th data-tw="底封型態 Seal Type" data-en="Seal Type">底封型態 Seal Type</th>
+              <th data-tw="容量 / 尺寸等級 Size" data-en="Size">容量 / 尺寸等級 Size</th>
+              <th data-tw="包裝規格 Packing Spec" data-en="Packing Spec">包裝規格 Packing Spec</th>
+              <th data-tw="可選顏色 Available Colors" data-en="Available Colors">可選顏色 Available Colors</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><span class="tag-size">12 - 15 Gal</span></td>
-              <td>24" x 33" (61 × 84 cm)</td>
-              <td>0.35 - 0.70 mil (9 - 18 µm)</td>
-              <td><span style="background: #F0FDF4; color: #16A34A; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Star Seal 防漏星封</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">30 Gal</span></td>
-              <td>30" x 36" (76 × 91 cm)</td>
-              <td>0.50 - 1.20 mil (13 - 30 µm)</td>
-              <td><span style="background: #F0FDF4; color: #16A34A; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Star Seal 防漏星封</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">33 Gal</span></td>
-              <td>33" x 39" (84 × 99 cm)</td>
-              <td>0.70 - 1.50 mil (18 - 38 µm)</td>
-              <td><span style="background: #F0FDF4; color: #16A34A; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Star Seal 防漏星封</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">40 - 45 Gal</span></td>
-              <td>40" x 46" (102 × 117 cm)</td>
-              <td>1.00 - 2.00 mil (25 - 50 µm)</td>
-              <td><span style="background: #FEF3C7; color: #D97706; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Heavy Duty 強韌底封</span></td>
-            </tr>
-            <tr>
-              <td><span class="tag-size">55 - 60 Gal</span></td>
-              <td>38" x 58" (97 × 147 cm)</td>
-              <td>1.50 - 3.00 mil (38 - 75 µm)</td>
-              <td><span style="background: #FEF3C7; color: #D97706; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Super Heavy 超重底封</span></td>
-            </tr>
+            <tr><td><span class="tag-size">15L 小</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td></tr>
+            <tr><td><span class="tag-size">20L 中</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td></tr>
+            <tr><td><span class="tag-size">45L 大</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td></tr>
+            <tr><td><span class="tag-size">70L 特大</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
+            <tr><td><span class="tag-size">90L 超大</span></td><td>3支裝 / 2支裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
+            <tr><td><span class="tag-size">超特大</span></td><td>標準量販包裝</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
+            <tr><td><span class="tag-size">加厚</span></td><td>重量級耐重強化</td><td><span class="color-pill-black">黑色</span></td></tr>
+            <tr><td><span class="tag-size">165L 超巨大</span></td><td>大容量工業規格</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
+            <tr><td><span class="tag-size">260L 超巨霸</span></td><td>特大容量工業規格</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
+            <tr><td><span class="tag-size">經濟款</span></td><td>21張 / 支 經濟規格</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td></tr>
           </tbody>
         </table>
       </div>
