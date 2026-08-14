@@ -142,10 +142,28 @@
       font-weight: 900; width: 26px; height: 26px; border-radius: 50%; display: flex;
       align-items: center; justify-content: center;
     }
-    .scale-card-dim {
-      font-size: 0.88rem; font-weight: 700; color: #334155; background: #F1F5F9;
-      padding: 8px 12px; border-radius: 8px; display: flex; align-items: center; gap: 6px; justify-content: center;
-      border: 1px solid #E2E8F0;
+    /* Proportional 2D Vector Bag Outlines Ramp (方案 A：真實比例梯次牆) */
+    .bag-contour-box {
+      height: 130px; display: flex; align-items: flex-end; justify-content: center;
+      padding: 12px; background: #F1F5F9; border-radius: 10px; border: 1px dashed #CBD5E1;
+    }
+    .bag-outline-shape {
+      border: 2px dashed #00A8FF; background: rgba(0, 168, 255, 0.08);
+      border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: all 0.3s ease; position: relative; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .bag-outline-shape-red {
+      border-color: #EF4444; background: rgba(239, 68, 68, 0.08);
+    }
+    .bag-outline-tag {
+      font-size: 0.72rem; font-weight: 900; color: var(--primary-navy); background: rgba(255,255,255,0.92);
+      padding: 2px 6px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); text-align: center;
+    }
+    .scale-card-item:hover .bag-outline-shape {
+      background: rgba(0, 168, 255, 0.2); transform: scale(1.05); border-style: solid;
+    }
+    .scale-card-item:hover .bag-outline-shape-red {
+      background: rgba(239, 68, 68, 0.2);
     }
 
     .studio-photo-banner {
@@ -344,7 +362,7 @@
           </div>
         </div>
 
-        <!-- VISUAL SCALE CARD WALL FOR MEDICAL ROLL BAGS (Clean Minimalist Studio Cards) -->
+        <!-- VISUAL SCALE CARD WALL FOR MEDICAL ROLL BAGS (Option A: Proportional 2D Bag Ramp) -->
         <div class="scale-card-wall">
           <!-- 小 8L -->
           <div class="scale-card-item">
@@ -353,6 +371,11 @@
               <div style="display: flex; gap: 6px; align-items: center;">
                 <span class="scale-pill-count">40張</span>
                 <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape bag-outline-shape-red" style="width: 45px; height: 46px;">
+                <span class="bag-outline-tag">8L</span>
               </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 39 × 長 40 cm</div>
@@ -366,6 +389,11 @@
                 <span class="scale-pill-red">紅</span>
               </div>
             </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape bag-outline-shape-red" style="width: 60px; height: 63px;">
+                <span class="bag-outline-tag">20L</span>
+              </div>
+            </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 52 × 長 55 cm</div>
           </div>
           <!-- 大 50L -->
@@ -375,6 +403,11 @@
               <div style="display: flex; gap: 6px; align-items: center;">
                 <span class="scale-pill-count">12張</span>
                 <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape bag-outline-shape-red" style="width: 80px; height: 90px;">
+                <span class="bag-outline-tag">50L</span>
               </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 69 × 長 78 cm</div>
@@ -388,6 +421,11 @@
                 <span class="scale-pill-red">紅</span>
               </div>
             </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape bag-outline-shape-red" style="width: 89px; height: 106px;">
+                <span class="bag-outline-tag">70L</span>
+              </div>
+            </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 77 × 長 92 cm</div>
           </div>
           <!-- 超大 90L -->
@@ -397,6 +435,11 @@
               <div style="display: flex; gap: 6px; align-items: center;">
                 <span class="scale-pill-count">12張</span>
                 <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape bag-outline-shape-red" style="width: 110px; height: 97px;">
+                <span class="bag-outline-tag">90L</span>
               </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 95 × 長 84 cm</div>
@@ -470,13 +513,18 @@
           </div>
         </div>
 
-        <!-- VISUAL SCALE CARD WALL FOR COMMERCIAL DRAW-TAPE BAGS (Clean Minimalist Cards) -->
+        <!-- VISUAL SCALE CARD WALL FOR COMMERCIAL DRAW-TAPE BAGS (Option A: Proportional 2D Bag Ramp) -->
         <div class="scale-card-wall">
           <!-- 大 45L -->
           <div class="scale-card-item">
             <div class="scale-card-top">
               <div class="scale-card-size">大 <small>45L</small></div>
               <span class="scale-pill-count" style="background: #4F46E5;">24張 / 經濟包</span>
+            </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape" style="width: 75px; height: 86px; border-color: #4F46E5; background: rgba(79, 70, 229, 0.08);">
+                <span class="bag-outline-tag">45L</span>
+              </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 65 × 長 75 cm</div>
           </div>
@@ -486,6 +534,11 @@
               <div class="scale-card-size">特大 <small>70L</small></div>
               <span class="scale-pill-count" style="background: #0D9488;">18張 / 經濟包</span>
             </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape" style="width: 90px; height: 101px; border-color: #0D9488; background: rgba(13, 148, 136, 0.08);">
+                <span class="bag-outline-tag">70L</span>
+              </div>
+            </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 78 × 長 88 cm</div>
           </div>
           <!-- 超大 90L 經濟包 -->
@@ -493,6 +546,11 @@
             <div class="scale-card-top">
               <div class="scale-card-size">超大 <small>90L</small></div>
               <span class="scale-pill-count" style="background: #16A34A;">14張 / 經濟包</span>
+            </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape" style="width: 97px; height: 109px; border-color: #16A34A; background: rgba(22, 163, 74, 0.08);">
+                <span class="bag-outline-tag">90L</span>
+              </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 84 × 長 95 cm</div>
           </div>
@@ -502,6 +560,11 @@
               <div class="scale-card-size">超大 <small>90L</small></div>
               <span class="scale-pill-count" style="background: #BE185D;">25張 / 超量包</span>
             </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape" style="width: 97px; height: 109px; border-color: #BE185D; background: rgba(190, 24, 93, 0.08);">
+                <span class="bag-outline-tag">90L+</span>
+              </div>
+            </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 84 × 長 95 cm</div>
           </div>
           <!-- 超特大 125L -->
@@ -510,6 +573,11 @@
               <div class="scale-card-size">超特大 <small>125L</small></div>
               <span class="scale-pill-count" style="background: #0284C7;">15張 / 經濟包</span>
             </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape" style="width: 107px; height: 115px; border-color: #0284C7; background: rgba(2, 132, 199, 0.08);">
+                <span class="bag-outline-tag">125L</span>
+              </div>
+            </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 93 × 長 100 cm</div>
           </div>
           <!-- 巨無霸 130L -->
@@ -517,6 +585,11 @@
             <div class="scale-card-top">
               <div class="scale-card-size">巨無霸 <small>130L</small></div>
               <span class="scale-pill-count" style="background: #EA580C;">20張 / 超量包</span>
+            </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape" style="width: 108px; height: 117px; border-color: #EA580C; background: rgba(234, 88, 12, 0.08);">
+                <span class="bag-outline-tag">130L</span>
+              </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 94 × 長 102 cm</div>
           </div>
