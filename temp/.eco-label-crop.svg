@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1897" height="829" viewBox="0 0 1897 829">
+  <defs>
+    <clipPath id="label-window">
+      <circle cx="1205" cy="381" r="100"/>
+    </clipPath>
+  </defs>
+  <image xlink:href="file:///Users/liuyicen/Desktop/inteplast_home_page_tw/temp/sustainability-hero-leaves-v3.png" x="0" y="0" width="1897" height="829"/>
+  <circle cx="1205" cy="381" r="100" fill="#ffffff"/>
+  <g clip-path="url(#label-window)">
+    <image xlink:href="file:///Users/liuyicen/Desktop/inteplast_home_page_tw/src/environmental-label-mark-official.png" x="1066" y="280" width="278" height="420"/>
+  </g>
+</svg>
