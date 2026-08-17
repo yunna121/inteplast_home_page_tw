@@ -579,6 +579,52 @@
       color: var(--text-muted) !important;
     }
 
+    /* 回到頁首 Floating Button 樣式 */
+    .back-to-top-btn {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand-blue), #00386B);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 10px 25px rgba(0, 82, 155, 0.35);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.9);
+      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+      z-index: 9999;
+    }
+
+    .back-to-top-btn:hover {
+      background: linear-gradient(135deg, var(--accent-azure), var(--brand-blue));
+      box-shadow: 0 14px 30px rgba(0, 168, 255, 0.5);
+      transform: translateY(-4px) scale(1.08);
+    }
+
+    .back-to-top-btn.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    @media (max-width: 768px) {
+      .back-to-top-btn {
+        bottom: 24px;
+        right: 20px;
+        width: 46px;
+        height: 46px;
+        font-size: 1.1rem;
+      }
+    }
+
     /* =========================================
        SECTION 1: 六大核心產品系列 Showcase (Sticky Stacking Cards)
        使用 Scale Sheet 用戶指定專屬原圖 ./src/scale sheet.png
@@ -1875,6 +1921,34 @@
         document.documentElement.classList.remove('lang-loading');
       }
     });
+  </script>
+
+  <!-- 回到頂部 Floating Button -->
+  <button id="backToTopBtn" class="back-to-top-btn" type="button" aria-label="回到頁首 / Back to Top" title="回到頂部">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // 回到頂部按鈕觸發與平滑捲動機制
+    (function() {
+      const backToTopBtn = document.getElementById('backToTopBtn');
+      if (backToTopBtn) {
+        window.addEventListener('scroll', function() {
+          if (window.scrollY > 350) {
+            backToTopBtn.classList.add('visible');
+          } else {
+            backToTopBtn.classList.remove('visible');
+          }
+        });
+
+        backToTopBtn.addEventListener('click', function() {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+      }
+    })();
   </script>
 </body>
 
