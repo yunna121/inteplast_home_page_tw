@@ -558,33 +558,62 @@
       background: #0A192F;
     }
 
-    .cards-stack-container {
-      max-width: 1200px;
+    /* Andy Barefoot CodePen Style Masonry Layout */
+    .masonry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      grid-auto-rows: 15px;
+      gap: 24px;
+      width: 100%;
+      max-width: 1320px;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 50px;
     }
 
-    .stack-card {
-      position: sticky;
-      top: 120px;
+    .masonry-item {
       background: rgba(15, 30, 54, 0.95);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: var(--radius-xl);
-      padding: 44px;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 36px;
-      align-items: center;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-      transition: var(--transition);
       overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
-    .stack-card:hover {
+    .masonry-item:hover {
       border-color: var(--accent-azure);
+      transform: translateY(-6px);
+      box-shadow: 0 30px 60px rgba(0, 168, 255, 0.3);
+    }
+
+    .masonry-content {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .masonry-media-stage {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 168, 255, 0.1));
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin: 8px 0;
+    }
+
+    .masonry-media-stage img {
+      width: 100%;
+      height: auto;
+      max-height: 240px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
+      transition: transform 0.4s ease;
+    }
+
+    .masonry-item:hover .masonry-media-stage img {
+      transform: scale(1.06);
     }
 
     .card-num {
@@ -1137,199 +1166,146 @@
       </p>
     </div>
 
-    <div class="cards-stack-container">
+    <!-- Andy Barefoot CodePen Style Masonry Grid Showcase -->
+    <div class="masonry-grid">
 
       <!-- 01 清潔袋 -->
-      <div class="stack-card">
-        <div>
+      <div class="masonry-item">
+        <div class="masonry-content">
           <div class="card-num">01 / CLEANING BAGS</div>
-          <h3 class="card-title-lg" data-tw="台塑抽取 / 點斷清潔袋 Can Liners" data-en="Formosa Can Liners & Trash Bags">台塑抽取 / 點斷清潔袋 <span
+          <h3 class="card-title-lg" data-tw="清潔袋系列 Can Liners" data-en="Can Liners & Trash Bags">清潔袋系列 <span
               style="color: var(--accent-azure);">Can Liners</span></h3>
-          <p class="card-desc-lg" data-tw="商業機構、工業與居家環境必備。採用 100% HDPE 高密度聚乙烯、平底封口與實心捲取技術。"
-            data-en="Heavy-duty trash liners engineered for superior leak prevention, flat seal bottom, and high strength.">
-            商業機構、工業與居家環境必備。採用 100% HDPE 高密度聚乙烯、平底封口與實心捲取技術。
+          <div class="masonry-media-stage">
+            <img src="./src/ai_can_liner.png" alt="清潔袋" onload="resizeAllGridItems()">
+          </div>
+          <p class="card-desc-lg" data-tw="商業機構、工業與居家環境必備。採用高強度防漏底封與高品質韌性配方。"
+            data-en="Heavy-duty trash liners engineered for superior leak prevention and high strength.">
+            商業機構、工業與居家環境必備。採用高強度防漏底封與高品質韌性配方。
           </p>
-
-          <!-- 原廠 4 大圓形特色標籤列 -->
-          <div style="display: flex; gap: 8px; margin: 14px 0 18px; flex-wrap: wrap;">
-            <span class="spec-pill"><i class="fa-solid fa-eye-slash"></i> 不透明/霧面</span>
-            <span class="spec-pill"><i class="fa-solid fa-layer-group"></i> 平底封口</span>
-            <span class="spec-pill"><i class="fa-solid fa-circle-notch"></i> 實心捲取</span>
-            <span class="spec-pill"><i class="fa-solid fa-hand-holding"></i> 點斷/抽取式</span>
+          <div class="spec-pills-list">
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 連捲清潔袋</span>
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 單張抽取</span>
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 環保清潔袋</span>
           </div>
-
-          <div class="spec-pills-list" style="margin-bottom: 20px;">
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">10L (40x50cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">15L (43x56cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">20L (53x63cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">45L (65x75cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">70L (80x90cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">90L / 125L 加厚</span>
-          </div>
-
           <a href="products/can-liners.html" class="card-btn-explore" data-tw="進入 清潔袋 專區" data-en="Explore Can Liners">
             <span data-tw="進入 清潔袋 專區" data-en="Explore Can Liners">進入 清潔袋 專區</span> <i
               class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
-        <div class="card-media-wrapper">
-          <img src="./src/ai_can_liner.png" alt="清潔袋">
-        </div>
       </div>
 
       <!-- 02 拉繩袋 -->
-      <div class="stack-card">
-        <div>
+      <div class="masonry-item">
+        <div class="masonry-content">
           <div class="card-num">02 / DRAW-TAPE</div>
-          <h3 class="card-title-lg" data-tw="台塑拉繩清潔袋 / 感染袋 Draw-Tape" data-en="Draw-Tape Bags">台塑拉繩清潔袋 / 感染袋 <span
+          <h3 class="card-title-lg" data-tw="拉繩袋系列 Draw-Tape" data-en="Draw-Tape Bags">拉繩袋系列 <span
               style="color: var(--accent-azure);">Draw-Tape</span></h3>
-          <p class="card-desc-lg" data-tw="一拉即束封口，打包省力不髒手。涵蓋美歐零售經濟包/超量包，與醫療級紅色拉繩感染袋。"
-            data-en="Easy-close drawstring technology for commercial cleaning and biohazard medical protection.">
-            一拉即束封口，打包省力不髒手。涵蓋美歐零售經濟包/超量包，與醫療級紅色拉繩感染袋。
+          <div class="masonry-media-stage">
+            <img src="./src/ai_draw_tape.png" alt="拉繩袋" onload="resizeAllGridItems()">
+          </div>
+          <p class="card-desc-lg" data-tw="一拉即束封口，打包省力不髒手。廣泛應用於美歐零售超市清潔袋與醫療專用防護袋。"
+            data-en="Easy-close drawstring technology for commercial cleaning and medical packaging applications.">
+            一拉即束封口，打包省力不髒手。廣泛應用於美歐零售超市清潔袋與醫療專用防護袋。
           </p>
-
-          <!-- 原廠 4 大圓形特色標籤列 -->
-          <div style="display: flex; gap: 8px; margin: 14px 0 18px; flex-wrap: wrap;">
-            <span class="spec-pill"><i class="fa-solid fa-ribbon"></i> 拉繩設計 防止散發惡臭</span>
-            <span class="spec-pill"><i class="fa-solid fa-shield"></i> 高強韌多 30% 容量</span>
-            <span class="spec-pill"><i class="fa-solid fa-biohazard"></i> 醫療級感染隔離</span>
+          <div class="spec-pills-list">
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 清潔袋</span>
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 醫療袋</span>
           </div>
-
-          <div class="spec-pills-list" style="margin-bottom: 20px;">
-            <span class="spec-pill" style="background: rgba(239,68,68,0.25); border-color: #EF4444; color: #FFF;">拉繩感染袋 8L~90L (紅色)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">45L 經濟包 (65x75cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">70L (78x88cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">90L 80張/盒裝</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">125L / 130L 巨無霸</span>
-          </div>
-
           <a href="products/draw-tape.html" class="card-btn-explore" data-tw="進入 拉繩袋 專區" data-en="Explore Draw-Tape">
             <span data-tw="進入 拉繩袋 專區" data-en="Explore Draw-Tape">進入 拉繩袋 專區</span> <i
               class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
-        <div class="card-media-wrapper">
-          <img src="./src/ai_draw_tape.png" alt="拉繩袋">
-        </div>
       </div>
 
       <!-- 03 耐熱袋 -->
-      <div class="stack-card">
-        <div>
+      <div class="masonry-item">
+        <div class="masonry-content">
           <div class="card-num">03 / HEAT-RESISTANT</div>
-          <h3 class="card-title-lg" data-tw="台塑耐熱袋系列 Heat-Resistant" data-en="Heat-Resistant Bags">台塑耐熱袋系列 <span
+          <h3 class="card-title-lg" data-tw="耐熱袋系列 Heat-Resistant" data-en="Heat-Resistant Bags">耐熱袋系列 <span
               style="color: var(--accent-azure);">Heat-Resistant</span></h3>
-          <p class="card-desc-lg" data-tw="100% 全新無毒高密度聚乙烯 (HDPE) 配方，適用於熱食湯汁盛裝、餐飲備料與高溫包裝。"
-            data-en="100% Virgin food-grade HDPE heat resistant bags designed for hot food packaging.">
-            100% 全新無毒高密度聚乙烯 (HDPE) 配方，適用於熱食湯汁盛裝、餐飲備料與高溫包裝。
+          <div class="masonry-media-stage">
+            <img src="./src/耐熱袋.png" alt="耐熱袋 實景原圖" onload="resizeAllGridItems()">
+          </div>
+          <p class="card-desc-lg" data-tw="高溫耐熱全新聚乙烯配方，適用於熱食盛裝、餐飲備料與高溫包裝需求。"
+            data-en="High-temperature resistant bags designed for foodservice prep and hot food packaging.">
+            高溫耐熱全新聚乙烯配方，適用於熱食盛裝、餐飲備料與高溫包裝需求。
           </p>
-
-          <!-- 原廠 4 大圓形特色標籤列 -->
-          <div style="display: flex; gap: 8px; margin: 14px 0 18px; flex-wrap: wrap;">
-            <span class="spec-pill"><i class="fa-solid fa-fire"></i> 高溫耐熱安全</span>
-            <span class="spec-pill"><i class="fa-solid fa-utensils"></i> 食品級全新 HDPE</span>
-            <span class="spec-pill"><i class="fa-solid fa-box"></i> 平裝 / 捲裝雙選擇</span>
+          <div class="spec-pills-list">
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 平裝耐熱袋</span>
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 捲裝耐熱袋</span>
           </div>
-
-          <div class="spec-pills-list" style="margin-bottom: 20px;">
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">四兩</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">半斤 (20x25cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">1斤 (23x30cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">2斤 (25x35cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">3斤 (28x40cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">5斤 / 10斤 / 15斤</span>
-          </div>
-
           <a href="products/foodservice.html" class="card-btn-explore" data-tw="進入 耐熱袋 專區"
             data-en="Explore Heat-Resistant">
             <span data-tw="進入 耐熱袋 專區" data-en="Explore Heat-Resistant">進入 耐熱袋 專區</span> <i
               class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
-        <div class="card-media-wrapper">
-          <img src="./src/耐熱袋.png" alt="耐熱袋 實景原圖">
-        </div>
       </div>
 
       <!-- 04 密封包裝類 -->
-      <div class="stack-card">
-        <div>
+      <div class="masonry-item">
+        <div class="masonry-content">
           <div class="card-num">04 / SEALED PACKAGING</div>
-          <h3 class="card-title-lg" data-tw="密封包裝類 (雙軌密實袋/夾鏈袋) Sealed Bags" data-en="Sealed & Zipper Bags">密封包裝類 <span
+          <h3 class="card-title-lg" data-tw="密封包裝類 Sealed Bags" data-en="Sealed & Zipper Bags">密封包裝類 <span
               style="color: var(--accent-azure);">Sealed Bags</span></h3>
-          <p class="card-desc-lg" data-tw="雙軌密封防漏設計，提供極佳保鮮與冷藏冷凍防護，含 00 號至 12 號完整夾鏈袋全尺寸。"
-            data-en="Double-zipper pouches and full size No.00 to No.12 zipper bags providing airtight freezer protection.">
-            雙軌密封防漏設計，提供極佳保鮮與冷藏冷凍防護，含 00 號至 12 號完整夾鏈袋全尺寸。
+          <div class="masonry-media-stage">
+            <img src="./src/ai_zipper_bag.png" alt="密封包裝類" onload="resizeAllGridItems()">
+          </div>
+          <p class="card-desc-lg" data-tw="雙軌密封防漏設計，提供極佳保鮮與冷藏冷凍防護，食材內容物一目了然。"
+            data-en="Double-zipper and stand-up pouches providing airtight preservation for freezer food storage.">
+            雙軌密封防漏設計，提供極佳保鮮與冷藏冷凍防護，食材內容物一目了然。
           </p>
-
-          <!-- 原廠 4 大圓形特色標籤列 -->
-          <div style="display: flex; gap: 8px; margin: 14px 0 18px; flex-wrap: wrap;">
-            <span class="spec-pill"><i class="fa-solid fa-lock"></i> 雙軌氣密條</span>
-            <span class="spec-pill"><i class="fa-solid fa-snowflake"></i> 冷凍保鮮專用</span>
-            <span class="spec-pill"><i class="fa-solid fa-layer-group"></i> 立體站立底底加寬</span>
+          <div class="spec-pills-list">
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 密實袋</span>
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 立體密實袋</span>
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 冷凍袋</span>
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 夾鏈袋</span>
           </div>
-
-          <div class="spec-pills-list" style="margin-bottom: 20px;">
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">密實袋 M (18x20cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">密實袋 L (27x28cm)</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">立體站立密實袋</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">夾鏈袋 00號~12號 (4x6~34x45cm)</span>
-          </div>
-
           <a href="products/foodservice.html" class="card-btn-explore" data-tw="進入 密封包裝類 專區"
             data-en="Explore Sealed Bags">
             <span data-tw="進入 密封包裝類 專區" data-en="Explore Sealed Bags">進入 密封包裝類 專區</span> <i
               class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
-        <div class="card-media-wrapper">
-          <img src="./src/ai_zipper_bag.png" alt="密封包裝類">
-        </div>
       </div>
 
       <!-- 05 其他類 -->
-      <div class="stack-card">
-        <div>
+      <div class="masonry-item">
+        <div class="masonry-content">
           <div class="card-num">05 / SPECIALTY & OTHERS</div>
-          <h3 class="card-title-lg" data-tw="其他類 (衛生手套/遮蔽防塵膠帶) Specialty" data-en="Specialty Products">其他類 <span
+          <h3 class="card-title-lg" data-tw="其他類 Specialty" data-en="Specialty Products">其他類 <span
               style="color: var(--accent-azure);">Specialty</span></h3>
-          <p class="card-desc-lg" data-tw="衛生防護手套與台塑遮蔽防塵膠帶 (550mm~3200mm)，適合油漆施工、裝潢防護與衛生備料。"
-            data-en="PE protective gloves and Formosa masking dustproof film tapes (550mm to 3200mm) for home and industrial protection.">
-            衛生防護手套與台塑遮蔽防塵膠帶 (550mm~3200mm)，適合油漆施工、裝潢防護與衛生備料。
-          </p>
-
-          <!-- 原廠 4 大圓形特色標籤列 -->
-          <div style="display: flex; gap: 8px; margin: 14px 0 18px; flex-wrap: wrap;">
-            <span class="spec-pill"><i class="fa-solid fa-hand"></i> PE手套 壓紋止滑</span>
-            <span class="spec-pill"><i class="fa-solid fa-tape"></i> 台塑遮蔽防塵膠帶</span>
-            <span class="spec-pill"><i class="fa-solid fa-paint-roller"></i> 裝潢油漆施工推薦</span>
+          <div class="masonry-media-stage">
+            <img src="./src/ai_specialty.png" alt="其他類" onload="resizeAllGridItems()">
           </div>
-
-          <div class="spec-pills-list" style="margin-bottom: 20px;">
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">衛生手套 S/M/L/XL</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">遮蔽膠帶 550mm / 1100mm</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">1500mm / 2100mm</span>
-            <span class="spec-pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #FFF;">2700mm / 3200mm (長25碼)</span>
+          <p class="card-desc-lg" data-tw="提供衛生防護手套與台塑遮蔽防塵膠帶，適合建築施工裝潢防護與日常衛生備料。"
+            data-en="Protective hygiene gloves and Formosa masking dustproof film tapes for home and industrial use.">
+            提供衛生防護手套與台塑遮蔽防塵膠帶，適合建築施工裝潢防護與日常衛生備料。
+          </p>
+          <div class="spec-pills-list">
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 衛生手套</span>
+            <span class="spec-pill"><i class="fa-solid fa-check"></i> 台塑遮蔽防塵膠帶</span>
           </div>
           <a href="products/foodservice.html" class="card-btn-explore" data-tw="進入 其他類 專區" data-en="Explore Specialty">
             <span data-tw="進入 其他類 專區" data-en="Explore Specialty">進入 其他類 專區</span> <i
               class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
-        <div class="card-media-wrapper">
-          <img src="./src/ai_specialty.png" alt="其他類">
-        </div>
       </div>
 
-      <!-- 06 Scale Sheet (使用用戶指定圖片 ./src/scale sheet.png) -->
-      <div class="stack-card">
-        <div>
+      <!-- 06 Scale Sheet -->
+      <div class="masonry-item">
+        <div class="masonry-content">
           <div class="card-num">06 / SCALE SHEET</div>
           <h3 class="card-title-lg" data-tw="Scale Sheet 磅秤襯墊" data-en="Scale Sheet">Scale Sheet <span
               style="color: var(--accent-azure);">磅秤襯墊</span></h3>
-          <p class="card-desc-lg" data-tw="專業 Scale Sheet 磅秤襯墊系列，詳細產品規格數據建置整理中。"
-            data-en="Food-grade scale sheet series. Detailed specifications coming soon.">
-            專業 Scale Sheet 磅秤襯墊系列，詳細產品規格數據建置整理中。
+          <div class="masonry-media-stage">
+            <img src="./src/scale sheet.png" alt="Scale Sheet" onload="resizeAllGridItems()">
+          </div>
+          <p class="card-desc-lg" data-tw="專業 Scale Sheet 磅秤襯墊系列，適用於超市生鮮磅秤切片膜與熟食襯墊。"
+            data-en="Food-grade scale sheet series for supermarket fresh produce and deli counter slicing.">
+            專業 Scale Sheet 磅秤襯墊系列，適用於超市生鮮磅秤切片膜與熟食襯墊。
           </p>
           <div class="spec-pills-list">
             <span class="spec-pill"><i class="fa-solid fa-check"></i> Scale Sheet 磅秤襯墊</span>
@@ -1339,9 +1315,6 @@
             <span data-tw="進入 Scale Sheet 專區" data-en="Explore Scale Sheet">進入 Scale Sheet 專區</span> <i
               class="fa-solid fa-arrow-right"></i>
           </a>
-        </div>
-        <div class="card-media-wrapper">
-          <img src="./src/scale sheet.png" alt="Scale Sheet">
         </div>
       </div>
 
@@ -1614,7 +1587,31 @@
   </footer>
 
   <script>
+    /* Andy Barefoot CodePen Style Masonry Layout JS Engine */
+    function resizeGridItem(item) {
+      const grid = document.querySelector(".masonry-grid");
+      if (!grid) return;
+      const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+      const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap') || window.getComputedStyle(grid).getPropertyValue('gap') || 24);
+      const content = item.querySelector('.masonry-content');
+      if (!content) return;
+      const rowSpan = Math.ceil((content.getBoundingClientRect().height + rowGap) / (rowHeight + rowGap));
+      item.style.gridRowEnd = "span " + rowSpan;
+    }
+
+    function resizeAllGridItems() {
+      const allItems = document.querySelectorAll(".masonry-item");
+      allItems.forEach(item => resizeGridItem(item));
+    }
+
+    window.addEventListener("load", resizeAllGridItems);
+    window.addEventListener("resize", resizeAllGridItems);
+
     document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(resizeAllGridItems, 100);
+      setTimeout(resizeAllGridItems, 500);
+      setTimeout(resizeAllGridItems, 1200);
+
       const navItems = document.querySelectorAll(".nav-item");
       navItems.forEach(item => {
         let timer;
