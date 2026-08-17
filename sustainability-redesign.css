@@ -539,32 +539,32 @@ body { font-size: 20px; }
 .green-standard-eyebrow { font-size: .8rem; }
 
 .hero h1 { font-size: clamp(3.25rem, 5vw, 5rem); }
-.hero p { font-size: 1.25rem; line-height: 1.78; }
+.hero p { font-size: 1.35rem; line-height: 1.82; }
 .button { font-size: 1.12rem; }
 
 .intro h2,
 .section-heading h2 { font-size: clamp(2.3rem, 3.35vw, 3rem); }
-.intro-copy { font-size: 1.2rem; line-height: 1.82; }
+.intro-copy { font-size: 1.35rem; line-height: 1.86; }
 .text-link { font-size: 1.1rem; }
 
-.points li { font-size: 1.12rem; line-height: 1.74; }
+.points li { font-size: 1.2rem; line-height: 1.78; }
 .points strong { font-size: 1.2rem; }
 
 .green-standard h3 { font-size: 1.9rem; }
 .green-standard-summary,
-.green-standard-list li { font-size: 1.1rem; line-height: 1.74; }
+.green-standard-list li { font-size: 1.2rem; line-height: 1.78; }
 .green-standard-list strong { font-size: 1.16rem; }
-.section-heading > p:last-child { font-size: 1.15rem; line-height: 1.76; }
+.section-heading > p:last-child { font-size: 1.25rem; line-height: 1.8; }
 
 .product-label { font-size: .78rem; }
 .product-content h3 { font-size: 1.72rem; }
-.product-content p { font-size: 1.1rem; line-height: 1.74; }
+.product-content p { font-size: 1.2rem; line-height: 1.78; }
 
 .commitment-card h3 { font-size: 1.42rem; }
-.commitment-card p { font-size: 1.1rem; line-height: 1.74; }
+.commitment-card p { font-size: 1.2rem; line-height: 1.78; }
 
 .cta h2 { font-size: clamp(2rem, 3vw, 2.6rem); }
-.cta p { font-size: 1.14rem; line-height: 1.74; }
+.cta p { font-size: 1.2rem; line-height: 1.78; }
 footer { font-size: .9rem; }
 
 @media (max-width: 1160px) {
