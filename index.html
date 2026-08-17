@@ -538,7 +538,7 @@
     .section-head {
       text-align: center;
       max-width: 800px;
-      margin: 0 auto 70px;
+      margin: 0 auto 60px;
     }
 
     .pill-badge {
@@ -560,11 +560,23 @@
       font-weight: 900;
       color: #FFFFFF;
       margin-bottom: 16px;
+      line-height: 1.25;
     }
 
     .section-head p {
       font-size: 1.05rem;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.6;
+    }
+
+    .home-corp-overview-section .section-head h2,
+    .home-green-mark-section .section-head h2 {
+      color: var(--primary-navy) !important;
+    }
+
+    .home-corp-overview-section .section-head p,
+    .home-green-mark-section .section-head p {
+      color: var(--text-muted) !important;
     }
 
     /* =========================================
@@ -1236,16 +1248,24 @@
   <!-- SECTION 1: 關於臺灣營德 (About Us 首頁簡介預覽區塊) -->
   <section class="home-corp-overview-section" id="aboutUs" style="padding: 80px 0; background: #FFFFFF; border-bottom: 1px solid var(--border-color);">
     <div style="max-width: 1350px; margin: 0 auto; padding: 0 40px;">
+      
+      <!-- Unified Section Head -->
+      <div class="section-head" style="margin-bottom: 48px;">
+        <span class="pill-badge" style="background: rgba(0,82,155,0.08); color: var(--brand-blue); border-color: rgba(0,82,155,0.2);" data-tw="ABOUT US · 關於臺灣營德" data-en="ABOUT US · Corporate Profile">
+          <i class="fa-solid fa-building-user"></i> <span data-tw="ABOUT US · 關於臺灣營德" data-en="ABOUT US · Corporate Profile">ABOUT US · 關於臺灣營德</span>
+        </span>
+        <h2 data-tw="勤勞樸實 · 永續經營" data-en="Diligent, Frugal & Sustainable Management">
+          勤勞樸實 · 永續經營
+        </h2>
+        <p data-tw="臺灣營德作為 Inteplast Group 全球下游塑膠加工據點，結合台塑企業原料資源與營德集團加工技術。" data-en="Combining Formosa Plastics' raw material strength with Inteplast Group's global manufacturing technology.">
+          臺灣營德作為 Inteplast Group 全球下游塑膠加工據點，結合台塑企業原料資源與營德集團加工技術。
+        </p>
+      </div>
+
       <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 54px; align-items: center;">
         
         <!-- Left Column: Copy & Badge -->
         <div>
-          <span style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background: rgba(0,82,155,0.08); color: var(--brand-blue); border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 16px;" data-tw="ABOUT US · 關於臺灣營德" data-en="ABOUT US · Corporate Profile">
-            <i class="fa-solid fa-building-user"></i> <span data-tw="ABOUT US · 關於臺灣營德" data-en="ABOUT US · Corporate Profile">ABOUT US · 關於臺灣營德</span>
-          </span>
-          <h2 style="font-size: 2.65rem; font-weight: 900; color: var(--primary-navy); margin-bottom: 16px; line-height: 1.25;" data-tw="勤勞樸實 · 永續經營" data-en="Diligent, Frugal & Sustainable Management">
-            勤勞樸實 · 永續經營
-          </h2>
           <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 22px;" data-tw="臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 作為 Inteplast Group 全球下游塑膠加工產業鏈的核心據點之一，結合台塑企業豐富的原料資源與營德集團的全球加工技術背景。新港生產基地配備全自動拌料與原料空輸系統，並採用 PLC 自動化控制吹膜設備與精密點斷熱封技術。" data-en="As a core hub of Inteplast Group's global downstream plastic processing chain, Inteplast Taiwan combines Formosa Plastics' rich raw material resources with Inteplast's processing technology. Our Chiayi Xingang plant features fully automated resin pneumatic transport and PLC extrusion controls.">
             臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 作為 Inteplast Group 全球下游塑膠加工產業鏈的核心據點之一，結合台塑企業豐富的原料資源與營德集團的全球加工技術背景。新港生產基地配備全自動拌料與原料空輸系統，並採用 PLC 自動化控制吹膜設備與精密點斷熱封技術。
           </p>
@@ -1398,15 +1418,15 @@
   <section class="home-green-mark-section" style="padding: 70px 0; background: #F8FAFC; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
     <div style="max-width: 1350px; margin: 0 auto; padding: 0 40px;">
       
-      <!-- Section Header -->
-      <div style="text-align: center; max-width: 760px; margin: 0 auto 40px;">
-        <span style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background: rgba(67,172,89,0.1); color: #2F7B4B; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 14px;" data-tw="ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品" data-en="ENVIRONMENTAL LABEL PRODUCTS">
+      <!-- Unified Section Head -->
+      <div class="section-head" style="margin-bottom: 48px;">
+        <span class="pill-badge" style="background: rgba(67,172,89,0.1); color: #2F7B4B; border-color: rgba(67,172,89,0.3);" data-tw="ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品" data-en="ENVIRONMENTAL LABEL PRODUCTS">
           <i class="fa-solid fa-leaf"></i> <span data-tw="ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品" data-en="ENVIRONMENTAL LABEL PRODUCTS">ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品</span>
         </span>
-        <h2 style="font-size: 2.65rem; font-weight: 900; color: var(--primary-navy); margin-bottom: 12px;" data-tw="綠色標章產品" data-en="Green Mark Certified Products">
+        <h2 data-tw="綠色標章產品" data-en="Green Mark Certified Products">
           綠色標章產品
         </h2>
-        <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.7;" data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。" data-en="Formosa Eco Drawtape and Can Liner bags are fully Green Mark certified from raw materials to manufacturing.">
+        <p data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。" data-en="Formosa Eco Drawtape and Can Liner bags are fully Green Mark certified from raw materials to manufacturing.">
           台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。
         </p>
       </div>
