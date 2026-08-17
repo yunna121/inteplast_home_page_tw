@@ -45,13 +45,12 @@ section {
 }
 
 .hero {
+  margin-top: 107px;
   position: relative;
   min-height: 444px;
-  padding: 160px 0 90px;
+  padding: 56px 0;
   isolation: isolate;
-  background:
-    radial-gradient(circle at 70% 47%, transparent 0 154px, rgba(20, 122, 85, .12) 155px 156px, transparent 157px 214px, rgba(0, 82, 155, .09) 215px 216px, transparent 217px),
-    linear-gradient(90deg, rgba(255, 255, 255, .98) 0 48%, rgba(248, 251, 249, .86) 68%, rgba(238, 245, 239, .94) 100%);
+  background: url("./src/sustainability-hero-green-label.png") center / cover no-repeat;
   border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
@@ -840,8 +839,9 @@ footer {
   }
 
   .hero {
+    margin-top: 107px;
     min-height: auto;
-    padding: 145px 0 70px;
+    padding: 48px 0;
   }
 
   .hero-grid {
@@ -945,7 +945,8 @@ footer {
   }
 
   .hero {
-    padding: 135px 0 50px;
+    margin-top: 65px;
+    padding: 36px 0;
   }
 
   .hero-actions {
