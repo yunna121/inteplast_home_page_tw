@@ -10,189 +10,12 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    :root {
-      --primary-navy: #0A2540;
-      --brand-blue: #00529B;
-      --brand-blue-hover: #003d75;
-      --accent-azure: #00A8FF;
-      --accent-emerald: #10B981;
-      --bg-light: #F8FAFC;
-      --surface-white: #FFFFFF;
-      --text-main: #1E293B;
-      --text-muted: #64748B;
-      --border-color: #E2E8F0;
-      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
-      --radius-sm: 8px;
-      --radius-md: 16px;
-      --radius-full: 9999px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-      --ink:#245c43;--muted:#5e7169;--green:#43ac59;--lime:#a7cf45;--sky:#4d89c6;--mint:#eaf5e5;--cream:#fbfbf4;--line:#d7e8d5;--navy:#0a2540;--radius:24px;
-    }
-    *{box-sizing:border-box;margin:0} html{scroll-behavior:smooth} body{font-family:'Inter','Noto Sans TC',sans-serif;background:var(--cream);color:var(--ink);line-height:1.7} a{color:inherit}.container{width:min(1160px,calc(100% - 48px));margin:auto}
-
-    /* 集團頂樓列 */
-    .top-utility-bar {
-      background: var(--primary-navy); color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
-      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: fixed; top: 0; left: 0; width: 100%; z-index: 1050;
-    }
-    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
-    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
-    .utility-left a:hover, .utility-right a:hover { color: var(--accent-azure); }
-    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
-
-    /* Navbar Header */
-    .header {
-      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
-      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
-    }
-    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-image { height: 40px; width: auto; object-fit: contain; }
-    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
-    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
-
-    .nav-menu { display: flex; align-items: center; gap: 4px; list-style: none; }
-    .nav-item { position: relative; }
-    .nav-link-item {
-      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
-      color: var(--text-main); text-decoration: none; transition: var(--transition);
-      display: inline-flex; align-items: center; gap: 6px; cursor: pointer; position: relative; z-index: 10;
-    }
-    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
-    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
-    .nav-item:hover .caret-icon { transform: rotate(180deg); }
-
-    /* 6 大類 Mega Menu Panel */
-    .mega-menu-panel-6cat {
-      position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
-      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
-      opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 1100; color: var(--text-main);
-    }
-    .mega-menu-panel-6cat::before {
-      content: ''; position: absolute; top: -16px; left: 0; width: 100%; height: 20px; background: transparent; z-index: -1;
-    }
-    .nav-item:hover .mega-menu-panel-6cat,
-    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; }
-    .nav-item:hover .caret-icon,
-    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
-    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
-    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
-    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
-    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
-
-    .header-right { display: flex; align-items: center; gap: 12px; }
-    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
-    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
-
-    main { padding-top: 115px; }
-
-    @media (max-width: 1100px) {
-      .mega-menu-panel-6cat, .top-utility-bar { display: none; }
-      .header { top: 0; }
-    }
-  </style>
-</head>
-<body>
-  <!-- 集團頂樓列 -->
-  <div class="top-utility-bar">
-    <div class="utility-left">
-      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> 臺灣塑膠工業股份有限公司</a>
-      <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 美國總部</a>
-    </div>
-    <div class="utility-right">
-      <a href="about.html" data-tw="關於營德" data-en="About Us"><i class="fa-solid fa-building"></i> 關於營德</a>
-      <a href="sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> 永續發展</a>
-      <a href="contact.html" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
-      <a href="contact.html" data-tw="客戶專屬登入" data-en="Client Portal"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a>
-    </div>
-  </div>
-
-  <!-- Header Navbar -->
-  <header class="header">
-    <a href="index.html" class="header-logo">
-      <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
-      <div>
-        <span class="logo-text-tw">臺灣營德股份有限公司</span>
-        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
-      </div>
-    </a>
-
-    <ul class="nav-menu">
-      <li class="nav-item"><a href="index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
-      <li class="nav-item"><a href="about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
-      
-      <!-- 6 大分類 Mega Menu -->
-      <li class="nav-item">
-        <a href="products/index.html" class="nav-link-item product-menu-trigger" data-tw="產品中心" data-en="Products">
-          產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i>
-        </a>
-        <div class="mega-menu-panel-6cat">
-          <div class="mega-grid-6">
-            <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</div>
-              <ul class="mega-sub-links">
-                <li><a href="products/can-liners.html">連捲清潔袋</a></li>
-                <li><a href="products/can-liners.html">單張抽取</a></li>
-                <li><a href="products/can-liners.html">環保清潔袋</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</div>
-              <ul class="mega-sub-links">
-                <li><a href="products/draw-tape.html">清潔袋</a></li>
-                <li><a href="products/draw-tape.html">醫療袋</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
-              <ul class="mega-sub-links">
-                <li><a href="products/foodservice.html">平裝耐熱袋</a></li>
-                <li><a href="products/foodservice.html">捲裝耐熱袋</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
-              <ul class="mega-sub-links">
-                <li><a href="products/foodservice.html">密實袋</a></li>
-                <li><a href="products/foodservice.html">立體密實袋</a></li>
-                <li><a href="products/foodservice.html">冷凍袋</a></li>
-                <li><a href="products/foodservice.html">夾鏈袋</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
-              <ul class="mega-sub-links">
-                <li><a href="products/foodservice.html">衛生手套</a></li>
-                <li><a href="products/foodservice.html">台塑遮蔽防塵膠帶</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> 06 Scale Sheet</div>
-              <ul class="mega-sub-links">
-                <li><a href="products/stretch-films.html">Scale Sheet 產品專區</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <li class="nav-item"><a href="sustainability.html" class="nav-link-item active" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
-      <li class="nav-item"><a href="contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
-    </ul>
-
-    <div class="header-right">
-      <button class="lang-toggle" id="langBtn">EN / 繁中</button>
-      <a href="contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
-    </div>
-  </header>
+    :root{--ink:#245c43;--muted:#5e7169;--green:#43ac59;--lime:#a7cf45;--sky:#4d89c6;--mint:#eaf5e5;--cream:#fbfbf4;--line:#d7e8d5;--navy:#0a2540;--radius:24px}
+    *{box-sizing:border-box;margin:0} html{scroll-behavior:smooth} body{font-family:'DM Sans','Noto Sans TC',sans-serif;background:var(--cream);color:var(--ink);line-height:1.7} a{color:inherit}.container{width:min(1160px,calc(100% - 48px));margin:auto}
+    /* Shared site navigation */
+    .top-utility-bar{background:#02140e;color:rgba(255,255,255,.75);font-size:.78rem;min-height:31px;padding:6px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.08)}.utility-left,.utility-right{display:flex;align-items:center;gap:20px}.utility-left a,.utility-right a{color:rgba(255,255,255,.75);text-decoration:none;display:inline-flex;align-items:center;gap:6px}.region-badge{background:rgba(52,211,153,.18);color:#34d399;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:700}
+    .header{min-height:65px;padding:10px 40px;background:rgba(4,18,13,.96);display:flex;justify-content:space-between;align-items:center;gap:20px;position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(255,255,255,.12)}.header-logo{display:flex;gap:14px;align-items:center;text-decoration:none;min-width:max-content}.logo-image{height:36px;width:auto;object-fit:contain;}.logo-text-tw{color:#fff;display:block;font-size:1.05rem;font-weight:800;line-height:1.25}.logo-text-en{color:#34d399;display:block;font-size:.72rem;font-weight:700}.nav-menu{display:flex;gap:4px;list-style:none;align-items:center;padding:0}.nav-link-item{color:rgba(255,255,255,.9);text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;font-size:.92rem;font-weight:700}.nav-link-item:hover,.nav-link-item.active{color:#34d399;background:rgba(52,211,153,.15)}.caret-icon{font-size:.72rem}.header-right{display:flex;align-items:center;gap:12px}.lang-toggle{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.25);padding:6px 14px;border-radius:999px;font-weight:700;font-size:.85rem}.rfq-btn{color:#fff;background:linear-gradient(135deg,#10b981,#047857);padding:8px 18px;border-radius:999px;font-size:.88rem;font-weight:700;text-decoration:none;display:inline-flex;gap:8px;align-items:center;white-space:nowrap}
+    /* Hero */
     .hero{overflow:hidden;position:relative;padding:92px 0 84px;background:radial-gradient(circle at 15% 88%,rgba(167,207,69,.23) 0 3px,transparent 4px),linear-gradient(115deg,#fafff5 0%,#e5f4e3 57%,#d7efdf 100%);background-size:26px 26px,auto}.hero:before{content:'';position:absolute;width:340px;height:520px;left:-130px;bottom:-260px;border:2px solid rgba(67,172,89,.22);border-radius:100% 0 100% 0;transform:rotate(-25deg);box-shadow:75px -30px 0 -2px rgba(234,245,229,.7),76px -31px 0 0 rgba(167,207,69,.32),148px 50px 0 -3px rgba(234,245,229,.55),149px 49px 0 -1px rgba(77,137,198,.14)}.hero:after{content:'';position:absolute;width:560px;height:560px;border:1px solid rgba(77,137,198,.2);border-radius:50%;right:-160px;top:-250px;box-shadow:0 0 0 45px rgba(67,172,89,.08),0 0 0 100px rgba(167,207,69,.08)}.leaf-decor{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}.leaf-decor i{position:absolute;color:var(--green);font-size:clamp(2.2rem,5vw,5.2rem);opacity:.13;filter:drop-shadow(0 8px 7px rgba(36,92,67,.09))}.leaf-decor i:nth-child(1){top:9%;left:7%;transform:rotate(-34deg)}.leaf-decor i:nth-child(2){top:22%;right:8%;font-size:clamp(3.3rem,7vw,7rem);color:#78b947;opacity:.15;transform:rotate(28deg)}.leaf-decor i:nth-child(3){right:19%;bottom:-3%;font-size:clamp(2.1rem,4vw,4rem);color:var(--sky);opacity:.12;transform:rotate(-58deg)}.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:60px;position:relative;z-index:1}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-size:.78rem;letter-spacing:.11em;font-weight:700}.eyebrow i{background:var(--green);color:#fff;width:25px;height:25px;border-radius:50%;display:grid;place-items:center;font-size:.7rem}h1{font-size:clamp(2.55rem,5vw,4.65rem);line-height:1.14;letter-spacing:-.055em;margin:16px 0 22px;font-weight:900}h1 em{font-style:normal;color:var(--green)}.hero p{max-width:650px;color:var(--muted);font-size:1.1rem}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:999px;padding:12px 20px;text-decoration:none;font-weight:700;font-size:.9rem;transition:.2s}.button.primary{color:#fff;background:var(--green);box-shadow:0 10px 18px rgba(67,172,89,.18)}.button.secondary{color:var(--green);background:#fff;border:1px solid #cbdcc8}.hero-mark{background:#fff;width:min(100%,330px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;justify-self:end;overflow:hidden;box-shadow:0 22px 46px rgba(37,77,43,.12),-12px 10px 0 rgba(77,137,198,.14);border:10px solid rgba(255,255,255,.65)}.hero-mark img{width:86%;height:86%;object-fit:contain}
     /* Content */
     section{padding:88px 0}.intro{background-color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cpath d='M23 157C35 83 84 30 158 23C151 97 107 145 23 157Z' fill='none' stroke='%2343ac59' stroke-width='2' stroke-opacity='.16'/%3E%3Cpath d='M29 151C70 112 111 72 151 30M74 109l-4-30m20 11 30 3m-49 13 26 24' fill='none' stroke='%2343ac59' stroke-width='2' stroke-linecap='round' stroke-opacity='.13'/%3E%3C/svg%3E");background-size:235px 235px;background-position:calc(100% + 55px) 55px;background-repeat:repeat;position:relative;overflow:hidden}.intro:after{content:'';width:270px;height:390px;position:absolute;right:-135px;top:115px;border:1px solid rgba(67,172,89,.16);border-radius:100% 0 100% 0;transform:rotate(34deg);box-shadow:-50px 95px 0 -1px #fff,-50px 95px 0 0 rgba(167,207,69,.17)}.intro .container,.products .container,.commitment .container{position:relative;z-index:1}.intro-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:start}.section-kicker{color:var(--green);font-size:.78rem;font-weight:700;letter-spacing:.12em;margin-bottom:10px}h2{font-size:clamp(1.9rem,3.5vw,3rem);letter-spacing:-.04em;line-height:1.25;margin-bottom:16px}.intro-copy{color:var(--muted);font-size:1.02rem}.intro-copy+.intro-copy{margin-top:14px}.intro-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:22px}.points{display:grid;gap:15px;list-style:none;padding:0}.points li{padding:18px 20px;border:1px solid var(--line);border-radius:14px;display:flex;gap:14px;align-items:flex-start;background:#fcfdfb;color:var(--muted)}.points i{color:var(--green);margin-top:5px}.points strong{display:block;color:var(--ink);margin-bottom:2px}.text-link{display:inline-flex;gap:8px;align-items:center;color:var(--green);font-size:.9rem;font-weight:700;text-decoration:none}.text-link:hover{text-decoration:underline}
@@ -228,7 +51,7 @@
 </style>
 </head>
 <body>
-  <div class="top-utility-bar"><div class="utility-left"><span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span><a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> 臺灣塑膠工業股份有限公司</a><a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 美國總部</a></div><div class="utility-right"><a href="about.html"><i class="fa-solid fa-building"></i> 關於營德</a><a href="sustainability.html"><i class="fa-solid fa-leaf"></i> 永續發展</a><a href="contact.html"><i class="fa-solid fa-user-tie"></i> 人才招募</a><a href="contact.html"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a></div></div>
+  <div class="top-utility-bar"><div class="utility-left"><span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span><a href="index.html"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a><a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 北美總部</a></div><div class="utility-right"><a href="about.html"><i class="fa-solid fa-chart-line"></i> 投資人專區</a><a href="sustainability.html"><i class="fa-solid fa-leaf"></i> 永續發展</a><a href="contact.html"><i class="fa-solid fa-user-tie"></i> 人才招募</a><a href="contact.html"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a></div></div>
   <header class="header"><a href="index.html" class="header-logo"><img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image"><div><span class="logo-text-tw">臺灣營德股份有限公司</span><span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span></div></a><ul class="nav-menu"><li><a href="index.html" class="nav-link-item">首頁</a></li><li><a href="about.html" class="nav-link-item">關於營德 <i class="fa-solid fa-chevron-down caret-icon"></i></a></li><li><a href="products/index.html" class="nav-link-item">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a></li><li><a href="sustainability.html" class="nav-link-item active">永續發展 <i class="fa-solid fa-chevron-down caret-icon"></i></a></li><li><a href="contact.html" class="nav-link-item">聯繫與詢價</a></li></ul><div class="header-right"><button class="lang-toggle" type="button">EN / 繁中</button><a href="contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a></div></header>
   <main>
     <section class="hero"><div class="leaf-decor" aria-hidden="true"><i class="fa-solid fa-leaf"></i><i class="fa-solid fa-leaf"></i><i class="fa-solid fa-leaf"></i></div><div class="container hero-grid"><div><div class="eyebrow"><i class="fa-solid fa-leaf"></i> GREEN LABEL PRODUCTS</div><h1>讓每一次選擇，<br>更靠近<em>綠色生活</em>。</h1><p>臺灣營德以通過環保標章的產品，回應日常生活對環境友善選擇的需求。從產品設計到使用，我們以可被辨識的綠色承諾，陪伴每一個乾淨安心的日常。</p><div class="hero-actions"><a class="button primary" href="#products">認識環保標章產品 <i class="fa-solid fa-arrow-down"></i></a><a class="button secondary" href="https://greenlifestyle.moenv.gov.tw/greenLabel/GreenMarkIntroFirst" target="_blank" rel="noopener">環保標章介紹 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div><div class="hero-mark"><img src="./src/environmental-label-mark-official.png" alt="環境部環保標章圖樣"></div></div></section>
@@ -248,40 +71,6 @@
     </section>
     <section class="commitment"><div class="leaf-decor" aria-hidden="true"><i class="fa-solid fa-leaf"></i><i class="fa-solid fa-leaf"></i><i class="fa-solid fa-leaf"></i></div><div class="eco-scene" aria-hidden="true"><span class="brush"></span><span class="forest"><i class="fa-solid fa-tree"></i><i class="fa-solid fa-tree"></i><i class="fa-solid fa-tree"></i></span><span class="grass"></span><span class="leaf-cluster"><i class="fa-solid fa-leaf"></i><i class="fa-solid fa-leaf"></i><i class="fa-solid fa-seedling"></i></span></div><div class="container"><div class="section-heading"><p class="section-kicker">OUR APPROACH</p><h2>以務實行動，讓綠色成為日常。</h2></div><div class="commitment-grid"><article class="commitment-card"><div class="icon"><i class="fa-solid fa-recycle"></i></div><h3>珍惜每一份資源</h3><p>我們持續將資源循環的思維帶進產品與製造流程，讓材料的價值被更充分運用。</p></article><article class="commitment-card"><div class="icon"><i class="fa-solid fa-hand-holding-heart"></i></div><h3>從容易辨識的選擇開始</h3><p>以取得環保標章的產品，讓企業與消費者在採購與生活中，多一個清楚可靠的選擇。</p></article></div></div></section>
     <section class="cta"><div class="container"><h2>想了解環保標章產品的採購資訊？</h2><p>歡迎聯繫臺灣營德團隊，我們將協助您找到合適的產品選擇。</p><a class="button" href="contact.html">聯繫我們 <i class="fa-solid fa-arrow-right"></i></a></div></section>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const navItems = document.querySelectorAll(".nav-item");
-      navItems.forEach(item => {
-        let timer;
-        const panel = item.querySelector(".mega-menu-panel-6cat");
-        if (!panel) return;
-
-        item.addEventListener("mouseenter", function () {
-          clearTimeout(timer);
-          item.classList.add("open-dropdown");
-        });
-
-        item.addEventListener("mouseleave", function () {
-          timer = setTimeout(() => {
-            item.classList.remove("open-dropdown");
-          }, 300);
-        });
-
-        const trigger = item.querySelector(".product-menu-trigger");
-        if (trigger) {
-          trigger.addEventListener("click", function (e) {
-            e.preventDefault();
-            item.classList.toggle("open-dropdown");
-          });
-        }
-      });
-
-      document.addEventListener("click", function (e) {
-        if (!e.target.closest(".nav-item")) {
-          document.querySelectorAll(".nav-item.open-dropdown").forEach(i => i.classList.remove("open-dropdown"));
-        }
-      });
-    });
-  </script>
+  </main><footer>© 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</footer>
 </body>
 </html>
