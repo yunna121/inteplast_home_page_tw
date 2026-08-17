@@ -101,7 +101,7 @@
         </div>
       </li>
       <li class="nav-item"><a href="${rootPath}sustainability.html" class="nav-link-item ${activePage === 'sustainability' ? 'active' : ''}" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
-      <li class="nav-item"><a href="${rootPath}contact.html" class="nav-link-item ${activePage === 'contact' ? 'active' : ''}" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
+      <li class="nav-item"><a href="${rootPath}contact.html" class="nav-link-item ${activePage === 'contact' ? 'active' : ''}" data-tw="聯繫我們" data-en="Contact Us">聯繫我們</a></li>
     </ul>
 
     <div class="header-right">
@@ -109,7 +109,7 @@
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
       <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
-      <a href="${rootPath}contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i><span data-tw="立即詢價" data-en="Get a Quote">立即詢價</span></a>
+      <a href="${rootPath}contact.html" class="rfq-btn"><i class="fa-solid fa-envelope"></i><span data-tw="聯繫我們" data-en="Contact Us">聯繫我們</span></a>
     </div>
   </header>
   `;
@@ -188,12 +188,12 @@
       keywords: ['關於營德', '新港廠', '嘉義廠', 'iso 9001', '卓越營運獎', 'about us', 'xingang']
     },
     {
-      title: '聯繫與詢價 (Contact Us & RFQ)',
-      desc: '發起整櫃外銷採購 RFQ 詢價，專人 24 小時內回覆最佳報價。',
-      category: '聯繫詢價',
+      title: '聯繫我們 (Contact Us)',
+      desc: '留下您的聯絡資訊與需求，我們的業務團隊將安排專人與您聯繫。',
+      category: '聯繫我們',
       url: `${rootPath}contact.html`,
-      icon: 'fa-paper-plane',
-      keywords: ['詢價', '聯繫', '外銷', '報價', 'rfq', 'contact', 'quote']
+      icon: 'fa-envelope',
+      keywords: ['聯繫', '聯絡', '報價', '諮詢', 'contact', 'inquiry']
     }
   ];
 

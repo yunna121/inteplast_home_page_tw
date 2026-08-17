@@ -236,7 +236,7 @@
       </li>
 
       <li class="nav-item"><a href="sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
-      <li class="nav-item"><a href="contact.html" class="nav-link-item active" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
+      <li class="nav-item"><a href="contact.html" class="nav-link-item active" data-tw="聯繫我們" data-en="Contact Us">聯繫我們</a></li>
     </ul>
 
     <div class="header-right">
@@ -244,14 +244,14 @@
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
       <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
-      <a href="contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i><span data-tw="立即詢價" data-en="Get a Quote">立即詢價</span></a>
+      <a href="contact.html" class="rfq-btn"><i class="fa-solid fa-envelope"></i><span data-tw="聯繫我們" data-en="Contact Us">聯繫我們</span></a>
     </div>
   </header>
 
   <section class="page-hero">
-    <h1 data-tw="線上 RFQ 詢價與聯繫外銷團隊" data-en="Contact Sales & Online RFQ Inquiry">線上 RFQ 詢價與聯繫外銷團隊</h1>
-    <p data-tw="我們的外銷團隊將根據您的需求提供規格諮詢、Gauge/Micron 厚度建議與整櫃裝櫃報價。" data-en="Contact our export sales desk for customized container loading and FCL pricing within 24 hours.">
-      我們的外銷團隊將根據您的需求提供規格諮詢、Gauge/Micron 厚度建議與整櫃裝櫃報價。
+    <h1 data-tw="留下聯絡資料，我們將由專人與您聯繫" data-en="Leave Your Information & We Will Be In Touch">留下聯絡資料，我們將由專人與您聯繫</h1>
+    <p data-tw="請留下您的公司資訊與需求，我們的業務團隊收到訊息後會安排專人與您對接聯繫。" data-en="Please leave your contact info and inquiries. Our sales team will review and get in touch with you.">
+      請留下您的公司資訊與需求，我們的業務團隊收到訊息後會安排專人與您對接聯繫。
     </p>
   </section>
 
@@ -303,7 +303,7 @@
 
         <!-- 右側：融合 Project_Mio 的 B2B 表單與 Webhook 打包邏輯 -->
         <div class="rfq-form-card">
-          <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 24px;" data-tw="線上 RFQ 表單" data-en="Online RFQ Inquiry Form">線上 RFQ 表單</h2>
+          <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 24px;" data-tw="留下您的聯絡資料" data-en="Leave Your Contact Details">留下您的聯絡資料</h2>
 
           <form id="contactForm">
             <div class="form-group">
@@ -317,7 +317,7 @@
             </div>
 
             <div class="form-group">
-              <label for="productCategory"><i class="fa-solid fa-boxes-packing"></i> <span data-tw="詢價產品類別 (Product Interest)" data-en="Product Interest">詢價產品類別 (Product Interest)</span></label>
+              <label for="productCategory"><i class="fa-solid fa-boxes-packing"></i> <span data-tw="詢問產品類別 (Product Interest)" data-en="Product Interest">詢問產品類別 (Product Interest)</span></label>
               <select id="productCategory" class="form-control">
                 <option value="清潔袋 (連捲 / 單張抽取 / 環保)">01 清潔袋 (連捲 / 單張抽取 / 環保)</option>
                 <option value="拉繩袋 (清潔袋 / 醫療袋)">02 拉繩袋 (清潔袋 / 醫療袋)</option>
@@ -329,12 +329,12 @@
             </div>
 
             <div class="form-group">
-              <label for="message"><i class="fa-solid fa-comment-dots"></i> <span data-tw="採購需求與規格 (Inquiry Details)" data-en="Inquiry Details">採購需求與規格 (Inquiry Details)</span></label>
-              <textarea id="message" class="form-control" rows="4" placeholder="請填寫預計採購數量、裝櫃方式與規格厚度需求..." required></textarea>
+              <label for="message"><i class="fa-solid fa-comment-dots"></i> <span data-tw="需求內容與訊息 (Inquiry Message)" data-en="Inquiry Message">需求內容與訊息 (Inquiry Message)</span></label>
+              <textarea id="message" class="form-control" rows="4" placeholder="請留下您的產品需求、規格諮詢或合作方向..." required></textarea>
             </div>
 
             <button type="submit" class="submit-btn">
-              <i class="fa-solid fa-paper-plane"></i> <span data-tw="送出 RFQ 詢價需求" data-en="Submit RFQ Inquiry">送出 RFQ 詢價需求</span>
+              <i class="fa-solid fa-paper-plane"></i> <span data-tw="確認送出，我們會儘速聯繫您" data-en="Submit & We Will Contact You">確認送出，我們會儘速聯繫您</span>
             </button>
           </form>
 
@@ -368,12 +368,12 @@
 
       const statusDiv = document.getElementById('statusMessage');
       statusDiv.style.color = 'var(--brand-blue)';
-      statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 送出資料集中... (Submitting RFQ)';
+      statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 資料傳送中...';
 
       setTimeout(() => {
-        console.log("Inteplast Taiwan RFQ Submission Data:", data);
+        console.log("Inteplast Taiwan Contact Submission:", data);
         statusDiv.style.color = '#10B981';
-        statusDiv.innerHTML = '✅ 詢價需求送出成功！我們的外銷業務專員將於 24 小時內與您聯繫。';
+        statusDiv.innerHTML = '✅ 已成功送出！我們的團隊將會安排專人與您聯繫。';
         document.getElementById('contactForm').reset();
       }, 1000);
     });
