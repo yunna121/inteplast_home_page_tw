@@ -47,7 +47,7 @@ section {
 .hero {
   position: relative;
   min-height: 444px;
-  padding: 150px 0 90px;
+  padding: 160px 0 90px;
   isolation: isolate;
   background:
     radial-gradient(circle at 70% 47%, transparent 0 154px, rgba(20, 122, 85, .12) 155px 156px, transparent 157px 214px, rgba(0, 82, 155, .09) 215px 216px, transparent 217px),
@@ -841,7 +841,7 @@ footer {
 
   .hero {
     min-height: auto;
-    padding: 62px 0;
+    padding: 145px 0 70px;
   }
 
   .hero-grid {
@@ -945,7 +945,7 @@ footer {
   }
 
   .hero {
-    padding: 50px 0;
+    padding: 135px 0 50px;
   }
 
   .hero-actions {
