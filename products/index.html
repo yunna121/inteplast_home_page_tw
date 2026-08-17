@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>產品總覽與選型圖鑑 | 臺灣營德 Inteplast Taiwan</title>
+  <title>產品中心與 B2B 規格圖鑑 | 臺灣營德 Inteplast Taiwan</title>
   <meta name="description"
-    content="臺灣營德完整六大產品總覽與選型圖鑑：清潔袋、拉繩袋、耐熱袋、密封包裝類（密實袋、立體袋、冷凍袋、夾鏈袋）、其他類（防護手套、遮蔽防塵膜）與 Scale Sheet 磅秤襯墊。">
+    content="臺灣營德 B2B 產品中心與全系列規格圖鑑：清潔袋(15L~125L)、拉繩袋(45L~130L)、耐熱袋(四兩~15斤)、密封包裝類(00號~12號夾鏈袋/密實袋)、防護膠帶/手套與 Scale Sheet。提供完整尺寸速查與詢價服務。">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -347,13 +347,13 @@
 
     .page-hero p {
       font-size: 1.1rem;
-      max-width: 820px;
+      max-width: 840px;
       margin: 0 auto 30px;
       color: rgba(255, 255, 255, 0.88);
       line-height: 1.7;
     }
 
-    /* Quick Jump Anchor Pills */
+    /* Quick Anchor Jump Bar */
     .quick-jump-bar {
       display: flex;
       justify-content: center;
@@ -428,357 +428,208 @@
       color: var(--accent-azure);
     }
 
-    /* Core Tech Strengths Cards Row */
-    .tech-cards-section {
-      background: #FFFFFF;
-      padding: 40px 40px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .tech-cards-grid {
-      max-width: 1320px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .tech-card {
-      background: var(--bg-light);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 24px;
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      transition: var(--transition);
-    }
-
-    .tech-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--brand-blue);
-    }
-
-    .tech-icon-box {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      background: rgba(0, 82, 155, 0.1);
-      color: var(--brand-blue);
-      display: grid;
-      place-items: center;
-      font-size: 1.25rem;
-      flex-shrink: 0;
-    }
-
-    .tech-card-title {
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--primary-navy);
-      margin-bottom: 4px;
-    }
-
-    .tech-card-desc {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* Detailed Product Showcase Sections */
-    .showcase-container {
+    /* B2B Spec Matrix Container */
+    .matrix-container {
       max-width: 1320px;
       margin: 0 auto;
       padding: 60px 40px;
       display: flex;
       flex-direction: column;
-      gap: 70px;
+      gap: 65px;
     }
 
-    .product-detail-block {
+    .cat-matrix-section {
       background: var(--surface-white);
       border-radius: 24px;
       border: 1px solid var(--border-color);
       box-shadow: var(--shadow-sm);
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
+      padding: 36px;
       transition: var(--transition);
     }
 
-    .product-detail-block:hover {
+    .cat-matrix-section:hover {
       box-shadow: var(--shadow-lg);
       border-color: rgba(0, 82, 155, 0.3);
     }
 
-    .product-detail-block.reverse {
-      grid-template-columns: 1.1fr 0.9fr;
-    }
-
-    .product-img-stage {
-      background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
-      padding: 40px;
+    .matrix-head {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--bg-light);
+    }
+
+    .matrix-head-left {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      position: relative;
+      gap: 16px;
     }
 
-    .product-img-stage img {
-      max-width: 100%;
-      max-height: 320px;
-      object-fit: contain;
-      filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.14));
-      transition: transform 0.5s ease;
-    }
-
-    .product-detail-block:hover .product-img-stage img {
-      transform: scale(1.06) translateY(-4px);
-    }
-
-    .product-cat-tag {
-      position: absolute;
-      top: 20px;
-      left: 20px;
+    .matrix-cat-badge {
       background: var(--primary-navy);
       color: #FFFFFF;
       font-size: 0.75rem;
       font-weight: 800;
-      padding: 6px 16px;
-      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      border-radius: 8px;
       letter-spacing: 1px;
     }
 
-    .product-info-stage {
-      padding: 44px;
+    .matrix-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--primary-navy);
+    }
+
+    .matrix-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .matrix-link-btn {
+      background: rgba(0, 82, 155, 0.08);
+      border: 1px solid rgba(0, 82, 155, 0.18);
+      color: var(--brand-blue);
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .matrix-link-btn:hover {
+      background: var(--brand-blue);
+      color: #FFFFFF;
+    }
+
+    /* Specs Quick Grid Cards */
+    .specs-quick-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+
+    .spec-card-mini {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 18px 14px;
+      text-align: center;
+      transition: var(--transition);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .product-title-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
+    .spec-card-mini:hover {
+      background: #FFFFFF;
+      border-color: var(--brand-blue);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
     }
 
-    .product-title-row h2 {
-      font-size: 1.85rem;
-      font-weight: 900;
+    .mini-size-label {
+      font-size: 1.15rem;
+      font-weight: 800;
       color: var(--primary-navy);
+      margin-bottom: 4px;
     }
 
-    .product-title-row .cat-icon {
-      font-size: 1.5rem;
-      color: var(--brand-blue);
-    }
-
-    .product-subtitle-desc {
-      font-size: 1rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-
-    .product-highlights-box {
-      background: var(--bg-light);
-      border-radius: 16px;
-      padding: 20px;
-      border: 1px solid var(--border-color);
-      margin-bottom: 24px;
-    }
-
-    .product-highlights-title {
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: var(--brand-blue);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .highlights-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .highlights-list li {
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .highlights-list li i {
-      color: var(--accent-emerald);
-      font-size: 0.9rem;
-    }
-
-    .scene-tags-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
-    }
-
-    .scene-tag {
-      background: rgba(0, 82, 155, 0.07);
-      border: 1px solid rgba(0, 82, 155, 0.15);
-      color: var(--brand-blue);
+    .mini-dim-label {
       font-size: 0.8rem;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: var(--radius-sm);
-    }
-
-    .action-btn-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .btn-primary-spec {
-      background: linear-gradient(135deg, var(--brand-blue), #00386B);
-      color: #FFFFFF;
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--transition);
-      box-shadow: 0 4px 14px rgba(0, 82, 155, 0.25);
-    }
-
-    .btn-primary-spec:hover {
-      background: linear-gradient(135deg, #003d75, #002244);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(0, 82, 155, 0.35);
-    }
-
-    .btn-outline-rfq {
-      background: transparent;
-      border: 1.5px solid var(--brand-blue);
+      font-weight: 600;
       color: var(--brand-blue);
-      padding: 11px 22px;
-      border-radius: 12px;
-      font-size: 0.92rem;
+      margin-bottom: 8px;
+    }
+
+    .mini-tag-pill {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-emerald);
+      font-size: 0.72rem;
       font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--transition);
-    }
-
-    .btn-outline-rfq:hover {
-      background: rgba(0, 82, 155, 0.08);
-      transform: translateY(-2px);
-    }
-
-    /* OEM / Custom Conversion Section */
-    .oem-custom-section {
-      background: linear-gradient(135deg, var(--primary-navy), #071627);
-      color: #FFFFFF;
-      border-radius: 28px;
-      padding: 60px;
-      margin-top: 40px;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 40px;
-      align-items: center;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .oem-title-h2 {
-      font-size: 2.2rem;
-      font-weight: 900;
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
-
-    .oem-desc-p {
-      font-size: 1.02rem;
-      color: rgba(255, 255, 255, 0.85);
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-
-    .oem-features-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .oem-feature-pill {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .oem-feature-pill i {
-      color: var(--accent-azure);
-    }
-
-    .oem-cta-box {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      padding: 36px;
-      text-align: center;
-    }
-
-    .oem-cta-box h3 {
-      font-size: 1.35rem;
-      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
       margin-bottom: 12px;
     }
 
-    .oem-cta-box p {
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.75);
-      margin-bottom: 24px;
-    }
-
-    .oem-cta-btn {
+    .btn-add-rfq-sm {
       width: 100%;
-      background: linear-gradient(135deg, var(--accent-emerald), #059669);
-      color: #FFFFFF;
-      padding: 16px 24px;
-      border-radius: var(--radius-full);
-      font-size: 1rem;
-      font-weight: 800;
-      text-decoration: none;
-      display: inline-flex;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      transition: var(--transition);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+      gap: 4px;
     }
 
-    .oem-cta-btn:hover {
-      background: linear-gradient(135deg, #059669, #047857);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(16, 185, 129, 0.45);
+    .btn-add-rfq-sm:hover,
+    .btn-add-rfq-sm.added {
+      background: var(--accent-emerald);
+      border-color: var(--accent-emerald);
+      color: #FFFFFF;
+    }
+
+    /* Floating RFQ Cart Bar */
+    .rfq-floating-bar {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary-navy);
+      color: #FFFFFF;
+      padding: 14px 26px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 16px 36px rgba(10, 37, 64, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 1200;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: var(--transition);
+    }
+
+    .rfq-floating-bar.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .rfq-badge-count {
+      background: var(--accent-emerald);
+      color: #FFFFFF;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: var(--radius-full);
+    }
+
+    .btn-rfq-submit-float {
+      background: linear-gradient(135deg, var(--accent-emerald), #059669);
+      color: #FFFFFF;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition);
     }
 
     /* Footer */
@@ -796,19 +647,9 @@
       text-align: center;
     }
 
-    @media (max-width: 1000px) {
-      .tech-cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .product-detail-block,
-      .product-detail-block.reverse {
-        grid-template-columns: 1fr;
-      }
-
-      .oem-custom-section {
-        grid-template-columns: 1fr;
-        padding: 36px 24px;
+    @media (max-width: 1100px) {
+      .specs-quick-grid {
+        grid-template-columns: repeat(3, 1fr);
       }
     }
 
@@ -827,26 +668,21 @@
         padding: 110px 20px 45px;
       }
 
-      .tech-cards-grid {
-        grid-template-columns: 1fr;
+      .specs-quick-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .highlights-list {
-        grid-template-columns: 1fr;
-      }
-
-      .showcase-container {
+      .matrix-container {
         padding: 40px 20px;
-        gap: 40px;
       }
 
-      .product-info-stage {
-        padding: 28px 20px;
+      .cat-matrix-section {
+        padding: 24px 16px;
       }
 
-      .action-btn-row {
+      .matrix-head {
         flex-direction: column;
-        align-items: stretch;
+        gap: 12px;
       }
     }
   </style>
@@ -951,19 +787,19 @@
 
   <!-- Page Hero Stage -->
   <section class="page-hero">
-    <div class="hero-badge-pill"><i class="fa-solid fa-book-open"></i> PRODUCT CATALOGUE & SELECTOR GUIDE</div>
-    <h1 data-tw="產品總覽與選型圖鑑" data-en="Product Catalogue & Selector Guide">產品總覽與選型圖鑑</h1>
-    <p data-tw="臺灣營德全系列塑膠吹膜與包裝產品：清潔袋、拉繩袋、耐熱袋、密封包裝類、其他類與 Scale Sheet。提供完整應用場景說明與產品特性指南。"
-      data-en="Comprehensive B2B product showcase and specification selection guide across six core extrusion lines for global buyers.">
-      臺灣營德全系列塑膠吹膜與包裝產品：清潔袋、拉繩袋、耐熱袋、密封包裝類、其他類與 Scale Sheet。提供完整應用場景說明與產品特性指南。
+    <div class="hero-badge-pill"><i class="fa-solid fa-list-check"></i> B2B SPECIFICATION & SELECTION GUIDE</div>
+    <h1 data-tw="產品中心與 B2B 規格圖鑑" data-en="Products B2B Specification Catalogue">產品中心與 B2B 規格圖鑑</h1>
+    <p data-tw="專為國際買家與企業採購設計！直觀比對 6 大產品系列之熱門容量 (15L~125L)、尺寸號數 (00號~12號) 與包裝規格，一鍵快速勾選詢價。"
+      data-en="Designed for global B2B buyers! Instantly compare sizes, capacities (15L~125L), and specs across six core product categories.">
+      專為國際買家與企業採購設計！直觀比對 6 大產品系列之熱門容量 (15L~125L)、尺寸號數 (00號~12號) 與包裝規格，一鍵快速勾選詢價。
     </p>
 
     <!-- Quick Jump Anchor Pills -->
     <div class="quick-jump-bar">
-      <a href="#cat-can-liner" class="quick-jump-pill"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</a>
+      <a href="#cat-can-liners" class="quick-jump-pill"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</a>
       <a href="#cat-draw-tape" class="quick-jump-pill"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</a>
-      <a href="#cat-heat-bag" class="quick-jump-pill"><i class="fa-solid fa-fire-burner"></i> 03 耐熱袋</a>
-      <a href="#cat-zipper-bag" class="quick-jump-pill"><i class="fa-solid fa-box-archive"></i> 04 密封包裝</a>
+      <a href="#cat-heat-bags" class="quick-jump-pill"><i class="fa-solid fa-fire-burner"></i> 03 耐熱袋</a>
+      <a href="#cat-zipper-bags" class="quick-jump-pill"><i class="fa-solid fa-box-archive"></i> 04 密封包裝</a>
       <a href="#cat-specialty" class="quick-jump-pill"><i class="fa-solid fa-shield-halved"></i> 05 其他類</a>
       <a href="#cat-scale-sheet" class="quick-jump-pill"><i class="fa-solid fa-weight-scale"></i> 06 Scale Sheet</a>
     </div>
@@ -971,353 +807,529 @@
     <!-- Instant Search Box -->
     <div class="hero-search-box">
       <i class="fa-solid fa-magnifying-glass hero-search-icon"></i>
-      <input type="text" id="catSearchInput" class="hero-search-input"
-        placeholder="搜尋任何產品關鍵字、容量 (15L, 45L)、尺寸 (1斤, 四兩) 或號數 (6號)..." onkeyup="filterBlocks()">
+      <input type="text" id="matrixSearchInput" class="hero-search-input"
+        placeholder="快速搜尋容量 (15L, 45L)、尺寸 (1斤, 四兩) 或號數 (6號)..." onkeyup="filterMatrix()">
     </div>
   </section>
 
-  <!-- Core Tech Strengths Cards Row -->
-  <section class="tech-cards-section">
-    <div class="tech-cards-grid">
-      <div class="tech-card">
-        <div class="tech-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
-        <div>
-          <div class="tech-card-title" data-tw="高強度防漏底封" data-en="Heavy-Duty Bottom Seal">高強度防漏底封</div>
-          <div class="tech-card-desc" data-tw="嚴密封口均勻承重，有效杜絕液體滲漏。" data-en="High strength bottom seal preventing liquid leakage.">嚴密封口均勻承重，有效杜絕液體滲漏。</div>
-        </div>
-      </div>
-      <div class="tech-card">
-        <div class="tech-icon-box"><i class="fa-solid fa-fire"></i></div>
-        <div>
-          <div class="tech-card-title" data-tw="高溫耐熱全新料" data-en="Food-Grade Heat Resistant">高溫耐熱全新料</div>
-          <div class="tech-card-desc" data-tw="無毒高密度聚乙烯，安全承裝高溫湯汁食材。" data-en="Non-toxic virgin PE for hot food packaging safety.">無毒高密度聚乙烯，安全承裝高溫湯汁食材。</div>
-        </div>
-      </div>
-      <div class="tech-card">
-        <div class="tech-icon-box"><i class="fa-solid fa-lock"></i></div>
-        <div>
-          <div class="tech-card-title" data-tw="雙軌氣密密封" data-en="Double Zipper Airtight">雙軌氣密密封</div>
-          <div class="tech-card-desc" data-tw="咬合緊密阻絕空氣液體，冷凍保鮮首選。" data-en="Tight closure for freezer storage preservation.">咬合緊密阻絕空氣液體，冷凍保鮮首選。</div>
-        </div>
-      </div>
-      <div class="tech-card">
-        <div class="tech-icon-box"><i class="fa-solid fa-recycle"></i></div>
-        <div>
-          <div class="tech-card-title" data-tw="100% 綠能循環" data-en="In-House Scrap Recycling">100% 綠能循環</div>
-          <div class="tech-card-desc" data-tw="廠內廢料閉環回收造粒，榮獲環保標章認證。" data-en="In-house circular processing certified green.">廠內廢料閉環回收造粒，榮獲環保標章認證。</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- B2B Spec Matrix Container -->
+  <section class="matrix-container">
 
-  <!-- Detailed Product Showcase Container -->
-  <section class="showcase-container" id="showcaseContainer">
-
-    <!-- 01 清潔袋系列 -->
-    <div class="product-detail-block" id="cat-can-liner" data-search="清潔袋 can liners 15l 20l 45l 70l 90l 125l 連捲 單張 抽取 環保 平封 防漏">
-      <div class="product-img-stage">
-        <span class="product-cat-tag">01 CATEGORY</span>
-        <img src="../src/ai_can_liner.png" alt="清潔袋系列">
-      </div>
-      <div class="product-info-stage">
-        <div>
-          <div class="product-title-row">
-            <h2 data-tw="清潔袋系列 (Can Liners)" data-en="Can Liners & Trash Bags">清潔袋系列 (Can Liners)</h2>
-            <i class="fa-solid fa-dumpster cat-icon"></i>
-          </div>
-          <p class="product-subtitle-desc" data-tw="營德清潔袋採用獨家高強度耐刺穿薄膜配方與高韌性底封工藝，袋體承重力大增，有效防止垃圾尖銳角穿刺與髒水滲漏。提供連捲點斷、單張平裝抽取與 100% 綠能環保清潔袋等豐富選擇。"
-            data-en="Engineered for institutional, commercial, and household waste management. Features high puncture resistance and heavy-duty bottom seals for 100% leak prevention.">
-            營德清潔袋採用獨家高強度耐刺穿薄膜配方與高韌性底封工藝，袋體承重力大增，有效防止垃圾尖銳角穿刺與髒水滲漏。提供連捲點斷、單張平裝抽取與 100% 綠能環保清潔袋等豐富選擇。
-          </p>
-
-          <div class="product-highlights-box">
-            <div class="product-highlights-title"><i class="fa-solid fa-shield-halved"></i> 核心優勢與產品特性</div>
-            <ul class="highlights-list">
-              <li><i class="fa-solid fa-check-circle"></i> 高強度防漏底封工藝</li>
-              <li><i class="fa-solid fa-check-circle"></i> 15L 至 125L 完整容量選擇</li>
-              <li><i class="fa-solid fa-check-circle"></i> 連捲點斷易撕 / 單張抽取箱裝</li>
-              <li><i class="fa-solid fa-check-circle"></i> 通過環保署綠色標章嚴格認證</li>
-            </ul>
-          </div>
-
-          <div class="scene-tags-row">
-            <span class="scene-tag"><i class="fa-solid fa-building"></i> 辦公大樓</span>
-            <span class="scene-tag"><i class="fa-solid fa-hotel"></i> 飯店百貨</span>
-            <span class="scene-tag"><i class="fa-solid fa-school"></i> 學校醫療機構</span>
-            <span class="scene-tag"><i class="fa-solid fa-store"></i> 超市賣場</span>
+    <!-- 01 清潔袋 Quick Spec Matrix -->
+    <div class="cat-matrix-section" id="cat-can-liners" data-search="清潔袋 15l 20l 45l 70l 90l 125l 連捲 單張 抽取 環保">
+      <div class="matrix-head">
+        <div class="matrix-head-left">
+          <span class="matrix-cat-badge">01 CATEGORY</span>
+          <div>
+            <div class="matrix-title" data-tw="清潔袋系列 (Can Liners)" data-en="Can Liners & Trash Bags">清潔袋系列 (Can Liners)</div>
+            <div class="matrix-desc" data-tw="涵蓋連捲點斷清潔袋、單張平裝抽取與 100% 綠能環保清潔袋" data-en="Perforated rolls, flat packs, and certified eco trash bags">涵蓋連捲點斷清潔袋、單張平裝抽取與 100% 綠能環保清潔袋</div>
           </div>
         </div>
-
-        <div class="action-btn-row">
-          <a href="can-liners.html" class="btn-primary-spec">
-            <span data-tw="瀏覽清潔袋詳細規格表" data-en="View Can Liner Spec Table">瀏覽清潔袋詳細規格表</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="../contact.html?specs=清潔袋系列" class="btn-outline-rfq">
-            <span data-tw="加入詢價單" data-en="Add to RFQ">加入詢價單</span> <i class="fa-solid fa-paper-plane"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 02 拉繩袋系列 -->
-    <div class="product-detail-block reverse" id="cat-draw-tape" data-search="拉繩袋 draw tape 清潔袋 醫療袋 束口 45l 70l 90l 125l 130l">
-      <div class="product-info-stage">
-        <div>
-          <div class="product-title-row">
-            <h2 data-tw="拉繩袋系列 (Draw-Tape Bags)" data-en="Draw-Tape Bags">拉繩袋系列 (Draw-Tape Bags)</h2>
-            <i class="fa-solid fa-ribbon cat-icon"></i>
-          </div>
-          <p class="product-subtitle-desc" data-tw="打包垃圾不再沾手！營德拉繩袋頂端內嵌雙層高張力拉繩，只需輕鬆一拉即可自動收口束緊並作為提把攜帶。產品涵蓋美歐量販零售零售包、大容量商業包，以及專為醫療體系設計之黃色感染性廢棄物隔離袋。"
-            data-en="Integrated heavy-duty drawstring technology allows one-pull closure and easy handling. Widely supplied to North American & European retail chains and medical biohazard protection lines.">
-            打包垃圾不再沾手！營德拉繩袋頂端內嵌雙層高張力拉繩，只需輕鬆一拉即可自動收口束緊並作為提把攜帶。產品涵蓋美歐量販零售零售包、大容量商業包，以及專為醫療體系設計之黃色感染性廢棄物隔離袋。
-          </p>
-
-          <div class="product-highlights-box">
-            <div class="product-highlights-title"><i class="fa-solid fa-shield-halved"></i> 核心優勢與產品特性</div>
-            <ul class="highlights-list">
-              <li><i class="fa-solid fa-check-circle"></i> 一拉即束，手不碰垃圾超衛生</li>
-              <li><i class="fa-solid fa-check-circle"></i> 雙層共擠高韌性包邊拉繩</li>
-              <li><i class="fa-solid fa-check-circle"></i> 45L / 70L / 90L / 125L / 130L 多種規格</li>
-              <li><i class="fa-solid fa-check-circle"></i> 醫療級黃色 Biohazard 防護隔離袋</li>
-            </ul>
-          </div>
-
-          <div class="scene-tags-row">
-            <span class="scene-tag"><i class="fa-solid fa-house"></i> 居家日常</span>
-            <span class="scene-tag"><i class="fa-solid fa-hospital"></i> 醫院隔離專區</span>
-            <span class="scene-tag"><i class="fa-solid fa-cart-shopping"></i> 歐美零售量販</span>
-            <span class="scene-tag"><i class="fa-solid fa-broom"></i> 商業清潔公司</span>
-          </div>
-        </div>
-
-        <div class="action-btn-row">
-          <a href="draw-tape.html" class="btn-primary-spec">
-            <span data-tw="瀏覽拉繩袋詳細規格表" data-en="View Draw-Tape Spec Table">瀏覽拉繩袋詳細規格表</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="../contact.html?specs=拉繩袋系列" class="btn-outline-rfq">
-            <span data-tw="加入詢價單" data-en="Add to RFQ">加入詢價單</span> <i class="fa-solid fa-paper-plane"></i>
-          </a>
-        </div>
-      </div>
-      <div class="product-img-stage">
-        <span class="product-cat-tag">02 CATEGORY</span>
-        <img src="../src/ai_draw_tape.png" alt="拉繩袋系列">
-      </div>
-    </div>
-
-    <!-- 03 耐熱袋系列 -->
-    <div class="product-detail-block" id="cat-heat-bag" data-search="耐熱袋 heat resistant 平裝 捲裝 半斤 1斤 2斤 3斤 5斤 10斤 15斤 四兩">
-      <div class="product-img-stage">
-        <span class="product-cat-tag">03 CATEGORY</span>
-        <img src="../src/耐熱袋.png" alt="耐熱袋系列">
-      </div>
-      <div class="product-info-stage">
-        <div>
-          <div class="product-title-row">
-            <h2 data-tw="耐熱袋系列 (Heat-Resistant Bags)" data-en="Heat-Resistant Bags">耐熱袋系列 (Heat-Resistant Bags)</h2>
-            <i class="fa-solid fa-fire-burner cat-icon"></i>
-          </div>
-          <p class="product-subtitle-desc" data-tw="專為熱食盛裝與餐飲廚房備料設計！採用 100% 全新食品級高密度聚乙烯 (HDPE) 配方，無毒無味，在高溫環境下依然保持優異的延伸性與密封強度。提供四兩、半斤、1斤至 15斤 平裝耐熱袋與輕巧連捲耐熱袋。"
-            data-en="Engineered with 100% virgin food-grade HDPE formula for hot soup, Asian cuisine takeout, and commercial kitchen prep. Non-toxic and temperature resilient.">
-            專為熱食盛裝與餐飲廚房備料設計！採用 100% 全新食品級高密度聚乙烯 (HDPE) 配方，無毒無味，在高溫環境下依然保持優異的延伸性與密封強度。提供四兩、半斤、1斤至 15斤 平裝耐熱袋與輕巧連捲耐熱袋。
-          </p>
-
-          <div class="product-highlights-box">
-            <div class="product-highlights-title"><i class="fa-solid fa-shield-halved"></i> 核心優勢與產品特性</div>
-            <ul class="highlights-list">
-              <li><i class="fa-solid fa-check-circle"></i> 100% 全新食品級安全原料</li>
-              <li><i class="fa-solid fa-check-circle"></i> 高溫耐熱不易破裂與變形</li>
-              <li><i class="fa-solid fa-check-circle"></i> 平裝 (四兩~15斤) 與 捲裝全規格</li>
-              <li><i class="fa-solid fa-check-circle"></i> 透明度高、拉力強、封口緊密</li>
-            </ul>
-          </div>
-
-          <div class="scene-tags-row">
-            <span class="scene-tag"><i class="fa-solid fa-utensils"></i> 台灣小吃熱湯</span>
-            <span class="scene-tag"><i class="fa-solid fa-bowl-food"></i> 便當外帶</span>
-            <span class="scene-tag"><i class="fa-solid fa-kitchen-set"></i> 餐飲連鎖備料</span>
-            <span class="scene-tag"><i class="fa-solid fa-snowflake"></i> 冷藏食材分裝</span>
-          </div>
-        </div>
-
-        <div class="action-btn-row">
-          <a href="foodservice.html" class="btn-primary-spec">
-            <span data-tw="瀏覽耐熱袋詳細規格表" data-en="View Heat-Resistant Spec Table">瀏覽耐熱袋詳細規格表</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="../contact.html?specs=耐熱袋系列" class="btn-outline-rfq">
-            <span data-tw="加入詢價單" data-en="Add to RFQ">加入詢價單</span> <i class="fa-solid fa-paper-plane"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 04 密封包裝類 -->
-    <div class="product-detail-block reverse" id="cat-zipper-bag" data-search="密封包裝 密實袋 立體密實袋 冷凍袋 夾鏈袋 zipper seal 00號 12號 保鮮">
-      <div class="product-info-stage">
-        <div>
-          <div class="product-title-row">
-            <h2 data-tw="密封包裝類 (Sealed & Zipper Bags)" data-en="Sealed & Zipper Bags">密封包裝類 (Sealed & Zipper Bags)</h2>
-            <i class="fa-solid fa-box-archive cat-icon"></i>
-          </div>
-          <p class="product-subtitle-desc" data-tw="食材完美保鮮與小物防塵分類利器！包含雙軌密實袋、立體站立密實袋、加厚冷凍袋與 00號至 12號 完整夾鏈袋系列。夾鏈咬合嚴密，提供卓越的氣密性與防水防潮效果，延長食物保鮮期。"
-            data-en="Airtight double-zipper and stand-up pouches designed for freezer food preservation, electronics hardware storage, and pharmacy dispensing (No.00 to No.12).">
-            食材完美保鮮與小物防塵分類利器！包含雙軌密實袋、立體站立密實袋、加厚冷凍袋與 00號至 12號 完整夾鏈袋系列。夾鏈咬合嚴密，提供卓越的氣密性與防水防潮效果，延長食物保鮮期。
-          </p>
-
-          <div class="product-highlights-box">
-            <div class="product-highlights-title"><i class="fa-solid fa-shield-halved"></i> 核心優勢與產品特性</div>
-            <ul class="highlights-list">
-              <li><i class="fa-solid fa-check-circle"></i> 雙軌雙封條 氣密防洩漏</li>
-              <li><i class="fa-solid fa-check-circle"></i> 冷凍耐寒耐刺穿加厚薄膜</li>
-              <li><i class="fa-solid fa-check-circle"></i> 夾鏈袋 00號 (4x6cm) ~ 12號 (34x45cm)</li>
-              <li><i class="fa-solid fa-check-circle"></i> 站立底袋加寬大容積設計</li>
-            </ul>
-          </div>
-
-          <div class="scene-tags-row">
-            <span class="scene-tag"><i class="fa-solid fa-fish-fins"></i> 生鮮冷凍保鮮</span>
-            <span class="scene-tag"><i class="fa-solid fa-apple-whole"></i> 水果蔬菜分裝</span>
-            <span class="scene-tag"><i class="fa-solid fa-pills"></i> 藥局分裝與零件</span>
-            <span class="scene-tag"><i class="fa-solid fa-plane"></i> 旅遊隨身防潮</span>
-          </div>
-        </div>
-
-        <div class="action-btn-row">
-          <a href="foodservice.html" class="btn-primary-spec">
-            <span data-tw="瀏覽密封包裝詳細規格表" data-en="View Sealed Bags Spec Table">瀏覽密封包裝詳細規格表</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="../contact.html?specs=密封包裝類" class="btn-outline-rfq">
-            <span data-tw="加入詢價單" data-en="Add to RFQ">加入詢價單</span> <i class="fa-solid fa-paper-plane"></i>
-          </a>
-        </div>
-      </div>
-      <div class="product-img-stage">
-        <span class="product-cat-tag">04 CATEGORY</span>
-        <img src="../src/ai_zipper_bag.png" alt="密封包裝類">
-      </div>
-    </div>
-
-    <!-- 05 其他類 -->
-    <div class="product-detail-block" id="cat-specialty" data-search="其他類 防護手套 遮蔽防塵膠帶 specialty gloves masking tape 550mm 3200mm">
-      <div class="product-img-stage">
-        <span class="product-cat-tag">05 CATEGORY</span>
-        <img src="../src/ai_specialty.png" alt="其他類 (手套/膠帶)">
-      </div>
-      <div class="product-info-stage">
-        <div>
-          <div class="product-title-row">
-            <h2 data-tw="其他類 (手套/遮蔽膠帶)" data-en="Specialty Products">其他類 (手套/遮蔽膠帶)</h2>
-            <i class="fa-solid fa-shield-halved cat-icon"></i>
-          </div>
-          <p class="product-subtitle-desc" data-tw="提供衛生防護手套與台塑養生遮蔽防塵膠帶（550mm~3200mm）。防護手套採用壓紋止滑設計，穿戴順暢；防塵膠帶結合高壓和紙/布基與薄膜靜電吸附，廣泛應用於室內噴漆施工防塵與居家裝潢防護。"
-            data-en="Hygiene protective gloves and Formosa masking dustproof film tapes (550mm to 3200mm) engineered for paint masking, construction protection, and sanitary handling.">
-            提供衛生防護手套與台塑養生遮蔽防塵膠帶（550mm~3200mm）。防護手套採用壓紋止滑設計，穿戴順暢；防塵膠帶結合高壓和紙/布基與薄膜靜電吸附，廣泛應用於室內噴漆施工防塵與居家裝潢防護。
-          </p>
-
-          <div class="product-highlights-box">
-            <div class="product-highlights-title"><i class="fa-solid fa-shield-halved"></i> 核心優勢與產品特性</div>
-            <ul class="highlights-list">
-              <li><i class="fa-solid fa-check-circle"></i> 壓紋止滑 PE / TPE 衛生手套</li>
-              <li><i class="fa-solid fa-check-circle"></i> 遮蔽膠帶 550mm 至 3200mm 超大寬幅</li>
-              <li><i class="fa-solid fa-check-circle"></i> 靜電吸附技術 緊貼牆面不掉落</li>
-              <li><i class="fa-solid fa-check-circle"></i> 殘膠少、易撕取、耐油漆溶劑</li>
-            </ul>
-          </div>
-
-          <div class="scene-tags-row">
-            <span class="scene-tag"><i class="fa-solid fa-paint-roller"></i> 油漆噴漆遮蔽</span>
-            <span class="scene-tag"><i class="fa-solid fa-helmet-safety"></i> 建築裝潢施工</span>
-            <span class="scene-tag"><i class="fa-solid fa-hands-wash"></i> 食品加工衛生</span>
-            <span class="scene-tag"><i class="fa-solid fa-pump-soap"></i> 清潔美甲防護</span>
-          </div>
-        </div>
-
-        <div class="action-btn-row">
-          <a href="specialty.html" class="btn-primary-spec">
-            <span data-tw="瀏覽其他類詳細規格表" data-en="View Specialty Spec Table">瀏覽其他類詳細規格表</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="../contact.html?specs=其他類" class="btn-outline-rfq">
-            <span data-tw="加入詢價單" data-en="Add to RFQ">加入詢價單</span> <i class="fa-solid fa-paper-plane"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 06 Scale Sheet -->
-    <div class="product-detail-block reverse" id="cat-scale-sheet" data-search="scale sheet 磅秤襯墊 生鮮 熟食 肉品 磅秤切片膜">
-      <div class="product-info-stage">
-        <div>
-          <div class="product-title-row">
-            <h2 data-tw="Scale Sheet (磅秤襯墊膜)" data-en="Scale Sheet Series">Scale Sheet (磅秤襯墊膜)</h2>
-            <i class="fa-solid fa-weight-scale cat-icon"></i>
-          </div>
-          <p class="product-subtitle-desc" data-tw="專業食品級 Scale Sheet 磅秤襯墊系列！專為連鎖超市生鮮區、精肉專櫃與量販磅秤包裝線研發。表面經特殊防黏處理，易於抽取與撕取，有效隔離食材與磅秤盤面，確保食品衛生並防止交叉污染。"
-            data-en="Food-grade PE scale sheet films engineered for supermarket deli counters, fresh meat slicing scales, and sanitary food packaging lines.">
-            專業食品級 Scale Sheet 磅秤襯墊系列！專為連鎖超市生鮮區、精肉專櫃與量販磅秤包裝線研發。表面經特殊防黏處理，易於抽取與撕取，有效隔離食材與磅秤盤面，確保食品衛生並防止交叉污染。
-          </p>
-
-          <div class="product-highlights-box">
-            <div class="product-highlights-title"><i class="fa-solid fa-shield-halved"></i> 核心優勢與產品特性</div>
-            <ul class="highlights-list">
-              <li><i class="fa-solid fa-check-circle"></i> 食品級高清全透明聚乙烯</li>
-              <li><i class="fa-solid fa-check-circle"></i> 頂級防黏工藝 單張順暢抽取</li>
-              <li><i class="fa-solid fa-check-circle"></i> 隔離油污沾黏 保持磅秤潔淨</li>
-              <li><i class="fa-solid fa-check-circle"></i> 規格尺寸可依據需求客製化</li>
-            </ul>
-          </div>
-
-          <div class="scene-tags-row">
-            <span class="scene-tag"><i class="fa-solid fa-scale-balanced"></i> 超市生鮮磅秤</span>
-            <span class="scene-tag"><i class="fa-solid fa-drumstick-bite"></i> 肉品精肉專櫃</span>
-            <span class="scene-tag"><i class="fa-solid fa-cheese"></i> 起司火腿切片</span>
-            <span class="scene-tag"><i class="fa-solid fa-box"></i> 食品包裝流水線</span>
-          </div>
-        </div>
-
-        <div class="action-btn-row">
-          <a href="stretch-films.html" class="btn-primary-spec">
-            <span data-tw="瀏覽 Scale Sheet 詳細規格表" data-en="View Scale Sheet Spec Table">瀏覽 Scale Sheet 詳細規格表</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="../contact.html?specs=Scale Sheet" class="btn-outline-rfq">
-            <span data-tw="加入詢價單" data-en="Add to RFQ">加入詢價單</span> <i class="fa-solid fa-paper-plane"></i>
-          </a>
-        </div>
-      </div>
-      <div class="product-img-stage">
-        <span class="product-cat-tag">06 CATEGORY</span>
-        <img src="../src/scale sheet.png" alt="Scale Sheet 磅秤襯墊膜">
-      </div>
-    </div>
-
-    <!-- OEM / ODM Customization Banner Section -->
-    <div class="oem-custom-section">
-      <div>
-        <h2 class="oem-title-h2" data-tw="需要特定尺寸、厚度或企業品牌私標印刷客製？" data-en="Need Custom Sizes, Gauges, or Private Labeling?">
-          需要特定尺寸、厚度或企業品牌私標印刷客製？
-        </h2>
-        <p class="oem-desc-p" data-tw="臺灣營德憑藉嘉義新港全自動高產能吹膜與封切加工設備，為全球超過 40 個國家的品牌商、通路量販與醫療機構提供專屬 OEM / ODM 客製化生產服務。"
-          data-en="Backed by automated blown film extrusion & converting lines in Chiayi Xingang, Inteplast Taiwan delivers tailored OEM/ODM solutions to buyers across 40+ countries.">
-          臺灣營德憑藉嘉義新港全自動高產能吹膜與封切加工設備，為全球超過 40 個國家的品牌商、通路量販與醫療機構提供專屬 OEM / ODM 客製化生產服務。
-        </p>
-        <div class="oem-features-grid">
-          <div class="oem-feature-pill"><i class="fa-solid fa-ruler-combined"></i> 客製化袋型與厚度尺寸</div>
-          <div class="oem-feature-pill"><i class="fa-solid fa-palette"></i> 8色高精細版面印刷</div>
-          <div class="oem-feature-pill"><i class="fa-solid fa-leaf"></i> 100% 綠能PCR環保配方</div>
-          <div class="oem-feature-pill"><i class="fa-solid fa-truck-ramp-box"></i> 整櫃出口 FCL 貨櫃排程</div>
-        </div>
-      </div>
-      <div class="oem-cta-box">
-        <h3 data-tw="立即諮詢專屬業務團隊" data-en="Consult Our B2B Sales Team">立即諮詢專屬業務團隊</h3>
-        <p data-tw="填寫需求規格，我們將於 24 小時內安排專人為您提供專屬報價。" data-en="Submit your specs to receive a dedicated quotation within 24 hours.">
-          填寫需求規格，我們將於 24 小時內安排專人為您提供專屬報價。
-        </p>
-        <a href="../contact.html" class="oem-cta-btn">
-          <span data-tw="立即發送客製化詢價單" data-en="Submit Custom RFQ">立即發送客製化詢價單</span> <i class="fa-solid fa-paper-plane"></i>
+        <a href="can-liners.html" class="matrix-link-btn">
+          <span data-tw="完整清潔袋規格表" data-en="Full Can Liner Spec Table">完整清潔袋規格表</span> <i class="fa-solid fa-arrow-right"></i>
         </a>
       </div>
+
+      <div class="specs-quick-grid">
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">15L 小</div>
+            <div class="mini-dim-label">寬 45 × 長 50 cm</div>
+            <span class="mini-tag-pill">連捲 / 單張</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('清潔袋 · 15L 小 (45x50cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">20L 中</div>
+            <div class="mini-dim-label">寬 50 × 長 60 cm</div>
+            <span class="mini-tag-pill">連捲 / 單張</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('清潔袋 · 20L 中 (50x60cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">45L 大</div>
+            <div class="mini-dim-label">寬 65 × 長 75 cm</div>
+            <span class="mini-tag-pill">熱銷推薦</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('清潔袋 · 45L 大 (65x75cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">70L 特大</div>
+            <div class="mini-dim-label">寬 75 × 長 90 cm</div>
+            <span class="mini-tag-pill">商業機構</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('清潔袋 · 70L 特大 (75x90cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">90L 超大</div>
+            <div class="mini-dim-label">寬 85 × 長 100 cm</div>
+            <span class="mini-tag-pill">工業加厚</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('清潔袋 · 90L 超大 (85x100cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">125L 巨無霸</div>
+            <div class="mini-dim-label">寬 100 × 長 120 cm</div>
+            <span class="mini-tag-pill">飯店物業</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('清潔袋 · 125L 巨無霸 (100x120cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 拉繩袋 Quick Spec Matrix -->
+    <div class="cat-matrix-section" id="cat-draw-tape" data-search="拉繩袋 draw tape 45l 70l 90l 125l 130l 醫療 黃色隔離">
+      <div class="matrix-head">
+        <div class="matrix-head-left">
+          <span class="matrix-cat-badge">02 CATEGORY</span>
+          <div>
+            <div class="matrix-title" data-tw="拉繩袋系列 (Draw-Tape Bags)" data-en="Draw-Tape Bags">拉繩袋系列 (Draw-Tape Bags)</div>
+            <div class="matrix-desc" data-tw="一拉即束打包省力，涵蓋零售商業包與醫療級黃色隔離袋" data-en="Drawstring closure for retail, commercial, and biohazard medical protection">一拉即束打包省力，涵蓋零售商業包與醫療級黃色隔離袋</div>
+          </div>
+        </div>
+        <a href="draw-tape.html" class="matrix-link-btn">
+          <span data-tw="完整拉繩袋規格表" data-en="Full Draw-Tape Spec Table">完整拉繩袋規格表</span> <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="specs-quick-grid">
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">45L 零售包</div>
+            <div class="mini-dim-label">寬 60 × 長 70 cm</div>
+            <span class="mini-tag-pill">歐美量販</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('拉繩袋 · 45L 零售包 (60x70cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">70L 商業包</div>
+            <div class="mini-dim-label">寬 77 × 長 92 cm</div>
+            <span class="mini-tag-pill">辦公物業</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('拉繩袋 · 70L 商業包 (77x92cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">90L 商業包</div>
+            <div class="mini-dim-label">寬 95 × 長 84 cm</div>
+            <span class="mini-tag-pill">加厚耐重</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('拉繩袋 · 90L 商業包 (95x84cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">125L 巨無霸</div>
+            <div class="mini-dim-label">寬 100 × 長 115 cm</div>
+            <span class="mini-tag-pill">清潔承包</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('拉繩袋 · 125L 巨無霸 (100x115cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">黃色醫療防護袋</div>
+            <div class="mini-dim-label">45L / 70L Biohazard</div>
+            <span class="mini-tag-pill">醫療感染隔離</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('拉繩袋 · 黃色醫療防護袋', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">客製化拉繩袋</div>
+            <div class="mini-dim-label">指定尺寸 / 厚度 / 印刷</div>
+            <span class="mini-tag-pill">OEM 私標專案</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('拉繩袋 · OEM 客製化尺寸', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 耐熱袋 Quick Spec Matrix -->
+    <div class="cat-matrix-section" id="cat-heat-bags" data-search="耐熱袋 heat resistant 四兩 半斤 1斤 2斤 3斤 5斤 10斤 15斤 平裝 捲裝">
+      <div class="matrix-head">
+        <div class="matrix-head-left">
+          <span class="matrix-cat-badge">03 CATEGORY</span>
+          <div>
+            <div class="matrix-title" data-tw="耐熱袋系列 (Heat-Resistant Bags)" data-en="Heat-Resistant Bags">耐熱袋系列 (Heat-Resistant Bags)</div>
+            <div class="matrix-desc" data-tw="100% 全新食品級 HDPE，平裝與捲裝全系列尺寸 (四兩~15斤)" data-en="100% Food-grade HDPE for hot food and kitchen prep (Flat & Roll Pack)">100% 全新食品級 HDPE，平裝與捲裝全系列尺寸 (四兩~15斤)</div>
+          </div>
+        </div>
+        <a href="foodservice.html" class="matrix-link-btn">
+          <span data-tw="完整耐熱袋規格表" data-en="Full Heat-Bag Spec Table">完整耐熱袋規格表</span> <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="specs-quick-grid">
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">半斤 平裝/捲裝</div>
+            <div class="mini-dim-label">寬 20 × 長 25 cm</div>
+            <span class="mini-tag-pill">熱食湯汁</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('耐熱袋 · 半斤 (20x25cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">1斤 平裝/捲裝</div>
+            <div class="mini-dim-label">寬 23 × 長 30 cm</div>
+            <span class="mini-tag-pill">便當餐飲</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('耐熱袋 · 1斤 (23x30cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">2斤 平裝/捲裝</div>
+            <div class="mini-dim-label">寬 25 × 長 35 cm</div>
+            <span class="mini-tag-pill">熱銷必備</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('耐熱袋 · 2斤 (25x35cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">3斤 平裝/捲裝</div>
+            <div class="mini-dim-label">寬 28 × 長 40 cm</div>
+            <span class="mini-tag-pill">大份量食材</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('耐熱袋 · 3斤 (28x40cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">5斤 平裝</div>
+            <div class="mini-dim-label">寬 33 × 長 45 cm</div>
+            <span class="mini-tag-pill">連鎖餐廳備料</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('耐熱袋 · 5斤 (33x45cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">10斤 / 15斤</div>
+            <div class="mini-dim-label">寬 40 × 長 55/60 cm</div>
+            <span class="mini-tag-pill">商業批發大裝</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('耐熱袋 · 10斤/15斤大裝', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 密封包裝類 Quick Spec Matrix -->
+    <div class="cat-matrix-section" id="cat-zipper-bags" data-search="密封包裝 密實袋 立體密實袋 冷凍袋 夾鏈袋 00號 12號 雙軌">
+      <div class="matrix-head">
+        <div class="matrix-head-left">
+          <span class="matrix-cat-badge">04 CATEGORY</span>
+          <div>
+            <div class="matrix-title" data-tw="密封包裝類 (Sealed & Zipper Bags)" data-en="Sealed & Zipper Bags">密封包裝類 (Sealed & Zipper Bags)</div>
+            <div class="matrix-desc" data-tw="雙軌密實袋、立體保鮮袋與 00號~12號 完整夾鏈袋系列" data-en="Double-zipper freezer bags and full size No.00 to No.12 zipper pouches">雙軌密實袋、立體保鮮袋與 00號~12號 完整夾鏈袋系列</div>
+          </div>
+        </div>
+        <a href="foodservice.html" class="matrix-link-btn">
+          <span data-tw="完整密封包裝規格表" data-en="Full Zipper Spec Table">完整密封包裝規格表</span> <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="specs-quick-grid">
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">雙軌密實袋 M</div>
+            <div class="mini-dim-label">寬 18 × 長 20 cm</div>
+            <span class="mini-tag-pill">雙封條防漏</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('密實袋 · M 號 (18x20cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">雙軌密實袋 L</div>
+            <div class="mini-dim-label">寬 27 × 長 28 cm</div>
+            <span class="mini-tag-pill">冷凍保鮮</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('密實袋 · L 號 (27x28cm)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">立體密實袋</div>
+            <div class="mini-dim-label">站立底加寬容量</div>
+            <span class="mini-tag-pill">液體湯汁保鮮</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('立體站立密實袋', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">夾鏈袋 (小號)</div>
+            <div class="mini-dim-label">00號~4號 (4x6~10x14cm)</div>
+            <span class="mini-tag-pill">零件/藥品</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('夾鏈袋 · 00號~4號小尺寸', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">夾鏈袋 (中號)</div>
+            <div class="mini-dim-label">5號~8號 (12x17~20x28cm)</div>
+            <span class="mini-tag-pill">食材收納</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('夾鏈袋 · 5號~8號中尺寸', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">夾鏈袋 (大號)</div>
+            <div class="mini-dim-label">9號~12號 (24x34~34x45cm)</div>
+            <span class="mini-tag-pill">大衣物/工業</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('夾鏈袋 · 9號~12號大尺寸', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 其他類 Quick Spec Matrix -->
+    <div class="cat-matrix-section" id="cat-specialty" data-search="其他類 防護手套 遮蔽防塵膠帶 550mm 1100mm 1500mm 2100mm 2700mm 3200mm">
+      <div class="matrix-head">
+        <div class="matrix-head-left">
+          <span class="matrix-cat-badge">05 CATEGORY</span>
+          <div>
+            <div class="matrix-title" data-tw="其他類 (防護手套/遮蔽膠帶)" data-en="Specialty Products">其他類 (防護手套/遮蔽膠帶)</div>
+            <div class="matrix-desc" data-tw="衛生防護手套與台塑遮蔽防塵膠帶（550mm~3200mm）" data-en="PE protective gloves and Formosa masking dustproof film tapes">衛生防護手套與台塑遮蔽防塵膠帶（550mm~3200mm）</div>
+          </div>
+        </div>
+        <a href="specialty.html" class="matrix-link-btn">
+          <span data-tw="完整其他類規格表" data-en="Full Specialty Spec Table">完整其他類規格表</span> <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="specs-quick-grid">
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">PE 衛生防護手套</div>
+            <div class="mini-dim-label">S / M / L / XL 壓紋</div>
+            <span class="mini-tag-pill">食品備料衛生</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('衛生防護手套 (PE壓紋)', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">遮蔽膠帶 550mm</div>
+            <div class="mini-dim-label">寬 550 mm × 25 y</div>
+            <span class="mini-tag-pill">矮櫃/踢腳板防塵</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('遮蔽防塵膠帶 · 550mm', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">遮蔽膠帶 1100mm</div>
+            <div class="mini-dim-label">寬 1100 mm × 25 y</div>
+            <span class="mini-tag-pill">桌椅門窗防塵</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('遮蔽防塵膠帶 · 1100mm', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">遮蔽膠帶 1500mm</div>
+            <div class="mini-dim-label">寬 1500 mm × 25 y</div>
+            <span class="mini-tag-pill">油漆施工推薦</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('遮蔽防塵膠帶 · 1500mm', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">遮蔽膠帶 2100mm/2700mm</div>
+            <div class="mini-dim-label">寬 2100/2700 mm × 25 y</div>
+            <span class="mini-tag-pill">大型傢俱防護</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('遮蔽防塵膠帶 · 2100/2700mm', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">遮蔽膠帶 3200mm</div>
+            <div class="mini-dim-label">寬 3200 mm × 25 y</div>
+            <span class="mini-tag-pill">挑高天花板裝潢</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('遮蔽防塵膠帶 · 3200mm', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 Scale Sheet Quick Spec Matrix -->
+    <div class="cat-matrix-section" id="cat-scale-sheet" data-search="scale sheet 磅秤襯墊 生鮮 熟食 肉品 磅秤切片膜">
+      <div class="matrix-head">
+        <div class="matrix-head-left">
+          <span class="matrix-cat-badge">06 CATEGORY</span>
+          <div>
+            <div class="matrix-title" data-tw="Scale Sheet (磅秤襯墊膜)" data-en="Scale Sheet Series">Scale Sheet (磅秤襯墊膜)</div>
+            <div class="matrix-desc" data-tw="超市生鮮磅秤切片膜與熟食肉品衛生襯墊膜" data-en="Food-grade scale sheet films for supermarket fresh produce and deli counter slicing">超市生鮮磅秤切片膜與熟食肉品衛生襯墊膜</div>
+          </div>
+        </div>
+        <a href="stretch-films.html" class="matrix-link-btn">
+          <span data-tw="完整 Scale Sheet 規格表" data-en="Full Scale Sheet Spec Table">完整 Scale Sheet 規格表</span> <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="specs-quick-grid">
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">Scale Sheet 15x15</div>
+            <div class="mini-dim-label">15 × 15 cm 切片膜</div>
+            <span class="mini-tag-pill">小型起司/熟食</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('Scale Sheet · 15x15cm', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">Scale Sheet 20x20</div>
+            <div class="mini-dim-label">20 × 20 cm 切片膜</div>
+            <span class="mini-tag-pill">精肉專櫃熱銷</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('Scale Sheet · 20x20cm', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">Scale Sheet 25x25</div>
+            <div class="mini-dim-label">25 × 25 cm 切片膜</div>
+            <span class="mini-tag-pill">大型鮮肉磅秤</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('Scale Sheet · 25x25cm', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">連捲式 Scale Sheet</div>
+            <div class="mini-dim-label">無芯點斷卷裝</div>
+            <span class="mini-tag-pill">超市便利抽取</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('Scale Sheet · 連捲式', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">防黏肉品襯墊</div>
+            <div class="mini-dim-label">高清透 PE 防黏膜</div>
+            <span class="mini-tag-pill">食品級衛生認證</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('Scale Sheet · 肉品防黏襯墊', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+
+        <div class="spec-card-mini">
+          <div>
+            <div class="mini-size-label">客製 Scale Sheet</div>
+            <div class="mini-dim-label">指定尺寸切片/包裝</div>
+            <span class="mini-tag-pill">量販體系專案</span>
+          </div>
+          <button class="btn-add-rfq-sm" onclick="toggleQuickRfq('Scale Sheet · 客製化尺寸', this)">
+            <i class="fa-solid fa-plus"></i> 加入詢價
+          </button>
+        </div>
+      </div>
     </div>
 
   </section>
+
+  <!-- Floating RFQ Cart Bar -->
+  <div class="rfq-floating-bar" id="rfqFloatBar">
+    <div>
+      已選擇 <span class="rfq-badge-count" id="rfqCountBadge">0</span> 項規格產品
+    </div>
+    <a href="javascript:void(0)" class="btn-rfq-submit-float" onclick="goToRfqPage()">
+      前往發送詢價單 <i class="fa-solid fa-paper-plane"></i>
+    </a>
+  </div>
 
   <!-- Footer -->
   <footer class="footer">
@@ -1329,19 +1341,54 @@
   </footer>
 
   <script>
-    // Live Instant Search Handler for Detail Blocks
-    function filterBlocks() {
-      const input = document.getElementById('catSearchInput');
-      const q = input.value.toLowerCase().trim();
-      const blocks = document.querySelectorAll('.product-detail-block');
+    // Selected RFQ Items Set
+    const selectedRfqItems = new Set();
 
-      blocks.forEach(block => {
-        const searchKw = block.getAttribute('data-search').toLowerCase();
-        const text = block.innerText.toLowerCase();
+    function toggleQuickRfq(itemText, btn) {
+      if (selectedRfqItems.has(itemText)) {
+        selectedRfqItems.delete(itemText);
+        btn.classList.remove('added');
+        btn.innerHTML = '<i class="fa-solid fa-plus"></i> 加入詢價';
+      } else {
+        selectedRfqItems.add(itemText);
+        btn.classList.add('added');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> 已加入';
+      }
+      updateRfqFloatBar();
+    }
+
+    function updateRfqFloatBar() {
+      const floatBar = document.getElementById('rfqFloatBar');
+      const badge = document.getElementById('rfqCountBadge');
+      const count = selectedRfqItems.size;
+      badge.innerText = count;
+
+      if (count > 0) {
+        floatBar.classList.add('active');
+      } else {
+        floatBar.classList.remove('active');
+      }
+    }
+
+    function goToRfqPage() {
+      const itemsArr = Array.from(selectedRfqItems);
+      const query = encodeURIComponent(itemsArr.join(' ; '));
+      window.location.href = `../contact.html?specs=${query}`;
+    }
+
+    // Live Instant Search Handler for Matrix Sections
+    function filterMatrix() {
+      const input = document.getElementById('matrixSearchInput');
+      const q = input.value.toLowerCase().trim();
+      const sections = document.querySelectorAll('.cat-matrix-section');
+
+      sections.forEach(sec => {
+        const searchKw = sec.getAttribute('data-search').toLowerCase();
+        const text = sec.innerText.toLowerCase();
         if (q === '' || searchKw.includes(q) || text.includes(q)) {
-          block.style.display = 'grid';
+          sec.style.display = 'block';
         } else {
-          block.style.display = 'none';
+          sec.style.display = 'none';
         }
       });
     }
