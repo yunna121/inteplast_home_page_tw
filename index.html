@@ -352,17 +352,19 @@
     .hero-stage-content {
       position: absolute;
       top: 0;
-      left: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: 100%;
+      max-width: 1350px;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       z-index: 10;
       color: #FFFFFF;
-      text-align: center;
-      padding: 100px 20px 40px;
+      text-align: left;
+      padding: 100px 40px 40px;
     }
 
     .brand-hero-badge {
@@ -407,11 +409,11 @@
       font-weight: 900;
       line-height: 1.1;
       margin-bottom: 20px;
-      max-width: 950px;
+      max-width: 900px;
       background: linear-gradient(135deg, #FFFFFF 30%, var(--accent-azure) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-align: center;
+      text-align: left;
     }
 
     .hero-sub-tagline {
@@ -419,13 +421,14 @@
       color: rgba(255, 255, 255, 0.85);
       max-width: 760px;
       margin-bottom: 36px;
-      text-align: center;
+      text-align: left;
+      line-height: 1.6;
     }
 
     .hero-btn-group {
       display: flex;
       gap: 16px;
-      justify-content: center;
+      justify-content: flex-start;
       flex-wrap: wrap;
     }
 
@@ -434,9 +437,8 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 18px;
-      margin-top: 35px;
+      margin-top: 40px;
       width: 100%;
-      max-width: 1050px;
     }
 
     .hero-stat-card {
