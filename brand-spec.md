@@ -1,34 +1,29 @@
-# Inteplast Taiwan — Sustainability page brand specification
+# Inteplast Taiwan — About Page Brand Spec
 
 ## Mode
 
-Redesign · Preserve. Retain the current information architecture, content, links, SEO metadata, official logo, environmental-label mark, certificate image, and two product images.
+Redesign · Overhaul for the `about.html` content area. Preserve the existing navigation routes, bilingual behavior, logo, company naming, and enquiry path.
 
-Design Read: institutional botanical information design for procurement buyers and sustainability-conscious customers. Visual variance 4/10, motion 2/10, information density 7/10, asset dependence 8/10, brand fidelity 9/10.
+## Brand assets
+
+- Primary logo: `src/inteplast-logo-blue.svg`
+- Xingang plant aerial: `src/plant.png`
+- Manufacturing floor: `src/bigextru1.png`
+- Supporting manufacturing photos: `src/bigextru2.png`, `src/bigextru3.png`
 
 ## Visual system
 
-- Primary navy: `#0A2540`
-- Brand blue: `#00529B`
-- Environmental green: `#147A55`
-- Supporting leaf green: `#78A83B`
-- Warm white: `#F8FAF8`
-- Surface: `#FFFFFF`
-- Border: `#DBE4DF`
-- Typography: DM Sans + Noto Sans TC
-- Spacing: 8px base rhythm
-- Radius: 8px controls, 14px content panels
-- Shadow: low-elevation navy-tinted shadow only
-- Motion: short hover/focus feedback; reduced-motion supported
+- Primary blue: `#0b4f83`
+- Brand blue: `#0877ba`
+- Steel blue: `#77c9ee`
+- Award gold: `#d5a54a`
+- Paper white: `#f5f7fa`
+- Display type: Barlow Condensed
+- Body type: Noto Sans TC
+- Layout language: industrial editorial, compact radii, hairline borders, restrained shadows
 
-## Official assets
+## Content sources
 
-- Logo: `src/inteplast-logo-blue.svg`
-- Environmental label mark: `src/environmental-label-mark-official.png`
-- Certificates and products: `src/combine.png`
-- Drawstring bag: `src/drawtape.jpg`
-- Cleaning bag: `src/cleaning.jpg`
-
-## Protected contracts
-
-- Keep all current navigation labels, routes, outbound environmental-label links, `#products` anchor, metadata, visible product wording, and footer copyright.
+- User-provided company history and positioning copy
+- Inteplast Group official story: `https://www.inteplast.com/our-story/`
+- Pilot Taiwan company-story presentation reference: `https://www.pilot-pen.com.tw/about.php`
