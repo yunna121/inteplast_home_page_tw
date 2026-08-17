@@ -197,121 +197,88 @@
     }
   ];
 
-  function initSearchModal() {
-    if (document.getElementById('searchModalOverlay')) return;
+  function renderSearchResults(query) {
+    const resultsList = document.getElementById('searchResultsList');
+    if (!resultsList) return;
+    const q = (query || '').trim().toLowerCase();
+    resultsList.innerHTML = '';
 
-    const modalHTML = `
-    <div id="searchModalOverlay" class="search-modal-overlay">
-      <div class="search-modal-container">
-        <div class="search-input-header">
-          <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input type="text" id="searchInputField" class="search-input-field" placeholder="搜尋產品、規格或關鍵字... (例如: 清潔袋, 拉繩, 耐熱袋, 密實袋, 環保標章, Gloves...)" autocomplete="off">
-          <button id="closeSearchModal" class="close-search-modal-btn" type="button" aria-label="關閉搜尋"><i class="fa-solid fa-xmark"></i></button>
+    const filtered = searchIndex.filter(item => {
+      if (!q) return true;
+      return item.title.toLowerCase().includes(q) ||
+             item.desc.toLowerCase().includes(q) ||
+             item.category.toLowerCase().includes(q) ||
+             item.keywords.some(k => k.toLowerCase().includes(q));
+    });
+
+    if (filtered.length === 0) {
+      resultsList.innerHTML = `
+        <div style="padding: 40px; text-align: center; color: #64748B;">
+          <i class="fa-solid fa-magnifying-glass" style="font-size: 2rem; margin-bottom: 12px; opacity: 0.5;"></i>
+          <p style="font-size: 0.95rem; font-weight: 700;">找不到與「${query}」相符的產品</p>
+          <p style="font-size: 0.85rem; margin-top: 4px;">請嘗試更換關鍵字，或點選下方按鈕直接聯繫團隊報價。</p>
         </div>
-        <div class="search-quick-tags">
-          <span class="search-tag-label" data-tw="快速篩選：" data-en="Quick Tags:">快速篩選：</span>
-          <button class="quick-tag-btn" data-query="清潔袋">清潔袋</button>
-          <button class="quick-tag-btn" data-query="拉繩袋">拉繩袋</button>
-          <button class="quick-tag-btn" data-query="耐熱袋">耐熱袋</button>
-          <button class="quick-tag-btn" data-query="密實袋">密實袋</button>
-          <button class="quick-tag-btn" data-query="手套">衛生手套</button>
-          <button class="quick-tag-btn" data-query="環保標章">環保標章</button>
-          <button class="quick-tag-btn" data-query="Scale Sheet">Scale Sheet</button>
+      `;
+      return;
+    }
+
+    filtered.forEach(item => {
+      const itemEl = document.createElement('a');
+      itemEl.className = 'search-result-item';
+      itemEl.href = item.url;
+      itemEl.innerHTML = `
+        <div class="search-result-icon"><i class="fa-solid ${item.icon}"></i></div>
+        <div class="search-result-info">
+          <div class="search-result-title">${item.title}</div>
+          <div class="search-result-desc">${item.desc}</div>
         </div>
-        <div id="searchResultsList" class="search-results-list"></div>
-        <div class="search-modal-footer">
-          <span><kbd>ESC</kbd> 關閉搜尋</span>
-          <span><kbd>Ctrl + K</kbd> 快速開啟</span>
+        <span class="search-result-category">${item.category}</span>
+      `;
+      resultsList.appendChild(itemEl);
+    });
+  }
+
+  function initSearchModal() {
+    if (!document.body) return;
+    if (!document.getElementById('searchModalOverlay')) {
+      const modalHTML = `
+      <div id="searchModalOverlay" class="search-modal-overlay">
+        <div class="search-modal-container">
+          <div class="search-input-header">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="searchInputField" class="search-input-field" placeholder="搜尋產品、規格或關鍵字... (例如: 清潔袋, 拉繩, 耐熱袋, 密實袋, 環保標章, Gloves...)" autocomplete="off">
+            <button id="closeSearchModal" class="close-search-modal-btn" type="button" onclick="if(typeof closeSearchModal === 'function') closeSearchModal();" aria-label="關閉搜尋"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="search-quick-tags">
+            <span class="search-tag-label" data-tw="快速篩選：" data-en="Quick Tags:">快速篩選：</span>
+            <button class="quick-tag-btn" type="button" data-query="清潔袋">清潔袋</button>
+            <button class="quick-tag-btn" type="button" data-query="拉繩袋">拉繩袋</button>
+            <button class="quick-tag-btn" type="button" data-query="耐熱袋">耐熱袋</button>
+            <button class="quick-tag-btn" type="button" data-query="密實袋">密實袋</button>
+            <button class="quick-tag-btn" type="button" data-query="手套">衛生手套</button>
+            <button class="quick-tag-btn" type="button" data-query="環保標章">環保標章</button>
+            <button class="quick-tag-btn" type="button" data-query="Scale Sheet">Scale Sheet</button>
+          </div>
+          <div id="searchResultsList" class="search-results-list"></div>
+          <div class="search-modal-footer">
+            <span><kbd>ESC</kbd> 關閉搜尋</span>
+            <span><kbd>Ctrl + K</kbd> 快速開啟</span>
+          </div>
         </div>
       </div>
-    </div>
-    `;
-
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
+      `;
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+    }
 
     const overlay = document.getElementById('searchModalOverlay');
     const input = document.getElementById('searchInputField');
-    const closeBtn = document.getElementById('closeSearchModal');
-    const resultsList = document.getElementById('searchResultsList');
 
-    function renderResults(query) {
-      const q = query.trim().toLowerCase();
-      resultsList.innerHTML = '';
-
-      const filtered = searchIndex.filter(item => {
-        if (!q) return true;
-        return item.title.toLowerCase().includes(q) ||
-               item.desc.toLowerCase().includes(q) ||
-               item.category.toLowerCase().includes(q) ||
-               item.keywords.some(k => k.toLowerCase().includes(q));
-      });
-
-      if (filtered.length === 0) {
-        resultsList.innerHTML = `
-          <div style="padding: 40px; text-align: center; color: #64748B;">
-            <i class="fa-solid fa-magnifying-glass" style="font-size: 2rem; margin-bottom: 12px; opacity: 0.5;"></i>
-            <p style="font-size: 0.95rem; font-weight: 700;">找不到與「${query}」相符的產品</p>
-            <p style="font-size: 0.85rem; margin-top: 4px;">請嘗試更換關鍵字，或點選下方按鈕直接聯繫團隊報價。</p>
-          </div>
-        `;
-        return;
-      }
-
-      filtered.forEach(item => {
-        const itemEl = document.createElement('a');
-        itemEl.className = 'search-result-item';
-        itemEl.href = item.url;
-        itemEl.innerHTML = `
-          <div class="search-result-icon"><i class="fa-solid ${item.icon}"></i></div>
-          <div class="search-result-info">
-            <div class="search-result-title">${item.title}</div>
-            <div class="search-result-desc">${item.desc}</div>
-          </div>
-          <span class="search-result-category">${item.category}</span>
-        `;
-        resultsList.appendChild(itemEl);
+    if (input && !input.dataset.bound) {
+      input.dataset.bound = 'true';
+      input.addEventListener('input', function() {
+        renderSearchResults(this.value);
       });
     }
-
-    function openModal() {
-      overlay.classList.add('active');
-      renderResults('');
-      setTimeout(() => input.focus(), 100);
-    }
-
-    function closeModal() {
-      overlay.classList.remove('active');
-    }
-
-    window.openSearchModal = openModal;
-    window.closeSearchModal = closeModal;
-
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('#globalSearchTrigger') || e.target.closest('.search-trigger-btn')) {
-        openModal();
-      } else if (e.target === overlay || e.target.closest('#closeSearchModal')) {
-        closeModal();
-      } else if (e.target.classList.contains('quick-tag-btn')) {
-        const query = e.target.getAttribute('data-query');
-        input.value = query;
-        renderResults(query);
-        input.focus();
-      }
-    });
-
-    input.addEventListener('input', function() {
-      renderResults(this.value);
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        if (overlay.classList.contains('active')) closeModal();
-        else openModal();
-      } else if (e.key === 'Escape' && overlay.classList.contains('active')) {
-        closeModal();
-      }
-    });
   }
 
   window.openSearchModal = function() {
@@ -320,16 +287,50 @@
     const input = document.getElementById('searchInputField');
     if (overlay) {
       overlay.classList.add('active');
-      const resultsList = document.getElementById('searchResultsList');
-      if (resultsList && !resultsList.children.length) {
-        const event = new Event('input');
-        input.dispatchEvent(event);
-      }
+      renderSearchResults(input ? input.value : '');
       setTimeout(() => { if (input) input.focus(); }, 100);
     }
   };
 
+  window.closeSearchModal = function() {
+    const overlay = document.getElementById('searchModalOverlay');
+    if (overlay) {
+      overlay.classList.remove('active');
+    }
+  };
+
+  document.addEventListener('click', function(e) {
+    const overlay = document.getElementById('searchModalOverlay');
+    if (!overlay) return;
+
+    if (e.target.closest('#globalSearchTrigger') || e.target.closest('.search-trigger-btn')) {
+      window.openSearchModal();
+    } else if (e.target === overlay || e.target.closest('#closeSearchModal')) {
+      window.closeSearchModal();
+    } else if (e.target.classList.contains('quick-tag-btn')) {
+      const query = e.target.getAttribute('data-query');
+      const input = document.getElementById('searchInputField');
+      if (input) input.value = query;
+      renderSearchResults(query);
+      if (input) input.focus();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    const overlay = document.getElementById('searchModalOverlay');
+    if (!overlay) return;
+
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (overlay.classList.contains('active')) window.closeSearchModal();
+      else window.openSearchModal();
+    } else if (e.key === 'Escape' && overlay.classList.contains('active')) {
+      window.closeSearchModal();
+    }
+  });
+
   function initNavbar() {
+    if (!document.body) return;
     let container = document.getElementById('site-header-component');
     if (!container) {
       container = document.createElement('div');
@@ -337,7 +338,6 @@
       document.body.prepend(container);
     }
     container.innerHTML = navbarHTML;
-    initSearchModal();
   }
 
   if (document.readyState === 'loading') {

@@ -1966,6 +1966,32 @@
       }
     })();
   </script>
+
+  <!-- 全站搜尋 Spotlight Modal Overlay -->
+  <div id="searchModalOverlay" class="search-modal-overlay">
+    <div class="search-modal-container">
+      <div class="search-input-header">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInputField" class="search-input-field" placeholder="搜尋產品、規格或關鍵字... (例如: 清潔袋, 拉繩, 耐熱袋, 密實袋, 環保標章, Gloves...)" autocomplete="off">
+        <button id="closeSearchModal" class="close-search-modal-btn" type="button" onclick="if(typeof closeSearchModal === 'function') closeSearchModal();" aria-label="關閉搜尋"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="search-quick-tags">
+        <span class="search-tag-label" data-tw="快速篩選：" data-en="Quick Tags:">快速篩選：</span>
+        <button class="quick-tag-btn" type="button" data-query="清潔袋">清潔袋</button>
+        <button class="quick-tag-btn" type="button" data-query="拉繩袋">拉繩袋</button>
+        <button class="quick-tag-btn" type="button" data-query="耐熱袋">耐熱袋</button>
+        <button class="quick-tag-btn" type="button" data-query="密實袋">密實袋</button>
+        <button class="quick-tag-btn" type="button" data-query="手套">衛生手套</button>
+        <button class="quick-tag-btn" type="button" data-query="環保標章">環保標章</button>
+        <button class="quick-tag-btn" type="button" data-query="Scale Sheet">Scale Sheet</button>
+      </div>
+      <div id="searchResultsList" class="search-results-list"></div>
+      <div class="search-modal-footer">
+        <span><kbd>ESC</kbd> 關閉搜尋</span>
+        <span><kbd>Ctrl + K</kbd> 快速開啟</span>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
