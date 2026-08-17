@@ -32,69 +32,6 @@ body h3,
 body p { text-wrap: pretty; }
 
 .container { width: min(1320px, calc(100% - 80px)); }
-
-.top-utility-bar {
-  min-height: 36px;
-  padding: 7px 48px;
-  background: #061d35;
-  border-color: rgba(255,255,255,.1);
-  color: rgba(255,255,255,.72);
-}
-
-.top-utility-bar a { transition: color .2s ease; }
-.top-utility-bar a:hover { color: #fff; }
-.region-badge { background: rgba(255,255,255,.1); color: #a9d7c2; }
-
-.header {
-  position: sticky;
-  top: 0;
-  min-height: 76px;
-  padding: 10px 48px;
-  background: rgba(255,255,255,.96);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--line);
-  box-shadow: 0 8px 22px rgba(10,37,64,.04);
-}
-
-.logo-image { height: 38px; filter: none; }
-.logo-text-tw { color: var(--ink); font-size: 1rem; }
-.logo-text-en { color: var(--sky); font-size: .68rem; letter-spacing: .04em; }
-.nav-menu { gap: 12px; }
-
-.nav-link-item {
-  position: relative;
-  padding: 12px 10px;
-  border-radius: 0;
-  color: #263a4d;
-  font-size: .9rem;
-  transition: color .2s ease;
-}
-
-.nav-link-item:hover,
-.nav-link-item.active { background: transparent; color: var(--sky); }
-
-.nav-link-item.active::after {
-  content: '';
-  position: absolute;
-  right: 10px;
-  bottom: 2px;
-  left: 10px;
-  height: 2px;
-  background: var(--sky);
-}
-
-.lang-toggle {
-  border-color: var(--line);
-  background: var(--surface);
-  color: var(--ink);
-}
-
-.rfq-btn {
-  border-radius: 8px;
-  background: var(--sky);
-  box-shadow: 0 8px 18px rgba(0,82,155,.16);
-}
-
 section { padding: 0; }
 
 .hero {
