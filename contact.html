@@ -11,6 +11,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <!-- 防止語系切換中文閃爍 (Anti-FOUC Instant Language Preloader) -->
+  <script>
+    (function() {
+      if (localStorage.getItem('preferredLang') === 'en') {
+        document.documentElement.classList.add('lang-loading');
+      }
+    })();
+  </script>
+  <style>
+    html.lang-loading body {
+      opacity: 0 !important;
+    }
+  </style>
+
   <style>
     :root {
       --primary-navy: #0A2540;
@@ -421,14 +435,15 @@
           const icon = el.querySelector('i');
           if (icon) {
             const iconClone = icon.cloneNode(true);
-            el.innerHTML = '';
+            el.innerHTML = text + ' ';
             el.appendChild(iconClone);
-            el.appendChild(document.createTextNode(' ' + text));
           } else {
-            el.innerText = text;
+            el.innerHTML = text;
           }
         }
       });
+
+      document.documentElement.classList.remove('lang-loading');
     }
 
     function toggleLanguage() {
@@ -440,6 +455,8 @@
       const savedLang = localStorage.getItem('preferredLang');
       if (savedLang && (savedLang === 'en' || savedLang === 'tw')) {
         applyLanguage(savedLang);
+      } else {
+        document.documentElement.classList.remove('lang-loading');
       }
     });
   </script>
