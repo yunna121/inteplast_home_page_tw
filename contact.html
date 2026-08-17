@@ -312,8 +312,13 @@
             </div>
 
             <div class="form-group">
-              <label for="email"><i class="fa-solid fa-envelope"></i> <span data-tw="商務信箱 (Business Email)" data-en="Business Email">商務信箱 (Business Email)</span></label>
+              <label for="email"><i class="fa-solid fa-envelope"></i> <span data-tw="商務信箱 (必填)" data-en="Business Email (Required)">商務信箱 (必填)</span></label>
               <input type="email" id="email" class="form-control" placeholder="name@yourcompany.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone"><i class="fa-solid fa-phone"></i> <span data-tw="聯絡電話 (選填)" data-en="Phone Number (Optional)">聯絡電話 (選填)</span></label>
+              <input type="tel" id="phone" class="form-control" placeholder="例：02-2712-2211 或 0912-345-678">
             </div>
 
             <div class="form-group">
@@ -361,6 +366,7 @@
       const data = {
         company: document.getElementById('companyName').value,
         email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
         product: document.getElementById('productCategory').value,
         message: document.getElementById('message').value,
         timestamp: new Date().toISOString()
