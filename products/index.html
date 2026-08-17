@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>產品中心與六大系列目錄 | 臺灣營德 Inteplast Taiwan</title>
-  <meta name="description" content="臺灣營德完整六大產品目錄：清潔袋（連捲、單張抽取、環保）、拉繩袋、耐熱袋、密封包裝類（密實袋、立體密實袋、冷凍袋、夾鏈袋）、其他類與 Scales Sheet 磅秤切片膜。">
-  
+  <meta name="description"
+    content="臺灣營德完整六大產品目錄：清潔袋（連捲、單張抽取、環保）、拉繩袋、耐熱袋、密封包裝類（密實袋、立體密實袋、冷凍袋、夾鏈袋）、其他類與 Scales Sheet 磅秤切片膜。">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -34,141 +38,498 @@
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--bg-light); line-height: 1.6; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      color: var(--text-main);
+      background: var(--bg-light);
+      line-height: 1.6;
+    }
 
     /* Top Utility Bar */
     .top-utility-bar {
-      background: #051322; color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
-      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: fixed; top: 0; left: 0; width: 100%; z-index: 1050;
+      background: #051322;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.78rem;
+      padding: 6px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1050;
     }
-    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
-    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
-    .utility-left a:hover, .utility-right a:hover { color: var(--accent-azure); }
-    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
+
+    .utility-left,
+    .utility-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .utility-left a,
+    .utility-right a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .utility-left a:hover,
+    .utility-right a:hover {
+      color: var(--accent-azure);
+    }
+
+    .region-badge {
+      background: rgba(0, 168, 255, 0.18);
+      color: var(--accent-azure);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
 
     /* Header Navbar */
     .header {
-      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
-      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
+      position: fixed;
+      top: 31px;
+      left: 0;
+      width: 100%;
+      padding: 12px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
     }
-    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-image { height: 40px; width: auto; object-fit: contain; }
-    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
-    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
 
-    .nav-menu { display: flex; align-items: center; gap: 4px; list-style: none; }
-    .nav-item { position: relative; }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .logo-image {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .logo-text-tw {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--primary-navy);
+      display: block;
+    }
+
+    .logo-text-en {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--brand-blue);
+      display: block;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
     .nav-link-item {
-      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
-      color: var(--text-main); text-decoration: none; transition: var(--transition);
-      display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+      padding: 10px 18px;
+      border-radius: var(--radius-full);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
     }
-    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
-    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
-    
-    .mega-menu-panel-6cat {
-      position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
-      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); box-shadow: var(--shadow-mega); padding: 32px;
-      opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 1100; color: var(--text-main);
-    }
-    .mega-menu-panel-6cat::before {
-      content: ''; position: absolute; top: -30px; left: 0; width: 100%; height: 35px; background: transparent;
-    }
-    .nav-item:hover .mega-menu-panel-6cat,
-    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; }
-    .nav-item:hover .caret-icon,
-    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
-    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
-    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
-    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
-    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
 
-    .header-right { display: flex; align-items: center; gap: 12px; }
-    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
-    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .nav-link-item:hover,
+    .nav-item:hover>.nav-link-item,
+    .nav-link-item.active {
+      background: rgba(0, 82, 155, 0.08);
+      color: var(--brand-blue);
+    }
+
+    .caret-icon {
+      font-size: 0.75rem;
+      transition: transform 0.3s ease;
+    }
+
+    .mega-menu-panel-6cat {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1120px;
+      background: var(--surface-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-mega);
+      padding: 32px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      z-index: 1100;
+      color: var(--text-main);
+    }
+
+    .mega-menu-panel-6cat::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 0;
+      width: 100%;
+      height: 35px;
+      background: transparent;
+    }
+
+    .nav-item:hover .mega-menu-panel-6cat,
+    .nav-item.open-dropdown .mega-menu-panel-6cat {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .nav-item:hover .caret-icon,
+    .nav-item.open-dropdown .caret-icon {
+      transform: rotate(180deg);
+    }
+
+    .mega-grid-6 {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+
+    .mega-col-title-sm {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--brand-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid rgba(0, 82, 155, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mega-sub-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mega-sub-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: block;
+    }
+
+    .mega-sub-links a:hover {
+      color: var(--brand-blue);
+      transform: translateX(3px);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-toggle {
+      background: var(--surface-white);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-navy);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .rfq-btn {
+      background: linear-gradient(135deg, var(--brand-blue), #00386B);
+      color: var(--surface-white);
+      padding: 10px 22px;
+      border-radius: var(--radius-full);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
 
     /* Page Hero */
-    .page-hero { padding: 160px 40px 60px; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white); text-align: center; }
-    .page-hero h1 { font-size: 2.6rem; font-weight: 900; margin-bottom: 12px; }
-    .page-hero p { font-size: 1.05rem; max-width: 750px; margin: 0 auto 25px; color: rgba(255,255,255,0.88); }
+    .page-hero {
+      padding: 160px 40px 60px;
+      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
+      color: var(--surface-white);
+      text-align: center;
+    }
+
+    .page-hero h1 {
+      font-size: 2.6rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .page-hero p {
+      font-size: 1.05rem;
+      max-width: 750px;
+      margin: 0 auto 25px;
+      color: rgba(255, 255, 255, 0.88);
+    }
 
     /* Instant Search Bar Box */
     .hero-search-box {
-      max-width: 620px; margin: 0 auto; position: relative;
+      max-width: 620px;
+      margin: 0 auto;
+      position: relative;
     }
-    .hero-search-input {
-      width: 100%; padding: 16px 24px 16px 54px; border-radius: var(--radius-full);
-      border: 2px solid rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px); color: #FFFFFF; font-size: 1rem; font-weight: 600;
-      outline: none; transition: var(--transition);
-    }
-    .hero-search-input::placeholder { color: rgba(255, 255, 255, 0.7); font-weight: 500; }
-    .hero-search-input:focus { background: rgba(255, 255, 255, 0.25); border-color: var(--accent-azure); box-shadow: 0 0 20px rgba(0, 168, 255, 0.4); }
-    .hero-search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; color: var(--accent-azure); }
 
-    .section { padding: 70px 40px; }
-    .container { max-width: 1320px; margin: 0 auto; }
+    .hero-search-input {
+      width: 100%;
+      padding: 16px 24px 16px 54px;
+      border-radius: var(--radius-full);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      color: #FFFFFF;
+      font-size: 1rem;
+      font-weight: 600;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .hero-search-input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 500;
+    }
+
+    .hero-search-input:focus {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: var(--accent-azure);
+      box-shadow: 0 0 20px rgba(0, 168, 255, 0.4);
+    }
+
+    .hero-search-icon {
+      position: absolute;
+      left: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      color: var(--accent-azure);
+    }
+
+    .section {
+      padding: 70px 40px;
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
 
     /* 6 大類別 Grid 卡片展示 */
-    .cat-6-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .cat-6-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
     .cat-card-box {
-      background: var(--surface-white); border-radius: 20px; overflow: hidden;
-      border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
-      display: flex; flex-direction: column; position: relative;
+      background: var(--surface-white);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
-    .cat-card-box:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--brand-blue); }
 
-    .cat-card-img-wrap { width: 100%; height: 220px; overflow: hidden; position: relative; background: #E2E8F0; }
-    .cat-card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .cat-card-box:hover .cat-card-img-wrap img { transform: scale(1.08); }
+    .cat-card-box:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--brand-blue);
+    }
+
+    .cat-card-img-wrap {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+      background: #E2E8F0;
+    }
+
+    .cat-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .cat-card-box:hover .cat-card-img-wrap img {
+      transform: scale(1.08);
+    }
+
     .cat-num-tag {
-      position: absolute; top: 14px; left: 14px; background: var(--primary-navy); color: #FFFFFF;
-      font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 6px; letter-spacing: 1px;
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--primary-navy);
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 6px;
+      letter-spacing: 1px;
     }
 
-    .cat-card-body { padding: 28px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .cat-card-title { font-size: 1.35rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 8px; }
-    .cat-card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px; }
+    .cat-card-body {
+      padding: 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-    .subcat-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .cat-card-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary-navy);
+      margin-bottom: 8px;
+    }
+
+    .cat-card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .subcat-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
     .subcat-pill {
-      background: rgba(0, 82, 155, 0.08); border: 1px solid rgba(0, 82, 155, 0.18); color: var(--brand-blue);
-      font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: var(--radius-sm); display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0, 82, 155, 0.08);
+      border: 1px solid rgba(0, 82, 155, 0.18);
+      color: var(--brand-blue);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .cat-action-btn {
-      width: 100%; background: var(--brand-blue); color: #FFFFFF; padding: 12px 18px; border-radius: 10px;
-      font-size: 0.9rem; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: var(--transition);
+      width: 100%;
+      background: var(--brand-blue);
+      color: #FFFFFF;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition);
     }
-    .cat-action-btn:hover { background: var(--brand-blue-hover); }
 
-    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+    .cat-action-btn:hover {
+      background: var(--brand-blue-hover);
+    }
+
+    .footer {
+      background: var(--primary-navy);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 60px 40px 30px;
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 40px;
+      padding-top: 20px;
+      text-align: center;
+    }
 
     @media (max-width: 1000px) {
-      .mega-menu-panel-6cat, .top-utility-bar { display: none; }
-      .header { top: 0; }
-      .cat-6-grid { grid-template-columns: 1fr; }
+
+      .mega-menu-panel-6cat,
+      .top-utility-bar {
+        display: none;
+      }
+
+      .header {
+        top: 0;
+      }
+
+      .cat-6-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- Top Utility Bar -->
   <div class="top-utility-bar">
     <div class="utility-left">
       <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="../index.html"><span class="region-badge">TAIWAN HQ</span> 臺灣總部</a>
+      <a href="../index.html"><span class="region-badge">TAIWAN HQ</span> 臺灣塑膠工業股份有限公司</a>
       <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 北美總部</a>
     </div>
     <div class="utility-right">
-      <a href="../about.html" data-tw="投資人專區" data-en="Investor Relations"><i class="fa-solid fa-chart-line"></i> 投資人專區</a>
+      <a href="../about.html" data-tw="投資人專區" data-en="Investor Relations"><i class="fa-solid fa-chart-line"></i>
+        投資人專區</a>
       <a href="../sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> 永續發展</a>
       <a href="../contact.html" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
       <a href="../contact.html" data-tw="客戶專屬登入" data-en="Client Portal"><i class="fa-solid fa-lock"></i> 客戶專屬登入</a>
@@ -184,14 +545,15 @@
         <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
       </div>
     </a>
-    
+
     <ul class="nav-menu">
       <li class="nav-item"><a href="../index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
       <li class="nav-item"><a href="../about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
-      
+
       <!-- 6 大產品 Mega Menu -->
       <li class="nav-item">
-        <a href="index.html" class="nav-link-item active" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <a href="index.html" class="nav-link-item active" data-tw="產品中心" data-en="Products">產品中心 <i
+            class="fa-solid fa-chevron-down caret-icon"></i></a>
         <div class="mega-menu-panel-6cat">
           <div class="mega-grid-6">
             <div>
@@ -242,33 +604,38 @@
         </div>
       </li>
 
-      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
-      <li class="nav-item"><a href="../contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
+      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item" data-tw="永續發展"
+          data-en="Sustainability">永續發展</a></li>
+      <li class="nav-item"><a href="../contact.html" class="nav-link-item" data-tw="聯繫與詢價"
+          data-en="Contact & RFQ">聯繫與詢價</a></li>
     </ul>
 
     <div class="header-right">
       <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
-      <a href="../contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+      <a href="../contact.html" class="rfq-btn" data-tw="Get a Quote 詢價" data-en="Get a Quote"><i
+          class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
     </div>
   </header>
 
   <section class="page-hero">
     <h1 data-tw="六大產品系列總覽" data-en="Six Core Product Categories">六大產品系列總覽</h1>
-    <p data-tw="臺灣營德完整產品分類：清潔袋、拉繩袋、耐熱袋、密封包裝類、其他類與 Scale Sheet 磅秤襯墊。" data-en="Comprehensive product catalog across six core extrusion and converting lines for global buyers.">
+    <p data-tw="臺灣營德完整產品分類：清潔袋、拉繩袋、耐熱袋、密封包裝類、其他類與 Scale Sheet 磅秤襯墊。"
+      data-en="Comprehensive product catalog across six core extrusion and converting lines for global buyers.">
       臺灣營德完整產品分類：清潔袋、拉繩袋、耐熱袋、密封包裝類、其他類與 Scale Sheet 磅秤襯墊。
     </p>
 
     <!-- Quick Spec Search Box -->
     <div class="hero-search-box">
       <i class="fa-solid fa-magnifying-glass hero-search-icon"></i>
-      <input type="text" id="catSearchInput" class="hero-search-input" placeholder="快速搜尋容量 (如 15L, 45L)、尺寸 (如 1斤, 四兩) 或號數 (如 6號)..." onkeyup="filterCards()">
+      <input type="text" id="catSearchInput" class="hero-search-input"
+        placeholder="快速搜尋容量 (如 15L, 45L)、尺寸 (如 1斤, 四兩) 或號數 (如 6號)..." onkeyup="filterCards()">
     </div>
   </section>
 
   <section class="section">
     <div class="container">
       <div class="cat-6-grid" id="catGrid">
-        
+
         <!-- 01 清潔袋 -->
         <div class="cat-card-box" data-keywords="清潔袋 can liners 15l 20l 45l 70l 90l 連捲 單張 抽取 環保">
           <div class="cat-card-img-wrap">
@@ -277,8 +644,10 @@
           </div>
           <div class="cat-card-body">
             <div>
-              <h2 class="cat-card-title" data-tw="清潔袋系列 (Can Liners)" data-en="Can Liners & Trash Bags">清潔袋系列 (Can Liners)</h2>
-              <p class="cat-card-desc" data-tw="包含連捲清潔袋、單張/抽取清潔袋與 100% 綠能環保清潔袋。全系列提供豐富容量選配。" data-en="Institutional and heavy-duty trash liners engineered for superior leak prevention and high strength.">
+              <h2 class="cat-card-title" data-tw="清潔袋系列 (Can Liners)" data-en="Can Liners & Trash Bags">清潔袋系列 (Can
+                Liners)</h2>
+              <p class="cat-card-desc" data-tw="包含連捲清潔袋、單張/抽取清潔袋與 100% 綠能環保清潔袋。全系列提供豐富容量選配。"
+                data-en="Institutional and heavy-duty trash liners engineered for superior leak prevention and high strength.">
                 包含連捲清潔袋、單張/抽取清潔袋與 100% 綠能環保清潔袋。全系列提供豐富容量選配。
               </p>
               <div class="subcat-list">
@@ -301,8 +670,10 @@
           </div>
           <div class="cat-card-body">
             <div>
-              <h2 class="cat-card-title" data-tw="拉繩袋系列 (Draw-Tape Bags)" data-en="Draw-Tape Bags">拉繩袋系列 (Draw-Tape Bags)</h2>
-              <p class="cat-card-desc" data-tw="一拉即束封口，打包省力不髒手。廣泛應用於美歐零售超市與醫療專用防護。" data-en="Easy-close drawstring technology for commercial cleaning and medical packaging applications.">
+              <h2 class="cat-card-title" data-tw="拉繩袋系列 (Draw-Tape Bags)" data-en="Draw-Tape Bags">拉繩袋系列 (Draw-Tape
+                Bags)</h2>
+              <p class="cat-card-desc" data-tw="一拉即束封口，打包省力不髒手。廣泛應用於美歐零售超市與醫療專用防護。"
+                data-en="Easy-close drawstring technology for commercial cleaning and medical packaging applications.">
                 一拉即束封口，打包省力不髒手。廣泛應用於美歐零售超市與醫療專用防護。
               </p>
               <div class="subcat-list">
@@ -324,8 +695,10 @@
           </div>
           <div class="cat-card-body">
             <div>
-              <h2 class="cat-card-title" data-tw="耐熱袋系列 (Heat-Resistant Bags)" data-en="Heat-Resistant Bags">耐熱袋系列 (Heat-Resistant Bags)</h2>
-              <p class="cat-card-desc" data-tw="高溫耐熱全新聚乙烯配方，提供平裝與卷裝全系列尺寸（四兩至 15斤）。" data-en="High-temperature resistant bags designed for foodservice prep and hot food packaging.">
+              <h2 class="cat-card-title" data-tw="耐熱袋系列 (Heat-Resistant Bags)" data-en="Heat-Resistant Bags">耐熱袋系列
+                (Heat-Resistant Bags)</h2>
+              <p class="cat-card-desc" data-tw="高溫耐熱全新聚乙烯配方，提供平裝與卷裝全系列尺寸（四兩至 15斤）。"
+                data-en="High-temperature resistant bags designed for foodservice prep and hot food packaging.">
                 高溫耐熱全新聚乙烯配方，提供平裝與卷裝全系列尺寸（四兩至 15斤）。
               </p>
               <div class="subcat-list">
@@ -347,8 +720,10 @@
           </div>
           <div class="cat-card-body">
             <div>
-              <h2 class="cat-card-title" data-tw="密封包裝類 (Sealed & Zipper Bags)" data-en="Sealed & Zipper Bags">密封包裝類 (Sealed & Zipper Bags)</h2>
-              <p class="cat-card-desc" data-tw="包含密實袋、立體密實袋、冷凍袋與夾鏈袋 (00號~12號)，雙軌密封保鮮與防塵收納。" data-en="Double-zipper and stand-up pouches providing airtight preservation for freezer food storage.">
+              <h2 class="cat-card-title" data-tw="密封包裝類 (Sealed & Zipper Bags)" data-en="Sealed & Zipper Bags">密封包裝類
+                (Sealed & Zipper Bags)</h2>
+              <p class="cat-card-desc" data-tw="包含密實袋、立體密實袋、冷凍袋與夾鏈袋 (00號~12號)，雙軌密封保鮮與防塵收納。"
+                data-en="Double-zipper and stand-up pouches providing airtight preservation for freezer food storage.">
                 包含密實袋、立體密實袋、冷凍袋與夾鏈袋 (00號~12號)，雙軌密封保鮮與防塵收納。
               </p>
               <div class="subcat-list">
@@ -372,8 +747,10 @@
           </div>
           <div class="cat-card-body">
             <div>
-              <h2 class="cat-card-title" data-tw="其他類 (Specialty & Protection)" data-en="Specialty Products">其他類 (Specialty & Protection)</h2>
-              <p class="cat-card-desc" data-tw="提供衛生防護手套與台塑遮蔽防塵膠帶（550mm~3200mm），適合建築施工裝潢與日常防護。" data-en="Protective hygiene gloves and Formosa masking dustproof film tapes for construction and home protection.">
+              <h2 class="cat-card-title" data-tw="其他類 (Specialty & Protection)" data-en="Specialty Products">其他類
+                (Specialty & Protection)</h2>
+              <p class="cat-card-desc" data-tw="提供衛生防護手套與台塑遮蔽防塵膠帶（550mm~3200mm），適合建築施工裝潢與日常防護。"
+                data-en="Protective hygiene gloves and Formosa masking dustproof film tapes for construction and home protection.">
                 提供衛生防護手套與台塑遮蔽防塵膠帶（550mm~3200mm），適合建築施工裝潢與日常防護。
               </p>
               <div class="subcat-list">
@@ -396,7 +773,8 @@
           <div class="cat-card-body">
             <div>
               <h2 class="cat-card-title" data-tw="Scale Sheet" data-en="Scale Sheet">Scale Sheet</h2>
-              <p class="cat-card-desc" data-tw="專業 Scale Sheet 磅秤襯墊系列，詳細產品規格數據建置整理中。" data-en="Food-grade scale sheet series. Detailed specifications coming soon.">
+              <p class="cat-card-desc" data-tw="專業 Scale Sheet 磅秤襯墊系列，詳細產品規格數據建置整理中。"
+                data-en="Food-grade scale sheet series. Detailed specifications coming soon.">
                 專業 Scale Sheet 磅秤襯墊系列，詳細產品規格數據建置整理中。
               </p>
               <div class="subcat-list">
@@ -494,4 +872,5 @@
     }
   </script>
 </body>
+
 </html>
