@@ -447,153 +447,65 @@
       flex-wrap: wrap;
     }
 
-    /* Option B: Streamlined Minimal Orbit Sphere with 6 Micro Icon Nodes */
+    /* Executive Corporate Split Hero Stage (無圓圈花招、大氣莊重 500 強企業二分法首頁) */
     .hero-right-col {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .hero-corporate-card {
       position: relative;
-    }
-
-    .hero-orbit-wrapper {
-      position: relative;
-      width: 420px;
-      height: 420px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .hero-orbit-ring {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      border: 2px dashed rgba(0, 168, 255, 0.4);
-      box-shadow: 0 0 50px rgba(0, 168, 255, 0.2), inset 0 0 35px rgba(0, 168, 255, 0.12);
-      animation: orbitRotate 35s linear infinite;
-    }
-
-    .hero-orbit-pulse {
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 168, 255, 0.28) 0%, rgba(10, 25, 47, 0) 70%);
-      animation: pulseGlow 4s ease-in-out infinite alternate;
-    }
-
-    @keyframes pulseGlow {
-      0% { transform: scale(0.9); opacity: 0.5; }
-      100% { transform: scale(1.12); opacity: 0.9; }
-    }
-
-    @keyframes orbitRotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .hero-orbit-center-badge {
-      position: absolute;
-      width: 135px;
-      height: 135px;
-      background: rgba(15, 30, 54, 0.92);
+      width: 100%;
+      max-width: 540px;
+      background: rgba(15, 30, 54, 0.85);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-      z-index: 5;
-    }
-
-    .hero-orbit-center-badge img {
-      width: 70px;
-      height: auto;
-    }
-
-    .orbit-center-tag {
-      font-size: 0.65rem;
-      font-weight: 900;
-      color: var(--accent-azure);
-      letter-spacing: 1px;
-    }
-
-    /* 6 Minimal Orbit Micro Icon Nodes (Option B) */
-    .orbit-micro-node {
-      position: absolute;
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: rgba(15, 30, 54, 0.92);
-      backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      transition: all 0.4s ease;
+    }
+
+    .hero-corporate-card:hover {
+      border-color: var(--accent-azure);
+      box-shadow: 0 40px 80px rgba(0, 168, 255, 0.25);
+      transform: translateY(-4px);
+    }
+
+    .hero-corporate-img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 14px;
+      display: block;
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.5));
+    }
+
+    .hero-corporate-tagbar {
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 25, 47, 0.8);
+      padding: 10px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .corporate-tag-item {
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      z-index: 10;
-    }
-
-    .orbit-micro-node i {
-      font-size: 1.25rem;
-      transition: transform 0.3s ease;
-    }
-
-    /* Tooltip Hover Label */
-    .orbit-node-tooltip {
-      position: absolute;
-      background: rgba(10, 25, 47, 0.95);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--accent-azure);
-      color: #FFFFFF;
-      padding: 5px 14px;
-      border-radius: 8px;
-      font-size: 0.78rem;
+      gap: 8px;
+      font-size: 0.82rem;
       font-weight: 800;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transform: translateY(6px) scale(0.9);
-      transition: all 0.25s ease;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      color: #FFFFFF;
     }
 
-    .orbit-micro-node:hover {
-      transform: scale(1.25);
-      border-color: var(--accent-azure);
-      box-shadow: 0 12px 30px rgba(0, 168, 255, 0.45);
-      z-index: 20;
+    .corporate-tag-item i {
+      color: var(--accent-azure);
+      font-size: 0.95rem;
     }
-
-    .orbit-micro-node:hover .orbit-node-tooltip {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    /* Node Orbit Position Placement */
-    .node-pos-1 { top: -10px; left: 40px; }
-    .node-pos-1 .orbit-node-tooltip { top: -34px; }
-
-    .node-pos-2 { top: -10px; right: 40px; }
-    .node-pos-2 .orbit-node-tooltip { top: -34px; }
-
-    .node-pos-3 { top: 140px; left: -25px; }
-    .node-pos-3 .orbit-node-tooltip { left: -75px; top: 10px; }
-
-    .node-pos-4 { top: 140px; right: -25px; }
-    .node-pos-4 .orbit-node-tooltip { right: -75px; top: 10px; }
-
-    .node-pos-5 { bottom: -10px; left: 40px; }
-    .node-pos-5 .orbit-node-tooltip { bottom: -34px; }
-
-    .node-pos-6 { bottom: -10px; right: 40px; }
-    .node-pos-6 .orbit-node-tooltip { bottom: -34px; }
 
     /* Hero 底部 4 大核心特色列 */
     .hero-stats-row {
@@ -1361,56 +1273,15 @@
           </div>
         </div>
 
-        <!-- RIGHT COLUMN: Option B - Streamlined Minimal Orbit Sphere with 6 Micro Icon Nodes -->
+        <!-- RIGHT COLUMN: Executive Corporate Split Hero Stage -->
         <div class="hero-right-col">
-          <div class="hero-orbit-wrapper">
-            <!-- Glowing Orbit Ring -->
-            <div class="hero-orbit-ring"></div>
-            <div class="hero-orbit-pulse"></div>
-
-            <!-- Center Logo Badge -->
-            <div class="hero-orbit-center-badge">
-              <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Core">
-              <span class="orbit-center-tag">6 CORE LINES</span>
+          <div class="hero-corporate-card">
+            <img src="./src/can-liners-draw-tape-hero.jpg" alt="Inteplast Taiwan Manufacturing Base & Products" class="hero-corporate-img">
+            <div class="hero-corporate-tagbar">
+              <div class="corporate-tag-item"><i class="fa-solid fa-industry"></i> <span>月產 703 噸吹膜產線</span></div>
+              <div class="corporate-tag-item"><i class="fa-solid fa-award"></i> <span>ISO 9001 嚴格把關</span></div>
+              <div class="corporate-tag-item"><i class="fa-solid fa-shield-halved"></i> <span>台塑關係企業合資</span></div>
             </div>
-
-            <!-- 6 Minimal Floating Orbit Icon Nodes -->
-            <!-- 01 清潔袋 -->
-            <a href="products/can-liners.html" class="orbit-micro-node node-pos-1">
-              <i class="fa-solid fa-dumpster" style="color: #00A8FF;"></i>
-              <span class="orbit-node-tooltip" data-tw="清潔袋系列" data-en="Can Liners">清潔袋系列</span>
-            </a>
-
-            <!-- 02 拉繩袋 -->
-            <a href="products/draw-tape.html" class="orbit-micro-node node-pos-2">
-              <i class="fa-solid fa-ribbon" style="color: #F87171;"></i>
-              <span class="orbit-node-tooltip" data-tw="拉繩袋系列" data-en="Draw-Tape Bags">拉繩袋系列</span>
-            </a>
-
-            <!-- 03 耐熱袋 -->
-            <a href="products/foodservice.html" class="orbit-micro-node node-pos-3">
-              <i class="fa-solid fa-fire-burner" style="color: #FBBF24;"></i>
-              <span class="orbit-node-tooltip" data-tw="耐熱袋系列" data-en="Heat-Resistant">耐熱袋系列</span>
-            </a>
-
-            <!-- 04 密封包裝類 -->
-            <a href="products/foodservice.html" class="orbit-micro-node node-pos-4">
-              <i class="fa-solid fa-box-archive" style="color: #34D399;"></i>
-              <span class="orbit-node-tooltip" data-tw="密封包裝類" data-en="Sealed Bags">密封包裝類</span>
-            </a>
-
-            <!-- 05 其他類 -->
-            <a href="products/foodservice.html" class="orbit-micro-node node-pos-5">
-              <i class="fa-solid fa-shield-halved" style="color: #A78BFA;"></i>
-              <span class="orbit-node-tooltip" data-tw="其他防護類" data-en="Specialty">其他防護類</span>
-            </a>
-
-            <!-- 06 Scale Sheet -->
-            <a href="products/stretch-films.html" class="orbit-micro-node node-pos-6">
-              <i class="fa-solid fa-weight-scale" style="color: #38BDF8;"></i>
-              <span class="orbit-node-tooltip" data-tw="Scale Sheet 磅秤襯墊" data-en="Scale Sheet">Scale Sheet 磅秤襯墊</span>
-            </a>
-
           </div>
         </div>
       </div>
