@@ -1544,14 +1544,13 @@
       document.querySelectorAll('[data-tw]').forEach(function(element) {
         const replacement = element.getAttribute('data-' + lang);
         if (replacement) {
-          if (element.children.length === 0 || element.childElementCount === 0) {
-            element.innerHTML = replacement;
+          const icon = element.querySelector('i');
+          if (icon) {
+            const iconClone = icon.cloneNode(true);
+            element.innerHTML = replacement + ' ';
+            element.appendChild(iconClone);
           } else {
-            element.childNodes.forEach(function(node) {
-              if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '') {
-                node.nodeValue = replacement.replace(/<[^>]*>/g, '');
-              }
-            });
+            element.innerHTML = replacement;
           }
         }
       });
