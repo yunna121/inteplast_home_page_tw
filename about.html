@@ -426,10 +426,50 @@
   </main>
   <footer class="footer"><div class="container footer-inner"><img src="./src/inteplast-logo-blue.svg" alt="Inteplast"><span>© 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</span></div></footer>
   <script>
-    let currentLang="tw";
-    function toggleLanguage(){currentLang=currentLang==="tw"?"en":"tw";document.documentElement.lang=currentLang==="tw"?"zh-TW":"en";document.getElementById("langBtn").textContent=currentLang==="tw"?"EN / 繁中":"繁中 / EN";document.querySelectorAll("[data-tw]").forEach(function(element){const replacement=element.getAttribute("data-"+currentLang);if(replacement)element.textContent=replacement})}
-    const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if(reduceMotion||!("IntersectionObserver" in window)){document.querySelectorAll(".reveal").forEach(function(element){element.classList.add("visible")})}else{const observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}})},{threshold:.12});document.querySelectorAll(".reveal").forEach(function(element){observer.observe(element)})}
+    let currentLang = localStorage.getItem('preferredLang') || 'tw';
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('preferredLang', lang);
+      document.documentElement.lang = lang === 'tw' ? 'zh-TW' : 'en';
+
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) {
+        langBtn.textContent = lang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+      }
+
+      document.querySelectorAll("[data-tw]").forEach(function(element) {
+        const replacement = element.getAttribute("data-" + lang);
+        if (replacement) element.textContent = replacement;
+      });
+    }
+
+    function toggleLanguage() {
+      const nextLang = currentLang === 'tw' ? 'en' : 'tw';
+      applyLanguage(nextLang);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedLang = localStorage.getItem('preferredLang');
+      if (savedLang && (savedLang === 'en' || savedLang === 'tw')) {
+        applyLanguage(savedLang);
+      }
+    });
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      document.querySelectorAll(".reveal").forEach(function(element) { element.classList.add("visible"); });
+    } else {
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12 });
+      document.querySelectorAll(".reveal").forEach(function(element) { observer.observe(element); });
+    }
   </script>
 </body>
 </html>

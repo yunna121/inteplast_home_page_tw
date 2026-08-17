@@ -1527,25 +1527,26 @@
   </main>
   <footer>© 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</footer>
 
-  <!-- 雙語切換腳本 Engine -->
+  <!-- 雙語切換腳本 Engine (含 localStorage 跨頁記憶) -->
   <script>
-    let currentLang = 'tw';
-    function toggleLanguage() {
-      currentLang = currentLang === 'tw' ? 'en' : 'tw';
-      document.documentElement.lang = currentLang === 'tw' ? 'zh-TW' : 'en';
-      
+    let currentLang = localStorage.getItem('preferredLang') || 'tw';
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('preferredLang', lang);
+      document.documentElement.lang = lang === 'tw' ? 'zh-TW' : 'en';
+
       const langBtn = document.getElementById('langBtn');
       if (langBtn) {
-        langBtn.textContent = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+        langBtn.textContent = lang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
       }
 
       document.querySelectorAll('[data-tw]').forEach(function(element) {
-        const replacement = element.getAttribute('data-' + currentLang);
+        const replacement = element.getAttribute('data-' + lang);
         if (replacement) {
           if (element.children.length === 0 || element.childElementCount === 0) {
             element.innerHTML = replacement;
           } else {
-            element.setAttribute('data-current-text', replacement);
             element.childNodes.forEach(function(node) {
               if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '') {
                 node.nodeValue = replacement.replace(/<[^>]*>/g, '');
@@ -1555,6 +1556,18 @@
         }
       });
     }
+
+    function toggleLanguage() {
+      const nextLang = currentLang === 'tw' ? 'en' : 'tw';
+      applyLanguage(nextLang);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedLang = localStorage.getItem('preferredLang');
+      if (savedLang && (savedLang === 'en' || savedLang === 'tw')) {
+        applyLanguage(savedLang);
+      }
+    });
   </script>
 </body>
 

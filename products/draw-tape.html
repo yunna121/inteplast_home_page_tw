@@ -842,6 +842,45 @@
         window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
       }
     }
+
+    let currentLang = localStorage.getItem('preferredLang') || 'tw';
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('preferredLang', lang);
+      document.documentElement.lang = lang === 'tw' ? 'zh-TW' : 'en';
+
+      const langBtn = document.getElementById("langBtn");
+      if (langBtn) {
+        langBtn.innerText = lang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+      }
+      document.querySelectorAll("[data-tw]").forEach(el => {
+        const text = el.getAttribute(`data-${lang}`);
+        if (text) {
+          const icon = el.querySelector('i');
+          if (icon) {
+            const iconClone = icon.cloneNode(true);
+            el.innerHTML = '';
+            el.appendChild(iconClone);
+            el.appendChild(document.createTextNode(' ' + text));
+          } else {
+            el.innerText = text;
+          }
+        }
+      });
+    }
+
+    function toggleLanguage() {
+      const nextLang = currentLang === 'tw' ? 'en' : 'tw';
+      applyLanguage(nextLang);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedLang = localStorage.getItem('preferredLang');
+      if (savedLang && (savedLang === 'en' || savedLang === 'tw')) {
+        applyLanguage(savedLang);
+      }
+    });
   </script>
 </body>
 </html>
