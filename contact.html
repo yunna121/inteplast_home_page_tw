@@ -137,10 +137,99 @@
       .contact-grid { grid-template-columns: 1fr; }
     }
   </style>
-  <script src="./src/navbar.js"></script>
+  <link rel="stylesheet" href="./src/navbar.css">
 </head>
 <body>
-  <div id="site-header-component"></div>
+  <!-- 集團頂樓列 -->
+  <div class="top-utility-bar">
+    <div class="utility-left">
+      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
+      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> 臺灣塑膠工業股份有限公司</a>
+      <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 美國總部</a>
+    </div>
+    <div class="utility-right">
+      <a href="sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> 永續發展</a>
+      <a href="contact.html" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
+    </div>
+  </div>
+
+  <!-- Header Navbar -->
+  <header class="header">
+    <a href="index.html" class="header-logo">
+      <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
+      <div class="logo-text-wrapper">
+        <span class="logo-text-tw">臺灣營德股份有限公司</span>
+        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
+      </div>
+    </a>
+
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
+      <li class="nav-item"><a href="about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
+
+      <!-- 6 大分類 Mega Menu -->
+      <li class="nav-item">
+        <a href="products/index.html" class="nav-link-item product-menu-trigger" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <div class="mega-menu-panel-6cat">
+          <div class="mega-grid-6">
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/can-liners.html">連捲清潔袋</a></li>
+                <li><a href="products/can-liners.html">單張抽取</a></li>
+                <li><a href="products/can-liners.html">環保清潔袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/draw-tape.html">清潔袋</a></li>
+                <li><a href="products/draw-tape.html">醫療袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">平裝耐熱袋</a></li>
+                <li><a href="products/foodservice.html">捲裝耐熱袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">密實袋</a></li>
+                <li><a href="products/foodservice.html">立體密實袋</a></li>
+                <li><a href="products/foodservice.html">冷凍袋</a></li>
+                <li><a href="products/foodservice.html">夾鏈袋</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/foodservice.html">衛生手套</a></li>
+                <li><a href="products/foodservice.html">台塑遮蔽防塵膠帶</a></li>
+              </ul>
+            </div>
+            <div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> 06 Scale Sheet</div>
+              <ul class="mega-sub-links">
+                <li><a href="products/stretch-films.html">生鮮磅秤切片膜</a></li>
+                <li><a href="products/stretch-films.html">熟食肉品磅秤襯墊</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item"><a href="sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
+      <li class="nav-item"><a href="contact.html" class="nav-link-item active" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
+    </ul>
+
+    <div class="header-right">
+      <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
+      <a href="contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i><span data-tw="立即詢價" data-en="Get a Quote">立即詢價</span></a>
+    </div>
+  </header>
 
   <section class="page-hero">
     <h1 data-tw="線上 RFQ 詢價與聯繫外銷團隊" data-en="Contact Sales & Online RFQ Inquiry">線上 RFQ 詢價與聯繫外銷團隊</h1>

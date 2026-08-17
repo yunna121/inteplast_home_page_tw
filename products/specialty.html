@@ -159,27 +159,39 @@
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
   </style>
-  <script src="../src/navbar.js"></script>
+  <link rel="stylesheet" href="../src/navbar.css">
 </head>
 <body>
-  <div id="site-header-component"></div>
+  <!-- 集團頂樓列 -->
+  <div class="top-utility-bar">
+    <div class="utility-left">
+      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
+      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> 臺灣塑膠工業股份有限公司</a>
+      <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 美國總部</a>
+    </div>
+    <div class="utility-right">
+      <a href="../sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> 永續發展</a>
+      <a href="../contact.html" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
+    </div>
+  </div>
 
+  <!-- Header Navbar -->
   <header class="header">
     <a href="../index.html" class="header-logo">
       <img src="../src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
-      <div>
+      <div class="logo-text-wrapper">
         <span class="logo-text-tw">臺灣營德股份有限公司</span>
         <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
       </div>
     </a>
-    
+
     <ul class="nav-menu">
-      <li class="nav-item"><a href="../index.html" class="nav-link-item">首頁</a></li>
-      <li class="nav-item"><a href="../about.html" class="nav-link-item">關於營德</a></li>
-      
-      <!-- 6 大產品 Mega Menu -->
+      <li class="nav-item"><a href="../index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
+      <li class="nav-item"><a href="../about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
+
+      <!-- 6 大分類 Mega Menu -->
       <li class="nav-item">
-        <a href="index.html" class="nav-link-item active">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <a href="index.html" class="nav-link-item active product-menu-trigger" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
         <div class="mega-menu-panel-6cat">
           <div class="mega-grid-6">
             <div>
@@ -207,17 +219,17 @@
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
               <ul class="mega-sub-links">
-                <li><a href="zipper-bags.html">夾鏈袋 (00~12號)</a></li>
-                <li><a href="zipper-bags.html">密實袋</a></li>
-                <li><a href="zipper-bags.html">立體密實袋</a></li>
-                <li><a href="zipper-bags.html">冷凍袋</a></li>
+                <li><a href="foodservice.html">密實袋</a></li>
+                <li><a href="foodservice.html">立體密實袋</a></li>
+                <li><a href="foodservice.html">冷凍袋</a></li>
+                <li><a href="foodservice.html">夾鏈袋</a></li>
               </ul>
             </div>
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
               <ul class="mega-sub-links">
-                <li><a href="specialty.html">台塑遮蔽防塵膠帶</a></li>
-                <li><a href="specialty.html">衛生手套</a></li>
+                <li><a href="foodservice.html">衛生手套</a></li>
+                <li><a href="foodservice.html">台塑遮蔽防塵膠帶</a></li>
               </ul>
             </div>
             <div>
@@ -231,13 +243,13 @@
         </div>
       </li>
 
-      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item">永續發展</a></li>
-      <li class="nav-item"><a href="../contact.html" class="nav-link-item">聯繫與詢價</a></li>
+      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
+      <li class="nav-item"><a href="../contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
     </ul>
 
     <div class="header-right">
-      <button class="lang-toggle" id="langBtn" onclick="toggleLanguage()">EN / 繁中</button>
-      <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i> Get a Quote 詢價</a>
+      <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
+      <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i><span data-tw="立即詢價" data-en="Get a Quote">立即詢價</span></a>
     </div>
   </header>
 
