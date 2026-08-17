@@ -142,15 +142,67 @@
     }
     .cat-spec-title { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
 
-    /* COMPACT TABLE STYLING */
-    .compact-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    .compact-table th { background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; padding: 12px 24px; text-align: left; border-bottom: 1px solid #CBD5E1; }
-    .compact-table td { padding: 12px 24px; border-bottom: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; transition: background 0.2s ease; }
-    .compact-table tr:last-child td { border-bottom: none; }
-    .compact-table tr:nth-child(even) td { background: #F8FAFC; }
-    .compact-table tr:hover td { background: #EFF6FF; }
+    /* NO TABLE - ORIGINAL DM SPEC CARD ROW STYLING */
+    .edm-card-rows-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 24px 24px;
+    }
 
-    .tag-size { display: inline-block; background: #E0F2FE; color: #0284C7; font-weight: 800; padding: 3px 12px; border-radius: 6px; font-size: 0.84rem; }
+    .edm-spec-card-item {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 14px;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .edm-spec-card-item:hover {
+      border-color: #00529B;
+      box-shadow: 0 6px 18px rgba(0, 82, 155, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .edm-spec-card-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .edm-size-pill {
+      font-size: 1.02rem;
+      font-weight: 900;
+      color: #0A2540;
+      background: #F1F5F9;
+      padding: 4px 14px;
+      border-radius: 8px;
+      border: 1px solid #CBD5E1;
+    }
+
+    .edm-qty-badge {
+      background: #00529B;
+      color: #FFFFFF;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    .edm-spec-card-dim {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
     
     /* Color Pill Badges */
     .color-pill-clear { background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
@@ -358,31 +410,116 @@
             </div>
           </div>
         </div>
-        <table class="compact-table">
-          <thead>
-            <tr>
-              <th data-tw="容量 Capacity" data-en="Capacity">容量 Capacity</th>
-              <th data-tw="尺寸等級 Size Level" data-en="Size Level">尺寸等級 Size Level</th>
-              <th data-tw="詳細尺寸 Dimensions" data-en="Dimensions">詳細尺寸 Dimensions</th>
-              <th data-tw="張數與款式規格 Pack Spec" data-en="Pack Spec">張數與款式規格 Pack Spec</th>
-              <th data-tw="可選顏色 Available Colors" data-en="Available Colors">可選顏色 Available Colors</th>
-              <th style="width: 140px; text-align: center;">批量詢價</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><strong style="color: var(--primary-navy);">10L</strong></td><td><span class="tag-size">特小</span></td><td>40 × 50 cm</td><td><span class="tag-qty">100 張/捲</span></td><td><span class="color-pill-clear">透明</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 10L特小 (40x50cm, 100張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">15L</strong></td><td><span class="tag-size">小</span></td><td>43 × 56 cm</td><td><span class="tag-qty">72 張/捲</span></td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 15L小 (43x56cm, 72張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">20L</strong></td><td><span class="tag-size">中</span></td><td>53 × 63 cm</td><td><span class="tag-qty">54 張/捲</span></td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 20L中 (53x63cm, 54張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">45L</strong></td><td><span class="tag-size">大</span></td><td>65 × 75 cm</td><td><span class="tag-qty">30 張/捲</span></td><td><span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 45L大 (65x75cm, 30張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">70L</strong></td><td><span class="tag-size">特大</span></td><td>80 × 90 cm</td><td><span class="tag-qty">22 張/捲</span></td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 70L特大 (80x90cm, 22張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">90L</strong></td><td><span class="tag-size">超大</span></td><td>86 × 100 cm</td><td><span class="tag-qty">16 張/捲</span></td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 90L超大 (86x100cm, 16張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">125L</strong></td><td><span class="tag-size">超大</span></td><td>90 × 110 cm</td><td><span class="tag-qty">28 張/捲</span></td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 125L超大 (90x110cm, 28張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">126L</strong></td><td><span class="tag-size">超特大</span></td><td>91 × 110 cm</td><td><span class="tag-qty">10 張/捲</span></td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 126L超特大 (91x110cm, 10張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">125L</strong></td><td><span class="tag-size">超特大 (拉強韌)</span></td><td>92 × 110 cm</td><td><span class="tag-qty">21 張/捲</span></td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 125L拉強韌 (92x110cm, 21張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">125L</strong></td><td><span class="tag-size">超特大 (加厚)</span></td><td>94 × 110 cm</td><td><span class="tag-qty">27 張/捲</span></td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 125L加厚 (94x110cm, 27張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">125L</strong></td><td><span class="tag-size">超特大</span></td><td>94 × 110 cm</td><td><span class="tag-qty">30 張/捲</span></td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 125L超特大 (94x110cm, 30張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-          </tbody>
-        </table>
+        <!-- 原圖 DM 風格產品圖卡列表 (無 table) -->
+        <div class="edm-card-rows-wrapper">
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">10L 特小</span>
+              <span class="edm-qty-badge">100 張/捲</span>
+              <span class="color-pill-clear">透明</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 40 × 長 50 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 10L特小 (40x50cm, 100張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">15L 小</span>
+              <span class="edm-qty-badge">72 張/捲</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 43 × 長 56 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 15L小 (43x56cm, 72張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">20L 中</span>
+              <span class="edm-qty-badge">54 張/捲</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 53 × 長 63 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 20L中 (53x63cm, 54張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">45L 大</span>
+              <span class="edm-qty-badge">30 張/捲</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-pink">粉紅</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 65 × 長 75 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 45L大 (65x75cm, 30張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">70L 特大</span>
+              <span class="edm-qty-badge">22 張/捲</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 80 × 長 90 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 70L特大 (80x90cm, 22張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">90L 超大</span>
+              <span class="edm-qty-badge">16 張/捲</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 86 × 長 100 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 90L超大 (86x100cm, 16張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">125L 超大</span>
+              <span class="edm-qty-badge">28 張/捲</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 90 × 長 110 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 125L超大 (90x110cm, 28張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">126L 超特大</span>
+              <span class="edm-qty-badge">10 張/捲</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 91 × 長 110 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 126L超特大 (91x110cm, 10張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">125L 超特大 (加厚)</span>
+              <span class="edm-qty-badge">27 張/捲</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 94 × 長 110 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('連捲清潔袋 · 125L加厚 (94x110cm, 27張)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- 2. 單張/抽取 清潔袋 PRODUCT BLOCK -->
@@ -390,27 +527,84 @@
         <div class="cat-spec-header">
           <h2 class="cat-spec-title"><i class="fa-solid fa-box-open"></i> 單張 / 抽取清潔袋規格對照表</h2>
         </div>
-        <table class="compact-table">
-          <thead>
-            <tr>
-              <th data-tw="容量 Capacity" data-en="Capacity">容量 Capacity</th>
-              <th data-tw="尺寸等級 Size Level" data-en="Size Level">尺寸等級 Size Level</th>
-              <th data-tw="詳細尺寸 Dimensions" data-en="Dimensions">詳細尺寸 Dimensions</th>
-              <th data-tw="可選顏色 Available Colors" data-en="Available Colors">可選顏色 Available Colors</th>
-              <th style="width: 140px; text-align: center;">批量詢價</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><strong style="color: var(--primary-navy);">10L</strong></td><td><span class="tag-size">超小</span></td><td>38 x 45 cm</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 10L超小 (38x45cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">12L</strong></td><td><span class="tag-size">特小</span></td><td>—</td><td><span class="color-pill-clear">透明</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 12L特小', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">15L</strong></td><td><span class="tag-size">小</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 15L小', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">20L</strong></td><td><span class="tag-size">中</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 20L中', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">45L</strong></td><td><span class="tag-size">大</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span> <span class="color-pill-blue">藍色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 45L大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">70L</strong></td><td><span class="tag-size">特大</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 70L特大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><strong style="color: var(--primary-navy);">90L</strong></td><td><span class="tag-size">超大</span></td><td>—</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 90L超大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td>—</td><td><span class="tag-size">特大規格</span></td><td>91 x 110 cm (910x1100mm)</td><td><span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 91x110cm特大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-          </tbody>
-        </table>
+        <div class="edm-card-rows-wrapper" style="padding-top: 20px;">
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">10L 超小</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 38 × 長 45 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 10L超小 (38x45cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">15L 小</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 43 × 長 56 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 15L小 (43x56cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">20L 中</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 53 × 長 63 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 20L中 (53x63cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">45L 大</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span> <span class="color-pill-pink">粉紅</span> <span class="color-pill-blue">藍色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 65 × 長 75 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 45L大 (65x75cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">70L 特大</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 80 × 長 90 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 70L特大 (80x90cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">90L 超大</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 86 × 長 100 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 90L超大 (86x100cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">125L 超特大</span>
+              <span class="color-pill-clear">透明</span> <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 91 × 長 110 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('單張抽取清潔袋 · 125L (91x110cm)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- 3. 環保清潔袋 PRODUCT BLOCK -->

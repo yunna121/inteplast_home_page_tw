@@ -452,54 +452,68 @@
           </div>
         </div>
 
-        <table class="compact-table">
-          <thead>
-            <tr>
-              <th style="width: 110px;">容量 Capacity</th>
-              <th style="width: 130px;">尺寸等級 Size</th>
-              <th>詳細尺寸 Dimensions</th>
-              <th>包裝 / 捲數規格 Pack Format</th>
-              <th style="width: 140px; text-align: center;">批量詢價</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="tag-capacity">8 L</span></td>
-              <td><span class="tag-size">小</span></td>
-              <td>寬 39 × 長 40 cm</td>
-              <td><span class="tag-qty">40 張 / 捲 (紅)</span></td>
-              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 8L小 (39x40cm, 40張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
-            </tr>
-            <tr>
-              <td><span class="tag-capacity">20 L</span></td>
-              <td><span class="tag-size">中</span></td>
-              <td>寬 52 × 長 55 cm</td>
-              <td><span class="tag-qty">22 張 / 捲 (紅)</span></td>
-              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 20L中 (52x55cm, 22張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
-            </tr>
-            <tr>
-              <td><span class="tag-capacity">50 L</span></td>
-              <td><span class="tag-size">大</span></td>
-              <td>寬 69 × 長 78 cm</td>
-              <td><span class="tag-qty">12 張 / 捲 (紅)</span></td>
-              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 50L大 (69x78cm, 12張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
-            </tr>
-            <tr>
-              <td><span class="tag-capacity">70 L</span></td>
-              <td><span class="tag-size">特大</span></td>
-              <td>寬 77 × 長 92 cm</td>
-              <td><span class="tag-qty">8 張 / 捲 (紅)</span></td>
-              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 70L特大 (77x92cm, 8張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
-            </tr>
-            <tr>
-              <td><span class="tag-capacity">90 L</span></td>
-              <td><span class="tag-size">超大</span></td>
-              <td>寬 95 × 長 84 cm</td>
-              <td><span class="tag-qty">12 張 / 捲 (紅)</span></td>
-              <td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 90L超大 (95x84cm, 12張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- 原圖 DM 風格產品圖卡列表 (無 table) -->
+        <div class="edm-card-rows-wrapper" style="padding-top: 16px;">
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill" style="border-color: #FECDD3; background: #FFF1F2; color: #BE123C;">小 8L</span>
+              <span class="edm-qty-badge" style="background: #E11D48;">40 張 / 捲</span>
+              <span style="background: #E11D48; color: #FFF; font-weight: 900; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem;">紅</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 39 × 長 40 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 8L小 (39x40cm, 40張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill" style="border-color: #FECDD3; background: #FFF1F2; color: #BE123C;">中 20L</span>
+              <span class="edm-qty-badge" style="background: #E11D48;">22 張 / 捲</span>
+              <span style="background: #E11D48; color: #FFF; font-weight: 900; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem;">紅</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 52 × 長 55 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 20L中 (52x55cm, 22張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill" style="border-color: #FECDD3; background: #FFF1F2; color: #BE123C;">大 50L</span>
+              <span class="edm-qty-badge" style="background: #E11D48;">12 張 / 捲</span>
+              <span style="background: #E11D48; color: #FFF; font-weight: 900; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem;">紅</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 69 × 長 78 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 50L大 (69x78cm, 12張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill" style="border-color: #FECDD3; background: #FFF1F2; color: #BE123C;">特大 70L</span>
+              <span class="edm-qty-badge" style="background: #E11D48;">8 張 / 捲</span>
+              <span style="background: #E11D48; color: #FFF; font-weight: 900; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem;">紅</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 77 × 長 92 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 70L特大 (77x92cm, 8張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill" style="border-color: #FECDD3; background: #FFF1F2; color: #BE123C;">超大 90L</span>
+              <span class="edm-qty-badge" style="background: #E11D48;">12 張 / 捲</span>
+              <span style="background: #E11D48; color: #FFF; font-weight: 900; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem;">紅</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 95 × 長 84 cm</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 90L超大 (95x84cm, 12張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+        </div>
 
         <!-- 原廠 EDM 醫療廢棄物與主要來源說明卡 -->
         <div style="margin: 20px; padding: 20px; background: #FFF5F5; border: 1px solid #FECDD3; border-radius: 14px;">
