@@ -193,6 +193,8 @@
       align-items: center;
       gap: 6px;
       cursor: pointer;
+      position: relative;
+      z-index: 10;
     }
 
     .nav-link-item:hover,
@@ -233,11 +235,12 @@
     .mega-menu-panel-6cat::before {
       content: '';
       position: absolute;
-      top: -30px;
+      top: -16px;
       left: 0;
       width: 100%;
-      height: 35px;
+      height: 20px;
       background: transparent;
+      z-index: -1;
     }
 
     .nav-item:hover .mega-menu-panel-6cat,
