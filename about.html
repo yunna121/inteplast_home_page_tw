@@ -41,7 +41,7 @@
     .top-utility-bar {
       background: var(--primary-navy); color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
       padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: fixed; top: 0; left: 0; width: 100%; z-index: 1050;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: relative; z-index: 1002;
     }
     .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
     .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
@@ -65,7 +65,7 @@
     .nav-link-item {
       padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
       color: var(--text-main); text-decoration: none; transition: var(--transition);
-      display: inline-flex; align-items: center; gap: 6px; cursor: pointer; position: relative; z-index: 10;
+      display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
     }
     .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
     .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
@@ -73,18 +73,12 @@
 
     /* 6 大類 Mega Menu Panel */
     .mega-menu-panel-6cat {
-      position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
       width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
       border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
-      opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 1100; color: var(--text-main);
+      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; color: var(--text-main);
     }
-    .mega-menu-panel-6cat::before {
-      content: ''; position: absolute; top: -16px; left: 0; width: 100%; height: 20px; background: transparent; z-index: -1;
-    }
-    .nav-item:hover .mega-menu-panel-6cat,
-    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; }
-    .nav-item:hover .caret-icon,
-    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
+    .nav-item:hover .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
     .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
     .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
     .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -252,89 +246,18 @@
       </div>
 
       <!-- 卓越營運獎 Award -->
-      <div class="award-card" style="background: #FFFBEB; border: 1px solid #FCD34D; border-radius: var(--radius-md); padding: 24px; display: flex; gap: 20px; align-items: center; margin-top: 30px;">
-        <i class="fa-solid fa-trophy award-icon" style="font-size: 2.2rem; color: #D97706;"></i>
+      <div class="award-card">
+        <i class="fa-solid fa-trophy award-icon"></i>
         <div>
-          <div style="font-size: 1.25rem; font-weight: 800; color: #92400E; margin-bottom: 4px;" data-tw="連續榮獲 2022、2023 年集團卓越營運獎 (Excellence Award)" data-en="Recipient of 2022 & 2023 Group Excellence Awards">
+          <div style="font-size: 1.3rem; font-weight: 800; color: #92400E; margin-bottom: 4px;" data-tw="連續榮獲 2022、2023 年集團卓越營運獎 (Excellence Award)" data-en="Recipient of 2022 & 2023 Group Excellence Awards">
             連續榮獲 2022、2023 年集團卓越營運獎 (Excellence Award)
           </div>
-          <div style="font-size: 0.92rem; color: #78350F;" data-tw="在 Inteplast Group 全球眾多生產基地的內部營運評比中，憑藉穩定且優異的生產品質與高良率 (月均良率突破 92%)，連續獲得集團總裁頒發最高榮譽代表。" data-en="Recognized by the Group President for outstanding operational efficiency, quality yield exceeding 92%, and manufacturing perfection.">
-            在 Inteplast Group 全球眾多生產基地的內部營運評比中，憑藉穩定且優異的生產品質與高良率 (月均良率突破 92%)，連續獲得集團總裁頒發最高榮譽代表。
+          <div style="font-size: 0.95rem; color: #78350F;" data-tw="在 Inteplast Group 全球眾多生產基地的內部營運評比中，憑藉穩定且優異的生產品質與高良率，連續獲得集團總裁頒發最高榮譽代表。" data-en="Recognized by the Group President for outstanding operational efficiency, quality yield, and manufacturing perfection.">
+            在 Inteplast Group 全球眾多生產基地的內部營運評比中，憑藉穩定且優異的生產品質與高良率，連續獲得集團總裁頒發最高榮譽代表。
           </div>
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- History Timeline Section -->
-  <section class="section" style="background: var(--bg-light); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 60px 0;">
-    <div class="container">
-      <span class="badge" data-tw="OUR MILESTONES" data-en="OUR MILESTONES" style="background: rgba(0, 82, 155, 0.1); color: var(--brand-blue); padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.75rem;">OUR MILESTONES</span>
-      <h2 class="title" style="font-size: 2rem; font-weight: 900; color: var(--primary-navy); margin: 10px 0;" data-tw="深耕新港 · 37 年發展里程碑" data-en="37 Years History & Milestones">深耕新港 · 37 年發展里程碑</h2>
-      <p class="desc" style="color: var(--text-muted); margin-bottom: 30px;" data-tw="自 1989 年整地擴建、1991 年正式投產以來，始終致力於自動化製袋與高品質薄膜生產。" data-en="Since plant construction in 1989 and production in 1991, dedicated to automated bag making and high-quality blown film production.">
-        自 1989 年整地擴建、1991 年正式投產以來，始終致力於自動化製袋與高品質薄膜生產。
-      </p>
-
-      <div class="timeline-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
-        <div style="background: #fff; padding: 22px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-          <div style="font-size: 1.5rem; font-weight: 900; color: var(--brand-blue); margin-bottom: 6px;">1989 - 1991</div>
-          <div style="font-size: 0.95rem; font-weight: 800; color: var(--primary-navy);">新港建廠投產</div>
-          <div style="font-size: 0.84rem; color: var(--text-muted); margin-top: 6px; line-height: 1.5;">嘉義新港廠整地擴建並正式投產，產能 220 噸/月，啟用全自動拌料輸送系統。</div>
-        </div>
-
-        <div style="background: #fff; padding: 22px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-          <div style="font-size: 1.5rem; font-weight: 900; color: var(--brand-blue); margin-bottom: 6px;">1998 - 2008</div>
-          <div style="font-size: 0.95rem; font-weight: 800; color: var(--primary-navy);">產能擴充 650 噸</div>
-          <div style="font-size: 0.84rem; color: var(--text-muted); margin-top: 6px; line-height: 1.5;">引進拉繩清潔袋與市場袋精緻化生產線，廠區總產能提升並維持 650 噸/月。</div>
-        </div>
-
-        <div style="background: #fff; padding: 22px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-          <div style="font-size: 1.5rem; font-weight: 900; color: var(--brand-blue); margin-bottom: 6px;">2014</div>
-          <div style="font-size: 0.95rem; font-weight: 800; color: var(--primary-navy);">正式更名臺灣營德</div>
-          <div style="font-size: 0.84rem; color: var(--text-muted); margin-top: 6px; line-height: 1.5;">11 月 1 日正式轉換為臺灣營德股份有限公司，直屬美商 Inteplast Group 全球體系。</div>
-        </div>
-
-        <div style="background: #fff; padding: 22px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-          <div style="font-size: 1.5rem; font-weight: 900; color: var(--brand-blue); margin-bottom: 6px;">2022 - 2026</div>
-          <div style="font-size: 0.95rem; font-weight: 800; color: var(--primary-navy);">良率突破 92%</div>
-          <div style="font-size: 0.84rem; color: var(--text-muted); margin-top: 6px; line-height: 1.5;">連續獲 Inteplast Group 卓越營運獎，完成拉繩設備升級與 703 噸/月吹膜產能擴充。</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Core Strengths Section -->
-  <section class="section" style="padding: 60px 0;">
-    <div class="container">
-      <span class="badge" data-tw="OUR CORE STRENGTHS" data-en="OUR CORE STRENGTHS" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.75rem;">OUR CORE STRENGTHS</span>
-      <h2 class="title" style="font-size: 2rem; font-weight: 900; color: var(--primary-navy); margin: 10px 0;" data-tw="三大核心營運基石" data-en="Three Operational Pillars">三大核心營運基石</h2>
-      
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 30px;">
-        <div style="background: #fff; padding: 28px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-          <div style="font-size: 2rem; color: var(--brand-blue); margin-bottom: 14px;"><i class="fa-solid fa-gears"></i></div>
-          <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 10px;" data-tw="先進智慧化吹膜製程" data-en="Advanced Blown Film Tech">先進智慧化吹膜製程</h3>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;" data-tw="自動原料空輸、加熱熔融、螺桿定量擠出與外風冷卻，使薄膜穩定結晶；同步電腦控制扭力與張力，確保捲膜平整度。" data-en="Automated pneumatic transport, quantitative extrusion, and air cooling ensure uniform crystallization and tension.">
-            自動原料空輸、加熱熔融、螺桿定量擠出與外風冷卻，使薄膜穩定結晶；同步電腦控制扭力與張力，確保捲膜平整度。
-          </p>
-        </div>
-
-        <div style="background: #fff; padding: 28px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-          <div style="font-size: 2rem; color: var(--accent-emerald); margin-bottom: 14px;"><i class="fa-solid fa-recycle"></i></div>
-          <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 10px;" data-tw="100% 廠內閉環循環回收" data-en="100% In-House Scrap Recycling">100% 廠內閉環循環回收</h3>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;" data-tw="耳料薄膜、膜頭料等下腳品，均經廠內回收機即時再製為高品質再生粒投入製程；印刷全面採用無毒水性印墨。" data-en="Edge trims and purgings are immediately pelletized in-house for zero-waste circular extrusion with water-based inks.">
-            耳料薄膜、膜頭料等下腳品，均經廠內回收機即時再製為高品質再生粒投入製程；印刷全面採用無毒水性印墨。
-          </p>
-        </div>
-
-        <div style="background: #fff; padding: 28px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-          <div style="font-size: 2rem; color: #D97706; margin-bottom: 14px;"><i class="fa-solid fa-shield-halved"></i></div>
-          <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 10px;" data-tw="安衛首重 · 災害歸零" data-en="Safety First Culture">安衛首重 · 災害歸零</h3>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;" data-tw="新港廠嚴格執行台塑企業安衛管理標準，貫徹「工作安全、災害歸零」指導原則，讓高品質生產建立在絕對安全的環境。" data-en="Strict adherence to Formosa Plastics Corp safety standards, achieving Zero Disaster in all plant operations.">
-            新港廠嚴格執行台塑企業安衛管理標準，貫徹「工作安全、災害歸零」指導原則，讓高品質生產建立在絕對安全的環境。
-          </p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -347,40 +270,6 @@
   </footer>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const navItems = document.querySelectorAll(".nav-item");
-      navItems.forEach(item => {
-        let timer;
-        const panel = item.querySelector(".mega-menu-panel-6cat");
-        if (!panel) return;
-
-        item.addEventListener("mouseenter", function () {
-          clearTimeout(timer);
-          item.classList.add("open-dropdown");
-        });
-
-        item.addEventListener("mouseleave", function () {
-          timer = setTimeout(() => {
-            item.classList.remove("open-dropdown");
-          }, 300);
-        });
-
-        const trigger = item.querySelector(".product-menu-trigger");
-        if (trigger) {
-          trigger.addEventListener("click", function (e) {
-            e.preventDefault();
-            item.classList.toggle("open-dropdown");
-          });
-        }
-      });
-
-      document.addEventListener("click", function (e) {
-        if (!e.target.closest(".nav-item")) {
-          document.querySelectorAll(".nav-item.open-dropdown").forEach(i => i.classList.remove("open-dropdown"));
-        }
-      });
-    });
-
     let currentLang = 'tw';
     function toggleLanguage() {
       currentLang = currentLang === 'tw' ? 'en' : 'tw';
