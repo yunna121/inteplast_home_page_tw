@@ -579,34 +579,46 @@
       color: var(--text-muted) !important;
     }
 
-    /* 回到頁首 Floating Button 樣式 */
+    /* 回到頁首 Minimalist Frosted Glass Floating Button 樣式 */
     .back-to-top-btn {
       position: fixed;
       bottom: 32px;
       right: 32px;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--brand-blue), #00386B);
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(10, 37, 64, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       color: #FFFFFF;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      box-shadow: 0 10px 25px rgba(0, 82, 155, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
+      font-size: 1.05rem;
       opacity: 0;
       visibility: hidden;
-      transform: translateY(20px) scale(0.9);
-      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transform: translateY(16px) scale(0.92);
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       z-index: 9999;
     }
 
+    .back-to-top-btn i {
+      transition: transform 0.25s ease;
+    }
+
     .back-to-top-btn:hover {
-      background: linear-gradient(135deg, var(--accent-azure), var(--brand-blue));
-      box-shadow: 0 14px 30px rgba(0, 168, 255, 0.5);
-      transform: translateY(-4px) scale(1.08);
+      background: rgba(0, 82, 155, 0.92);
+      border-color: rgba(0, 168, 255, 0.5);
+      box-shadow: 0 14px 35px rgba(0, 168, 255, 0.4);
+      transform: translateY(-4px) scale(1.05);
+      color: #00A8FF;
+    }
+
+    .back-to-top-btn:hover i {
+      transform: translateY(-2px);
     }
 
     .back-to-top-btn.visible {
@@ -619,9 +631,10 @@
       .back-to-top-btn {
         bottom: 24px;
         right: 20px;
-        width: 46px;
-        height: 46px;
-        font-size: 1.1rem;
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        font-size: 0.95rem;
       }
     }
 
@@ -1925,7 +1938,7 @@
 
   <!-- 回到頂部 Floating Button -->
   <button id="backToTopBtn" class="back-to-top-btn" type="button" aria-label="回到頁首 / Back to Top" title="回到頂部">
-    <i class="fa-solid fa-arrow-up"></i>
+    <i class="fa-solid fa-chevron-up"></i>
   </button>
 
   <script>
