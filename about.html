@@ -66,6 +66,69 @@
     @media(max-width:1100px){:root{--utility-height:0px}.top-utility-bar{display:none}.header{top:0;padding-inline:24px}.nav-menu{display:none}.hero-inner{grid-template-columns:1fr;gap:52px}.hero-facts{max-width:600px}.network-map{grid-template-columns:1fr}.network-map::before{display:none}.network-node{min-height:280px}.origin-grid,.capability-intro{grid-template-columns:1fr;gap:38px}.origin-sticky{position:static}.factory-feature{grid-template-columns:1fr}.factory-image{min-height:430px}}
     @media(max-width:760px){.container{width:min(100% - 36px,var(--container))}.header{min-height:64px;padding:10px 18px}.logo-image{height:32px}.logo-copy,.header-right .rfq-btn{display:none}.story-hero{min-height:720px;padding-top:64px}.hero-inner{padding-top:92px;padding-bottom:46px}.story-hero::after{background:linear-gradient(100deg,rgba(11,79,131,.93),rgba(8,119,186,.65)),linear-gradient(0deg,rgba(11,79,131,.78),transparent 65%)}.hero-fact{grid-template-columns:64px 1fr}.partnership,.origin,.history,.capabilities,.closing{padding-block:82px}.network-node{min-height:0;padding:30px 26px}.timeline::before{left:77px}.timeline-item{grid-template-columns:58px 1fr;gap:40px;min-height:140px}.timeline-item::before{left:72px}.timeline-year{font-size:1.45rem}.capacity-breakdown{grid-template-columns:repeat(2,1fr)}.timeline-item.future .timeline-copy{padding:22px}.capability-grid{grid-template-columns:1fr}.capability{min-height:auto}.factory-image{min-height:320px}.footer-inner{flex-direction:column;align-items:flex-start}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+    /* Mega Menu Panel (6-category) */
+    .mega-menu-panel-6cat {
+      position: fixed;
+      top: calc(var(--utility-height, 31px) + var(--header-height, 72px) - 2px);
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      width: min(1200px, calc(100vw - 40px));
+      background: #ffffff;
+      border: 1px solid rgba(11, 79, 131, 0.15);
+      border-radius: 8px;
+      box-shadow: 0 20px 50px rgba(11, 79, 131, 0.18);
+      padding: 24px 28px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), visibility 0.25s;
+      z-index: 1200;
+    }
+    .nav-menu li:hover .mega-menu-panel-6cat,
+    .mega-menu-panel-6cat:hover {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .mega-grid-6 {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+    .mega-col-title-sm {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--brand-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid rgba(8, 119, 186, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mega-sub-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .mega-sub-links a {
+      color: #334155;
+      text-decoration: none;
+      font-size: 0.83rem;
+      font-weight: 600;
+      transition: color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .mega-sub-links a:hover {
+      color: var(--brand-blue);
+      transform: translateX(3px);
+    }
   </style>
 </head>
 <body>
@@ -75,7 +138,66 @@
   </div>
   <header class="header">
     <a href="index.html" class="header-logo" aria-label="回到首頁"><img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image"><div class="logo-copy"><span class="logo-text-tw">臺灣營德股份有限公司</span><span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span></div></a>
-    <nav aria-label="主要導覽"><ul class="nav-menu"><li><a href="index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li><li><a href="about.html" class="nav-link-item active" data-tw="關於營德" data-en="About Us">關於營德</a></li><li><a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心</a></li><li><a href="sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li><li><a href="contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li></ul></nav>
+    <nav aria-label="主要導覽">
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
+        <li><a href="about.html" class="nav-link-item active" data-tw="關於營德" data-en="About Us">關於營德</a></li>
+        <li class="nav-item">
+          <a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+          <div class="mega-menu-panel-6cat">
+            <div class="mega-grid-6">
+              <div>
+                <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> 01 清潔袋</div>
+                <ul class="mega-sub-links">
+                  <li><a href="products/can-liners.html">連捲清潔袋</a></li>
+                  <li><a href="products/can-liners.html">單張抽取</a></li>
+                  <li><a href="products/can-liners.html">環保清潔袋</a></li>
+                </ul>
+              </div>
+              <div>
+                <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> 02 拉繩袋</div>
+                <ul class="mega-sub-links">
+                  <li><a href="products/draw-tape.html">清潔袋</a></li>
+                  <li><a href="products/draw-tape.html">醫療袋</a></li>
+                </ul>
+              </div>
+              <div>
+                <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+                <ul class="mega-sub-links">
+                  <li><a href="products/foodservice.html">平裝耐熱袋</a></li>
+                  <li><a href="products/foodservice.html">捲裝耐熱袋</a></li>
+                </ul>
+              </div>
+              <div>
+                <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+                <ul class="mega-sub-links">
+                  <li><a href="products/foodservice.html">密實袋</a></li>
+                  <li><a href="products/foodservice.html">立體密實袋</a></li>
+                  <li><a href="products/foodservice.html">冷凍袋</a></li>
+                  <li><a href="products/foodservice.html">夾鏈袋</a></li>
+                </ul>
+              </div>
+              <div>
+                <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
+                <ul class="mega-sub-links">
+                  <li><a href="products/foodservice.html">衛生手套</a></li>
+                  <li><a href="products/foodservice.html">台塑遮蔽防塵膠帶</a></li>
+                </ul>
+              </div>
+              <div>
+                <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> 06 Scale Sheet</div>
+                <ul class="mega-sub-links">
+                  <li><a href="products/stretch-films.html">生鮮磅秤切片膜</a></li>
+                  <li><a href="products/stretch-films.html">熟食肉品磅秤襯墊</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
+        <li><a href="contact.html" class="nav-link-item" data-tw="聯繫與詢價" data-en="Contact & RFQ">聯繫與詢價</a></li>
+      </ul>
+    </nav>
     <div class="header-right"><button class="lang-toggle" id="langBtn" type="button" onclick="toggleLanguage()" aria-label="切換語言">EN / 繁中</button><a href="contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i><span data-tw="立即詢價" data-en="Get a Quote">立即詢價</span></a></div>
   </header>
   <main>
