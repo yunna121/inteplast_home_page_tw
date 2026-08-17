@@ -382,7 +382,7 @@
     </ul>
 
     <div class="header-right">
-      <button class="search-trigger-btn" id="globalSearchTrigger" type="button" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
+      <button class="search-trigger-btn" id="globalSearchTrigger" type="button" onclick="if(typeof openSearchModal === 'function') openSearchModal();" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
       <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
