@@ -71,12 +71,18 @@
     .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
     
     .mega-menu-panel-6cat {
-      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
+      position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
       width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
       border-radius: var(--radius-md); box-shadow: var(--shadow-mega); padding: 32px;
-      opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 1100; color: var(--text-main);
     }
-    .nav-item:hover .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(8px); }
+    .mega-menu-panel-6cat::before {
+      content: ''; position: absolute; top: -30px; left: 0; width: 100%; height: 35px; background: transparent;
+    }
+    .nav-item:hover .mega-menu-panel-6cat,
+    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; }
+    .nav-item:hover .caret-icon,
+    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
     .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
     .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
     .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -429,6 +435,40 @@
         }
       });
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const navItems = document.querySelectorAll(".nav-item");
+      navItems.forEach(item => {
+        let timer;
+        const panel = item.querySelector(".mega-menu-panel-6cat");
+        if (!panel) return;
+
+        item.addEventListener("mouseenter", function () {
+          clearTimeout(timer);
+          item.classList.add("open-dropdown");
+        });
+
+        item.addEventListener("mouseleave", function () {
+          timer = setTimeout(() => {
+            item.classList.remove("open-dropdown");
+          }, 300);
+        });
+
+        const trigger = item.querySelector(".product-menu-trigger");
+        if (trigger) {
+          trigger.addEventListener("click", function (e) {
+            e.preventDefault();
+            item.classList.toggle("open-dropdown");
+          });
+        }
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!e.target.closest(".nav-item")) {
+          document.querySelectorAll(".nav-item.open-dropdown").forEach(i => i.classList.remove("open-dropdown"));
+        }
+      });
+    });
 
     let currentLang = 'tw';
     function toggleLanguage() {
