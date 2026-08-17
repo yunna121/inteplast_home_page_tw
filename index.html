@@ -558,16 +558,15 @@
       background: #0A192F;
     }
 
-    /* Andy Barefoot 3D Concertina Folding Grid (上三下三, 無圓角 3D 立體風琴摺紙卡牌) */
+    /* Andy Barefoot 3D Concertina Accordion Wave Folding Grid (原版鋸齒波浪 3D 風琴牆) */
     .concertina-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 45px;
       width: 100%;
       max-width: 1380px;
       margin: 0 auto;
-      perspective: 1400px;
-      padding: 10px 0;
+      padding: 30px 0;
     }
 
     .concertina-row {
@@ -575,6 +574,8 @@
       justify-content: center;
       align-items: center;
       width: 100%;
+      perspective: 1600px;
+      transform-style: preserve-3d;
     }
 
     .concertina-card {
@@ -582,8 +583,8 @@
       flex: 1;
       max-width: 440px;
       height: 250px;
-      margin: 0 -2px;
-      transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0.45s ease;
+      margin: 0 -1px;
+      transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       transform-style: preserve-3d;
       cursor: pointer;
       text-decoration: none;
@@ -591,61 +592,47 @@
     }
 
     .concertina-card:hover {
-      transform: scale(1.12) translateZ(50px);
+      transform: scale(1.12) translateZ(70px);
       z-index: 100 !important;
     }
 
-    /* Alternating 3D Origami Folding Angles for Continuous Accordion Ribbon */
-    .concertina-card:nth-child(odd) .concertina-left {
-      transform-origin: right center;
-      transform: rotateY(-24deg);
-    }
-    .concertina-card:nth-child(odd) .concertina-right {
-      transform-origin: left center;
-      transform: rotateY(24deg);
-    }
-
-    .concertina-card:nth-child(even) .concertina-left {
-      transform-origin: right center;
-      transform: rotateY(24deg);
-    }
-    .concertina-card:nth-child(even) .concertina-right {
-      transform-origin: left center;
-      transform: rotateY(-24deg);
-    }
-
-    .concertina-card:hover .concertina-left,
-    .concertina-card:hover .concertina-right {
-      transform: rotateY(0deg) !important;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6) !important;
-    }
-
+    /* 原版 Andy Barefoot 經典鋸齒波浪 3D 折角：Left 面 +28deg, Right 面 -28deg */
     .concertina-left {
-      flex: 1.1;
+      flex: 1;
       padding: 24px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       color: #FFFFFF;
-      box-shadow: inset -12px 0 26px rgba(0, 0, 0, 0.4);
+      transform-origin: right center;
+      transform: rotateY(28deg);
+      box-shadow: inset -16px 0 30px rgba(0, 0, 0, 0.5);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
       border-radius: 0 !important;
       position: relative;
     }
 
     .concertina-right {
-      flex: 0.9;
+      flex: 1;
       background: #091527;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-left: none;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 16px;
-      box-shadow: inset 12px 0 26px rgba(0, 0, 0, 0.5);
+      transform-origin: left center;
+      transform: rotateY(-28deg);
+      box-shadow: inset 16px 0 30px rgba(0, 0, 0, 0.6);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
       border-radius: 0 !important;
       position: relative;
+    }
+
+    .concertina-card:hover .concertina-left,
+    .concertina-card:hover .concertina-right {
+      transform: rotateY(0deg) !important;
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2) !important;
     }
 
     .concertina-right img {
