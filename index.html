@@ -558,60 +558,66 @@
       background: #0A192F;
     }
 
-    /* Andy Barefoot 3D Concertina Folding Grid (Pitchfork 3D Album Accordion Style) */
-    .concertina-container {
+    /* Andy Barefoot 3D Concertina Folding Grid (上三下三, 無圓角 3D 立體風琴摺紙卡牌) */
+    .concertina-wrapper {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 24px 0;
+      flex-direction: column;
+      gap: 30px;
       width: 100%;
-      max-width: 100%;
+      max-width: 1380px;
       margin: 0 auto;
       perspective: 1400px;
-      padding: 20px 0;
+      padding: 10px 0;
+    }
+
+    .concertina-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
     }
 
     .concertina-card {
       display: flex;
-      width: min(450px, 32vw);
+      flex: 1;
+      max-width: 440px;
       height: 250px;
-      margin: 6px -10px;
-      transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.45s ease;
+      margin: 0 -2px;
+      transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0.45s ease;
       transform-style: preserve-3d;
       cursor: pointer;
       text-decoration: none;
-      border-radius: 12px;
+      border-radius: 0 !important;
     }
 
     .concertina-card:hover {
-      transform: scale(1.1) translateZ(40px);
-      z-index: 100;
+      transform: scale(1.12) translateZ(50px);
+      z-index: 100 !important;
+    }
+
+    /* Alternating 3D Origami Folding Angles for Continuous Accordion Ribbon */
+    .concertina-card:nth-child(odd) .concertina-left {
+      transform-origin: right center;
+      transform: rotateY(-24deg);
+    }
+    .concertina-card:nth-child(odd) .concertina-right {
+      transform-origin: left center;
+      transform: rotateY(24deg);
     }
 
     .concertina-card:nth-child(even) .concertina-left {
       transform-origin: right center;
-      transform: rotateY(22deg);
+      transform: rotateY(24deg);
     }
-
     .concertina-card:nth-child(even) .concertina-right {
       transform-origin: left center;
-      transform: rotateY(-22deg);
-    }
-
-    .concertina-card:nth-child(odd) .concertina-left {
-      transform-origin: right center;
-      transform: rotateY(-22deg);
-    }
-
-    .concertina-card:nth-child(odd) .concertina-right {
-      transform-origin: left center;
-      transform: rotateY(22deg);
+      transform: rotateY(-24deg);
     }
 
     .concertina-card:hover .concertina-left,
     .concertina-card:hover .concertina-right {
-      transform: rotateY(0deg);
-      box-shadow: none;
+      transform: rotateY(0deg) !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6) !important;
     }
 
     .concertina-left {
@@ -621,39 +627,37 @@
       flex-direction: column;
       justify-content: space-between;
       color: #FFFFFF;
-      box-shadow: inset -10px 0 24px rgba(0, 0, 0, 0.35);
+      box-shadow: inset -12px 0 26px rgba(0, 0, 0, 0.4);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      border-top-left-radius: 12px;
-      border-bottom-left-radius: 12px;
+      border-radius: 0 !important;
       position: relative;
     }
 
     .concertina-right {
       flex: 0.9;
       background: #091527;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-left: none;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 16px;
-      box-shadow: inset 10px 0 24px rgba(0, 0, 0, 0.45);
+      box-shadow: inset 12px 0 26px rgba(0, 0, 0, 0.5);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      border-top-right-radius: 12px;
-      border-bottom-right-radius: 12px;
+      border-radius: 0 !important;
       position: relative;
     }
 
     .concertina-right img {
       max-width: 100%;
-      max-height: 170px;
+      max-height: 180px;
       object-fit: contain;
-      filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.45));
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
       transition: transform 0.4s ease;
     }
 
     .concertina-card:hover .concertina-right img {
-      transform: scale(1.12);
+      transform: scale(1.15);
     }
 
     .concertina-num {
@@ -1242,98 +1246,104 @@
       </p>
     </div>
 
-    <!-- Andy Barefoot 3D Concertina Folding Grid Showcase (Pitchfork 3D Accordion Style) -->
-    <div class="concertina-container">
+    <!-- Andy Barefoot 3D Concertina Folding Grid Showcase (上三下三, 零圓角卡牌連體風琴牆) -->
+    <div class="concertina-wrapper">
 
-      <!-- 01 清潔袋 -->
-      <a href="products/can-liners.html" class="concertina-card">
-        <div class="concertina-left" style="background: linear-gradient(135deg, #00529B, #00386B);">
-          <div>
-            <div class="concertina-num">001: INTEPLAST TAIWAN</div>
-            <div class="concertina-title" data-tw="清潔袋系列" data-en="Can Liners">清潔袋系列</div>
-            <div class="concertina-sub" data-tw="Can Liners & Trash Bags" data-en="Heavy-Duty Trash Bags">Can Liners & Trash Bags</div>
+      <!-- TOP ROW (上三: 01, 02, 03) -->
+      <div class="concertina-row">
+        <!-- 01 清潔袋 -->
+        <a href="products/can-liners.html" class="concertina-card">
+          <div class="concertina-left" style="background: linear-gradient(135deg, #00529B, #00386B);">
+            <div>
+              <div class="concertina-num">001: INTEPLAST TAIWAN</div>
+              <div class="concertina-title" data-tw="清潔袋系列" data-en="Can Liners">清潔袋系列</div>
+              <div class="concertina-sub" data-tw="Can Liners & Trash Bags" data-en="Heavy-Duty Trash Bags">Can Liners & Trash Bags</div>
+            </div>
+            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
           </div>
-          <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-        </div>
-        <div class="concertina-right">
-          <img src="./src/ai_can_liner.png" alt="清潔袋">
-        </div>
-      </a>
+          <div class="concertina-right">
+            <img src="./src/ai_can_liner.png" alt="清潔袋">
+          </div>
+        </a>
 
-      <!-- 02 拉繩袋 -->
-      <a href="products/draw-tape.html" class="concertina-card">
-        <div class="concertina-left" style="background: linear-gradient(135deg, #DC2626, #991B1B);">
-          <div>
-            <div class="concertina-num">002: INTEPLAST TAIWAN</div>
-            <div class="concertina-title" data-tw="拉繩袋系列" data-en="Draw-Tape Bags">拉繩袋系列</div>
-            <div class="concertina-sub" data-tw="Draw-Tape Bags" data-en="Easy Close Drawstring">Draw-Tape Bags</div>
+        <!-- 02 拉繩袋 -->
+        <a href="products/draw-tape.html" class="concertina-card">
+          <div class="concertina-left" style="background: linear-gradient(135deg, #DC2626, #991B1B);">
+            <div>
+              <div class="concertina-num">002: INTEPLAST TAIWAN</div>
+              <div class="concertina-title" data-tw="拉繩袋系列" data-en="Draw-Tape Bags">拉繩袋系列</div>
+              <div class="concertina-sub" data-tw="Draw-Tape Bags" data-en="Easy Close Drawstring">Draw-Tape Bags</div>
+            </div>
+            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
           </div>
-          <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-        </div>
-        <div class="concertina-right">
-          <img src="./src/ai_draw_tape.png" alt="拉繩袋">
-        </div>
-      </a>
+          <div class="concertina-right">
+            <img src="./src/ai_draw_tape.png" alt="拉繩袋">
+          </div>
+        </a>
 
-      <!-- 03 耐熱袋 -->
-      <a href="products/foodservice.html" class="concertina-card">
-        <div class="concertina-left" style="background: linear-gradient(135deg, #D97706, #B45309);">
-          <div>
-            <div class="concertina-num">003: INTEPLAST TAIWAN</div>
-            <div class="concertina-title" data-tw="耐熱袋系列" data-en="Heat Resistant">耐熱袋系列</div>
-            <div class="concertina-sub" data-tw="Heat-Resistant Bags" data-en="Food Grade PE Formula">Heat-Resistant Bags</div>
+        <!-- 03 耐熱袋 -->
+        <a href="products/foodservice.html" class="concertina-card">
+          <div class="concertina-left" style="background: linear-gradient(135deg, #D97706, #B45309);">
+            <div>
+              <div class="concertina-num">003: INTEPLAST TAIWAN</div>
+              <div class="concertina-title" data-tw="耐熱袋系列" data-en="Heat Resistant">耐熱袋系列</div>
+              <div class="concertina-sub" data-tw="Heat-Resistant Bags" data-en="Food Grade PE Formula">Heat-Resistant Bags</div>
+            </div>
+            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
           </div>
-          <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-        </div>
-        <div class="concertina-right">
-          <img src="./src/耐熱袋.png" alt="耐熱袋">
-        </div>
-      </a>
+          <div class="concertina-right">
+            <img src="./src/耐熱袋.png" alt="耐熱袋">
+          </div>
+        </a>
+      </div>
 
-      <!-- 04 密封包裝類 -->
-      <a href="products/foodservice.html" class="concertina-card">
-        <div class="concertina-left" style="background: linear-gradient(135deg, #10B981, #047857);">
-          <div>
-            <div class="concertina-num">004: INTEPLAST TAIWAN</div>
-            <div class="concertina-title" data-tw="密封包裝類" data-en="Sealed Bags">密封包裝類</div>
-            <div class="concertina-sub" data-tw="Sealed & Zipper Bags" data-en="Double Zipper Airtight">Sealed & Zipper Bags</div>
+      <!-- BOTTOM ROW (下三: 04, 05, 06) -->
+      <div class="concertina-row">
+        <!-- 04 密封包裝類 -->
+        <a href="products/foodservice.html" class="concertina-card">
+          <div class="concertina-left" style="background: linear-gradient(135deg, #10B981, #047857);">
+            <div>
+              <div class="concertina-num">004: INTEPLAST TAIWAN</div>
+              <div class="concertina-title" data-tw="密封包裝類" data-en="Sealed Bags">密封包裝類</div>
+              <div class="concertina-sub" data-tw="Sealed & Zipper Bags" data-en="Double Zipper Airtight">Sealed & Zipper Bags</div>
+            </div>
+            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
           </div>
-          <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-        </div>
-        <div class="concertina-right">
-          <img src="./src/ai_zipper_bag.png" alt="密封包裝類">
-        </div>
-      </a>
+          <div class="concertina-right">
+            <img src="./src/ai_zipper_bag.png" alt="密封包裝類">
+          </div>
+        </a>
 
-      <!-- 05 其他類 -->
-      <a href="products/foodservice.html" class="concertina-card">
-        <div class="concertina-left" style="background: linear-gradient(135deg, #7C3AED, #5B21B6);">
-          <div>
-            <div class="concertina-num">005: INTEPLAST TAIWAN</div>
-            <div class="concertina-title" data-tw="其他類" data-en="Specialty">其他類</div>
-            <div class="concertina-sub" data-tw="Specialty & Protection" data-en="Gloves & Masking Tapes">Specialty & Protection</div>
+        <!-- 05 其他類 -->
+        <a href="products/foodservice.html" class="concertina-card">
+          <div class="concertina-left" style="background: linear-gradient(135deg, #7C3AED, #5B21B6);">
+            <div>
+              <div class="concertina-num">005: INTEPLAST TAIWAN</div>
+              <div class="concertina-title" data-tw="其他類" data-en="Specialty">其他類</div>
+              <div class="concertina-sub" data-tw="Specialty & Protection" data-en="Gloves & Masking Tapes">Specialty & Protection</div>
+            </div>
+            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
           </div>
-          <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-        </div>
-        <div class="concertina-right">
-          <img src="./src/ai_specialty.png" alt="其他類">
-        </div>
-      </a>
+          <div class="concertina-right">
+            <img src="./src/ai_specialty.png" alt="其他類">
+          </div>
+        </a>
 
-      <!-- 06 Scale Sheet -->
-      <a href="products/stretch-films.html" class="concertina-card">
-        <div class="concertina-left" style="background: linear-gradient(135deg, #00A8FF, #006699);">
-          <div>
-            <div class="concertina-num">006: INTEPLAST TAIWAN</div>
-            <div class="concertina-title" data-tw="Scale Sheet" data-en="Scale Sheet">Scale Sheet</div>
-            <div class="concertina-sub" data-tw="磅秤襯墊膜" data-en="Produce & Deli Liner">磅秤襯墊膜</div>
+        <!-- 06 Scale Sheet -->
+        <a href="products/stretch-films.html" class="concertina-card">
+          <div class="concertina-left" style="background: linear-gradient(135deg, #00A8FF, #006699);">
+            <div>
+              <div class="concertina-num">006: INTEPLAST TAIWAN</div>
+              <div class="concertina-title" data-tw="Scale Sheet" data-en="Scale Sheet">Scale Sheet</div>
+              <div class="concertina-sub" data-tw="磅秤襯墊膜" data-en="Produce & Deli Liner">磅秤襯墊膜</div>
+            </div>
+            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
           </div>
-          <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-        </div>
-        <div class="concertina-right">
-          <img src="./src/scale sheet.png" alt="Scale Sheet">
-        </div>
-      </a>
+          <div class="concertina-right">
+            <img src="./src/scale sheet.png" alt="Scale Sheet">
+          </div>
+        </a>
+      </div>
 
     </div>
   </section>
