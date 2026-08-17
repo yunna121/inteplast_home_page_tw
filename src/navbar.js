@@ -105,11 +105,211 @@
     </ul>
 
     <div class="header-right">
+      <button class="search-trigger-btn" id="globalSearchTrigger" type="button" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
       <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
       <a href="${rootPath}contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i><span data-tw="立即詢價" data-en="Get a Quote">立即詢價</span></a>
     </div>
   </header>
   `;
+
+  const searchIndex = [
+    {
+      title: '清潔袋系列 (Can Liners & Trash Bags)',
+      desc: '連捲清潔袋、單張抽取清潔袋、商業高強度防漏底封與環保清潔袋系列。',
+      category: '清潔袋 01',
+      url: `${productsPath}can-liners.html`,
+      icon: 'fa-dumpster',
+      keywords: ['清潔袋', '垃圾袋', '連捲', '單張', '環保袋', 'can liners', 'trash bags', 'roll liners', 'eco bags']
+    },
+    {
+      title: '拉繩袋系列 (Draw-Tape & Medical Bags)',
+      desc: '加長拉繩一拉即束、方便拎舉打包，醫療等級隔離警示袋。',
+      category: '拉繩袋 02',
+      url: `${productsPath}draw-tape.html`,
+      icon: 'fa-ribbon',
+      keywords: ['拉繩袋', '拉繩', '醫療袋', '束口袋', '提把袋', 'drawtape', 'drawstring', 'medical bags']
+    },
+    {
+      title: '耐熱袋系列 (Foodservice Heat-Resistant Bags)',
+      desc: '平裝耐熱袋與捲裝耐熱袋，高強度 PE 耐熱食品級配方。',
+      category: '耐熱袋 03',
+      url: `${productsPath}foodservice.html`,
+      icon: 'fa-temperature-high',
+      keywords: ['耐熱袋', '平裝', '捲裝', '食品袋', '高溫', 'heat resistant', 'foodservice', 'hdpe']
+    },
+    {
+      title: '密封包裝類 (Zipper & Freezer Bags)',
+      desc: '雙軌密封密實袋、立體密實袋、冷凍保鮮袋與夾鏈袋。',
+      category: '密封包裝 04',
+      url: `${productsPath}foodservice.html`,
+      icon: 'fa-lock',
+      keywords: ['密實袋', '夾鏈袋', '冷凍袋', '密封袋', '立體袋', 'zipper bags', 'freezer bags', 'seal top']
+    },
+    {
+      title: '衛生手套 (PE Disposable Gloves)',
+      desc: '輕薄貼手衛生手套，適合餐飲備料、食品處理與日常清潔家務。',
+      category: '其他類 05',
+      url: `${productsPath}foodservice.html`,
+      icon: 'fa-hand-dots',
+      keywords: ['手套', '衛生手套', '塑膠手套', '一次性手套', 'gloves', 'pe gloves', 'disposable gloves']
+    },
+    {
+      title: '台塑遮蔽防塵膠帶 (Pre-taped Masking Film)',
+      desc: '台塑專利遮蔽防塵膠帶，適用於建築施工、裝潢修繕與居家防塵。',
+      category: '其他類 05',
+      url: `${productsPath}foodservice.html`,
+      icon: 'fa-tape',
+      keywords: ['膠帶', '遮蔽膠帶', '防塵膠帶', '台塑膠帶', 'masking film', 'taped film', 'masking tape']
+    },
+    {
+      title: 'Scale Sheet (生鮮磅秤切片膜與襯墊)',
+      desc: '生鮮超市磅秤切片膜與熟食肉品襯墊膜，撕取流暢高透明度。',
+      category: 'Scale Sheet 06',
+      url: `${productsPath}stretch-films.html`,
+      icon: 'fa-sheet-plastic',
+      keywords: ['scale sheet', '磅秤', '切片膜', '襯墊', '生鮮膜', '熟食膜', 'deli liner', 'produce sheet']
+    },
+    {
+      title: '國家環保標章產品專區 (Green Mark Certified)',
+      desc: '通過環境部審查之台塑環保拉繩清潔袋與台塑環保清潔袋使用證書。',
+      category: '永續發展',
+      url: `${rootPath}sustainability.html`,
+      icon: 'fa-leaf',
+      keywords: ['環保標章', '永續發展', 'esg', '再生塑膠', 'sustainability', 'eco mark', 'green mark', 'recycled']
+    },
+    {
+      title: '關於臺灣營德 (About Inteplast Taiwan)',
+      desc: '台塑關係企業與美商營德合資大廠，嘉義新港廠區 703 噸/月自動化基地。',
+      category: '關於我們',
+      url: `${rootPath}about.html`,
+      icon: 'fa-building-user',
+      keywords: ['關於營德', '新港廠', '嘉義廠', 'iso 9001', '卓越營運獎', 'about us', 'xingang']
+    },
+    {
+      title: '聯繫與詢價 (Contact Us & RFQ)',
+      desc: '發起整櫃外銷採購 RFQ 詢價，專人 24 小時內回覆最佳報價。',
+      category: '聯繫詢價',
+      url: `${rootPath}contact.html`,
+      icon: 'fa-paper-plane',
+      keywords: ['詢價', '聯繫', '外銷', '報價', 'rfq', 'contact', 'quote']
+    }
+  ];
+
+  function initSearchModal() {
+    if (document.getElementById('searchModalOverlay')) return;
+
+    const modalHTML = `
+    <div id="searchModalOverlay" class="search-modal-overlay">
+      <div class="search-modal-container">
+        <div class="search-input-header">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="searchInputField" class="search-input-field" placeholder="搜尋產品、規格或關鍵字... (例如: 清潔袋, 拉繩, 耐熱袋, 密實袋, 環保標章, Gloves...)" autocomplete="off">
+          <button id="closeSearchModal" class="close-search-modal-btn" type="button" aria-label="關閉搜尋"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="search-quick-tags">
+          <span class="search-tag-label" data-tw="快速篩選：" data-en="Quick Tags:">快速篩選：</span>
+          <button class="quick-tag-btn" data-query="清潔袋">清潔袋</button>
+          <button class="quick-tag-btn" data-query="拉繩袋">拉繩袋</button>
+          <button class="quick-tag-btn" data-query="耐熱袋">耐熱袋</button>
+          <button class="quick-tag-btn" data-query="密實袋">密實袋</button>
+          <button class="quick-tag-btn" data-query="手套">衛生手套</button>
+          <button class="quick-tag-btn" data-query="環保標章">環保標章</button>
+          <button class="quick-tag-btn" data-query="Scale Sheet">Scale Sheet</button>
+        </div>
+        <div id="searchResultsList" class="search-results-list"></div>
+        <div class="search-modal-footer">
+          <span><kbd>ESC</kbd> 關閉搜尋</span>
+          <span><kbd>Ctrl + K</kbd> 快速開啟</span>
+        </div>
+      </div>
+    </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    const overlay = document.getElementById('searchModalOverlay');
+    const input = document.getElementById('searchInputField');
+    const closeBtn = document.getElementById('closeSearchModal');
+    const resultsList = document.getElementById('searchResultsList');
+
+    function renderResults(query) {
+      const q = query.trim().toLowerCase();
+      resultsList.innerHTML = '';
+
+      const filtered = searchIndex.filter(item => {
+        if (!q) return true;
+        return item.title.toLowerCase().includes(q) ||
+               item.desc.toLowerCase().includes(q) ||
+               item.category.toLowerCase().includes(q) ||
+               item.keywords.some(k => k.toLowerCase().includes(q));
+      });
+
+      if (filtered.length === 0) {
+        resultsList.innerHTML = `
+          <div style="padding: 40px; text-align: center; color: #64748B;">
+            <i class="fa-solid fa-magnifying-glass" style="font-size: 2rem; margin-bottom: 12px; opacity: 0.5;"></i>
+            <p style="font-size: 0.95rem; font-weight: 700;">找不到與「${query}」相符的產品</p>
+            <p style="font-size: 0.85rem; margin-top: 4px;">請嘗試更換關鍵字，或點選下方按鈕直接聯繫團隊報價。</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const itemEl = document.createElement('a');
+        itemEl.className = 'search-result-item';
+        itemEl.href = item.url;
+        itemEl.innerHTML = `
+          <div class="search-result-icon"><i class="fa-solid ${item.icon}"></i></div>
+          <div class="search-result-info">
+            <div class="search-result-title">${item.title}</div>
+            <div class="search-result-desc">${item.desc}</div>
+          </div>
+          <span class="search-result-category">${item.category}</span>
+        `;
+        resultsList.appendChild(itemEl);
+      });
+    }
+
+    function openModal() {
+      overlay.classList.add('active');
+      renderResults('');
+      setTimeout(() => input.focus(), 100);
+    }
+
+    function closeModal() {
+      overlay.classList.remove('active');
+    }
+
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('#globalSearchTrigger') || e.target.closest('.search-trigger-btn')) {
+        openModal();
+      } else if (e.target === overlay || e.target.closest('#closeSearchModal')) {
+        closeModal();
+      } else if (e.target.classList.contains('quick-tag-btn')) {
+        const query = e.target.getAttribute('data-query');
+        input.value = query;
+        renderResults(query);
+        input.focus();
+      }
+    });
+
+    input.addEventListener('input', function() {
+      renderResults(this.value);
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (overlay.classList.contains('active')) closeModal();
+        else openModal();
+      } else if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  }
 
   function initNavbar() {
     let container = document.getElementById('site-header-component');
@@ -119,6 +319,7 @@
       document.body.prepend(container);
     }
     container.innerHTML = navbarHTML;
+    initSearchModal();
   }
 
   if (document.readyState === 'loading') {

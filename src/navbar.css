@@ -304,3 +304,233 @@
     padding: 12px 20px !important;
   }
 }
+
+/* 搜尋觸發按鈕 樣式 */
+.search-trigger-btn {
+  background: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #0F172A !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.95rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  margin-right: 8px !important;
+}
+
+.search-trigger-btn:hover {
+  background: #00529B !important;
+  color: #FFFFFF !important;
+  border-color: #00529B !important;
+  transform: scale(1.06) !important;
+}
+
+/* 全站搜尋 Spotlight Modal Overlay 樣式 */
+.search-modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(5, 19, 34, 0.75) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  z-index: 10000 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  padding-top: 90px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  box-sizing: border-box !important;
+}
+
+.search-modal-overlay.active {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.search-modal-container {
+  width: min(92%, 720px) !important;
+  background: #FFFFFF !important;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  overflow: hidden !important;
+  transform: translateY(-20px) scale(0.96) !important;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+.search-modal-overlay.active .search-modal-container {
+  transform: translateY(0) scale(1) !important;
+}
+
+.search-input-header {
+  display: flex !important;
+  align-items: center !important;
+  padding: 18px 24px !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  background: #F8FAFC !important;
+}
+
+.search-input-header .search-icon {
+  font-size: 1.3rem !important;
+  color: #00529B !important;
+  margin-right: 14px !important;
+}
+
+.search-input-field {
+  flex: 1 !important;
+  border: none !important;
+  background: transparent !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: #0A2540 !important;
+  outline: none !important;
+}
+
+.search-input-field::placeholder {
+  color: #94A3B8 !important;
+  font-weight: 400 !important;
+  font-size: 1rem !important;
+}
+
+.close-search-modal-btn {
+  background: rgba(226, 232, 240, 0.6) !important;
+  border: none !important;
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+  color: #64748B !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.close-search-modal-btn:hover {
+  background: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+.search-quick-tags {
+  padding: 12px 24px !important;
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #F1F5F9 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+
+.search-tag-label {
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  color: #64748B !important;
+}
+
+.quick-tag-btn {
+  padding: 4px 12px !important;
+  background: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 9999px !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.quick-tag-btn:hover {
+  background: #00529B !important;
+  color: #FFFFFF !important;
+  border-color: #00529B !important;
+}
+
+.search-results-list {
+  max-height: 360px !important;
+  overflow-y: auto !important;
+  padding: 12px 16px !important;
+}
+
+.search-result-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 14px 18px !important;
+  border-radius: 12px !important;
+  text-decoration: none !important;
+  color: #0F172A !important;
+  transition: all 0.2s ease !important;
+  margin-bottom: 6px !important;
+  border: 1px solid transparent !important;
+}
+
+.search-result-item:hover {
+  background: #F0F7FF !important;
+  border-color: #BAE6FD !important;
+}
+
+.search-result-icon {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 10px !important;
+  background: rgba(0, 82, 155, 0.08) !important;
+  color: #00529B !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.15rem !important;
+  flex-shrink: 0 !important;
+}
+
+.search-result-info {
+  flex: 1 !important;
+}
+
+.search-result-title {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: #0A2540 !important;
+  margin-bottom: 2px !important;
+}
+
+.search-result-desc {
+  font-size: 0.85rem !important;
+  color: #64748B !important;
+}
+
+.search-result-category {
+  font-size: 0.75rem !important;
+  font-weight: 800 !important;
+  padding: 4px 10px !important;
+  background: #E2E8F0 !important;
+  color: #334155 !important;
+  border-radius: 9999px !important;
+  white-space: nowrap !important;
+}
+
+.search-modal-footer {
+  padding: 12px 24px !important;
+  background: #F8FAFC !important;
+  border-top: 1px solid #E2E8F0 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  font-size: 0.8rem !important;
+  color: #64748B !important;
+}
+
+.search-modal-footer kbd {
+  background: #E2E8F0 !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+  color: #334155 !important;
+}
