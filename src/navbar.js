@@ -7,6 +7,15 @@
   const rootPath = isSubfolder ? '../' : './';
   const productsPath = isSubfolder ? './' : './products/';
 
+  // Auto-inject navbar CSS if not loaded
+  if (!document.getElementById('site-navbar-css')) {
+    const cssLink = document.createElement('link');
+    cssLink.id = 'site-navbar-css';
+    cssLink.rel = 'stylesheet';
+    cssLink.href = `${rootPath}src/navbar.css`;
+    document.head.appendChild(cssLink);
+  }
+
   const pathName = window.location.pathname.toLowerCase();
   let activePage = 'home';
   if (pathName.includes('about')) activePage = 'about';
@@ -105,11 +114,6 @@
   function initNavbar() {
     let container = document.getElementById('site-header-component');
     if (!container) {
-      const oldUtility = document.querySelector('.top-utility-bar');
-      const oldHeader = document.querySelector('.header');
-      if (oldUtility) oldUtility.remove();
-      if (oldHeader) oldHeader.remove();
-
       container = document.createElement('div');
       container.id = 'site-header-component';
       document.body.prepend(container);

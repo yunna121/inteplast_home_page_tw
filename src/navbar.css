@@ -1,0 +1,306 @@
+/* Inteplast Taiwan Modular Universal Navbar CSS */
+
+:root {
+  --primary-navy: #0A2540;
+  --brand-blue: #00529B;
+  --accent-azure: #00A8FF;
+  --surface-white: #FFFFFF;
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --border-color: #E2E8F0;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-mega: 0 30px 60px -12px rgba(10, 37, 64, 0.22);
+  --radius-full: 9999px;
+  --radius-md: 16px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 集團頂樓列 */
+.top-utility-bar {
+  background: #051322 !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-size: 0.78rem !important;
+  padding: 6px 40px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 1050 !important;
+  box-sizing: border-box !important;
+  min-height: 31px !important;
+}
+
+.utility-left,
+.utility-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+}
+
+.utility-left a,
+.utility-right a {
+  color: rgba(255, 255, 255, 0.75) !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.utility-left a:hover,
+.utility-right a:hover {
+  color: #00A8FF !important;
+}
+
+.region-badge {
+  background: rgba(0, 168, 255, 0.18) !important;
+  color: #00A8FF !important;
+  padding: 2px 8px !important;
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+  font-size: 0.7rem !important;
+  margin-right: 6px !important;
+}
+
+/* Header Navbar */
+.header {
+  position: fixed !important;
+  top: 31px !important;
+  left: 0 !important;
+  width: 100% !important;
+  padding: 12px 40px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  z-index: 1000 !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 16px rgba(10, 37, 64, 0.05) !important;
+  box-sizing: border-box !important;
+  min-height: 72px !important;
+}
+
+.header-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  text-decoration: none !important;
+}
+
+.logo-image {
+  height: 40px !important;
+  width: auto !important;
+  object-fit: contain !important;
+  filter: none !important;
+}
+
+.logo-text-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.logo-text-tw {
+  font-size: 1.08rem !important;
+  font-weight: 800 !important;
+  color: #0A2540 !important;
+  letter-spacing: 0.5px !important;
+  line-height: 1.2 !important;
+  display: block !important;
+}
+
+.logo-text-en {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  color: #00529B !important;
+  letter-spacing: 0.5px !important;
+  line-height: 1.2 !important;
+  display: block !important;
+}
+
+.nav-menu {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-item {
+  position: relative !important;
+}
+
+.nav-link-item {
+  padding: 8px 18px !important;
+  border-radius: 9999px !important;
+  font-size: 0.92rem !important;
+  font-weight: 700 !important;
+  color: #1E293B !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+.nav-link-item:hover,
+.nav-link-item.active,
+.nav-item:hover > .nav-link-item {
+  background: rgba(0, 82, 155, 0.08) !important;
+  color: #00529B !important;
+}
+
+.caret-icon {
+  font-size: 0.75rem !important;
+  transition: transform 0.3s ease !important;
+}
+
+.nav-item:hover .caret-icon {
+  transform: rotate(180deg) !important;
+}
+
+/* 6 大類 Mega Menu Panel */
+.mega-menu-panel-6cat {
+  position: absolute !important;
+  top: calc(100% + 4px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 1120px !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 30px 60px -12px rgba(10, 37, 64, 0.22) !important;
+  padding: 32px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity 0.2s ease, visibility 0.2s ease !important;
+  z-index: 1100 !important;
+  color: #1E293B !important;
+  box-sizing: border-box !important;
+}
+
+.mega-menu-panel-6cat::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -16px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 20px !important;
+  background: transparent !important;
+  z-index: -1 !important;
+}
+
+.nav-item:hover .mega-menu-panel-6cat,
+.nav-item.open-dropdown .mega-menu-panel-6cat {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.mega-grid-6 {
+  display: grid !important;
+  grid-template-columns: repeat(6, 1fr) !important;
+  gap: 16px !important;
+  text-align: left !important;
+}
+
+.mega-col-title-sm {
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+  color: #00529B !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 6px !important;
+  border-bottom: 2px solid rgba(0, 82, 155, 0.15) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.mega-sub-links {
+  list-style: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.mega-sub-links a {
+  color: #1E293B !important;
+  text-decoration: none !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  display: block !important;
+}
+
+.mega-sub-links a:hover {
+  color: #00529B !important;
+  transform: translateX(3px) !important;
+}
+
+.header-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.lang-toggle {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  padding: 8px 16px !important;
+  border-radius: 9999px !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  color: #0A2540 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.lang-toggle:hover {
+  border-color: #00529B !important;
+  color: #00529B !important;
+}
+
+.rfq-btn {
+  background: linear-gradient(135deg, #00529B, #00386B) !important;
+  color: #FFFFFF !important;
+  padding: 10px 22px !important;
+  border-radius: 9999px !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  white-space: nowrap !important;
+  box-shadow: 0 4px 14px rgba(0, 82, 155, 0.25) !important;
+}
+
+.rfq-btn:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 18px rgba(0, 82, 155, 0.35) !important;
+}
+
+@media (max-width: 1000px) {
+  .top-utility-bar,
+  .nav-menu {
+    display: none !important;
+  }
+  .header {
+    top: 0 !important;
+    padding: 12px 20px !important;
+  }
+}
