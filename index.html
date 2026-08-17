@@ -554,7 +554,7 @@
        使用 Scale Sheet 用戶指定專屬原圖 ./src/scale sheet.png
        ========================================= */
     .fashion-products-section {
-      padding: 120px 40px;
+      padding: 100px 15px;
       background: #0A192F;
     }
 
@@ -563,18 +563,19 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 36px 0;
-      max-width: 1350px;
+      gap: 24px 0;
+      width: 100%;
+      max-width: 100%;
       margin: 0 auto;
-      perspective: 1200px;
-      padding: 30px 10px;
+      perspective: 1400px;
+      padding: 20px 0;
     }
 
     .concertina-card {
       display: flex;
-      width: 390px;
-      height: 230px;
-      margin: 8px -8px;
+      width: min(450px, 32vw);
+      height: 250px;
+      margin: 6px -10px;
       transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.45s ease;
       transform-style: preserve-3d;
       cursor: pointer;
