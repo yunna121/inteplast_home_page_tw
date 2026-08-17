@@ -361,25 +361,8 @@
       align-items: center;
       z-index: 10;
       color: #FFFFFF;
-      padding: 100px 40px 30px;
-    }
-
-    .hero-split-container {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 40px;
-      align-items: center;
-      width: 100%;
-      max-width: 1350px;
-      margin: 0 auto;
-      text-align: left;
-    }
-
-    .hero-left-col {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      text-align: left;
+      text-align: center;
+      padding: 100px 20px 40px;
     }
 
     .brand-hero-badge {
@@ -389,122 +372,61 @@
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.5);
-      padding: 12px 28px;
+      padding: 14px 32px;
       border-radius: var(--radius-full);
       margin-bottom: 24px;
     }
 
     .brand-logo-img {
-      height: 36px;
+      height: 40px;
       width: auto;
       object-fit: contain;
     }
 
     .brand-divider {
       width: 1px;
-      height: 28px;
+      height: 32px;
       background: rgba(0, 82, 155, 0.3);
     }
 
     .brand-badge-title {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 900;
       color: var(--primary-navy);
     }
 
     .brand-badge-sub {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 700;
       color: var(--brand-blue);
       text-transform: uppercase;
     }
 
     .hero-big-title {
-      font-size: 3.4rem;
+      font-size: 3.6rem;
       font-weight: 900;
-      line-height: 1.12;
+      line-height: 1.1;
       margin-bottom: 20px;
-      max-width: 800px;
+      max-width: 950px;
       background: linear-gradient(135deg, #FFFFFF 30%, var(--accent-azure) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-align: left;
+      text-align: center;
     }
 
     .hero-sub-tagline {
-      font-size: 1.12rem;
+      font-size: 1.2rem;
       color: rgba(255, 255, 255, 0.85);
-      max-width: 680px;
-      margin-bottom: 32px;
-      text-align: left;
-      line-height: 1.6;
+      max-width: 760px;
+      margin-bottom: 36px;
+      text-align: center;
     }
 
     .hero-btn-group {
       display: flex;
       gap: 16px;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-    }
-
-    /* Executive Corporate Split Hero Stage (無圓圈花招、大氣莊重 500 強企業二分法首頁) */
-    .hero-right-col {
-      display: flex;
       justify-content: center;
-      align-items: center;
-    }
-
-    .hero-corporate-card {
-      position: relative;
-      width: 100%;
-      max-width: 540px;
-      background: rgba(15, 30, 54, 0.85);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 20px;
-      padding: 18px;
-      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      transition: all 0.4s ease;
-    }
-
-    .hero-corporate-card:hover {
-      border-color: var(--accent-azure);
-      box-shadow: 0 40px 80px rgba(0, 168, 255, 0.25);
-      transform: translateY(-4px);
-    }
-
-    .hero-corporate-img {
-      width: 100%;
-      height: 380px;
-      object-fit: cover;
-      border-radius: 14px;
-      display: block;
-      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.5));
-    }
-
-    .hero-corporate-tagbar {
-      margin-top: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(10, 25, 47, 0.8);
-      padding: 10px 18px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .corporate-tag-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: #FFFFFF;
-    }
-
-    .corporate-tag-item i {
-      color: var(--accent-azure);
-      font-size: 0.95rem;
+      flex-wrap: wrap;
     }
 
     /* Hero 底部 4 大核心特色列 */
@@ -512,9 +434,9 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 18px;
-      margin-top: 30px;
+      margin-top: 35px;
       width: 100%;
-      max-width: 1350px;
+      max-width: 1050px;
     }
 
     .hero-stat-card {
@@ -1237,53 +1159,36 @@
     <div class="hero-bg-layer" id="heroBg"></div>
 
     <div class="hero-stage-content">
-      <div class="hero-split-container">
-        <!-- LEFT COLUMN: Brand Title & CTA -->
-        <div class="hero-left-col">
-          <div class="brand-hero-badge">
-            <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="brand-logo-img">
-            <div class="brand-divider"></div>
-            <div>
-              <div class="brand-badge-title" data-tw="臺灣營德股份有限公司" data-en="INTEPLAST TAIWAN CORPORATION">臺灣營德股份有限公司</div>
-              <div class="brand-badge-sub" data-tw="INTEPLAST TAIWAN CORPORATION" data-en="FORMOSA PLASTICS GROUP PARTNER">
-                INTEPLAST TAIWAN CORPORATION</div>
-            </div>
-          </div>
-
-          <h1 class="hero-big-title" data-tw="台塑關係企業 · 六大產品專業製造"
-            data-en="Formosa Plastics Partner · Six Core Product Lines">
-            台塑關係企業 · 六大產品專業製造
-          </h1>
-
-          <p class="hero-sub-tagline" data-tw="由美商營德集團、台塑企業與長庚生技合資成立。嘉義新港生產基地專注於清潔袋、拉繩袋、耐熱袋、密封包裝類、衛生手套/防塵膠帶與 Scale Sheet 磅秤襯墊。"
-            data-en="Joint venture by Inteplast Group & Formosa Plastics Corp. Manufacturing Cleaners, Draw-Tape, Heat-Resistant, Zipper Seal, Protection Tapes & Scale Sheeting.">
-            由美商營德集團、台塑企業與長庚生技合資成立。嘉義新港生產基地專注於清潔袋、拉繩袋、耐熱袋、密封包裝類、衛生手套/防塵膠帶與 Scale Sheet 磅秤襯墊。
-          </p>
-
-          <div class="hero-btn-group">
-            <a href="#productShowcase" class="btn-hero-primary" data-tw="瀏覽六大核心產品系列"
-              data-en="Explore 6 Product Lines">
-              <i class="fa-solid fa-layer-group"></i> <span data-tw="瀏覽六大核心產品系列"
-                data-en="Explore 6 Product Lines">瀏覽六大核心產品系列</span>
-            </a>
-            <a href="#productIntroRows" class="btn-hero-glass" data-tw="查看產品特色與應用" data-en="View Product Highlights">
-              <i class="fa-solid fa-circle-check"></i> <span data-tw="查看產品特色與應用"
-                data-en="View Product Highlights">查看產品特色與應用</span>
-            </a>
-          </div>
+      <div class="brand-hero-badge">
+        <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="brand-logo-img">
+        <div class="brand-divider"></div>
+        <div>
+          <div class="brand-badge-title" data-tw="臺灣營德股份有限公司" data-en="INTEPLAST TAIWAN CORPORATION">臺灣營德股份有限公司</div>
+          <div class="brand-badge-sub" data-tw="INTEPLAST TAIWAN CORPORATION" data-en="FORMOSA PLASTICS GROUP PARTNER">
+            INTEPLAST TAIWAN CORPORATION</div>
         </div>
+      </div>
 
-        <!-- RIGHT COLUMN: Executive Corporate Split Hero Stage -->
-        <div class="hero-right-col">
-          <div class="hero-corporate-card">
-            <img src="./src/can-liners-draw-tape-hero.jpg" alt="Inteplast Taiwan Manufacturing Base & Products" class="hero-corporate-img">
-            <div class="hero-corporate-tagbar">
-              <div class="corporate-tag-item"><i class="fa-solid fa-industry"></i> <span>月產 703 噸吹膜產線</span></div>
-              <div class="corporate-tag-item"><i class="fa-solid fa-award"></i> <span>ISO 9001 嚴格把關</span></div>
-              <div class="corporate-tag-item"><i class="fa-solid fa-shield-halved"></i> <span>台塑關係企業合資</span></div>
-            </div>
-          </div>
-        </div>
+      <h1 class="hero-big-title" data-tw="台塑關係企業 · 六大產品專業製造"
+        data-en="Formosa Plastics Partner · Six Core Product Lines">
+        台塑關係企業 · 六大產品專業製造
+      </h1>
+
+      <p class="hero-sub-tagline" data-tw="由美商營德集團、台塑企業與長庚生技合資成立。嘉義新港生產基地專注於清潔袋、拉繩袋、耐熱袋、密封包裝類、衛生手套/防塵膠帶與 Scale Sheet 磅秤襯墊。"
+        data-en="Joint venture by Inteplast Group & Formosa Plastics Corp. Manufacturing Cleaners, Draw-Tape, Heat-Resistant, Zipper Seal, Protection Tapes & Scale Sheeting.">
+        由美商營德集團、台塑企業與長庚生技合資成立。嘉義新港生產基地專注於清潔袋、拉繩袋、耐熱袋、密封包裝類、衛生手套/防塵膠帶與 Scale Sheet 磅秤襯墊。
+      </p>
+
+      <div class="hero-btn-group">
+        <a href="#productShowcase" class="btn-hero-primary" data-tw="瀏覽六大核心產品系列"
+          data-en="Explore 6 Product Lines">
+          <i class="fa-solid fa-layer-group"></i> <span data-tw="瀏覽六大核心產品系列"
+            data-en="Explore 6 Product Lines">瀏覽六大核心產品系列</span>
+        </a>
+        <a href="#productIntroRows" class="btn-hero-glass" data-tw="查看產品特色與應用" data-en="View Product Highlights">
+          <i class="fa-solid fa-circle-check"></i> <span data-tw="查看產品特色與應用"
+            data-en="View Product Highlights">查看產品特色與應用</span>
+        </a>
       </div>
 
       <!-- 4 大核心優勢與實力指標列 (Hero 底部 4 項特色：支援動態計數動畫) -->
