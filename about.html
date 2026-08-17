@@ -28,13 +28,163 @@
     .section-title{margin-top:16px;color:var(--navy-950);font-size:clamp(2.1rem,4vw,4rem);line-height:1.14;letter-spacing:-.035em;text-wrap:balance}
     .section-lead{max-width:760px;margin-top:22px;color:var(--muted);font-size:clamp(1rem,1.5vw,1.12rem);text-wrap:pretty}
 
-    .top-utility-bar{position:fixed;inset:0 0 auto;z-index:1050;min-height:var(--utility-height);padding:6px 40px;display:flex;align-items:center;justify-content:space-between;background:var(--navy-950);border-bottom:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.72);font-size:.75rem}
-    .utility-left,.utility-right{display:flex;align-items:center;gap:20px}.top-utility-bar a{text-decoration:none;transition:color .2s ease}.top-utility-bar a:hover{color:var(--white)}
-    .region-badge{margin-right:6px;padding:2px 7px;color:#76cbff;background:rgba(77,166,217,.14);border:1px solid rgba(77,166,217,.24);border-radius:3px;font-weight:800}
-    .header{position:fixed;top:var(--utility-height);left:0;z-index:1000;width:100%;min-height:var(--header-height);padding:12px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.96);border-bottom:1px solid rgba(7,27,47,.1);backdrop-filter:blur(18px)}
-    .header-logo{display:flex;align-items:center;gap:13px;text-decoration:none}.logo-image{width:auto;height:39px}.logo-copy{line-height:1.22}.logo-text-tw{display:block;color:var(--navy-950);font-size:1rem;font-weight:800}.logo-text-en{display:block;color:var(--brand-blue);font-size:.68rem;font-weight:700;letter-spacing:.05em}
-    .nav-menu{display:flex;align-items:center;gap:2px;list-style:none}.nav-link-item{display:inline-flex;align-items:center;padding:9px 15px;border-radius:3px;color:#273b4e;font-size:.88rem;font-weight:700;text-decoration:none;transition:color .2s ease,background .2s ease}.nav-link-item:hover,.nav-link-item.active{color:var(--brand-blue);background:#eef5fa}
-    .header-right{display:flex;align-items:center;gap:10px}.lang-toggle{min-height:42px;padding:8px 14px;color:var(--navy-900);background:var(--white);border:1px solid var(--line);border-radius:3px;font-size:.8rem;font-weight:800;cursor:pointer}.rfq-btn{min-height:42px;padding:9px 18px;display:inline-flex;align-items:center;gap:8px;color:var(--white);background:var(--brand-blue);border-radius:3px;font-size:.83rem;font-weight:800;text-decoration:none;transition:transform .2s ease,background .2s ease}.rfq-btn:hover{background:var(--navy-800);transform:translateY(-1px)}
+    /* 集團頂樓列 (與 index.html 100% 統一) */
+    .top-utility-bar {
+      background: #051322;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.78rem;
+      padding: 6px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1050;
+    }
+    .utility-left,
+    .utility-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .utility-left a,
+    .utility-right a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .utility-left a:hover,
+    .utility-right a:hover {
+      color: #00a8ff;
+    }
+    .region-badge {
+      background: rgba(0, 168, 255, 0.18);
+      color: #00a8ff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
+    /* Header Navbar (與 index.html 100% 統一) */
+    .header {
+      position: fixed;
+      top: 31px;
+      left: 0;
+      width: 100%;
+      padding: 12px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(11, 79, 131, 0.12);
+      box-shadow: 0 4px 16px rgba(10, 37, 64, 0.04);
+      transition: all 0.3s ease;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .logo-image {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+    .logo-text-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+    .logo-text-tw {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #0a2540;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+    .logo-text-en {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #0877ba;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-item {
+      position: relative;
+    }
+    .nav-link-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      color: #0a2540;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .nav-link-item:hover,
+    .nav-link-item.active {
+      color: #0877ba;
+      background: rgba(8, 119, 186, 0.08);
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .lang-toggle {
+      background: #ffffff;
+      color: #0a2540;
+      border: 1px solid #d9e2e9;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .lang-toggle:hover {
+      border-color: #0877ba;
+      color: #0877ba;
+    }
+    .rfq-btn {
+      color: #ffffff;
+      background: linear-gradient(135deg, #0877ba, #055a8e);
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(8, 119, 186, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .rfq-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(8, 119, 186, 0.35);
+    }
 
     .story-hero{position:relative;min-height:780px;padding-top:calc(var(--utility-height) + var(--header-height));display:grid;align-items:end;color:var(--white);background:var(--navy-950);isolation:isolate}
     .story-hero::before{content:"";position:absolute;inset:0;z-index:-2;background:url("./src/bigextru2.png") center/cover no-repeat;filter:saturate(1.08) contrast(1.02) brightness(1.08)}
