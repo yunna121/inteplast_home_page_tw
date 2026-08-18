@@ -640,6 +640,71 @@
       }
     });
   </script>
-  <script src="../src/quote-basket.js"></script>
+  <script>
+  /* 跨頁詢價籃：勾選的規格存在 localStorage，切換產品頁持續累積 */
+  (function () {
+    var KEY = 'inteplastQuoteBasket';
+    function read() {
+      try { var raw = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(raw) ? raw.filter(function (v) { return typeof v === 'string'; }) : []; }
+      catch (e) { return []; }
+    }
+    var selected = new Set(read());
+    function persist() { try { localStorage.setItem(KEY, JSON.stringify(Array.from(selected))); } catch (e) {} }
+    function allBtns() { return document.querySelectorAll('.btn-quote-add, .btn-quote-dark'); }
+    function specOf(btn) {
+      var m = (btn.getAttribute('onclick') || '').match(/toggleQuoteItem\('([\s\S]*?)',\s*this\)/);
+      return m ? m[1] : (btn.getAttribute('data-quote-spec') || null);
+    }
+    function paint(btn, on) {
+      btn.classList.toggle('added', on);
+      btn.innerHTML = on ? '<i class="fa-solid fa-check"></i> 已加入詢價' : '<i class="fa-solid fa-plus"></i> 勾選詢價';
+      var row = btn.closest ? btn.closest('tr') : null;
+      if (row) row.classList.toggle('row-selected', on);
+    }
+    function refresh() {
+      var badge = document.getElementById('quoteCountBadge');
+      if (badge) badge.innerText = selected.size;
+      var basket = document.getElementById('rfqFloatingBasket');
+      if (basket) basket.classList.toggle('active', selected.size > 0);
+    }
+    var lastBtn = null, lastAt = 0;
+    function handle(spec, btn) {
+      if (!spec) return;
+      var now = Date.now();
+      if (btn && btn === lastBtn && now - lastAt < 120) return; // 避免 inline onclick 與委派重複觸發
+      lastBtn = btn; lastAt = now;
+      if (selected.has(spec)) selected.delete(spec); else selected.add(spec);
+      persist();
+      if (btn) paint(btn, selected.has(spec));
+      refresh();
+    }
+    window.toggleQuoteItem = function (spec, btn) { handle(spec, btn); };
+    window.clearQuoteBasket = function () {
+      selected.clear(); persist();
+      allBtns().forEach(function (b) { paint(b, false); });
+      refresh();
+    };
+    window.goToRfqPage = function () {
+      window.location.href = '../contact.html?specs=' + encodeURIComponent(Array.from(selected).join(' ; '));
+    };
+    // 備援：即使 inline onclick 未執行（被攔截或改寫）也能作用
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('.btn-quote-add, .btn-quote-dark') : null;
+      if (!btn) return;
+      handle(specOf(btn), btn);
+    }, true);
+    function restore() {
+      allBtns().forEach(function (b) { var s = specOf(b); if (s && selected.has(s)) paint(b, true); });
+      refresh();
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', restore); else restore();
+    window.addEventListener('storage', function (e) {
+      if (e.key !== KEY) return;
+      selected = new Set(read());
+      allBtns().forEach(function (b) { var s = specOf(b); paint(b, !!(s && selected.has(s))); });
+      refresh();
+    });
+  })();
+  </script>
 </body>
 </html>
