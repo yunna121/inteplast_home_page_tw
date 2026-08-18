@@ -1,12 +1,19 @@
 import openpyxl
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
+import json
+import csv
 import os
 
-def create_formatted_excel():
+def create_full_excel_db():
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    excel_path = os.path.join(base_dir, "inteplast_products_database.xlsx")
+    csv_path = os.path.join(base_dir, "products.csv")
+    json_path = os.path.join(base_dir, "products.json")
+
     wb = openpyxl.Workbook()
 
-    # Define Styles
+    # Styling Token Definitions
     header_fill = PatternFill(start_color="0A2540", end_color="0A2540", fill_type="solid")
     header_font = Font(name="微軟正黑體", size=11, bold=True, color="FFFFFF")
     
@@ -27,7 +34,7 @@ def create_formatted_excel():
     )
 
     # -------------------------------------------------------------
-    # Sheet 1: 產品分類總表 (Categories Summary)
+    # Sheet 1: 產品分類總覽 (Categories Summary)
     # -------------------------------------------------------------
     ws1 = wb.active
     ws1.title = "產品分類總覽"
@@ -101,13 +108,13 @@ def create_formatted_excel():
                 cell.alignment = Alignment(horizontal="center", vertical="center")
 
     # -------------------------------------------------------------
-    # Sheet 2: 產品容量與尺寸規格對照表 (Detailed Specifications)
+    # Sheet 2: 完整容量與尺寸規格對照總表 (Complete Specs Matrix)
     # -------------------------------------------------------------
-    ws2 = wb.create_sheet(title="容量尺寸規格對照表")
+    ws2 = wb.create_sheet(title="容量尺寸規格對照總表")
     ws2.views.sheetView[0].showGridLines = True
 
     headers2 = [
-        "產品編號", "所屬產品系列", "規格 / 容量 / 號數", "尺寸 (寬 × 長 cm / mm)", "包裝方式 / 適用說明", "備註"
+        "產品編號", "所屬產品系列", "規格/容量/號數", "尺寸 (寬 × 長 cm / mm)", "數量 / 張數 / 卷長", "顏色 / 色系", "適用情境 / 特色說明"
     ]
 
     ws2.append(headers2)
@@ -118,42 +125,57 @@ def create_formatted_excel():
         cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
 
     rows2 = [
-        # 清潔袋
-        ["001", "清潔袋系列", "15L 小", "45 × 50 cm", "連捲點斷 / 單張平裝", "家用廚房/小垃圾桶"],
-        ["001", "清潔袋系列", "20L 中", "50 × 60 cm", "連捲點斷 / 單張平裝", "辦公室/通用型"],
-        ["001", "清潔袋系列", "45L 大", "65 × 75 cm", "連捲點斷 / 熱銷推薦", "標準商業機構/家庭大容量"],
-        ["001", "清潔袋系列", "70L 特大", "75 × 90 cm", "商業機構 / 工業加厚", "餐廳/飯店/大型機構"],
-        ["001", "清潔袋系列", "90L 超大", "85 × 100 cm", "工業加厚 / 防漏", "工廠/戶外大型垃圾桶"],
-        ["001", "清潔袋系列", "125L 巨無霸", "94 × 110 cm", "超大容積 / 重量級", "大型環境清潔/環保袋"],
+        # 001 清潔袋
+        ["001", "清潔袋系列", "10L 特小", "40 × 50 cm", "100 張/捲", "透明", "家用廚房/小型垃圾桶"],
+        ["001", "清潔袋系列", "15L 小", "43 × 56 cm", "72 張/捲", "透明 / 粉紅", "家用/辦公室通用"],
+        ["001", "清潔袋系列", "20L 中", "53 × 63 cm", "54 張/捲", "透明 / 粉紅", "辦公室/通用型"],
+        ["001", "清潔袋系列", "45L 大", "65 × 75 cm", "30 張/捲", "透明 / 粉紅", "熱銷推薦/家庭大容量"],
+        ["001", "清潔袋系列", "70L 特大", "80 × 90 cm", "22 張/捲", "透明 / 黑色", "商業機構/餐廳"],
+        ["001", "清潔袋系列", "90L 超大", "86 × 100 cm", "16 張/捲", "透明 / 黑色", "工業加厚/飯店"],
+        ["001", "清潔袋系列", "125L 超大", "90 × 110 cm", "28 張/捲", "透明 / 黑色", "超大容積/戶外環境"],
+        ["001", "清潔袋系列", "126L 超特大", "91 × 110 cm", "10 張/捲", "透明 / 黑色", "巨無霸/環境清潔"],
 
-        # 拉繩袋
-        ["002", "拉繩袋系列", "13 Gallon", "60.9 × 68.5 cm", "一拉即束 / 經濟包", "美式標準高容積"],
-        ["002", "拉繩袋系列", "30 Gallon", "76.2 × 91.4 cm", "一拉即束 / 超量包", "大型清潔/商業提打包"],
-        ["002", "拉繩袋系列", "醫療黃/紅色", "依需求客製印製", "高辨識度警示印製", "醫療廢棄物隔離專用"],
+        # 002 拉繩袋
+        ["002", "拉繩袋系列", "13 Gallon", "60.9 × 68.5 cm", "經濟包", "白色+拉繩", "一拉即束打包/美式標準"],
+        ["002", "拉繩袋系列", "30 Gallon", "76.2 × 91.4 cm", "超量包", "白色+拉繩", "商業機構/大容量打包"],
+        ["002", "拉繩袋系列", "醫療黃/紅色隔離袋", "依需求客製", "警示印製", "黃色 / 紅色", "醫療傳染廢棄物隔離專用"],
 
-        # 耐熱袋
-        ["003", "耐熱袋系列", "半斤", "15.2 × 22.8 cm", "平裝 / 捲裝", "小吃/醬料/生鮮分裝"],
-        ["003", "耐熱袋系列", "1斤", "20.3 × 27.9 cm", "平裝 / 捲裝", "餐飲熱食打包"],
-        ["003", "耐熱袋系列", "2斤", "25.4 × 35.5 cm", "平裝 / 捲裝", "外帶熱湯/生鮮肉品"],
-        ["003", "耐熱袋系列", "3斤", "30.4 × 43.1 cm", "平裝 / 捲裝", "大份量熱食打包"],
-        ["003", "耐熱袋系列", "5斤", "35.5 × 50.8 cm", "平裝 / 捲裝", "商業備料/高溫高壓打包"],
+        # 003 耐熱袋
+        ["003", "耐熱袋系列", "四兩", "12.7 × 17.8 cm", "平裝 / 捲裝", "透明食品級", "醬料/小份量食材打包"],
+        ["003", "耐熱袋系列", "半斤", "15.2 × 22.8 cm", "平裝 / 捲裝", "透明食品級", "小吃/醬料/生鮮分裝"],
+        ["003", "耐熱袋系列", "1斤", "20.3 × 27.9 cm", "平裝 / 捲裝", "透明食品級", "餐飲熱食打包"],
+        ["003", "耐熱袋系列", "2斤", "25.4 × 35.5 cm", "平裝 / 捲裝", "透明食品級", "外帶熱湯/生鮮肉品"],
+        ["003", "耐熱袋系列", "3斤", "30.4 × 43.1 cm", "平裝 / 捲裝", "透明食品級", "大份量熱食打包"],
+        ["003", "耐熱袋系列", "5斤", "35.5 × 50.8 cm", "平裝 / 捲裝", "透明食品級", "商業備料/高溫高壓打包"],
 
-        # 密封包裝
-        ["004", "密封包裝類", "1號 ~ 4號", "小型尺寸", "雙軌密封 / 夾鏈袋", "飾品/藥品/零組件分裝"],
-        ["004", "密封包裝類", "5號 ~ 8號", "中型尺寸", "立體站立 / 冷凍保鮮", "食材/蔬果/冷凍食品"],
-        ["004", "密封包裝類", "9號 ~ 12號", "大型尺寸", "雙軌密封 / 超大包裝", "大份量肉品/物品整理"],
+        # 004 密封包裝類
+        ["004", "密封包裝類", "1號夾鏈袋", "5.0 × 7.0 cm", "每包100入", "透明", "小型飾品/藥品分裝"],
+        ["004", "密封包裝類", "2號夾鏈袋", "6.0 × 8.5 cm", "每包100入", "透明", "零件/隨身藥包"],
+        ["004", "密封包裝類", "3號夾鏈袋", "7.0 × 10.0 cm", "每包100入", "透明", "卡片/小物收納"],
+        ["004", "密封包裝類", "4號夾鏈袋", "8.5 × 12.0 cm", "每包100入", "透明", "試用品/小文具"],
+        ["004", "密封包裝類", "5號夾鏈袋", "10.0 × 14.0 cm", "每包100入", "透明", "食材分裝/小點心"],
+        ["004", "密封包裝類", "6號夾鏈袋", "12.0 × 17.0 cm", "每包100入", "透明", "中型食材/口罩收納"],
+        ["004", "密封包裝類", "7號夾鏈袋", "14.0 × 20.0 cm", "每包100入", "透明", "蔬果/冷凍食品"],
+        ["004", "密封包裝類", "8號夾鏈袋", "17.0 × 24.0 cm", "每包100入", "透明", "A5文件/冷凍肉品"],
+        ["004", "密封包裝類", "9號夾鏈袋", "20.0 × 28.0 cm", "每包100入", "透明", "服飾/大份量食材"],
+        ["004", "密封包裝類", "10號夾鏈袋", "24.0 × 34.0 cm", "每包100入", "透明", "A4文件/大物件"],
+        ["004", "密封包裝類", "11號夾鏈袋", "28.0 × 40.0 cm", "每包100入", "透明", "大件衣物/收納"],
+        ["004", "密封包裝類", "12號夾鏈袋", "34.0 × 45.0 cm", "每包100入", "透明", "超大物件收納"],
 
-        # 其他類
-        ["005", "其他類", "手套", "通用尺寸", "輕薄貼手防護手套", "餐飲衛生/個人防護"],
-        ["005", "其他類", "防塵膠帶 550mm", "550 mm × 25 y (22.8m)", "台塑專利遮蔽膠帶", "建築工程/裝潢養生防塵"],
-        ["005", "其他類", "防塵膠帶 1100mm", "1100 mm × 25 y (22.8m)", "台塑專利遮蔽膠帶", "建築工程/裝潢養生防塵"],
-        ["005", "其他類", "防塵膠帶 1500mm", "1500 mm × 25 y (22.8m)", "台塑專利遮蔽膠帶", "建築工程/裝潢養生防塵"],
-        ["005", "other", "防塵膠帶 2100mm", "2100 mm × 25 y (22.8m)", "台塑專利遮蔽膠帶", "建築工程/裝潢養生防塵"],
-        ["005", "other", "防塵膠帶 2700mm", "2700 mm × 25 y (22.8m)", "台塑專利遮蔽膠帶", "建築工程/裝潢養生防塵"],
-        ["005", "other", "防塵膠帶 3200mm", "3200 mm × 25 y (22.8m)", "台塑專利遮蔽膠帶", "建築工程/裝潢養生防塵"],
+        # 005 其他類
+        ["005", "其他類", "手套 S", "手掌寬 ~8 cm", "每盒100入", "半透明", "個人衛生/餐飲備料"],
+        ["005", "其他類", "手套 M", "手掌寬 ~9 cm", "每盒100入", "半透明", "個人衛生/餐飲備料"],
+        ["005", "其他類", "手套 L", "手掌寬 ~10 cm", "每盒100入", "半透明", "個人衛生/餐飲備料"],
+        ["005", "其他類", "手套 XL", "手掌寬 ~11 cm", "每盒100入", "半透明", "個人衛生/餐飲備料"],
+        ["005", "其他類", "防塵膠帶 550mm", "550 mm × 25 y (22.8m)", "卷裝", "綠色膠帶+高密度膜", "建築施工/小面積家具遮蔽"],
+        ["005", "其他類", "防塵膠帶 1100mm", "1100 mm × 25 y (22.8m)", "卷裝", "綠色膠帶+高密度膜", "裝潢養生/牆面家具遮蔽"],
+        ["005", "其他類", "防塵膠帶 1500mm", "1500 mm × 25 y (22.8m)", "卷裝", "綠色膠帶+高密度膜", "裝潢養生/牆面門窗遮蔽"],
+        ["005", "其他類", "防塵膠帶 2100mm", "2100 mm × 25 y (22.8m)", "卷裝", "綠色膠帶+高密度膜", "門窗/大型家具大面積遮蔽"],
+        ["005", "其他類", "防塵膠帶 2700mm", "2700 mm × 25 y (22.8m)", "卷裝", "綠色膠帶+高密度膜", "工地工程/超大面積遮蔽"],
+        ["005", "其他類", "防塵膠帶 3200mm", "3200 mm × 25 y (22.8m)", "卷裝", "綠色膠帶+高密度膜", "工程施工/最大面積養生遮蔽"],
 
-        # Scale Sheet
-        ["006", "Scale Sheet", "Scale Sheet", "專案洽詢", "內容規劃中 / 專人對接", "如有需求請聯繫專員"]
+        # 006 Scale Sheet
+        ["006", "Scale Sheet", "Scale Sheet", "專案洽詢", "專案對接", "專案客製", "如有需求請聯繫專員專人對接"]
     ]
 
     for row_idx, row_data in enumerate(rows2, 2):
@@ -165,10 +187,10 @@ def create_formatted_excel():
             cell.font = data_font
             cell.border = thin_border
             cell.alignment = Alignment(vertical="center")
-            if col_idx in [1, 3, 4]:
+            if col_idx in [1, 3, 4, 5, 6]:
                 cell.alignment = Alignment(horizontal="center", vertical="center")
 
-    # Auto-adjust column widths for both sheets
+    # Auto-adjust Column Widths & Heights
     for ws in [ws1, ws2]:
         ws.row_dimensions[1].height = 28
         for col in ws.columns:
@@ -176,15 +198,50 @@ def create_formatted_excel():
             col_letter = get_column_letter(col[0].column)
             for cell in col:
                 val_str = str(cell.value or '')
-                # Approximate width for Chinese characters
                 cell_len = sum(2 if ord(c) > 127 else 1 for c in val_str)
                 if cell_len > max_len:
                     max_len = cell_len
-            ws.column_dimensions[col_letter].width = max(max_len + 4, 14)
+            ws.column_dimensions[col_letter].width = max(max_len + 4, 15)
 
-    output_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "臺灣營德_產品規格與資料庫.xlsx")
-    wb.save(output_file)
-    print(f"Successfully generated formatted Excel database: {output_file}")
+    wb.save(excel_path)
+    print(f"Successfully generated full specs Excel workbook: {excel_path}")
+
+    # Build products.csv
+    csv_rows = []
+    # Build quick_specs dictionary per category code
+    cat_specs_map = {}
+    for r in rows2:
+        code = r[0]
+        size = r[2]
+        dim = r[3]
+        if code not in cat_specs_map:
+            cat_specs_map[code] = []
+        if size and dim and size != "Scale Sheet":
+            cat_specs_map[code].append(f"{size}: {dim}")
+
+    for r in rows1:
+        code = r[0]
+        specs_str = "; ".join(cat_specs_map.get(code, []))
+        csv_rows.append({
+            "id": r[1],
+            "code": r[0],
+            "title_tw": r[2],
+            "title_en": r[3],
+            "image": r[4],
+            "badges": r[5],
+            "highlights_tw": r[6],
+            "desc_tw": r[7],
+            "page_url": r[8],
+            "quick_specs": specs_str
+        })
+
+    with open(csv_path, 'w', encoding='utf-8-sig', newline='') as f:
+        fieldnames = ["id", "code", "title_tw", "title_en", "image", "badges", "highlights_tw", "desc_tw", "page_url", "quick_specs"]
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(csv_rows)
+
+    print(f"Successfully updated CSV database: {csv_path}")
 
 if __name__ == "__main__":
-    create_formatted_excel()
+    create_full_excel_db()
