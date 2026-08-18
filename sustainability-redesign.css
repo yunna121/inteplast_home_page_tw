@@ -38,7 +38,7 @@ body p {
 }
 
 .container {
-  width: min(1320px, calc(100% - 80px));
+  width: min(1350px, calc(100% - 80px));
 }
 section {
   padding: 0;
