@@ -162,8 +162,8 @@
       keywords: ['膠帶', '遮蔽膠帶', '防塵膠帶', '台塑膠帶', 'masking film', 'taped film', 'masking tape']
     },
     {
-      title: 'Scale Sheet (生鮮磅秤切片膜與襯墊)',
-      desc: '生鮮超市磅秤切片膜與熟食肉品襯墊膜，撕取流暢高透明度。',
+      title: 'Scale Sheet',
+      desc: 'Scale Sheet 薄膜系列，歡迎與專員聯繫。',
       category: 'Scale Sheet 06',
       url: `${productsPath}stretch-films.html`,
       icon: 'fa-sheet-plastic',
