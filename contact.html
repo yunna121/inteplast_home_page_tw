@@ -315,20 +315,64 @@
   <section class="section">
     <div class="container" style="max-width: 1000px;">
       
-      <!-- 互動 Mode 切換 Tab 頁籤 -->
+      <!-- 互動 Mode 切換 Tab 頁籤 (預設：直接聯繫營德窗口) -->
       <div class="contact-tab-switcher">
-        <button type="button" class="tab-btn active" id="tabLeaveInfo" onclick="switchContactMode('form')">
-          <i class="fa-solid fa-pen-to-square"></i>
-          <span data-tw="留下資料 · 由我們聯繫您" data-en="Leave Info & We Contact You">留下資料 · 由我們聯繫您</span>
-        </button>
-        <button type="button" class="tab-btn" id="tabDirectContact" onclick="switchContactMode('direct')">
+        <button type="button" class="tab-btn active" id="tabDirectContact" onclick="switchContactMode('direct')">
           <i class="fa-solid fa-phone-volume"></i>
           <span data-tw="直接聯繫營德窗口" data-en="Contact Us Directly">直接聯繫營德窗口</span>
         </button>
+        <button type="button" class="tab-btn" id="tabLeaveInfo" onclick="switchContactMode('form')">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <span data-tw="留下資料 · 由我們聯繫您" data-en="Leave Info & We Contact You">留下資料 · 由我們聯繫您</span>
+        </button>
       </div>
 
-      <!-- 面板 1：留下資料由我們聯繫您 (預設顯示) -->
-      <div id="panelFormMode" class="contact-panel active">
+      <!-- 面板 1：直接聯繫營德窗口 (預設顯示) -->
+      <div id="panelDirectMode" class="contact-panel active">
+        <div class="info-card" style="max-width: 820px; margin: 0 auto; padding: 48px;">
+          <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 28px;" data-tw="臺灣總部與專人聯絡窗口" data-en="Taiwan HQ Direct Contact Info">臺灣總部與專人聯絡窗口</h2>
+
+          <div class="info-item" style="margin-bottom: 24px;">
+            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <div class="info-title" data-tw="公司地址 Address" data-en="Company Address">公司地址 Address</div>
+              <div class="info-text" data-tw="臺北市松山區敦化北路205號6樓609室" data-en="6F., No. 205, Dunhua N. Rd., Songshan Dist., Taipei City, Taiwan">
+                臺北市松山區敦化北路205號6樓609室
+              </div>
+            </div>
+          </div>
+
+          <div class="info-item" style="margin-bottom: 24px;">
+            <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <div class="info-title" data-tw="總機電話 Telephone" data-en="Telephone">總機電話 Telephone</div>
+              <div class="info-text">02-2712-2211 #8109 (+886-2-2712-2211 #8109)</div>
+            </div>
+          </div>
+
+          <div class="info-item" style="margin-bottom: 24px;">
+            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <div class="info-title" data-tw="電子郵件 Email" data-en="Email Address">電子郵件 Email</div>
+              <div class="info-text"><a href="mailto:yuping86@fpc.com.tw" style="color: var(--brand-blue); text-decoration: none; font-weight: 700;">yuping86@fpc.com.tw</a></div>
+            </div>
+          </div>
+
+          <!-- 直接聯繫快捷按鈕組 -->
+          <div style="margin-top: 36px; display: flex; gap: 16px; flex-wrap: wrap;">
+            <a href="tel:0227122211,8109" class="submit-btn" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px;">
+              <i class="fa-solid fa-phone"></i> <span data-tw="撥打總機專線" data-en="Call Office Directly">撥打總機專線</span>
+            </a>
+            <a href="mailto:yuping86@fpc.com.tw" class="submit-btn" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px; background: #0A2540;">
+              <i class="fa-solid fa-envelope"></i> <span data-tw="寄送 Email 諮詢" data-en="Send Email Inquiry">寄送 Email 諮詢</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 面板 2：留下資料由我們聯繫您 -->
+      <div id="panelFormMode" class="contact-panel">
         <div class="rfq-form-card" style="max-width: 820px; margin: 0 auto; padding: 44px 48px;">
           <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 24px;" data-tw="留下您的聯絡資料" data-en="Leave Your Contact Details">留下您的聯絡資料</h2>
 
@@ -371,60 +415,6 @@
           </form>
 
           <div id="statusMessage"></div>
-        </div>
-      </div>
-
-      <!-- 面板 2：直接聯繫營德窗口 -->
-      <div id="panelDirectMode" class="contact-panel">
-        <div class="info-card" style="max-width: 820px; margin: 0 auto; padding: 48px;">
-          <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 28px;" data-tw="臺灣總部與專人聯絡窗口" data-en="Taiwan HQ Direct Contact Info">臺灣總部與專人聯絡窗口</h2>
-
-          <div class="info-item" style="margin-bottom: 24px;">
-            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
-            <div>
-              <div class="info-title" data-tw="公司地址 Address" data-en="Company Address">公司地址 Address</div>
-              <div class="info-text" data-tw="臺北市松山區敦化北路205號6樓609室" data-en="6F., No. 205, Dunhua N. Rd., Songshan Dist., Taipei City, Taiwan">
-                臺北市松山區敦化北路205號6樓609室
-              </div>
-            </div>
-          </div>
-
-          <div class="info-item" style="margin-bottom: 24px;">
-            <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
-            <div>
-              <div class="info-title" data-tw="總機電話 Telephone" data-en="Telephone">總機電話 Telephone</div>
-              <div class="info-text">02-2712-2211 #8109 (+886-2-2712-2211 #8109)</div>
-            </div>
-          </div>
-
-          <div class="info-item" style="margin-bottom: 24px;">
-            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
-            <div>
-              <div class="info-title" data-tw="電子郵件 Email" data-en="Email Address">電子郵件 Email</div>
-              <div class="info-text"><a href="mailto:yuping86@fpc.com.tw" style="color: var(--brand-blue); text-decoration: none; font-weight: 700;">yuping86@fpc.com.tw</a></div>
-            </div>
-          </div>
-
-          <div class="info-item" style="margin-bottom: 24px;">
-            <div class="info-icon"><i class="fa-solid fa-industry"></i></div>
-            <div>
-              <div class="info-title" data-tw="嘉義生產基地 Base Plant" data-en="Chiayi Xingang Base Plant">嘉義生產基地 Base Plant</div>
-              <div class="info-text" data-tw="嘉義台塑企業新港廠區（全自動吹膜與點斷熱封）" data-en="Formosa Plastics Xingang Complex, Chiayi, Taiwan">
-                嘉義台塑企業新港廠區（全自動吹膜與點斷熱封）
-              </div>
-            </div>
-          </div>
-
-          <!-- 直接聯繫快捷按鈕組 -->
-          <div style="margin-top: 36px; display: flex; gap: 16px; flex-wrap: wrap;">
-            <a href="tel:0227122211,8109" class="submit-btn" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px;">
-              <i class="fa-solid fa-phone"></i> <span data-tw="撥打總機專線" data-en="Call Office Directly">撥打總機專線</span>
-            </a>
-            <a href="mailto:yuping86@fpc.com.tw" class="submit-btn" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px; background: #0A2540;">
-              <i class="fa-solid fa-envelope"></i> <span data-tw="寄送 Email 諮詢" data-en="Send Email Inquiry">寄送 Email 諮詢</span>
-            </a>
-          </div>
-
         </div>
       </div>
 
