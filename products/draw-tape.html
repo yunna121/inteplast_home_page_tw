@@ -944,17 +944,16 @@
         medicalItems.forEach(item => {
           const size = item["規格/容量/號數"] || item["規格 / 容量 / 號數"] || "";
           const dim = item["尺寸 (寬 × 長 cm / mm)"] || "";
-          const pack = item["包裝方式 / 適用說明"] || item["數量 / 張數 / 卷長"] || "";
-          const color = item["顏色 / 色系"] || "黃色 / 紅色";
+          const pack = item["數量 / 張數 / 卷長"] || item["包裝方式 / 適用說明"] || "";
 
           html += `
             <div class="edm-spec-card-item">
               <div class="edm-spec-card-left">
-                <span class="edm-size-pill">${size}</span>
-                ${pack ? `<span class="edm-qty-badge">${pack}</span>` : ''}
-                <span class="color-pill-pink" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5;">${color}</span>
+                <span class="edm-size-pill" style="border-color: #FECDD3; background: #FFF1F2; color: #BE123C;">${size}</span>
+                ${pack ? `<span class="edm-qty-badge" style="background: #E11D48;">${pack}</span>` : ''}
+                <span style="background: #E11D48; color: #FFF; font-weight: 900; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem;">紅</span>
               </div>
-              <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> ${dim}</div>
+              <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 ${dim}</div>
               <div>
                 <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · ${size} (${dim})', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
               </div>
