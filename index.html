@@ -1139,26 +1139,34 @@
       }
     }
 
-    /* Sticky Homepage Directory Navigation Bar */
+    /* Scroll margin offset for fixed header navigation */
+    #aboutUs,
+    #productShowcase,
+    #greenMark,
+    #productIntroRows,
+    #applicationScenarios,
+    #contactCTA {
+      scroll-margin-top: 110px;
+    }
+
+    /* Homepage Section Directory Inline Navigation Card (無吸頂打架問題) */
     .homepage-toc-bar {
-      position: sticky;
-      top: 72px;
-      z-index: 980;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      box-shadow: 0 4px 16px rgba(0, 50, 100, 0.06);
-      transition: all 0.3s ease;
+      position: relative;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      margin: 40px auto 0;
+      max-width: 1350px;
+      box-shadow: 0 10px 30px rgba(0, 50, 100, 0.06);
+      padding: 16px 24px;
     }
 
     .toc-container {
-      max-width: 1350px;
-      margin: 0 auto;
-      padding: 10px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
+      padding: 0;
     }
 
     .toc-label {
@@ -1382,35 +1390,35 @@
           <div class="stat-sub" data-tw="100% 邊角料即時粉碎造粒" data-en="100% Zero Waste Recycling">100% 邊角料即時粉碎造粒</div>
         </div>
       </div>
+
+      <!-- 🗂️ 首頁章節目錄 (Inline Navigation Card) -->
+      <nav class="homepage-toc-bar" id="homepageToc" aria-label="首頁章節目錄">
+        <div class="toc-container">
+          <span class="toc-label"><i class="fa-solid fa-list-ul"></i> <span data-tw="本頁導覽目錄" data-en="Page Index">本頁導覽目錄</span></span>
+          <div class="toc-links">
+            <a href="#aboutUs" class="toc-link active">
+              <i class="fa-solid fa-building-user"></i> <span data-tw="01 關於營德" data-en="01 About Us">01 關於營德</span>
+            </a>
+            <a href="#productShowcase" class="toc-link">
+              <i class="fa-solid fa-boxes-stacked"></i> <span data-tw="02 六大產品" data-en="02 6 Product Lines">02 六大產品</span>
+            </a>
+            <a href="#greenMark" class="toc-link">
+              <i class="fa-solid fa-leaf"></i> <span data-tw="03 環保綠色標章" data-en="03 Green Mark">03 環保綠色標章</span>
+            </a>
+            <a href="#productIntroRows" class="toc-link">
+              <i class="fa-solid fa-circle-check"></i> <span data-tw="04 產品特色" data-en="04 Highlights">04 產品特色</span>
+            </a>
+            <a href="#applicationScenarios" class="toc-link">
+              <i class="fa-solid fa-city"></i> <span data-tw="05 應用情境" data-en="05 Scenarios">05 應用情境</span>
+            </a>
+            <a href="#contactCTA" class="toc-link">
+              <i class="fa-solid fa-envelope"></i> <span data-tw="06 聯繫窗口" data-en="06 Contact Us">06 聯繫窗口</span>
+            </a>
+          </div>
+        </div>
+      </nav>
     </div>
   </div>
-
-  <!-- 🗂️ 首頁章節目錄 (Sticky Navigation Directory) -->
-  <nav class="homepage-toc-bar" id="homepageToc" aria-label="首頁章節目錄">
-    <div class="toc-container">
-      <span class="toc-label"><i class="fa-solid fa-list-ul"></i> <span data-tw="本頁目錄" data-en="Page Index">本頁目錄</span></span>
-      <div class="toc-links">
-        <a href="#aboutUs" class="toc-link active">
-          <i class="fa-solid fa-building-user"></i> <span data-tw="01 關於營德" data-en="01 About Us">01 關於營德</span>
-        </a>
-        <a href="#productShowcase" class="toc-link">
-          <i class="fa-solid fa-boxes-stacked"></i> <span data-tw="02 六大產品" data-en="02 6 Product Lines">02 六大產品</span>
-        </a>
-        <a href="#greenMark" class="toc-link">
-          <i class="fa-solid fa-leaf"></i> <span data-tw="03 環保綠色標章" data-en="03 Green Mark">03 環保綠色標章</span>
-        </a>
-        <a href="#productIntroRows" class="toc-link">
-          <i class="fa-solid fa-circle-check"></i> <span data-tw="04 產品特色" data-en="04 Highlights">04 產品特色</span>
-        </a>
-        <a href="#applicationScenarios" class="toc-link">
-          <i class="fa-solid fa-city"></i> <span data-tw="05 應用情境" data-en="05 Scenarios">05 應用情境</span>
-        </a>
-        <a href="#contactCTA" class="toc-link">
-          <i class="fa-solid fa-envelope"></i> <span data-tw="06 聯繫窗口" data-en="06 Contact Us">06 聯繫窗口</span>
-        </a>
-      </div>
-    </div>
-  </nav>
 
   <!-- SECTION 1: 關於臺灣營德 (About Us 首頁簡介預覽區塊) -->
   <section class="home-corp-overview-section" id="aboutUs" style="padding: 80px 0; background: #FFFFFF; border-bottom: 1px solid var(--border-color);">
