@@ -788,17 +788,89 @@
     </div>
   </footer>
 
-  <!-- Filter & Drawer Script + Dynamic JSON Loader -->
+  <!-- Filter & Drawer Script + Dynamic Excel/CSV & JSON Loader -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      fetch("../src/data/products.csv")
+        .then(res => res.text())
+        .then(csvText => {
+          const categories = parseCSV(csvText);
+          if (categories && categories.length > 0) {
+            renderProductGallery(categories);
+          } else {
+            loadJSONFallback();
+          }
+        })
+        .catch(err => loadJSONFallback());
+    });
+
+    function loadJSONFallback() {
       fetch("../src/data/products.json")
         .then(res => res.json())
         .then(data => {
-          if (!data || !data.categories) return;
-          renderProductGallery(data.categories);
+          if (data && data.categories) renderProductGallery(data.categories);
         })
-        .catch(err => console.log("JSON dynamic load fallback", err));
-    });
+        .catch(e => console.log("Fallback load error", e));
+    }
+
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      if (lines.length < 2) return [];
+      
+      const categories = [];
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i];
+        if (!line.trim()) continue;
+        
+        // Split by CSV regex supporting quoted fields
+        const cols = [];
+        let cur = '';
+        let inQuotes = false;
+        for (let c = 0; c < line.length; c++) {
+          const char = line[c];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            cols.push(cur.trim());
+            cur = '';
+          } else {
+            cur += char;
+          }
+        }
+        cols.push(cur.trim());
+        if (cols.length < 5) continue;
+        
+        const [id, code, title_tw, title_en, image, badges_raw, highlights_tw, desc_tw, page_url, specs_raw] = cols;
+        
+        const badges = [];
+        if (badges_raw) {
+          badges_raw.split(',').forEach(b => {
+            const bt = b.trim();
+            if (!bt) return;
+            let type = 'default';
+            let icon = '';
+            if (bt.includes('環保') || bt.includes('高溫') || bt.includes('冷凍') || bt.includes('膠帶')) type = 'eco';
+            if (bt.includes('醫療')) { type = 'medical'; icon = 'fa-solid fa-triangle-exclamation'; }
+            badges.push({ text_tw: bt, text_en: bt, type, icon });
+          });
+        }
+        
+        const quick_specs = [];
+        if (specs_raw) {
+          specs_raw.split(';').forEach(s => {
+            const parts = s.split(':');
+            if (parts.length === 2) {
+              quick_specs.push({ size: parts[0].trim(), dim: parts[1].trim() });
+            }
+          });
+        }
+        
+        categories.push({
+          id, code, title_tw, title_en, image, badges, highlights_tw, highlights_en: highlights_tw, desc_tw, desc_en: desc_tw, page_url, quick_specs
+        });
+      }
+      return categories;
+    }
 
     function renderProductGallery(categories) {
       const container = document.querySelector("main.gallery-container");
