@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- 防止語系切換中文閃爍 (Anti-FOUC Instant Language Preloader) -->
   <script>
-    (function () {
+    (function() {
       if (localStorage.getItem('preferredLang') === 'en') {
         document.documentElement.classList.add('lang-loading');
       }
@@ -1320,6 +1320,7 @@
   </style>
   <link rel="stylesheet" href="./src/navbar.css">
   <link rel="stylesheet" href="./sustainability-redesign.css">
+  <link rel="stylesheet" href="src/responsive.css">
 </head>
 
 <body>
@@ -1327,17 +1328,12 @@
   <div class="top-utility-bar">
     <div class="utility-left">
       <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span>
-        <span data-tw="臺灣塑膠工業股份有限公司" data-en="Formosa Plastics Corp.">臺灣塑膠工業股份有限公司</span></a>
-      <a href="https://www.inteplast.com/" target="_blank" rel="noopener"><span data-tw="USA Division 美國總部"
-          data-en="USA Division Inteplast Group">USA Division 美國總部</span></a>
+      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> <span data-tw="台灣塑膠工業股份有限公司" data-en="Formosa Plastics Corp.">台灣塑膠工業股份有限公司</span></a>
+      <a href="https://www.inteplast.com/" target="_blank" rel="noopener"><span data-tw="USA Division 美國總部" data-en="USA Division Inteplast Group">USA Division 美國總部</span></a>
     </div>
     <div class="utility-right">
-      <a href="sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> <span
-          data-tw="永續發展" data-en="Sustainability">永續發展</span></a>
-      <a href="https://www.104.com.tw/company/1a2x6bkjw0?jobsource=vipshare" target="_blank" rel="noopener"
-        data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> <span data-tw="人才招募"
-          data-en="Careers">人才招募</span></a>
+      <a href="sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> <span data-tw="永續發展" data-en="Sustainability">永續發展</span></a>
+      <a href="https://www.104.com.tw/company/1a2x6bkjw0?jobsource=vipshare" target="_blank" rel="noopener" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> <span data-tw="人才招募" data-en="Careers">人才招募</span></a>
     </div>
   </div>
 
@@ -1357,13 +1353,11 @@
 
       <!-- 6 大分類 Mega Menu -->
       <li class="nav-item">
-        <a href="products/index.html" class="nav-link-item product-menu-trigger" data-tw="產品中心" data-en="Products">產品中心
-          <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <a href="products/index.html" class="nav-link-item product-menu-trigger" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
         <div class="mega-menu-panel-6cat">
           <div class="mega-grid-6">
             <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> <span data-tw="01 清潔袋"
-                  data-en="01 Can Liners">01 清潔袋</span></div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> <span data-tw="01 清潔袋" data-en="01 Can Liners">01 清潔袋</span></div>
               <ul class="mega-sub-links">
                 <li><a href="products/can-liners.html" data-tw="連捲清潔袋" data-en="Coreless Roll Liners">連捲清潔袋</a></li>
                 <li><a href="products/can-liners.html" data-tw="單張抽取" data-en="Interleaved Flat Bags">單張抽取</a></li>
@@ -1371,66 +1365,55 @@
               </ul>
             </div>
             <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> <span data-tw="02 拉繩袋"
-                  data-en="02 Drawtape Bags">02 拉繩袋</span></div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> <span data-tw="02 拉繩袋" data-en="02 Drawtape Bags">02 拉繩袋</span></div>
               <ul class="mega-sub-links">
                 <li><a href="products/draw-tape.html" data-tw="清潔袋" data-en="Drawtape Trash Bags">清潔袋</a></li>
                 <li><a href="products/draw-tape.html" data-tw="醫療袋" data-en="Medical Drawtape Bags">醫療袋</a></li>
               </ul>
             </div>
             <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> <span data-tw="03 耐熱袋"
-                  data-en="03 Foodservice Bags">03 耐熱袋</span></div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> <span data-tw="03 蔬果袋" data-en="03 Foodservice Bags">03 蔬果袋</span></div>
               <ul class="mega-sub-links">
                 <li><a href="products/heat-bags.html" data-tw="平裝耐熱袋" data-en="Flat Heat-Resistant Bags">平裝耐熱袋</a></li>
                 <li><a href="products/heat-bags.html" data-tw="捲裝耐熱袋" data-en="Roll Heat-Resistant Bags">捲裝耐熱袋</a></li>
+                <li><a href="products/heat-bags.html#cat-produce" data-tw="蔬果袋" data-en="Produce Bags">蔬果袋</a></li>
               </ul>
             </div>
             <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> <span data-tw="04 密封包裝類"
-                  data-en="04 Storage & Zipper Bags">04 密封包裝類</span></div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> <span data-tw="04 夾鏈袋" data-en="04 Storage & Zipper Bags">04 夾鏈袋</span></div>
               <ul class="mega-sub-links">
                 <li><a href="products/sealed-packaging.html" data-tw="密實袋" data-en="Seal Top Bags">密實袋</a></li>
-                <li><a href="products/sealed-packaging.html" data-tw="立體密實袋" data-en="Stand-Up Zipper Bags">立體密實袋</a>
-                </li>
+                <li><a href="products/sealed-packaging.html" data-tw="立體密實袋" data-en="Stand-Up Zipper Bags">立體密實袋</a></li>
                 <li><a href="products/sealed-packaging.html" data-tw="冷凍袋" data-en="Freezer Bags">冷凍袋</a></li>
                 <li><a href="products/sealed-packaging.html" data-tw="夾鏈袋" data-en="Reclosable Zipper Bags">夾鏈袋</a></li>
               </ul>
             </div>
             <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> <span data-tw="05 其他類"
-                  data-en="05 Specialty Products">05 其他類</span></div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> <span data-tw="05 其他類" data-en="05 Specialty Products">05 其他類</span></div>
               <ul class="mega-sub-links">
                 <li><a href="products/accessories.html" data-tw="手套" data-en="PE Disposable Gloves">手套</a></li>
-                <li><a href="products/accessories.html" data-tw="台塑遮蔽防塵膠帶" data-en="Pre-taped Masking Film">台塑遮蔽防塵膠帶</a>
-                </li>
+                <li><a href="products/accessories.html" data-tw="台塑遮蔽防塵膠帶" data-en="Pre-taped Masking Film">台塑遮蔽防塵膠帶</a></li>
               </ul>
             </div>
             <div>
               <a href="products/stretch-films.html" style="text-decoration: none; color: inherit;">
-                <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> <span data-tw="06 Scale Sheet"
-                    data-en="06 Scale Sheet">06 Scale Sheet</span></div>
+                <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> <span data-tw="06 Scale Sheet" data-en="06 Scale Sheet">06 Scale Sheet</span></div>
               </a>
             </div>
           </div>
         </div>
       </li>
 
-      <li class="nav-item"><a href="sustainability.html" class="nav-link-item active" data-tw="永續發展"
-          data-en="Sustainability">永續發展</a></li>
-      <li class="nav-item"><a href="contact.html" class="nav-link-item" data-tw="聯繫我們" data-en="Contact Us">聯繫我們</a>
-      </li>
+      <li class="nav-item"><a href="sustainability.html" class="nav-link-item active" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
+      <li class="nav-item"><a href="contact.html" class="nav-link-item" data-tw="聯繫我們" data-en="Contact Us">聯繫我們</a></li>
     </ul>
 
     <div class="header-right">
-      <button class="search-trigger-btn" id="globalSearchTrigger" type="button"
-        onclick="if(typeof openSearchModal === 'function') openSearchModal();" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
+      <button class="search-trigger-btn" id="globalSearchTrigger" type="button" onclick="if(typeof openSearchModal === 'function') openSearchModal();" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
-      <button class="lang-toggle" id="langBtn" type="button"
-        onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
-      <a href="contact.html" class="rfq-btn"><i class="fa-solid fa-envelope"></i><span data-tw="聯繫我們"
-          data-en="Contact Us">聯繫我們</span></a>
+      <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
+      <a href="contact.html" class="rfq-btn"><i class="fa-solid fa-envelope"></i><span data-tw="聯繫我們" data-en="Contact Us">聯繫我們</span></a>
     </div>
   </header>
   <main>
@@ -1439,19 +1422,12 @@
           class="fa-solid fa-leaf"></i></div>
       <div class="container hero-grid">
         <div>
-          <div class="eyebrow"><i class="fa-solid fa-leaf"></i> <span data-tw="綠色標章產品"
-              data-en="GREEN LABEL PRODUCTS">GREEN LABEL PRODUCTS</span></div>
-          <h1 data-tw="讓每一次選擇，<br>更靠近綠色生活。" data-en="Making Every Choice<br>Closer to Green Living.">讓每一次選擇，<br>更靠近綠色生活。
-          </h1>
-          <p data-tw="臺灣營德以通過環保標章的產品，回應日常生活對環境友善選擇的需求。從產品設計到使用，我們以可被辨識的綠色承諾，陪伴每一個乾淨安心的日常。"
-            data-en="Inteplast Taiwan responds to everyday eco-friendly needs with Green Mark certified products. From design to use, our recognizable green commitment accompanies clean, peaceful daily living.">
-            臺灣營德以通過環保標章的產品，回應日常生活對環境友善選擇的需求。從產品設計到使用，我們以可被辨識的綠色承諾，陪伴每一個乾淨安心的日常。</p>
+          <div class="eyebrow"><i class="fa-solid fa-leaf"></i> <span data-tw="綠色標章產品" data-en="GREEN LABEL PRODUCTS">GREEN LABEL PRODUCTS</span></div>
+          <h1 data-tw="讓每一次選擇，<br>更靠近綠色生活。" data-en="Making Every Choice<br>Closer to Green Living.">讓每一次選擇，<br>更靠近綠色生活。</h1>
+          <p data-tw="臺灣營德以通過環保標章的產品，回應日常生活對環境友善選擇的需求。從產品設計到使用，我們以可被辨識的綠色承諾，陪伴每一個乾淨安心的日常。" data-en="Inteplast Taiwan responds to everyday eco-friendly needs with Green Mark certified products. From design to use, our recognizable green commitment accompanies clean, peaceful daily living.">臺灣營德以通過環保標章的產品，回應日常生活對環境友善選擇的需求。從產品設計到使用，我們以可被辨識的綠色承諾，陪伴每一個乾淨安心的日常。</p>
           <div class="hero-actions">
-            <a class="button primary" href="#products"><span data-tw="認識環保標章產品"
-                data-en="Explore Green Mark Products">認識環保標章產品</span> <i class="fa-solid fa-arrow-down"></i></a>
-            <a class="button secondary" href="https://greenlifestyle.moenv.gov.tw/greenLabel/GreenMarkIntroFirst"
-              target="_blank" rel="noopener"><span data-tw="環保標章介紹" data-en="About Green Mark">環保標章介紹</span> <i
-                class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a class="button primary" href="#products"><span data-tw="認識環保標章產品" data-en="Explore Green Mark Products">認識環保標章產品</span> <i class="fa-solid fa-arrow-down"></i></a>
+            <a class="button secondary" href="https://greenlifestyle.moenv.gov.tw/greenLabel/GreenMarkIntroFirst" target="_blank" rel="noopener"><span data-tw="環保標章介紹" data-en="About Green Mark">環保標章介紹</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </div>
         <div class="hero-mark"><img src="./src/environmental-label-mark-official.png" alt="環境部環保標章圖樣"></div>
@@ -1462,43 +1438,23 @@
       <div class="container intro-grid">
         <div>
           <p class="section-kicker" data-tw="環保標章是什麼" data-en="WHAT IS THE GREEN MARK">環保標章是什麼</p>
-          <h2 data-tw="以綠葉環抱地球，<br>辨識更友善的選擇。"
-            data-en="Embracing Earth with Green Leaves,<br>Identifying Eco-Friendly Choices.">以綠葉環抱地球，<br>辨識更友善的選擇。</h2>
-          <p class="intro-copy" data-tw="環保標章以綠色葉片環繞地球的意象，傳遞守護環境、珍惜資源的理念。取得標章的產品，須符合環境部公告的規格標準並獲得使用證書，讓消費者採購時有清楚的辨識依據。"
-            data-en="The Green Mark uses green leaves surrounding the Earth to convey environmental protection and resource conservation. Certified products meet official standards from the Ministry of Environment, providing clear purchasing guidance.">
-            環保標章以綠色葉片環繞地球的意象，傳遞守護環境、珍惜資源的理念。取得標章的產品，須符合環境部公告的規格標準並獲得使用證書，讓消費者採購時有清楚的辨識依據。</p>
-          <p class="intro-copy"
-            data-tw="綠色消費的觀念在歐美環保運動中逐漸發展，德國、加拿大、日本與北歐等地也陸續建立環保標章制度。臺灣於民國81年推動環保標章，鼓勵製造端減少污染與資源消耗，也讓使用者能支持可回收、低污染與省資源的產品。"
-            data-en="Green consumerism evolved from global environmental movements. Taiwan introduced its Green Mark system in 1992, encouraging manufacturers to reduce pollution and resource consumption.">
-            綠色消費的觀念在歐美環保運動中逐漸發展，德國、加拿大、日本與北歐等地也陸續建立環保標章制度。臺灣於民國81年推動環保標章，鼓勵製造端減少污染與資源消耗，也讓使用者能支持可回收、低污染與省資源的產品。</p>
+          <h2 data-tw="以綠葉環抱地球，<br>辨識更友善的選擇。" data-en="Embracing Earth with Green Leaves,<br>Identifying Eco-Friendly Choices.">以綠葉環抱地球，<br>辨識更友善的選擇。</h2>
+          <p class="intro-copy" data-tw="環保標章以綠色葉片環繞地球的意象，傳遞守護環境、珍惜資源的理念。取得標章的產品，須符合環境部公告的規格標準並獲得使用證書，讓消費者採購時有清楚的辨識依據。" data-en="The Green Mark uses green leaves surrounding the Earth to convey environmental protection and resource conservation. Certified products meet official standards from the Ministry of Environment, providing clear purchasing guidance.">環保標章以綠色葉片環繞地球的意象，傳遞守護環境、珍惜資源的理念。取得標章的產品，須符合環境部公告的規格標準並獲得使用證書，讓消費者採購時有清楚的辨識依據。</p>
+          <p class="intro-copy" data-tw="綠色消費的觀念在歐美環保運動中逐漸發展，德國、加拿大、日本與北歐等地也陸續建立環保標章制度。台灣於民國81年推動環保標章，鼓勵製造端減少污染與資源消耗，也讓使用者能支持可回收、低污染與省資源的產品。" data-en="Green consumerism evolved from global environmental movements. Taiwan introduced its Green Mark system in 1992, encouraging manufacturers to reduce pollution and resource consumption.">綠色消費的觀念在歐美環保運動中逐漸發展，德國、加拿大、日本與北歐等地也陸續建立環保標章制度。台灣於民國81年推動環保標章，鼓勵製造端減少污染與資源消耗，也讓使用者能支持可回收、低污染與省資源的產品。</p>
           <div class="intro-links">
-            <a class="text-link" href="https://greenlifestyle.moenv.gov.tw/categories/GreenSpecificationSearch"
-              target="_blank" rel="noopener"><span data-tw="環保標章規格標準" data-en="Green Mark Standards">環保標章規格標準</span> <i
-                class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            <a class="text-link" href="https://greenlifestyle.moenv.gov.tw/categories/greenProductSearch"
-              target="_blank" rel="noopener"><span data-tw="環保標章產品查詢"
-                data-en="Search Certified Products">環保標章產品查詢</span> <i
-                class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a class="text-link" href="https://greenlifestyle.moenv.gov.tw/categories/GreenSpecificationSearch" target="_blank" rel="noopener"><span data-tw="環保標章規格標準" data-en="Green Mark Standards">環保標章規格標準</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a class="text-link" href="https://greenlifestyle.moenv.gov.tw/categories/greenProductSearch" target="_blank" rel="noopener"><span data-tw="環保標章產品查詢" data-en="Search Certified Products">環保標章產品查詢</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </div>
         <ul class="points">
           <li><i class="fa-solid fa-circle-check"></i>
-            <div><strong data-tw="依 ISO 14024 原則建立" data-en="Built on ISO 14024 Principles">依 ISO 14024
-                原則建立</strong><span data-tw="環保標章採用國際第一類環境標誌的原則與程序，以市場機制鼓勵環境衝擊較低的產品與服務。"
-                data-en="Adheres to Type I environmental labeling principles under ISO 14024 to encourage eco-friendly products.">環保標章採用國際第一類環境標誌的原則與程序，以市場機制鼓勵環境衝擊較低的產品與服務。</span>
-            </div>
+            <div><strong data-tw="依 ISO 14024 原則建立" data-en="Built on ISO 14024 Principles">依 ISO 14024 原則建立</strong><span data-tw="環保標章採用國際第一類環境標誌的原則與程序，以市場機制鼓勵環境衝擊較低的產品與服務。" data-en="Adheres to Type I environmental labeling principles under ISO 14024 to encourage eco-friendly products.">環保標章採用國際第一類環境標誌的原則與程序，以市場機制鼓勵環境衝擊較低的產品與服務。</span></div>
           </li>
           <li><i class="fa-solid fa-circle-check"></i>
-            <div><strong data-tw="從產品生命週期看環境" data-en="Life Cycle Assessment">從產品生命週期看環境</strong><span
-                data-tw="原料取得、生產、銷售、使用到廢棄，各階段的減量、回收、低污染與資源效率都是重要考量。"
-                data-en="Considers environmental impact across raw materials, manufacturing, sales, usage, and disposal.">原料取得、生產、銷售、使用到廢棄，各階段的減量、回收、低污染與資源效率都是重要考量。</span>
-            </div>
+            <div><strong data-tw="從產品生命週期看環境" data-en="Life Cycle Assessment">從產品生命週期看環境</strong><span data-tw="原料取得、生產、銷售、使用到廢棄，各階段的減量、回收、低污染與資源效率都是重要考量。" data-en="Considers environmental impact across raw materials, manufacturing, sales, usage, and disposal.">原料取得、生產、銷售、使用到廢棄，各階段的減量、回收、低污染與資源效率都是重要考量。</span></div>
           </li>
           <li><i class="fa-solid fa-circle-check"></i>
-            <div><strong data-tw="持續擴大的綠色選擇" data-en="Expanding Eco Options">持續擴大的綠色選擇</strong><span
-                data-tw="自民國82年公布首批標準以來，環保標章已涵蓋14大產品類別、超過百項產品項目。"
-                data-en="Covering 14 major product categories and over 100 items since 1993.">自民國82年公布首批標準以來，環保標章已涵蓋14大產品類別、超過百項產品項目。</span>
-            </div>
+            <div><strong data-tw="持續擴大的綠色選擇" data-en="Expanding Eco Options">持續擴大的綠色選擇</strong><span data-tw="自民國82年公布首批標準以來，環保標章已涵蓋14大產品類別、超過百項產品項目。" data-en="Covering 14 major product categories and over 100 items since 1993.">自民國82年公布首批標準以來，環保標章已涵蓋14大產品類別、超過百項產品項目。</span></div>
           </li>
         </ul>
       </div>
@@ -1509,67 +1465,41 @@
         <div class="section-heading">
           <p class="section-kicker" data-tw="我們的綠色標章產品" data-en="OUR GREEN LABEL PRODUCTS">OUR GREEN LABEL PRODUCTS</p>
           <h2 data-tw="兩款取得環保標章的日常用品" data-en="Two Everyday Products Certified with Green Mark">兩款取得環保標章的日常用品</h2>
-          <p data-tw="產品規格與標章資訊以環境部「淨零綠生活資訊平台」公開資料為準；點選卡片可查看各產品的完整資料。"
-            data-en="Product specifications and certifications are based on official MoENV data. Click cards for full product details.">
-            產品規格與標章資訊以環境部「淨零綠生活資訊平台」公開資料為準；點選卡片可查看各產品的完整資料。</p>
+          <p data-tw="產品規格與標章資訊以環境部「淨零綠生活資訊平台」公開資料為準；點選卡片可查看各產品的完整資料。" data-en="Product specifications and certifications are based on official MoENV data. Click cards for full product details.">產品規格與標章資訊以環境部「淨零綠生活資訊平台」公開資料為準；點選卡片可查看各產品的完整資料。</p>
         </div>
         <aside class="green-standard">
           <div class="green-standard-copy">
             <div class="green-standard-intro">
-              <p class="green-standard-eyebrow" data-tw="環保標章認證產品" data-en="ENVIRONMENTAL LABEL PRODUCT">ENVIRONMENTAL
-                LABEL PRODUCT</p>
+              <p class="green-standard-eyebrow" data-tw="環保標章認證產品" data-en="ENVIRONMENTAL LABEL PRODUCT">ENVIRONMENTAL LABEL PRODUCT</p>
               <h3 data-tw="環保不打折，每一款都經過層層把關" data-en="Uncompromised Quality, Rigorously Audited">環保不打折，每一款都經過層層把關</h3>
-              <p class="green-standard-summary" data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。"
-                data-en="Formosa Eco Drawtape and Can Liner bags are fully Green Mark certified from raw materials to manufacturing.">
-                台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。</p>
+              <p class="green-standard-summary" data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。" data-en="Formosa Eco Drawtape and Can Liner bags are fully Green Mark certified from raw materials to manufacturing.">台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。</p>
             </div>
           </div>
           <figure class="green-standard-visual"><img src="./src/combine.png" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書"></figure>
           <ul class="green-standard-list">
-            <li><strong data-tw="通過環境審查" data-en="Passed Environmental Audits">通過環境審查</strong><span
-                data-tw="符合環保標章規格標準，取得產品標示資格。"
-                data-en="Meets official Green Mark specifications.">符合環保標章規格標準，取得產品標示資格。</span></li>
-            <li><strong data-tw="50% 再生塑膠" data-en="50% Recycled Plastic">50% 再生塑膠</strong><span
-                data-tw="減少對原生塑膠資源的依賴，延續材料價值。"
-                data-en="Reduces reliance on virgin plastics.">減少對原生塑膠資源的依賴，延續材料價值。</span></li>
-            <li><strong data-tw="避用重金屬" data-en="Zero Heavy Metals">避用重金屬</strong><span data-tw="不使用鉛、鎘、汞及六價鉻等重金屬。"
-                data-en="Free of lead, cadmium, mercury, and hexavalent chromium.">不使用鉛、鎘、汞及六價鉻等重金屬。</span></li>
-            <li><strong data-tw="製程審慎管理" data-en="Strict Process Control">製程審慎管理</strong><span
-                data-tw="避用列管毒性化學物質及相關管制物。"
-                data-en="Free of regulated toxic chemical substances.">避用列管毒性化學物質及相關管制物。</span></li>
+            <li><strong data-tw="通過環境審查" data-en="Passed Environmental Audits">通過環境審查</strong><span data-tw="符合環保標章規格標準，取得產品標示資格。" data-en="Meets official Green Mark specifications.">符合環保標章規格標準，取得產品標示資格。</span></li>
+            <li><strong data-tw="50% 再生塑膠" data-en="50% Recycled Plastic">50% 再生塑膠</strong><span data-tw="減少對原生塑膠資源的依賴，延續材料價值。" data-en="Reduces reliance on virgin plastics.">減少對原生塑膠資源的依賴，延續材料價值。</span></li>
+            <li><strong data-tw="避用重金屬" data-en="Zero Heavy Metals">避用重金屬</strong><span data-tw="不使用鉛、鎘、汞及六價鉻等重金屬。" data-en="Free of lead, cadmium, mercury, and hexavalent chromium.">不使用鉛、鎘、汞及六價鉻等重金屬。</span></li>
+            <li><strong data-tw="製程審慎管理" data-en="Strict Process Control">製程審慎管理</strong><span data-tw="避用列管毒性化學物質及相關管制物。" data-en="Free of regulated toxic chemical substances.">避用列管毒性化學物質及相關管制物。</span></li>
           </ul>
         </aside>
         <div class="products-grid">
           <article class="product-card">
             <div class="product-image"><img src="./src/drawtape.jpg" alt="台塑環保拉繩清潔袋"></div>
             <div class="product-content">
-              <span class="product-label"><i class="fa-solid fa-leaf"></i> <span data-tw="環保標章認證產品"
-                  data-en="ENVIRONMENTAL LABEL PRODUCT">ENVIRONMENTAL LABEL PRODUCT</span></span>
+              <span class="product-label"><i class="fa-solid fa-leaf"></i> <span data-tw="環保標章認證產品" data-en="ENVIRONMENTAL LABEL PRODUCT">ENVIRONMENTAL LABEL PRODUCT</span></span>
               <h3 data-tw="台塑環保拉繩清潔袋" data-en="Formosa Eco Drawtape Can Liner">台塑環保拉繩清潔袋</h3>
-              <p data-tw="兼顧日常收納與清潔需求的環保標章產品。"
-                data-en="Certified eco drawtape bags balancing daily storage and waste disposal.">兼顧日常收納與清潔需求的環保標章產品。
-              </p>
-              <a class="text-link"
-                href="https://greenliving.moenv.gov.tw/GreenLife/Products/productsDL.aspx?pc=F648766EA6D8FAE4&pn=D4441A3108CDD51C"
-                target="_blank" rel="noopener"><span data-tw="查看環保標章產品資料"
-                  data-en="View Certification Details">查看環保標章產品資料</span> <i
-                  class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <p data-tw="兼顧日常收納與清潔需求的環保標章產品。" data-en="Certified eco drawtape bags balancing daily storage and waste disposal.">兼顧日常收納與清潔需求的環保標章產品。</p>
+              <a class="text-link" href="https://greenlifestyle.moenv.gov.tw/categories/greenProductdetailPage?product=23645&amp;type=1" target="_blank" rel="noopener"><span data-tw="查看環保標章產品資料" data-en="View Certification Details">查看環保標章產品資料</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </div>
           </article>
           <article class="product-card">
             <div class="product-image"><img src="./src/cleaning.jpg" alt="台塑環保清潔袋"></div>
             <div class="product-content">
-              <span class="product-label"><i class="fa-solid fa-leaf"></i> <span data-tw="環保標章認證產品"
-                  data-en="ENVIRONMENTAL LABEL PRODUCT">ENVIRONMENTAL LABEL PRODUCT</span></span>
+              <span class="product-label"><i class="fa-solid fa-leaf"></i> <span data-tw="環保標章認證產品" data-en="ENVIRONMENTAL LABEL PRODUCT">ENVIRONMENTAL LABEL PRODUCT</span></span>
               <h3 data-tw="台塑環保清潔袋" data-en="Formosa Eco Trash Bag">台塑環保清潔袋</h3>
-              <p data-tw="為居家與日常清潔情境提供的環保標章產品選擇。"
-                data-en="Certified eco-friendly trash bags for household and commercial cleaning.">
-                為居家與日常清潔情境提供的環保標章產品選擇。</p>
-              <a class="text-link"
-                href="https://greenliving.moenv.gov.tw/GreenLife/Products/productsDL.aspx?pc=F648766EA6D8FAE4&pn=C3DA1E16A12F8B02"
-                target="_blank" rel="noopener"><span data-tw="查看環保標章產品資料"
-                  data-en="View Certification Details">查看環保標章產品資料</span> <i
-                  class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <p data-tw="為居家與日常清潔情境提供的環保標章產品選擇。" data-en="Certified eco-friendly trash bags for household and commercial cleaning.">為居家與日常清潔情境提供的環保標章產品選擇。</p>
+              <a class="text-link" href="https://greenlifestyle.moenv.gov.tw/categories/greenProductdetailPage?product=25987&amp;type=1" target="_blank" rel="noopener"><span data-tw="查看環保標章產品資料" data-en="View Certification Details">查看環保標章產品資料</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </div>
           </article>
         </div>
@@ -1586,23 +1516,18 @@
       <div class="container">
         <div class="section-heading">
           <p class="section-kicker" data-tw="我們的作法" data-en="OUR APPROACH">OUR APPROACH</p>
-          <h2 data-tw="以務實行動，讓綠色成為日常。" data-en="Pragmatic Action Making Green Living Everyday Practice.">以務實行動，讓綠色成為日常。
-          </h2>
+          <h2 data-tw="以務實行動，讓綠色成為日常。" data-en="Pragmatic Action Making Green Living Everyday Practice.">以務實行動，讓綠色成為日常。</h2>
         </div>
         <div class="commitment-grid">
           <article class="commitment-card">
             <div class="icon"><i class="fa-solid fa-recycle"></i></div>
             <h3 data-tw="珍惜每一份資源" data-en="Cherishing Every Resource">珍惜每一份資源</h3>
-            <p data-tw="我們持續將資源循環的思維帶進產品與製造流程，讓材料的價值被更充分運用。"
-              data-en="We continuously integrate circular economy thinking into product design and manufacturing to maximize material value.">
-              我們持續將資源循環的思維帶進產品與製造流程，讓材料的價值被更充分運用。</p>
+            <p data-tw="我們持續將資源循環的思維帶進產品與製造流程，讓材料的價值被更充分運用。" data-en="We continuously integrate circular economy thinking into product design and manufacturing to maximize material value.">我們持續將資源循環的思維帶進產品與製造流程，讓材料的價值被更充分運用。</p>
           </article>
           <article class="commitment-card">
             <div class="icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
             <h3 data-tw="從容易辨識的選擇開始" data-en="Starting with Recognizable Choices">從容易辨識的選擇開始</h3>
-            <p data-tw="以取得環保標章的產品，讓企業與消費者在採購與生活中，多一個清楚可靠的選擇。"
-              data-en="With certified Green Mark products, we offer businesses and consumers clear, reliable options for daily purchasing.">
-              以取得環保標章的產品，讓企業與消費者在採購與生活中，多一個清楚可靠的選擇。</p>
+            <p data-tw="以取得環保標章的產品，讓企業與消費者在採購與生活中，多一個清楚可靠的選擇。" data-en="With certified Green Mark products, we offer businesses and consumers clear, reliable options for daily purchasing.">以取得環保標章的產品，讓企業與消費者在採購與生活中，多一個清楚可靠的選擇。</p>
           </article>
         </div>
       </div>
@@ -1610,13 +1535,9 @@
 
     <section class="cta">
       <div class="container">
-        <h2 data-tw="想了解環保標章產品的採購資訊？" data-en="Interested in Purchasing Green Mark Certified Products?">想了解環保標章產品的採購資訊？
-        </h2>
-        <p data-tw="歡迎聯繫臺灣營德團隊，我們將協助您找到合適的產品選擇。"
-          data-en="Contact the Inteplast Taiwan team to find your ideal product solutions.">歡迎聯繫臺灣營德團隊，我們將協助您找到合適的產品選擇。
-        </p>
-        <a class="button" href="contact.html"><span data-tw="聯繫我們" data-en="Contact Us">聯繫我們</span> <i
-            class="fa-solid fa-arrow-right"></i></a>
+        <h2 data-tw="想了解環保標章產品的採購資訊？" data-en="Interested in Purchasing Green Mark Certified Products?">想了解環保標章產品的採購資訊？</h2>
+        <p data-tw="歡迎聯繫臺灣營德團隊，我們將協助您找到合適的產品選擇。" data-en="Contact the Inteplast Taiwan team to find your ideal product solutions.">歡迎聯繫臺灣營德團隊，我們將協助您找到合適的產品選擇。</p>
+        <a class="button" href="contact.html"><span data-tw="聯繫我們" data-en="Contact Us">聯繫我們</span> <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </section>
   </main>
@@ -1636,7 +1557,7 @@
         langBtn.textContent = lang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
       }
 
-      document.querySelectorAll('[data-tw]').forEach(function (element) {
+      document.querySelectorAll('[data-tw]').forEach(function(element) {
         const replacement = element.getAttribute('data-' + lang);
         if (replacement) {
           const icon = element.querySelector('i');
@@ -1658,7 +1579,7 @@
       applyLanguage(nextLang);
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       const savedLang = localStorage.getItem('preferredLang');
       if (savedLang && (savedLang === 'en' || savedLang === 'tw')) {
         applyLanguage(savedLang);
@@ -1667,6 +1588,8 @@
       }
     });
   </script>
+  <script src="src/site-search.js"></script>
+  <script src="src/mobile-nav.js"></script>
 </body>
 
 </html>

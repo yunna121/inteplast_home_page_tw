@@ -180,7 +180,7 @@
     },
     {
       title: '關於臺灣營德 (About Inteplast Taiwan)',
-      desc: '台塑關係企業與美商營德合資大廠，嘉義新港廠區 703 噸/月自動化基地。',
+      desc: '台塑關係企業與 Inteplast USA 合資大廠，嘉義新港廠區 703 噸/月自動化基地。',
       category: '關於我們',
       url: `${rootPath}about.html`,
       icon: 'fa-building-user',
