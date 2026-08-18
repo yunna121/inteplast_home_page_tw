@@ -167,18 +167,18 @@
   transform: rotate(180deg) !important;
 }
 
-/* 6 大類 Mega Menu Panel */
+/* 6 大類 Mega Menu Panel (大尺寸奢華大格局) */
 .mega-menu-panel-6cat {
   position: absolute !important;
   top: calc(100% + 4px) !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  width: 1120px !important;
+  width: min(1310px, calc(100vw - 60px)) !important;
   background: #FFFFFF !important;
   border: 1px solid #E2E8F0 !important;
-  border-radius: 16px !important;
-  box-shadow: 0 30px 60px -12px rgba(10, 37, 64, 0.22) !important;
-  padding: 32px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 32px 72px -12px rgba(10, 37, 64, 0.22) !important;
+  padding: 36px 42px !important;
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
@@ -209,22 +209,26 @@
 .mega-grid-6 {
   display: grid !important;
   grid-template-columns: repeat(6, 1fr) !important;
-  gap: 16px !important;
+  gap: 22px !important;
   text-align: left !important;
 }
 
 .mega-col-title-sm {
-  font-size: 0.82rem !important;
+  font-size: 0.95rem !important;
   font-weight: 800 !important;
   color: #00529B !important;
   text-transform: uppercase !important;
   letter-spacing: 0.5px !important;
-  margin-bottom: 12px !important;
-  padding-bottom: 6px !important;
-  border-bottom: 2px solid rgba(0, 82, 155, 0.15) !important;
+  margin-bottom: 14px !important;
+  padding-bottom: 8px !important;
+  border-bottom: 2px solid rgba(0, 82, 155, 0.18) !important;
   display: flex !important;
   align-items: center !important;
-  gap: 6px !important;
+  gap: 8px !important;
+}
+
+.mega-col-title-sm i {
+  font-size: 1.08rem !important;
 }
 
 .mega-sub-links {
@@ -237,16 +241,19 @@
 }
 
 .mega-sub-links a {
-  color: #1E293B !important;
+  color: #334155 !important;
   text-decoration: none !important;
-  font-size: 0.82rem !important;
+  font-size: 0.90rem !important;
   font-weight: 600 !important;
+  padding: 5px 8px !important;
+  border-radius: 6px !important;
   transition: all 0.2s ease !important;
   display: block !important;
 }
 
 .mega-sub-links a:hover {
   color: #00529B !important;
+  background: rgba(0, 82, 155, 0.06) !important;
   transform: translateX(3px) !important;
 }
 
