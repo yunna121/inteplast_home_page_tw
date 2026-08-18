@@ -1149,80 +1149,6 @@
       scroll-margin-top: 110px;
     }
 
-    /* Homepage Section Directory Inline Navigation Card (無吸頂打架問題) */
-    .homepage-toc-bar {
-      position: relative;
-      background: #FFFFFF;
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      margin: 40px auto 0;
-      max-width: 1350px;
-      box-shadow: 0 10px 30px rgba(0, 50, 100, 0.06);
-      padding: 16px 24px;
-    }
-
-    .toc-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 0;
-    }
-
-    .toc-label {
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: var(--primary-navy);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-      padding-right: 16px;
-      border-right: 2px solid var(--border-color);
-    }
-
-    .toc-links {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-
-    .toc-links::-webkit-scrollbar {
-      display: none;
-    }
-
-    .toc-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: #64748B;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: all 0.25s ease;
-    }
-
-    .toc-link:hover {
-      color: var(--brand-blue);
-      background: rgba(0, 82, 155, 0.06);
-    }
-
-    .toc-link.active {
-      color: #FFFFFF;
-      background: var(--brand-blue);
-      box-shadow: 0 4px 12px rgba(0, 82, 155, 0.25);
-    }
-
-    @media (max-width: 900px) {
-      .homepage-toc-bar { display: none; }
-    }
-
     /* Right Side Step Rail Navigation (100% 匹配用戶圖示設計) */
     .side-step-rail {
       position: fixed;
@@ -1525,33 +1451,6 @@
           <div class="stat-sub" data-tw="100% 邊角料即時粉碎造粒" data-en="100% Zero Waste Recycling">100% 邊角料即時粉碎造粒</div>
         </div>
       </div>
-
-      <!-- 🗂️ 首頁章節目錄 (Inline Navigation Card) -->
-      <nav class="homepage-toc-bar" id="homepageToc" aria-label="首頁章節目錄">
-        <div class="toc-container">
-          <span class="toc-label"><i class="fa-solid fa-list-ul"></i> <span data-tw="本頁導覽目錄" data-en="Page Index">本頁導覽目錄</span></span>
-          <div class="toc-links">
-            <a href="#aboutUs" class="toc-link active">
-              <i class="fa-solid fa-building-user"></i> <span data-tw="01 關於營德" data-en="01 About Us">01 關於營德</span>
-            </a>
-            <a href="#productShowcase" class="toc-link">
-              <i class="fa-solid fa-boxes-stacked"></i> <span data-tw="02 六大產品" data-en="02 6 Product Lines">02 六大產品</span>
-            </a>
-            <a href="#greenMark" class="toc-link">
-              <i class="fa-solid fa-leaf"></i> <span data-tw="03 環保綠色標章" data-en="03 Green Mark">03 環保綠色標章</span>
-            </a>
-            <a href="#productIntroRows" class="toc-link">
-              <i class="fa-solid fa-circle-check"></i> <span data-tw="04 產品特色" data-en="04 Highlights">04 產品特色</span>
-            </a>
-            <a href="#applicationScenarios" class="toc-link">
-              <i class="fa-solid fa-city"></i> <span data-tw="05 應用情境" data-en="05 Scenarios">05 應用情境</span>
-            </a>
-            <a href="#contactCTA" class="toc-link">
-              <i class="fa-solid fa-envelope"></i> <span data-tw="06 聯繫窗口" data-en="06 Contact Us">06 聯繫窗口</span>
-            </a>
-          </div>
-        </div>
-      </nav>
     </div>
   </div>
 
