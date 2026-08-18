@@ -493,8 +493,10 @@
         const trigger = item.querySelector(".product-menu-trigger");
         if (trigger) {
           trigger.addEventListener("click", function (e) {
-            e.preventDefault();
-            item.classList.toggle("open-dropdown");
+            if (window.innerWidth <= 992) {
+              e.preventDefault();
+              item.classList.toggle("open-dropdown");
+            }
           });
         }
       });
