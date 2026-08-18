@@ -105,10 +105,12 @@
 }
 
 .logo-text-tw {
-  font-size: 1.08rem !important;
+  /* 標誌中文名使用標楷體；未安裝標楷體的裝置退回原本黑體 */
+  font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', 'Noto Sans TC', sans-serif !important;
+  font-size: 1.16rem !important;
   font-weight: 800 !important;
   color: #0A2540 !important;
-  letter-spacing: 0.5px !important;
+  letter-spacing: 1px !important;
   line-height: 1.2 !important;
   display: block !important;
 }

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>耐熱袋系列 (Heat-Resistant Bags) 專頁 | 臺灣營德 Inteplast Taiwan</title>
-  <meta name="description" content="臺灣營德耐熱袋系列：平裝耐熱袋與卷裝耐熱袋（四兩~15斤）等比例尺寸對照與批量詢價。">
+  <title>蔬果袋 | 臺灣營德 Inteplast Taiwan</title>
+  <meta name="description" content="臺灣營德蔬果袋：平裝耐熱袋、卷裝耐熱袋與蔬果袋，四兩~15斤等比例尺寸對照與批量詢價。">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -341,13 +341,14 @@
     }
   </style>
   <link rel="stylesheet" href="../src/navbar.css">
+  <link rel="stylesheet" href="../src/responsive.css">
 </head>
 <body>
   <!-- 集團頂樓列 -->
   <div class="top-utility-bar">
     <div class="utility-left">
       <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> 臺灣塑膠工業股份有限公司</a>
+      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> 台灣塑膠工業股份有限公司</a>
       <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 美國總部</a>
     </div>
     <div class="utility-right">
@@ -391,14 +392,15 @@
               </ul>
             </div>
             <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 蔬果袋</div>
               <ul class="mega-sub-links">
                 <li><a href="heat-bags.html">平裝耐熱袋</a></li>
                 <li><a href="heat-bags.html">卷裝耐熱袋</a></li>
+                <li><a href="heat-bags.html#cat-produce">蔬果袋</a></li>
               </ul>
             </div>
             <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 夾鏈袋</div>
               <ul class="mega-sub-links">
                 <li><a href="sealed-packaging.html">密實袋</a></li>
                 <li><a href="sealed-packaging.html">立體密實袋</a></li>
@@ -427,6 +429,9 @@
     </ul>
 
     <div class="header-right">
+      <button class="search-trigger-btn" id="globalSearchTrigger" type="button" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
       <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
       <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i><span data-tw="聯絡我們" data-en="Contact Us">聯絡我們</span></a>
     </div>
@@ -436,9 +441,9 @@
     <div class="hero-container">
       <div>
         <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">HEAT-RESISTANT PACKAGING</span>
-        <h1 class="hero-title" data-tw="耐熱袋系列專頁" data-en="Heat-Resistant Bags">耐熱袋系列專頁</h1>
-        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝與卷裝兩大系列（四兩至 15斤），具備從小到大等比例視覺對比牆。" data-en="FDA-compliant PE heat bags in flat pack and roll pack formats. Features visual size scale comparison wall.">
-          嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝與卷裝兩大系列（四兩至 15斤），具備從小到大等比例視覺對比牆。
+        <h1 class="hero-title" data-tw="蔬果袋" data-en="Heat-Resistant Bags">蔬果袋</h1>
+        <p class="hero-desc" data-tw="嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋與蔬果袋（四兩至 15斤），具備從小到大等比例視覺對比牆。" data-en="FDA-compliant PE heat bags in flat pack and roll pack formats. Features visual size scale comparison wall.">
+          嚴格採用 100% Virgin 食品級高溫聚乙烯全新塑料，無毒無味，完全遵守 FDA 標準。提供平裝耐熱袋、卷裝耐熱袋與蔬果袋（四兩至 15斤），具備從小到大等比例視覺對比牆。
         </p>
         
       </div>
@@ -456,6 +461,7 @@
         <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
         <button class="filter-btn" onclick="filterCategory('flat-heat', this)">平裝耐熱袋</button>
         <button class="filter-btn" onclick="filterCategory('roll-heat', this)">卷裝耐熱袋</button>
+        <button class="filter-btn" onclick="filterCategory('produce', this)">蔬果袋</button>
       </div>
 
       <div class="cat-spec-block spec-block" id="cat-flat-heat">
@@ -636,6 +642,22 @@
         </div>
       </div>
 
+
+      <div class="cat-spec-block spec-block" id="cat-produce">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-carrot"></i> 蔬果袋</h2>
+        </div>
+
+        <div style="padding: 0 24px 28px;">
+          <div style="background: #FFFBEB; border: 1px solid #FCD34D; border-radius: 14px; padding: 26px 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+            <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0;">
+              <span style="font-size: 1.05rem; font-weight: 900; color: #92400E;">規格資料整理中</span>
+              <span style="font-size: 0.95rem; font-weight: 500; color: #78350F; line-height: 1.7;">如需完整尺寸與報價，請加入詢價單，將由專員提供最新規格表。</span>
+            </div>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('蔬果袋 · 索取完整規格與報價', this)" style="white-space: nowrap; flex-shrink: 0; width: auto;"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -847,5 +869,7 @@
     });
   })();
   </script>
+  <script src="../src/site-search.js"></script>
+  <script src="../src/mobile-nav.js"></script>
 </body>
 </html>

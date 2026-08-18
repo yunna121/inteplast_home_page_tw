@@ -254,13 +254,14 @@
     }
   </style>
   <link rel="stylesheet" href="../src/navbar.css">
+  <link rel="stylesheet" href="../src/responsive.css">
 </head>
 <body>
   <!-- 集團頂樓列 -->
   <div class="top-utility-bar">
     <div class="utility-left">
       <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> 臺灣塑膠工業股份有限公司</a>
+      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> 台灣塑膠工業股份有限公司</a>
       <a href="https://www.inteplast.com/" target="_blank" rel="noopener">USA Division 美國總部</a>
     </div>
     <div class="utility-right">
@@ -304,14 +305,15 @@
               </ul>
             </div>
             <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 蔬果袋</div>
               <ul class="mega-sub-links">
                 <li><a href="heat-bags.html">平裝耐熱袋</a></li>
                 <li><a href="heat-bags.html">卷裝耐熱袋</a></li>
+                <li><a href="heat-bags.html#cat-produce">蔬果袋</a></li>
               </ul>
             </div>
             <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 夾鏈袋</div>
               <ul class="mega-sub-links">
                 <li><a href="sealed-packaging.html">密實袋</a></li>
                 <li><a href="sealed-packaging.html">立體密實袋</a></li>
@@ -340,6 +342,9 @@
     </ul>
 
     <div class="header-right">
+      <button class="search-trigger-btn" id="globalSearchTrigger" type="button" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
       <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
       <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i><span data-tw="聯絡我們" data-en="Contact Us">聯絡我們</span></a>
     </div>
@@ -907,5 +912,7 @@
     });
   })();
   </script>
+  <script src="../src/site-search.js"></script>
+  <script src="../src/mobile-nav.js"></script>
 </body>
 </html>

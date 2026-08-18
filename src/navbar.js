@@ -27,7 +27,7 @@
   <div class="top-utility-bar">
     <div class="utility-left">
       <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> <span data-tw="臺灣塑膠工業股份有限公司" data-en="Formosa Plastics Corp.">臺灣塑膠工業股份有限公司</span></a>
+      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> <span data-tw="台灣塑膠工業股份有限公司" data-en="Formosa Plastics Corp.">台灣塑膠工業股份有限公司</span></a>
       <a href="https://www.inteplast.com/" target="_blank" rel="noopener"><span data-tw="USA Division 美國總部" data-en="USA Division Inteplast Group">USA Division 美國總部</span></a>
     </div>
     <div class="utility-right">
@@ -68,26 +68,27 @@
               </ul>
             </div>
             <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> <span data-tw="03 耐熱袋" data-en="03 Foodservice Bags">03 耐熱袋</span></div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> <span data-tw="03 蔬果袋" data-en="03 Foodservice Bags">03 蔬果袋</span></div>
               <ul class="mega-sub-links">
-                <li><a href="${productsPath}foodservice.html" data-tw="平裝耐熱袋" data-en="Flat Heat-Resistant Bags">平裝耐熱袋</a></li>
-                <li><a href="${productsPath}foodservice.html" data-tw="捲裝耐熱袋" data-en="Roll Heat-Resistant Bags">捲裝耐熱袋</a></li>
+                <li><a href="${productsPath}heat-bags.html" data-tw="平裝耐熱袋" data-en="Flat Heat-Resistant Bags">平裝耐熱袋</a></li>
+                <li><a href="${productsPath}heat-bags.html" data-tw="捲裝耐熱袋" data-en="Roll Heat-Resistant Bags">捲裝耐熱袋</a></li>
+                <li><a href="${productsPath}heat-bags.html#cat-produce" data-tw="蔬果袋" data-en="Produce Bags">蔬果袋</a></li>
               </ul>
             </div>
             <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> <span data-tw="04 密封包裝類" data-en="04 Storage & Zipper Bags">04 密封包裝類</span></div>
+              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> <span data-tw="04 夾鏈袋" data-en="04 Storage & Zipper Bags">04 夾鏈袋</span></div>
               <ul class="mega-sub-links">
-                <li><a href="${productsPath}foodservice.html" data-tw="密實袋" data-en="Seal Top Bags">密實袋</a></li>
-                <li><a href="${productsPath}foodservice.html" data-tw="立體密實袋" data-en="Stand-Up Zipper Bags">立體密實袋</a></li>
-                <li><a href="${productsPath}foodservice.html" data-tw="冷凍袋" data-en="Freezer Bags">冷凍袋</a></li>
-                <li><a href="${productsPath}foodservice.html" data-tw="夾鏈袋" data-en="Reclosable Zipper Bags">夾鏈袋</a></li>
+                <li><a href="${productsPath}sealed-packaging.html" data-tw="密實袋" data-en="Seal Top Bags">密實袋</a></li>
+                <li><a href="${productsPath}sealed-packaging.html" data-tw="立體密實袋" data-en="Stand-Up Zipper Bags">立體密實袋</a></li>
+                <li><a href="${productsPath}sealed-packaging.html" data-tw="冷凍袋" data-en="Freezer Bags">冷凍袋</a></li>
+                <li><a href="${productsPath}sealed-packaging.html" data-tw="夾鏈袋" data-en="Reclosable Zipper Bags">夾鏈袋</a></li>
               </ul>
             </div>
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> <span data-tw="05 其他類" data-en="05 Specialty Products">05 其他類</span></div>
               <ul class="mega-sub-links">
-                <li><a href="${productsPath}foodservice.html" data-tw="手套" data-en="PE Disposable Gloves">手套</a></li>
-                <li><a href="${productsPath}foodservice.html" data-tw="台塑遮蔽防塵膠帶" data-en="Pre-taped Masking Film">台塑遮蔽防塵膠帶</a></li>
+                <li><a href="${productsPath}accessories.html" data-tw="手套" data-en="PE Disposable Gloves">手套</a></li>
+                <li><a href="${productsPath}accessories.html" data-tw="台塑遮蔽防塵膠帶" data-en="Pre-taped Masking Film">台塑遮蔽防塵膠帶</a></li>
               </ul>
             </div>
             <div>
@@ -130,18 +131,18 @@
       keywords: ['拉繩袋', '拉繩', '醫療袋', '束口袋', '提把袋', 'drawtape', 'drawstring', 'medical bags']
     },
     {
-      title: '耐熱袋系列 (Foodservice Heat-Resistant Bags)',
+      title: '蔬果袋 (Foodservice Heat-Resistant Bags)',
       desc: '平裝耐熱袋與捲裝耐熱袋，高強度 PE 耐熱食品級配方。',
       category: '耐熱袋 03',
-      url: `${productsPath}foodservice.html`,
+      url: `${productsPath}heat-bags.html`,
       icon: 'fa-temperature-high',
       keywords: ['耐熱袋', '平裝', '捲裝', '食品袋', '高溫', 'heat resistant', 'foodservice', 'hdpe']
     },
     {
-      title: '密封包裝類 (Zipper & Freezer Bags)',
+      title: '夾鏈袋 (Zipper & Freezer Bags)',
       desc: '雙軌密封密實袋、立體密實袋、冷凍保鮮袋與夾鏈袋。',
-      category: '密封包裝 04',
-      url: `${productsPath}foodservice.html`,
+      category: '夾鏈袋 04',
+      url: `${productsPath}sealed-packaging.html`,
       icon: 'fa-lock',
       keywords: ['密實袋', '夾鏈袋', '冷凍袋', '密封袋', '立體袋', 'zipper bags', 'freezer bags', 'seal top']
     },
@@ -149,7 +150,7 @@
       title: '手套 (PE Disposable Gloves)',
       desc: '輕薄貼手手套，適合餐飲備料、食品處理與日常清潔家務。',
       category: '其他類 05',
-      url: `${productsPath}foodservice.html`,
+      url: `${productsPath}accessories.html`,
       icon: 'fa-hand-dots',
       keywords: ['手套', '衛生手套', '塑膠手套', '一次性手套', 'gloves', 'pe gloves', 'disposable gloves']
     },
@@ -157,7 +158,7 @@
       title: '台塑遮蔽防塵膠帶 (Pre-taped Masking Film)',
       desc: '台塑專利遮蔽防塵膠帶，適用於建築施工、裝潢修繕與居家防塵。',
       category: '其他類 05',
-      url: `${productsPath}foodservice.html`,
+      url: `${productsPath}accessories.html`,
       icon: 'fa-tape',
       keywords: ['膠帶', '遮蔽膠帶', '防塵膠帶', '台塑膠帶', 'masking film', 'taped film', 'masking tape']
     },
@@ -244,14 +245,14 @@
         <div class="search-modal-container">
           <div class="search-input-header">
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="searchInputField" class="search-input-field" placeholder="搜尋產品、規格或關鍵字... (例如: 清潔袋, 拉繩, 耐熱袋, 密實袋, 環保標章, Gloves...)" autocomplete="off">
+            <input type="text" id="searchInputField" class="search-input-field" placeholder="搜尋產品、規格或關鍵字... (例如: 清潔袋, 拉繩, 蔬果袋, 密實袋, 環保標章, Gloves...)" autocomplete="off">
             <button id="closeSearchModal" class="close-search-modal-btn" type="button" onclick="if(typeof closeSearchModal === 'function') closeSearchModal();" aria-label="關閉搜尋"><i class="fa-solid fa-xmark"></i></button>
           </div>
           <div class="search-quick-tags">
             <span class="search-tag-label" data-tw="快速篩選：" data-en="Quick Tags:">快速篩選：</span>
             <button class="quick-tag-btn" type="button" data-query="清潔袋">清潔袋</button>
             <button class="quick-tag-btn" type="button" data-query="拉繩袋">拉繩袋</button>
-            <button class="quick-tag-btn" type="button" data-query="耐熱袋">耐熱袋</button>
+            <button class="quick-tag-btn" type="button" data-query="蔬果袋">蔬果袋</button>
             <button class="quick-tag-btn" type="button" data-query="密實袋">密實袋</button>
             <button class="quick-tag-btn" type="button" data-query="手套">衛生手套</button>
             <button class="quick-tag-btn" type="button" data-query="環保標章">環保標章</button>
