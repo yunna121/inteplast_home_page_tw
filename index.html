@@ -1223,37 +1223,81 @@
       .homepage-toc-bar { display: none; }
     }
 
-    /* Right Side Floating Quick Directory Styling (右側懸浮隨動章節目錄) */
+    /* Right Side Collapsible Drawer Directory Styling (可收縮/滑出懸浮目錄抽屜) */
     .side-directory-nav {
       position: fixed;
-      right: 24px;
-      top: 52%;
-      transform: translateY(-50%);
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%) translateX(calc(100% - 48px));
       z-index: 1040;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      border-radius: 30px;
-      padding: 16px 12px;
-      box-shadow: 0 12px 36px rgba(0, 50, 100, 0.12);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-right: none;
+      border-radius: 20px 0 0 20px;
+      padding: 16px 16px 16px 12px;
+      box-shadow: -8px 12px 32px rgba(0, 50, 100, 0.12);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+
+    .side-directory-nav:hover,
+    .side-directory-nav.is-expanded {
+      transform: translateY(-50%) translateX(0);
+      box-shadow: -12px 18px 40px rgba(0, 50, 100, 0.2);
+    }
+
+    .side-dir-tab-handle {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--primary-navy);
+      color: #FFFFFF;
+      border-radius: 20px 0 0 20px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      cursor: pointer;
+      box-shadow: -4px 0 14px rgba(10, 37, 64, 0.25);
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .side-dir-tab-handle i {
+      font-size: 1.1rem;
+      color: var(--accent-azure);
+    }
+
+    .side-dir-tab-handle span {
+      writing-mode: vertical-lr;
+    }
+
+    .side-directory-nav:hover .side-dir-tab-handle,
+    .side-directory-nav.is-expanded .side-dir-tab-handle {
+      opacity: 0;
+      visibility: hidden;
     }
 
     .side-dir-title {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 2px;
-      font-size: 0.72rem;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.85rem;
       font-weight: 900;
       color: var(--primary-navy);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       padding-bottom: 8px;
       border-bottom: 1px solid #E2E8F0;
     }
 
     .side-dir-title i {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--brand-blue);
     }
 
@@ -1263,72 +1307,40 @@
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 10px;
     }
 
     .side-dir-link {
-      position: relative;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 10px;
       text-decoration: none;
-      color: #64748B;
-      padding: 4px;
-    }
-
-    .side-dir-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #CBD5E1;
-      border: 2px solid #FFFFFF;
-      box-shadow: 0 0 0 1px #CBD5E1;
-      transition: all 0.3s ease;
-    }
-
-    .side-dir-link:hover .side-dir-dot,
-    .side-dir-link.active .side-dir-dot {
-      background: var(--brand-blue);
-      box-shadow: 0 0 0 3px rgba(0, 82, 155, 0.25);
-      transform: scale(1.35);
-    }
-
-    .side-dir-label {
-      position: absolute;
-      right: 32px;
-      white-space: nowrap;
-      background: #0A2540;
-      color: #FFFFFF;
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 0.82rem;
+      color: #475569;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.86rem;
       font-weight: 700;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateX(10px);
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.25s ease;
     }
 
-    .side-dir-label::after {
-      content: '';
-      position: absolute;
-      right: -6px;
-      top: 50%;
-      transform: translateY(-50%);
-      border-width: 5px 0 5px 6px;
-      border-style: solid;
-      border-color: transparent transparent transparent #0A2540;
+    .side-dir-link i {
+      font-size: 0.95rem;
+      color: #94A3B8;
+      width: 18px;
+      text-align: center;
+      transition: color 0.25s ease;
     }
 
-    .side-dir-link:hover .side-dir-label {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(0);
+    .side-dir-link:hover,
+    .side-dir-link.active {
+      color: var(--brand-blue);
+      background: rgba(0, 82, 155, 0.08);
+    }
+
+    .side-dir-link:hover i,
+    .side-dir-link.active i {
+      color: var(--brand-blue);
     }
 
     @media (max-width: 1024px) {
@@ -2037,47 +2049,53 @@
     </div>
   </footer>
 
-  <!-- 🧭 右側懸浮動態章節目錄 (Side Floating Quick Directory) -->
+  <!-- 🧭 右側可收縮懸浮目錄抽屜 (Collapsible Side Drawer Directory) -->
   <nav class="side-directory-nav" id="sideDirNav" aria-label="右側章節目錄">
-    <div class="side-dir-title">
+    <!-- 貼邊收合時顯示的感應拉頁標籤 Handle -->
+    <div class="side-dir-tab-handle" onclick="document.getElementById('sideDirNav').classList.toggle('is-expanded');">
       <i class="fa-solid fa-compass"></i>
-      <span data-tw="目錄" data-en="NAV">目錄</span>
+      <span data-tw="本頁目錄" data-en="INDEX">本頁目錄</span>
+    </div>
+
+    <div class="side-dir-title">
+      <span><i class="fa-solid fa-list-ul"></i> <span data-tw="本頁導覽目錄" data-en="Page Index">本頁導覽目錄</span></span>
+      <i class="fa-solid fa-xmark" style="cursor: pointer; opacity: 0.6;" onclick="document.getElementById('sideDirNav').classList.remove('is-expanded');"></i>
     </div>
     <ul class="side-dir-list">
       <li>
-        <a href="#aboutUs" class="side-dir-link active" data-tw="01 關於營德" data-en="01 About Us">
-          <span class="side-dir-dot"></span>
-          <span class="side-dir-label"><i class="fa-solid fa-building-user"></i> <span data-tw="01 關於營德" data-en="01 About Us">01 關於營德</span></span>
+        <a href="#aboutUs" class="side-dir-link active">
+          <i class="fa-solid fa-building-user"></i>
+          <span data-tw="01 關於營德" data-en="01 About Us">01 關於營德</span>
         </a>
       </li>
       <li>
-        <a href="#productShowcase" class="side-dir-link" data-tw="02 六大產品" data-en="02 Products">
-          <span class="side-dir-dot"></span>
-          <span class="side-dir-label"><i class="fa-solid fa-boxes-stacked"></i> <span data-tw="02 六大產品" data-en="02 6 Product Lines">02 六大產品</span></span>
+        <a href="#productShowcase" class="side-dir-link">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span data-tw="02 六大產品" data-en="02 6 Product Lines">02 六大產品</span>
         </a>
       </li>
       <li>
-        <a href="#greenMark" class="side-dir-link" data-tw="03 環保綠色標章" data-en="03 Green Mark">
-          <span class="side-dir-dot"></span>
-          <span class="side-dir-label"><i class="fa-solid fa-leaf"></i> <span data-tw="03 環保綠色標章" data-en="03 Green Mark">03 環保綠色標章</span></span>
+        <a href="#greenMark" class="side-dir-link">
+          <i class="fa-solid fa-leaf"></i>
+          <span data-tw="03 環保綠色標章" data-en="03 Green Mark">03 環保綠色標章</span>
         </a>
       </li>
       <li>
-        <a href="#productIntroRows" class="side-dir-link" data-tw="04 產品特色" data-en="04 Highlights">
-          <span class="side-dir-dot"></span>
-          <span class="side-dir-label"><i class="fa-solid fa-circle-check"></i> <span data-tw="04 產品特色" data-en="04 Highlights">04 產品特色</span></span>
+        <a href="#productIntroRows" class="side-dir-link">
+          <i class="fa-solid fa-circle-check"></i>
+          <span data-tw="04 產品特色" data-en="04 Highlights">04 產品特色</span>
         </a>
       </li>
       <li>
-        <a href="#applicationScenarios" class="side-dir-link" data-tw="05 應用情境" data-en="05 Scenarios">
-          <span class="side-dir-dot"></span>
-          <span class="side-dir-label"><i class="fa-solid fa-city"></i> <span data-tw="05 應用情境" data-en="05 Scenarios">05 應用情境</span></span>
+        <a href="#applicationScenarios" class="side-dir-link">
+          <i class="fa-solid fa-city"></i>
+          <span data-tw="05 應用情境" data-en="05 Scenarios">05 應用情境</span>
         </a>
       </li>
       <li>
-        <a href="#contactCTA" class="side-dir-link" data-tw="06 聯繫窗口" data-en="06 Contact Us">
-          <span class="side-dir-dot"></span>
-          <span class="side-dir-label"><i class="fa-solid fa-envelope"></i> <span data-tw="06 聯繫窗口" data-en="06 Contact Us">06 聯繫窗口</span></span>
+        <a href="#contactCTA" class="side-dir-link">
+          <i class="fa-solid fa-envelope"></i>
+          <span data-tw="06 聯繫窗口" data-en="06 Contact Us">06 聯繫窗口</span>
         </a>
       </li>
     </ul>
