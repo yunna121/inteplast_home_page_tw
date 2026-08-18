@@ -1149,13 +1149,24 @@
       scroll-margin-top: 110px;
     }
 
-    /* Right Side Step Rail Navigation (100% 匹配用戶圖示設計) */
+    /* Right Side Step Rail Navigation (100% 匹配用戶圖示設計 - 往下滑動離頂時浮現) */
     .side-step-rail {
       position: fixed;
       right: 20px;
       top: 50%;
-      transform: translateY(-50%);
+      transform: translateY(-50%) translateX(24px);
       z-index: 1040;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s ease;
+    }
+
+    .side-step-rail.visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(-50%) translateX(0);
     }
 
     .step-rail-track {
@@ -2157,6 +2168,20 @@
           updateCount();
         });
       }
+      // 右側 Step 軌道目錄：離頂滑動 350px 後流暢浮現
+      const sideStepRail = document.getElementById("sideStepRail");
+      if (sideStepRail) {
+        function checkRailVisibility() {
+          if (window.scrollY > 350) {
+            sideStepRail.classList.add("visible");
+          } else {
+            sideStepRail.classList.remove("visible");
+          }
+        }
+        window.addEventListener("scroll", checkRailVisibility);
+        checkRailVisibility();
+      }
+
       setTimeout(animateCounters, 300);
     });
 
