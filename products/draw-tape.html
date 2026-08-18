@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
@@ -184,6 +184,22 @@
     .studio-photo-title { font-size: 1.1rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 6px; }
     .studio-photo-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
 
+    /* EDM 卡片列樣式 (與 can-liners.html 一致) */
+    .edm-card-rows-wrapper { display: flex; flex-direction: column; gap: 12px; padding: 0 24px 24px; }
+    .edm-spec-card-item {
+      background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 14px; padding: 14px 20px;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      transition: all 0.25s ease; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+    .edm-spec-card-item:hover { border-color: #00529B; box-shadow: 0 6px 18px rgba(0, 82, 155, 0.12); transform: translateY(-2px); }
+    .edm-spec-card-left { display: flex; align-items: center; gap: 12px 8px; flex-wrap: wrap; flex: 1 1 auto; min-width: 0; }
+    .edm-size-pill { font-size: 1.02rem; font-weight: 900; color: #0A2540; background: #F1F5F9; padding: 4px 14px; border-radius: 8px; border: 1px solid #CBD5E1; }
+    .edm-spec-card-dim { font-size: 0.92rem; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 8px; }
+    .color-pill-clear { background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
+    .color-pill-black { background: #1E293B; color: #FFFFFF; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
+    .tag-green-eco { background: #D1FAE5; color: #059669; border: 1px solid #A7F3D0; padding: 2px 10px; border-radius: 4px; font-weight: 800; font-size: 0.8rem; }
+    .edm-size-pill, .edm-spec-card-dim, .color-pill-clear, .color-pill-black, .tag-green-eco { white-space: nowrap; }
+
     .compact-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     .compact-table th { background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; padding: 12px 24px; text-align: left; border-bottom: 1px solid #CBD5E1; }
     .compact-table td { padding: 12px 24px; border-bottom: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; }
@@ -214,6 +230,12 @@
     }
     .rfq-floating-basket.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
     .basket-info { font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .basket-clear-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.8);
+      padding: 7px 14px; border-radius: 9999px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .basket-clear-btn:hover { border-color: #00A8FF; color: #00A8FF; }
     .basket-count-badge { background: #00A8FF; color: #0A2540; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 900; font-size: 0.85rem; }
     .basket-submit-btn {
       background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;
@@ -284,24 +306,24 @@
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
               <ul class="mega-sub-links">
-                <li><a href="foodservice.html">平裝耐熱袋</a></li>
-                <li><a href="foodservice.html">捲裝耐熱袋</a></li>
+                <li><a href="heat-bags.html">平裝耐熱袋</a></li>
+                <li><a href="heat-bags.html">卷裝耐熱袋</a></li>
               </ul>
             </div>
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
               <ul class="mega-sub-links">
-                <li><a href="foodservice.html">密實袋</a></li>
-                <li><a href="foodservice.html">立體密實袋</a></li>
-                <li><a href="foodservice.html">冷凍袋</a></li>
-                <li><a href="foodservice.html">夾鏈袋</a></li>
+                <li><a href="sealed-packaging.html">密實袋</a></li>
+                <li><a href="sealed-packaging.html">立體密實袋</a></li>
+                <li><a href="sealed-packaging.html">冷凍袋</a></li>
+                <li><a href="sealed-packaging.html">夾鏈袋</a></li>
               </ul>
             </div>
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
               <ul class="mega-sub-links">
-                <li><a href="foodservice.html">手套</a></li>
-                <li><a href="foodservice.html">台塑遮蔽防塵膠帶</a></li>
+                <li><a href="accessories.html">手套</a></li>
+                <li><a href="accessories.html">台塑遮蔽防塵膠帶</a></li>
               </ul>
             </div>
             <div>
@@ -332,7 +354,7 @@
         <p class="hero-desc">
           臺灣營德自動拉繩袋包含【拉繩感染清潔袋/醫療袋】與【拉繩清潔袋 (經濟包/超量包)】。一拉即封口、衛生免沾手，提供極致韌性與多種容積選擇。
         </p>
-        <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
+        
       </div>
       <div>
         <img src="../src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg" alt="拉繩清潔袋展示" class="product-hero-img">
@@ -348,6 +370,7 @@
         <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
         <button class="filter-btn" onclick="filterCategory('medical', this)"><i class="fa-solid fa-notes-medical"></i> 拉繩感染清潔袋 (醫療袋)</button>
         <button class="filter-btn" onclick="filterCategory('general', this)"><i class="fa-solid fa-ribbon"></i> 拉繩清潔袋 (一般/經濟/超量包)</button>
+        <button class="filter-btn" onclick="filterCategory('eco-draw-tape', this)"><i class="fa-solid fa-leaf"></i> 環保拉繩清潔袋</button>
       </div>
 
       <!-- 1. 拉繩感染清潔袋(拉繩醫療袋) PRODUCT BLOCK -->
@@ -613,6 +636,79 @@
 
       </div>
 
+      <!-- 3. 環保拉繩清潔袋 PRODUCT BLOCK -->
+      <div class="cat-spec-block spec-block" id="cat-eco-draw-tape">
+        <div class="cat-spec-header">
+          <h2 class="cat-spec-title"><i class="fa-solid fa-ribbon"></i> 環保拉繩清潔袋規格對照表</h2>
+        </div>
+        <div class="edm-card-rows-wrapper" style="padding-top: 20px;">
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">大</span>
+              <span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span>
+              <span class="color-pill-clear">本色</span>
+              <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">特大</span>
+              <span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span>
+              <span class="color-pill-clear">本色</span>
+              <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 特大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">超大</span>
+              <span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span>
+              <span class="color-pill-clear">本色</span>
+              <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill">超特大</span>
+              <span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span>
+              <span class="color-pill-clear">本色</span>
+              <span class="color-pill-black">黑色</span>
+            </div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超特大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+          <div class="edm-spec-card-item" style="background:#F0FDF4; border-color:#A7F3D0;">
+            <div class="edm-spec-card-left">
+              <span class="edm-size-pill" style="background:#D1FAE5;border-color:#6EE7B7;color:#065F46;"><i class="fa-solid fa-palette"></i> 客製尺寸 / 顏色</span>
+              <span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span>
+            </div>
+            <div class="edm-spec-card-dim" style="color:#059669;">可客製尺寸與顏色，歡迎洽詢</div>
+            <div>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 客製尺寸顏色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -621,8 +717,9 @@
     <div class="basket-info">
       <i class="fa-solid fa-cart-flatbed" style="color: #00A8FF;"></i> 已選擇 <span id="quoteCountBadge" class="basket-count-badge">0</span> 項產品規格
     </div>
+    <button onclick="clearQuoteBasket()" class="basket-clear-btn" type="button">清空</button>
     <button onclick="goToRfqPage()" class="basket-submit-btn">
-      前往線上詢價單 <i class="fa-solid fa-paper-plane"></i>
+      填寫詢價資料 <i class="fa-solid fa-paper-plane"></i>
     </button>
   </div>
 
@@ -635,37 +732,7 @@
   </footer>
 
   <script>
-    let selectedQuotes = new Set();
-    function toggleQuoteItem(itemSpec, btn) {
-      const row = btn.closest('tr');
-      if (selectedQuotes.has(itemSpec)) {
-        selectedQuotes.delete(itemSpec);
-        btn.classList.remove('added');
-        btn.innerHTML = '<i class="fa-solid fa-plus"></i> 勾選詢價';
-        if (row) row.classList.remove('row-selected');
-      } else {
-        selectedQuotes.add(itemSpec);
-        btn.classList.add('added');
-        btn.innerHTML = '<i class="fa-solid fa-check"></i> 已加入詢價';
-        if (row) row.classList.add('row-selected');
-      }
-
-      const basket = document.getElementById('rfqFloatingBasket');
-      const badge = document.getElementById('quoteCountBadge');
-      if (selectedQuotes.size > 0) {
-        basket.classList.add('active');
-        badge.innerText = selectedQuotes.size;
-      } else {
-        basket.classList.remove('active');
-      }
-    }
-
-    function goToRfqPage() {
-      const itemsArr = Array.from(selectedQuotes);
-      const query = encodeURIComponent(itemsArr.join(' ; '));
-      window.location.href = `../contact.html?specs=${query}`;
-    }
-
+    
     document.addEventListener("DOMContentLoaded", function () {
       const navItems = document.querySelectorAll(".nav-item");
       navItems.forEach(item => {
@@ -885,5 +952,6 @@
       }
     }
   </script>
+  <script src="../src/quote-basket.js"></script>
 </body>
 </html>

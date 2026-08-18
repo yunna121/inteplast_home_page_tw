@@ -172,8 +172,10 @@
     .edm-spec-card-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 12px 8px;
       flex-wrap: wrap;
+      flex: 1 1 auto;
+      min-width: 0;
     }
 
     .edm-size-pill {
@@ -205,6 +207,8 @@
     }
     
     /* Color Pill Badges */
+    .edm-size-pill, .edm-qty-badge, .edm-spec-card-dim,
+    .color-pill, .color-pill-clear, .color-pill-black, .color-pill-pink, .color-pill-blue, .tag-green-eco { white-space: nowrap; }
     .color-pill-clear { background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
     .color-pill-black { background: #1E293B; color: #FFFFFF; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
     .color-pill-pink { background: #FCE7F3; color: #DB2777; border: 1px solid #FBCFE8; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
@@ -231,6 +235,12 @@
     }
     .rfq-floating-basket.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
     .basket-info { font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .basket-clear-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.8);
+      padding: 7px 14px; border-radius: 9999px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .basket-clear-btn:hover { border-color: #00A8FF; color: #00A8FF; }
     .basket-count-badge { background: #00A8FF; color: #0A2540; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 900; font-size: 0.85rem; }
     .basket-submit-btn {
       background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;
@@ -300,24 +310,24 @@
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
               <ul class="mega-sub-links">
-                <li><a href="foodservice.html">平裝耐熱袋</a></li>
-                <li><a href="foodservice.html">捲裝耐熱袋</a></li>
+                <li><a href="heat-bags.html">平裝耐熱袋</a></li>
+                <li><a href="heat-bags.html">卷裝耐熱袋</a></li>
               </ul>
             </div>
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
               <ul class="mega-sub-links">
-                <li><a href="foodservice.html">密實袋</a></li>
-                <li><a href="foodservice.html">立體密實袋</a></li>
-                <li><a href="foodservice.html">冷凍袋</a></li>
-                <li><a href="foodservice.html">夾鏈袋</a></li>
+                <li><a href="sealed-packaging.html">密實袋</a></li>
+                <li><a href="sealed-packaging.html">立體密實袋</a></li>
+                <li><a href="sealed-packaging.html">冷凍袋</a></li>
+                <li><a href="sealed-packaging.html">夾鏈袋</a></li>
               </ul>
             </div>
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
               <ul class="mega-sub-links">
-                <li><a href="foodservice.html">手套</a></li>
-                <li><a href="foodservice.html">台塑遮蔽防塵膠帶</a></li>
+                <li><a href="accessories.html">手套</a></li>
+                <li><a href="accessories.html">台塑遮蔽防塵膠帶</a></li>
               </ul>
             </div>
             <div>
@@ -347,7 +357,7 @@
         <p class="hero-desc" data-tw="包含連捲清潔袋、單張抽取清潔袋與 100% 綠能環保清潔袋。全系列提供多種容量與色系，可直接勾選加入批量詢價單。" data-en="Comprehensive commercial can liner series including coreless roll, flat interleaved, and eco-recycled trash bags.">
           包含連捲清潔袋、單張抽取清潔袋與 100% 綠能環保清潔袋。全系列提供多種容量與色系，可直接勾選加入批量詢價單。
         </p>
-        <a href="../contact.html" class="rfq-btn" data-tw="針對此產品線上詢價" data-en="Request Quote For Can Liners"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
+        
       </div>
       <div>
         <img src="../src/formosa_canliner_official.png" alt="台塑清潔袋展示" class="product-hero-img">
@@ -702,149 +712,6 @@
         </div>
       </div>
 
-      <!-- 4. 環保拉繩清潔袋 PRODUCT BLOCK -->
-      <div class="cat-spec-block spec-block" id="cat-eco-draw-tape">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-ribbon"></i> 環保拉繩清潔袋規格對照表</h2>
-        </div>
-        <div class="edm-card-rows-wrapper" style="padding-top: 20px;">
-
-          <div class="edm-spec-card-item">
-            <div class="edm-spec-card-left">
-              <span class="edm-size-pill">大</span>
-              <span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span>
-              <span class="color-pill-clear">本色</span>
-              <span class="color-pill-black">黑色</span>
-            </div>
-            <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
-            <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-            </div>
-          </div>
-
-          <div class="edm-spec-card-item">
-            <div class="edm-spec-card-left">
-              <span class="edm-size-pill">特大</span>
-              <span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span>
-              <span class="color-pill-clear">本色</span>
-              <span class="color-pill-black">黑色</span>
-            </div>
-            <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
-            <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 特大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-            </div>
-          </div>
-
-          <div class="edm-spec-card-item">
-            <div class="edm-spec-card-left">
-              <span class="edm-size-pill">超大</span>
-              <span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span>
-              <span class="color-pill-clear">本色</span>
-              <span class="color-pill-black">黑色</span>
-            </div>
-            <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
-            <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-            </div>
-          </div>
-
-          <div class="edm-spec-card-item">
-            <div class="edm-spec-card-left">
-              <span class="edm-size-pill">超特大</span>
-              <span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span>
-              <span class="color-pill-clear">本色</span>
-              <span class="color-pill-black">黑色</span>
-            </div>
-            <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
-            <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超特大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-            </div>
-          </div>
-
-          <div class="edm-spec-card-item" style="background:#F0FDF4; border-color:#A7F3D0;">
-            <div class="edm-spec-card-left">
-              <span class="edm-size-pill" style="background:#D1FAE5;border-color:#6EE7B7;color:#065F46;"><i class="fa-solid fa-palette"></i> 客製尺寸 / 顏色</span>
-              <span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span>
-            </div>
-            <div class="edm-spec-card-dim" style="color:#059669;">可客製尺寸與顏色，歡迎洽詢</div>
-            <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 客製尺寸顏色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-leaf"></i> 環保清潔袋規格對照表</h2>
-        </div>
-        <table class="compact-table">
-          <thead>
-            <tr>
-              <th>尺寸等級</th>
-              <th>顏色 Color</th>
-              <th>環保屬性</th>
-              <th style="width: 140px; text-align: center;">批量詢價</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td rowspan="5"><span class="tag-size">大</span></td><td><span class="color-pill-clear">本色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 大 · 本色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#E11D48;color:#fff;">紅色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 大 · 紅色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#2563EB;color:#fff;">藍色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 大 · 藍色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#1E293B;color:#fff;">黑色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 大 · 黑色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#16A34A;color:#fff;">綠色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 大 · 綠色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td rowspan="5"><span class="tag-size">小</span></td><td><span class="color-pill-clear">本色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 小 · 本色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#E11D48;color:#fff;">紅色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 小 · 紅色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#2563EB;color:#fff;">藍色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 小 · 藍色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#1E293B;color:#fff;">黑色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 小 · 黑色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#16A34A;color:#fff;">綠色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 小 · 綠色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td rowspan="5"><span class="tag-size">中</span></td><td><span class="color-pill-clear">本色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 中 · 本色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#E11D48;color:#fff;">紅色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 中 · 紅色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#2563EB;color:#fff;">藍色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 中 · 藍色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#1E293B;color:#fff;">黑色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 中 · 黑色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#16A34A;color:#fff;">綠色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 中 · 綠色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td rowspan="5"><span class="tag-size">特大</span></td><td><span class="color-pill-clear">本色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 特大 · 本色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#E11D48;color:#fff;">紅色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 特大 · 紅色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#2563EB;color:#fff;">藍色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 特大 · 藍色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#1E293B;color:#fff;">黑色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 特大 · 黑色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#16A34A;color:#fff;">綠色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 特大 · 綠色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td rowspan="5"><span class="tag-size">超大</span></td><td><span class="color-pill-clear">本色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 超大 · 本色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#E11D48;color:#fff;">紅色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 超大 · 紅色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#2563EB;color:#fff;">藍色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 超大 · 藍色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#1E293B;color:#fff;">黑色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 超大 · 黑色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#16A34A;color:#fff;">綠色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 超大 · 綠色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr style="background:#F0FDF4;"><td colspan="2" style="font-weight:700;color:#16A34A;"><i class="fa-solid fa-palette"></i> 客製尺寸 / 顏色</td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保清潔袋 · 客製尺寸顏色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- 4. 環保拉繩清潔袋 PRODUCT BLOCK -->
-      <div class="cat-spec-block spec-block" id="cat-eco-draw-tape">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-ribbon"></i> 環保拉繩清潔袋規格對照表</h2>
-        </div>
-        <table class="compact-table">
-          <thead>
-            <tr>
-              <th>尺寸等級</th>
-              <th>顏色 Color</th>
-              <th>環保屬性</th>
-              <th style="width: 140px; text-align: center;">批量詢價</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td rowspan="2"><span class="tag-size">大</span></td><td><span class="color-pill-clear">本色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 大 · 本色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#1E293B;color:#fff;">黑色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 大 · 黑色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td rowspan="2"><span class="tag-size">特大</span></td><td><span class="color-pill-clear">本色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 特大 · 本色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#1E293B;color:#fff;">黑色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 特大 · 黑色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td rowspan="2"><span class="tag-size">超大</span></td><td><span class="color-pill-clear">本色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超大 · 本色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#1E293B;color:#fff;">黑色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超大 · 黑色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td rowspan="2"><span class="tag-size">超特大</span></td><td><span class="color-pill-clear">本色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超特大 · 本色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="color-pill" style="background:#1E293B;color:#fff;">黑色</span></td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超特大 · 黑色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr style="background:#F0FDF4;"><td colspan="2" style="font-weight:700;color:#16A34A;"><i class="fa-solid fa-palette"></i> 客製尺寸 / 顏色</td><td><span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 客製尺寸顏色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-          </tbody>
-        </table>
-      </div>s)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-
 
     </div>
   </section>
@@ -854,8 +721,9 @@
     <div class="basket-info">
       <i class="fa-solid fa-cart-flatbed" style="color: #00A8FF;"></i> 已選擇 <span id="quoteCountBadge" class="basket-count-badge">0</span> 項產品規格
     </div>
+    <button onclick="clearQuoteBasket()" class="basket-clear-btn" type="button">清空</button>
     <button onclick="goToRfqPage()" class="basket-submit-btn">
-      前往線上詢價單 <i class="fa-solid fa-paper-plane"></i>
+      填寫詢價資料 <i class="fa-solid fa-paper-plane"></i>
     </button>
   </div>
 
@@ -869,37 +737,7 @@
 
   <script>
     // RFQ Basket Management
-    let selectedQuotes = new Set();
-    function toggleQuoteItem(itemSpec, btn) {
-      const row = btn.closest('tr');
-      if (selectedQuotes.has(itemSpec)) {
-        selectedQuotes.delete(itemSpec);
-        btn.classList.remove('added');
-        btn.innerHTML = '<i class="fa-solid fa-plus"></i> 勾選詢價';
-        if (row) row.classList.remove('row-selected');
-      } else {
-        selectedQuotes.add(itemSpec);
-        btn.classList.add('added');
-        btn.innerHTML = '<i class="fa-solid fa-check"></i> 已加入詢價';
-        if (row) row.classList.add('row-selected');
-      }
-
-      const basket = document.getElementById('rfqFloatingBasket');
-      const badge = document.getElementById('quoteCountBadge');
-      if (selectedQuotes.size > 0) {
-        basket.classList.add('active');
-        badge.innerText = selectedQuotes.size;
-      } else {
-        basket.classList.remove('active');
-      }
-    }
-
-    function goToRfqPage() {
-      const itemsArr = Array.from(selectedQuotes);
-      const query = encodeURIComponent(itemsArr.join(' ; '));
-      window.location.href = `../contact.html?specs=${query}`;
-    }
-
+    
     // SMART PRODUCT FILTER & FOCUS NAVIGATION
     function filterCategory(category, btn) {
       const buttons = document.querySelectorAll('.filter-btn');
@@ -1058,5 +896,6 @@
       }
     }
   </script>
+  <script src="../src/quote-basket.js"></script>
 </body>
 </html>

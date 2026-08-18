@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
@@ -161,6 +161,12 @@
     }
     .rfq-floating-basket.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
     .basket-info { font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .basket-clear-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.8);
+      padding: 7px 14px; border-radius: 9999px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .basket-clear-btn:hover { border-color: #00A8FF; color: #00A8FF; }
     .basket-count-badge { background: #00A8FF; color: #0A2540; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 900; font-size: 0.85rem; }
     .basket-submit-btn {
       background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;
@@ -231,24 +237,24 @@
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> 03 耐熱袋</div>
               <ul class="mega-sub-links">
-                <li><a href="foodservice.html">平裝耐熱袋</a></li>
-                <li><a href="foodservice.html">捲裝耐熱袋</a></li>
+                <li><a href="heat-bags.html">平裝耐熱袋</a></li>
+                <li><a href="heat-bags.html">卷裝耐熱袋</a></li>
               </ul>
             </div>
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> 04 密封包裝類</div>
               <ul class="mega-sub-links">
-                <li><a href="foodservice.html">密實袋</a></li>
-                <li><a href="foodservice.html">立體密實袋</a></li>
-                <li><a href="foodservice.html">冷凍袋</a></li>
-                <li><a href="foodservice.html">夾鏈袋</a></li>
+                <li><a href="sealed-packaging.html">密實袋</a></li>
+                <li><a href="sealed-packaging.html">立體密實袋</a></li>
+                <li><a href="sealed-packaging.html">冷凍袋</a></li>
+                <li><a href="sealed-packaging.html">夾鏈袋</a></li>
               </ul>
             </div>
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> 05 其他類</div>
               <ul class="mega-sub-links">
-                <li><a href="foodservice.html">手套</a></li>
-                <li><a href="foodservice.html">台塑遮蔽防塵膠帶</a></li>
+                <li><a href="accessories.html">手套</a></li>
+                <li><a href="accessories.html">台塑遮蔽防塵膠帶</a></li>
               </ul>
             </div>
             <div>
@@ -278,7 +284,7 @@
         <p class="hero-desc">
           包含雙軌密封密實袋、立體密實袋、冷凍袋與完整夾鏈袋 (00號~12號)。提供 100% 密封防漏、食材保鮮與防塵收納保護。
         </p>
-        <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-calculator"></i> 針對此產品線上詢價</a>
+        
       </div>
       <div>
         <img src="../src/use2.png" alt="密封包裝類展示" class="product-hero-img">
@@ -422,8 +428,9 @@
     <div class="basket-info">
       <i class="fa-solid fa-cart-flatbed" style="color: #00A8FF;"></i> 已選擇 <span id="quoteCountBadge" class="basket-count-badge">0</span> 項產品規格
     </div>
+    <button onclick="clearQuoteBasket()" class="basket-clear-btn" type="button">清空</button>
     <button onclick="goToRfqPage()" class="basket-submit-btn">
-      前往線上詢價單 <i class="fa-solid fa-paper-plane"></i>
+      填寫詢價資料 <i class="fa-solid fa-paper-plane"></i>
     </button>
   </div>
 
@@ -436,71 +443,7 @@
   </footer>
 
   <script>
-    let selectedQuotes = new Set();
-    function toggleQuoteItem(itemSpec, btn) {
-      const row = btn.closest('tr');
-      if (selectedQuotes.has(itemSpec)) {
-        selectedQuotes.delete(itemSpec);
-        btn.classList.remove('added');
-        btn.innerHTML = '<i class="fa-solid fa-plus"></i> 勾選詢價';
-        if (row) row.classList.remove('row-selected');
-      } else {
-        selectedQuotes.add(itemSpec);
-        btn.classList.add('added');
-        btn.innerHTML = '<i class="fa-solid fa-check"></i> 已加入詢價';
-        if (row) row.classList.add('row-selected');
-      }
-
-      const basket = document.getElementById('rfqFloatingBasket');
-      const badge = document.getElementById('quoteCountBadge');
-      if (selectedQuotes.size > 0) {
-        basket.classList.add('active');
-        badge.innerText = selectedQuotes.size;
-      } else {
-        basket.classList.remove('active');
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const navItems = document.querySelectorAll(".nav-item");
-      navItems.forEach(item => {
-        let timer;
-        const panel = item.querySelector(".mega-menu-panel-6cat");
-        if (!panel) return;
-
-        item.addEventListener("mouseenter", function () {
-          clearTimeout(timer);
-          item.classList.add("open-dropdown");
-        });
-
-        item.addEventListener("mouseleave", function () {
-          timer = setTimeout(() => {
-            item.classList.remove("open-dropdown");
-          }, 300);
-        });
-
-        const trigger = item.querySelector(".product-menu-trigger");
-        if (trigger) {
-          trigger.addEventListener("click", function (e) {
-            e.preventDefault();
-            item.classList.toggle("open-dropdown");
-          });
-        }
-      });
-
-      document.addEventListener("click", function (e) {
-        if (!e.target.closest(".nav-item")) {
-          document.querySelectorAll(".nav-item.open-dropdown").forEach(i => i.classList.remove("open-dropdown"));
-        }
-      });
-    });
-
-    function goToRfqPage() {
-      const itemsArr = Array.from(selectedQuotes);
-      const query = encodeURIComponent(itemsArr.join(' ; '));
-      window.location.href = `../contact.html?specs=${query}`;
-    }
-
+    
     function filterCategory(category, btn) {
       const buttons = document.querySelectorAll('.filter-btn');
       buttons.forEach(b => b.classList.remove('active'));
@@ -574,5 +517,6 @@
       container.innerHTML = html;
     }
   </script>
+  <script src="../src/quote-basket.js"></script>
 </body>
 </html>
