@@ -907,19 +907,26 @@
       items.forEach(item => {
         const size = item["規格/容量/號數"] || item["規格 / 容量 / 號數"] || "";
         const dim = item["尺寸 (寬 × 長 cm / mm)"] || "";
-        const pack = item["包裝方式 / 適用說明"] || item["數量 / 張數 / 卷長"] || "";
-        const note = item["適用情境 / 特色說明"] || item["備註"] || "";
+        const pack = item["數量 / 張數 / 卷長"] || item["包裝方式 / 適用說明"] || "";
+        const color = item["顏色 / 色系"] || "";
+
+        let colorPills = "";
+        if (color.includes("黑")) colorPills += `<span class="color-pill-black">黑</span> `;
+        if (color.includes("透明")) colorPills += `<span class="color-pill-clear">透明</span> `;
+        if (color.includes("藍")) colorPills += `<span class="color-pill-clear" style="background:#E0F2FE;color:#0284C7;border-color:#BAE6FD;">藍</span> `;
+        if (color.includes("粉")) colorPills += `<span class="color-pill-pink">粉</span> `;
+        if (color.includes("黃") || color.includes("紅")) colorPills += `<span class="color-pill-pink" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5;">警示印製</span> `;
 
         html += `
           <div class="edm-spec-card-item">
             <div class="edm-spec-card-left">
               <span class="edm-size-pill">${size}</span>
               ${pack ? `<span class="edm-qty-badge">${pack}</span>` : ''}
-              <span style="font-size: 0.8rem; color: #64748B;">${note}</span>
+              ${colorPills}
             </div>
-            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> ${dim}</div>
+            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 ${dim}</div>
             <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩袋 · ${size} (${dim})', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('台塑拉繩清潔袋 · ${size} (${dim})', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
             </div>
           </div>`;
       });
