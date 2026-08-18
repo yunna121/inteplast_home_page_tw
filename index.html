@@ -1138,6 +1138,84 @@
         font-size: 2.4rem;
       }
     }
+
+    /* Sticky Homepage Directory Navigation Bar */
+    .homepage-toc-bar {
+      position: sticky;
+      top: 72px;
+      z-index: 980;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 16px rgba(0, 50, 100, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .toc-container {
+      max-width: 1350px;
+      margin: 0 auto;
+      padding: 10px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .toc-label {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--primary-navy);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      padding-right: 16px;
+      border-right: 2px solid var(--border-color);
+    }
+
+    .toc-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .toc-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .toc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #64748B;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.25s ease;
+    }
+
+    .toc-link:hover {
+      color: var(--brand-blue);
+      background: rgba(0, 82, 155, 0.06);
+    }
+
+    .toc-link.active {
+      color: #FFFFFF;
+      background: var(--brand-blue);
+      box-shadow: 0 4px 12px rgba(0, 82, 155, 0.25);
+    }
+
+    @media (max-width: 900px) {
+      .homepage-toc-bar { top: 60px; }
+      .toc-label { display: none; }
+      .toc-container { padding: 8px 16px; }
+    }
   </style>
   <link rel="stylesheet" href="./src/navbar.css">
 </head>
@@ -1306,6 +1384,33 @@
       </div>
     </div>
   </div>
+
+  <!-- 🗂️ 首頁章節目錄 (Sticky Navigation Directory) -->
+  <nav class="homepage-toc-bar" id="homepageToc" aria-label="首頁章節目錄">
+    <div class="toc-container">
+      <span class="toc-label"><i class="fa-solid fa-list-ul"></i> <span data-tw="本頁目錄" data-en="Page Index">本頁目錄</span></span>
+      <div class="toc-links">
+        <a href="#aboutUs" class="toc-link active">
+          <i class="fa-solid fa-building-user"></i> <span data-tw="01 關於營德" data-en="01 About Us">01 關於營德</span>
+        </a>
+        <a href="#productShowcase" class="toc-link">
+          <i class="fa-solid fa-boxes-stacked"></i> <span data-tw="02 六大產品" data-en="02 6 Product Lines">02 六大產品</span>
+        </a>
+        <a href="#greenMark" class="toc-link">
+          <i class="fa-solid fa-leaf"></i> <span data-tw="03 環保綠色標章" data-en="03 Green Mark">03 環保綠色標章</span>
+        </a>
+        <a href="#productIntroRows" class="toc-link">
+          <i class="fa-solid fa-circle-check"></i> <span data-tw="04 產品特色" data-en="04 Highlights">04 產品特色</span>
+        </a>
+        <a href="#applicationScenarios" class="toc-link">
+          <i class="fa-solid fa-city"></i> <span data-tw="05 應用情境" data-en="05 Scenarios">05 應用情境</span>
+        </a>
+        <a href="#contactCTA" class="toc-link">
+          <i class="fa-solid fa-envelope"></i> <span data-tw="06 聯繫窗口" data-en="06 Contact Us">06 聯繫窗口</span>
+        </a>
+      </div>
+    </div>
+  </nav>
 
   <!-- SECTION 1: 關於臺灣營德 (About Us 首頁簡介預覽區塊) -->
   <section class="home-corp-overview-section" id="aboutUs" style="padding: 80px 0; background: #FFFFFF; border-bottom: 1px solid var(--border-color);">
@@ -1477,7 +1582,7 @@
   </section>
 
   <!-- GREEN MARK SUSTAINABILITY TEASER SECTION (環保標章認證導引區塊 - 位於產品使用特色上方) -->
-  <section class="home-green-mark-section" style="padding: 70px 0; background: #F8FAFC; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+  <section class="home-green-mark-section" id="greenMark" style="padding: 70px 0; background: #F8FAFC; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
     <div style="max-width: 1350px; margin: 0 auto; padding: 0 40px;">
       
       <!-- Unified Section Head -->
@@ -1792,7 +1897,7 @@
   </section>
 
   <!-- CONTACT CTA -->
-  <section class="cta-banner-section">
+  <section class="cta-banner-section" id="contactCTA">
     <div class="cta-banner-container">
       <div>
         <div class="cta-banner-title" data-tw="留下聯絡資料，我們將由專人與您聯繫" data-en="Leave Your Contact Details & We Will Be In Touch">
@@ -1839,6 +1944,36 @@
       setTimeout(resizeAllGridItems, 100);
       setTimeout(resizeAllGridItems, 500);
       setTimeout(resizeAllGridItems, 1200);
+
+      /* ScrollSpy for Homepage Sticky TOC Navigation */
+      const tocLinks = document.querySelectorAll(".toc-link");
+      const sectionIds = ["aboutUs", "productShowcase", "greenMark", "productIntroRows", "applicationScenarios", "contactCTA"];
+      const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+      if (sections.length > 0 && tocLinks.length > 0) {
+        const observerOptions = {
+          root: null,
+          rootMargin: "-20% 0px -60% 0px",
+          threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const currentId = entry.target.id;
+              tocLinks.forEach(link => {
+                if (link.getAttribute("href") === "#" + currentId) {
+                  link.classList.add("active");
+                } else {
+                  link.classList.remove("active");
+                }
+              });
+            }
+          });
+        }, observerOptions);
+
+        sections.forEach(sec => observer.observe(sec));
+      }
 
       const navItems = document.querySelectorAll(".nav-item");
       navItems.forEach(item => {
