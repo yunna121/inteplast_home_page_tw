@@ -902,38 +902,66 @@
       const items = rows.filter(r => String(r["產品編號"] || "").includes("002") || String(r["所屬產品系列"] || "").includes("拉繩袋"));
       if (!items || items.length === 0) return;
 
-      const container = document.querySelector(".edm-card-rows-wrapper");
-      if (!container) return;
+      const medicalItems = items.filter(r => String(r["規格/容量/號數"] || "").includes("醫療") || String(r["適用情境 / 特色說明"] || "").includes("醫療"));
+      const generalItems = items.filter(r => !medicalItems.includes(r));
 
-      let html = "";
-      items.forEach(item => {
-        const size = item["規格/容量/號數"] || item["規格 / 容量 / 號數"] || "";
-        const dim = item["尺寸 (寬 × 長 cm / mm)"] || "";
-        const pack = item["數量 / 張數 / 卷長"] || item["包裝方式 / 適用說明"] || "";
-        const color = item["顏色 / 色系"] || "";
+      // 1. Render General Drawtape Block (#cat-general .edm-card-rows-wrapper)
+      const genContainer = document.querySelector("#cat-general .edm-card-rows-wrapper") || document.querySelectorAll(".edm-card-rows-wrapper")[1];
+      if (generalItems.length > 0 && genContainer) {
+        let html = "";
+        generalItems.forEach(item => {
+          const size = item["規格/容量/號數"] || item["規格 / 容量 / 號數"] || "";
+          const dim = item["尺寸 (寬 × 長 cm / mm)"] || "";
+          const pack = item["數量 / 張數 / 卷長"] || item["包裝方式 / 適用說明"] || "";
+          const color = item["顏色 / 色系"] || "";
 
-        let colorPills = "";
-        if (color.includes("黑")) colorPills += `<span class="color-pill-black">黑</span> `;
-        if (color.includes("透明")) colorPills += `<span class="color-pill-clear">透明</span> `;
-        if (color.includes("藍")) colorPills += `<span class="color-pill-clear" style="background:#E0F2FE;color:#0284C7;border-color:#BAE6FD;">藍</span> `;
-        if (color.includes("粉")) colorPills += `<span class="color-pill-pink">粉</span> `;
-        if (color.includes("黃") || color.includes("紅")) colorPills += `<span class="color-pill-pink" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5;">警示印製</span> `;
+          let colorPills = "";
+          if (color.includes("黑")) colorPills += `<span class="color-pill-black">黑</span> `;
+          if (color.includes("透明")) colorPills += `<span class="color-pill-clear">透明</span> `;
+          if (color.includes("藍")) colorPills += `<span class="color-pill-clear" style="background:#E0F2FE;color:#0284C7;border-color:#BAE6FD;">藍</span> `;
+          if (color.includes("粉")) colorPills += `<span class="color-pill-pink">粉</span> `;
 
-        html += `
-          <div class="edm-spec-card-item">
-            <div class="edm-spec-card-left">
-              <span class="edm-size-pill">${size}</span>
-              ${pack ? `<span class="edm-qty-badge">${pack}</span>` : ''}
-              ${colorPills}
-            </div>
-            <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 ${dim}</div>
-            <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('台塑拉繩清潔袋 · ${size} (${dim})', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-            </div>
-          </div>`;
-      });
+          html += `
+            <div class="edm-spec-card-item">
+              <div class="edm-spec-card-left">
+                <span class="edm-size-pill">${size}</span>
+                ${pack ? `<span class="edm-qty-badge">${pack}</span>` : ''}
+                ${colorPills}
+              </div>
+              <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 ${dim}</div>
+              <div>
+                <button class="btn-quote-add" onclick="toggleQuoteItem('台塑拉繩清潔袋 · ${size} (${dim})', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+              </div>
+            </div>`;
+        });
+        genContainer.innerHTML = html;
+      }
 
-      container.innerHTML = html;
+      // 2. Render Medical Block (#cat-medical .edm-card-rows-wrapper)
+      const medContainer = document.querySelector("#cat-medical .edm-card-rows-wrapper") || document.querySelectorAll(".edm-card-rows-wrapper")[0];
+      if (medicalItems.length > 0 && medContainer) {
+        let html = "";
+        medicalItems.forEach(item => {
+          const size = item["規格/容量/號數"] || item["規格 / 容量 / 號數"] || "";
+          const dim = item["尺寸 (寬 × 長 cm / mm)"] || "";
+          const pack = item["包裝方式 / 適用說明"] || item["數量 / 張數 / 卷長"] || "";
+          const color = item["顏色 / 色系"] || "黃色 / 紅色";
+
+          html += `
+            <div class="edm-spec-card-item">
+              <div class="edm-spec-card-left">
+                <span class="edm-size-pill">${size}</span>
+                ${pack ? `<span class="edm-qty-badge">${pack}</span>` : ''}
+                <span class="color-pill-pink" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5;">${color}</span>
+              </div>
+              <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> ${dim}</div>
+              <div>
+                <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · ${size} (${dim})', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+              </div>
+            </div>`;
+        });
+        medContainer.innerHTML = html;
+      }
     }
   </script>
 </body>
