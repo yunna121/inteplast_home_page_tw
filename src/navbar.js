@@ -340,13 +340,57 @@
     container.innerHTML = navbarHTML;
   }
 
+  // 全站跨頁縮放同步 Engine (支援本地 file:// 與線上伺服器 100% 同步)
+  function applySavedSiteZoom() {
+    const savedZoom = localStorage.getItem('siteZoomLevel');
+    if (savedZoom) {
+      document.documentElement.style.zoom = savedZoom;
+    }
+  }
+
+  applySavedSiteZoom();
+
+  window.addEventListener('keydown', function(e) {
+    if (e.ctrlKey || e.metaKey) {
+      if (e.key === '+' || e.key === '=' || e.key === 'NumpadAdd') {
+        let currentZoom = parseFloat(localStorage.getItem('siteZoomLevel') || '1');
+        currentZoom = Math.min(1.5, currentZoom + 0.1);
+        localStorage.setItem('siteZoomLevel', currentZoom.toFixed(2));
+        document.documentElement.style.zoom = currentZoom;
+      } else if (e.key === '-' || e.key === 'NumpadSubtract') {
+        let currentZoom = parseFloat(localStorage.getItem('siteZoomLevel') || '1');
+        currentZoom = Math.max(0.7, currentZoom - 0.1);
+        localStorage.setItem('siteZoomLevel', currentZoom.toFixed(2));
+        document.documentElement.style.zoom = currentZoom;
+      } else if (e.key === '0' || e.key === 'Numpad0') {
+        localStorage.removeItem('siteZoomLevel');
+        document.documentElement.style.zoom = '1';
+      }
+    }
+  });
+
+  window.addEventListener('wheel', function(e) {
+    if (e.ctrlKey || e.metaKey) {
+      let currentZoom = parseFloat(localStorage.getItem('siteZoomLevel') || '1');
+      if (e.deltaY < 0) {
+        currentZoom = Math.min(1.5, currentZoom + 0.05);
+      } else {
+        currentZoom = Math.max(0.7, currentZoom - 0.05);
+      }
+      localStorage.setItem('siteZoomLevel', currentZoom.toFixed(2));
+      document.documentElement.style.zoom = currentZoom;
+    }
+  }, { passive: false });
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       initNavbar();
       initSearchModal();
+      applySavedSiteZoom();
     });
   } else {
     initNavbar();
     initSearchModal();
+    applySavedSiteZoom();
   }
 })();
