@@ -289,6 +289,19 @@
     .btn-quote-dark.added { background: #10B981; color: #FFFFFF; border-color: #10B981; }
 
     /* COMPACT TABLE */
+    /* 圖片在左、規格表在右 */
+    .spec-with-photo { display: grid; grid-template-columns: 380px 1fr; gap: 0; align-items: stretch; }
+    .spec-photo-pane {
+      background: #F8FAFC; border-right: 1px solid #E2E8F0; padding: 28px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+    }
+    .spec-photo-pane img { width: 100%; height: auto; max-height: 300px; object-fit: contain; border-radius: 12px; }
+    .spec-photo-caption { font-size: 0.85rem; font-weight: 700; color: #64748B; text-align: center; line-height: 1.5; }
+    .spec-table-pane { display: flex; flex-direction: column; justify-content: center; }
+    @media (max-width: 900px) {
+      .spec-with-photo { grid-template-columns: 1fr; }
+      .spec-photo-pane { border-right: none; border-bottom: 1px solid #E2E8F0; }
+    }
     .compact-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     .compact-table th { background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; padding: 10px 24px; text-align: left; border-bottom: 1px solid #CBD5E1; }
     .compact-table td { padding: 11px 24px; border-bottom: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; }
@@ -461,29 +474,42 @@
         <div class="cat-spec-header">
           <h2 class="cat-spec-title"><i class="fa-solid fa-tape"></i> 台塑遮蔽防塵膠帶規格對照表</h2>
         </div>
+        <div class="spec-with-photo">
+          <div class="spec-photo-pane">
+            <img src="../src/螢幕擷取畫面 2026-08-13 160829.png" alt="台塑遮蔽防塵膠帶實品">
+            <div class="spec-photo-caption">台塑遮蔽防塵膠帶<br>550mm ~ 3200mm 六種幅寬</div>
+          </div>
+          <div class="spec-table-pane">
         <table class="compact-table">
           <thead>
             <tr>
               <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
-              <th data-tw="長度換算 Length" data-en="Length">長度換算 Length</th>
               <th style="width: 140px; text-align: center;">批量詢價</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><span class="tag-size">550 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 550mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">1100 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 1100mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">1500 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 1500mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">2100 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 2100mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">2700 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 2700mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">3200 mm * 25 y</span></td><td><span class="tag-qty">22.8 m</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 3200mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">550 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 550mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">1100 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 1100mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">1500 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 1500mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">2100 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 2100mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">2700 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 2700mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
+            <tr><td><span class="tag-size">3200 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 3200mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
           </tbody>
         </table>
+          </div>
+        </div>
       </div>
 
       <div class="cat-spec-block spec-block" id="cat-gloves">
         <div class="cat-spec-header">
           <h2 class="cat-spec-title"><i class="fa-solid fa-hand"></i> 手套尺寸規格對照表</h2>
         </div>
+        <div class="spec-with-photo">
+          <div class="spec-photo-pane">
+            <img src="../src/螢幕擷取畫面 2026-08-13 160650.png" alt="台塑多功能手套 S / M / L">
+            <div class="spec-photo-caption">台塑多功能手套<br>提供 S / M / L 三種尺寸</div>
+          </div>
+          <div class="spec-table-pane">
         <table class="compact-table">
           <thead>
             <tr>
@@ -497,6 +523,8 @@
             <tr><td><span class="tag-size">大</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('手套 · 大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
           </tbody>
         </table>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -688,11 +716,15 @@
       window.location.href = '../contact.html?specs=' + encodeURIComponent(Array.from(selected).join(' ; '));
     };
     // 備援：即使 inline onclick 未執行（被攔截或改寫）也能作用
-    document.addEventListener('click', function (e) {
+    function delegated(e) {
       var btn = e.target && e.target.closest ? e.target.closest('.btn-quote-add, .btn-quote-dark') : null;
       if (!btn) return;
       handle(specOf(btn), btn);
-    }, true);
+    }
+    ['pointerdown', 'mousedown', 'click'].forEach(function (evt) {
+      document.addEventListener(evt, delegated, true);
+      window.addEventListener(evt, delegated, true);
+    });
     function restore() {
       allBtns().forEach(function (b) { var s = specOf(b); if (s && selected.has(s)) paint(b, true); });
       refresh();

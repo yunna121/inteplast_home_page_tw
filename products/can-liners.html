@@ -893,11 +893,15 @@
       window.location.href = '../contact.html?specs=' + encodeURIComponent(Array.from(selected).join(' ; '));
     };
     // 備援：即使 inline onclick 未執行（被攔截或改寫）也能作用
-    document.addEventListener('click', function (e) {
+    function delegated(e) {
       var btn = e.target && e.target.closest ? e.target.closest('.btn-quote-add, .btn-quote-dark') : null;
       if (!btn) return;
       handle(specOf(btn), btn);
-    }, true);
+    }
+    ['pointerdown', 'mousedown', 'click'].forEach(function (evt) {
+      document.addEventListener(evt, delegated, true);
+      window.addEventListener(evt, delegated, true);
+    });
     function restore() {
       allBtns().forEach(function (b) { var s = specOf(b); if (s && selected.has(s)) paint(b, true); });
       refresh();
