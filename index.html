@@ -1220,9 +1220,119 @@
     }
 
     @media (max-width: 900px) {
-      .homepage-toc-bar { top: 60px; }
-      .toc-label { display: none; }
-      .toc-container { padding: 8px 16px; }
+      .homepage-toc-bar { display: none; }
+    }
+
+    /* Right Side Floating Quick Directory Styling (右側懸浮隨動章節目錄) */
+    .side-directory-nav {
+      position: fixed;
+      right: 24px;
+      top: 52%;
+      transform: translateY(-50%);
+      z-index: 1040;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      border-radius: 30px;
+      padding: 16px 12px;
+      box-shadow: 0 12px 36px rgba(0, 50, 100, 0.12);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .side-dir-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      color: var(--primary-navy);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .side-dir-title i {
+      font-size: 0.9rem;
+      color: var(--brand-blue);
+    }
+
+    .side-dir-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .side-dir-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #64748B;
+      padding: 4px;
+    }
+
+    .side-dir-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #CBD5E1;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 0 1px #CBD5E1;
+      transition: all 0.3s ease;
+    }
+
+    .side-dir-link:hover .side-dir-dot,
+    .side-dir-link.active .side-dir-dot {
+      background: var(--brand-blue);
+      box-shadow: 0 0 0 3px rgba(0, 82, 155, 0.25);
+      transform: scale(1.35);
+    }
+
+    .side-dir-label {
+      position: absolute;
+      right: 32px;
+      white-space: nowrap;
+      background: #0A2540;
+      color: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(10px);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .side-dir-label::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 5px 0 5px 6px;
+      border-style: solid;
+      border-color: transparent transparent transparent #0A2540;
+    }
+
+    .side-dir-link:hover .side-dir-label {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    @media (max-width: 1024px) {
+      .side-directory-nav { display: none; }
     }
   </style>
   <link rel="stylesheet" href="./src/navbar.css">
@@ -1927,6 +2037,52 @@
     </div>
   </footer>
 
+  <!-- 🧭 右側懸浮動態章節目錄 (Side Floating Quick Directory) -->
+  <nav class="side-directory-nav" id="sideDirNav" aria-label="右側章節目錄">
+    <div class="side-dir-title">
+      <i class="fa-solid fa-compass"></i>
+      <span data-tw="目錄" data-en="NAV">目錄</span>
+    </div>
+    <ul class="side-dir-list">
+      <li>
+        <a href="#aboutUs" class="side-dir-link active" data-tw="01 關於營德" data-en="01 About Us">
+          <span class="side-dir-dot"></span>
+          <span class="side-dir-label"><i class="fa-solid fa-building-user"></i> <span data-tw="01 關於營德" data-en="01 About Us">01 關於營德</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="#productShowcase" class="side-dir-link" data-tw="02 六大產品" data-en="02 Products">
+          <span class="side-dir-dot"></span>
+          <span class="side-dir-label"><i class="fa-solid fa-boxes-stacked"></i> <span data-tw="02 六大產品" data-en="02 6 Product Lines">02 六大產品</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="#greenMark" class="side-dir-link" data-tw="03 環保綠色標章" data-en="03 Green Mark">
+          <span class="side-dir-dot"></span>
+          <span class="side-dir-label"><i class="fa-solid fa-leaf"></i> <span data-tw="03 環保綠色標章" data-en="03 Green Mark">03 環保綠色標章</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="#productIntroRows" class="side-dir-link" data-tw="04 產品特色" data-en="04 Highlights">
+          <span class="side-dir-dot"></span>
+          <span class="side-dir-label"><i class="fa-solid fa-circle-check"></i> <span data-tw="04 產品特色" data-en="04 Highlights">04 產品特色</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="#applicationScenarios" class="side-dir-link" data-tw="05 應用情境" data-en="05 Scenarios">
+          <span class="side-dir-dot"></span>
+          <span class="side-dir-label"><i class="fa-solid fa-city"></i> <span data-tw="05 應用情境" data-en="05 Scenarios">05 應用情境</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="#contactCTA" class="side-dir-link" data-tw="06 聯繫窗口" data-en="06 Contact Us">
+          <span class="side-dir-dot"></span>
+          <span class="side-dir-label"><i class="fa-solid fa-envelope"></i> <span data-tw="06 聯繫窗口" data-en="06 Contact Us">06 聯繫窗口</span></span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
   <script>
     /* Andy Barefoot CodePen Style Masonry Layout JS Engine */
     function resizeGridItem(item) {
@@ -1953,8 +2109,8 @@
       setTimeout(resizeAllGridItems, 500);
       setTimeout(resizeAllGridItems, 1200);
 
-      /* ScrollSpy for Homepage Sticky TOC Navigation */
-      const tocLinks = document.querySelectorAll(".toc-link");
+      /* ScrollSpy for Homepage Directory Navigation (Top & Side Directory) */
+      const tocLinks = document.querySelectorAll(".toc-link, .side-dir-link");
       const sectionIds = ["aboutUs", "productShowcase", "greenMark", "productIntroRows", "applicationScenarios", "contactCTA"];
       const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
