@@ -788,9 +788,37 @@
     </div>
   </footer>
 
-  <!-- Filter & Drawer Script + Dynamic Excel/CSV & JSON Loader -->
+  <!-- SheetJS Library for Direct Excel (.xlsx) Parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <!-- Filter & Drawer Script + Direct Excel (.xlsx) & CSV/JSON Loader -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      // 1. Priority 1: Fetch products.xlsx directly in browser via SheetJS
+      fetch("../src/data/products.xlsx")
+        .then(res => res.arrayBuffer())
+        .then(buffer => {
+          const workbook = XLSX.read(buffer, { type: "array" });
+          const catSheet = workbook.Sheets["產品分類總覽"] || workbook.Sheets[workbook.SheetNames[0]];
+          const specSheet = workbook.Sheets["容量尺寸規格對照總表"] || workbook.Sheets[workbook.SheetNames[1]];
+
+          const catRows = XLSX.utils.sheet_to_json(catSheet);
+          const specRows = specSheet ? XLSX.utils.sheet_to_json(specSheet) : [];
+
+          const categories = parseExcelData(catRows, specRows);
+          if (categories && categories.length > 0) {
+            renderProductGallery(categories);
+          } else {
+            loadCSVFallback();
+          }
+        })
+        .catch(err => {
+          console.log("Direct Excel load fallback to CSV/JSON", err);
+          loadCSVFallback();
+        });
+    });
+
+    function loadCSVFallback() {
       fetch("../src/data/products.csv")
         .then(res => res.text())
         .then(csvText => {
@@ -802,7 +830,7 @@
           }
         })
         .catch(err => loadJSONFallback());
-    });
+    }
 
     function loadJSONFallback() {
       fetch("../src/data/products.json")
@@ -811,6 +839,51 @@
           if (data && data.categories) renderProductGallery(data.categories);
         })
         .catch(e => console.log("Fallback load error", e));
+    }
+
+    function parseExcelData(catRows, specRows) {
+      const specMap = {};
+      specRows.forEach(r => {
+        const code = String(r["產品編號"] || "").trim();
+        const size = String(r["規格/容量/號數"] || r["規格 / 容量 / 號數"] || "").trim();
+        const dim = String(r["尺寸 (寬 × 長 cm / mm)"] || "").trim();
+        if (code && size && size !== "Scale Sheet") {
+          if (!specMap[code]) specMap[code] = [];
+          specMap[code].push({ size, dim });
+        }
+      });
+
+      return catRows.map(row => {
+        const code = String(row["產品編號"] || "").trim();
+        const badges_raw = String(row["特色標籤 (多個請用逗號分隔)"] || "").trim();
+        const badges = [];
+        if (badges_raw) {
+          badges_raw.split(',').forEach(b => {
+            const bt = b.trim();
+            if (!bt) return;
+            let type = 'default';
+            let icon = '';
+            if (bt.includes('環保') || bt.includes('高溫') || bt.includes('冷凍') || bt.includes('膠帶')) type = 'eco';
+            if (bt.includes('醫療')) { type = 'medical'; icon = 'fa-solid fa-triangle-exclamation'; }
+            badges.push({ text_tw: bt, text_en: bt, type, icon });
+          });
+        }
+
+        return {
+          id: String(row["分類識別碼 (ID)"] || "").trim(),
+          code: code,
+          title_tw: String(row["產品中文名稱"] || "").trim(),
+          title_en: String(row["產品英文名稱"] || "").trim(),
+          image: String(row["產品圖片檔名/路徑"] || "").trim(),
+          badges: badges,
+          highlights_tw: String(row["核心亮點與防護優勢"] || "").trim(),
+          highlights_en: String(row["核心亮點與防護優勢"] || "").trim(),
+          desc_tw: String(row["產品詳細介紹文案"] || "").trim(),
+          desc_en: String(row["產品詳細介紹文案"] || "").trim(),
+          page_url: String(row["專頁檔案連結"] || "").trim(),
+          quick_specs: specMap[code] || []
+        };
+      });
     }
 
     function parseCSV(text) {
