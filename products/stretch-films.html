@@ -293,6 +293,21 @@
         applyLanguage(savedLang);
       }
     });
+  <!-- SheetJS Library for Direct Excel (.xlsx) Specs Parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("../src/data/products.xlsx")
+        .then(res => res.arrayBuffer())
+        .then(buffer => {
+          const workbook = XLSX.read(buffer, { type: "array" });
+          const specSheet = workbook.Sheets["容量尺寸規格對照總表"] || workbook.Sheets[workbook.SheetNames[1]];
+          if (!specSheet) return;
+          const rows = XLSX.utils.sheet_to_json(specSheet);
+          console.log("Loaded Scale Sheet specs from Excel", rows.filter(r => String(r["產品編號"] || "").includes("006")));
+        })
+        .catch(err => console.log("Excel load fallback", err));
+    });
   </script>
 </body>
 </html>

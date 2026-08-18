@@ -435,6 +435,77 @@
         window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
       }
     }
+  <!-- SheetJS Library for Direct Excel (.xlsx) Specs Parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("../src/data/products.xlsx")
+        .then(res => res.arrayBuffer())
+        .then(buffer => {
+          const workbook = XLSX.read(buffer, { type: "array" });
+          const specSheet = workbook.Sheets["容量尺寸規格對照總表"] || workbook.Sheets[workbook.SheetNames[1]];
+          if (!specSheet) return;
+          const rows = XLSX.utils.sheet_to_json(specSheet);
+          renderSpecialtySpecs(rows);
+        })
+        .catch(err => console.log("Excel spec load fallback", err));
+    });
+
+    function renderSpecialtySpecs(rows) {
+      const items = rows.filter(r => String(r["產品編號"] || "").includes("005") || String(r["所屬產品系列"] || "").includes("其他類") || String(r["所屬產品系列"] || "").includes("other"));
+      const containers = document.querySelectorAll(".edm-card-rows-wrapper");
+      if (!items || items.length === 0 || containers.length === 0) return;
+
+      const glovesItems = items.filter(r => String(r["規格/容量/號數"] || "").includes("手套"));
+      const tapeItems = items.filter(r => String(r["規格/容量/號數"] || "").includes("膠帶") || String(r["規格/容量/號數"] || "").includes("mm"));
+
+      // 1. Render Gloves Specs
+      if (glovesItems && glovesItems.length > 0 && containers.length > 0) {
+        let gHtml = "";
+        glovesItems.forEach(item => {
+          const size = item["規格/容量/號數"] || item["規格 / 容量 / 號數"] || "";
+          const dim = item["尺寸 (寬 × 長 cm / mm)"] || "";
+          const pack = item["包裝方式 / 適用說明"] || item["數量 / 張數 / 卷長"] || "每盒100入";
+          gHtml += `
+            <div class="edm-spec-card-item">
+              <div class="edm-spec-card-left">
+                <span class="edm-size-pill">${size}</span>
+                <span class="edm-qty-badge">${pack}</span>
+                <span class="color-pill-clear">半透明貼手</span>
+              </div>
+              <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> ${dim}</div>
+              <div>
+                <button class="btn-quote-add" onclick="toggleQuoteItem('${size}', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+              </div>
+            </div>`;
+        });
+        containers[0].innerHTML = gHtml;
+      }
+
+      // 2. Render Tape Specs
+      if (tapeItems && tapeItems.length > 0 && containers.length > 1) {
+        let tHtml = "";
+        tapeItems.forEach(item => {
+          const size = item["規格/容量/號數"] || item["規格 / 容量 / 號數"] || "";
+          const dim = item["尺寸 (寬 × 長 cm / mm)"] || "";
+          const pack = item["包裝方式 / 適用說明"] || item["數量 / 張數 / 卷長"] || "卷裝";
+          const note = item["適用情境 / 特色說明"] || item["備註"] || "";
+          tHtml += `
+            <div class="edm-spec-card-item">
+              <div class="edm-spec-card-left">
+                <span class="edm-size-pill">${size}</span>
+                <span class="edm-qty-badge">${pack}</span>
+                <span style="font-size: 0.8rem; color: #64748B;">${note}</span>
+              </div>
+              <div class="edm-spec-card-dim"><i class="fa-solid fa-ruler-combined"></i> ${dim}</div>
+              <div>
+                <button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽膠帶 · ${size}', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+              </div>
+            </div>`;
+        });
+        containers[1].innerHTML = tHtml;
+      }
+    }
   </script>
 </body>
 </html>
