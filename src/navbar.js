@@ -86,7 +86,7 @@
             <div>
               <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> <span data-tw="05 其他類" data-en="05 Specialty Products">05 其他類</span></div>
               <ul class="mega-sub-links">
-                <li><a href="${productsPath}foodservice.html" data-tw="衛生手套" data-en="PE Disposable Gloves">衛生手套</a></li>
+                <li><a href="${productsPath}foodservice.html" data-tw="手套" data-en="PE Disposable Gloves">手套</a></li>
                 <li><a href="${productsPath}foodservice.html" data-tw="台塑遮蔽防塵膠帶" data-en="Pre-taped Masking Film">台塑遮蔽防塵膠帶</a></li>
               </ul>
             </div>
@@ -146,8 +146,8 @@
       keywords: ['密實袋', '夾鏈袋', '冷凍袋', '密封袋', '立體袋', 'zipper bags', 'freezer bags', 'seal top']
     },
     {
-      title: '衛生手套 (PE Disposable Gloves)',
-      desc: '輕薄貼手衛生手套，適合餐飲備料、食品處理與日常清潔家務。',
+      title: '手套 (PE Disposable Gloves)',
+      desc: '輕薄貼手手套，適合餐飲備料、食品處理與日常清潔家務。',
       category: '其他類 05',
       url: `${productsPath}foodservice.html`,
       icon: 'fa-hand-dots',
