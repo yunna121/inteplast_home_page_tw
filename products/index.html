@@ -788,8 +788,119 @@
     </div>
   </footer>
 
-  <!-- Filter & Drawer Script -->
+  <!-- Filter & Drawer Script + Dynamic JSON Loader -->
   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("../src/data/products.json")
+        .then(res => res.json())
+        .then(data => {
+          if (!data || !data.categories) return;
+          renderProductGallery(data.categories);
+        })
+        .catch(err => console.log("JSON dynamic load fallback", err));
+    });
+
+    function renderProductGallery(categories) {
+      const container = document.querySelector("main.gallery-container");
+      if (!container) return;
+      
+      let html = "";
+      categories.forEach((cat, index) => {
+        const drawerId = `drawer-json-${index + 1}`;
+        
+        let badgesHtml = "";
+        if (cat.badges && cat.badges.length > 0) {
+          cat.badges.forEach(b => {
+            const iconTag = b.icon ? `<i class="${b.icon}"></i> ` : "";
+            badgesHtml += `<span class="prod-badge ${b.type || ''}" data-tw="${b.text_tw}" data-en="${b.text_en}">${iconTag}${b.text_tw}</span> `;
+          });
+        }
+
+        let highlightsHtml = "";
+        if (cat.highlights_tw) {
+          highlightsHtml = `
+            <div class="card-highlights">
+              <i class="fa-solid fa-circle-check"></i>
+              <span data-tw="${cat.highlights_tw}" data-en="${cat.highlights_en}">${cat.highlights_tw}</span>
+            </div>`;
+        }
+
+        let descHtml = "";
+        if (cat.desc_tw) {
+          descHtml = `
+            <p class="card-desc-text" data-tw="${cat.desc_tw}" data-en="${cat.desc_en}">
+              ${cat.desc_tw}
+            </p>`;
+        }
+
+        let actionBtns = "";
+        if (cat.desc_tw) {
+          const detailUrl = cat.page_url.includes('/') ? cat.page_url.split('/')[1] : cat.page_url;
+          actionBtns = `
+            <a href="${detailUrl}" class="btn-action-primary">
+              <span data-tw="瀏覽專頁" data-en="View Detail Page">瀏覽專頁</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="../contact.html" class="btn-action-secondary">
+              <i class="fa-solid fa-envelope"></i> <span data-tw="留下資料專人對接" data-en="Contact Sales">留下資料專人對接</span>
+            </a>`;
+        } else {
+          actionBtns = `
+            <a href="../contact.html" class="btn-action-primary">
+              <i class="fa-solid fa-envelope"></i> <span data-tw="留下資料專人對接" data-en="Contact Sales">留下資料專人對接</span>
+            </a>`;
+        }
+
+        let specsDrawer = "";
+        if (cat.quick_specs && cat.quick_specs.length > 0) {
+          let specBoxes = cat.quick_specs.map(s => `
+            <div class="mini-spec-box"><div class="mini-spec-title">${s.size}</div><div class="mini-spec-dim">${s.dim}</div></div>
+          `).join("");
+
+          specsDrawer = `
+            <button type="button" class="spec-drawer-toggle" onclick="toggleDrawer('${drawerId}', this)">
+              <span><i class="fa-solid fa-sliders"></i> <span data-tw="展開常見規格對照" data-en="Expand Specs">展開常見規格對照</span></span>
+              <i class="fa-solid fa-chevron-down toggle-icon"></i>
+            </button>
+            <div id="${drawerId}" class="spec-drawer-content">
+              <div class="specs-grid-mini">
+                ${specBoxes}
+              </div>
+            </div>`;
+        }
+
+        html += `
+        <article class="visual-product-card" id="${cat.id}" data-category="${cat.id}">
+          <div class="card-image-box">
+            <span class="card-num-badge">${cat.code}</span>
+            <img src="../${cat.image}" alt="${cat.title_tw}">
+          </div>
+          <div class="card-info-content">
+            <div>
+              <div class="card-header-group">
+                <div class="card-title-row">
+                  <h2 class="card-main-title" data-tw="${cat.title_tw}" data-en="${cat.title_en}">${cat.title_tw}</h2>
+                </div>
+                <div class="card-badges-list">
+                  ${badgesHtml}
+                </div>
+              </div>
+              ${highlightsHtml}
+              ${descHtml}
+            </div>
+
+            <div>
+              <div class="card-actions-row">
+                ${actionBtns}
+              </div>
+              ${specsDrawer}
+            </div>
+          </div>
+        </article>`;
+      });
+
+      container.innerHTML = html;
+    }
+
     function filterGallery(category, btnElement) {
       // Toggle Active Tab Button
       const buttons = document.querySelectorAll('.filter-tab-btn');

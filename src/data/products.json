@@ -1,0 +1,159 @@
+{
+  "categories": [
+    {
+      "id": "cat-can-liners",
+      "code": "001",
+      "title_tw": "清潔袋系列 (Can Liners)",
+      "title_en": "Can Liners & Trash Bags",
+      "image": "src/formosa_canliner_official.png",
+      "badges": [
+        { "text_tw": "連捲點斷", "text_en": "Coreless Roll", "type": "default" },
+        { "text_tw": "單張抽取", "text_en": "Interleaved Flat", "type": "default" },
+        { "text_tw": "環保標章認證", "text_en": "Green Mark Certified", "type": "eco", "icon": "fa-solid fa-leaf" }
+      ],
+      "highlights_tw": "高強度防漏 · 商業機構與家用大容量",
+      "highlights_en": "High-Strength Leak-Proof & Heavy-Duty Design",
+      "desc_tw": "包含連捲清潔袋、單張平裝抽取清潔袋與通過環保標章認證之 50% 再生塑膠環保清潔袋。選用台塑 PE 純料韌性極佳，底封堅固不易破裂滴漏。",
+      "desc_en": "Includes coreless roll liners, flat packs, and 50% certified recycled eco trash bags. Features leak-proof bottom seal.",
+      "page_url": "products/can-liners.html",
+      "sub_products": [
+        { "name_tw": "連捲清潔袋", "name_en": "Coreless Roll Liners", "url": "can-liners.html" },
+        { "name_tw": "單張抽取", "name_en": "Interleaved Flat Bags", "url": "can-liners.html" },
+        { "name_tw": "環保清潔袋", "name_en": "Eco Recycled Bags", "url": "can-liners.html" }
+      ],
+      "quick_specs": [
+        { "size": "15L 小", "dim": "45 × 50 cm" },
+        { "size": "20L 中", "dim": "50 × 60 cm" },
+        { "size": "45L 大", "dim": "65 × 75 cm" },
+        { "size": "70L 特大", "dim": "75 × 90 cm" },
+        { "size": "90L 超大", "dim": "85 × 100 cm" },
+        { "size": "125L 巨無霸", "dim": "94 × 110 cm" }
+      ]
+    },
+    {
+      "id": "cat-draw-tape",
+      "code": "002",
+      "title_tw": "拉繩袋系列 (Draw-Tape Bags)",
+      "title_en": "Draw-Tape & Medical Bags",
+      "image": "src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg",
+      "badges": [
+        { "text_tw": "一拉即束", "text_en": "Easy Drawstring", "type": "default" },
+        { "text_tw": "不髒手打包", "text_en": "Clean Handling", "type": "default" },
+        { "text_tw": "醫療隔離警示", "text_en": "Medical Warning", "type": "medical", "icon": "fa-solid fa-triangle-exclamation" }
+      ],
+      "highlights_tw": "專利加長拉繩 · 輕鬆拎舉不黏手打包",
+      "highlights_en": "Patented Long Drawstring & Clean Package Tie",
+      "desc_tw": "加長拉繩設計，雙手一拉自動提束包緊，打包過程衛生不髒手；並提供醫療等級高辨識度黃色與紅色傳染廢棄物隔離袋。",
+      "desc_en": "Drawstring feature ensures hygienic, hassle-free tying. Also supplies high-visibility yellow & red biohazard containment bags for clinical settings.",
+      "page_url": "products/draw-tape.html",
+      "sub_products": [
+        { "name_tw": "清潔袋", "name_en": "Drawtape Trash Bags", "url": "draw-tape.html" },
+        { "name_tw": "醫療袋", "name_en": "Medical Drawtape Bags", "url": "draw-tape.html" }
+      ],
+      "quick_specs": [
+        { "size": "13 Gallon", "dim": "60.9 × 68.5 cm" },
+        { "size": "30 Gallon", "dim": "76.2 × 91.4 cm" },
+        { "size": "醫療黃/紅色", "dim": "警示標語印製" }
+      ]
+    },
+    {
+      "id": "cat-heat-bags",
+      "code": "003",
+      "title_tw": "耐熱袋系列 (Heat-Resistant Bags)",
+      "title_en": "Foodservice Heat-Resistant Bags",
+      "image": "src/formosa_heat_bag_official.png",
+      "badges": [
+        { "text_tw": "食品級 PE", "text_en": "Food Grade PE", "type": "default" },
+        { "text_tw": "平裝 / 捲裝", "text_en": "Flat & Roll Pack", "type": "default" },
+        { "text_tw": "高溫耐受", "text_en": "High Heat Tolerant", "type": "eco", "icon": "fa-solid fa-fire-burner" }
+      ],
+      "highlights_tw": "嚴選台塑食品級原料 · 絕無塑化劑添加",
+      "highlights_en": "Formosa Food Grade Virgin PE Resin Formula",
+      "desc_tw": "平裝與捲裝耐熱袋，適用於生鮮備料、小吃餐飲熱食分裝與高溫熱湯打包。通過國家食安標準審查，品質安全無虞。",
+      "desc_en": "Heavy-duty food grade PE bags for foodservice, fresh markets, and hot soups. Complies with strict food safety inspection standards.",
+      "page_url": "products/foodservice.html",
+      "sub_products": [
+        { "name_tw": "平裝耐熱袋", "name_en": "Flat Heat-Resistant Bags", "url": "foodservice.html" },
+        { "name_tw": "捲裝耐熱袋", "name_en": "Roll Heat-Resistant Bags", "url": "foodservice.html" }
+      ],
+      "quick_specs": [
+        { "size": "半斤", "dim": "15.2 × 22.8 cm" },
+        { "size": "1斤", "dim": "20.3 × 27.9 cm" },
+        { "size": "2斤", "dim": "25.4 × 35.5 cm" },
+        { "size": "3斤", "dim": "30.4 × 43.1 cm" },
+        { "size": "5斤", "dim": "35.5 × 50.8 cm" }
+      ]
+    },
+    {
+      "id": "cat-zipper-bags",
+      "code": "004",
+      "title_tw": "密封包裝類 (Sealed & Zipper Bags)",
+      "title_en": "Sealed & Zipper Storage Bags",
+      "image": "src/ai_zipper_bag.png",
+      "badges": [
+        { "text_tw": "雙軌密實", "text_en": "Double Zipper", "type": "default" },
+        { "text_tw": "立體站立", "text_en": "Stand-Up Pouch", "type": "default" },
+        { "text_tw": "冷凍保鮮", "text_en": "Freezer Safe", "type": "eco", "icon": "fa-solid fa-snowflake" }
+      ],
+      "highlights_tw": "嚴密隔絕空氣濕氣 · 食材長效保鮮",
+      "highlights_en": "Airtight Double Track Seal & Moisture Barrier",
+      "desc_tw": "提供雙軌密封密實袋、立體可站立密實袋、冷凍保鮮袋與通用夾鏈袋，滿足家用廚房食材分裝與商業食品儲存鎖鮮需求。",
+      "desc_en": "Offers double track seal bags, stand-up zipper pouches, and freezer storage bags to ensure food freshness and organized storage.",
+      "page_url": "products/foodservice.html",
+      "sub_products": [
+        { "name_tw": "密實袋", "name_en": "Seal Top Bags", "url": "foodservice.html" },
+        { "name_tw": "立體密實袋", "name_en": "Stand-Up Zipper Bags", "url": "foodservice.html" },
+        { "name_tw": "冷凍袋", "name_en": "Freezer Bags", "url": "foodservice.html" },
+        { "name_tw": "夾鏈袋", "name_en": "Reclosable Zipper Bags", "url": "foodservice.html" }
+      ],
+      "quick_specs": [
+        { "size": "1號 ~ 4號", "dim": "小型飾品/藥品分裝" },
+        { "size": "5號 ~ 8號", "dim": "中型食材/蔬果分裝" },
+        { "size": "9號 ~ 12號", "dim": "大型物品/冷凍肉品" }
+      ]
+    },
+    {
+      "id": "cat-specialty",
+      "code": "005",
+      "title_tw": "其他類 (Specialty Protection & Tapes)",
+      "title_en": "Specialty Protection & Tapes",
+      "image": "src/ai_specialty.png",
+      "badges": [
+        { "text_tw": "手套", "text_en": "Disposable Gloves", "type": "default", "icon": "fa-solid fa-hand" },
+        { "text_tw": "台塑遮蔽防塵膠帶", "text_en": "Pre-taped Masking Film", "type": "eco", "icon": "fa-solid fa-tape" }
+      ],
+      "highlights_tw": "專業個人防護與建築施工/裝潢養生防塵",
+      "highlights_en": "Personal Protection & Architectural Masking Film",
+      "desc_tw": "包含輕薄貼手防護手套，以及 550mm~3200mm 多種規格之台塑專利遮蔽防塵膠帶，適合建築施工、室內裝潢養生與日常防塵防護。",
+      "desc_en": "Provides PE protection gloves and Formosa patented pre-taped masking films (550mm~3200mm) designed for painting, decoration, and dust protection.",
+      "page_url": "products/specialty.html",
+      "sub_products": [
+        { "name_tw": "手套", "name_en": "PE Disposable Gloves", "url": "foodservice.html" },
+        { "name_tw": "台塑遮蔽防塵膠帶", "name_en": "Pre-taped Masking Film", "url": "foodservice.html" }
+      ],
+      "quick_specs": [
+        { "size": "550 mm", "dim": "長度 25 y (22.8m)" },
+        { "size": "1100 mm", "dim": "長度 25 y (22.8m)" },
+        { "size": "1500 mm", "dim": "長度 25 y (22.8m)" },
+        { "size": "2100 mm", "dim": "長度 25 y (22.8m)" },
+        { "size": "2700 mm", "dim": "長度 25 y (22.8m)" },
+        { "size": "3200 mm", "dim": "長度 25 y (22.8m)" }
+      ]
+    },
+    {
+      "id": "cat-scale-sheet",
+      "code": "006",
+      "title_tw": "Scale Sheet",
+      "title_en": "Scale Sheet",
+      "image": "src/scale sheet.png",
+      "badges": [],
+      "highlights_tw": "",
+      "highlights_en": "",
+      "desc_tw": "",
+      "desc_en": "",
+      "page_url": "products/stretch-films.html",
+      "sub_products": [],
+      "quick_specs": []
+    }
+  ]
+}
