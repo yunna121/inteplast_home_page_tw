@@ -1223,128 +1223,141 @@
       .homepage-toc-bar { display: none; }
     }
 
-    /* Right Side Collapsible Drawer Directory Styling (可收縮/滑出懸浮目錄抽屜) */
-    .side-directory-nav {
+    /* Right Side Step Rail Navigation (100% 匹配用戶圖示設計) */
+    .side-step-rail {
       position: fixed;
-      right: 0;
+      right: 20px;
       top: 50%;
-      transform: translateY(-50%) translateX(calc(100% - 48px));
+      transform: translateY(-50%);
       z-index: 1040;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      border-right: none;
-      border-radius: 20px 0 0 20px;
-      padding: 16px 16px 16px 12px;
-      box-shadow: -8px 12px 32px rgba(0, 50, 100, 0.12);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
     }
 
-    .side-directory-nav:hover,
-    .side-directory-nav.is-expanded {
-      transform: translateY(-50%) translateX(0);
-      box-shadow: -12px 18px 40px rgba(0, 50, 100, 0.2);
-    }
-
-    .side-dir-tab-handle {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 48px;
+    .step-rail-track {
       display: flex;
       flex-direction: column;
+      gap: 22px;
+      position: relative;
+      padding: 12px 0;
+    }
+
+    .step-rail-track::before {
+      content: '';
+      position: absolute;
+      right: 11px;
+      top: 15px;
+      bottom: 15px;
+      width: 2px;
+      background: rgba(148, 163, 184, 0.3);
+      border-radius: 2px;
+    }
+
+    .step-rail-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .step-dot-trigger {
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      background: var(--primary-navy);
+      width: 24px;
+      height: 24px;
+      text-decoration: none;
+      z-index: 2;
+    }
+
+    .step-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #94A3B8;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .step-rail-item.active .step-dot,
+    .step-rail-item:hover .step-dot {
+      background: #00D2FF;
+      border-color: #FFFFFF;
+      box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.35), 0 4px 12px rgba(0, 210, 255, 0.4);
+      transform: scale(1.35);
+    }
+
+    /* Floating Popup Card to the left (100% matching user screenshot) */
+    .step-popup-card {
+      position: absolute;
+      right: 36px;
+      top: 50%;
+      transform: translateY(-50%) translateX(12px);
+      width: 210px;
+      background: #1E293B;
       color: #FFFFFF;
-      border-radius: 20px 0 0 20px;
-      font-size: 0.78rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      cursor: pointer;
-      box-shadow: -4px 0 14px rgba(10, 37, 64, 0.25);
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .side-dir-tab-handle i {
-      font-size: 1.1rem;
-      color: var(--accent-azure);
-    }
-
-    .side-dir-tab-handle span {
-      writing-mode: vertical-lr;
-    }
-
-    .side-directory-nav:hover .side-dir-tab-handle,
-    .side-directory-nav.is-expanded .side-dir-tab-handle {
+      border-radius: 12px;
+      padding: 14px 18px;
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .side-dir-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 0.85rem;
-      font-weight: 900;
-      color: var(--primary-navy);
-      margin-bottom: 14px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #E2E8F0;
+    /* Arrow connecting popup card to rail dot */
+    .step-popup-card::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 6px 0 6px 7px;
+      border-style: solid;
+      border-color: transparent transparent transparent #1E293B;
     }
 
-    .side-dir-title i {
-      font-size: 0.95rem;
-      color: var(--brand-blue);
+    .popup-accent-bar {
+      height: 4px;
+      width: 45px;
+      background: #00D2FF;
+      border-radius: 2px;
+      margin-bottom: 8px;
     }
 
-    .side-dir-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .side-dir-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: #475569;
-      padding: 6px 12px;
-      border-radius: 10px;
-      font-size: 0.86rem;
-      font-weight: 700;
-      white-space: nowrap;
-      transition: all 0.25s ease;
-    }
-
-    .side-dir-link i {
-      font-size: 0.95rem;
+    .popup-num {
+      font-size: 0.68rem;
+      font-weight: 800;
       color: #94A3B8;
-      width: 18px;
-      text-align: center;
-      transition: color 0.25s ease;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
     }
 
-    .side-dir-link:hover,
-    .side-dir-link.active {
-      color: var(--brand-blue);
-      background: rgba(0, 82, 155, 0.08);
+    .popup-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 2px;
     }
 
-    .side-dir-link:hover i,
-    .side-dir-link.active i {
-      color: var(--brand-blue);
+    .popup-sub {
+      font-size: 0.78rem;
+      color: #CBD5E1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Popup triggers on hover or when active */
+    .step-rail-item:hover .step-popup-card,
+    .step-rail-item.active:hover .step-popup-card {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-50%) translateX(0);
     }
 
     @media (max-width: 1024px) {
-      .side-directory-nav { display: none; }
+      .side-step-rail { display: none; }
     }
   </style>
   <link rel="stylesheet" href="./src/navbar.css">
@@ -2049,56 +2062,89 @@
     </div>
   </footer>
 
-  <!-- 🧭 右側可收縮懸浮目錄抽屜 (Collapsible Side Drawer Directory) -->
-  <nav class="side-directory-nav" id="sideDirNav" aria-label="右側章節目錄">
-    <!-- 貼邊收合時顯示的感應拉頁標籤 Handle -->
-    <div class="side-dir-tab-handle" onclick="document.getElementById('sideDirNav').classList.toggle('is-expanded');">
-      <i class="fa-solid fa-compass"></i>
-      <span data-tw="本頁目錄" data-en="INDEX">本頁目錄</span>
-    </div>
+  <!-- 🧭 右側豎向 Step 導覽軌道與快顯 Popup 卡片 (100% 匹配用戶圖示設計) -->
+  <nav class="side-step-rail" id="sideStepRail" aria-label="章節導覽軌道">
+    <div class="step-rail-track">
+      
+      <!-- Step 01: 關於營德 -->
+      <div class="step-rail-item active" data-target="aboutUs">
+        <a href="#aboutUs" class="step-dot-trigger" aria-label="01 關於營德">
+          <span class="step-dot"></span>
+        </a>
+        <div class="step-popup-card">
+          <div class="popup-accent-bar"></div>
+          <div class="popup-num">01 / ABOUT US</div>
+          <div class="popup-title" data-tw="關於臺灣營德" data-en="About Inteplast Taiwan">關於臺灣營德</div>
+          <div class="popup-sub" data-tw="勤勞樸實 · 永續經營" data-en="Diligent & Sustainable">勤勞樸實 · 永續經營</div>
+        </div>
+      </div>
 
-    <div class="side-dir-title">
-      <span><i class="fa-solid fa-list-ul"></i> <span data-tw="本頁導覽目錄" data-en="Page Index">本頁導覽目錄</span></span>
-      <i class="fa-solid fa-xmark" style="cursor: pointer; opacity: 0.6;" onclick="document.getElementById('sideDirNav').classList.remove('is-expanded');"></i>
+      <!-- Step 02: 六大產品 -->
+      <div class="step-rail-item" data-target="productShowcase">
+        <a href="#productShowcase" class="step-dot-trigger" aria-label="02 六大核心產品">
+          <span class="step-dot"></span>
+        </a>
+        <div class="step-popup-card">
+          <div class="popup-accent-bar"></div>
+          <div class="popup-num">02 / CATEGORIES</div>
+          <div class="popup-title" data-tw="六大核心產品" data-en="Six Core Categories">六大核心產品</div>
+          <div class="popup-sub" data-tw="清潔袋 · 拉繩袋 · 耐熱袋..." data-en="Can Liners, Drawtape...">清潔袋 · 拉繩袋 · 耐熱袋...</div>
+        </div>
+      </div>
+
+      <!-- Step 03: 環保綠色標章 -->
+      <div class="step-rail-item" data-target="greenMark">
+        <a href="#greenMark" class="step-dot-trigger" aria-label="03 環保綠色標章">
+          <span class="step-dot"></span>
+        </a>
+        <div class="step-popup-card">
+          <div class="popup-accent-bar" style="background: #2F7B4B;"></div>
+          <div class="popup-num">03 / ECO MARK</div>
+          <div class="popup-title" data-tw="綠色標章認證" data-en="Green Mark Certification">綠色標章認證</div>
+          <div class="popup-sub" data-tw="50% 再生塑膠 · 避用重金屬" data-en="50% Recycled Plastic">50% 再生塑膠 · 避用重金屬</div>
+        </div>
+      </div>
+
+      <!-- Step 04: 產品特色 -->
+      <div class="step-rail-item" data-target="productIntroRows">
+        <a href="#productIntroRows" class="step-dot-trigger" aria-label="04 產品使用特色">
+          <span class="step-dot"></span>
+        </a>
+        <div class="step-popup-card">
+          <div class="popup-accent-bar"></div>
+          <div class="popup-num">04 / FEATURES</div>
+          <div class="popup-title" data-tw="產品使用特色" data-en="Product Highlights">產品使用特色</div>
+          <div class="popup-sub" data-tw="一拉即束 · 高強度防漏底封" data-en="Easy Tie & Leak Proof">一拉即束 · 高強度防漏底封</div>
+        </div>
+      </div>
+
+      <!-- Step 05: 應用情境 -->
+      <div class="step-rail-item" data-target="applicationScenarios">
+        <a href="#applicationScenarios" class="step-dot-trigger" aria-label="05 多元應用情境">
+          <span class="step-dot"></span>
+        </a>
+        <div class="step-popup-card">
+          <div class="popup-accent-bar"></div>
+          <div class="popup-num">05 / SCENARIOS</div>
+          <div class="popup-title" data-tw="多元應用情境" data-en="Application Scenarios">多元應用情境</div>
+          <div class="popup-sub" data-tw="商業清潔 · 生鮮零售 · 醫療防護" data-en="Commercial, Grocery...">商業清潔 · 生鮮零售 · 醫療防護</div>
+        </div>
+      </div>
+
+      <!-- Step 06: 聯繫窗口 -->
+      <div class="step-rail-item" data-target="contactCTA">
+        <a href="#contactCTA" class="step-dot-trigger" aria-label="06 聯繫專人窗口">
+          <span class="step-dot"></span>
+        </a>
+        <div class="step-popup-card">
+          <div class="popup-accent-bar"></div>
+          <div class="popup-num">06 / CONTACT</div>
+          <div class="popup-title" data-tw="聯繫專人窗口" data-en="Contact Us Desk">聯繫專人窗口</div>
+          <div class="popup-sub" data-tw="留下資料 · 由專人與您對接" data-en="Leave Info & We Contact">留下資料 · 由專人與您對接</div>
+        </div>
+      </div>
+
     </div>
-    <ul class="side-dir-list">
-      <li>
-        <a href="#aboutUs" class="side-dir-link active">
-          <i class="fa-solid fa-building-user"></i>
-          <span data-tw="01 關於營德" data-en="01 About Us">01 關於營德</span>
-        </a>
-      </li>
-      <li>
-        <a href="#productShowcase" class="side-dir-link">
-          <i class="fa-solid fa-boxes-stacked"></i>
-          <span data-tw="02 六大產品" data-en="02 6 Product Lines">02 六大產品</span>
-        </a>
-      </li>
-      <li>
-        <a href="#greenMark" class="side-dir-link">
-          <i class="fa-solid fa-leaf"></i>
-          <span data-tw="03 環保綠色標章" data-en="03 Green Mark">03 環保綠色標章</span>
-        </a>
-      </li>
-      <li>
-        <a href="#productIntroRows" class="side-dir-link">
-          <i class="fa-solid fa-circle-check"></i>
-          <span data-tw="04 產品特色" data-en="04 Highlights">04 產品特色</span>
-        </a>
-      </li>
-      <li>
-        <a href="#applicationScenarios" class="side-dir-link">
-          <i class="fa-solid fa-city"></i>
-          <span data-tw="05 應用情境" data-en="05 Scenarios">05 應用情境</span>
-        </a>
-      </li>
-      <li>
-        <a href="#contactCTA" class="side-dir-link">
-          <i class="fa-solid fa-envelope"></i>
-          <span data-tw="06 聯繫窗口" data-en="06 Contact Us">06 聯繫窗口</span>
-        </a>
-      </li>
-    </ul>
   </nav>
 
   <script>
@@ -2127,12 +2173,13 @@
       setTimeout(resizeAllGridItems, 500);
       setTimeout(resizeAllGridItems, 1200);
 
-      /* ScrollSpy for Homepage Directory Navigation (Top & Side Directory) */
-      const tocLinks = document.querySelectorAll(".toc-link, .side-dir-link");
+      /* ScrollSpy for Homepage Directory Navigation (Top TOC & Side Step Rail) */
+      const tocLinks = document.querySelectorAll(".toc-link");
+      const stepItems = document.querySelectorAll(".step-rail-item");
       const sectionIds = ["aboutUs", "productShowcase", "greenMark", "productIntroRows", "applicationScenarios", "contactCTA"];
       const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
-      if (sections.length > 0 && tocLinks.length > 0) {
+      if (sections.length > 0) {
         const observerOptions = {
           root: null,
           rootMargin: "-20% 0px -60% 0px",
@@ -2143,11 +2190,20 @@
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               const currentId = entry.target.id;
+
               tocLinks.forEach(link => {
                 if (link.getAttribute("href") === "#" + currentId) {
                   link.classList.add("active");
                 } else {
                   link.classList.remove("active");
+                }
+              });
+
+              stepItems.forEach(item => {
+                if (item.getAttribute("data-target") === currentId) {
+                  item.classList.add("active");
+                } else {
+                  item.classList.remove("active");
                 }
               });
             }
