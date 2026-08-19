@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>拉繩袋系列 (Draw-Tape Bags) 專頁 | 臺灣營德 Inteplast Taiwan</title>
   <meta name="description" content="臺灣營德自動拉繩袋全系列對照表：含拉繩感染清潔袋(醫療袋 8L~90L) 與一般/經濟/超量包拉繩清潔袋 (45L~130L巨無霸)。">
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -33,235 +36,848 @@
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #F8FAFC; line-height: 1.6; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      color: var(--text-main);
+      background: #F8FAFC;
+      line-height: 1.6;
+    }
 
     .header {
-      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
-      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
+      position: fixed;
+      top: 31px;
+      left: 0;
+      width: 100%;
+      padding: 12px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
     }
-    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-image { height: 40px; width: auto; }
-    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
-    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
 
-    .nav-menu { display: flex; align-items: center; gap: 6px; list-style: none; }
-    .nav-item { position: relative; }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .logo-image {
+      height: 40px;
+      width: auto;
+    }
+
+    .logo-text-tw {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--primary-navy);
+      display: block;
+    }
+
+    .logo-text-en {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--brand-blue);
+      display: block;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
     .nav-link-item {
-      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
-      color: var(--text-main); text-decoration: none; transition: var(--transition);
-      display: inline-flex; align-items: center; gap: 6px; cursor: pointer; position: relative; z-index: 10;
+      padding: 10px 18px;
+      border-radius: var(--radius-full);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      position: relative;
+      z-index: 10;
     }
-    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
-    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
-    
-    .mega-menu-panel-6cat {
-      position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
-      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
-      opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 1100; color: var(--text-main);
-    }
-    .mega-menu-panel-6cat::before {
-      content: ''; position: absolute; top: -16px; left: 0; width: 100%; height: 20px; background: transparent; z-index: -1;
-    }
-    .nav-item:hover .mega-menu-panel-6cat,
-    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; }
-    .nav-item:hover .caret-icon,
-    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
-    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
-    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
-    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
-    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
 
-    .header-right { display: flex; align-items: center; gap: 12px; }
-    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
-    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+    .nav-link-item:hover,
+    .nav-item:hover>.nav-link-item,
+    .nav-link-item.active {
+      background: rgba(0, 82, 155, 0.08);
+      color: var(--brand-blue);
+    }
+
+    .caret-icon {
+      font-size: 0.75rem;
+      transition: transform 0.3s ease;
+    }
+
+    .mega-menu-panel-6cat {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1120px;
+      background: var(--surface-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: 0 30px 60px -12px rgba(10, 37, 64, 0.22);
+      padding: 32px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      z-index: 1100;
+      color: var(--text-main);
+    }
+
+    .mega-menu-panel-6cat::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: transparent;
+      z-index: -1;
+    }
+
+    .nav-item:hover .mega-menu-panel-6cat,
+    .nav-item.open-dropdown .mega-menu-panel-6cat {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .nav-item:hover .caret-icon,
+    .nav-item.open-dropdown .caret-icon {
+      transform: rotate(180deg);
+    }
+
+    .mega-grid-6 {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      text-align: left;
+    }
+
+    .mega-col-title-sm {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--brand-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid rgba(0, 82, 155, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mega-sub-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mega-sub-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: block;
+    }
+
+    .mega-sub-links a:hover {
+      color: var(--brand-blue);
+      transform: translateX(3px);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-toggle {
+      background: var(--surface-white);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-navy);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .rfq-btn {
+      background: linear-gradient(135deg, var(--brand-blue), #00386B);
+      color: var(--surface-white);
+      padding: 10px 22px;
+      border-radius: var(--radius-full);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
 
     .top-utility-bar {
-      background: #051322; color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
-      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: fixed; top: 0; left: 0; width: 100%; z-index: 1050;
+      background: #051322;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.78rem;
+      padding: 6px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1050;
     }
-    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
-    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
-    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
 
-    .page-hero { padding: 140px 40px 50px; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white); margin-top: 31px; }
-    .hero-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
-    .hero-title { font-size: 2.3rem; font-weight: 800; margin-bottom: 14px; }
-    .hero-desc { font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 20px; }
-    .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
+    .utility-left,
+    .utility-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
 
-    .section { padding: 40px 40px; }
-    .compact-spec-container { max-width: 1400px; margin: 0 auto; }
+    .utility-left a,
+    .utility-right a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .region-badge {
+      background: rgba(0, 168, 255, 0.18);
+      color: var(--accent-azure);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
+    .page-hero {
+      padding: 140px 40px 50px;
+      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
+      color: var(--surface-white);
+      margin-top: 31px;
+    }
+
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 2.3rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .product-hero-img {
+      width: 100%;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .section {
+      padding: 40px 40px;
+    }
+
+    .compact-spec-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
 
     .filter-pills-bar {
-      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-      margin-bottom: 35px; background: #FFFFFF; padding: 16px; border-radius: 16px;
-      border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
-      position: sticky; top: 90px; z-index: 900; backdrop-filter: blur(12px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 35px;
+      background: #FFFFFF;
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 90px;
+      z-index: 900;
+      backdrop-filter: blur(12px);
     }
+
     .filter-btn {
-      background: #F1F5F9; border: 1px solid #CBD5E1; color: var(--text-main);
-      padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.86rem; font-weight: 700;
-      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      color: var(--text-main);
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .filter-btn:hover { border-color: var(--brand-blue); color: var(--brand-blue); background: #EFF6FF; }
-    .filter-btn.active { background: var(--primary-navy); color: #FFFFFF; border-color: var(--primary-navy); box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2); }
+
+    .filter-btn:hover {
+      border-color: var(--brand-blue);
+      color: var(--brand-blue);
+      background: #EFF6FF;
+    }
+
+    .filter-btn.active {
+      background: var(--primary-navy);
+      color: #FFFFFF;
+      border-color: var(--primary-navy);
+      box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2);
+    }
 
     .cat-spec-block {
-      background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05); margin-bottom: 45px;
-      overflow: hidden; scroll-margin-top: 170px; transition: all 0.3s ease;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      margin-bottom: 45px;
+      overflow: hidden;
+      scroll-margin-top: 170px;
+      transition: all 0.3s ease;
     }
-    .cat-spec-header { background: #0A2540; color: #FFFFFF; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
-    .cat-spec-title { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+
+    .cat-spec-header {
+      background: #0A2540;
+      color: #FFFFFF;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cat-spec-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
     /* Ultra-Modern Studio-Grade Visual Scale Cards Wall */
     /* Sleek Modern Studio Spec Cards Wall */
     .scale-card-wall {
-      background: #F8FAFC; padding: 24px; border-bottom: 1px solid var(--border-color);
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;
+      background: #F8FAFC;
+      padding: 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
     }
+
     .scale-card-item {
-      background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 18px;
-      display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: var(--transition); position: relative;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      transition: var(--transition);
+      position: relative;
     }
+
     .scale-card-item:hover {
-      transform: translateY(-4px); box-shadow: 0 12px 24px rgba(10, 37, 64, 0.1);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(10, 37, 64, 0.1);
       border-color: var(--brand-blue);
     }
-    .scale-card-top { display: flex; align-items: center; justify-content: space-between; }
-    .scale-card-size { font-size: 1.3rem; font-weight: 900; color: var(--primary-navy); display: flex; align-items: baseline; gap: 6px; }
-    .scale-card-size small { font-size: 0.95rem; font-weight: 800; color: var(--brand-blue); }
-    
+
+    .scale-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .scale-card-size {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--primary-navy);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .scale-card-size small {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--brand-blue);
+    }
+
     .scale-pill-count {
-      background: #0A2540; color: #FFFFFF; font-size: 0.78rem; font-weight: 800;
-      padding: 4px 12px; border-radius: var(--radius-full);
+      background: #0A2540;
+      color: #FFFFFF;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
     }
+
     .scale-pill-red {
-      background: #DC2626; color: #FFFFFF; font-size: 0.76rem;
-      font-weight: 900; width: 26px; height: 26px; border-radius: 50%; display: flex;
-      align-items: center; justify-content: center;
+      background: #DC2626;
+      color: #FFFFFF;
+      font-size: 0.76rem;
+      font-weight: 900;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
     /* Proportional 2D Vector Bag Outlines Ramp (方案 A：真實比例梯次牆) */
     .bag-contour-box {
-      height: 130px; display: flex; align-items: flex-end; justify-content: center;
-      padding: 12px; background: #F1F5F9; border-radius: 10px; border: 1px dashed #CBD5E1;
+      height: 130px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 12px;
+      background: #F1F5F9;
+      border-radius: 10px;
+      border: 1px dashed #CBD5E1;
     }
+
     .bag-outline-shape {
-      border: 2px dashed #00A8FF; background: rgba(0, 168, 255, 0.08);
-      border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      transition: all 0.3s ease; position: relative; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      border: 2px dashed #00A8FF;
+      background: rgba(0, 168, 255, 0.08);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      position: relative;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
     }
+
     .bag-outline-shape-red {
-      border-color: #EF4444; background: rgba(239, 68, 68, 0.08);
+      border-color: #EF4444;
+      background: rgba(239, 68, 68, 0.08);
     }
+
     .bag-outline-tag {
-      font-size: 0.72rem; font-weight: 900; color: var(--primary-navy); background: rgba(255,255,255,0.92);
-      padding: 2px 6px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); text-align: center;
+      font-size: 0.72rem;
+      font-weight: 900;
+      color: var(--primary-navy);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 2px 6px;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
+
     .scale-card-item:hover .bag-outline-shape {
-      background: rgba(0, 168, 255, 0.2); transform: scale(1.05); border-style: solid;
+      background: rgba(0, 168, 255, 0.2);
+      transform: scale(1.05);
+      border-style: solid;
     }
+
     .scale-card-item:hover .bag-outline-shape-red {
       background: rgba(239, 68, 68, 0.2);
     }
 
     .studio-photo-banner {
-      background: #FFFFFF; padding: 20px 24px; border-bottom: 1px solid var(--border-color);
-      display: flex; align-items: center; gap: 24px;
+      background: #FFFFFF;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 24px;
     }
+
     .studio-photo-img {
-      width: 220px; height: 130px; object-fit: cover; border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08); border: 1px solid var(--border-color);
+      width: 220px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--border-color);
     }
-    .studio-photo-info { flex: 1; }
-    .studio-photo-title { font-size: 1.1rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 6px; }
-    .studio-photo-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+    .studio-photo-info {
+      flex: 1;
+    }
+
+    .studio-photo-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary-navy);
+      margin-bottom: 6px;
+    }
+
+    .studio-photo-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
 
     /* EDM 卡片列樣式 (與 can-liners.html 一致) */
-    .edm-card-rows-wrapper { display: flex; flex-direction: column; gap: 12px; padding: 0 24px 24px; }
-    .edm-spec-card-item {
-      background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 14px; padding: 14px 20px;
-      display: flex; justify-content: space-between; align-items: center; gap: 16px;
-      transition: all 0.25s ease; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    .edm-card-rows-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 24px 24px;
     }
-    .edm-spec-card-item:hover { border-color: #00529B; box-shadow: 0 6px 18px rgba(0, 82, 155, 0.12); transform: translateY(-2px); }
-    .edm-spec-card-left { display: flex; align-items: center; gap: 12px 8px; flex-wrap: wrap; flex: 1 1 auto; min-width: 0; }
-    .edm-size-pill { font-size: 1.02rem; font-weight: 900; color: #0A2540; background: #F1F5F9; padding: 4px 14px; border-radius: 8px; border: 1px solid #CBD5E1; }
-    .edm-spec-card-dim { font-size: 0.92rem; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 8px; }
-    .color-pill-clear { background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
-    .color-pill-black { background: #1E293B; color: #FFFFFF; padding: 2px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
-    .tag-green-eco { background: #D1FAE5; color: #059669; border: 1px solid #A7F3D0; padding: 2px 10px; border-radius: 4px; font-weight: 800; font-size: 0.8rem; }
-    .edm-size-pill, .edm-spec-card-dim, .color-pill-clear, .color-pill-black, .tag-green-eco { white-space: nowrap; }
 
-    .compact-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    .compact-table th { background: #F1F5F9; color: #334155; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; padding: 12px 24px; text-align: left; border-bottom: 1px solid #CBD5E1; }
-    .compact-table td { padding: 12px 24px; border-bottom: 1px solid #E2E8F0; color: #1E293B; font-weight: 600; }
-    .compact-table tr:nth-child(even) td { background: #F8FAFC; }
-    .compact-table tr:hover td { background: #EFF6FF; }
+    .edm-spec-card-item {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 14px;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
 
-    .tag-capacity { display: inline-block; background: #0A2540; color: #FFFFFF; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.84rem; }
-    .tag-size { display: inline-block; background: #E0F2FE; color: #0284C7; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
-    .tag-qty { display: inline-block; background: #FEF3C7; color: #D97706; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
-    .tag-type { display: inline-block; background: #F3E8FF; color: #7E22CE; font-weight: 800; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; }
+    .edm-spec-card-item:hover {
+      border-color: #00529B;
+      box-shadow: 0 6px 18px rgba(0, 82, 155, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .edm-spec-card-left {
+      display: flex;
+      align-items: center;
+      gap: 12px 8px;
+      flex-wrap: wrap;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .edm-size-pill {
+      font-size: 1.02rem;
+      font-weight: 900;
+      color: #0A2540;
+      background: #F1F5F9;
+      padding: 4px 14px;
+      border-radius: 8px;
+      border: 1px solid #CBD5E1;
+    }
+
+    .edm-spec-card-dim {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .color-pill-clear {
+      background: #F1F5F9;
+      color: #475569;
+      border: 1px solid #CBD5E1;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .color-pill-black {
+      background: #1E293B;
+      color: #FFFFFF;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .tag-green-eco {
+      background: #D1FAE5;
+      color: #059669;
+      border: 1px solid #A7F3D0;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    .edm-size-pill,
+    .edm-spec-card-dim,
+    .color-pill-clear,
+    .color-pill-black,
+    .tag-green-eco {
+      white-space: nowrap;
+    }
+
+    .compact-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .compact-table th {
+      background: #F1F5F9;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      text-align: left;
+      border-bottom: 1px solid #CBD5E1;
+    }
+
+    .compact-table td {
+      padding: 12px 24px;
+      border-bottom: 1px solid #E2E8F0;
+      color: #1E293B;
+      font-weight: 600;
+    }
+
+    .compact-table tr:nth-child(even) td {
+      background: #F8FAFC;
+    }
+
+    .compact-table tr:hover td {
+      background: #EFF6FF;
+    }
+
+    .tag-capacity {
+      display: inline-block;
+      background: #0A2540;
+      color: #FFFFFF;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.84rem;
+    }
+
+    .tag-size {
+      display: inline-block;
+      background: #E0F2FE;
+      color: #0284C7;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
+
+    .tag-qty {
+      display: inline-block;
+      background: #FEF3C7;
+      color: #D97706;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
+
+    .tag-type {
+      display: inline-block;
+      background: #F3E8FF;
+      color: #7E22CE;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
 
     .btn-quote-add {
-      background: #EFF6FF; border: 1px solid #BFDBFE; color: var(--brand-blue);
-      padding: 5px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 800;
-      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      color: var(--brand-blue);
+      padding: 5px 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .btn-quote-add:hover { background: var(--brand-blue); color: #FFFFFF; border-color: var(--brand-blue); }
-    .btn-quote-add.added { background: #10B981; color: #FFFFFF; border-color: #10B981; }
 
-    tr.row-selected td { background: #F0FDF4 !important; }
+    .btn-quote-add:hover {
+      background: var(--brand-blue);
+      color: #FFFFFF;
+      border-color: var(--brand-blue);
+    }
+
+    .btn-quote-add.added {
+      background: #10B981;
+      color: #FFFFFF;
+      border-color: #10B981;
+    }
+
+    tr.row-selected td {
+      background: #F0FDF4 !important;
+    }
 
     .rfq-floating-basket {
-      position: fixed; bottom: 25px; right: 25px; z-index: 9999;
-      background: #0A2540; color: #FFFFFF; border: 1px solid #00A8FF;
-      border-radius: 16px; padding: 14px 22px; box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-      display: flex; align-items: center; gap: 18px; transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      transform: translateY(100px); opacity: 0; pointer-events: none;
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 9999;
+      background: #0A2540;
+      color: #FFFFFF;
+      border: 1px solid #00A8FF;
+      border-radius: 16px;
+      padding: 14px 22px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: translateY(100px);
+      opacity: 0;
+      pointer-events: none;
     }
-    .rfq-floating-basket.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
-    .basket-info { font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+
+    .rfq-floating-basket.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .basket-info {
+      font-size: 0.92rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .basket-clear-btn {
-      background: transparent; border: 1px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.8);
-      padding: 7px 14px; border-radius: 9999px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: rgba(255, 255, 255, 0.8);
+      padding: 7px 14px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
       transition: all 0.2s ease;
     }
-    .basket-clear-btn:hover { border-color: #00A8FF; color: #00A8FF; }
-    .basket-count-badge { background: #00A8FF; color: #0A2540; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 900; font-size: 0.85rem; }
-    .basket-submit-btn {
-      background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;
-      border: none; padding: 8px 18px; border-radius: var(--radius-full);
-      font-size: 0.86rem; font-weight: 800; cursor: pointer; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease;
+
+    .basket-clear-btn:hover {
+      border-color: #00A8FF;
+      color: #00A8FF;
     }
 
-    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+    .basket-count-badge {
+      background: #00A8FF;
+      color: #0A2540;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-weight: 900;
+      font-size: 0.85rem;
+    }
+
+    .basket-submit-btn {
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      border: none;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-size: 0.86rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .footer {
+      background: var(--primary-navy);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 60px 40px 30px;
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 40px;
+      padding-top: 20px;
+      text-align: center;
+    }
 
     @media (max-width: 900px) {
-      .hero-container { grid-template-columns: 1fr; }
-      .mega-menu-panel-6cat, .top-utility-bar { display: none; }
-      .header { top: 0; }
+      .hero-container {
+        grid-template-columns: 1fr;
+      }
+
+      .mega-menu-panel-6cat,
+      .top-utility-bar {
+        display: none;
+      }
+
+      .header {
+        top: 0;
+      }
     }
   </style>
   <link rel="stylesheet" href="../src/navbar.css">
   <link rel="stylesheet" href="../src/responsive.css">
 </head>
+
 <body>
   <!-- 集團頂樓列 -->
   <div class="top-utility-bar">
     <div class="utility-left">
       <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> 台灣塑膠工業股份有限公司</a>
+      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span>
+        台灣塑膠工業股份有限公司</a>
       <a href="https://www.inteplast.com/" target="_blank" rel="noopener">Inteplast USA</a>
     </div>
     <div class="utility-right">
@@ -286,7 +902,8 @@
 
       <!-- 6 大分類 Mega Menu -->
       <li class="nav-item">
-        <a href="index.html" class="nav-link-item active product-menu-trigger" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+        <a href="index.html" class="nav-link-item active product-menu-trigger" data-tw="產品中心" data-en="Products">產品中心 <i
+            class="fa-solid fa-chevron-down caret-icon"></i></a>
         <div class="mega-menu-panel-6cat">
           <div class="mega-grid-6">
             <div>
@@ -337,16 +954,20 @@
         </div>
       </li>
 
-      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
-      <li class="nav-item"><a href="../contact.html" class="nav-link-item" data-tw="聯繫我們" data-en="Contact Us">聯繫我們</a></li>
+      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item" data-tw="永續發展"
+          data-en="Sustainability">永續發展</a></li>
+      <li class="nav-item"><a href="../contact.html" class="nav-link-item" data-tw="聯繫我們" data-en="Contact Us">聯繫我們</a>
+      </li>
     </ul>
 
     <div class="header-right">
       <button class="search-trigger-btn" id="globalSearchTrigger" type="button" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
-      <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
-      <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i><span data-tw="聯絡我們" data-en="Contact Us">聯絡我們</span></a>
+      <button class="lang-toggle" id="langBtn" type="button"
+        onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
+      <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i><span data-tw="聯絡我們"
+          data-en="Contact Us">聯絡我們</span></a>
     </div>
   </header>
 
@@ -354,12 +975,13 @@
   <section class="page-hero">
     <div class="hero-container">
       <div>
-        <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">DRAW-TAPE TRASH & MEDICAL BAGS</span>
+        <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">DRAW-TAPE
+          TRASH & MEDICAL BAGS</span>
         <h1 class="hero-title">自動拉繩袋系列 (Draw-Tape Bags) 專頁</h1>
         <p class="hero-desc">
           臺灣營德自動拉繩袋包含【拉繩感染清潔袋/醫療袋】與【拉繩清潔袋 (經濟包/超量包)】。一拉即封口、衛生免沾手，提供極致韌性與多種容積選擇。
         </p>
-        
+
       </div>
       <div>
         <img src="../src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg" alt="拉繩清潔袋展示" class="product-hero-img">
@@ -372,10 +994,14 @@
 
       <!-- Filter Pills Bar -->
       <div class="filter-pills-bar">
-        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
-        <button class="filter-btn" onclick="filterCategory('medical', this)"><i class="fa-solid fa-notes-medical"></i> 拉繩感染清潔袋 (醫療袋)</button>
-        <button class="filter-btn" onclick="filterCategory('general', this)"><i class="fa-solid fa-ribbon"></i> 拉繩清潔袋 (一般/經濟/超量包)</button>
-        <button class="filter-btn" onclick="filterCategory('eco-draw-tape', this)"><i class="fa-solid fa-leaf"></i> 環保拉繩清潔袋</button>
+        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i>
+          顯示全部產品 All</button>
+        <button class="filter-btn" onclick="filterCategory('medical', this)"><i class="fa-solid fa-notes-medical"></i>
+          拉繩感染清潔袋 (醫療袋)</button>
+        <button class="filter-btn" onclick="filterCategory('general', this)"><i class="fa-solid fa-ribbon"></i> 拉繩清潔袋
+          (一般/經濟/超量包)</button>
+        <button class="filter-btn" onclick="filterCategory('eco-draw-tape', this)"><i class="fa-solid fa-leaf"></i>
+          環保拉繩清潔袋</button>
       </div>
 
       <!-- 1. 拉繩感染清潔袋(拉繩醫療袋) PRODUCT BLOCK -->
@@ -398,102 +1024,109 @@
 
         <!-- 原圖 DM 風格產品圖卡列表 (無 table) -->
         <div class="scale-card-wall">
-  <!-- 小 8L -->
-  <div class="scale-card-item">
-    <div class="scale-card-top">
-      <div class="scale-card-size">小 <small>8L</small></div>
-      <div style="display: flex; gap: 6px; align-items: center;">
-        <span class="scale-pill-count">40張</span>
-        <span class="scale-pill-red">紅</span>
-      </div>
-    </div>
-    <div class="bag-contour-box">
-      <div class="bag-outline-shape bag-outline-shape-red" style="width: 45px; height: 46px;">
-        <span class="bag-outline-tag">8L</span>
-      </div>
-    </div>
-    <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 39 × 長 40 cm</div>
-    <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 8L小 (39x40cm, 40張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-  </div>
-  <!-- 中 20L -->
-  <div class="scale-card-item">
-    <div class="scale-card-top">
-      <div class="scale-card-size">中 <small>20L</small></div>
-      <div style="display: flex; gap: 6px; align-items: center;">
-        <span class="scale-pill-count">22張</span>
-        <span class="scale-pill-red">紅</span>
-      </div>
-    </div>
-    <div class="bag-contour-box">
-      <div class="bag-outline-shape bag-outline-shape-red" style="width: 55px; height: 58px;">
-        <span class="bag-outline-tag">20L</span>
-      </div>
-    </div>
-    <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 52 × 長 55 cm</div>
-    <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 20L中 (52x55cm, 22張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-  </div>
-  <!-- 大 50L -->
-  <div class="scale-card-item">
-    <div class="scale-card-top">
-      <div class="scale-card-size">大 <small>50L</small></div>
-      <div style="display: flex; gap: 6px; align-items: center;">
-        <span class="scale-pill-count">12張</span>
-        <span class="scale-pill-red">紅</span>
-      </div>
-    </div>
-    <div class="bag-contour-box">
-      <div class="bag-outline-shape bag-outline-shape-red" style="width: 70px; height: 77px;">
-        <span class="bag-outline-tag">50L</span>
-      </div>
-    </div>
-    <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 69 × 長 78 cm</div>
-    <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 50L大 (69x78cm, 12張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-  </div>
-  <!-- 特大 70L -->
-  <div class="scale-card-item">
-    <div class="scale-card-top">
-      <div class="scale-card-size">特大 <small>70L</small></div>
-      <div style="display: flex; gap: 6px; align-items: center;">
-        <span class="scale-pill-count">8張</span>
-        <span class="scale-pill-red">紅</span>
-      </div>
-    </div>
-    <div class="bag-contour-box">
-      <div class="bag-outline-shape bag-outline-shape-red" style="width: 78px; height: 93px;">
-        <span class="bag-outline-tag">70L</span>
-      </div>
-    </div>
-    <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 77 × 長 92 cm</div>
-    <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 70L特大 (77x92cm, 8張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-  </div>
-  <!-- 超大 90L -->
-  <div class="scale-card-item">
-    <div class="scale-card-top">
-      <div class="scale-card-size">超大 <small>90L</small></div>
-      <div style="display: flex; gap: 6px; align-items: center;">
-        <span class="scale-pill-count">12張</span>
-        <span class="scale-pill-red">紅</span>
-      </div>
-    </div>
-    <div class="bag-contour-box">
-      <div class="bag-outline-shape bag-outline-shape-red" style="width: 95px; height: 84px;">
-        <span class="bag-outline-tag">90L</span>
-      </div>
-    </div>
-    <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 95 × 長 84 cm</div>
-    <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 90L超大 (95x84cm, 12張/捲)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-  </div>
-</div>
+          <!-- 小 8L -->
+          <div class="scale-card-item">
+            <div class="scale-card-top">
+              <div class="scale-card-size">小 <small>8L</small></div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span class="scale-pill-count">40張</span>
+                <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape bag-outline-shape-red" style="width: 45px; height: 46px;">
+                <span class="bag-outline-tag">8L</span>
+              </div>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 39 × 長 40 cm</div>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 8L小 (39x40cm, 40張/捲)', this)"><i
+                class="fa-solid fa-plus"></i> 勾選詢價</button>
+          </div>
+          <!-- 中 20L -->
+          <div class="scale-card-item">
+            <div class="scale-card-top">
+              <div class="scale-card-size">中 <small>20L</small></div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span class="scale-pill-count">22張</span>
+                <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape bag-outline-shape-red" style="width: 55px; height: 58px;">
+                <span class="bag-outline-tag">20L</span>
+              </div>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 52 × 長 55 cm</div>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 20L中 (52x55cm, 22張/捲)', this)"><i
+                class="fa-solid fa-plus"></i> 勾選詢價</button>
+          </div>
+          <!-- 大 50L -->
+          <div class="scale-card-item">
+            <div class="scale-card-top">
+              <div class="scale-card-size">大 <small>50L</small></div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span class="scale-pill-count">12張</span>
+                <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape bag-outline-shape-red" style="width: 70px; height: 77px;">
+                <span class="bag-outline-tag">50L</span>
+              </div>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 69 × 長 78 cm</div>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 50L大 (69x78cm, 12張/捲)', this)"><i
+                class="fa-solid fa-plus"></i> 勾選詢價</button>
+          </div>
+          <!-- 特大 70L -->
+          <div class="scale-card-item">
+            <div class="scale-card-top">
+              <div class="scale-card-size">特大 <small>70L</small></div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span class="scale-pill-count">8張</span>
+                <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape bag-outline-shape-red" style="width: 78px; height: 93px;">
+                <span class="bag-outline-tag">70L</span>
+              </div>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 77 × 長 92 cm</div>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 70L特大 (77x92cm, 8張/捲)', this)"><i
+                class="fa-solid fa-plus"></i> 勾選詢價</button>
+          </div>
+          <!-- 超大 90L -->
+          <div class="scale-card-item">
+            <div class="scale-card-top">
+              <div class="scale-card-size">超大 <small>90L</small></div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span class="scale-pill-count">12張</span>
+                <span class="scale-pill-red">紅</span>
+              </div>
+            </div>
+            <div class="bag-contour-box">
+              <div class="bag-outline-shape bag-outline-shape-red" style="width: 95px; height: 84px;">
+                <span class="bag-outline-tag">90L</span>
+              </div>
+            </div>
+            <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 84 × 長 95 cm</div>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩醫療袋 · 90L超大 (95x84cm, 12張/捲)', this)"><i
+                class="fa-solid fa-plus"></i> 勾選詢價</button>
+          </div>
+        </div>
 
         <!-- 原廠 EDM 醫療廢棄物與主要來源說明卡 -->
         <div style="margin: 20px; padding: 20px; background: #FFF5F5; border: 1px solid #FECDD3; border-radius: 14px;">
-          <div style="font-size: 1.05rem; font-weight: 800; color: #9F1239; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <div
+            style="font-size: 1.05rem; font-weight: 800; color: #9F1239; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
             <i class="fa-solid fa-biohazard"></i> 台塑拉繩感染袋 · 原廠廢棄物規格與應用說明
           </div>
           <div style="display: grid; gap: 8px; font-size: 0.88rem; color: #4C0519;">
             <div><strong>【廢棄物類別】</strong> 感染性事業廢棄物</div>
             <div><strong>【廢棄物特性】</strong> 可燃</div>
-            <div><strong>【廢棄物種類】</strong> 生化、病理學廢棄物、截肢、臟器、動物屍體、胎盤、培養基、廢血、體液、排泄物、引流液、過濾紙、手術手套棉花、紗布、布類、木質壓舌片、透析用具、塑膠製品</div>
+            <div><strong>【廢棄物種類】</strong> 生化、病理學廢棄物、截肢、臟器、動物屍體、胎盤、培養基、廢血、體液、排泄物、引流液、過濾紙、手術手套棉花、紗布、布類、木質壓舌片、透析用具、塑膠製品
+            </div>
             <div><strong>【主要來源】</strong> 隔離病房、手術室、產房、檢驗室、實驗室、病房、治療室、血液透析、血庫、解剖室</div>
           </div>
         </div>
@@ -507,12 +1140,17 @@
 
         <!-- 原廠 EDM 經典風格產品頭卡 -->
         <div style="padding: 24px 24px 0;">
-          <div style="background: linear-gradient(135deg, #F8FAFC, #EFF6FF); border: 2px solid #BFDBFE; border-radius: 16px; padding: 20px 24px; margin-bottom: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #CBD5E1; padding-bottom: 12px; margin-bottom: 14px;">
+          <div
+            style="background: linear-gradient(135deg, #F8FAFC, #EFF6FF); border: 2px solid #BFDBFE; border-radius: 16px; padding: 20px 24px; margin-bottom: 20px;">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #CBD5E1; padding-bottom: 12px; margin-bottom: 14px;">
               <div>
-                <h3 style="font-size: 1.4rem; font-weight: 900; color: #0A2540;">台塑拉繩清潔袋 <span style="font-size: 0.85rem; color: #00529B; font-weight: 700; background: #DBEAFE; padding: 3px 10px; border-radius: 6px;">多 30% 以上使用容量</span></h3>
+                <h3 style="font-size: 1.4rem; font-weight: 900; color: #0A2540;">台塑拉繩清潔袋 <span
+                    style="font-size: 0.85rem; color: #00529B; font-weight: 700; background: #DBEAFE; padding: 3px 10px; border-radius: 6px;">多
+                    30% 以上使用容量</span></h3>
               </div>
-              <div style="font-size: 0.85rem; font-weight: 700; color: #475569; background: #FFFFFF; padding: 4px 14px; border-radius: 8px; border: 1px solid #CBD5E1;">
+              <div
+                style="font-size: 0.85rem; font-weight: 700; color: #475569; background: #FFFFFF; padding: 4px 14px; border-radius: 8px; border: 1px solid #CBD5E1;">
                 材質：聚乙烯 (PE)
               </div>
             </div>
@@ -520,19 +1158,27 @@
             <!-- 原廠 4 大圓形特色標籤 -->
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; text-align: center;">
               <div style="background: #FFFFFF; border: 1px solid #CBD5E1; padding: 10px; border-radius: 12px;">
-                <div style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;"><i class="fa-solid fa-ribbon"></i></div>
+                <div
+                  style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;">
+                  <i class="fa-solid fa-ribbon"></i></div>
                 <div style="font-size: 0.82rem; font-weight: 800; color: #1E293B;">拉繩設計 防止散發惡臭</div>
               </div>
               <div style="background: #FFFFFF; border: 1px solid #CBD5E1; padding: 10px; border-radius: 12px;">
-                <div style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;"><i class="fa-solid fa-eye-slash"></i></div>
+                <div
+                  style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;">
+                  <i class="fa-solid fa-eye-slash"></i></div>
                 <div style="font-size: 0.82rem; font-weight: 800; color: #1E293B;">不透明 / 高強韌</div>
               </div>
               <div style="background: #FFFFFF; border: 1px solid #CBD5E1; padding: 10px; border-radius: 12px;">
-                <div style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;"><i class="fa-solid fa-circle-notch"></i></div>
+                <div
+                  style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;">
+                  <i class="fa-solid fa-circle-notch"></i></div>
                 <div style="font-size: 0.82rem; font-weight: 800; color: #1E293B;">實心捲取</div>
               </div>
               <div style="background: #FFFFFF; border: 1px solid #CBD5E1; padding: 10px; border-radius: 12px;">
-                <div style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;"><i class="fa-solid fa-box-open"></i></div>
+                <div
+                  style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;">
+                  <i class="fa-solid fa-box-open"></i></div>
                 <div style="font-size: 0.82rem; font-weight: 800; color: #1E293B;">抽取式 / 盒裝 / 捲裝</div>
               </div>
             </div>
@@ -559,12 +1205,14 @@
               <span class="scale-pill-count" style="background: #4F46E5;">24張 / 經濟包</span>
             </div>
             <div class="bag-contour-box">
-              <div class="bag-outline-shape" style="width: 75px; height: 86px; border-color: #4F46E5; background: rgba(79, 70, 229, 0.08);">
+              <div class="bag-outline-shape"
+                style="width: 75px; height: 86px; border-color: #4F46E5; background: rgba(79, 70, 229, 0.08);">
                 <span class="bag-outline-tag">45L</span>
               </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 65 × 長 75 cm</div>
-            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 45L大 (65x75cm, 24張經濟包)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 45L大 (65x75cm, 24張經濟包)', this)"><i
+                class="fa-solid fa-plus"></i> 勾選詢價</button>
           </div>
           <!-- 特大 70L -->
           <div class="scale-card-item">
@@ -573,12 +1221,14 @@
               <span class="scale-pill-count" style="background: #0D9488;">18張 / 經濟包</span>
             </div>
             <div class="bag-contour-box">
-              <div class="bag-outline-shape" style="width: 90px; height: 101px; border-color: #0D9488; background: rgba(13, 148, 136, 0.08);">
+              <div class="bag-outline-shape"
+                style="width: 90px; height: 101px; border-color: #0D9488; background: rgba(13, 148, 136, 0.08);">
                 <span class="bag-outline-tag">70L</span>
               </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 78 × 長 88 cm</div>
-            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 70L特大 (78x88cm, 18張經濟包)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 70L特大 (78x88cm, 18張經濟包)', this)"><i
+                class="fa-solid fa-plus"></i> 勾選詢價</button>
           </div>
           <!-- 超大 90L 經濟包 -->
           <div class="scale-card-item">
@@ -587,12 +1237,14 @@
               <span class="scale-pill-count" style="background: #16A34A;">14張 / 經濟包</span>
             </div>
             <div class="bag-contour-box">
-              <div class="bag-outline-shape" style="width: 97px; height: 109px; border-color: #16A34A; background: rgba(22, 163, 74, 0.08);">
+              <div class="bag-outline-shape"
+                style="width: 97px; height: 109px; border-color: #16A34A; background: rgba(22, 163, 74, 0.08);">
                 <span class="bag-outline-tag">90L</span>
               </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 84 × 長 95 cm</div>
-            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 90L超大 (84x95cm, 14張經濟包)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 90L超大 (84x95cm, 14張經濟包)', this)"><i
+                class="fa-solid fa-plus"></i> 勾選詢價</button>
           </div>
           <!-- 超大 90L 超量包 -->
           <div class="scale-card-item">
@@ -601,12 +1253,14 @@
               <span class="scale-pill-count" style="background: #BE185D;">25張 / 超量包</span>
             </div>
             <div class="bag-contour-box">
-              <div class="bag-outline-shape" style="width: 97px; height: 109px; border-color: #BE185D; background: rgba(190, 24, 93, 0.08);">
+              <div class="bag-outline-shape"
+                style="width: 97px; height: 109px; border-color: #BE185D; background: rgba(190, 24, 93, 0.08);">
                 <span class="bag-outline-tag">90L+</span>
               </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 84 × 長 95 cm</div>
-            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 90L超大 (84x95cm, 25張超量包)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 90L超大 (84x95cm, 25張超量包)', this)"><i
+                class="fa-solid fa-plus"></i> 勾選詢價</button>
           </div>
           <!-- 超特大 125L -->
           <div class="scale-card-item">
@@ -615,12 +1269,14 @@
               <span class="scale-pill-count" style="background: #0284C7;">15張 / 經濟包</span>
             </div>
             <div class="bag-contour-box">
-              <div class="bag-outline-shape" style="width: 107px; height: 115px; border-color: #0284C7; background: rgba(2, 132, 199, 0.08);">
+              <div class="bag-outline-shape"
+                style="width: 107px; height: 115px; border-color: #0284C7; background: rgba(2, 132, 199, 0.08);">
                 <span class="bag-outline-tag">125L</span>
               </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 93 × 長 100 cm</div>
-            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 125L超特大 (93x100cm, 15張經濟包)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 125L超特大 (93x100cm, 15張經濟包)', this)"><i
+                class="fa-solid fa-plus"></i> 勾選詢價</button>
           </div>
           <!-- 巨無霸 130L -->
           <div class="scale-card-item">
@@ -629,12 +1285,14 @@
               <span class="scale-pill-count" style="background: #EA580C;">20張 / 超量包</span>
             </div>
             <div class="bag-contour-box">
-              <div class="bag-outline-shape" style="width: 108px; height: 117px; border-color: #EA580C; background: rgba(234, 88, 12, 0.08);">
+              <div class="bag-outline-shape"
+                style="width: 108px; height: 117px; border-color: #EA580C; background: rgba(234, 88, 12, 0.08);">
                 <span class="bag-outline-tag">130L</span>
               </div>
             </div>
             <div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 94 × 長 102 cm</div>
-            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 130L巨無霸 (94x102cm, 20張超量包)', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+            <button class="btn-quote-add" onclick="toggleQuoteItem('拉繩清潔袋 · 130L巨無霸 (94x102cm, 20張超量包)', this)"><i
+                class="fa-solid fa-plus"></i> 勾選詢價</button>
           </div>
         </div>
 
@@ -657,7 +1315,8 @@
             </div>
             <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
             <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 大', this)"><i
+                  class="fa-solid fa-plus"></i> 勾選詢價</button>
             </div>
           </div>
 
@@ -670,7 +1329,8 @@
             </div>
             <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
             <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 特大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 特大', this)"><i
+                  class="fa-solid fa-plus"></i> 勾選詢價</button>
             </div>
           </div>
 
@@ -683,7 +1343,8 @@
             </div>
             <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
             <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超大', this)"><i
+                  class="fa-solid fa-plus"></i> 勾選詢價</button>
             </div>
           </div>
 
@@ -696,18 +1357,21 @@
             </div>
             <div class="edm-spec-card-dim"><i class="fa-solid fa-palette"></i> 可選顏色：本色 / 黑色</div>
             <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超特大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 超特大', this)"><i
+                  class="fa-solid fa-plus"></i> 勾選詢價</button>
             </div>
           </div>
 
           <div class="edm-spec-card-item" style="background:#F0FDF4; border-color:#A7F3D0;">
             <div class="edm-spec-card-left">
-              <span class="edm-size-pill" style="background:#D1FAE5;border-color:#6EE7B7;color:#065F46;"><i class="fa-solid fa-palette"></i> 客製尺寸 / 顏色</span>
+              <span class="edm-size-pill" style="background:#D1FAE5;border-color:#6EE7B7;color:#065F46;"><i
+                  class="fa-solid fa-palette"></i> 客製尺寸 / 顏色</span>
               <span class="tag-green-eco"><i class="fa-solid fa-recycle"></i> 環保再生</span>
             </div>
             <div class="edm-spec-card-dim" style="color:#059669;">可客製尺寸與顏色，歡迎洽詢</div>
             <div>
-              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 客製尺寸顏色', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
+              <button class="btn-quote-add" onclick="toggleQuoteItem('環保拉繩清潔袋 · 客製尺寸顏色', this)"><i
+                  class="fa-solid fa-plus"></i> 勾選詢價</button>
             </div>
           </div>
 
@@ -720,7 +1384,8 @@
   <!-- Floating RFQ Quote Basket -->
   <div id="rfqFloatingBasket" class="rfq-floating-basket">
     <div class="basket-info">
-      <i class="fa-solid fa-cart-flatbed" style="color: #00A8FF;"></i> 已選擇 <span id="quoteCountBadge" class="basket-count-badge">0</span> 項產品規格
+      <i class="fa-solid fa-cart-flatbed" style="color: #00A8FF;"></i> 已選擇 <span id="quoteCountBadge"
+        class="basket-count-badge">0</span> 項產品規格
     </div>
     <button onclick="clearQuoteBasket()" class="basket-clear-btn" type="button">清空</button>
     <button onclick="goToRfqPage()" class="basket-submit-btn">
@@ -737,7 +1402,7 @@
   </footer>
 
   <script>
-    
+
     document.addEventListener("DOMContentLoaded", function () {
       const navItems = document.querySelectorAll(".nav-item");
       navItems.forEach(item => {
@@ -835,7 +1500,7 @@
       applyLanguage(nextLang);
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const savedLang = localStorage.getItem('preferredLang');
       if (savedLang && (savedLang === 'en' || savedLang === 'tw')) {
         applyLanguage(savedLang);
@@ -843,76 +1508,77 @@
     });
   </script>
   <script>
-  /* 跨頁詢價籃：勾選的規格存在 localStorage，切換產品頁持續累積 */
-  (function () {
-    var KEY = 'inteplastQuoteBasket';
-    function read() {
-      try { var raw = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(raw) ? raw.filter(function (v) { return typeof v === 'string'; }) : []; }
-      catch (e) { return []; }
-    }
-    var selected = new Set(read());
-    function persist() { try { localStorage.setItem(KEY, JSON.stringify(Array.from(selected))); } catch (e) {} }
-    function allBtns() { return document.querySelectorAll('.btn-quote-add, .btn-quote-dark'); }
-    function specOf(btn) {
-      var m = (btn.getAttribute('onclick') || '').match(/toggleQuoteItem\('([\s\S]*?)',\s*this\)/);
-      return m ? m[1] : (btn.getAttribute('data-quote-spec') || null);
-    }
-    function paint(btn, on) {
-      btn.classList.toggle('added', on);
-      btn.innerHTML = on ? '<i class="fa-solid fa-check"></i> 已加入詢價' : '<i class="fa-solid fa-plus"></i> 勾選詢價';
-      var row = btn.closest ? btn.closest('tr') : null;
-      if (row) row.classList.toggle('row-selected', on);
-    }
-    function refresh() {
-      var badge = document.getElementById('quoteCountBadge');
-      if (badge) badge.innerText = selected.size;
-      var basket = document.getElementById('rfqFloatingBasket');
-      if (basket) basket.classList.toggle('active', selected.size > 0);
-    }
-    var lastBtn = null, lastAt = 0;
-    function handle(spec, btn) {
-      if (!spec) return;
-      var now = Date.now();
-      if (btn && btn === lastBtn && now - lastAt < 120) return; // 避免 inline onclick 與委派重複觸發
-      lastBtn = btn; lastAt = now;
-      if (selected.has(spec)) selected.delete(spec); else selected.add(spec);
-      persist();
-      if (btn) paint(btn, selected.has(spec));
-      refresh();
-    }
-    window.toggleQuoteItem = function (spec, btn) { handle(spec, btn); };
-    window.clearQuoteBasket = function () {
-      selected.clear(); persist();
-      allBtns().forEach(function (b) { paint(b, false); });
-      refresh();
-    };
-    window.goToRfqPage = function () {
-      window.location.href = '../contact.html?specs=' + encodeURIComponent(Array.from(selected).join(' ; '));
-    };
-    // 備援：即使 inline onclick 未執行（被攔截或改寫）也能作用
-    function delegated(e) {
-      var btn = e.target && e.target.closest ? e.target.closest('.btn-quote-add, .btn-quote-dark') : null;
-      if (!btn) return;
-      handle(specOf(btn), btn);
-    }
-    ['pointerdown', 'mousedown', 'click'].forEach(function (evt) {
-      document.addEventListener(evt, delegated, true);
-      window.addEventListener(evt, delegated, true);
-    });
-    function restore() {
-      allBtns().forEach(function (b) { var s = specOf(b); if (s && selected.has(s)) paint(b, true); });
-      refresh();
-    }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', restore); else restore();
-    window.addEventListener('storage', function (e) {
-      if (e.key !== KEY) return;
-      selected = new Set(read());
-      allBtns().forEach(function (b) { var s = specOf(b); paint(b, !!(s && selected.has(s))); });
-      refresh();
-    });
-  })();
+    /* 跨頁詢價籃：勾選的規格存在 localStorage，切換產品頁持續累積 */
+    (function () {
+      var KEY = 'inteplastQuoteBasket';
+      function read() {
+        try { var raw = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(raw) ? raw.filter(function (v) { return typeof v === 'string'; }) : []; }
+        catch (e) { return []; }
+      }
+      var selected = new Set(read());
+      function persist() { try { localStorage.setItem(KEY, JSON.stringify(Array.from(selected))); } catch (e) { } }
+      function allBtns() { return document.querySelectorAll('.btn-quote-add, .btn-quote-dark'); }
+      function specOf(btn) {
+        var m = (btn.getAttribute('onclick') || '').match(/toggleQuoteItem\('([\s\S]*?)',\s*this\)/);
+        return m ? m[1] : (btn.getAttribute('data-quote-spec') || null);
+      }
+      function paint(btn, on) {
+        btn.classList.toggle('added', on);
+        btn.innerHTML = on ? '<i class="fa-solid fa-check"></i> 已加入詢價' : '<i class="fa-solid fa-plus"></i> 勾選詢價';
+        var row = btn.closest ? btn.closest('tr') : null;
+        if (row) row.classList.toggle('row-selected', on);
+      }
+      function refresh() {
+        var badge = document.getElementById('quoteCountBadge');
+        if (badge) badge.innerText = selected.size;
+        var basket = document.getElementById('rfqFloatingBasket');
+        if (basket) basket.classList.toggle('active', selected.size > 0);
+      }
+      var lastBtn = null, lastAt = 0;
+      function handle(spec, btn) {
+        if (!spec) return;
+        var now = Date.now();
+        if (btn && btn === lastBtn && now - lastAt < 120) return; // 避免 inline onclick 與委派重複觸發
+        lastBtn = btn; lastAt = now;
+        if (selected.has(spec)) selected.delete(spec); else selected.add(spec);
+        persist();
+        if (btn) paint(btn, selected.has(spec));
+        refresh();
+      }
+      window.toggleQuoteItem = function (spec, btn) { handle(spec, btn); };
+      window.clearQuoteBasket = function () {
+        selected.clear(); persist();
+        allBtns().forEach(function (b) { paint(b, false); });
+        refresh();
+      };
+      window.goToRfqPage = function () {
+        window.location.href = '../contact.html?specs=' + encodeURIComponent(Array.from(selected).join(' ; '));
+      };
+      // 備援：即使 inline onclick 未執行（被攔截或改寫）也能作用
+      function delegated(e) {
+        var btn = e.target && e.target.closest ? e.target.closest('.btn-quote-add, .btn-quote-dark') : null;
+        if (!btn) return;
+        handle(specOf(btn), btn);
+      }
+      ['pointerdown', 'mousedown', 'click'].forEach(function (evt) {
+        document.addEventListener(evt, delegated, true);
+        window.addEventListener(evt, delegated, true);
+      });
+      function restore() {
+        allBtns().forEach(function (b) { var s = specOf(b); if (s && selected.has(s)) paint(b, true); });
+        refresh();
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', restore); else restore();
+      window.addEventListener('storage', function (e) {
+        if (e.key !== KEY) return;
+        selected = new Set(read());
+        allBtns().forEach(function (b) { var s = specOf(b); paint(b, !!(s && selected.has(s))); });
+        refresh();
+      });
+    })();
   </script>
   <script src="../src/site-search.js"></script>
   <script src="../src/mobile-nav.js"></script>
 </body>
+
 </html>
