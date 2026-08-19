@@ -55,17 +55,13 @@
     '.spec-dim{font-size:.85rem;font-weight:700;color:#334155;white-space:nowrap;}',
     '.spec-qty{font-size:.78rem;font-weight:800;color:#1E293B;background:#E2E8F0;border-radius:5px;padding:3px 9px;white-space:nowrap;}',
     '.spec-colors{display:flex;flex-wrap:wrap;gap:5px;}',
-    '.spec-mini-cell{width:70px;}',
-    '.spec-mini-box{height:46px;display:flex;align-items:flex-end;}',
     '.spec-mini{border:1.5px solid #94A3B8;background:rgba(148,163,184,.14);border-radius:2px 2px 4px 4px;}',
-    '.spec-mini-red{border-color:#DC2626;background:rgba(220,38,38,.12);}',
     '.spec-ramp-pane{display:flex;align-items:flex-end;justify-content:center;gap:5px;flex-wrap:nowrap;width:100%;}',
     '.spec-ramp-pane .spec-mini{border-color:#00529B;background:rgba(0,82,155,.12);}',
     '.spec-photo-fallback{font-size:.72rem;font-weight:800;color:#94A3B8;letter-spacing:.06em;}',
     /* 堆疊斷點與 src/responsive.css 的 768px 一致（單一來源，不互相覆蓋） */
     '@media (max-width:768px){.spec-with-photo{grid-template-columns:1fr;}',
-    '.spec-photo-pane{border-right:none;border-bottom:1px solid #E2E8F0;}',
-    '.spec-mini-cell{display:none;}.spec-grid th.spec-mini-cell{display:none;}}'
+    '.spec-photo-pane{border-right:none;border-bottom:1px solid #E2E8F0;}}'
   ].join('');
 
   var PILL_STYLE = {
@@ -123,32 +119,31 @@
     return (colors || []).some(function (c) { return c.code === 'red'; });
   }
 
+
   /* ---------- 一個系列 → 左圖右表（左側是可切換的圖片舞台） ---------- */
-  function renderBlock(series, rows, scale) {
+  function renderBlock(series, rows) {
     var M = window.SITE_MAP;
     var info = M.seriesInfo(series);
-    var anyDim = rows.some(function (r) { return parseDim(r.dim); });
+    var anyShape = rows.some(function (r) { return parseDim(r.dim); });
+    // 「550 mm * 25 y」「7.5cm」這種非寬×長的尺寸也要顯示；
+    // 但若它已經当作規格名稱（容量、尺寸級別都空）就不重複列一欄
+    var anyDimText = rows.some(function (r) { return r.dim && r.dim !== r.spec; });
     var anyQty = rows.some(function (r) { return r.qty; });
     var anyColor = rows.some(function (r) { return r.colors && r.colors.length; });
 
     var head = '<tr><th>規格</th>' +
-      (anyDim ? '<th class="spec-mini-cell">袋型</th><th>尺寸 (寬 × 長)</th>' : '') +
+      (anyDimText ? '<th>尺寸</th>' : '') +
       (anyQty ? '<th>張數 / 包裝</th>' : '') +
       (anyColor ? '<th>顏色</th>' : '') +
       '<th>線上詢價</th></tr>';
 
     var body = rows.map(function (r) {
-      var d = parseDim(r.dim), q = jsStr(quoteName(r));
+      var q = jsStr(quoteName(r));
       var img = M.imageFor(r);
-      var mini = d
-        ? '<div class="spec-mini-box"><div class="spec-mini' + (hasRed(r.colors) ? ' spec-mini-red' : '') +
-            '" style="width:' + Math.max(7, Math.round(d.w * scale)) + 'px;height:' + Math.max(8, Math.round(d.h * scale)) + 'px;"></div></div>'
-        : '';
       return '<tr' + (img ? ' data-img="' + attr(BASE + img) + '" data-img-label="' + attr(series + ' ' + r.spec) + '" tabindex="0"' : '') + '>' +
         '<td><span class="spec-name">' + specHtml(r.spec) + '</span>' +
           (img ? '<i class="fa-solid fa-image spec-has-img" title="顯示此規格照片"></i>' : '') + '</td>' +
-        (anyDim ? '<td class="spec-mini-cell">' + mini + '</td>' +
-          '<td>' + (r.dim ? '<span class="spec-dim">' + esc(r.dim) + '</span>' : '<span class="spec-dim" style="color:#94A3B8;">—</span>') + '</td>' : '') +
+        (anyDimText ? '<td>' + (r.dim && r.dim !== r.spec ? '<span class="spec-dim">' + esc(r.dim) + '</span>' : '<span class="spec-dim" style="color:#94A3B8;">—</span>') + '</td>' : '') +
         (anyQty ? '<td>' + (r.qty ? '<span class="spec-qty">' + esc(r.qty) + '</span>' : '') + '</td>' : '') +
         (anyColor ? '<td><div class="spec-colors">' + colorPills(r.colors) + '</div></td>' : '') +
         '<td><button class="btn-quote-add" onclick="toggleQuoteItem(\'' + q + '\', this)">' +
@@ -165,7 +160,7 @@
 
     // 等比例尺寸對照：收在按鈕後面，需要時才叫出來
     var scaleView = '';
-    if (anyDim) {
+    if (anyShape) {
       var dims = rows.map(function (r) { return parseDim(r.dim); }).filter(Boolean);
       var tallest = Math.max.apply(null, dims.map(function (d) { return d.h; }));
       var sumW = dims.reduce(function (a, d) { return a + d.w; }, 0);
@@ -179,7 +174,7 @@
 
     var pane = '<div class="spec-stage">' + stage + scaleView + '</div>' +
       '<div class="spec-photo-caption" data-spec-caption>' + info.caption + '</div>' +
-      (anyDim ? '<button type="button" class="spec-scale-toggle">' +
+      (anyShape ? '<button type="button" class="spec-scale-toggle">' +
         '<i class="fa-solid fa-ruler-combined"></i> 等比例尺寸對照</button>' : '');
 
     return '<div class="cat-spec-block spec-block" id="' + attr(info.anchor) + '" data-spec-series="' + attr(series) + '">' +
@@ -310,21 +305,14 @@
       return;
     }
 
-    // 同頁所有袋型共用一個比例尺（表格內的迷你圖）
-    var maxH = 0;
-    mine.forEach(function (r) {
-      var d = parseDim(r.dim);
-      if (d && d.h > maxH) maxH = d.h;
-    });
-    var scale = maxH ? Math.min(0.42, 44 / maxH) : 0.42;
-
+    // 等比例對照圖的比例尺在 renderBlock 内依各系列自行換算
     // Excel 的列順序＝系列與規格的顯示順序
     var order = [], groups = {};
     mine.forEach(function (r) {
       if (!groups[r.series]) { groups[r.series] = []; order.push(r.series); }
       groups[r.series].push(r);
     });
-    host.innerHTML = order.map(function (s) { return renderBlock(s, groups[s], scale); }).join('');
+    host.innerHTML = order.map(function (s) { return renderBlock(s, groups[s]); }).join('');
     renderFilters(order);
     bindStage();
     document.dispatchEvent(new CustomEvent('specsrendered', { detail: { rows: mine.length, series: order.length } }));

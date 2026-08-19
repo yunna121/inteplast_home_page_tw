@@ -87,8 +87,9 @@
   var IMG_ALIAS = { '拉繩醫療袋': '拉繩感染袋' };
   // 尺寸級別別名（圖檔與 Excel 用字不一致時互相對照）
   var SIZE_ALIAS = { '特小': '超小', '超小': '特小' };
-  // 沒有自己代表圖的系列，借用同分類的代表圖
-  var COVER_ALIAS = { '單張抽取清潔袋': '清潔袋', '環保清潔袋': '清潔袋', '連捲清潔袋': '清潔袋' };
+  // 沒有專屬代表圖的系列，先留空位（不借用同分類的圖，免得圖文不符）
+  // 封面檔名與系列名不同時在這裡指定（一對一，不是同分類共用）
+  var COVER_NAME = { '連捲清潔袋': '清潔袋' };
 
   var INDEX = (function () {
     var map = {};
@@ -118,10 +119,10 @@
     return '';
   }
 
-  // 系列代表圖
+  // 系列代表圖：只回傳「封面-<系列>」這種精確命名的圖
+  // （注意：不再回傳同分類的泛用圖，避免蓋掉系列專屬圖造成圖文不符）
   function coverFor(series) {
-    var s = IMG_ALIAS[series] || series;
-    return INDEX['封面-' + s] || INDEX['封面-' + (COVER_ALIAS[series] || '')] || '';
+    return INDEX['封面-' + (COVER_NAME[series] || IMG_ALIAS[series] || series)] || '';
   }
 
   function pageOf(name) {
@@ -175,7 +176,7 @@
       series: pick(row, ['產品系列', 'series']),
       cap: cap,
       size: size,
-      spec: specText(cap, size) || String(row.spec || '').trim(),
+      spec: specText(cap, size) || pick(row, ['尺寸(寬×長)', '尺寸 寬×長', 'dim']) || String(row.spec || '').trim(),
       dim: pick(row, ['尺寸(寬×長)', '尺寸 寬×長', 'dim']),
       count: pick(row, ['張數', 'count']),
       pack: pick(row, ['包裝', 'pack']),
@@ -189,7 +190,6 @@
     return rows.map(function (r) { return resolve(r); })
       .filter(function (r) { return r.series && r.spec; });
   }
-
   // 從 SheetJS 的 workbook 讀出六個分類工作表（Excel 的列順序＝網站顯示順序）
   function readWorkbook(wb, XLSX) {
     var out = [];

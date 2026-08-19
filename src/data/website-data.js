@@ -1,10 +1,13 @@
 /* 網站資料檔（Excel 的快照）
+   ------------------------------------------------------------
    正式資料來源：src/data/website-data.xlsx
-     · 六個分類工作表      → 各產品頁的規格牆、詢價品名、搜尋內容
+     · 工作表「清潔袋」「拉繩袋」「蔬果袋」「夾鏈袋」「其他類」「Scale Sheet」
+         → 各分類頁的產品規格（一個分類一頁）
      · 工作表「分類介紹」  → 產品中心的分類卡片文案
      · 工作表「搜尋同義詞」→ 客戶用別的說法也找得到
-   由 tools/update-specs.html 轉出，請勿手改。
-   轉出時間：2026/8/19 下午8:38:29 — 來源檔：website-data.xlsx */
+   架在伺服器上時網頁直接讀 xlsx；用檔案開啟時讀本檔。
+   本檔由 tools/update-specs.html 轉出，請勿手改。
+   頁面檔名、版型、色碼等技術對應寫在 src/data-map.js。 */
 window.SITE_DATA = {
  "version": 4,
  "specs": [
@@ -12,18 +15,8 @@ window.SITE_DATA = {
    "category": "清潔袋",
    "series": "連捲清潔袋",
    "cap": "10L",
-   "size": "超小",
-   "dim": "38 × 45 cm",
-   "count": "100",
-   "pack": "張/捲",
-   "colors": "透明 / 黑色"
-  },
-  {
-   "category": "清潔袋",
-   "series": "連捲清潔袋",
-   "cap": "12L",
    "size": "特小",
-   "dim": "41 × 50 cm",
+   "dim": "40 × 50 cm",
    "count": "100",
    "pack": "張/捲",
    "colors": "透明"
@@ -682,7 +675,7 @@ window.SITE_DATA = {
    "category": "夾鏈袋",
    "series": "密實袋",
    "cap": "",
-   "size": "中",
+   "size": "中 (Medium)",
    "dim": "",
    "count": "45",
    "pack": "箱/板",
@@ -692,7 +685,7 @@ window.SITE_DATA = {
    "category": "夾鏈袋",
    "series": "密實袋",
    "cap": "",
-   "size": "大",
+   "size": "大 (Large)",
    "dim": "",
    "count": "48",
    "pack": "箱/板",
@@ -702,7 +695,7 @@ window.SITE_DATA = {
    "category": "夾鏈袋",
    "series": "立體密實袋",
    "cap": "",
-   "size": "小",
+   "size": "小 (Small)",
    "dim": "13 × 13.5 cm",
    "count": "40",
    "pack": "包",
@@ -712,7 +705,7 @@ window.SITE_DATA = {
    "category": "夾鏈袋",
    "series": "立體密實袋",
    "cap": "",
-   "size": "中",
+   "size": "中 (Medium)",
    "dim": "17 × 15.5 cm",
    "count": "30",
    "pack": "包",
@@ -722,7 +715,7 @@ window.SITE_DATA = {
    "category": "夾鏈袋",
    "series": "立體密實袋",
    "cap": "",
-   "size": "大",
+   "size": "大 (Large)",
    "dim": "26 × 25.5 cm",
    "count": "16",
    "pack": "包",
@@ -732,7 +725,7 @@ window.SITE_DATA = {
    "category": "夾鏈袋",
    "series": "冷凍袋",
    "cap": "",
-   "size": "中",
+   "size": "中 (Medium)",
    "dim": "",
    "count": "45",
    "pack": "箱/板",
@@ -742,10 +735,70 @@ window.SITE_DATA = {
    "category": "夾鏈袋",
    "series": "冷凍袋",
    "cap": "",
-   "size": "大",
+   "size": "大 (Large)",
    "dim": "",
    "count": "48",
    "pack": "箱/板",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "cap": "",
+   "size": "",
+   "dim": "550 mm * 25 y",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "cap": "",
+   "size": "",
+   "dim": "1100 mm * 25 y",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "cap": "",
+   "size": "",
+   "dim": "1500 mm * 25 y",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "cap": "",
+   "size": "",
+   "dim": "2100 mm * 25 y",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "cap": "",
+   "size": "",
+   "dim": "2700 mm * 25 y",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "cap": "",
+   "size": "",
+   "dim": "3200 mm * 25 y",
+   "count": "",
+   "pack": "",
    "colors": ""
   },
   {
