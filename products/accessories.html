@@ -469,62 +469,10 @@
     <div class="compact-spec-container">
 
       <!-- Category Filter Pills Bar -->
-      <div class="filter-pills-bar">
-        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
-        <button class="filter-btn" onclick="filterCategory('tape', this)">遮蔽防塵膠帶</button>
-        <button class="filter-btn" onclick="filterCategory('gloves', this)">手套</button>
-      </div>
+      <div class="filter-pills-bar" data-spec-filters></div>
 
-      <div class="cat-spec-block spec-block" id="cat-tape">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-tape"></i> 台塑遮蔽防塵膠帶規格對照表</h2>
-        </div>
-        <div class="spec-with-photo">
-          <div class="spec-photo-pane">
-            <img src="../src/螢幕擷取畫面 2026-08-13 160829.png" alt="台塑遮蔽防塵膠帶實品">
-            <div class="spec-photo-caption">台塑遮蔽防塵膠帶<br>550mm ~ 3200mm 六種幅寬</div>
-          </div>
-          <div class="spec-table-pane">
-        <table class="compact-table">
-          <thead>
-            <tr>
-              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
-              <th style="width: 140px; text-align: center;">批量詢價</th>
-            </tr>
-          </thead>
-          <tbody data-spec-block="cat-tape" data-spec-layout="table" data-spec-series="台塑遮蔽防塵膠帶" data-spec-qty="off">
-</tbody>
-        </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="cat-spec-block spec-block" id="cat-gloves">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-hand"></i> 手套尺寸規格對照表</h2>
-        </div>
-        <div class="spec-with-photo">
-          <div class="spec-photo-pane">
-            <img src="../src/螢幕擷取畫面 2026-08-13 160650.png" alt="台塑多功能手套 S / M / L">
-            <div class="spec-photo-caption">台塑多功能手套<br>提供 S / M / L 三種尺寸</div>
-          </div>
-          <div class="spec-table-pane">
-        <table class="compact-table">
-          <thead>
-            <tr>
-              <th data-tw="規格/尺寸 Specification" data-en="Size">規格/尺寸 Specification</th>
-              <th style="width: 140px; text-align: center;">批量詢價</th>
-            </tr>
-          </thead>
-          <tbody data-spec-block="cat-gloves" data-spec-layout="table" data-spec-series="手套" data-spec-qty="off">
-</tbody>
-        </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Excel 新增的系列會自動出現在這裡 -->
-      <div data-spec-overflow></div>
+      <!-- 規格區塊由 src/spec-render.js 依 Excel（六個分類工作表）產生 -->
+      <div data-spec-page="accessories"></div>
 
     </div>
   </section>

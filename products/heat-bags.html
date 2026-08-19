@@ -457,66 +457,10 @@
     <div class="compact-spec-container">
 
       <!-- Category Filter Pills Bar -->
-      <div class="filter-pills-bar">
-        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
-        <button class="filter-btn" onclick="filterCategory('flat-heat', this)">平裝耐熱袋</button>
-        <button class="filter-btn" onclick="filterCategory('roll-heat', this)">卷裝耐熱袋</button>
-        <button class="filter-btn" onclick="filterCategory('produce', this)">蔬果袋</button>
-      </div>
+      <div class="filter-pills-bar" data-spec-filters></div>
 
-      <div class="cat-spec-block spec-block" id="cat-flat-heat">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-temperature-high"></i> 平裝耐熱袋規格對照表</h2>
-        </div>
-
-        <!-- 等比例對比牆：規格 / 尺寸 / 數量 / 詢價整合於卡片；同一頁所有牆共用同一縮放比 -->
-        <div class="scale-ramp-container">
-          <div class="scale-ramp-title-row">
-            <div class="scale-ramp-title"><i class="fa-solid fa-ruler-combined"></i> 平裝耐熱袋 四兩~15斤 等比例對比牆</div>
-            <div class="scale-ramp-hint"><i class="fa-solid fa-hand-pointer"></i> 點卡片下方按鈕即可加入詢價單</div>
-          </div>
-
-          <div class="scale-ramp-track track-ramp-scroll" data-spec-block="cat-flat-heat" data-spec-layout="ramp" data-spec-series="平裝耐熱袋" data-slot-height="130">
-</div>
-        </div>
-      </div>
-
-      <div class="cat-spec-block spec-block" id="cat-roll-heat">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-scroll"></i> 卷裝耐熱袋規格對照表</h2>
-        </div>
-
-        <!-- 等比例對比牆：規格 / 尺寸 / 數量 / 詢價整合於卡片；同一頁所有牆共用同一縮放比 -->
-        <div class="scale-ramp-container">
-          <div class="scale-ramp-title-row">
-            <div class="scale-ramp-title"><i class="fa-solid fa-ruler-combined"></i> 卷裝耐熱袋 四兩~5斤 等比例對比牆（與平裝同比例尺）</div>
-            <div class="scale-ramp-hint"><i class="fa-solid fa-hand-pointer"></i> 點卡片下方按鈕即可加入詢價單</div>
-          </div>
-
-          <div class="scale-ramp-track track-ramp-scroll" data-spec-block="cat-roll-heat" data-spec-layout="ramp" data-spec-series="卷裝耐熱袋" data-slot-height="130">
-</div>
-        </div>
-      </div>
-
-
-      <div class="cat-spec-block spec-block" id="cat-produce">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-carrot"></i> 蔬果袋</h2>
-        </div>
-
-        <div style="padding: 0 24px 28px;">
-          <div style="background: #FFFBEB; border: 1px solid #FCD34D; border-radius: 14px; padding: 26px 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
-            <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-              <span style="font-size: 1.05rem; font-weight: 900; color: #92400E;">規格資料整理中</span>
-              <span style="font-size: 0.95rem; font-weight: 500; color: #78350F; line-height: 1.7;">如需完整尺寸與報價，請加入詢價單，將由專員提供最新規格表。</span>
-            </div>
-            <button class="btn-quote-add" onclick="toggleQuoteItem('蔬果袋 · 索取完整規格與報價', this)" style="white-space: nowrap; flex-shrink: 0; width: auto;"><i class="fa-solid fa-plus"></i> 勾選詢價</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Excel 新增的系列會自動出現在這裡 -->
-      <div data-spec-overflow></div>
+      <!-- 規格區塊由 src/spec-render.js 依 Excel（六個分類工作表）產生 -->
+      <div data-spec-page="heat-bags"></div>
     </div>
   </section>
 

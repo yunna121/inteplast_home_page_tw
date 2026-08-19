@@ -794,14 +794,13 @@
   <!-- Filter & Drawer Script + Direct Excel (.xlsx) & CSV/JSON Loader -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // 資料來源：src/data/website-data.xlsx（工作表「分類介紹」＋「產品規格」）
+      // 資料來源：src/data/website-data.xlsx（六個分類工作表 ＋「分類介紹」）
       // 讀不到 xlsx 時（例如用檔案直接開啟網頁）改用 src/data/website-data.js
       fetch("../src/data/website-data.xlsx", { cache: "no-cache" })
         .then(res => { if (!res.ok) throw new Error("xlsx " + res.status); return res.arrayBuffer(); })
         .then(buffer => {
           const wb = XLSX.read(buffer, { type: "array" });
           const catSheet = wb.Sheets["分類介紹"];
-          const specSheet = wb.Sheets["產品規格"];
           if (!catSheet) throw new Error("找不到「分類介紹」工作表");
           const cats = XLSX.utils.sheet_to_json(catSheet, { defval: "" }).map(r => ({
             category: String(r["分類頁"] || "").trim(),
@@ -812,7 +811,7 @@
             badges: String(r["特色標籤（逗號分隔）"] || "").trim(),
             image: String(r["圖片檔名"] || "").trim()
           }));
-          const specs = specSheet ? XLSX.utils.sheet_to_json(specSheet, { defval: "" }).map(r => SITE_MAP.resolve(r)) : [];
+          const specs = SITE_MAP.readWorkbook(wb, XLSX);
           const categories = buildCategories(cats, specs);
           if (categories.length) renderProductGallery(categories); else loadDataFileFallback();
         })

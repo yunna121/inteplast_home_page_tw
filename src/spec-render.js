@@ -5,15 +5,16 @@
    1) src/data/website-data.xlsx 的六個分類工作表 —— Excel 就是唯一資料來源（需架在伺服器上）
    2) src/data/website-data.js (window.SITE_DATA.specs) —— 讀不到 Excel 時的備援快照
 
-   Excel 只有商業欄位（產品系列／容量-號數／尺別俗稱／尺寸／張數／包裝／顏色）；
-   頁面檔名、版型、色碼的對應寫在 src/data-map.js。
-   同事在 Excel 新增一個系列時，該分類頁會自動長出一個新的規格表。
+   版面：全站統一「左圖右表」— 左邊實拍照片（沒照片的系列改放等比例袋型圖），
+        右邊規格表，每一列旁邊附一個依真實尺寸換算的迷你袋型（同頁共用比例尺）。
 
-   使用方式：在頁面上放一個空容器，例如
-     <div class="scale-ramp-track track-ramp-scroll"
-          data-spec-block="cat-zipper" data-spec-layout="ramp"
-          data-spec-series="夾鏈袋"></div>
-   本檔會依 Excel 內容填入卡片／表格列，並自動接上詢價籃。
+   Excel 只有商業欄位（產品系列／容量／尺寸級別／尺寸(寬×長)／張數／包裝／顏色）；
+   錨點、標題、圖示、照片等版面設定寫在 src/data-map.js 的 SERIES。
+   同事在 Excel 新增系列時，該分類頁會自動長出一個新的規格區塊。
+
+   頁面只需要兩個掛載點：
+     <div class="filter-pills-bar" data-spec-filters></div>   ← 分類篩選鈕（依 Excel 自動產生）
+     <div data-spec-page></div>                               ← 規格區塊
    ============================================================ */
 (function () {
   var inProducts = /\/products\//.test(location.pathname);
@@ -22,37 +23,68 @@
   var SHEETJS = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
 
   var COLOR_CLASS = { clear: 'clear', black: 'black', pink: 'pink', red: 'red', blue: 'blue', green: 'green' };
-  var ACCENTS = ['#4F46E5', '#0D9488', '#16A34A', '#BE185D', '#0284C7', '#EA580C', '#7C3AED', '#B45309'];
 
-  /* ---------- 顏色標籤樣式：頁面沒定義的色碼自動補上，避免裸字 ---------- */
+  var CSS = [
+    '.spec-with-photo{display:grid;grid-template-columns:340px 1fr;align-items:stretch;}',
+    '@media (max-width:1180px){.spec-with-photo{grid-template-columns:260px 1fr;}.spec-photo-pane{padding:18px;}}',
+    '.spec-photo-pane{background:#F8FAFC;border-right:1px solid #E2E8F0;padding:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}',
+    '.spec-stage{position:relative;width:100%;height:236px;display:flex;align-items:center;justify-content:center;background:#FFF;border:1px solid #E2E8F0;border-radius:12px;overflow:hidden;}',
+    '.spec-stage img{width:100%;height:100%;object-fit:contain;padding:10px;}',
+    '.spec-stage-empty{font-size:.76rem;font-weight:800;color:#CBD5E1;letter-spacing:.08em;text-align:center;padding:0 18px;line-height:1.8;}',
+    '.spec-stage-empty i{display:block;font-size:1.6rem;margin-bottom:8px;color:#E2E8F0;}',
+    '.spec-scale-view{position:absolute;inset:0;background:#FFF;display:none;align-items:flex-end;justify-content:center;gap:5px;padding:20px 14px;}',
+    '.spec-scale-view.on{display:flex;}',
+    '.spec-scale-view .spec-mini{border-color:#00529B;background:rgba(0,82,155,.12);}',
+    '.spec-scale-toggle{display:inline-flex;align-items:center;gap:7px;background:#FFF;border:1px solid #CBD5E1;color:#00529B;font-family:inherit;font-size:.78rem;font-weight:800;padding:7px 14px;border-radius:8px;cursor:pointer;}',
+    '.spec-scale-toggle:hover{border-color:#00529B;background:#EFF6FF;}',
+    '.spec-scale-toggle.on{background:#00529B;color:#FFF;border-color:#00529B;}',
+    '.spec-photo-caption{font-size:.82rem;font-weight:700;color:#475569;text-align:center;line-height:1.6;min-height:2.6em;}',
+    '.spec-grid tbody tr[data-img]{cursor:pointer;}',
+    '.spec-grid tbody tr.spec-row-on{background:#DBEAFE !important;box-shadow:inset 3px 0 0 #00529B;}',
+    '.spec-has-img{color:#CBD5E1;font-size:.72rem;margin-left:6px;}',
+    '.spec-grid tbody tr[data-img]:hover .spec-has-img{color:#00529B;}',
+    '.spec-table-pane{display:flex;flex-direction:column;justify-content:center;overflow-x:auto;}',
+    '.spec-grid{width:100%;border-collapse:collapse;}',
+    '.spec-grid th{background:#0A2540;color:#fff;font-size:.76rem;font-weight:800;letter-spacing:.03em;text-align:left;padding:10px 14px;white-space:nowrap;}',
+    '.spec-grid th:last-child,.spec-grid td:last-child{text-align:center;}',
+    '.spec-grid td{padding:9px 14px;border-bottom:1px solid #F1F5F9;vertical-align:middle;}',
+    '.spec-grid tbody tr:nth-child(even){background:#F8FAFC;}',
+    '.spec-grid tbody tr:hover{background:#EFF6FF;}',
+    '.spec-name{font-size:.92rem;font-weight:900;color:#0A2540;white-space:nowrap;}',
+    '.spec-name small{font-size:.8em;font-weight:800;color:#00529B;}',
+    '.spec-dim{font-size:.85rem;font-weight:700;color:#334155;white-space:nowrap;}',
+    '.spec-qty{font-size:.78rem;font-weight:800;color:#1E293B;background:#E2E8F0;border-radius:5px;padding:3px 9px;white-space:nowrap;}',
+    '.spec-colors{display:flex;flex-wrap:wrap;gap:5px;}',
+    '.spec-mini-cell{width:70px;}',
+    '.spec-mini-box{height:46px;display:flex;align-items:flex-end;}',
+    '.spec-mini{border:1.5px solid #94A3B8;background:rgba(148,163,184,.14);border-radius:2px 2px 4px 4px;}',
+    '.spec-mini-red{border-color:#DC2626;background:rgba(220,38,38,.12);}',
+    '.spec-ramp-pane{display:flex;align-items:flex-end;justify-content:center;gap:5px;flex-wrap:nowrap;width:100%;}',
+    '.spec-ramp-pane .spec-mini{border-color:#00529B;background:rgba(0,82,155,.12);}',
+    '.spec-photo-fallback{font-size:.72rem;font-weight:800;color:#94A3B8;letter-spacing:.06em;}',
+    /* 堆疊斷點與 src/responsive.css 的 768px 一致（單一來源，不互相覆蓋） */
+    '@media (max-width:768px){.spec-with-photo{grid-template-columns:1fr;}',
+    '.spec-photo-pane{border-right:none;border-bottom:1px solid #E2E8F0;}',
+    '.spec-mini-cell{display:none;}.spec-grid th.spec-mini-cell{display:none;}}'
+  ].join('');
+
   var PILL_STYLE = {
-    clear: 'background:#FFFFFF; color:#475569; border:1px solid #CBD5E1;',
-    black: 'background:#1E293B; color:#FFFFFF; border:1px solid #0F172A;',
-    pink:  'background:#FBCFE8; color:#9D174D; border:1px solid #F9A8D4;',
-    blue:  'background:#DBEAFE; color:#1E40AF; border:1px solid #BFDBFE;',
-    green: 'background:#DCFCE7; color:#166534; border:1px solid #BBF7D0;',
-    red:   'background:#FEE2E2; color:#B91C1C; border:1px solid #FECACA;'
+    clear: 'background:#FFF;color:#475569;border:1px solid #CBD5E1;',
+    black: 'background:#1E293B;color:#FFF;border:1px solid #0F172A;',
+    pink: 'background:#FBCFE8;color:#9D174D;border:1px solid #F9A8D4;',
+    blue: 'background:#DBEAFE;color:#1E40AF;border:1px solid #BFDBFE;',
+    green: 'background:#DCFCE7;color:#166534;border:1px solid #BBF7D0;',
+    red: 'background:#FEE2E2;color:#B91C1C;border:1px solid #FECACA;'
   };
-  function ensurePillStyles() {
-    var need = [];
-    ['color-pill-', 'scale-pill-'].forEach(function (prefix) {
-      Object.keys(PILL_STYLE).forEach(function (code) {
-        var probe = document.createElement('span');
-        probe.className = prefix + code;
-        probe.style.position = 'absolute';
-        probe.style.visibility = 'hidden';
-        probe.textContent = '測';
-        document.body.appendChild(probe);
-        var cs = getComputedStyle(probe);
-        var styled = parseFloat(cs.paddingLeft) > 0 || cs.backgroundColor !== 'rgba(0, 0, 0, 0)';
-        document.body.removeChild(probe);
-        if (!styled) need.push('.' + prefix + code + '{font-size:0.72rem; font-weight:800; padding:3px 8px; border-radius:6px; white-space:nowrap; ' + PILL_STYLE[code] + '}');
-      });
-    });
-    if (!need.length) return;
+
+  function injectCss() {
+    if (document.getElementById('omSpecStyle')) return;
+    var pills = Object.keys(PILL_STYLE).map(function (c) {
+      return '.spec-pill-' + c + '{font-size:.72rem;font-weight:800;padding:3px 8px;border-radius:6px;white-space:nowrap;' + PILL_STYLE[c] + '}';
+    }).join('');
     var st = document.createElement('style');
-    st.id = 'omPillFallback';
-    st.textContent = need.join('\n');
+    st.id = 'omSpecStyle';
+    st.textContent = CSS + pills;
     document.head.appendChild(st);
   }
 
@@ -60,7 +92,6 @@
   function attr(s) { return esc(s).replace(/"/g, '&quot;'); }
   function jsStr(s) { return String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/'/g, "\\'"); }
 
-  /* ---------- 尺寸解析：「84 × 95 cm」→ {w:84,h:95} ---------- */
   function parseDim(dim) {
     if (!dim) return null;
     var m = String(dim).replace(/[，,]/g, '').match(/(\d+(?:\.\d+)?)\s*[×xX*]\s*(\d+(?:\.\d+)?)/);
@@ -71,106 +102,173 @@
     return d ? (d.w + 'x' + d.h + 'cm') : '';
   }
   function quoteName(row) {
-    var bits = [];
-    var d = dimCompact(row.dim);
+    var bits = [], d = dimCompact(row.dim);
     if (d) bits.push(d);
     if (row.qty) bits.push(String(row.qty).replace(/\s*\/\s*/g, '/').trim());
     var spec = String(row.spec).replace(/\s+/g, '');
     return (row.series ? row.series + ' · ' : '') + spec + (bits.length ? ' (' + bits.join(', ') + ')' : '');
   }
-
-  /* ---------- 規格名稱：「小 8L」→ 小 <small>8L</small> ---------- */
   function specHtml(spec) {
     var m = String(spec).match(/^(.*?)\s*(\d+(?:\.\d+)?\s*L)$/i);
     if (m) return esc(m[1]) + ' <small>' + esc(m[2]) + '</small>';
     return esc(spec);
   }
-
-  function colorPills(colors, cls) {
+  function colorPills(colors) {
     if (!colors || !colors.length) return '';
     return colors.map(function (c) {
-      return '<span class="' + cls + '-' + (COLOR_CLASS[c.code] || 'clear') + '">' + esc(c.name) + '</span>';
-    }).join(' ');
+      return '<span class="spec-pill-' + (COLOR_CLASS[c.code] || 'clear') + '">' + esc(c.name) + '</span>';
+    }).join('');
   }
   function hasRed(colors) {
     return (colors || []).some(function (c) { return c.code === 'red'; });
   }
 
-  /* ---------- 四種版型 ---------- */
-  function renderEdm(rows) {
-    return rows.map(function (r) {
-      var q = jsStr(quoteName(r));
-      return '<div class="edm-spec-card-item">' +
-        '<div class="edm-spec-card-left">' +
-          '<span class="edm-size-pill">' + esc(r.spec) + '</span>' +
-          (r.qty ? '<span class="edm-qty-badge">' + esc(r.qty) + '</span>' : '') +
-          colorPills(r.colors, 'color-pill') +
-        '</div>' +
-        '<div class="edm-spec-card-dim">' +
-          (parseDim(r.dim)
-            ? '<i class="fa-solid fa-ruler-combined"></i> 寬 ' + esc(r.dim)
-            : '<i class="fa-solid fa-palette"></i> 可客製尺寸與顏色') +
-        '</div>' +
-        '<div><button class="btn-quote-add" onclick="toggleQuoteItem(\'' + q + '\', this)">' +
-          '<i class="fa-solid fa-plus"></i> 勾選詢價</button></div>' +
-      '</div>';
-    }).join('');
-  }
+  /* ---------- 一個系列 → 左圖右表（左側是可切換的圖片舞台） ---------- */
+  function renderBlock(series, rows, scale) {
+    var M = window.SITE_MAP;
+    var info = M.seriesInfo(series);
+    var anyDim = rows.some(function (r) { return parseDim(r.dim); });
+    var anyQty = rows.some(function (r) { return r.qty; });
+    var anyColor = rows.some(function (r) { return r.colors && r.colors.length; });
 
-  function renderCard(rows, scale) {
-    return rows.map(function (r, i) {
+    var head = '<tr><th>規格</th>' +
+      (anyDim ? '<th class="spec-mini-cell">袋型</th><th>尺寸 (寬 × 長)</th>' : '') +
+      (anyQty ? '<th>張數 / 包裝</th>' : '') +
+      (anyColor ? '<th>顏色</th>' : '') +
+      '<th>線上詢價</th></tr>';
+
+    var body = rows.map(function (r) {
       var d = parseDim(r.dim), q = jsStr(quoteName(r));
-      var red = hasRed(r.colors);
-      var accent = red ? '' : ACCENTS[i % ACCENTS.length];
-      var shape = d
-        ? '<div class="bag-outline-shape' + (red ? ' bag-outline-shape-red' : '') + '" style="width: ' + Math.round(d.w * scale) + 'px; height: ' + Math.round(d.h * scale) + 'px;' +
-            (accent ? ' border-color: ' + accent + '; background: ' + accent + '14;' : '') + '">' +
-            '<span class="bag-outline-tag">' + esc(volumeTag(r.spec)) + '</span></div>'
+      var img = M.imageFor(r);
+      var mini = d
+        ? '<div class="spec-mini-box"><div class="spec-mini' + (hasRed(r.colors) ? ' spec-mini-red' : '') +
+            '" style="width:' + Math.max(7, Math.round(d.w * scale)) + 'px;height:' + Math.max(8, Math.round(d.h * scale)) + 'px;"></div></div>'
         : '';
-      return '<div class="scale-card-item">' +
-        '<div class="scale-card-top">' +
-          '<div class="scale-card-size">' + specHtml(r.spec) + '</div>' +
-          '<div style="display: flex; gap: 6px; align-items: center;">' +
-            (r.qty ? '<span class="scale-pill-count"' + (accent ? ' style="background: ' + accent + ';"' : '') + '>' + esc(r.qty) + '</span>' : '') +
-            colorPills(r.colors, 'scale-pill') +
-          '</div>' +
-        '</div>' +
-        '<div class="bag-contour-box">' + shape + '</div>' +
-        (d ? '<div class="scale-card-dim"><i class="fa-solid fa-ruler-combined"></i> 寬 ' + esc(r.dim) + '</div>' : '') +
-        '<button class="btn-quote-add" onclick="toggleQuoteItem(\'' + q + '\', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>' +
-      '</div>';
-    }).join('');
-  }
-  function volumeTag(spec) {
-    var m = String(spec).match(/(\d+(?:\.\d+)?\s*L)/i);
-    return m ? m[1] : spec;
-  }
-
-  function renderRamp(rows, scale, slotH) {
-    return rows.map(function (r) {
-      var d = parseDim(r.dim), q = jsStr(quoteName(r));
-      return '<div class="scale-ramp-item">' +
-        '<span class="scale-no-pill">' + esc(r.spec) + '</span>' +
-        '<div class="scale-shape-slot" style="height: ' + slotH + 'px;">' +
-          (d ? '<div class="scale-bag-shape" style="width: ' + Math.max(8, Math.round(d.w * scale)) + 'px; height: ' + Math.max(9, Math.round(d.h * scale)) + 'px;"></div>' : '') +
-        '</div>' +
-        (r.dim ? '<span class="scale-dim-label">' + esc(r.dim) + '</span>' : '') +
-        (r.qty ? '<span class="scale-qty-label">' + esc(r.qty) + '</span>' : '') +
-        '<button class="btn-quote-dark" onclick="toggleQuoteItem(\'' + q + '\', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button>' +
-      '</div>';
-    }).join('');
-  }
-
-  function renderTable(rows, showQty) {
-    return rows.map(function (r) {
-      var q = jsStr(quoteName(r));
-      return '<tr>' +
-        '<td><span class="tag-size">' + esc(r.spec) + '</span></td>' +
-        (showQty ? '<td>' + (r.qty ? '<span class="tag-qty">' + esc(r.qty) + '</span>' : '') + '</td>' : '') +
-        '<td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem(\'' + q + '\', this)">' +
+      return '<tr' + (img ? ' data-img="' + attr(BASE + img) + '" data-img-label="' + attr(series + ' ' + r.spec) + '" tabindex="0"' : '') + '>' +
+        '<td><span class="spec-name">' + specHtml(r.spec) + '</span>' +
+          (img ? '<i class="fa-solid fa-image spec-has-img" title="顯示此規格照片"></i>' : '') + '</td>' +
+        (anyDim ? '<td class="spec-mini-cell">' + mini + '</td>' +
+          '<td>' + (r.dim ? '<span class="spec-dim">' + esc(r.dim) + '</span>' : '<span class="spec-dim" style="color:#94A3B8;">—</span>') + '</td>' : '') +
+        (anyQty ? '<td>' + (r.qty ? '<span class="spec-qty">' + esc(r.qty) + '</span>' : '') + '</td>' : '') +
+        (anyColor ? '<td><div class="spec-colors">' + colorPills(r.colors) + '</div></td>' : '') +
+        '<td><button class="btn-quote-add" onclick="toggleQuoteItem(\'' + q + '\', this)">' +
           '<i class="fa-solid fa-plus"></i> 勾選詢價</button></td>' +
       '</tr>';
     }).join('');
+
+    // 左側預設顯示系列代表圖；還沒有照片的系列先留空位
+    var cover = M.coverFor(series) ? BASE + M.coverFor(series) : (info.photo ? BASE + info.photo : '');
+    var stage = cover
+      ? '<img src="' + attr(cover) + '" alt="' + attr(series) + '實品" data-spec-stage-img>'
+      : '<div class="spec-stage-empty" data-spec-stage-img><i class="fa-regular fa-image"></i>' +
+          esc(series) + '<br>實品照片準備中</div>';
+
+    // 等比例尺寸對照：收在按鈕後面，需要時才叫出來
+    var scaleView = '';
+    if (anyDim) {
+      var dims = rows.map(function (r) { return parseDim(r.dim); }).filter(Boolean);
+      var tallest = Math.max.apply(null, dims.map(function (d) { return d.h; }));
+      var sumW = dims.reduce(function (a, d) { return a + d.w; }, 0);
+      var avail = 250 - (dims.length - 1) * 5;      // 舞台可用寬度（扣掉間距與內距）
+      var big = Math.min(2.4, 190 / tallest, avail / Math.max(1, sumW));
+      scaleView = '<div class="spec-scale-view">' + dims.map(function (d) {
+        return '<div class="spec-mini" style="width:' + Math.max(4, Math.round(d.w * big)) +
+          'px;height:' + Math.max(6, Math.round(d.h * big)) + 'px;"></div>';
+      }).join('') + '</div>';
+    }
+
+    var pane = '<div class="spec-stage">' + stage + scaleView + '</div>' +
+      '<div class="spec-photo-caption" data-spec-caption>' + info.caption + '</div>' +
+      (anyDim ? '<button type="button" class="spec-scale-toggle">' +
+        '<i class="fa-solid fa-ruler-combined"></i> 等比例尺寸對照</button>' : '');
+
+    return '<div class="cat-spec-block spec-block" id="' + attr(info.anchor) + '" data-spec-series="' + attr(series) + '">' +
+      '<div class="cat-spec-header"><h2 class="cat-spec-title">' +
+        '<i class="fa-solid ' + attr(info.icon) + '"></i> ' + esc(info.title) + '</h2></div>' +
+      '<div class="spec-with-photo" data-default-img="' + attr(cover) + '" data-default-caption="' + attr(info.caption) + '">' +
+        '<div class="spec-photo-pane">' + pane + '</div>' +
+        '<div class="spec-table-pane"><table class="spec-grid"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  /* ---------- 左側圖片：hover / 點選規格時切換 ---------- */
+  function showRow(tr) {
+    var wrap = tr.closest('.spec-with-photo');
+    if (!wrap) return;
+    var stage = wrap.querySelector('.spec-stage');
+    var cap = wrap.querySelector('[data-spec-caption]');
+    var img = tr.getAttribute('data-img');
+    if (!img) return;
+    wrap.querySelectorAll('tr.spec-row-on').forEach(function (t) { t.classList.remove('spec-row-on'); });
+    tr.classList.add('spec-row-on');
+    var el = stage.querySelector('[data-spec-stage-img]');
+    if (el && el.tagName === 'IMG') {
+      el.setAttribute('src', img);
+      el.setAttribute('alt', tr.getAttribute('data-img-label') || '');
+    } else if (el) {
+      var neu = document.createElement('img');
+      neu.setAttribute('data-spec-stage-img', '');
+      neu.src = img;
+      neu.alt = tr.getAttribute('data-img-label') || '';
+      el.replaceWith(neu);
+    }
+    if (cap) cap.textContent = tr.getAttribute('data-img-label') || '';
+    var sv = stage.querySelector('.spec-scale-view');
+    if (sv) sv.classList.remove('on');
+    var tg = wrap.querySelector('.spec-scale-toggle');
+    if (tg) tg.classList.remove('on');
+  }
+
+  function resetStage(wrap) {
+    var stage = wrap.querySelector('.spec-stage');
+    var cap = wrap.querySelector('[data-spec-caption]');
+    var el = stage.querySelector('[data-spec-stage-img]');
+    var def = wrap.getAttribute('data-default-img');
+    wrap.querySelectorAll('tr.spec-row-on').forEach(function (t) { t.classList.remove('spec-row-on'); });
+    if (cap) cap.innerHTML = wrap.getAttribute('data-default-caption') || '';
+    if (!el) return;
+    if (def) {
+      if (el.tagName === 'IMG') { el.setAttribute('src', def); el.setAttribute('alt', ''); }
+      else {
+        var neu = document.createElement('img');
+        neu.setAttribute('data-spec-stage-img', '');
+        neu.src = def;
+        el.replaceWith(neu);
+      }
+    }
+  }
+
+  function bindStage() {
+    if (document.body.hasAttribute('data-spec-stage-bound')) return;
+    document.body.setAttribute('data-spec-stage-bound', '');
+
+    document.addEventListener('mouseover', function (e) {
+      var tr = e.target.closest && e.target.closest('.spec-grid tr[data-img]');
+      if (tr) showRow(tr);
+    });
+    document.addEventListener('focusin', function (e) {
+      var tr = e.target.closest && e.target.closest('.spec-grid tr[data-img]');
+      if (tr) showRow(tr);
+    });
+    document.addEventListener('click', function (e) {
+      var tg = e.target.closest && e.target.closest('.spec-scale-toggle');
+      if (tg) {
+        var wrap = tg.closest('.spec-with-photo');
+        var sv = wrap.querySelector('.spec-scale-view');
+        var on = sv.classList.toggle('on');
+        tg.classList.toggle('on', on);
+        var cap = wrap.querySelector('[data-spec-caption]');
+        if (cap) cap.innerHTML = on ? '各尺寸等比例對照（依實際公分換算）' : (wrap.getAttribute('data-default-caption') || '');
+        return;
+      }
+      var tr = e.target.closest && e.target.closest('.spec-grid tr[data-img]');
+      if (tr && !e.target.closest('button')) showRow(tr);
+    });
+    // 滑出整個區塊才還原，避免在表格內移動時閃動
+    document.addEventListener('mouseleave', function (e) {
+      if (e.target.classList && e.target.classList.contains('spec-with-photo')) resetStage(e.target);
+    }, true);
   }
 
   /* ---------- 讀資料 ---------- */
@@ -181,120 +279,83 @@
       document.head.appendChild(s);
     });
   }
-
-  function normalize(list) {
-    var M = window.SITE_MAP;
-    return list.map(function (r) { return M.resolve(r); })
+  function fromFallback() {
+    var d = window.SITE_DATA || {}, M = window.SITE_MAP;
+    return (Array.isArray(d.specs) ? d.specs : []).map(function (r) { return M.resolve(r); })
       .filter(function (r) { return r.series && r.spec; });
   }
-
-  function fromFallback() {
-    var d = window.SITE_DATA || {};
-    return Array.isArray(d.specs) ? normalize(d.specs) : [];
-  }
-
   function fromExcel() {
     return fetch(XLSX_PATH, { cache: 'no-cache' })
       .then(function (res) { if (!res.ok) throw new Error('xlsx ' + res.status); return res.arrayBuffer(); })
       .then(function (buf) {
         return (window.XLSX ? Promise.resolve() : loadScript(SHEETJS)).then(function () {
-          var wb = window.XLSX.read(buf, { type: 'array' });
-          return window.SITE_MAP.readWorkbook(wb, window.XLSX);
+          return window.SITE_MAP.readWorkbook(window.XLSX.read(buf, { type: 'array' }), window.XLSX);
         });
       });
   }
 
-  /* ---------- 繪製 ---------- */
   function currentPage() {
     var m = location.pathname.match(/([a-z0-9-]+)\.html?$/i);
     return m ? m[1] : '';
   }
 
-  function paint(rows, source) {
-    var containers = [].slice.call(document.querySelectorAll('[data-spec-block]'));
-    if (!containers.length) return;
-    var page = currentPage();
-    var known = {};
-    containers.forEach(function (c) { known[c.getAttribute('data-spec-series')] = true; });
-
-    // 同一頁所有等比例牆共用一個縮放比
-    var maxW = 0, maxH = 0;
-    rows.forEach(function (r) {
-      var d = parseDim(r.dim);
-      if (!d) return;
-      if (r.page && page && r.page !== page) return;
-      if (d.w > maxW) maxW = d.w;
-      if (d.h > maxH) maxH = d.h;
-    });
-    var cardScale = maxW && maxH ? Math.min(105 / maxW, 118 / maxH) : 1;
-    var rampScale = maxW && maxH ? Math.min(88 / maxW, 121 / maxH) : 1;
-
-    containers.forEach(function (el) {
-      var layout = el.getAttribute('data-spec-layout') || 'table';
-      var series = el.getAttribute('data-spec-series') || '';
-      var mine = rows.filter(function (r) { return r.series === series; });
-
-      if (!mine.length) {
-        el.innerHTML = layout === 'table'
-          ? '<tr><td colspan="3" style="text-align:center; color:#64748B; padding:18px;">規格整理中，歡迎與專員聯繫</td></tr>'
-          : '<div style="padding:18px; color:#64748B; font-weight:700;">規格整理中，歡迎與專員聯繫</div>';
-        return;
-      }
-      if (layout === 'edm') el.innerHTML = renderEdm(mine);
-      else if (layout === 'card') el.innerHTML = renderCard(mine, cardScale);
-      else if (layout === 'ramp') el.innerHTML = renderRamp(mine, rampScale, parseInt(el.getAttribute('data-slot-height') || '130', 10));
-      else el.innerHTML = renderTable(mine, el.getAttribute('data-spec-qty') !== 'off');
-    });
-
-    renderNewSeries(rows, page, known, cardScale);
-
-    // 對比牆點選高亮（原本頁面的事件在渲染前就綁好了，這裡重新綁一次）
-    document.querySelectorAll('.scale-ramp-item').forEach(function (item) {
-      item.addEventListener('click', function () {
-        var track = this.parentElement;
-        track.querySelectorAll('.scale-ramp-item').forEach(function (i) { i.classList.remove('active'); });
-        this.classList.add('active');
-      });
-    });
-    document.dispatchEvent(new CustomEvent('specsrendered', { detail: { source: source, rows: rows.length } }));
-  }
-
-  /* Excel 新增的系列：在該分類頁自動補一個規格區塊 */
-  function renderNewSeries(rows, page, known, cardScale) {
-    var host = document.querySelector('[data-spec-overflow]');
+  function paint(rows) {
+    var host = document.querySelector('[data-spec-page]');
     if (!host) return;
+    var page = host.getAttribute('data-spec-page') || currentPage();
+    var mine = rows.filter(function (r) { return r.page === page; });
+
+    if (!mine.length) {
+      host.innerHTML = '<div class="cat-spec-block spec-block" style="padding:28px;color:#64748B;font-weight:700;">規格整理中，歡迎與專員聯繫</div>';
+      return;
+    }
+
+    // 同頁所有袋型共用一個比例尺（表格內的迷你圖）
+    var maxH = 0;
+    mine.forEach(function (r) {
+      var d = parseDim(r.dim);
+      if (d && d.h > maxH) maxH = d.h;
+    });
+    var scale = maxH ? Math.min(0.42, 44 / maxH) : 0.42;
+
+    // Excel 的列順序＝系列與規格的顯示順序
     var order = [], groups = {};
-    rows.forEach(function (r) {
-      if (!r.series || known[r.series]) return;
-      if (r.page && page && r.page !== page) return;
+    mine.forEach(function (r) {
       if (!groups[r.series]) { groups[r.series] = []; order.push(r.series); }
       groups[r.series].push(r);
     });
-    if (!order.length) { host.innerHTML = ''; return; }
-    host.innerHTML = order.map(function (name) {
-      var mine = groups[name];
-      var sized = mine.some(function (r) { return parseDim(r.dim); });
-      var body = sized ? renderCard(mine, cardScale) : renderEdm(mine);
-      return '<div class="cat-spec-block spec-block" data-spec-generated="' + attr(name) + '">' +
-        '<div class="cat-spec-header"><h2 class="cat-spec-title">' +
-          '<i class="fa-solid fa-layer-group"></i> ' + esc(name) + '</h2></div>' +
-        (sized ? '<div class="scale-card-wall">' : '<div class="edm-card-rows-wrapper">') + body + '</div>' +
-      '</div>';
-    }).join('');
+    host.innerHTML = order.map(function (s) { return renderBlock(s, groups[s], scale); }).join('');
+    renderFilters(order);
+    bindStage();
+    document.dispatchEvent(new CustomEvent('specsrendered', { detail: { rows: mine.length, series: order.length } }));
+  }
+
+  /* 篩選鈕也依 Excel 的系列自動產生（新增系列不必改 HTML） */
+  function renderFilters(order) {
+    var bar = document.querySelector('[data-spec-filters]');
+    if (!bar) return;
+    var M = window.SITE_MAP;
+    bar.innerHTML = '<button class="filter-btn active" onclick="filterCategory(\'all\', this)">' +
+        '<i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>' +
+      order.map(function (s) {
+        var info = M.seriesInfo(s);
+        return '<button class="filter-btn" onclick="filterCategory(\'' + attr(info.anchor.replace(/^cat-/, '')) + '\', this)">' +
+          '<i class="fa-solid ' + attr(info.icon) + '"></i> ' + esc(s) + '</button>';
+      }).join('');
   }
 
   function start() {
-    if (!document.querySelector('[data-spec-block]')) return;
-    ensurePillStyles();
+    if (!document.querySelector('[data-spec-page]')) return;
+    injectCss();
     fromExcel()
       .then(function (rows) {
         if (!rows.length) throw new Error('empty sheet');
-        paint(rows, 'xlsx');
+        paint(rows);
       })
       .catch(function (err) {
         var fb = fromFallback();
         if (fb.length) {
-          paint(fb, 'fallback');
+          paint(fb);
           if (window.console) console.info('[spec-render] 目前用 src/data/website-data.js 顯示規格'
             + '（讀不到 Excel：' + err.message + '）。改完 Excel 請用 tools/update-specs.html 轉檔更新此檔；'
             + '網站架上伺服器後會自動改為直接讀取 Excel。');

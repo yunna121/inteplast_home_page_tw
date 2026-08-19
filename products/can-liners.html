@@ -374,76 +374,10 @@
     <div class="compact-spec-container">
 
       <!-- Sticky Category Filter Pills Bar -->
-      <div class="filter-pills-bar">
-        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
-        <button class="filter-btn" onclick="filterCategory('roll-liners', this)">連捲清潔袋</button>
-        <button class="filter-btn" onclick="filterCategory('flat-draw', this)">單張 / 抽取清潔袋</button>
-        <button class="filter-btn" onclick="filterCategory('eco-liners', this)">環保清潔袋</button>
-      </div>
+      <div class="filter-pills-bar" data-spec-filters></div>
 
-      <!-- 1. 連捲清潔袋 PRODUCT BLOCK -->
-      <div class="cat-spec-block spec-block" id="cat-roll-liners">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-dumpster"></i> 台塑點斷 / 抽取清潔袋 (原廠規格對照)</h2>
-        </div>
-
-        <!-- 原廠 EDM 經典風格產品頭卡 -->
-        <div style="padding: 24px 24px 0;">
-          <div style="background: linear-gradient(135deg, #F8FAFC, #EFF6FF); border: 2px solid #BFDBFE; border-radius: 16px; padding: 20px 24px; margin-bottom: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #CBD5E1; padding-bottom: 12px; margin-bottom: 14px;">
-              <div>
-                <h3 style="font-size: 1.4rem; font-weight: 900; color: #0A2540;">台塑抽取 / 點斷清潔袋 <span style="font-size: 0.85rem; color: #00529B; font-weight: 700; background: #DBEAFE; padding: 3px 10px; border-radius: 6px;">全系列原廠規格</span></h3>
-              </div>
-              <div style="font-size: 0.85rem; font-weight: 700; color: #475569; background: #FFFFFF; padding: 4px 14px; border-radius: 8px; border: 1px solid #CBD5E1;">
-                材質：高密度聚乙烯 (HDPE)
-              </div>
-            </div>
-
-            <!-- 原廠 4 大圓形特色標籤 -->
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; text-align: center;">
-              <div style="background: #FFFFFF; border: 1px solid #CBD5E1; padding: 10px; border-radius: 12px;">
-                <div style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;"><i class="fa-solid fa-eye-slash"></i></div>
-                <div style="font-size: 0.82rem; font-weight: 800; color: #1E293B;">不透明 / 霧面</div>
-              </div>
-              <div style="background: #FFFFFF; border: 1px solid #CBD5E1; padding: 10px; border-radius: 12px;">
-                <div style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;"><i class="fa-solid fa-layer-group"></i></div>
-                <div style="font-size: 0.82rem; font-weight: 800; color: #1E293B;">平底封口</div>
-              </div>
-              <div style="background: #FFFFFF; border: 1px solid #CBD5E1; padding: 10px; border-radius: 12px;">
-                <div style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;"><i class="fa-solid fa-circle-notch"></i></div>
-                <div style="font-size: 0.82rem; font-weight: 800; color: #1E293B;">實心捲取</div>
-              </div>
-              <div style="background: #FFFFFF; border: 1px solid #CBD5E1; padding: 10px; border-radius: 12px;">
-                <div style="width: 36px; height: 36px; background: #00529B; color: #FFF; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 6px;"><i class="fa-solid fa-hand-holding"></i></div>
-                <div style="font-size: 0.82rem; font-weight: 800; color: #1E293B;">點斷 / 抽取式</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 原圖 DM 風格產品圖卡列表 (無 table) -->
-        <div class="edm-card-rows-wrapper" data-spec-block="cat-roll-liners" data-spec-layout="edm" data-spec-series="連捲清潔袋">
-</div>
-      </div>
-
-      <!-- 2. 單張/抽取 清潔袋 PRODUCT BLOCK -->
-      <div class="cat-spec-block spec-block" id="cat-flat-draw">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-box-open"></i> 單張 / 抽取清潔袋規格對照表</h2>
-        </div>
-        <div class="edm-card-rows-wrapper" style="padding-top: 20px;" data-spec-block="cat-flat-draw" data-spec-layout="edm" data-spec-series="單張抽取清潔袋">
-</div>
-      </div>
-      <!-- 3. 環保清潔袋 PRODUCT BLOCK -->
-      <div class="cat-spec-block spec-block" id="cat-eco-liners">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-leaf"></i> 環保清潔袋規格對照表</h2>
-        </div>
-        <div class="edm-card-rows-wrapper" style="padding-top: 20px;" data-spec-block="cat-eco-liners" data-spec-layout="edm" data-spec-series="環保清潔袋">
-</div>
-      </div>
-
-      <!-- Excel 新增的系列會自動出現在這裡 -->
-      <div data-spec-overflow></div>
+<!-- 規格區塊由 src/spec-render.js 依 Excel（六個分類工作表）產生 -->
+      <div data-spec-page="can-liners"></div>
 
 
     </div>

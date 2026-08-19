@@ -457,84 +457,10 @@
     <div class="compact-spec-container">
 
       <!-- Category Filter Pills Bar -->
-      <div class="filter-pills-bar">
-        <button class="filter-btn active" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> 顯示全部產品 All</button>
-        <button class="filter-btn" onclick="filterCategory('zipper', this)">夾鏈袋</button>
-        <button class="filter-btn" onclick="filterCategory('slider', this)">密實袋</button>
-        <button class="filter-btn" onclick="filterCategory('standup', this)">立體密實袋</button>
-        <button class="filter-btn" onclick="filterCategory('freezer', this)">冷凍袋</button>
-      </div>
+      <div class="filter-pills-bar" data-spec-filters></div>
 
-      <div class="cat-spec-block spec-block" id="cat-zipper">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-lock"></i> 夾鏈袋號數對照表 (00號 ~ 12號)</h2>
-        </div>
-
-        <!-- 等比例對比牆：規格 / 尺寸 / 數量 / 詢價整合於卡片；同一頁所有牆共用同一縮放比 -->
-        <div class="scale-ramp-container">
-          <div class="scale-ramp-title-row">
-            <div class="scale-ramp-title"><i class="fa-solid fa-ruler-combined"></i> 夾鏈袋 00號~12號 等比例視覺對比牆</div>
-            <div class="scale-ramp-hint"><i class="fa-solid fa-arrows-left-right"></i> 左右滑動查看全部 14 種號數</div>
-          </div>
-
-          <div class="scale-ramp-track track-ramp-scroll" data-spec-block="cat-zipper" data-spec-layout="ramp" data-spec-series="夾鏈袋" data-slot-height="130">
-</div>
-        </div>
-      </div>
-
-      <div class="cat-spec-block spec-block" id="cat-slider">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-box-archive"></i> 密實袋裝箱與棧板規範對照表</h2>
-        </div>
-        <table class="compact-table">
-          <thead>
-            <tr>
-              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
-              <th data-tw="裝箱與棧板規範 Pallet Specification" data-en="Pallet Spec">裝箱與棧板規範 Pallet Specification</th>
-              <th style="width: 140px; text-align: center;">批量詢價</th>
-            </tr>
-          </thead>
-          <tbody data-spec-block="cat-slider" data-spec-layout="table" data-spec-series="密實袋">
-</tbody>
-        </table>
-      </div>
-
-      <div class="cat-spec-block spec-block" id="cat-standup">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-cube"></i> 立體密實袋規格對照表</h2>
-        </div>
-
-        <!-- 等比例對比牆：規格 / 尺寸 / 數量 / 詢價整合於卡片；同一頁所有牆共用同一縮放比 -->
-        <div class="scale-ramp-container">
-          <div class="scale-ramp-title-row">
-            <div class="scale-ramp-title"><i class="fa-solid fa-ruler-combined"></i> 立體密實袋 小~大 等比例對比牆（與夾鏈袋同比例尺）</div>
-            <div class="scale-ramp-hint"><i class="fa-solid fa-hand-pointer"></i> 點卡片下方按鈕即可加入詢價單</div>
-          </div>
-
-          <div class="scale-ramp-track track-ramp-scroll" data-spec-block="cat-standup" data-spec-layout="ramp" data-spec-series="立體密實袋" data-slot-height="130">
-</div>
-        </div>
-      </div>
-
-      <div class="cat-spec-block spec-block" id="cat-freezer">
-        <div class="cat-spec-header">
-          <h2 class="cat-spec-title"><i class="fa-solid fa-snowflake"></i> 冷凍袋裝箱與棧板規範對照表</h2>
-        </div>
-        <table class="compact-table">
-          <thead>
-            <tr>
-              <th data-tw="規格 Specification" data-en="Specification">規格 Specification</th>
-              <th data-tw="裝箱與棧板規範 Pallet Specification" data-en="Pallet Spec">裝箱與棧板規範 Pallet Specification</th>
-              <th style="width: 140px; text-align: center;">批量詢價</th>
-            </tr>
-          </thead>
-          <tbody data-spec-block="cat-freezer" data-spec-layout="table" data-spec-series="冷凍袋">
-</tbody>
-        </table>
-      </div>
-
-      <!-- Excel 新增的系列會自動出現在這裡 -->
-      <div data-spec-overflow></div>
+      <!-- 規格區塊由 src/spec-render.js 依 Excel（六個分類工作表）產生 -->
+      <div data-spec-page="sealed-packaging"></div>
 
     </div>
   </section>

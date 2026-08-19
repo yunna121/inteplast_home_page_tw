@@ -8,6 +8,16 @@ branch: main
 date: 2026-08-19T01:45:00Z
 
 ### Updated in this project
+- 五個產品頁統一改為「左圖右表」：spec-render.js 依 Excel 產生規格區塊與篩選鈕，表格每列附迷你袋型（同頁共用比例尺），等比例對照改由「等比例尺寸對照」按鈕叫出。
+- 新增 src/product-img/（24 張實拍圖）與 data-map.js 的圖片索引：滑過或點選規格時左側圖片切換為該規格照片（檔名「系列 尺寸級別[ 包裝]」，封面為「封面-系列」；拉繩醫療袋↔拉繩感染袋、特小↔超小 設有別名）。尚無照片的系列左側留空位。
+- 修正 responsive.css 與 spec-render.js 的堆疊斷點衝突（統一 768px），並讓等比例圖同時受高度與並排總寬限制。
+- Excel 改為一個分類頁一個工作表（清潔袋／拉繩袋／蔬果袋／夾鏈袋／其他類／Scale Sheet），同事只維護自己負責的那頁；「規格/容量/號數」拆成「容量/號數」＋「尺別俗稱」兩欄；網站顯示順序＝Excel 列順序。
+- src/data-map.js 新增 readWorkbook / specText，spec-render.js、products/index.html 與轉檔工具一併改讀多工作表結構。
+- Excel 改為純商業欄位：工作表「產品規格」= 分類頁／產品系列／規格／尺寸／張數／包裝／顏色（顏色直接寫名稱、張數只填數字），「分類介紹」= 卡片文案，不再有頁面檔名、區塊代碼、版型、色碼等技術欄位。
+- 新增 src/data-map.js 承接技術對應（分類頁→頁面檔名、顏色名稱→色碼、張數＋包裝→顯示文字）；規格區塊改以產品系列名稱配對，五個產品頁加入 data-spec-overflow，Excel 新增系列時該頁會自動長出新的規格表。
+- 資料檔整併為單一來源：src/data/website-data.xlsx（工作表「規格總表」82 列／「產品分類」6 列／「搜尋同義詞」15 組／「說明」），轉出的快照為 src/data/website-data.js（window.SITE_DATA）。已刪除 products.json、products.csv、specs.js、search-data.js、products_specs.xlsx。
+- products/index.html 的分類卡片改讀「產品分類」工作表，尺寸摘要自「規格總表」自動帶入（不再重複維護）；spec-render.js 與 site-search.js 一併改讀 window.SITE_DATA。
+- tools/update-specs.html 改為一次轉出三個工作表。
 - 新增 tools/update-specs.html：無伺服器環境下的 Excel 轉檔工具（拖入 products_specs.xlsx → 驗證版型與尺寸格式 → 下載 specs.js 覆蓋）。架上伺服器後即不需此步驟。
 - 規格表改為 Excel 驅動：新增 src/data/products_specs.xlsx（工作表「規格總表」82 列＋「說明」頁）作為唯一資料來源；src/spec-render.js 於載入時以 SheetJS 直接讀取 xlsx 並渲染四種版型（edm 橫列卡片／card 等比例大卡／ramp 對比牆／table 表格），讀不到時改用 src/data/specs.js 備援快照。
 - 六大分類頁的規格列全部移出 HTML，改為空容器 + data-spec-block / data-spec-layout / data-spec-series；詢價單品名由系統自動組成。
@@ -50,7 +60,7 @@ date: 2026-08-19T01:45:00Z
 | products/accessories.html（其他類，由 foodservice 拆出） | products/foodservice.html, src/ai_specialty.png |
 | products/foodservice.html（舊網址轉向頁） | products/foodservice.html |
 | products/zipper-bags.html（舊夾鏈袋頁，尚無連結指向） | products/zipper-bags.html |
-| products/index.html（產品中心） | products/index.html, src/data/products.csv, src/data/products.json |
+| products/index.html（產品中心） | products/index.html, src/data/website-data.xlsx |
 | index.html / about.html / contact.html / sustainability.html（選單連結修正） | 同名 repo 檔案 |
 | 全站搜尋／導覽／詢價籃／響應式 | src/site-search.js, src/navbar.js, src/navbar.css, src/mobile-nav.js, src/responsive.css |
 | website-progress-report.dc.html（內部報告投影片） | — 依專案現況彙整 |

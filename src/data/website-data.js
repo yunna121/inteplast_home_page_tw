@@ -4,7 +4,7 @@
      · 工作表「分類介紹」  → 產品中心的分類卡片文案
      · 工作表「搜尋同義詞」→ 客戶用別的說法也找得到
    由 tools/update-specs.html 轉出，請勿手改。
-   轉出時間：2026/8/19 下午4:55:49 — 來源檔：website-data.xlsx */
+   轉出時間：2026/8/19 下午8:38:29 — 來源檔：website-data.xlsx */
 window.SITE_DATA = {
  "version": 4,
  "specs": [
@@ -23,10 +23,10 @@ window.SITE_DATA = {
    "series": "連捲清潔袋",
    "cap": "12L",
    "size": "特小",
-   "dim": "40 × 50 cm",
-   "count": "",
-   "pack": "",
-   "colors": ""
+   "dim": "41 × 50 cm",
+   "count": "100",
+   "pack": "張/捲",
+   "colors": "透明"
   },
   {
    "category": "清潔袋",
@@ -230,53 +230,53 @@ window.SITE_DATA = {
   },
   {
    "category": "拉繩袋",
-   "series": "拉繩感染袋",
+   "series": "拉繩醫療袋",
    "cap": "8L",
    "size": "小",
    "dim": "39 × 40 cm",
    "count": "40",
    "pack": "張",
-   "colors": "紅色"
+   "colors": "紅"
   },
   {
    "category": "拉繩袋",
-   "series": "拉繩感染袋",
+   "series": "拉繩醫療袋",
    "cap": "20L",
    "size": "中",
    "dim": "52 × 55 cm",
    "count": "22",
    "pack": "張",
-   "colors": "紅色"
+   "colors": "紅"
   },
   {
    "category": "拉繩袋",
-   "series": "拉繩感染袋",
+   "series": "拉繩醫療袋",
    "cap": "50L",
    "size": "大",
    "dim": "69 × 78 cm",
    "count": "12",
    "pack": "張",
-   "colors": "紅色"
+   "colors": "紅"
   },
   {
    "category": "拉繩袋",
-   "series": "拉繩感染袋",
+   "series": "拉繩醫療袋",
    "cap": "70L",
    "size": "特大",
    "dim": "77 × 92 cm",
    "count": "8",
    "pack": "張",
-   "colors": "紅色"
+   "colors": "紅"
   },
   {
    "category": "拉繩袋",
-   "series": "拉繩感染袋",
+   "series": "拉繩醫療袋",
    "cap": "90L",
    "size": "超大",
    "dim": "84 × 95 cm",
    "count": "12",
    "pack": "張",
-   "colors": "紅色"
+   "colors": "紅"
   },
   {
    "category": "拉繩袋",
@@ -286,7 +286,7 @@ window.SITE_DATA = {
    "dim": "65 × 75 cm",
    "count": "24",
    "pack": "經濟包",
-   "colors": "透明 / 黑色"
+   "colors": ""
   },
   {
    "category": "拉繩袋",
@@ -296,7 +296,7 @@ window.SITE_DATA = {
    "dim": "78 × 88 cm",
    "count": "18",
    "pack": "經濟包",
-   "colors": "透明 / 黑色"
+   "colors": ""
   },
   {
    "category": "拉繩袋",
@@ -306,7 +306,7 @@ window.SITE_DATA = {
    "dim": "84 × 95 cm",
    "count": "14",
    "pack": "經濟包",
-   "colors": "透明 / 黑色"
+   "colors": ""
   },
   {
    "category": "拉繩袋",
@@ -316,7 +316,7 @@ window.SITE_DATA = {
    "dim": "84 × 95 cm",
    "count": "25",
    "pack": "超量包",
-   "colors": "粉色 / 藍色"
+   "colors": ""
   },
   {
    "category": "拉繩袋",
@@ -326,7 +326,7 @@ window.SITE_DATA = {
    "dim": "93 × 100 cm",
    "count": "15",
    "pack": "經濟包",
-   "colors": "透明 / 黑色"
+   "colors": ""
   },
   {
    "category": "拉繩袋",
@@ -336,7 +336,7 @@ window.SITE_DATA = {
    "dim": "94 × 102 cm",
    "count": "20",
    "pack": "超量包",
-   "colors": "透明 / 黑色"
+   "colors": ""
   },
   {
    "category": "拉繩袋",
@@ -753,7 +753,7 @@ window.SITE_DATA = {
    "series": "手套",
    "cap": "",
    "size": "小",
-   "dim": "掌寬(食指至小拇指) 小於7.5cm",
+   "dim": "7.5cm",
    "count": "",
    "pack": "",
    "colors": ""
@@ -763,7 +763,7 @@ window.SITE_DATA = {
    "series": "手套",
    "cap": "",
    "size": "中",
-   "dim": "掌寬(食指至小拇指) 7.5~8.5cm",
+   "dim": "9.5cm",
    "count": "",
    "pack": "",
    "colors": ""
@@ -773,7 +773,7 @@ window.SITE_DATA = {
    "series": "手套",
    "cap": "",
    "size": "大",
-   "dim": "掌寬(食指至小拇指) 8.5~9.5cm",
+   "dim": "10cm",
    "count": "",
    "pack": "",
    "colors": ""
