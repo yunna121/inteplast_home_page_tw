@@ -1,28 +1,38 @@
 /* 網站資料檔（Excel 的快照）
-   ------------------------------------------------------------
    正式資料來源：src/data/website-data.xlsx
-     · 工作表「產品規格」  → 各產品頁的規格牆、詢價品名、搜尋內容
+     · 六個分類工作表      → 各產品頁的規格牆、詢價品名、搜尋內容
      · 工作表「分類介紹」  → 產品中心的分類卡片文案
      · 工作表「搜尋同義詞」→ 客戶用別的說法也找得到
-   架在伺服器上時網頁直接讀 xlsx；用檔案開啟時讀本檔。
-   本檔由 tools/update-specs.html 轉出，請勿手改。
-   頁面檔名、版型、色碼等技術對應寫在 src/data-map.js。 */
+   由 tools/update-specs.html 轉出，請勿手改。
+   轉出時間：2026/8/19 下午4:55:49 — 來源檔：website-data.xlsx */
 window.SITE_DATA = {
- "version": 3,
+ "version": 4,
  "specs": [
   {
    "category": "清潔袋",
    "series": "連捲清潔袋",
-   "spec": "10L 特小",
-   "dim": "40 × 50 cm",
+   "cap": "10L",
+   "size": "超小",
+   "dim": "38 × 45 cm",
    "count": "100",
    "pack": "張/捲",
-   "colors": "透明"
+   "colors": "透明 / 黑色"
   },
   {
    "category": "清潔袋",
    "series": "連捲清潔袋",
-   "spec": "15L 小",
+   "cap": "12L",
+   "size": "特小",
+   "dim": "40 × 50 cm",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "清潔袋",
+   "series": "連捲清潔袋",
+   "cap": "15L",
+   "size": "小",
    "dim": "43 × 56 cm",
    "count": "72",
    "pack": "張/捲",
@@ -31,7 +41,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "連捲清潔袋",
-   "spec": "20L 中",
+   "cap": "20L",
+   "size": "中",
    "dim": "53 × 63 cm",
    "count": "54",
    "pack": "張/捲",
@@ -40,7 +51,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "連捲清潔袋",
-   "spec": "45L 大",
+   "cap": "45L",
+   "size": "大",
    "dim": "65 × 75 cm",
    "count": "30",
    "pack": "張/捲",
@@ -49,7 +61,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "連捲清潔袋",
-   "spec": "70L 特大",
+   "cap": "70L",
+   "size": "特大",
    "dim": "80 × 90 cm",
    "count": "22",
    "pack": "張/捲",
@@ -58,7 +71,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "連捲清潔袋",
-   "spec": "90L 超大",
+   "cap": "90L",
+   "size": "超大",
    "dim": "86 × 100 cm",
    "count": "16",
    "pack": "張/捲",
@@ -67,7 +81,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "連捲清潔袋",
-   "spec": "125L 超大",
+   "cap": "125L",
+   "size": "超大",
    "dim": "90 × 110 cm",
    "count": "28",
    "pack": "張/捲",
@@ -76,7 +91,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "連捲清潔袋",
-   "spec": "126L 超特大",
+   "cap": "126L",
+   "size": "超特大",
    "dim": "91 × 110 cm",
    "count": "10",
    "pack": "張/捲",
@@ -85,7 +101,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "連捲清潔袋",
-   "spec": "125L 超特大 (加厚)",
+   "cap": "125L",
+   "size": "超特大 (加厚)",
    "dim": "94 × 110 cm",
    "count": "27",
    "pack": "張/捲",
@@ -94,7 +111,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "單張抽取清潔袋",
-   "spec": "10L 超小",
+   "cap": "10L",
+   "size": "超小",
    "dim": "38 × 45 cm",
    "count": "",
    "pack": "",
@@ -103,7 +121,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "單張抽取清潔袋",
-   "spec": "15L 小",
+   "cap": "15L",
+   "size": "小",
    "dim": "43 × 56 cm",
    "count": "",
    "pack": "",
@@ -112,7 +131,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "單張抽取清潔袋",
-   "spec": "20L 中",
+   "cap": "20L",
+   "size": "中",
    "dim": "53 × 63 cm",
    "count": "",
    "pack": "",
@@ -121,7 +141,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "單張抽取清潔袋",
-   "spec": "45L 大",
+   "cap": "45L",
+   "size": "大",
    "dim": "65 × 75 cm",
    "count": "",
    "pack": "",
@@ -130,7 +151,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "單張抽取清潔袋",
-   "spec": "70L 特大",
+   "cap": "70L",
+   "size": "特大",
    "dim": "80 × 90 cm",
    "count": "",
    "pack": "",
@@ -139,7 +161,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "單張抽取清潔袋",
-   "spec": "90L 超大",
+   "cap": "90L",
+   "size": "超大",
    "dim": "86 × 100 cm",
    "count": "",
    "pack": "",
@@ -148,7 +171,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "單張抽取清潔袋",
-   "spec": "125L 超特大",
+   "cap": "125L",
+   "size": "超特大",
    "dim": "91 × 110 cm",
    "count": "",
    "pack": "",
@@ -157,7 +181,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "環保清潔袋",
-   "spec": "大",
+   "cap": "",
+   "size": "大",
    "dim": "",
    "count": "",
    "pack": "",
@@ -166,7 +191,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "環保清潔袋",
-   "spec": "小",
+   "cap": "",
+   "size": "小",
    "dim": "",
    "count": "",
    "pack": "",
@@ -175,7 +201,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "環保清潔袋",
-   "spec": "中",
+   "cap": "",
+   "size": "中",
    "dim": "",
    "count": "",
    "pack": "",
@@ -184,7 +211,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "環保清潔袋",
-   "spec": "特大",
+   "cap": "",
+   "size": "特大",
    "dim": "",
    "count": "",
    "pack": "",
@@ -193,7 +221,8 @@ window.SITE_DATA = {
   {
    "category": "清潔袋",
    "series": "環保清潔袋",
-   "spec": "超大",
+   "cap": "",
+   "size": "超大",
    "dim": "",
    "count": "",
    "pack": "",
@@ -201,107 +230,119 @@ window.SITE_DATA = {
   },
   {
    "category": "拉繩袋",
-   "series": "拉繩醫療袋",
-   "spec": "小 8L",
+   "series": "拉繩感染袋",
+   "cap": "8L",
+   "size": "小",
    "dim": "39 × 40 cm",
    "count": "40",
    "pack": "張",
-   "colors": "紅"
+   "colors": "紅色"
   },
   {
    "category": "拉繩袋",
-   "series": "拉繩醫療袋",
-   "spec": "中 20L",
+   "series": "拉繩感染袋",
+   "cap": "20L",
+   "size": "中",
    "dim": "52 × 55 cm",
    "count": "22",
    "pack": "張",
-   "colors": "紅"
+   "colors": "紅色"
   },
   {
    "category": "拉繩袋",
-   "series": "拉繩醫療袋",
-   "spec": "大 50L",
+   "series": "拉繩感染袋",
+   "cap": "50L",
+   "size": "大",
    "dim": "69 × 78 cm",
    "count": "12",
    "pack": "張",
-   "colors": "紅"
+   "colors": "紅色"
   },
   {
    "category": "拉繩袋",
-   "series": "拉繩醫療袋",
-   "spec": "特大 70L",
+   "series": "拉繩感染袋",
+   "cap": "70L",
+   "size": "特大",
    "dim": "77 × 92 cm",
    "count": "8",
    "pack": "張",
-   "colors": "紅"
+   "colors": "紅色"
   },
   {
    "category": "拉繩袋",
-   "series": "拉繩醫療袋",
-   "spec": "超大 90L",
+   "series": "拉繩感染袋",
+   "cap": "90L",
+   "size": "超大",
    "dim": "84 × 95 cm",
    "count": "12",
    "pack": "張",
-   "colors": "紅"
+   "colors": "紅色"
   },
   {
    "category": "拉繩袋",
    "series": "拉繩清潔袋",
-   "spec": "大 45L",
+   "cap": "45L",
+   "size": "大",
    "dim": "65 × 75 cm",
    "count": "24",
    "pack": "經濟包",
-   "colors": ""
+   "colors": "透明 / 黑色"
   },
   {
    "category": "拉繩袋",
    "series": "拉繩清潔袋",
-   "spec": "特大 70L",
+   "cap": "70L",
+   "size": "特大",
    "dim": "78 × 88 cm",
    "count": "18",
    "pack": "經濟包",
-   "colors": ""
+   "colors": "透明 / 黑色"
   },
   {
    "category": "拉繩袋",
    "series": "拉繩清潔袋",
-   "spec": "超大 90L",
+   "cap": "90L",
+   "size": "超大",
    "dim": "84 × 95 cm",
    "count": "14",
    "pack": "經濟包",
-   "colors": ""
+   "colors": "透明 / 黑色"
   },
   {
    "category": "拉繩袋",
    "series": "拉繩清潔袋",
-   "spec": "超大 90L",
+   "cap": "90L",
+   "size": "超大",
    "dim": "84 × 95 cm",
    "count": "25",
    "pack": "超量包",
-   "colors": ""
+   "colors": "粉色 / 藍色"
   },
   {
    "category": "拉繩袋",
    "series": "拉繩清潔袋",
-   "spec": "超特大 125L",
+   "cap": "125L",
+   "size": "超特大",
    "dim": "93 × 100 cm",
    "count": "15",
    "pack": "經濟包",
-   "colors": ""
+   "colors": "透明 / 黑色"
   },
   {
    "category": "拉繩袋",
    "series": "拉繩清潔袋",
-   "spec": "巨無霸 130L",
+   "cap": "130L",
+   "size": "巨無霸",
    "dim": "94 × 102 cm",
    "count": "20",
    "pack": "超量包",
-   "colors": ""
+   "colors": "透明 / 黑色"
   },
   {
    "category": "拉繩袋",
    "series": "環保拉繩清潔袋",
-   "spec": "大",
+   "cap": "",
+   "size": "大",
    "dim": "",
    "count": "",
    "pack": "",
@@ -310,7 +351,8 @@ window.SITE_DATA = {
   {
    "category": "拉繩袋",
    "series": "環保拉繩清潔袋",
-   "spec": "特大",
+   "cap": "",
+   "size": "特大",
    "dim": "",
    "count": "",
    "pack": "",
@@ -319,7 +361,8 @@ window.SITE_DATA = {
   {
    "category": "拉繩袋",
    "series": "環保拉繩清潔袋",
-   "spec": "超大",
+   "cap": "",
+   "size": "超大",
    "dim": "",
    "count": "",
    "pack": "",
@@ -328,7 +371,8 @@ window.SITE_DATA = {
   {
    "category": "拉繩袋",
    "series": "環保拉繩清潔袋",
-   "spec": "超特大",
+   "cap": "",
+   "size": "超特大",
    "dim": "",
    "count": "",
    "pack": "",
@@ -337,7 +381,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "平裝耐熱袋",
-   "spec": "四兩",
+   "cap": "四兩",
+   "size": "",
    "dim": "15.5 × 19.5 cm",
    "count": "360",
    "pack": "包",
@@ -346,7 +391,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "平裝耐熱袋",
-   "spec": "六兩",
+   "cap": "六兩",
+   "size": "",
    "dim": "18.5 × 23 cm",
    "count": "255",
    "pack": "包",
@@ -355,7 +401,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "平裝耐熱袋",
-   "spec": "半斤",
+   "cap": "半斤",
+   "size": "",
    "dim": "22 × 27 cm",
    "count": "183",
    "pack": "包",
@@ -364,7 +411,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "平裝耐熱袋",
-   "spec": "1斤",
+   "cap": "1斤",
+   "size": "",
    "dim": "24 × 31 cm",
    "count": "146",
    "pack": "包",
@@ -373,7 +421,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "平裝耐熱袋",
-   "spec": "2斤",
+   "cap": "2斤",
+   "size": "",
    "dim": "28 × 39 cm",
    "count": "99",
    "pack": "包",
@@ -382,7 +431,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "平裝耐熱袋",
-   "spec": "3斤",
+   "cap": "3斤",
+   "size": "",
    "dim": "32 × 43 cm",
    "count": "79",
    "pack": "包",
@@ -391,7 +441,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "平裝耐熱袋",
-   "spec": "5斤",
+   "cap": "5斤",
+   "size": "",
    "dim": "35 × 50 cm",
    "count": "52",
    "pack": "包",
@@ -400,7 +451,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "平裝耐熱袋",
-   "spec": "10斤",
+   "cap": "10斤",
+   "size": "",
    "dim": "45 × 62 cm",
    "count": "26",
    "pack": "包",
@@ -409,7 +461,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "平裝耐熱袋",
-   "spec": "15斤",
+   "cap": "15斤",
+   "size": "",
    "dim": "48 × 65 cm",
    "count": "22",
    "pack": "包",
@@ -418,7 +471,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "卷裝耐熱袋",
-   "spec": "四兩",
+   "cap": "四兩",
+   "size": "",
    "dim": "15.5 × 19.5 cm",
    "count": "1822",
    "pack": "張/卷",
@@ -427,7 +481,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "卷裝耐熱袋",
-   "spec": "六兩",
+   "cap": "六兩",
+   "size": "",
    "dim": "18.5 × 23 cm",
    "count": "1275",
    "pack": "包",
@@ -436,7 +491,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "卷裝耐熱袋",
-   "spec": "半斤",
+   "cap": "半斤",
+   "size": "",
    "dim": "22 × 27 cm",
    "count": "897",
    "pack": "包",
@@ -445,7 +501,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "卷裝耐熱袋",
-   "spec": "1斤",
+   "cap": "1斤",
+   "size": "",
    "dim": "24 × 31 cm",
    "count": "708",
    "pack": "包",
@@ -454,7 +511,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "卷裝耐熱袋",
-   "spec": "2斤",
+   "cap": "2斤",
+   "size": "",
    "dim": "28 × 39 cm",
    "count": "472",
    "pack": "包",
@@ -463,7 +521,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "卷裝耐熱袋",
-   "spec": "3斤",
+   "cap": "3斤",
+   "size": "",
    "dim": "32 × 43 cm",
    "count": "367",
    "pack": "包",
@@ -472,7 +531,8 @@ window.SITE_DATA = {
   {
    "category": "蔬果袋",
    "series": "卷裝耐熱袋",
-   "spec": "5斤",
+   "cap": "5斤",
+   "size": "",
    "dim": "35 × 50 cm",
    "count": "236",
    "pack": "包",
@@ -481,7 +541,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "00號",
+   "cap": "00號",
+   "size": "",
    "dim": "3.5 × 4 cm",
    "count": "100",
    "pack": "包",
@@ -490,7 +551,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "0號",
+   "cap": "0號",
+   "size": "",
    "dim": "4 × 6 cm",
    "count": "100",
    "pack": "包",
@@ -499,7 +561,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "1號",
+   "cap": "1號",
+   "size": "",
    "dim": "5 × 7 cm",
    "count": "100",
    "pack": "包",
@@ -508,7 +571,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "2號",
+   "cap": "2號",
+   "size": "",
    "dim": "6 × 8.5 cm",
    "count": "100",
    "pack": "包",
@@ -517,7 +581,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "3號",
+   "cap": "3號",
+   "size": "",
    "dim": "7 × 10 cm",
    "count": "100",
    "pack": "包",
@@ -526,7 +591,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "4號",
+   "cap": "4號",
+   "size": "",
    "dim": "8.5 × 12 cm",
    "count": "100",
    "pack": "包",
@@ -535,7 +601,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "5號",
+   "cap": "5號",
+   "size": "",
    "dim": "10 × 14 cm",
    "count": "100",
    "pack": "包",
@@ -544,7 +611,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "6號",
+   "cap": "6號",
+   "size": "",
    "dim": "12 × 17 cm",
    "count": "100",
    "pack": "包",
@@ -553,7 +621,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "7號",
+   "cap": "7號",
+   "size": "",
    "dim": "14 × 20 cm",
    "count": "100",
    "pack": "包",
@@ -562,7 +631,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "8號",
+   "cap": "8號",
+   "size": "",
    "dim": "17 × 24 cm",
    "count": "100",
    "pack": "包",
@@ -571,7 +641,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "9號",
+   "cap": "9號",
+   "size": "",
    "dim": "20 × 28 cm",
    "count": "100",
    "pack": "包",
@@ -580,7 +651,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "10號",
+   "cap": "10號",
+   "size": "",
    "dim": "24 × 34 cm",
    "count": "100",
    "pack": "包",
@@ -589,7 +661,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "11號",
+   "cap": "11號",
+   "size": "",
    "dim": "28 × 40 cm",
    "count": "100",
    "pack": "包",
@@ -598,7 +671,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "夾鏈袋",
-   "spec": "12號",
+   "cap": "12號",
+   "size": "",
    "dim": "34 × 45 cm",
    "count": "100",
    "pack": "包",
@@ -607,7 +681,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "密實袋",
-   "spec": "中 (Medium)",
+   "cap": "",
+   "size": "中",
    "dim": "",
    "count": "45",
    "pack": "箱/板",
@@ -616,7 +691,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "密實袋",
-   "spec": "大 (Large)",
+   "cap": "",
+   "size": "大",
    "dim": "",
    "count": "48",
    "pack": "箱/板",
@@ -625,7 +701,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "立體密實袋",
-   "spec": "小 Small",
+   "cap": "",
+   "size": "小",
    "dim": "13 × 13.5 cm",
    "count": "40",
    "pack": "包",
@@ -634,7 +711,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "立體密實袋",
-   "spec": "中 Medium",
+   "cap": "",
+   "size": "中",
    "dim": "17 × 15.5 cm",
    "count": "30",
    "pack": "包",
@@ -643,7 +721,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "立體密實袋",
-   "spec": "大 Large",
+   "cap": "",
+   "size": "大",
    "dim": "26 × 25.5 cm",
    "count": "16",
    "pack": "包",
@@ -652,7 +731,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "冷凍袋",
-   "spec": "中 (Medium)",
+   "cap": "",
+   "size": "中",
    "dim": "",
    "count": "45",
    "pack": "箱/板",
@@ -661,7 +741,8 @@ window.SITE_DATA = {
   {
    "category": "夾鏈袋",
    "series": "冷凍袋",
-   "spec": "大 (Large)",
+   "cap": "",
+   "size": "大",
    "dim": "",
    "count": "48",
    "pack": "箱/板",
@@ -669,54 +750,10 @@ window.SITE_DATA = {
   },
   {
    "category": "其他類",
-   "series": "台塑遮蔽防塵膠帶",
-   "spec": "550 mm * 25 y",
-   "dim": "長度 25 y (22.8m)",
-   "count": "",
-   "pack": "",
-   "colors": ""
-  },
-  {
-   "category": "其他類",
-   "series": "台塑遮蔽防塵膠帶",
-   "spec": "1100 mm * 25 y",
-   "dim": "長度 25 y (22.8m)",
-   "count": "",
-   "pack": "",
-   "colors": ""
-  },
-  {
-   "category": "其他類",
-   "series": "台塑遮蔽防塵膠帶",
-   "spec": "1500 mm * 25 y",
-   "dim": "長度 25 y (22.8m)",
-   "count": "",
-   "pack": "",
-   "colors": ""
-  },
-  {
-   "category": "其他類",
-   "series": "台塑遮蔽防塵膠帶",
-   "spec": "2100 mm * 25 y",
-   "dim": "長度 25 y (22.8m)",
-   "count": "",
-   "pack": "",
-   "colors": ""
-  },
-  {
-   "category": "其他類",
-   "series": "台塑遮蔽防塵膠帶",
-   "spec": "2700 mm * 25 y",
-   "dim": "長度 25 y (22.8m)",
-   "count": "",
-   "pack": "",
-   "colors": ""
-  },
-  {
-   "category": "其他類",
-   "series": "台塑遮蔽防塵膠帶",
-   "spec": "3200 mm * 25 y",
-   "dim": "長度 25 y (22.8m)",
+   "series": "手套",
+   "cap": "",
+   "size": "小",
+   "dim": "掌寬(食指至小拇指) 小於7.5cm",
    "count": "",
    "pack": "",
    "colors": ""
@@ -724,8 +761,9 @@ window.SITE_DATA = {
   {
    "category": "其他類",
    "series": "手套",
-   "spec": "小",
-   "dim": "手掌寬 ~8 cm",
+   "cap": "",
+   "size": "中",
+   "dim": "掌寬(食指至小拇指) 7.5~8.5cm",
    "count": "",
    "pack": "",
    "colors": ""
@@ -733,17 +771,9 @@ window.SITE_DATA = {
   {
    "category": "其他類",
    "series": "手套",
-   "spec": "中",
-   "dim": "手掌寬 ~9 cm",
-   "count": "",
-   "pack": "",
-   "colors": ""
-  },
-  {
-   "category": "其他類",
-   "series": "手套",
-   "spec": "大",
-   "dim": "手掌寬 ~10 cm",
+   "cap": "",
+   "size": "大",
+   "dim": "掌寬(食指至小拇指) 8.5~9.5cm",
    "count": "",
    "pack": "",
    "colors": ""

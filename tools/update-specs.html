@@ -81,7 +81,7 @@
   <div class="card">
     <h2>更新步驟</h2>
     <ol class="steps">
-      <li>打開 <b>src/data/website-data.xlsx</b>，在「產品規格」／「分類介紹」／「搜尋同義詞」修改後存檔。</li>
+      <li>打開 <b>src/data/website-data.xlsx</b>，在自己負責的分類工作表（清潔袋／拉繩袋／…）修改後存檔。</li>
       <li>把存好的 Excel <b>拖到上面的框</b>，確認預覽的筆數與內容正確。</li>
       <li>按 <b>下載 website-data.js</b>，用下載的檔案<b>覆蓋 src/data/website-data.js</b>。</li>
       <li>重新整理網頁（<code>Ctrl</code> + <code>F5</code>）即可看到新內容。</li>
@@ -134,17 +134,23 @@
     var wb = XLSX.read(buf, { type: 'array' });
     function rows(n) { return wb.Sheets[n] ? XLSX.utils.sheet_to_json(wb.Sheets[n], { defval: '' }) : []; }
 
-    var specs = rows('產品規格').map(function (r) {
-      return {
-        category: String(r['分類頁'] || '').trim(),
-        series: String(r['產品系列'] || '').trim(),
-        spec: String(r['規格/容量/號數'] || '').trim(),
-        dim: String(r['尺寸 寬×長'] || '').trim(),
-        count: String(r['張數'] == null ? '' : r['張數']).trim(),
-        pack: String(r['包裝'] || '').trim(),
-        colors: String(r['顏色'] || '').trim()
-      };
-    }).filter(function (r) { return r.series && r.spec; });
+    // 六個分類工作表，Excel 的列順序即網站顯示順序
+    var specs = [];
+    (window.SITE_MAP ? window.SITE_MAP.sheets : []).forEach(function (name) {
+      rows(name).forEach(function (r) {
+        var cap = String(r['容量'] == null ? (r['容量/號數'] == null ? '' : r['容量/號數']) : r['容量']).trim();
+        var size = String(r['尺寸級別'] || r['尺別俗稱'] || '').trim();
+        var series = String(r['產品系列'] || '').trim();
+        if (!series || !(cap || size)) return;   // 兩欄至少一欄有值
+        specs.push({
+          category: name, series: series, cap: cap, size: size,
+          dim: String(r['尺寸(寬×長)'] || r['尺寸 寬×長'] || '').trim(),
+          count: String(r['張數'] == null ? '' : r['張數']).trim(),
+          pack: String(r['包裝'] || '').trim(),
+          colors: String(r['顏色'] || '').trim()
+        });
+      });
+    });
 
     var categories = rows('分類介紹').map(function (r) {
       return {
@@ -164,37 +170,37 @@
       return { say: say, mean: mean };
     }).filter(function (g) { return g.say.length && g.mean.length; });
 
-    if (!specs.length) throw new Error('「產品規格」沒有讀到資料列，請確認工作表名稱與欄位標題沒有被改動。');
+    if (!specs.length) throw new Error('六個分類工作表都沒有讀到資料列，請確認工作表名稱（清潔袋／拉繩袋／蔬果袋／夾鏈袋／其他類／Scale Sheet）與欄位標題沒有被改動。');
 
     var prev = (window.SITE_DATA && window.SITE_DATA.search) || {};
     var search = { variants: prev.variants || {}, synonyms: synonyms.length ? synonyms : (prev.synonyms || []), docs: prev.docs || [] };
 
     payload = '/* 網站資料檔（Excel 的快照）\n' +
       '   正式資料來源：src/data/website-data.xlsx\n' +
-      '     · 工作表「產品規格」  → 各產品頁的規格牆、詢價品名、搜尋內容\n' +
+      '     · 六個分類工作表      → 各產品頁的規格牆、詢價品名、搜尋內容\n' +
       '     · 工作表「分類介紹」  → 產品中心的分類卡片文案\n' +
       '     · 工作表「搜尋同義詞」→ 客戶用別的說法也找得到\n' +
       '   由 tools/update-specs.html 轉出，請勿手改。\n' +
       '   轉出時間：' + new Date().toLocaleString('zh-TW') + ' — 來源檔：' + name + ' */\n' +
-      'window.SITE_DATA = ' + JSON.stringify({ version: 3, specs: specs, categories: categories, search: search }, null, 1) + ';\n';
+      'window.SITE_DATA = ' + JSON.stringify({ version: 4, specs: specs, categories: categories, search: search }, null, 1) + ';\n';
 
-    var known = window.SITE_MAP ? Object.keys(window.SITE_MAP.pages) : [];
-    var badCat = specs.filter(function (r) { return known.length && known.indexOf(r.category) < 0; });
+    var missing = (window.SITE_MAP ? window.SITE_MAP.sheets : []).filter(function (n) { return !wb.Sheets[n]; });
     var badDim = specs.filter(function (r) { return r.dim && !/\d+(\.\d+)?\s*[×xX*]\s*\d+/.test(r.dim); });
     var seriesSet = {}; specs.forEach(function (r) { seriesSet[r.series] = 1; });
 
     var msg = '<i class="fa-solid fa-circle-check"></i> 讀取成功：規格 <b>' + specs.length + '</b> 筆（'
       + Object.keys(seriesSet).length + ' 個系列）、分類 <b>' + categories.length + '</b> 個、同義詞 <b>' + synonyms.length + '</b> 組。';
     if (!categories.length) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 沒有讀到「分類介紹」工作表，產品中心的卡片將沿用舊資料。';
-    if (badCat.length) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 有 ' + badCat.length
-      + ' 列的「分類頁」不是 ' + known.join('／') + '（例：「' + badCat[0].category + '」），這些品項不會顯示。';
+    if (missing.length) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 找不到工作表：' + missing.join('／')
+      + '（名稱被改過或整頁被刪除時，該分類頁的規格會消失）。';
     if (badDim.length) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 有 ' + badDim.length
-      + ' 列的尺寸格式不符（' + badDim[0].spec + '：「' + badDim[0].dim + '」），請寫成「84 × 95 cm」。';
-    say(msg, (badCat.length || badDim.length) ? 'err' : 'ok');
+      + ' 列的尺寸格式不符（' + (badDim[0].cap || badDim[0].size) + '：「' + badDim[0].dim + '」），請寫成「84 × 95 cm」。';
+    say(msg, (missing.length || badDim.length) ? 'err' : 'ok');
 
     var preRows = categories.map(function (c) { return ['分類介紹', c.category, c.title_tw, '', '']; })
       .concat(specs.slice(0, 10).map(function (r) {
-        return ['產品規格', r.series, r.spec, r.dim || '—', (r.count ? r.count + ' ' + r.pack : r.pack) || '—'];
+        return [r.category, r.series, window.SITE_MAP.specText(r.cap, r.size),
+                r.dim || '—', (r.count ? r.count + ' ' + r.pack : r.pack) || '—'];
       }));
     var tb = preview.querySelector('tbody');
     tb.innerHTML = preRows.map(function (r) {
