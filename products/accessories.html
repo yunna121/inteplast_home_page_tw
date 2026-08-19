@@ -492,14 +492,8 @@
               <th style="width: 140px; text-align: center;">批量詢價</th>
             </tr>
           </thead>
-          <tbody>
-            <tr><td><span class="tag-size">550 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 550mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">1100 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 1100mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">1500 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 1500mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">2100 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 2100mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">2700 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 2700mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">3200 mm * 25 y</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('台塑遮蔽防塵膠帶 · 3200mm x 25y', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-          </tbody>
+          <tbody data-spec-block="cat-tape" data-spec-layout="table" data-spec-series="台塑遮蔽防塵膠帶" data-spec-qty="off">
+</tbody>
         </table>
           </div>
         </div>
@@ -522,11 +516,8 @@
               <th style="width: 140px; text-align: center;">批量詢價</th>
             </tr>
           </thead>
-          <tbody>
-            <tr><td><span class="tag-size">小</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('手套 · 小', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">中</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('手套 · 中', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-            <tr><td><span class="tag-size">大</span></td><td style="text-align: center;"><button class="btn-quote-add" onclick="toggleQuoteItem('手套 · 大', this)"><i class="fa-solid fa-plus"></i> 勾選詢價</button></td></tr>
-          </tbody>
+          <tbody data-spec-block="cat-gloves" data-spec-layout="table" data-spec-series="手套" data-spec-qty="off">
+</tbody>
         </table>
           </div>
         </div>
@@ -743,6 +734,9 @@
     });
   })();
   </script>
+  <script src="../src/data/specs.js"></script>
+  <script src="../src/spec-render.js"></script>
+  <script src="../src/data/search-data.js"></script>
   <script src="../src/site-search.js"></script>
   <script src="../src/mobile-nav.js"></script>
 </body>
