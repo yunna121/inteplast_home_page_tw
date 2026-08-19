@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>規格 Excel 轉檔工具 | 台灣營德</title>
+<title>網站資料 Excel 轉檔工具 | 台灣營德</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -58,22 +58,22 @@
 <div class="wrap">
   <div class="head">
     <div class="kicker">內部維護工具</div>
-    <h1>規格 Excel 轉檔工具</h1>
-    <p class="lede">還沒有伺服器時，用這個頁面把 <code>products_specs.xlsx</code> 轉成網站讀得到的 <code>specs.js</code>。
-      改 Excel → 拖進來 → 下載 → 覆蓋檔案，網站規格表就更新了。</p>
+    <h1>網站資料 Excel 轉檔工具</h1>
+    <p class="lede">還沒有伺服器時，用這個頁面把 <code>website-data.xlsx</code> 轉成網站讀得到的 <code>website-data.js</code>。
+      改 Excel → 拖進來 → 下載 → 覆蓋檔案，網站的規格表、分類卡片與搜尋同義詞就一起更新了。</p>
   </div>
 
   <div class="card">
     <div class="drop" id="drop">
       <i class="fa-solid fa-file-excel"></i>
-      <div class="t">把 products_specs.xlsx 拖到這裡</div>
+      <div class="t">把 website-data.xlsx 拖到這裡</div>
       <div class="s">或點一下選擇檔案</div>
       <input type="file" id="file" accept=".xlsx,.xls" hidden>
     </div>
     <div class="status" id="status"></div>
-    <button class="btn" id="download" disabled><i class="fa-solid fa-download"></i> 下載 specs.js</button>
+    <button class="btn" id="download" disabled><i class="fa-solid fa-download"></i> 下載 website-data.js</button>
     <table id="preview">
-      <thead><tr><th>系列</th><th>規格</th><th>尺寸</th><th>張數／包裝</th><th>顏色</th></tr></thead>
+      <thead><tr><th>工作表</th><th>系列／分類</th><th>規格</th><th>尺寸</th><th>張數／包裝</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -81,16 +81,18 @@
   <div class="card">
     <h2>更新步驟</h2>
     <ol class="steps">
-      <li>打開 <b>src/data/products_specs.xlsx</b>，在「規格總表」修改或新增品項後存檔。</li>
+      <li>打開 <b>src/data/website-data.xlsx</b>，在「產品規格」／「分類介紹」／「搜尋同義詞」修改後存檔。</li>
       <li>把存好的 Excel <b>拖到上面的框</b>，確認預覽的筆數與內容正確。</li>
-      <li>按 <b>下載 specs.js</b>，用下載的檔案<b>覆蓋 src/data/specs.js</b>。</li>
-      <li>重新整理產品頁（<code>Ctrl</code> + <code>F5</code>）即可看到新規格。</li>
+      <li>按 <b>下載 website-data.js</b>，用下載的檔案<b>覆蓋 src/data/website-data.js</b>。</li>
+      <li>重新整理網頁（<code>Ctrl</code> + <code>F5</code>）即可看到新內容。</li>
     </ol>
-    <p class="note">日後網站架上伺服器後，這個步驟就不需要了 — 產品頁會自動直接讀取 Excel，
-      這份 <code>specs.js</code> 會退居備援。無論有沒有伺服器，<b>Excel 都是唯一要維護的檔案</b>。</p>
+    <p class="note">日後網站架上伺服器後，這個步驟就不需要了 — 網頁會自動直接讀取 Excel，
+      這份 <code>website-data.js</code> 會退居備援。無論有沒有伺服器，<b>Excel 都是唯一要維護的檔案</b>。</p>
   </div>
 </div>
 
+<script src="../src/data/website-data.js"></script>
+<script src="../src/data-map.js"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script>
 (function () {
@@ -130,49 +132,75 @@
 
   function convert(buf, name) {
     var wb = XLSX.read(buf, { type: 'array' });
-    var sheet = wb.Sheets['規格總表'] || wb.Sheets[wb.SheetNames[0]];
-    var raw = XLSX.utils.sheet_to_json(sheet, { defval: '' });
-    var rows = raw.map(function (r) {
+    function rows(n) { return wb.Sheets[n] ? XLSX.utils.sheet_to_json(wb.Sheets[n], { defval: '' }) : []; }
+
+    var specs = rows('產品規格').map(function (r) {
       return {
-        page: String(r['頁面'] || '').trim(),
-        block: String(r['區塊代碼'] || '').trim(),
-        series: String(r['系列名稱'] || '').trim(),
-        layout: String(r['版型'] || '').trim(),
+        category: String(r['分類頁'] || '').trim(),
+        series: String(r['產品系列'] || '').trim(),
         spec: String(r['規格/容量/號數'] || '').trim(),
         dim: String(r['尺寸 寬×長'] || '').trim(),
-        qty: String(r['張數/包裝數'] || '').trim(),
+        count: String(r['張數'] == null ? '' : r['張數']).trim(),
+        pack: String(r['包裝'] || '').trim(),
         colors: String(r['顏色'] || '').trim()
       };
-    }).filter(function (r) { return r.block && r.spec; });
+    }).filter(function (r) { return r.series && r.spec; });
 
-    if (!rows.length) throw new Error('找不到資料列，請確認工作表名稱為「規格總表」且欄位標題沒有被改動。');
+    var categories = rows('分類介紹').map(function (r) {
+      return {
+        category: String(r['分類頁'] || '').trim(),
+        title_tw: String(r['中文名稱'] || '').trim(),
+        title_en: String(r['英文名稱'] || '').trim(),
+        highlights: String(r['核心亮點'] || '').trim(),
+        desc: String(r['詳細介紹'] || '').trim(),
+        badges: String(r['特色標籤（逗號分隔）'] || '').trim(),
+        image: String(r['圖片檔名'] || '').trim()
+      };
+    }).filter(function (r) { return r.category; });
 
-    var badLayout = rows.filter(function (r) { return ['edm', 'card', 'ramp', 'table'].indexOf(r.layout) < 0; });
-    var badDim = rows.filter(function (r) { return r.dim && !/\d+(\.\d+)?\s*[×xX*]\s*\d+/.test(r.dim); });
+    var synonyms = rows('搜尋同義詞').map(function (r) {
+      var say = String(r['客戶可能輸入的字（逗號分隔）'] || '').split(/[,，]/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var mean = String(r['對應到的產品（逗號分隔）'] || '').split(/[,，]/).map(function (s) { return s.trim(); }).filter(Boolean);
+      return { say: say, mean: mean };
+    }).filter(function (g) { return g.say.length && g.mean.length; });
 
-    payload = '/* 產品規格資料（備援快照）\n' +
-      '   正式資料來源：src/data/products_specs.xlsx —— 架在伺服器上時由 src/spec-render.js 直接讀取。\n' +
-      '   本檔是讀不到 Excel 時（例如用檔案直接開啟網頁）的備援，由 tools/update-specs.html 轉出。\n' +
+    if (!specs.length) throw new Error('「產品規格」沒有讀到資料列，請確認工作表名稱與欄位標題沒有被改動。');
+
+    var prev = (window.SITE_DATA && window.SITE_DATA.search) || {};
+    var search = { variants: prev.variants || {}, synonyms: synonyms.length ? synonyms : (prev.synonyms || []), docs: prev.docs || [] };
+
+    payload = '/* 網站資料檔（Excel 的快照）\n' +
+      '   正式資料來源：src/data/website-data.xlsx\n' +
+      '     · 工作表「產品規格」  → 各產品頁的規格牆、詢價品名、搜尋內容\n' +
+      '     · 工作表「分類介紹」  → 產品中心的分類卡片文案\n' +
+      '     · 工作表「搜尋同義詞」→ 客戶用別的說法也找得到\n' +
+      '   由 tools/update-specs.html 轉出，請勿手改。\n' +
       '   轉出時間：' + new Date().toLocaleString('zh-TW') + ' — 來源檔：' + name + ' */\n' +
-      'window.PRODUCT_SPECS = ' + JSON.stringify(rows, null, 1) + ';\n';
+      'window.SITE_DATA = ' + JSON.stringify({ version: 3, specs: specs, categories: categories, search: search }, null, 1) + ';\n';
 
-    var blocks = {};
-    rows.forEach(function (r) { blocks[r.block] = (blocks[r.block] || 0) + 1; });
+    var known = window.SITE_MAP ? Object.keys(window.SITE_MAP.pages) : [];
+    var badCat = specs.filter(function (r) { return known.length && known.indexOf(r.category) < 0; });
+    var badDim = specs.filter(function (r) { return r.dim && !/\d+(\.\d+)?\s*[×xX*]\s*\d+/.test(r.dim); });
+    var seriesSet = {}; specs.forEach(function (r) { seriesSet[r.series] = 1; });
 
-    var msg = '<i class="fa-solid fa-circle-check"></i> 讀取成功：<b>' + rows.length + '</b> 筆規格，'
-      + Object.keys(blocks).length + ' 個區塊。';
-    if (badLayout.length) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 有 ' + badLayout.length
-      + ' 列的「版型」不是 edm / card / ramp / table（' + badLayout[0].spec + ' 等），這些列不會正常顯示。';
+    var msg = '<i class="fa-solid fa-circle-check"></i> 讀取成功：規格 <b>' + specs.length + '</b> 筆（'
+      + Object.keys(seriesSet).length + ' 個系列）、分類 <b>' + categories.length + '</b> 個、同義詞 <b>' + synonyms.length + '</b> 組。';
+    if (!categories.length) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 沒有讀到「分類介紹」工作表，產品中心的卡片將沿用舊資料。';
+    if (badCat.length) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 有 ' + badCat.length
+      + ' 列的「分類頁」不是 ' + known.join('／') + '（例：「' + badCat[0].category + '」），這些品項不會顯示。';
     if (badDim.length) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 有 ' + badDim.length
       + ' 列的尺寸格式不符（' + badDim[0].spec + '：「' + badDim[0].dim + '」），請寫成「84 × 95 cm」。';
-    say(msg, badLayout.length || badDim.length ? 'err' : 'ok');
+    say(msg, (badCat.length || badDim.length) ? 'err' : 'ok');
 
+    var preRows = categories.map(function (c) { return ['分類介紹', c.category, c.title_tw, '', '']; })
+      .concat(specs.slice(0, 10).map(function (r) {
+        return ['產品規格', r.series, r.spec, r.dim || '—', (r.count ? r.count + ' ' + r.pack : r.pack) || '—'];
+      }));
     var tb = preview.querySelector('tbody');
-    tb.innerHTML = rows.slice(0, 12).map(function (r) {
-      return '<tr><td>' + r.series + '</td><td>' + r.spec + '</td><td>' + (r.dim || '—')
-        + '</td><td>' + (r.qty || '—') + '</td><td>' + (r.colors.replace(/:[a-z]+/g, '') || '—') + '</td></tr>';
-    }).join('') + (rows.length > 12 ? '<tr><td colspan="5" style="color:#64748B; font-weight:700;">…其餘 '
-      + (rows.length - 12) + ' 筆已一併轉出</td></tr>' : '');
+    tb.innerHTML = preRows.map(function (r) {
+      return '<tr>' + r.map(function (c) { return '<td>' + (c || '—') + '</td>'; }).join('') + '</tr>';
+    }).join('') + (specs.length > 10 ? '<tr><td colspan="5" style="color:#64748B; font-weight:700;">…其餘 '
+      + (specs.length - 10) + ' 筆規格已一併轉出</td></tr>' : '');
     preview.classList.add('show');
     btn.disabled = false;
   }
@@ -182,7 +210,7 @@
     var blob = new Blob([payload], { type: 'text/javascript;charset=utf-8' });
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'specs.js';
+    a.download = 'website-data.js';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

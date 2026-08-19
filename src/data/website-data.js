@@ -1,0 +1,1373 @@
+/* 網站資料檔（Excel 的快照）
+   ------------------------------------------------------------
+   正式資料來源：src/data/website-data.xlsx
+     · 工作表「產品規格」  → 各產品頁的規格牆、詢價品名、搜尋內容
+     · 工作表「分類介紹」  → 產品中心的分類卡片文案
+     · 工作表「搜尋同義詞」→ 客戶用別的說法也找得到
+   架在伺服器上時網頁直接讀 xlsx；用檔案開啟時讀本檔。
+   本檔由 tools/update-specs.html 轉出，請勿手改。
+   頁面檔名、版型、色碼等技術對應寫在 src/data-map.js。 */
+window.SITE_DATA = {
+ "version": 3,
+ "specs": [
+  {
+   "category": "清潔袋",
+   "series": "連捲清潔袋",
+   "spec": "10L 特小",
+   "dim": "40 × 50 cm",
+   "count": "100",
+   "pack": "張/捲",
+   "colors": "透明"
+  },
+  {
+   "category": "清潔袋",
+   "series": "連捲清潔袋",
+   "spec": "15L 小",
+   "dim": "43 × 56 cm",
+   "count": "72",
+   "pack": "張/捲",
+   "colors": "透明 / 粉紅"
+  },
+  {
+   "category": "清潔袋",
+   "series": "連捲清潔袋",
+   "spec": "20L 中",
+   "dim": "53 × 63 cm",
+   "count": "54",
+   "pack": "張/捲",
+   "colors": "透明 / 粉紅"
+  },
+  {
+   "category": "清潔袋",
+   "series": "連捲清潔袋",
+   "spec": "45L 大",
+   "dim": "65 × 75 cm",
+   "count": "30",
+   "pack": "張/捲",
+   "colors": "透明 / 粉紅"
+  },
+  {
+   "category": "清潔袋",
+   "series": "連捲清潔袋",
+   "spec": "70L 特大",
+   "dim": "80 × 90 cm",
+   "count": "22",
+   "pack": "張/捲",
+   "colors": "透明 / 黑色"
+  },
+  {
+   "category": "清潔袋",
+   "series": "連捲清潔袋",
+   "spec": "90L 超大",
+   "dim": "86 × 100 cm",
+   "count": "16",
+   "pack": "張/捲",
+   "colors": "透明 / 黑色"
+  },
+  {
+   "category": "清潔袋",
+   "series": "連捲清潔袋",
+   "spec": "125L 超大",
+   "dim": "90 × 110 cm",
+   "count": "28",
+   "pack": "張/捲",
+   "colors": "透明 / 黑色"
+  },
+  {
+   "category": "清潔袋",
+   "series": "連捲清潔袋",
+   "spec": "126L 超特大",
+   "dim": "91 × 110 cm",
+   "count": "10",
+   "pack": "張/捲",
+   "colors": "透明 / 黑色"
+  },
+  {
+   "category": "清潔袋",
+   "series": "連捲清潔袋",
+   "spec": "125L 超特大 (加厚)",
+   "dim": "94 × 110 cm",
+   "count": "27",
+   "pack": "張/捲",
+   "colors": "透明 / 黑色"
+  },
+  {
+   "category": "清潔袋",
+   "series": "單張抽取清潔袋",
+   "spec": "10L 超小",
+   "dim": "38 × 45 cm",
+   "count": "",
+   "pack": "",
+   "colors": "透明 / 黑色"
+  },
+  {
+   "category": "清潔袋",
+   "series": "單張抽取清潔袋",
+   "spec": "15L 小",
+   "dim": "43 × 56 cm",
+   "count": "",
+   "pack": "",
+   "colors": "透明 / 黑色 / 粉紅"
+  },
+  {
+   "category": "清潔袋",
+   "series": "單張抽取清潔袋",
+   "spec": "20L 中",
+   "dim": "53 × 63 cm",
+   "count": "",
+   "pack": "",
+   "colors": "透明 / 黑色 / 粉紅"
+  },
+  {
+   "category": "清潔袋",
+   "series": "單張抽取清潔袋",
+   "spec": "45L 大",
+   "dim": "65 × 75 cm",
+   "count": "",
+   "pack": "",
+   "colors": "透明 / 黑色 / 粉紅 / 藍色"
+  },
+  {
+   "category": "清潔袋",
+   "series": "單張抽取清潔袋",
+   "spec": "70L 特大",
+   "dim": "80 × 90 cm",
+   "count": "",
+   "pack": "",
+   "colors": "透明 / 黑色"
+  },
+  {
+   "category": "清潔袋",
+   "series": "單張抽取清潔袋",
+   "spec": "90L 超大",
+   "dim": "86 × 100 cm",
+   "count": "",
+   "pack": "",
+   "colors": "透明 / 黑色"
+  },
+  {
+   "category": "清潔袋",
+   "series": "單張抽取清潔袋",
+   "spec": "125L 超特大",
+   "dim": "91 × 110 cm",
+   "count": "",
+   "pack": "",
+   "colors": "透明 / 黑色"
+  },
+  {
+   "category": "清潔袋",
+   "series": "環保清潔袋",
+   "spec": "大",
+   "dim": "",
+   "count": "",
+   "pack": "",
+   "colors": "本色 / 紅 / 藍 / 黑 / 綠"
+  },
+  {
+   "category": "清潔袋",
+   "series": "環保清潔袋",
+   "spec": "小",
+   "dim": "",
+   "count": "",
+   "pack": "",
+   "colors": "本色 / 紅 / 藍 / 黑 / 綠"
+  },
+  {
+   "category": "清潔袋",
+   "series": "環保清潔袋",
+   "spec": "中",
+   "dim": "",
+   "count": "",
+   "pack": "",
+   "colors": "本色 / 紅 / 藍 / 黑 / 綠"
+  },
+  {
+   "category": "清潔袋",
+   "series": "環保清潔袋",
+   "spec": "特大",
+   "dim": "",
+   "count": "",
+   "pack": "",
+   "colors": "本色 / 紅 / 藍 / 黑 / 綠"
+  },
+  {
+   "category": "清潔袋",
+   "series": "環保清潔袋",
+   "spec": "超大",
+   "dim": "",
+   "count": "",
+   "pack": "",
+   "colors": "本色 / 紅 / 藍 / 黑 / 綠"
+  },
+  {
+   "category": "拉繩袋",
+   "series": "拉繩醫療袋",
+   "spec": "小 8L",
+   "dim": "39 × 40 cm",
+   "count": "40",
+   "pack": "張",
+   "colors": "紅"
+  },
+  {
+   "category": "拉繩袋",
+   "series": "拉繩醫療袋",
+   "spec": "中 20L",
+   "dim": "52 × 55 cm",
+   "count": "22",
+   "pack": "張",
+   "colors": "紅"
+  },
+  {
+   "category": "拉繩袋",
+   "series": "拉繩醫療袋",
+   "spec": "大 50L",
+   "dim": "69 × 78 cm",
+   "count": "12",
+   "pack": "張",
+   "colors": "紅"
+  },
+  {
+   "category": "拉繩袋",
+   "series": "拉繩醫療袋",
+   "spec": "特大 70L",
+   "dim": "77 × 92 cm",
+   "count": "8",
+   "pack": "張",
+   "colors": "紅"
+  },
+  {
+   "category": "拉繩袋",
+   "series": "拉繩醫療袋",
+   "spec": "超大 90L",
+   "dim": "84 × 95 cm",
+   "count": "12",
+   "pack": "張",
+   "colors": "紅"
+  },
+  {
+   "category": "拉繩袋",
+   "series": "拉繩清潔袋",
+   "spec": "大 45L",
+   "dim": "65 × 75 cm",
+   "count": "24",
+   "pack": "經濟包",
+   "colors": ""
+  },
+  {
+   "category": "拉繩袋",
+   "series": "拉繩清潔袋",
+   "spec": "特大 70L",
+   "dim": "78 × 88 cm",
+   "count": "18",
+   "pack": "經濟包",
+   "colors": ""
+  },
+  {
+   "category": "拉繩袋",
+   "series": "拉繩清潔袋",
+   "spec": "超大 90L",
+   "dim": "84 × 95 cm",
+   "count": "14",
+   "pack": "經濟包",
+   "colors": ""
+  },
+  {
+   "category": "拉繩袋",
+   "series": "拉繩清潔袋",
+   "spec": "超大 90L",
+   "dim": "84 × 95 cm",
+   "count": "25",
+   "pack": "超量包",
+   "colors": ""
+  },
+  {
+   "category": "拉繩袋",
+   "series": "拉繩清潔袋",
+   "spec": "超特大 125L",
+   "dim": "93 × 100 cm",
+   "count": "15",
+   "pack": "經濟包",
+   "colors": ""
+  },
+  {
+   "category": "拉繩袋",
+   "series": "拉繩清潔袋",
+   "spec": "巨無霸 130L",
+   "dim": "94 × 102 cm",
+   "count": "20",
+   "pack": "超量包",
+   "colors": ""
+  },
+  {
+   "category": "拉繩袋",
+   "series": "環保拉繩清潔袋",
+   "spec": "大",
+   "dim": "",
+   "count": "",
+   "pack": "",
+   "colors": "本色 / 黑色"
+  },
+  {
+   "category": "拉繩袋",
+   "series": "環保拉繩清潔袋",
+   "spec": "特大",
+   "dim": "",
+   "count": "",
+   "pack": "",
+   "colors": "本色 / 黑色"
+  },
+  {
+   "category": "拉繩袋",
+   "series": "環保拉繩清潔袋",
+   "spec": "超大",
+   "dim": "",
+   "count": "",
+   "pack": "",
+   "colors": "本色 / 黑色"
+  },
+  {
+   "category": "拉繩袋",
+   "series": "環保拉繩清潔袋",
+   "spec": "超特大",
+   "dim": "",
+   "count": "",
+   "pack": "",
+   "colors": "本色 / 黑色"
+  },
+  {
+   "category": "蔬果袋",
+   "series": "平裝耐熱袋",
+   "spec": "四兩",
+   "dim": "15.5 × 19.5 cm",
+   "count": "360",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "平裝耐熱袋",
+   "spec": "六兩",
+   "dim": "18.5 × 23 cm",
+   "count": "255",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "平裝耐熱袋",
+   "spec": "半斤",
+   "dim": "22 × 27 cm",
+   "count": "183",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "平裝耐熱袋",
+   "spec": "1斤",
+   "dim": "24 × 31 cm",
+   "count": "146",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "平裝耐熱袋",
+   "spec": "2斤",
+   "dim": "28 × 39 cm",
+   "count": "99",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "平裝耐熱袋",
+   "spec": "3斤",
+   "dim": "32 × 43 cm",
+   "count": "79",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "平裝耐熱袋",
+   "spec": "5斤",
+   "dim": "35 × 50 cm",
+   "count": "52",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "平裝耐熱袋",
+   "spec": "10斤",
+   "dim": "45 × 62 cm",
+   "count": "26",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "平裝耐熱袋",
+   "spec": "15斤",
+   "dim": "48 × 65 cm",
+   "count": "22",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "卷裝耐熱袋",
+   "spec": "四兩",
+   "dim": "15.5 × 19.5 cm",
+   "count": "1822",
+   "pack": "張/卷",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "卷裝耐熱袋",
+   "spec": "六兩",
+   "dim": "18.5 × 23 cm",
+   "count": "1275",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "卷裝耐熱袋",
+   "spec": "半斤",
+   "dim": "22 × 27 cm",
+   "count": "897",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "卷裝耐熱袋",
+   "spec": "1斤",
+   "dim": "24 × 31 cm",
+   "count": "708",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "卷裝耐熱袋",
+   "spec": "2斤",
+   "dim": "28 × 39 cm",
+   "count": "472",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "卷裝耐熱袋",
+   "spec": "3斤",
+   "dim": "32 × 43 cm",
+   "count": "367",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "蔬果袋",
+   "series": "卷裝耐熱袋",
+   "spec": "5斤",
+   "dim": "35 × 50 cm",
+   "count": "236",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "00號",
+   "dim": "3.5 × 4 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "0號",
+   "dim": "4 × 6 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "1號",
+   "dim": "5 × 7 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "2號",
+   "dim": "6 × 8.5 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "3號",
+   "dim": "7 × 10 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "4號",
+   "dim": "8.5 × 12 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "5號",
+   "dim": "10 × 14 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "6號",
+   "dim": "12 × 17 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "7號",
+   "dim": "14 × 20 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "8號",
+   "dim": "17 × 24 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "9號",
+   "dim": "20 × 28 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "10號",
+   "dim": "24 × 34 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "11號",
+   "dim": "28 × 40 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "夾鏈袋",
+   "spec": "12號",
+   "dim": "34 × 45 cm",
+   "count": "100",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "密實袋",
+   "spec": "中 (Medium)",
+   "dim": "",
+   "count": "45",
+   "pack": "箱/板",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "密實袋",
+   "spec": "大 (Large)",
+   "dim": "",
+   "count": "48",
+   "pack": "箱/板",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "立體密實袋",
+   "spec": "小 Small",
+   "dim": "13 × 13.5 cm",
+   "count": "40",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "立體密實袋",
+   "spec": "中 Medium",
+   "dim": "17 × 15.5 cm",
+   "count": "30",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "立體密實袋",
+   "spec": "大 Large",
+   "dim": "26 × 25.5 cm",
+   "count": "16",
+   "pack": "包",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "冷凍袋",
+   "spec": "中 (Medium)",
+   "dim": "",
+   "count": "45",
+   "pack": "箱/板",
+   "colors": ""
+  },
+  {
+   "category": "夾鏈袋",
+   "series": "冷凍袋",
+   "spec": "大 (Large)",
+   "dim": "",
+   "count": "48",
+   "pack": "箱/板",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "spec": "550 mm * 25 y",
+   "dim": "長度 25 y (22.8m)",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "spec": "1100 mm * 25 y",
+   "dim": "長度 25 y (22.8m)",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "spec": "1500 mm * 25 y",
+   "dim": "長度 25 y (22.8m)",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "spec": "2100 mm * 25 y",
+   "dim": "長度 25 y (22.8m)",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "spec": "2700 mm * 25 y",
+   "dim": "長度 25 y (22.8m)",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "台塑遮蔽防塵膠帶",
+   "spec": "3200 mm * 25 y",
+   "dim": "長度 25 y (22.8m)",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "手套",
+   "spec": "小",
+   "dim": "手掌寬 ~8 cm",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "手套",
+   "spec": "中",
+   "dim": "手掌寬 ~9 cm",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  },
+  {
+   "category": "其他類",
+   "series": "手套",
+   "spec": "大",
+   "dim": "手掌寬 ~10 cm",
+   "count": "",
+   "pack": "",
+   "colors": ""
+  }
+ ],
+ "categories": [
+  {
+   "category": "清潔袋",
+   "title_tw": "清潔袋系列 (Can Liners)",
+   "title_en": "Can Liners & Trash Bags",
+   "highlights": "高強度防漏 · 商業機構與家用大容量",
+   "desc": "包含連捲清潔袋、單張平裝抽取清潔袋與通過環保標章認證之 50% 再生塑膠環保清潔袋。選用台塑 PE 純料韌性極佳，底封堅固不易破裂滴漏。",
+   "badges": "連捲點斷, 單張抽取, 環保標章認證",
+   "image": "formosa_canliner_official.png"
+  },
+  {
+   "category": "拉繩袋",
+   "title_tw": "拉繩袋系列 (Draw-Tape Bags)",
+   "title_en": "Draw-Tape & Medical Bags",
+   "highlights": "專利加長拉繩 · 輕鬆拎舉不黏手打包",
+   "desc": "加長拉繩設計，雙手一拉自動提束包緊，打包過程衛生不髒手；並提供醫療等級高辨識度紅色傳染廢棄物隔離袋。",
+   "badges": "一拉即束, 不髒手打包, 醫療隔離警示",
+   "image": "Can-Liners-Draw-Tape-Draw-Tape-2.jpg"
+  },
+  {
+   "category": "蔬果袋",
+   "title_tw": "蔬果袋系列 (Produce & Heat-Resistant Bags)",
+   "title_en": "Produce & Heat-Resistant Bags",
+   "highlights": "平裝與捲裝耐熱袋 · 蔬果生鮮分裝",
+   "desc": "平裝與捲裝耐熱袋，適用於生鮮備料、小吃餐飲熱食分裝與高溫熱湯打包；另提供超市與傳統市場適用之蔬果分裝袋。",
+   "badges": "食品級 PE, 平裝 / 捲裝, 高溫耐受",
+   "image": "formosa_heat_bag_official.png"
+  },
+  {
+   "category": "夾鏈袋",
+   "title_tw": "夾鏈袋系列 (Zipper & Sealed Bags)",
+   "title_en": "Sealed & Zipper Storage Bags",
+   "highlights": "嚴密隔絕空氣濕氣 · 食材長效保鮮",
+   "desc": "提供 00 號至 12 號通用夾鏈袋、雙軌密封密實袋、立體可站立密實袋與冷凍保鮮袋，滿足家用廚房食材分裝與商業食品儲存鎖鮮需求。",
+   "badges": "雙軌密實, 立體站立, 冷凍保鮮",
+   "image": "ai_zipper_bag.png"
+  },
+  {
+   "category": "其他類",
+   "title_tw": "其他類 (Specialty Protection & Tapes)",
+   "title_en": "Specialty Protection & Tapes",
+   "highlights": "專業個人防護與建築施工/裝潢養生防塵",
+   "desc": "包含輕薄貼手防護手套，以及 550mm~3200mm 多種規格之台塑專利遮蔽防塵膠帶，適合建築施工、室內裝潢養生與日常防塵防護。",
+   "badges": "手套, 台塑遮蔽防塵膠帶",
+   "image": "ai_specialty.png"
+  },
+  {
+   "category": "Scale Sheet",
+   "title_tw": "Scale Sheet 襯墊膜",
+   "title_en": "Scale Sheet",
+   "highlights": "",
+   "desc": "",
+   "badges": "",
+   "image": "scale sheet.png"
+  }
+ ],
+ "search": {
+  "variants": {
+   "鍊": "鏈",
+   "練": "鏈",
+   "捲": "卷",
+   "臺": "台",
+   "蓆": "席",
+   "裏": "裡"
+  },
+  "synonyms": [
+   {
+    "say": [
+     "垃圾袋",
+     "垃圾包",
+     "垃圾桶內袋",
+     "垃圾桶袋",
+     "塑膠袋",
+     "黑色塑膠袋",
+     "內袋",
+     "trashbag",
+     "trash bag",
+     "garbage",
+     "garbagebag",
+     "binliner",
+     "bin liner",
+     "canliner",
+     "can liner"
+    ],
+    "mean": [
+     "連捲清潔袋",
+     "單張抽取清潔袋",
+     "環保清潔袋"
+    ]
+   },
+   {
+    "say": [
+     "大垃圾袋",
+     "大型垃圾袋",
+     "工業用垃圾袋",
+     "商用垃圾袋"
+    ],
+    "mean": [
+     "連捲清潔袋",
+     "拉繩清潔袋"
+    ]
+   },
+   {
+    "say": [
+     "束口袋",
+     "抽繩袋",
+     "拉繩",
+     "綁繩袋",
+     "提繩袋"
+    ],
+    "mean": [
+     "拉繩清潔袋"
+    ]
+   },
+   {
+    "say": [
+     "醫療廢棄物袋",
+     "感染袋",
+     "生物危害袋",
+     "紅袋",
+     "紅色垃圾袋",
+     "醫療袋"
+    ],
+    "mean": [
+     "拉繩感染清潔袋（醫療袋）"
+    ]
+   },
+   {
+    "say": [
+     "熱食袋",
+     "湯袋",
+     "打包袋",
+     "手扒雞袋",
+     "耐高溫袋",
+     "微波袋",
+     "食品袋"
+    ],
+    "mean": [
+     "平裝耐熱袋",
+     "卷裝耐熱袋"
+    ]
+   },
+   {
+    "say": [
+     "夾鍊袋",
+     "夾練袋",
+     "密封夾鏈",
+     "自封袋",
+     "封口袋",
+     "ziploc",
+     "ziplock"
+    ],
+    "mean": [
+     "夾鏈袋"
+    ]
+   },
+   {
+    "say": [
+     "保鮮袋",
+     "食物保鮮",
+     "冷凍保鮮袋",
+     "冰箱袋"
+    ],
+    "mean": [
+     "冷凍袋",
+     "密實袋"
+    ]
+   },
+   {
+    "say": [
+     "站立袋",
+     "直立袋",
+     "立袋"
+    ],
+    "mean": [
+     "立體密實袋"
+    ]
+   },
+   {
+    "say": [
+     "防塵布",
+     "養生膠帶",
+     "遮蔽膠帶",
+     "油漆膠帶",
+     "裝潢膠帶",
+     "防塵膠膜"
+    ],
+    "mean": [
+     "台塑遮蔽防塵膠帶"
+    ]
+   },
+   {
+    "say": [
+     "pe手套",
+     "透明手套",
+     "拋棄式手套",
+     "料理手套",
+     "食品手套"
+    ],
+    "mean": [
+     "手套"
+    ]
+   },
+   {
+    "say": [
+     "環保袋",
+     "再生袋",
+     "綠色產品",
+     "環保認證",
+     "pcr"
+    ],
+    "mean": [
+     "環保清潔袋",
+     "環保拉繩清潔袋",
+     "環保標章產品專區"
+    ]
+   },
+   {
+    "say": [
+     "蔬菜袋",
+     "水果袋",
+     "生鮮袋",
+     "青菜袋",
+     "市場袋",
+     "vegetable bag",
+     "fruit bag"
+    ],
+    "mean": [
+     "蔬果袋"
+    ]
+   },
+   {
+    "say": [
+     "襯墊紙",
+     "墊底紙",
+     "生鮮墊",
+     "吸水墊"
+    ],
+    "mean": [
+     "Scale Sheet 襯墊膜"
+    ]
+   },
+   {
+    "say": [
+     "多少錢",
+     "價錢",
+     "報價單",
+     "how much"
+    ],
+    "mean": [
+     "線上詢價與聯絡"
+    ]
+   },
+   {
+    "say": [
+     "尺寸表",
+     "規格表",
+     "對照表",
+     "幾公分",
+     "容量"
+    ],
+    "mean": [
+     "產品中心（全部分類）"
+    ]
+   }
+  ],
+  "docs": [
+   {
+    "title": "連捲清潔袋",
+    "category": "清潔袋 01",
+    "icon": "fa-dumpster",
+    "desc": "連捲點斷式清潔袋，10L~125L 多種容量，透明／粉紅／黑色。",
+    "url": "can-liners.html#cat-roll-liners",
+    "keywords": [
+     "連捲",
+     "點斷",
+     "捲式",
+     "整捲",
+     "coreless roll",
+     "roll liner",
+     "can liner"
+    ],
+    "body": "台塑點斷 / 抽取清潔袋 (原廠規格對照) 台塑抽取 / 點斷清潔袋 全系列原廠規格 材質：高密度聚乙烯 (HDPE) 不透明 / 霧面 平底封口 實心捲取 點斷 / 抽取式 10L 特小 100 張/捲 透明 寬 40 × 長 50 cm 15L 小 72 張/捲 透明 粉紅 寬 43 × 長 56 cm 20L 中 54 張/捲 透明 粉紅 寬 53 × 長 63 cm 45L 大 30 張/捲 透明 粉紅 寬 65 × 長 75 cm 70L 特大 22 張/捲 透明 黑色 寬 80 × 長 90 cm 90L 超大 16 張/捲 透明 黑色 寬 86 × 長 100 cm 125L 超大 28 張/捲 透明 黑色 寬 90 × 長 110 cm 126L 超特大 10 張/捲 透明 黑色 寬 91 × 長 110 cm 125L 超特大 (加厚) 27 張/捲 透明 黑色 寬 94 × 長 110 cm"
+   },
+   {
+    "title": "單張抽取清潔袋",
+    "category": "清潔袋 01",
+    "icon": "fa-box-open",
+    "desc": "單張平裝抽取式清潔袋，10L~125L，透明／黑色／粉紅／藍色。",
+    "url": "can-liners.html#cat-flat-draw",
+    "keywords": [
+     "單張",
+     "平裝",
+     "抽取",
+     "盒裝抽取",
+     "flat pack",
+     "interleaved"
+    ],
+    "body": "單張 / 抽取清潔袋規格對照表 10L 超小 透明 黑色 寬 38 × 長 45 cm 15L 小 透明 黑色 粉紅 寬 43 × 長 56 cm 20L 中 透明 黑色 粉紅 寬 53 × 長 63 cm 45L 大 透明 黑色 粉紅 藍色 寬 65 × 長 75 cm 70L 特大 透明 黑色 寬 80 × 長 90 cm 90L 超大 透明 黑色 寬 86 × 長 100 cm 125L 超特大 透明 黑色 寬 91 × 長 110 cm"
+   },
+   {
+    "title": "環保清潔袋",
+    "category": "清潔袋 01",
+    "icon": "fa-leaf",
+    "desc": "通過環保標章審查的再生料清潔袋，本色／紅／藍／黑／綠，可客製。",
+    "url": "can-liners.html#cat-eco-liners",
+    "keywords": [
+     "環保",
+     "再生",
+     "環保標章",
+     "PCR",
+     "recycled",
+     "eco",
+     "green mark"
+    ],
+    "body": "環保清潔袋規格對照表 大 環保再生 本色 紅 藍 黑 綠 可選顏色：本色 / 紅 / 藍 / 黑 / 綠 小 環保再生 本色 紅 藍 黑 綠 可選顏色：本色 / 紅 / 藍 / 黑 / 綠 中 環保再生 本色 紅 藍 黑 綠 可選顏色：本色 / 紅 / 藍 / 黑 / 綠 特大 環保再生 本色 紅 藍 黑 綠 可選顏色：本色 / 紅 / 藍 / 黑 / 綠 超大 環保再生 本色 紅 藍 黑 綠 可選顏色：本色 / 紅 / 藍 / 黑 / 綠 客製尺寸 / 顏色 環保再生 可客製尺寸與顏色，歡迎洽詢 已選擇 0 項產品規格 清空 填寫詢價資料 © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved."
+   },
+   {
+    "title": "拉繩感染清潔袋（醫療袋）",
+    "category": "拉繩袋 02",
+    "icon": "fa-notes-medical",
+    "desc": "紅色拉繩感控袋，8L~90L，適用醫療與感染性廢棄物。",
+    "url": "draw-tape.html#cat-medical",
+    "keywords": [
+     "醫療",
+     "感染",
+     "感控",
+     "紅色",
+     "生醫",
+     "廢棄物",
+     "medical",
+     "biohazard",
+     "infectious"
+    ],
+    "body": "拉繩感染清潔袋 (拉繩醫療袋) 比例與視覺牆 拉繩感染清潔袋 (醫療袋) 實品包裝結構 採用高密度連捲軸心結構，開放式中心孔設計方便掛架抽拉。袋身配備頂級高韌性紅色拉繩，一拉即自動密封，防止醫療與感控廢棄物外漏。 小 8L 40張 紅 8L 寬 39 × 長 40 cm 中 20L 22張 紅 20L 寬 52 × 長 55 cm 大 50L 12張 紅 50L 寬 69 × 長 78 cm 特大 70L 8張 紅 70L 寬 77 × 長 92 cm 超大 90L 12張 紅 90L 寬 84 × 長 95 cm 台塑拉繩感染袋 · 原廠廢棄物規格與應用說明 【廢棄物類別】 感染性事業廢棄物 【廢棄物特性】 可燃 【廢棄物種類】 生化、病理學廢棄物、截肢、臟器、動物屍體、胎盤、培養基、廢血、體液、排泄物、引流液、過濾紙、手術手套棉花、紗布、布類、木質壓舌片、透析用具、塑膠製品 【主要來源】 隔離病房、手術室、產房、檢驗室、實驗室、病房、治療室、血液透析、血庫、解剖室"
+   },
+   {
+    "title": "拉繩清潔袋",
+    "category": "拉繩袋 02",
+    "icon": "fa-ribbon",
+    "desc": "一拉即封口，45L~130L 巨無霸，經濟包與超量包。",
+    "url": "draw-tape.html#cat-general",
+    "keywords": [
+     "拉繩",
+     "束口",
+     "抽繩",
+     "經濟包",
+     "超量包",
+     "巨無霸",
+     "drawstring",
+     "draw tape",
+     "drawtape"
+    ],
+    "body": "台塑拉繩清潔袋 (原廠規格對照) 台塑拉繩清潔袋 多 30% 以上使用容量 材質：聚乙烯 (PE) 拉繩設計 防止散發惡臭 不透明 / 高強韌 實心捲取 抽取式 / 盒裝 / 捲裝 台塑拉繩清潔袋 (經濟包與超量包) 捲裝包裝 量販零售等級捲裝拉繩包裝，袋口拉繩一拉即封、側邊封口不漏水，抗拉強度佳。提供經濟包與大容量超量包多種規格，適合家居、企業辦公室與商業環境。 大 45L 24張 / 經濟包 45L 寬 65 × 長 75 cm 特大 70L 18張 / 經濟包 70L 寬 78 × 長 88 cm 超大 90L 14張 / 經濟包 90L 寬 84 × 長 95 cm 超大 90L 25張 / 超量包 90L+ 寬 84 × 長 95 cm 超特大 125L 15張 / 經濟包 125L 寬 93 × 長 100 cm 巨無霸 130L 20張 / 超量包 130L 寬 94 × 長 102 cm"
+   },
+   {
+    "title": "環保拉繩清潔袋",
+    "category": "拉繩袋 02",
+    "icon": "fa-leaf",
+    "desc": "再生料拉繩清潔袋，本色與黑色，可客製尺寸顏色。",
+    "url": "draw-tape.html#cat-eco-draw-tape",
+    "keywords": [
+     "環保拉繩",
+     "再生",
+     "環保標章",
+     "eco drawtape"
+    ],
+    "body": "環保拉繩清潔袋規格對照表 大 環保再生 本色 黑色 可選顏色：本色 / 黑色 特大 環保再生 本色 黑色 可選顏色：本色 / 黑色 超大 環保再生 本色 黑色 可選顏色：本色 / 黑色 超特大 環保再生 本色 黑色 可選顏色：本色 / 黑色 客製尺寸 / 顏色 環保再生 可客製尺寸與顏色，歡迎洽詢 已選擇 0 項產品規格 清空 填寫詢價資料 © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved."
+   },
+   {
+    "title": "平裝耐熱袋",
+    "category": "蔬果袋 03",
+    "icon": "fa-temperature-high",
+    "desc": "食品級 PE 平裝耐熱袋，四兩~15斤，附等比例尺寸對比。",
+    "url": "heat-bags.html#cat-flat-heat",
+    "keywords": [
+     "平裝",
+     "耐熱",
+     "熱食",
+     "熱湯",
+     "食品級",
+     "斤",
+     "flat heat",
+     "foodservice"
+    ],
+    "body": "平裝耐熱袋規格對照表 平裝耐熱袋 四兩~15斤 等比例對比牆 點卡片下方按鈕即可加入詢價單 四兩 15.5 × 19.5 cm 360 張/包 六兩 18.5 × 23 cm 255 張/包 半斤 22 × 27 cm 183 張/包 1斤 24 × 31 cm 146 張/包 2斤 28 × 39 cm 99 張/包 3斤 32 × 43 cm 79 張/包 5斤 35 × 50 cm 52 張/包 10斤 45 × 62 cm 26 張/包 15斤 48 × 65 cm 22 張/包"
+   },
+   {
+    "title": "卷裝耐熱袋",
+    "category": "蔬果袋 03",
+    "icon": "fa-scroll",
+    "desc": "整卷包裝耐熱袋，四兩~5斤，每卷 236~1822 張。",
+    "url": "heat-bags.html#cat-roll-heat",
+    "keywords": [
+     "卷裝",
+     "捲裝",
+     "整卷",
+     "耐熱",
+     "熱食",
+     "roll heat"
+    ],
+    "body": "卷裝耐熱袋規格對照表 卷裝耐熱袋 四兩~5斤 等比例對比牆（與平裝同比例尺） 點卡片下方按鈕即可加入詢價單 四兩 15.5 × 19.5 cm 1822 張/卷 六兩 18.5 × 23 cm 1275 張/包 半斤 22 × 27 cm 897 張/包 1斤 24 × 31 cm 708 張/包 2斤 28 × 39 cm 472 張/包 3斤 32 × 43 cm 367 張/包 5斤 35 × 50 cm 236 張/包"
+   },
+   {
+    "title": "蔬果袋",
+    "category": "蔬果袋 03",
+    "icon": "fa-carrot",
+    "desc": "食品級 PE 蔬果分裝袋，超市生鮮與傳統市場適用，規格洽詢。",
+    "url": "heat-bags.html#cat-produce",
+    "keywords": [
+     "蔬果",
+     "蔬菜",
+     "水果",
+     "生鮮",
+     "超市",
+     "賣場",
+     "分裝",
+     "produce",
+     "vegetable",
+     "fruit"
+    ],
+    "body": "蔬果袋 規格資料整理中 如需完整尺寸與報價，請加入詢價單，將由專員提供最新規格表。 已選擇 0 項產品規格 清空 填寫詢價資料 © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved."
+   },
+   {
+    "title": "夾鏈袋",
+    "category": "夾鏈袋 04",
+    "icon": "fa-lock",
+    "desc": "00號~12號共 14 種號數，3.5×4 cm 至 34×45 cm。",
+    "url": "sealed-packaging.html#cat-zipper",
+    "keywords": [
+     "夾鏈",
+     "夾鍊",
+     "夾練",
+     "號數",
+     "ziplock",
+     "zip lock",
+     "zipper",
+     "reclosable"
+    ],
+    "body": "夾鏈袋號數對照表 (00號 ~ 12號) 夾鏈袋 00號~12號 等比例視覺對比牆 左右滑動查看全部 14 種號數 00號 3.5 × 4 cm 100 張/包 0號 4 × 6 cm 100 張/包 1號 5 × 7 cm 100 張/包 2號 6 × 8.5 cm 100 張/包 3號 7 × 10 cm 100 張/包 4號 8.5 × 12 cm 100 張/包 5號 10 × 14 cm 100 張/包 6號 12 × 17 cm 100 張/包 7號 14 × 20 cm 100 張/包 8號 17 × 24 cm 100 張/包 9號 20 × 28 cm 100 張/包 10號 24 × 34 cm 100 張/包 11號 28 × 40 cm 100 張/包 12號 34 × 45 cm 100 張/包"
+   },
+   {
+    "title": "密實袋",
+    "category": "夾鏈袋 04",
+    "icon": "fa-box-archive",
+    "desc": "雙軌密封密實袋，中／大兩種規格。",
+    "url": "sealed-packaging.html#cat-slider",
+    "keywords": [
+     "密實",
+     "密封",
+     "雙軌",
+     "seal top",
+     "slider"
+    ],
+    "body": "密實袋裝箱與棧板規範對照表 規格 Specification 裝箱與棧板規範 Pallet Specification 批量詢價 中 (Medium) 45箱/板 大 (Large) 48箱/板"
+   },
+   {
+    "title": "立體密實袋",
+    "category": "夾鏈袋 04",
+    "icon": "fa-cube",
+    "desc": "可站立立體袋，小／中／大，13×13.5 至 26×25.5 cm。",
+    "url": "sealed-packaging.html#cat-standup",
+    "keywords": [
+     "立體",
+     "站立",
+     "直立",
+     "stand up",
+     "pouch"
+    ],
+    "body": "立體密實袋規格對照表 立體密實袋 小~大 等比例對比牆（與夾鏈袋同比例尺） 點卡片下方按鈕即可加入詢價單 小 Small 13 × 13.5 cm 40 張/包 中 Medium 17 × 15.5 cm 30 張/包 大 Large 26 × 25.5 cm 16 張/包"
+   },
+   {
+    "title": "冷凍袋",
+    "category": "夾鏈袋 04",
+    "icon": "fa-snowflake",
+    "desc": "冷凍保鮮用密封袋，中／大兩種規格。",
+    "url": "sealed-packaging.html#cat-freezer",
+    "keywords": [
+     "冷凍",
+     "冷藏",
+     "保鮮",
+     "結凍",
+     "freezer",
+     "frozen"
+    ],
+    "body": "冷凍袋裝箱與棧板規範對照表 規格 Specification 裝箱與棧板規範 Pallet Specification 批量詢價 中 (Medium) 45箱/板 大 (Large) 48箱/板 已選擇 0 項產品規格 清空 填寫詢價資料 © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved."
+   },
+   {
+    "title": "手套",
+    "category": "其他類 05",
+    "icon": "fa-hand",
+    "desc": "台塑多功能手套，S／M／L 三種尺寸，餐飲備料與日常清潔適用。",
+    "url": "accessories.html#cat-gloves",
+    "keywords": [
+     "手套",
+     "衛生手套",
+     "塑膠手套",
+     "一次性手套",
+     "PE手套",
+     "拋棄式",
+     "gloves",
+     "disposable gloves"
+    ],
+    "body": "手套尺寸規格對照表 台塑多功能手套 提供 S / M / L 三種尺寸 規格/尺寸 Specification 批量詢價 小 中 大 已選擇 0 項產品規格 清空 填寫詢價資料 © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved."
+   },
+   {
+    "title": "台塑遮蔽防塵膠帶",
+    "category": "其他類 05",
+    "icon": "fa-tape",
+    "desc": "550mm~3200mm 六種幅寬，裝潢施工遮蔽與防塵養生用。",
+    "url": "accessories.html#cat-tape",
+    "keywords": [
+     "膠帶",
+     "遮蔽",
+     "防塵",
+     "養生膠帶",
+     "裝潢",
+     "施工",
+     "油漆",
+     "masking film",
+     "pre-taped"
+    ],
+    "body": "台塑遮蔽防塵膠帶規格對照表 台塑遮蔽防塵膠帶 550mm ~ 3200mm 六種幅寬 規格 Specification 批量詢價 550 mm * 25 y 1100 mm * 25 y 1500 mm * 25 y 2100 mm * 25 y 2700 mm * 25 y 3200 mm * 25 y"
+   },
+   {
+    "title": "Scale Sheet 襯墊膜",
+    "category": "Scale Sheet 06",
+    "icon": "fa-sheet-plastic",
+    "desc": "生鮮／熟食襯墊膜系列，歡迎與專員聯繫規格。",
+    "url": "stretch-films.html",
+    "keywords": [
+     "scale sheet",
+     "襯墊",
+     "墊紙",
+     "切片",
+     "生鮮",
+     "熟食",
+     "deli",
+     "sheeting"
+    ],
+    "body": "Scale Sheet 產品專頁 | 臺灣營德 Inteplast Taiwan INTEPLAST GROUP GLOBAL NETWORK TAIWAN HQ 台灣塑膠工業股份有限公司 Inteplast USA 永續發展 人才招募 臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION 首頁 關於營德 產品中心 01 清潔袋 連捲清潔袋 單張抽取 環保清潔袋 02 拉繩袋 清潔袋 醫療袋 03 蔬果袋 平裝耐熱袋 卷裝耐熱袋 蔬果袋 04 夾鏈袋 密實袋 立體密實袋 冷凍袋 夾鏈袋 05 其他類 手套 台塑遮蔽防塵膠帶 06 Scale Sheet 永續發展 聯繫我們 EN / 繁中 聯絡我們 SCALE SHEET PRODUCT SERIES Scale Sheet 產品專頁 臺灣營德生產之 Scale Sheet 薄膜產品系列。若您有大宗採購或規格諮詢需求，歡迎與專員聯繫。 專人諮詢與詢價 Scale Sheet 若您有 Scale Sheet 產品之大宗採購、外銷客製或規格諮詢需求，歡迎隨時與我們的專員聯繫！ 聯絡業務專員專人諮詢 © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved."
+   },
+   {
+    "title": "產品中心（全部分類）",
+    "category": "產品",
+    "icon": "fa-layer-group",
+    "desc": "六大分類總覽：清潔袋、拉繩袋、蔬果袋、夾鏈袋、其他類、Scale Sheet。",
+    "url": "index.html",
+    "keywords": [
+     "產品",
+     "全部",
+     "型錄",
+     "目錄",
+     "catalog",
+     "products"
+    ],
+    "body": ""
+   },
+   {
+    "title": "環保標章產品專區",
+    "category": "永續發展",
+    "icon": "fa-certificate",
+    "desc": "台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書。",
+    "url": "@root:sustainability.html",
+    "keywords": [
+     "環保標章",
+     "證書",
+     "永續",
+     "ESG",
+     "再生塑膠",
+     "減碳",
+     "sustainability",
+     "green mark",
+     "certificate"
+    ],
+    "body": "環保標章產品｜臺灣營德股份有限公司 INTEPLAST GROUP GLOBAL NETWORK TAIWAN HQ 台灣塑膠工業股份有限公司 USA Division 美國總部 永續發展 人才招募 臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION 首頁 關於營德 產品中心 01 清潔袋 連捲清潔袋 單張抽取 環保清潔袋 02 拉繩袋 清潔袋 醫療袋 03 蔬果袋 平裝耐熱袋 捲裝耐熱袋 蔬果袋 04 夾鏈袋 密實袋 立體密實袋 冷凍袋 夾鏈袋 05 其他類 手套 台塑遮蔽防塵膠帶 06 Scale Sheet 永續發展 聯繫我們 EN / 繁中 聯繫我們 GREEN LABEL PRODUCTS 更靠近綠色生活。\" data-en=\"Making Every Choice Closer to Green Living.\">讓每一次選擇， 更靠近綠色生活。 臺灣營德以通過環保標章的產品，回應日常生活對環境友善選擇的需求。從產品設計到使用，我們以可被辨識的綠色承諾，陪伴每一個乾淨安心的日常。 認識環保標章產品 環保標章介紹 環保標章是什麼 辨識更友善的選擇。\" data-en=\"Embracing Earth with Green Leaves, Identifying Eco-Friendly Choices.\">以綠葉環抱地球， 辨識更友善的選擇。 環保標章以綠色葉片環繞地球的意象，傳遞守護環境、珍惜資源的理念。取得標章的產品，須符合環境部公告的規格標準並獲得使用證書，讓消費者採購時有清楚的辨識依據。 綠色消費的觀念在歐美環保運動中逐漸發展，德國、加拿大、日本與北歐等地也陸續建立環保標章制度。台灣於民國81年推動環保標章，鼓勵製造端減少污染與資源消耗，也讓使用者能支持可回收、低污染與省資源的產品。 環保標章規格標準 環保標章產品查詢 依 ISO 14024 原則建立 環保標章採用國際第一類環境標誌的原則與程序，以市場機制鼓勵環境衝擊較低的產品與服務。 從產品生命週期看環境 原料取得、生產、銷售、使用到廢棄，各階段的減量、回收、低污染與資源效率都是重要考量。 持續擴大的綠色選擇 自民國82年公布首批標準以來，環保標章已涵蓋14大產品類別、超過百項產品項目。 OUR GREEN LABEL PRODUCTS 兩款取得環保標章的日常用品 產品規格與標章資訊以環境部「淨零綠生活資訊平台」公開資料為準；點選卡片可查看各產品的完整資料。 ENVIRONMENTAL LABEL PRODUCT 環保不打折，每一款都經過層層把關 台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。 通過環境審查 符合環保標章規格標準，取得產品標示資格。 50% 再生塑膠 減少對原生塑膠資源的依賴，延續"
+   },
+   {
+    "title": "線上詢價與聯絡",
+    "category": "聯繫我們",
+    "icon": "fa-paper-plane",
+    "desc": "填寫需求規格與數量，專人回覆報價。",
+    "url": "@root:contact.html",
+    "keywords": [
+     "詢價",
+     "報價",
+     "價格",
+     "聯絡",
+     "電話",
+     "地址",
+     "業務",
+     "quotation",
+     "quote",
+     "price",
+     "contact",
+     "rfq"
+    ],
+    "body": "聯繫我們與 RFQ 詢價 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation INTEPLAST GROUP GLOBAL NETWORK TAIWAN HQ 台灣塑膠工業股份有限公司 USA Division 美國總部 永續發展 人才招募 臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION 首頁 關於營德 產品中心 01 清潔袋 連捲清潔袋 單張抽取 環保清潔袋 02 拉繩袋 清潔袋 醫療袋 03 蔬果袋 平裝耐熱袋 捲裝耐熱袋 蔬果袋 04 夾鏈袋 密實袋 立體密實袋 冷凍袋 夾鏈袋 05 其他類 手套 台塑遮蔽防塵膠帶 06 Scale Sheet 永續發展 聯繫我們 EN / 繁中 聯繫我們 聯繫臺灣營德 您可以選擇由我們主動聯繫您，或是直接透過營德專人聯絡窗口發起諮詢。 直接聯繫營德窗口 留下資料 · 由我們聯繫您 台灣總部與專人聯絡窗口 公司地址 Address 臺北市松山區敦化北路205號6樓609室 總機電話 Telephone 02-2712-2211 #8109 (+886-2-2712-2211 #8109) 電子郵件 Email yuping86@fpc.com.tw 撥打總機專線 寄送 Email 諮詢 留下您的聯絡資料 公司名稱 (Company Name) 商務信箱 (必填) 聯絡電話 (選填) 詢問產品類別 (Product Interest) 01 清潔袋 (連捲 / 單張抽取 / 環保) 02 拉繩袋 (清潔袋 / 醫療袋) 03 蔬果袋 (平裝 / 捲裝) 04 夾鏈袋 (密實袋 / 立體密實袋 / 冷凍袋 / 夾鏈袋) 05 其他類 (手套 / 台塑遮蔽防塵膠帶) 06 Scale Sheet 需求內容與訊息 (Inquiry Message) 確認送出，我們會儘速聯繫您 ©"
+   },
+   {
+    "title": "關於台灣營德",
+    "category": "關於我們",
+    "icon": "fa-building",
+    "desc": "企業沿革、嘉義新港生產基地與品質認證。",
+    "url": "@root:about.html",
+    "keywords": [
+     "關於",
+     "公司",
+     "簡介",
+     "工廠",
+     "產能",
+     "認證",
+     "ISO",
+     "about",
+     "company",
+     "factory"
+    ],
+    "body": "關於臺灣營德｜從新港出發的全球製造實力 INTEPLAST GROUP GLOBAL NETWORK TAIWAN HQ 台灣塑膠工業股份有限公司 USA Division 美國總部 永續發展 人才招募 臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION 首頁 關於營德 產品中心 01 清潔袋 連捲清潔袋 單張抽取 環保清潔袋 02 拉繩袋 清潔袋 醫療袋 03 蔬果袋 平裝耐熱袋 捲裝耐熱袋 蔬果袋 04 夾鏈袋 密實袋 立體密實袋 冷凍袋 夾鏈袋 05 其他類 手套 台塑遮蔽防塵膠帶 06 Scale Sheet 永續發展 聯繫我們 EN / 繁中 聯繫我們 INTEPLAST TAIWAN · MANUFACTURING FOR TOMORROW 讓每一次製造， 走得更遠 在新港，我們把穩定產能、精密製程與環境思維，做成全球市場可以信賴的日常。臺灣營德持續用更好的製造，回應每一個正在前進的需求。 703 2024 年每月總產能 703 噸 4 四大產品主力，服務多元市場 NOW 持續升級製程，拓展下一個可能 One network, three strengths 整合全球技術與在地根基， 讓製造更有韌性 臺灣營德站在新港，串連 Inteplast Group 的全球加工經驗與台塑公司的原料、廠區資源；把三方力量，轉化為客戶可依賴的製造能力。 GLOBAL NETWORK Inteplast Group 全球塑膠加工技術、製造管理與跨市場服務網絡。 美國總部｜北美、亞洲、歐洲製造版圖 前往 Inteplast Group 官網 XINGANG, TAIWAN 臺灣營德 在嘉義新港，把原料、技術與製程整合為穩定可靠的薄膜與軟包裝解決方案。 共同投資夥伴：Inteplast Group、台灣塑膠公司、長庚生物科技 與臺灣營德聯繫 LOCAL FOUNDATION 台灣塑膠公司 穩定的原料資源與台塑企業新港廠區產業基礎，支撐高效率且穩定的生產配置。 台灣塑膠公司｜台塑企業成員 前往台灣塑膠公司官網 三方共同投資，讓臺灣營德兼具國際製造視野、在地供應韌性與長期經營基礎。 Inteplast Taiwan 一座工廠， 兩段企業歷程， 一個持續進化的承諾 臺灣營德的故事，並不是從公司更名那一天才開始。它的製造根基可追溯至台塑新港廠：1989 年整地擴建、1991 年正式投產，並首度啟用當時先進的全自動拌料輸送系統。隨著市場需求與設備能力提升，月產能逐步從 220 噸擴充至 650 噸。 從聚乙烯購物袋、清潔袋，到附拉繩清潔袋與市場袋，新港廠持續依市場變化調整產品結構。2004 年高雄前鎮廠遷廠合併，2008 年再進行全球生產配置重整，讓新港基地更聚焦於具有技術與品質優勢的產品。 2014 年 11 月 1 日，這座累積二十餘年製造經驗的"
+   }
+  ]
+ }
+};
