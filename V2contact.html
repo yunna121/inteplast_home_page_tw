@@ -288,17 +288,17 @@
           <form id="contactForm">
             <div class="form-group">
               <label for="companyName"><i class="fa-solid fa-building"></i> <span data-tw="公司名稱 (Company Name)" data-en="Company Name">公司名稱 (Company Name)</span></label>
-              <input type="text" id="companyName" class="form-control" placeholder="例：Global Packaging Co., Ltd." required>
+              <input type="text" id="companyName" name="company" class="form-control" placeholder="例：Global Packaging Co., Ltd." required>
             </div>
 
             <div class="form-group">
               <label for="email"><i class="fa-solid fa-envelope"></i> <span data-tw="商務信箱 (Business Email)" data-en="Business Email">商務信箱 (Business Email)</span></label>
-              <input type="email" id="email" class="form-control" placeholder="name@yourcompany.com" required>
+              <input type="email" id="email" name="email" class="form-control" placeholder="name@yourcompany.com" required>
             </div>
 
             <div class="form-group">
               <label for="productCategory"><i class="fa-solid fa-boxes-packing"></i> <span data-tw="詢價產品類別 (Product Interest)" data-en="Product Interest">詢價產品類別 (Product Interest)</span></label>
-              <select id="productCategory" class="form-control">
+              <select id="productCategory" name="product" class="form-control">
                 <option value="清潔袋 (連捲 / 單張抽取 / 環保)">01 清潔袋 (連捲 / 單張抽取 / 環保)</option>
                 <option value="拉繩袋 (清潔袋 / 醫療袋)">02 拉繩袋 (清潔袋 / 醫療袋)</option>
                 <option value="耐熱袋 (平裝 / 捲裝)">03 耐熱袋 (平裝 / 捲裝)</option>
@@ -310,7 +310,7 @@
 
             <div class="form-group">
               <label for="message"><i class="fa-solid fa-comment-dots"></i> <span data-tw="採購需求與規格 (Inquiry Details)" data-en="Inquiry Details">採購需求與規格 (Inquiry Details)</span></label>
-              <textarea id="message" class="form-control" rows="4" placeholder="請填寫預計採購數量、裝櫃方式與規格厚度需求..." required></textarea>
+              <textarea id="message" name="message" class="form-control" rows="4" placeholder="請填寫預計採購數量、裝櫃方式與規格厚度需求..." required></textarea>
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn">
@@ -325,6 +325,8 @@
     </div>
   </section>
 
+  <iframe name="gasReceiver" id="gasReceiver" title="RFQ submission receiver" hidden></iframe>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom">
@@ -334,45 +336,31 @@
   </footer>
 
   <script>
-  const GAS_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbyV1gFc6cgnehUWhaab3v7ikbpJvlJzEqwMa33BCxCT3UFZFNnj4SdXV4H87fwhoTTd/exec";
+  const GAS_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzIfWjZ9iellph-Jm4tFS_zvrShhG8GzHxzIz112fDys54ccGe5Wp9e-wmCVT3SAueP/exec";
 
-  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
+    const form = e.currentTarget;
     const submitBtn = document.getElementById('submitBtn');
     const statusDiv = document.getElementById('statusMessage');
-
-    // 改用 URLSearchParams 傳遞，解決跨域 no-cors 無法正確帶入資料的問題
-    const formData = new URLSearchParams();
-    formData.append('company', document.getElementById('companyName').value.trim());
-    formData.append('email', document.getElementById('email').value.trim());
-    formData.append('product', document.getElementById('productCategory').value);
-    formData.append('message', document.getElementById('message').value.trim());
+    const receiver = document.getElementById('gasReceiver');
 
     submitBtn.disabled = true;
     statusDiv.style.color = 'var(--brand-blue)';
     statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 資料傳送中，請稍候... (Submitting RFQ)';
 
-    try {
-      await fetch(GAS_ENDPOINT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: formData
-      });
-
+    receiver.addEventListener('load', function() {
       statusDiv.style.color = '#10B981';
-      statusDiv.innerHTML = '✅ 詢價需求送出成功！我們的外銷業務專員將於 24 小時內與您聯繫。';
-      document.getElementById('contactForm').reset();
-    } catch (err) {
-      console.error("RFQ Submission Error:", err);
-      statusDiv.style.color = '#EF4444';
-      statusDiv.innerHTML = '❌ 送出失敗，請確認網路連線或直接透過上方 Email 與我們聯繫。';
-    } finally {
+      statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> 詢價需求已送出！我們的外銷業務專員將於 24 小時內與您聯繫。';
+      form.reset();
       submitBtn.disabled = false;
-    }
+    }, { once: true });
+
+    form.action = GAS_ENDPOINT_URL;
+    form.method = 'POST';
+    form.target = 'gasReceiver';
+    HTMLFormElement.prototype.submit.call(form);
   });
 
   let currentLang = 'tw';

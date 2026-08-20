@@ -327,6 +327,8 @@
     </div>
   </section>
 
+  <iframe name="gasReceiver" id="gasReceiver" title="RFQ submission receiver" hidden></iframe>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom">
@@ -336,38 +338,31 @@
   </footer>
 
   <script>
-    const GAS_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbyV1gFc6cgnehUWhaab3v7ikbpJvlJzEqwMa33BCxCT3UFZFNnj4SdXV4H87fwhoTTd/exec';
+    const GAS_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbzIfWjZ9iellph-Jm4tFS_zvrShhG8GzHxzIz112fDys54ccGe5Wp9e-wmCVT3SAueP/exec';
 
-    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
       const form = e.currentTarget;
       const submitBtn = document.getElementById('submitBtn');
       const statusDiv = document.getElementById('statusMessage');
-      const formData = new URLSearchParams(new FormData(form));
+      const receiver = document.getElementById('gasReceiver');
 
       submitBtn.disabled = true;
       statusDiv.style.color = 'var(--brand-blue)';
       statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 資料傳送中，請稍候... (Submitting RFQ)';
 
-      try {
-        await fetch(GAS_ENDPOINT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-          body: formData
-        });
-
+      receiver.addEventListener('load', function() {
         statusDiv.style.color = '#10B981';
         statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> 詢價需求已送出！我們的外銷業務專員將於 24 小時內與您聯繫。';
         form.reset();
-      } catch (error) {
-        console.error('RFQ submission error:', error);
-        statusDiv.style.color = '#B42318';
-        statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> 送出失敗，請確認網路連線後再試，或直接透過 Email 與我們聯繫。';
-      } finally {
         submitBtn.disabled = false;
-      }
+      }, { once: true });
+
+      form.action = GAS_ENDPOINT_URL;
+      form.method = 'POST';
+      form.target = 'gasReceiver';
+      HTMLFormElement.prototype.submit.call(form);
     });
 
     let currentLang = 'tw';
