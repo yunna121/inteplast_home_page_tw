@@ -151,8 +151,11 @@
       '</tr>';
     }).join('');
 
-    // 左側預設顯示系列代表圖；還沒有照片的系列先留空位
-    var cover = M.coverFor(series) ? BASE + M.coverFor(series) : (info.photo ? BASE + info.photo : '');
+    // 左側預設顯示系列代表圖（同一系列任一列的「圖片檔名」可指定）；還沒有照片的系列先留空位
+    var namedCover = '';
+    rows.some(function (r) { if (r.cover) { namedCover = r.cover; return true; } return false; });
+    var rel = M.coverFor(series, namedCover);
+    var cover = rel ? BASE + rel : (info.photo ? BASE + info.photo : '');
     var stage = cover
       ? '<img src="' + attr(cover) + '" alt="' + attr(series) + '實品" data-spec-stage-img>'
       : '<div class="spec-stage-empty" data-spec-stage-img><i class="fa-regular fa-image"></i>' +
@@ -276,15 +279,22 @@
   }
   function fromFallback() {
     var d = window.SITE_DATA || {}, M = window.SITE_MAP;
-    return (Array.isArray(d.specs) ? d.specs : []).map(function (r) { return M.resolve(r); })
-      .filter(function (r) { return r.series && r.spec; });
+    return {
+      specs: (Array.isArray(d.specs) ? d.specs : []).map(function (r) { return M.resolve(r); })
+        .filter(function (r) { return r.series && r.spec; }),
+      categories: Array.isArray(d.categories) ? d.categories : []
+    };
   }
   function fromExcel() {
     return fetch(XLSX_PATH, { cache: 'no-cache' })
       .then(function (res) { if (!res.ok) throw new Error('xlsx ' + res.status); return res.arrayBuffer(); })
       .then(function (buf) {
         return (window.XLSX ? Promise.resolve() : loadScript(SHEETJS)).then(function () {
-          return window.SITE_MAP.readWorkbook(window.XLSX.read(buf, { type: 'array' }), window.XLSX);
+          var wb = window.XLSX.read(buf, { type: 'array' });
+          return {
+            specs: window.SITE_MAP.readWorkbook(wb, window.XLSX),
+            categories: window.SITE_MAP.readCategories(wb, window.XLSX)
+          };
         });
       });
   }
@@ -292,6 +302,21 @@
   function currentPage() {
     var m = location.pathname.match(/([a-z0-9-]+)\.html?$/i);
     return m ? m[1] : '';
+  }
+
+  /* 分類頁首圖：依「分類介紹」工作表的「分類封面圖」欄替換
+     （檔案放 src/ 或 src/product-img/ 都可，直接寫相對於 src/ 的路徑） */
+  function applyHero(cats) {
+    var img = document.querySelector('[data-hero-img]');
+    if (!img || !cats || !cats.length) return;
+    var M = window.SITE_MAP, page = currentPage(), name = '';
+    Object.keys(M.pages).forEach(function (k) { if (M.pages[k] === page) name = k; });
+    if (!name) return;
+    cats.forEach(function (c) {
+      if ((c.category || '') !== name) return;
+      var file = String(c.hero || '').trim();
+      if (file) img.setAttribute('src', BASE + file.replace(/^\.?\/?src\//, ''));
+    });
   }
 
   function paint(rows) {
@@ -333,17 +358,21 @@
   }
 
   function start() {
-    if (!document.querySelector('[data-spec-page]')) return;
-    injectCss();
+    var hasSpecs = !!document.querySelector('[data-spec-page]');
+    var hasHero = !!document.querySelector('[data-hero-img]');
+    if (!hasSpecs && !hasHero) return;
+    if (hasSpecs) injectCss();
     fromExcel()
-      .then(function (rows) {
-        if (!rows.length) throw new Error('empty sheet');
-        paint(rows);
+      .then(function (data) {
+        if (!data.specs.length) throw new Error('empty sheet');
+        applyHero(data.categories);
+        if (hasSpecs) paint(data.specs);
       })
       .catch(function (err) {
         var fb = fromFallback();
-        if (fb.length) {
-          paint(fb);
+        if (fb.specs.length || fb.categories.length) {
+          applyHero(fb.categories);
+          if (hasSpecs) paint(fb.specs);
           if (window.console) console.info('[spec-render] 目前用 src/data/website-data.js 顯示規格'
             + '（讀不到 Excel：' + err.message + '）。改完 Excel 請用 tools/update-specs.html 轉檔更新此檔；'
             + '網站架上伺服器後會自動改為直接讀取 Excel。');

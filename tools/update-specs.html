@@ -52,6 +52,12 @@
     padding-top: 16px; border-top: 1px solid #F1F5F9; text-wrap: pretty; }
   a { color: #00529B; font-weight: 700; }
   a:hover { color: #0A2540; }
+  .sheet-counts { display: none; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .sheet-chip { display: inline-flex; align-items: center; gap: 8px; background: #F8FAFC; border: 1px solid #E2E8F0;
+    border-radius: 8px; padding: 6px 12px; font-size: 0.82rem; font-weight: 700; color: #475569; }
+  .sheet-chip b { font-size: 0.9rem; font-weight: 900; color: #0A2540; }
+  .sheet-chip.zero { background: #FEF2F2; border-color: #FECACA; color: #991B1B; }
+  .sheet-chip.zero b { color: #B91C1C; }
 </style>
 </head>
 <body>
@@ -71,6 +77,7 @@
       <input type="file" id="file" accept=".xlsx,.xls" hidden>
     </div>
     <div class="status" id="status"></div>
+    <div id="sheetCounts" class="sheet-counts"></div>
     <button class="btn" id="download" disabled><i class="fa-solid fa-download"></i> 下載 website-data.js</button>
     <table id="preview">
       <thead><tr><th>工作表</th><th>系列／分類</th><th>規格</th><th>尺寸</th><th>張數／包裝</th></tr></thead>
@@ -141,13 +148,16 @@
         var cap = String(r['容量'] == null ? (r['容量/號數'] == null ? '' : r['容量/號數']) : r['容量']).trim();
         var size = String(r['尺寸級別'] || r['尺別俗稱'] || '').trim();
         var series = String(r['產品系列'] || '').trim();
-        if (!series || !(cap || size)) return;   // 兩欄至少一欄有值
+        var dim = String(r['尺寸(寬×長)'] || r['尺寸 寬×長'] || '').trim();
+        if (!series || !(cap || size || dim)) return;   // 容量 / 尺寸級別 / 尺寸 三欄至少一欄有值
         specs.push({
           category: name, series: series, cap: cap, size: size,
-          dim: String(r['尺寸(寬×長)'] || r['尺寸 寬×長'] || '').trim(),
+          dim: dim,
           count: String(r['張數'] == null ? '' : r['張數']).trim(),
           pack: String(r['包裝'] || '').trim(),
-          colors: String(r['顏色'] || '').trim()
+          colors: String(r['顏色'] || '').trim(),
+          img: String(r['圖片檔名'] || '').trim(),
+          cover: String(r['系列代表圖'] || '').trim()
         });
       });
     });
@@ -160,7 +170,8 @@
         highlights: String(r['核心亮點'] || '').trim(),
         desc: String(r['詳細介紹'] || '').trim(),
         badges: String(r['特色標籤（逗號分隔）'] || '').trim(),
-        image: String(r['圖片檔名'] || '').trim()
+        image: String(r['圖片檔名'] || '').trim(),
+        hero: String(r['分類封面圖'] || '').trim()
       };
     }).filter(function (r) { return r.category; });
 
@@ -185,6 +196,10 @@
       'window.SITE_DATA = ' + JSON.stringify({ version: 4, specs: specs, categories: categories, search: search }, null, 1) + ';\n';
 
     var missing = (window.SITE_MAP ? window.SITE_MAP.sheets : []).filter(function (n) { return !wb.Sheets[n]; });
+    var perSheet = (window.SITE_MAP ? window.SITE_MAP.sheets : []).map(function (n) {
+      var c = specs.filter(function (r) { return r.category === n; }).length;
+      return { name: n, count: c };
+    });
     var badDim = specs.filter(function (r) { return r.dim && !/\d+(\.\d+)?\s*[×xX*]\s*\d+/.test(r.dim); });
     var seriesSet = {}; specs.forEach(function (r) { seriesSet[r.series] = 1; });
 
@@ -197,9 +212,19 @@
       + ' 列的尺寸格式不符（' + (badDim[0].cap || badDim[0].size) + '：「' + badDim[0].dim + '」），請寫成「84 × 95 cm」。';
     say(msg, (missing.length || badDim.length) ? 'err' : 'ok');
 
+    // 每個分類讀到幾列 — 漏列時一眼就看得到
+    var sheetInfo = document.getElementById('sheetCounts');
+    if (sheetInfo) {
+      sheetInfo.style.display = 'flex';
+      sheetInfo.innerHTML = perSheet.map(function (s) {
+        return '<span class="sheet-chip' + (s.count ? '' : ' zero') + '">' + s.name +
+          '<b>' + s.count + '</b></span>';
+      }).join('');
+    }
+
     var preRows = categories.map(function (c) { return ['分類介紹', c.category, c.title_tw, '', '']; })
       .concat(specs.slice(0, 10).map(function (r) {
-        return [r.category, r.series, window.SITE_MAP.specText(r.cap, r.size),
+        return [r.category, r.series, window.SITE_MAP.specText(r.cap, r.size) || r.dim,
                 r.dim || '—', (r.count ? r.count + ' ' + r.pack : r.pack) || '—'];
       }));
     var tb = preview.querySelector('tbody');

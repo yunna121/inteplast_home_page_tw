@@ -66,10 +66,10 @@
 
   /* ============================================================
      產品實拍圖對應（src/product-img/）
-     檔名規則：「系列 尺寸級別.副檔名」，同級別有不同包裝時再加包裝，
-              例如「拉繩清潔袋 超大 經濟包.webp」；
-              系列代表圖為「封面-系列.副檔名」。
-     新增圖片：放進 src/product-img/ 並把檔名加進 IMAGE_FILES 即可。
+     優先序：
+     1) Excel 那一列的「圖片檔名」欄 — 填了就用那張（新增照片不必改程式）
+     2) 自動比對檔名「系列 尺寸級別[ 包裝]」，例如「拉繩清潔袋 超大 經濟包.webp」
+     系列代表圖：分類介紹表的「圖片檔名」，或檔名「封面-系列」。
      ============================================================ */
   var IMG_DIR = 'product-img/';
 
@@ -103,6 +103,10 @@
 
   // 一列規格 → 實拍圖路徑（找不到回傳空字串）
   function imageFor(row) {
+    // Excel 直接指定的檔名最優先
+    var named = String(row.img || '').trim();
+    if (named) return IMG_DIR + named.replace(/^.*[\\/]/, '');
+
     var s = IMG_ALIAS[row.series] || row.series;
     var size = baseSize(row.size), cap = String(row.cap || '').trim();
     var pack = String(row.pack || '').replace(/^\d+\s*/, '').trim();
@@ -119,9 +123,11 @@
     return '';
   }
 
-  // 系列代表圖：只回傳「封面-<系列>」這種精確命名的圖
-  // （注意：不再回傳同分類的泛用圖，避免蓋掉系列專屬圖造成圖文不符）
-  function coverFor(series) {
+  // 系列代表圖：分類介紹表指定的檔名優先，否則找「封面-<系列>」
+  // （不回傳同分類的泛用圖，避免蓋掉系列專屬圖造成圖文不符）
+  function coverFor(series, named) {
+    var n = String(named || '').trim();
+    if (n) return IMG_DIR + n.replace(/^.*[\\/]/, '');
     return INDEX['封面-' + (COVER_NAME[series] || IMG_ALIAS[series] || series)] || '';
   }
 
@@ -180,6 +186,8 @@
       dim: pick(row, ['尺寸(寬×長)', '尺寸 寬×長', 'dim']),
       count: pick(row, ['張數', 'count']),
       pack: pick(row, ['包裝', 'pack']),
+      img: pick(row, ['圖片檔名', 'img']),
+      cover: pick(row, ['系列代表圖', 'cover']),
       qty: qtyText(pick(row, ['張數', 'count']), pick(row, ['包裝', 'pack'])),
       colors: colorList(pick(row, ['顏色', 'colors']))
     };
@@ -203,10 +211,27 @@
     return out;
   }
 
+  // 從 SheetJS 的 workbook 讀出「分類介紹」工作表
+  function readCategories(wb, XLSX) {
+    if (!wb.Sheets['分類介紹']) return [];
+    return XLSX.utils.sheet_to_json(wb.Sheets['分類介紹'], { defval: '' }).map(function (r) {
+      return {
+        category: String(r['分類頁'] || '').trim(),
+        title_tw: String(r['中文名稱'] || '').trim(),
+        title_en: String(r['英文名稱'] || '').trim(),
+        highlights: String(r['核心亮點'] || '').trim(),
+        desc: String(r['詳細介紹'] || '').trim(),
+        badges: String(r['特色標籤（逗號分隔）'] || '').trim(),
+        image: String(r['圖片檔名'] || '').trim(),
+        hero: String(r['分類封面圖'] || '').trim()
+      };
+    }).filter(function (c) { return c.category; });
+  }
+
   window.SITE_MAP = {
     pages: PAGES, sheets: SHEETS, colors: COLORS, series: SERIES, seriesInfo: seriesInfo,
     imgDir: IMG_DIR, images: INDEX, imageFor: imageFor, coverFor: coverFor,
     pageOf: pageOf, qtyText: qtyText, colorList: colorList, specText: specText,
-    resolve: resolve, specs: specs, readWorkbook: readWorkbook
+    resolve: resolve, specs: specs, readWorkbook: readWorkbook, readCategories: readCategories
   };
 })();

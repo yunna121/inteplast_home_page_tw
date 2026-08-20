@@ -802,15 +802,7 @@
           const wb = XLSX.read(buffer, { type: "array" });
           const catSheet = wb.Sheets["分類介紹"];
           if (!catSheet) throw new Error("找不到「分類介紹」工作表");
-          const cats = XLSX.utils.sheet_to_json(catSheet, { defval: "" }).map(r => ({
-            category: String(r["分類頁"] || "").trim(),
-            title_tw: String(r["中文名稱"] || "").trim(),
-            title_en: String(r["英文名稱"] || "").trim(),
-            highlights: String(r["核心亮點"] || "").trim(),
-            desc: String(r["詳細介紹"] || "").trim(),
-            badges: String(r["特色標籤（逗號分隔）"] || "").trim(),
-            image: String(r["圖片檔名"] || "").trim()
-          }));
+          const cats = SITE_MAP.readCategories(wb, XLSX);
           const specs = SITE_MAP.readWorkbook(wb, XLSX);
           const categories = buildCategories(cats, specs);
           if (categories.length) renderProductGallery(categories); else loadDataFileFallback();
