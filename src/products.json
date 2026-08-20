@@ -1,12 +1,5 @@
-/* 網站資料檔（Excel 的快照）
-   正式資料來源：src/data/website-data.xlsx
-     · 六個分類工作表      → 各產品頁的規格牆、詢價品名、搜尋內容
-     · 工作表「分類介紹」  → 產品中心的分類卡片文案
-     · 工作表「搜尋同義詞」→ 客戶用別的說法也找得到
-   由 tools/update-specs.html 轉出，請勿手改。
-   轉出時間：2026/8/20 上午11:35:14 — 來源檔：website-data.xlsx */
-window.SITE_DATA = {
- "version": 4,
+{
+ "version": 1,
  "specs": [
   {
    "category": "清潔袋",
@@ -1656,4 +1649,4 @@ window.SITE_DATA = {
    }
   ]
  }
-};
+}

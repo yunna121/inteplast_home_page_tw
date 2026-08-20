@@ -19,6 +19,7 @@
 (function () {
   var inProducts = /\/products\//.test(location.pathname);
   var BASE = inProducts ? '../src/' : './src/';
+  var JSON_PATH = BASE.replace(/src\/$/, '') + 'content/products.json';
   var XLSX_PATH = BASE + 'data/website-data.xlsx';
   var SHEETJS = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
 
@@ -30,8 +31,8 @@
     '.spec-photo-pane{background:#F8FAFC;border-right:1px solid #E2E8F0;padding:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}',
     '.spec-stage{position:relative;width:100%;height:236px;display:flex;align-items:center;justify-content:center;background:#FFF;border:1px solid #E2E8F0;border-radius:12px;overflow:hidden;}',
     '.spec-stage img{width:100%;height:100%;object-fit:contain;padding:10px;}',
-    '.spec-stage-empty{font-size:.76rem;font-weight:800;color:#CBD5E1;letter-spacing:.08em;text-align:center;padding:0 18px;line-height:1.8;}',
-    '.spec-stage-empty i{display:block;font-size:1.6rem;margin-bottom:8px;color:#E2E8F0;}',
+    '.spec-stage-empty{font-size:.76rem;font-weight:800;color:#64748B;letter-spacing:.08em;text-align:center;padding:0 18px;line-height:1.8;}',
+    '.spec-stage-empty i{display:block;font-size:1.6rem;margin-bottom:8px;color:#94A3B8;}',
     '.spec-scale-view{position:absolute;inset:0;background:#FFF;display:none;align-items:flex-end;justify-content:center;gap:5px;padding:20px 14px;}',
     '.spec-scale-view.on{display:flex;}',
     '.spec-scale-view .spec-mini{border-color:#00529B;background:rgba(0,82,155,.12);}',
@@ -43,7 +44,7 @@
     '.spec-grid tbody tr.spec-row-on{background:#DBEAFE !important;box-shadow:inset 3px 0 0 #00529B;}',
     '.spec-has-img{color:#CBD5E1;font-size:.72rem;margin-left:6px;}',
     '.spec-grid tbody tr[data-img]:hover .spec-has-img{color:#00529B;}',
-    '.spec-table-pane{display:flex;flex-direction:column;justify-content:center;overflow-x:auto;}',
+    '.spec-table-pane{display:flex;flex-direction:column;justify-content:flex-start;overflow-x:auto;}',
     '.spec-grid{width:100%;border-collapse:collapse;}',
     '.spec-grid th{background:#0A2540;color:#fff;font-size:.76rem;font-weight:800;letter-spacing:.03em;text-align:left;padding:10px 14px;white-space:nowrap;}',
     '.spec-grid th:last-child,.spec-grid td:last-child{text-align:center;}',
@@ -152,8 +153,12 @@
     }).join('');
 
     // 左側預設顯示系列代表圖（同一系列任一列的「圖片檔名」可指定）；還沒有照片的系列先留空位
-    var namedCover = '';
+    var namedCover = '', namedTitle = '';
     rows.some(function (r) { if (r.cover) { namedCover = r.cover; return true; } return false; });
+    rows.some(function (r) { if (r.blockTitle) { namedTitle = r.blockTitle; return true; } return false; });
+    var namedCaption = '';
+    rows.some(function (r) { if (r.caption) { namedCaption = r.caption; return true; } return false; });
+    var caption = namedCaption || info.caption;
     var rel = M.coverFor(series, namedCover);
     var cover = rel ? BASE + rel : (info.photo ? BASE + info.photo : '');
     var stage = cover
@@ -176,14 +181,14 @@
     }
 
     var pane = '<div class="spec-stage">' + stage + scaleView + '</div>' +
-      '<div class="spec-photo-caption" data-spec-caption>' + info.caption + '</div>' +
+      '<div class="spec-photo-caption" data-spec-caption>' + caption + '</div>' +
       (anyShape ? '<button type="button" class="spec-scale-toggle">' +
         '<i class="fa-solid fa-ruler-combined"></i> 等比例尺寸對照</button>' : '');
 
     return '<div class="cat-spec-block spec-block" id="' + attr(info.anchor) + '" data-spec-series="' + attr(series) + '">' +
       '<div class="cat-spec-header"><h2 class="cat-spec-title">' +
-        '<i class="fa-solid ' + attr(info.icon) + '"></i> ' + esc(info.title) + '</h2></div>' +
-      '<div class="spec-with-photo" data-default-img="' + attr(cover) + '" data-default-caption="' + attr(info.caption) + '">' +
+        '<i class="fa-solid ' + attr(info.icon) + '"></i> ' + esc(namedTitle || info.title) + '</h2></div>' +
+      '<div class="spec-with-photo" data-default-img="' + attr(cover) + '" data-default-caption="' + attr(caption) + '">' +
         '<div class="spec-photo-pane">' + pane + '</div>' +
         '<div class="spec-table-pane"><table class="spec-grid"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>' +
       '</div>' +
@@ -285,6 +290,19 @@
       categories: Array.isArray(d.categories) ? d.categories : []
     };
   }
+  function fromJson() {
+    return fetch(JSON_PATH, { cache: 'no-cache' })
+      .then(function (res) { if (!res.ok) throw new Error('json ' + res.status); return res.json(); })
+      .then(function (d) {
+        var M = window.SITE_MAP;
+        return {
+          specs: (d.specs || []).map(function (r) { return M.resolve(r); })
+            .filter(function (r) { return r.series && r.spec; }),
+          categories: d.categories || []
+        };
+      });
+  }
+
   function fromExcel() {
     return fetch(XLSX_PATH, { cache: 'no-cache' })
       .then(function (res) { if (!res.ok) throw new Error('xlsx ' + res.status); return res.arrayBuffer(); })
@@ -362,7 +380,8 @@
     var hasHero = !!document.querySelector('[data-hero-img]');
     if (!hasSpecs && !hasHero) return;
     if (hasSpecs) injectCss();
-    fromExcel()
+    fromJson()
+      .catch(function () { return fromExcel(); })
       .then(function (data) {
         if (!data.specs.length) throw new Error('empty sheet');
         applyHero(data.categories);

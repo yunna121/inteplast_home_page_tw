@@ -32,25 +32,26 @@
   // Excel 的分類工作表名稱（依此順序讀取）
   var SHEETS = Object.keys(PAGES);
 
-  /* 每個產品系列的版面設定（錨點、標題、圖示、左側照片）
-     — 這些是網頁呈現用的技術資訊，不放進 Excel。
-     Excel 新增的系列若不在此表，會自動以系列名稱為標題、左側改放等比例袋型圖。 */
+  /* 每個產品系列的網址錨點、圖示，以及左側圖與圖說的「預設值」
+     · 錨點：給選單連結用，例如 heat-bags.html#cat-produce
+     · photo / caption：只是預設，Excel 的「系列代表圖」「圖片說明」有填就以 Excel 為準
+     · 表格標題：Excel 的「表格標題」有填就用它，沒填就用產品系列名稱 */
   var SERIES = {
-    '連捲清潔袋':      { anchor: 'cat-roll-liners',  icon: 'fa-dumpster',         title: '台塑點斷 / 抽取清潔袋 (原廠規格對照)', photo: 'formosa_canliner_official.png', caption: '台塑連捲點斷清潔袋<br>實心捲取・平底封口' },
-    '單張抽取清潔袋':  { anchor: 'cat-flat-draw',    icon: 'fa-box-open',         title: '單張 / 抽取清潔袋規格對照表' },
-    '環保清潔袋':      { anchor: 'cat-eco-liners',   icon: 'fa-leaf',             title: '環保清潔袋規格對照表', photo: 'environmental-label-mark-official.png', caption: '通過環保標章審查<br>50% 再生塑膠原料' },
-    '拉繩醫療袋':      { anchor: 'cat-medical',      icon: 'fa-notes-medical',    title: '拉繩感染清潔袋 (拉繩醫療袋) 規格對照表', photo: 'drawtape_medical_studio.png', caption: '高辨識度紅色拉繩<br>感染性廢棄物隔離用' },
-    '拉繩清潔袋':      { anchor: 'cat-general',      icon: 'fa-ribbon',           title: '台塑拉繩清潔袋 (原廠規格對照)', photo: 'drawtape_commercial_studio.png', caption: '袋口拉繩一拉即封<br>經濟包與超量包規格' },
-    '環保拉繩清潔袋':  { anchor: 'cat-eco-draw-tape', icon: 'fa-leaf',            title: '環保拉繩清潔袋規格對照表', photo: 'drawtape.jpg', caption: '再生料拉繩清潔袋<br>本色與黑色，可客製' },
-    '平裝耐熱袋':      { anchor: 'cat-flat-heat',    icon: 'fa-temperature-high', title: '平裝耐熱袋規格對照表', photo: 'formosa_heat_bag_official.png', caption: '食品級 PE 平裝耐熱袋<br>四兩 ~ 15 斤' },
-    '卷裝耐熱袋':      { anchor: 'cat-roll-heat',    icon: 'fa-scroll',           title: '卷裝耐熱袋規格對照表', photo: 'formosa_heat_bag_real.png', caption: '整卷包裝耐熱袋<br>抽取方便不斷卷' },
-    '蔬果袋':          { anchor: 'cat-produce',      icon: 'fa-carrot',           title: '蔬果袋規格對照表' },
-    '夾鏈袋':          { anchor: 'cat-zipper',       icon: 'fa-lock',             title: '夾鏈袋號數對照表 (00號 ~ 12號)', photo: 'ai_zipper_bag.png', caption: '00 號 ~ 12 號共 14 種<br>3.5×4 cm 至 34×45 cm' },
-    '密實袋':          { anchor: 'cat-slider',       icon: 'fa-box-archive',      title: '密實袋規格對照表' },
-    '立體密實袋':      { anchor: 'cat-standup',      icon: 'fa-cube',             title: '立體密實袋規格對照表' },
-    '冷凍袋':          { anchor: 'cat-freezer',      icon: 'fa-snowflake',        title: '冷凍袋規格對照表' },
-    '手套':            { anchor: 'cat-gloves',       icon: 'fa-hand',             title: '手套尺寸規格對照表', photo: '螢幕擷取畫面 2026-08-13 160650.png', caption: '台塑多功能手套<br>提供 S / M / L 三種尺寸' },
-    '台塑遮蔽防塵膠帶': { anchor: 'cat-tape',         icon: 'fa-tape',             title: '台塑遮蔽防塵膠帶規格對照表', photo: '螢幕擷取畫面 2026-08-13 160829.png', caption: '台塑遮蔽防塵膠帶<br>550mm ~ 3200mm 六種幅寬' }
+    '連捲清潔袋':      { anchor: 'cat-roll-liners',  icon: 'fa-dumpster', photo: 'formosa_canliner_official.png', caption: '台塑連捲點斷清潔袋<br>實心捲取・平底封口' },
+    '單張抽取清潔袋':  { anchor: 'cat-flat-draw',    icon: 'fa-box-open' },
+    '環保清潔袋':      { anchor: 'cat-eco-liners',   icon: 'fa-leaf', photo: 'environmental-label-mark-official.png', caption: '通過環保標章審查<br>50% 再生塑膠原料' },
+    '拉繩醫療袋':      { anchor: 'cat-medical',      icon: 'fa-notes-medical', photo: 'drawtape_medical_studio.png', caption: '高辨識度紅色拉繩<br>感染性廢棄物隔離用' },
+    '拉繩清潔袋':      { anchor: 'cat-general',      icon: 'fa-ribbon', photo: 'drawtape_commercial_studio.png', caption: '袋口拉繩一拉即封<br>經濟包與超量包規格' },
+    '環保拉繩清潔袋':  { anchor: 'cat-eco-draw-tape', icon: 'fa-leaf', photo: 'drawtape.jpg', caption: '再生料拉繩清潔袋<br>本色與黑色，可客製' },
+    '平裝耐熱袋':      { anchor: 'cat-flat-heat',    icon: 'fa-temperature-high', photo: 'formosa_heat_bag_official.png', caption: '食品級 PE 平裝耐熱袋' },
+    '卷裝耐熱袋':      { anchor: 'cat-roll-heat',    icon: 'fa-scroll', photo: 'formosa_heat_bag_real.png', caption: '整卷包裝耐熱袋<br>抽取方便不斷卷' },
+    '蔬果袋':          { anchor: 'cat-produce',      icon: 'fa-carrot' },
+    '夾鏈袋':          { anchor: 'cat-zipper',       icon: 'fa-lock', photo: 'ai_zipper_bag.png', caption: '台塑夾鏈袋<br>多種號數齊全' },
+    '密實袋':          { anchor: 'cat-slider',       icon: 'fa-box-archive' },
+    '立體密實袋':      { anchor: 'cat-standup',      icon: 'fa-cube' },
+    '冷凍袋':          { anchor: 'cat-freezer',      icon: 'fa-snowflake' },
+    '手套':            { anchor: 'cat-gloves',       icon: 'fa-hand', caption: '台塑多功能手套' },
+    '台塑遮蔽防塵膠帶': { anchor: 'cat-tape',         icon: 'fa-tape', photo: '螢幕擷取畫面 2026-08-13 160829.png', caption: '台塑遮蔽防塵膠帶<br>裝潢施工遮蔽防塵用' }
   };
 
   function seriesInfo(name) {
@@ -58,7 +59,7 @@
     return {
       anchor: s.anchor || ('cat-' + String(name).replace(/[^\w\u3400-\u9fff]+/g, '-')),
       icon: s.icon || 'fa-layer-group',
-      title: s.title || (name + '規格對照表'),
+      title: name,
       photo: s.photo || '',
       caption: s.caption || name
     };
@@ -91,6 +92,16 @@
   // 封面檔名與系列名不同時在這裡指定（一對一，不是同分類共用）
   var COVER_NAME = { '連捲清潔袋': '清潔袋' };
 
+  // 放在 src/ 根目錄的既有圖片（Excel 只寫檔名時也找得到）
+  var SRC_FILES = [
+    'ai_specialty.png', 'ai_zipper_bag.png', 'Can-Liners-Draw-Tape-Draw-Tape-2.jpg', 'cleaning.jpg',
+    'combine.png', 'drawtape.jpg', 'drawtape_commercial_studio.png', 'drawtape_medical_studio.png',
+    'environmental-label-mark-official.png', 'formosa_canliner_official.png',
+    'formosa_heat_bag_official.png', 'formosa_heat_bag_real.png', 'plant.png', 'scale sheet.png',
+    'use3.png', 'use4.png', 'use5.png', 'use6.png',
+    '螢幕擷取畫面 2026-08-13 160650.png', '螢幕擷取畫面 2026-08-13 160829.png'
+  ];
+
   var INDEX = (function () {
     var map = {};
     IMAGE_FILES.forEach(function (f) { map[f.replace(/\.[a-z0-9]+$/i, '')] = IMG_DIR + f; });
@@ -101,11 +112,24 @@
     return String(size || '').replace(/[（(][^)）]*[)）]/g, '').trim();
   }
 
+  /* 把 Excel 填的檔名解析成相對於 src/ 的路徑
+     · 只寫檔名        → src/product-img/檔名（同事上傳的照片都在這裡）
+     · 含斜線或寫 src/ → 照他寫的位置，例如「../src/x.png」「combine.png」放在 src/ 的舊圖
+     · 找不到於 product-img 的既有清單時，也退回 src/ 直接試 */
+  function imagePath(named) {
+    var n = String(named || '').trim();
+    if (!n) return '';
+    n = n.replace(/^\.?\/?src\//, '');
+    if (n.indexOf('/') > -1) return n;                       // 已含資料夾，照原樣
+    if (INDEX[n.replace(/\.[a-z0-9]+$/i, '')]) return IMG_DIR + n;
+    return SRC_FILES.indexOf(n) > -1 ? n : IMG_DIR + n;
+  }
+
   // 一列規格 → 實拍圖路徑（找不到回傳空字串）
   function imageFor(row) {
     // Excel 直接指定的檔名最優先
     var named = String(row.img || '').trim();
-    if (named) return IMG_DIR + named.replace(/^.*[\\/]/, '');
+    if (named) return imagePath(named);
 
     var s = IMG_ALIAS[row.series] || row.series;
     var size = baseSize(row.size), cap = String(row.cap || '').trim();
@@ -127,7 +151,7 @@
   // （不回傳同分類的泛用圖，避免蓋掉系列專屬圖造成圖文不符）
   function coverFor(series, named) {
     var n = String(named || '').trim();
-    if (n) return IMG_DIR + n.replace(/^.*[\\/]/, '');
+    if (n) return imagePath(n);
     return INDEX['封面-' + (COVER_NAME[series] || IMG_ALIAS[series] || series)] || '';
   }
 
@@ -188,6 +212,8 @@
       pack: pick(row, ['包裝', 'pack']),
       img: pick(row, ['圖片檔名', 'img']),
       cover: pick(row, ['系列代表圖', 'cover']),
+      blockTitle: pick(row, ['表格標題', 'blockTitle']),
+      caption: pick(row, ['圖片說明', 'caption']),
       qty: qtyText(pick(row, ['張數', 'count']), pick(row, ['包裝', 'pack'])),
       colors: colorList(pick(row, ['顏色', 'colors']))
     };
@@ -232,6 +258,6 @@
     pages: PAGES, sheets: SHEETS, colors: COLORS, series: SERIES, seriesInfo: seriesInfo,
     imgDir: IMG_DIR, images: INDEX, imageFor: imageFor, coverFor: coverFor,
     pageOf: pageOf, qtyText: qtyText, colorList: colorList, specText: specText,
-    resolve: resolve, specs: specs, readWorkbook: readWorkbook, readCategories: readCategories
+    imagePath: imagePath, resolve: resolve, specs: specs, readWorkbook: readWorkbook, readCategories: readCategories
   };
 })();
