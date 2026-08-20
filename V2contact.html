@@ -334,76 +334,70 @@
   </footer>
 
   <script>
-    // ==========================================
-    // 請將下方的 GAS_ENDPOINT_URL 替換為您的 Apps Script 網頁應用程式 URL
-    // ==========================================
-    const GAS_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbyV1gFc6cgnehUWhaab3v7ikbpJvlJzEqwMa33BCxCT3UFZFNnj4SdXV4H87fwhoTTd/exec";
+  const GAS_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbyV1gFc6cgnehUWhaab3v7ikbpJvlJzEqwMa33BCxCT3UFZFNnj4SdXV4H87fwhoTTd/exec";
 
-    document.getElementById('contactForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-      const submitBtn = document.getElementById('submitBtn');
-      const statusDiv = document.getElementById('statusMessage');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusDiv = document.getElementById('statusMessage');
 
-      const payload = {
-        company: document.getElementById('companyName').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        product: document.getElementById('productCategory').value,
-        message: document.getElementById('message').value.trim(),
-        timestamp: new Date().toISOString()
-      };
+    // 改用 URLSearchParams 傳遞，解決跨域 no-cors 無法正確帶入資料的問題
+    const formData = new URLSearchParams();
+    formData.append('company', document.getElementById('companyName').value.trim());
+    formData.append('email', document.getElementById('email').value.trim());
+    formData.append('product', document.getElementById('productCategory').value);
+    formData.append('message', document.getElementById('message').value.trim());
 
-      // 鎖定按鈕並呈現發送中狀態
-      submitBtn.disabled = true;
-      statusDiv.style.color = 'var(--brand-blue)';
-      statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 資料傳送中，請稍候... (Submitting RFQ)';
+    submitBtn.disabled = true;
+    statusDiv.style.color = 'var(--brand-blue)';
+    statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 資料傳送中，請稍候... (Submitting RFQ)';
 
-      try {
-        // 發送 POST 請求至 Google Apps Script Web App
-        await fetch(GAS_ENDPOINT_URL, {
-          method: "POST",
-          mode: "no-cors", // Apps Script 跨域需使用 no-cors
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
+    try {
+      await fetch(GAS_ENDPOINT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: formData
+      });
 
-        // 成功提示
-        statusDiv.style.color = '#10B981';
-        statusDiv.innerHTML = '✅ 詢價需求送出成功！我們的外銷業務專員將於 24 小時內與您聯繫。';
-        document.getElementById('contactForm').reset();
-      } catch (err) {
-        console.error("RFQ Submission Error:", err);
-        statusDiv.style.color = '#EF4444';
-        statusDiv.innerHTML = '❌ 送出失敗，請確認網路連線或直接透過上方 Email 與我們聯繫。';
-      } finally {
-        submitBtn.disabled = false;
+      statusDiv.style.color = '#10B981';
+      statusDiv.innerHTML = '✅ 詢價需求送出成功！我們的外銷業務專員將於 24 小時內與您聯繫。';
+      document.getElementById('contactForm').reset();
+    } catch (err) {
+      console.error("RFQ Submission Error:", err);
+      statusDiv.style.color = '#EF4444';
+      statusDiv.innerHTML = '❌ 送出失敗，請確認網路連線或直接透過上方 Email 與我們聯繫。';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  let currentLang = 'tw';
+  function toggleLanguage() {
+    currentLang = currentLang === 'tw' ? 'en' : 'tw';
+    const langBtn = document.getElementById("langBtn");
+    if (langBtn) {
+      langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
+    }
+    document.querySelectorAll("[data-tw]").forEach(el => {
+      const text = el.getAttribute(`data-${currentLang}`);
+      if (text) {
+        const icon = el.querySelector('i');
+        if (icon) {
+          const iconClone = icon.cloneNode(true);
+          el.innerHTML = '';
+          el.appendChild(iconClone);
+          el.appendChild(document.createTextNode(' ' + text));
+        } else {
+          el.innerText = text;
+        }
       }
     });
+  }
 
-    let currentLang = 'tw';
-    function toggleLanguage() {
-      currentLang = currentLang === 'tw' ? 'en' : 'tw';
-      const langBtn = document.getElementById("langBtn");
-      if (langBtn) {
-        langBtn.innerText = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
-      }
-      document.querySelectorAll("[data-tw]").forEach(el => {
-        const text = el.getAttribute(`data-${currentLang}`);
-        if (text) {
-          const icon = el.querySelector('i');
-          if (icon) {
-            const iconClone = icon.cloneNode(true);
-            el.innerHTML = '';
-            el.appendChild(iconClone);
-            el.appendChild(document.createTextNode(' ' + text));
-          } else {
-            el.innerText = text;
-          }
-        }
-      });
-    }
   </script>
 </body>
 </html>
