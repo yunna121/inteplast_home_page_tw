@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>網站內容管理 | 台灣營德</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+  #nc-root:empty::after {
+    content: '正在載入管理後台…';
+    display: grid; place-items: center; height: 100vh;
+    color: #64748B; font-weight: 700; font-size: 0.95rem;
+  }
+</style>
+</head>
+<body>
+<div id="nc-root"></div>
+<script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
+</body>
+</html>

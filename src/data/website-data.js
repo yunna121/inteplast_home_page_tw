@@ -4,7 +4,7 @@
      · 工作表「分類介紹」  → 產品中心的分類卡片文案
      · 工作表「搜尋同義詞」→ 客戶用別的說法也找得到
    由 tools/update-specs.html 轉出，請勿手改。
-   轉出時間：2026/8/20 上午11:35:14 — 來源檔：website-data.xlsx */
+   轉出時間：2026/8/20 下午12:59:35 — 來源檔：website-data.xlsx */
 window.SITE_DATA = {
  "version": 4,
  "specs": [
@@ -18,7 +18,9 @@ window.SITE_DATA = {
    "pack": "張/捲",
    "colors": "透明 / 黑色",
    "img": "連捲清潔袋 超小.webp",
-   "cover": "封面-清潔袋.png"
+   "cover": "封面-清潔袋.png",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -30,7 +32,9 @@ window.SITE_DATA = {
    "pack": "張/捲",
    "colors": "透明",
    "img": "連捲清潔袋 特小.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -42,7 +46,9 @@ window.SITE_DATA = {
    "pack": "張/捲",
    "colors": "透明 / 粉紅",
    "img": "連捲清潔袋 小.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -54,7 +60,9 @@ window.SITE_DATA = {
    "pack": "張/捲",
    "colors": "透明 / 粉紅",
    "img": "連捲清潔袋 中.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -66,7 +74,9 @@ window.SITE_DATA = {
    "pack": "張/捲",
    "colors": "透明 / 粉紅",
    "img": "連捲清潔袋 大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -78,7 +88,9 @@ window.SITE_DATA = {
    "pack": "張/捲",
    "colors": "透明 / 黑色",
    "img": "連捲清潔袋 特大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -90,7 +102,9 @@ window.SITE_DATA = {
    "pack": "張/捲",
    "colors": "透明 / 黑色",
    "img": "連捲清潔袋 超大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -102,7 +116,9 @@ window.SITE_DATA = {
    "pack": "張/捲",
    "colors": "透明 / 黑色",
    "img": "連捲清潔袋 超大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -114,7 +130,9 @@ window.SITE_DATA = {
    "pack": "張/捲",
    "colors": "透明 / 黑色",
    "img": "連捲清潔袋 超特大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -126,7 +144,9 @@ window.SITE_DATA = {
    "pack": "張/捲",
    "colors": "透明 / 黑色",
    "img": "連捲清潔袋 超特大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -138,7 +158,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "透明 / 黑色",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -150,7 +172,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "透明 / 黑色 / 粉紅",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -162,7 +186,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "透明 / 黑色 / 粉紅",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -174,7 +200,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "透明 / 黑色 / 粉紅 / 藍色",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -186,7 +214,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "透明 / 黑色",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -198,7 +228,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "透明 / 黑色",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -210,7 +242,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "透明 / 黑色",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -222,7 +256,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "本色 / 紅 / 藍 / 黑 / 綠",
    "img": "",
-   "cover": "封面-環保清潔袋.webp"
+   "cover": "封面-環保清潔袋.webp",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -234,7 +270,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "本色 / 紅 / 藍 / 黑 / 綠",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -246,7 +284,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "本色 / 紅 / 藍 / 黑 / 綠",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -258,7 +298,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "本色 / 紅 / 藍 / 黑 / 綠",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "清潔袋",
@@ -270,7 +312,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "本色 / 紅 / 藍 / 黑 / 綠",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -282,7 +326,9 @@ window.SITE_DATA = {
    "pack": "張",
    "colors": "紅",
    "img": "拉繩感染袋 小.webp",
-   "cover": "封面-拉繩感染袋.png"
+   "cover": "封面-拉繩感染袋.png",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -294,7 +340,9 @@ window.SITE_DATA = {
    "pack": "張",
    "colors": "紅",
    "img": "拉繩感染袋 中.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -306,7 +354,9 @@ window.SITE_DATA = {
    "pack": "張",
    "colors": "紅",
    "img": "拉繩感染袋 大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -318,7 +368,9 @@ window.SITE_DATA = {
    "pack": "張",
    "colors": "紅",
    "img": "拉繩感染袋 特大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -330,7 +382,9 @@ window.SITE_DATA = {
    "pack": "張",
    "colors": "紅",
    "img": "拉繩感染袋 超大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -342,7 +396,9 @@ window.SITE_DATA = {
    "pack": "經濟包",
    "colors": "",
    "img": "拉繩清潔袋 大.webp",
-   "cover": "封面-台塑拉繩清潔袋.webp"
+   "cover": "封面-台塑拉繩清潔袋.webp",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -354,7 +410,9 @@ window.SITE_DATA = {
    "pack": "經濟包",
    "colors": "",
    "img": "拉繩清潔袋 特大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -366,7 +424,9 @@ window.SITE_DATA = {
    "pack": "經濟包",
    "colors": "",
    "img": "拉繩清潔袋 超大 經濟包.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -378,7 +438,9 @@ window.SITE_DATA = {
    "pack": "超量包",
    "colors": "",
    "img": "拉繩清潔袋 超大 超量包.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -390,7 +452,9 @@ window.SITE_DATA = {
    "pack": "經濟包",
    "colors": "",
    "img": "拉繩清潔袋 超特大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -402,7 +466,9 @@ window.SITE_DATA = {
    "pack": "超量包",
    "colors": "",
    "img": "拉繩清潔袋 巨無霸.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -414,7 +480,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "本色 / 黑色",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -426,7 +494,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "本色 / 黑色",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -438,7 +508,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "本色 / 黑色",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "拉繩袋",
@@ -450,7 +522,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "本色 / 黑色",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -462,7 +536,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": "封面-平裝耐熱袋.webp"
+   "cover": "封面-平裝耐熱袋.webp",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -474,7 +550,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -486,7 +564,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -498,7 +578,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -510,7 +592,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -522,7 +606,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -534,7 +620,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -546,7 +634,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -558,7 +648,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -570,7 +662,9 @@ window.SITE_DATA = {
    "pack": "張/卷",
    "colors": "",
    "img": "",
-   "cover": "封面-耐熱袋.webp"
+   "cover": "封面-耐熱袋.webp",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -582,7 +676,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -594,7 +690,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -606,7 +704,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -618,7 +718,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -630,7 +732,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -642,7 +746,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -654,7 +760,9 @@ window.SITE_DATA = {
    "pack": "張",
    "colors": "",
    "img": "保鮮耐熱袋 小.webp",
-   "cover": "封面-保鮮耐熱袋.webp"
+   "cover": "封面-保鮮耐熱袋.webp",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "蔬果袋",
@@ -666,7 +774,9 @@ window.SITE_DATA = {
    "pack": "張",
    "colors": "",
    "img": "保鮮耐熱袋 大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
@@ -677,164 +787,192 @@ window.SITE_DATA = {
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": "封面-台塑夾鏈袋.webp"
+   "img": "台塑夾鏈袋 00號.webp",
+   "cover": "封面-台塑夾鏈袋.webp",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "0號",
    "dim": "4 × 6 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 0號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "1號",
    "dim": "5 × 7 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 1號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "2號",
    "dim": "6 × 8.5 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 2號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "3號",
    "dim": "7 × 10 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 3號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "4號",
    "dim": "8.5 × 12 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 4號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "5號",
    "dim": "10 × 14 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 5號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "6號",
    "dim": "12 × 17 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 6號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "7號",
    "dim": "14 × 20 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 7號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "8號",
    "dim": "17 × 24 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 8號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "9號",
    "dim": "20 × 28 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 9號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "10號",
    "dim": "24 × 34 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 10號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "11號",
    "dim": "28 × 40 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 11號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
-   "series": "夾鏈袋",
+   "series": "台塑夾鏈袋",
    "cap": "",
    "size": "12號",
    "dim": "34 × 45 cm",
    "count": "100",
    "pack": "包",
    "colors": "",
-   "img": "",
-   "cover": ""
+   "img": "台塑夾鏈袋 12號.webp",
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
@@ -846,7 +984,9 @@ window.SITE_DATA = {
    "pack": "張/盒",
    "colors": "",
    "img": "密食袋 中.webp",
-   "cover": "封面-夾鏈袋.webp"
+   "cover": "封面-夾鏈袋.webp",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
@@ -858,7 +998,9 @@ window.SITE_DATA = {
    "pack": "張/盒",
    "colors": "",
    "img": "密食袋 大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
@@ -870,7 +1012,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "立體密食袋 小.webp",
-   "cover": "封面-夾鏈袋.webp"
+   "cover": "封面-夾鏈袋.webp",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
@@ -882,7 +1026,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "立體密食袋 中.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
@@ -894,7 +1040,9 @@ window.SITE_DATA = {
    "pack": "包",
    "colors": "",
    "img": "立體密食袋 大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
@@ -906,7 +1054,9 @@ window.SITE_DATA = {
    "pack": "張/盒",
    "colors": "",
    "img": "冷凍袋 中.webp",
-   "cover": "封面-夾鏈袋.webp"
+   "cover": "封面-夾鏈袋.webp",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "夾鏈袋",
@@ -918,7 +1068,9 @@ window.SITE_DATA = {
    "pack": "張/盒",
    "colors": "",
    "img": "冷凍袋 大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "其他類",
@@ -930,7 +1082,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "",
    "img": "",
-   "cover": "封面-台塑遮蔽防塵膠帶.png"
+   "cover": "封面-台塑遮蔽防塵膠帶.png",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "其他類",
@@ -942,7 +1096,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "其他類",
@@ -954,7 +1110,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "其他類",
@@ -966,7 +1124,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "其他類",
@@ -978,7 +1138,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "其他類",
@@ -990,7 +1152,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "",
    "img": "",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "其他類",
@@ -1002,7 +1166,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "",
    "img": "手套 小.webp",
-   "cover": "封面-手套.webp"
+   "cover": "封面-手套.webp",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "其他類",
@@ -1014,7 +1180,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "",
    "img": "手套 中.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   },
   {
    "category": "其他類",
@@ -1026,7 +1194,9 @@ window.SITE_DATA = {
    "pack": "",
    "colors": "",
    "img": "手套 大.webp",
-   "cover": ""
+   "cover": "",
+   "blockTitle": "",
+   "caption": ""
   }
  ],
  "categories": [
