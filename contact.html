@@ -119,8 +119,9 @@
       cursor: pointer; transition: var(--transition); box-shadow: 0 4px 14px rgba(0, 82, 155, 0.3); display: flex; justify-content: center; align-items: center; gap: 10px;
     }
     .submit-btn:hover { background: var(--brand-blue-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 82, 155, 0.4); }
+    .submit-btn:disabled { cursor: wait; opacity: 0.72; transform: none; box-shadow: none; }
 
-    #statusMessage { margin-top: 20px; text-align: center; font-size: 0.95rem; font-weight: 700; }
+    #statusMessage { min-height: 1.6em; margin-top: 20px; text-align: center; font-size: 0.95rem; font-weight: 700; }
 
     .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
@@ -287,17 +288,17 @@
           <form id="contactForm">
             <div class="form-group">
               <label for="companyName"><i class="fa-solid fa-building"></i> <span data-tw="公司名稱 (Company Name)" data-en="Company Name">公司名稱 (Company Name)</span></label>
-              <input type="text" id="companyName" class="form-control" placeholder="例：Global Packaging Co., Ltd." required>
+              <input type="text" id="companyName" name="company" class="form-control" placeholder="例：Global Packaging Co., Ltd." required>
             </div>
 
             <div class="form-group">
               <label for="email"><i class="fa-solid fa-envelope"></i> <span data-tw="商務信箱 (Business Email)" data-en="Business Email">商務信箱 (Business Email)</span></label>
-              <input type="email" id="email" class="form-control" placeholder="name@yourcompany.com" required>
+              <input type="email" id="email" name="email" class="form-control" placeholder="name@yourcompany.com" required>
             </div>
 
             <div class="form-group">
               <label for="productCategory"><i class="fa-solid fa-boxes-packing"></i> <span data-tw="詢價產品類別 (Product Interest)" data-en="Product Interest">詢價產品類別 (Product Interest)</span></label>
-              <select id="productCategory" class="form-control">
+              <select id="productCategory" name="product" class="form-control">
                 <option value="清潔袋 (連捲 / 單張抽取 / 環保)">01 清潔袋 (連捲 / 單張抽取 / 環保)</option>
                 <option value="拉繩袋 (清潔袋 / 醫療袋)">02 拉繩袋 (清潔袋 / 醫療袋)</option>
                 <option value="耐熱袋 (平裝 / 捲裝)">03 耐熱袋 (平裝 / 捲裝)</option>
@@ -309,15 +310,15 @@
 
             <div class="form-group">
               <label for="message"><i class="fa-solid fa-comment-dots"></i> <span data-tw="採購需求與規格 (Inquiry Details)" data-en="Inquiry Details">採購需求與規格 (Inquiry Details)</span></label>
-              <textarea id="message" class="form-control" rows="4" placeholder="請填寫預計採購數量、裝櫃方式與規格厚度需求..." required></textarea>
+              <textarea id="message" name="message" class="form-control" rows="4" placeholder="請填寫預計採購數量、裝櫃方式與規格厚度需求..." required></textarea>
             </div>
 
-            <button type="submit" class="submit-btn">
+            <button type="submit" class="submit-btn" id="submitBtn">
               <i class="fa-solid fa-paper-plane"></i> <span data-tw="送出 RFQ 詢價需求" data-en="Submit RFQ Inquiry">送出 RFQ 詢價需求</span>
             </button>
           </form>
 
-          <div id="statusMessage"></div>
+          <div id="statusMessage" role="status" aria-live="polite"></div>
         </div>
 
       </div>
@@ -333,28 +334,38 @@
   </footer>
 
   <script>
-    // 融合 Project_Mio 表單打包與驗證邏輯
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    const GAS_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbyV1gFc6cgnehUWhaab3v7ikbpJvlJzEqwMa33BCxCT3UFZFNnj4SdXV4H87fwhoTTd/exec';
+
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      const data = {
-        company: document.getElementById('companyName').value,
-        email: document.getElementById('email').value,
-        product: document.getElementById('productCategory').value,
-        message: document.getElementById('message').value,
-        timestamp: new Date().toISOString()
-      };
-
+      const form = e.currentTarget;
+      const submitBtn = document.getElementById('submitBtn');
       const statusDiv = document.getElementById('statusMessage');
-      statusDiv.style.color = 'var(--brand-blue)';
-      statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 送出資料集中... (Submitting RFQ)';
+      const formData = new URLSearchParams(new FormData(form));
 
-      setTimeout(() => {
-        console.log("Inteplast Taiwan RFQ Submission Data:", data);
+      submitBtn.disabled = true;
+      statusDiv.style.color = 'var(--brand-blue)';
+      statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 資料傳送中，請稍候... (Submitting RFQ)';
+
+      try {
+        await fetch(GAS_ENDPOINT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body: formData
+        });
+
         statusDiv.style.color = '#10B981';
-        statusDiv.innerHTML = '✅ 詢價需求送出成功！我們的外銷業務專員將於 24 小時內與您聯繫。';
-        document.getElementById('contactForm').reset();
-      }, 1000);
+        statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> 詢價需求已送出！我們的外銷業務專員將於 24 小時內與您聯繫。';
+        form.reset();
+      } catch (error) {
+        console.error('RFQ submission error:', error);
+        statusDiv.style.color = '#B42318';
+        statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> 送出失敗，請確認網路連線後再試，或直接透過 Email 與我們聯繫。';
+      } finally {
+        submitBtn.disabled = false;
+      }
     });
 
     let currentLang = 'tw';
