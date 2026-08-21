@@ -650,6 +650,297 @@
       background: #0A192F;
     }
 
+
+    /* ===== 六大產品：編輯式輪播（左巨型序號 / 右產品資訊） ===== */
+    .ps-section {
+      background: #F4F3F1;
+      padding: 0;
+      border-top: 1px solid #E4E1DC;
+      border-bottom: 1px solid #E4E1DC;
+    }
+    .ps-shell {
+      position: relative;
+      max-width: 1500px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 92px;
+      min-height: 760px;
+      align-items: stretch;
+    }
+
+    .ps-stage {
+      position: relative;
+      overflow: hidden;
+      border-right: 1px solid #E4E1DC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ps-brandmark {
+      position: absolute;
+      top: 40px;
+      left: 44px;
+      z-index: 4;
+    }
+    .ps-brandmark strong {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: #14181D;
+    }
+    .ps-brandmark span {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.34em;
+      color: #8A8579;
+      margin-top: 4px;
+    }
+
+    .ps-vertical {
+      position: absolute;
+      left: 46px;
+      bottom: 120px;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      color: #B08D57;
+      z-index: 4;
+    }
+
+    .ps-counter {
+      position: absolute;
+      left: 44px;
+      bottom: 40px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #14181D;
+      letter-spacing: 0.06em;
+      z-index: 4;
+    }
+    .ps-counter em { font-style: normal; color: #A9A49A; font-weight: 700; }
+
+    .ps-numeral {
+      position: relative;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(280px, 30vw, 470px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: #14181D;
+      z-index: 2;
+      transform: translateX(-4%);
+    }
+    .ps-numeral-ghost {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-38%, -50%);
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(280px, 30vw, 470px);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: transparent;
+      -webkit-text-stroke: 2px #B08D57;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .ps-numeral, .ps-numeral-ghost { transition: opacity .45s ease, transform .55s cubic-bezier(.22,.61,.36,1); }
+    .ps-shell.is-switching .ps-numeral { opacity: 0; transform: translateX(-4%) translateY(-14px); }
+    .ps-shell.is-switching .ps-numeral-ghost { opacity: 0; }
+
+    .ps-panel {
+      padding: 120px 72px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+    .ps-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #B08D57;
+      margin-bottom: 18px;
+    }
+    .ps-title {
+      font-size: clamp(2.1rem, 3.4vw, 3.1rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #14181D;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .ps-rule { width: 44px; height: 2px; background: #B08D57; margin-bottom: 24px; }
+    .ps-desc {
+      font-size: 1.02rem;
+      line-height: 1.85;
+      color: #5D5A54;
+      max-width: 460px;
+      text-wrap: pretty;
+      margin-bottom: 34px;
+    }
+
+    .ps-features {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      margin-bottom: 36px;
+      max-width: 470px;
+    }
+    .ps-feature {
+      text-align: center;
+      padding: 0 12px;
+      border-left: 1px solid #E4E1DC;
+    }
+    .ps-feature:first-child { border-left: 0; }
+    .ps-feature i {
+      font-size: 1.25rem;
+      color: #14181D;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .ps-feature span {
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #5D5A54;
+      display: block;
+    }
+
+    .ps-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      align-self: flex-start;
+      background: #14181D;
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 800;
+      padding: 15px 30px;
+      border-radius: var(--radius-full);
+      transition: background .3s ease, transform .3s ease;
+      margin-bottom: 48px;
+    }
+    .ps-cta:hover { background: #B08D57; transform: translateY(-2px); }
+    .ps-cta i { transition: transform .3s ease; }
+    .ps-cta:hover i { transform: translateX(4px); }
+
+    .ps-thumbs {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 6px;
+      background: #EDEBE7;
+      border-radius: 16px;
+      padding: 10px;
+      max-width: 620px;
+    }
+    .ps-thumb {
+      appearance: none;
+      border: 1px solid transparent;
+      background: transparent;
+      border-radius: 11px;
+      padding: 14px 6px 11px;
+      cursor: pointer;
+      text-align: center;
+      transition: background .25s ease, border-color .25s ease;
+      font-family: inherit;
+    }
+    .ps-thumb:hover { background: rgba(255,255,255,.7); }
+    .ps-thumb.active { background: #FFFFFF; border-color: #DDD8D0; }
+    .ps-thumb b {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #14181D;
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+    .ps-thumb small { display: block; font-size: 0.74rem; color: #8A8579; font-weight: 700; line-height: 1.3; }
+    .ps-thumb.active small { color: #B08D57; }
+
+    .ps-index {
+      border-left: 1px solid #E4E1DC;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 22px;
+      padding: 40px 0 120px;
+    }
+    .ps-index button {
+      appearance: none;
+      border: 0;
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: #C3BEB4;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      transition: color .25s ease;
+    }
+    .ps-index button:hover { color: #14181D; }
+    .ps-index button.active { color: #14181D; position: relative; }
+    .ps-index button.active::before {
+      content: "";
+      position: absolute;
+      left: -26px;
+      top: 50%;
+      width: 18px;
+      height: 1px;
+      background: #B08D57;
+    }
+
+    .ps-arrows {
+      position: absolute;
+      right: 26px;
+      bottom: 36px;
+      display: flex;
+      gap: 12px;
+      z-index: 5;
+    }
+    .ps-arrow {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid #DCD7CE;
+      background: #FFFFFF;
+      color: #14181D;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 0.95rem;
+      transition: background .25s ease, color .25s ease, transform .25s ease;
+    }
+    .ps-arrow:hover { transform: translateY(-2px); }
+    .ps-arrow.next { background: #B08D57; border-color: #B08D57; color: #FFFFFF; }
+
+    @media (max-width: 1180px) {
+      .ps-shell { grid-template-columns: 1fr 1fr; }
+      .ps-index { display: none; }
+      .ps-panel { padding: 80px 48px 56px; }
+    }
+    @media (max-width: 900px) {
+      .ps-shell { grid-template-columns: 1fr; min-height: 0; }
+      .ps-stage { border-right: 0; border-bottom: 1px solid #E4E1DC; min-height: 360px; }
+      .ps-numeral, .ps-numeral-ghost { font-size: clamp(180px, 44vw, 300px); }
+      .ps-panel { padding: 44px 24px 120px; }
+      .ps-features { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 0; }
+      .ps-feature:nth-child(3) { border-left: 0; }
+      .ps-thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .ps-vertical { display: none; }
+      .ps-arrows { right: 20px; bottom: 20px; }
+    }
+
     /* Andy Barefoot 3D Concertina Accordion Wave Folding Grid (原版鋸齒波浪 3D 風琴牆) */
     .concertina-wrapper {
       display: flex;
@@ -1143,11 +1434,8 @@
     }
 
     /* Scroll margin offset for fixed header navigation */
-    #aboutUs,
     #productShowcase,
     #greenMark,
-    #productIntroRows,
-    #applicationScenarios,
     #contactCTA {
       scroll-margin-top: 110px;
     }
@@ -1429,21 +1717,10 @@
           <i class="fa-solid fa-layer-group"></i> <span data-tw="瀏覽六大核心產品系列"
             data-en="Explore 6 Product Lines">瀏覽六大核心產品系列</span>
         </a>
-        <a href="#productIntroRows" class="btn-hero-glass" data-tw="查看產品特色與應用" data-en="View Product Highlights">
-          <i class="fa-solid fa-circle-check"></i> <span data-tw="查看產品特色與應用"
-            data-en="View Product Highlights">查看產品特色與應用</span>
-        </a>
       </div>
 
       <!-- 4 大核心優勢與實力指標列 (Hero 底部 4 項特色：支援動態計數動畫) -->
       <div class="hero-stats-row">
-        <div class="hero-stat-card">
-          <div class="stat-icon"><i class="fa-solid fa-industry"></i></div>
-          <div class="stat-num"><span class="counter-num" data-target="703">0</span> <small data-tw="噸/月" data-en="Tons/Mo">噸/月</small></div>
-          <div class="stat-label" data-tw="每月吹膜產能" data-en="Monthly Extrusion Capacity">每月吹膜產能</div>
-          <div class="stat-sub" data-tw="嘉義新港 703 噸/月產能" data-en="Chiayi Plant 703 Tons/Month">嘉義新港 703 噸/月產能</div>
-        </div>
-
         <div class="hero-stat-card">
           <div class="stat-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
           <div class="stat-num"><span class="counter-num" data-target="37">0</span> <small data-tw="年 (1989-2026)" data-en="Yrs (1989-2026)">年 (1989-2026)</small></div>
@@ -1468,173 +1745,138 @@
     </div>
   </div>
 
-  <!-- SECTION 1: 關於臺灣營德 (About Us 首頁簡介預覽區塊) -->
-  <section class="home-corp-overview-section" id="aboutUs" style="padding: 80px 0; background: #FFFFFF; border-bottom: 1px solid var(--border-color);">
-    <div style="max-width: 1350px; margin: 0 auto; padding: 0 40px;">
-      
-      <!-- Unified Section Head -->
-      <div class="section-head" style="margin-bottom: 48px;">
-        <span class="pill-badge" style="background: rgba(0,82,155,0.08); color: var(--brand-blue); border-color: rgba(0,82,155,0.2);" data-tw="ABOUT US · 關於臺灣營德" data-en="ABOUT US · Corporate Profile">
-          <i class="fa-solid fa-building-user"></i> <span data-tw="ABOUT US · 關於臺灣營德" data-en="ABOUT US · Corporate Profile">ABOUT US · 關於臺灣營德</span>
-        </span>
-        <h2 data-tw="勤勞樸實 · 永續經營" data-en="Diligent, Frugal & Sustainable Management">
-          勤勞樸實 · 永續經營
-        </h2>
-        <p data-tw="臺灣營德作為 Inteplast Group 全球下游塑膠加工據點，結合台塑企業原料資源與營德集團加工技術。" data-en="Combining Formosa Plastics' raw material strength with Inteplast Group's global manufacturing technology.">
-          臺灣營德作為 Inteplast Group 全球下游塑膠加工據點，結合台塑企業原料資源與營德集團加工技術。
-        </p>
-      </div>
+  <!-- SECTION: 六大核心產品（左巨型序號 / 右產品資訊，可切換） -->
+  <section class="ps-section" id="productShowcase">
+    <div class="ps-shell" id="psShell">
 
-      <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 54px; align-items: center;">
-        
-        <!-- Left Column: Copy & Badge -->
-        <div>
-          <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 22px;" data-tw="臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 作為 Inteplast Group 全球下游塑膠加工產業鏈的核心據點之一，結合台塑企業豐富的原料資源與營德集團的全球加工技術背景。新港生產基地配備全自動拌料與原料空輸系統，並採用 PLC 自動化控制吹膜設備與精密點斷熱封技術。" data-en="As a core hub of Inteplast Group's global downstream plastic processing chain, Inteplast Taiwan combines Formosa Plastics' rich raw material resources with Inteplast's processing technology. Our Chiayi Xingang plant features fully automated resin pneumatic transport and PLC extrusion controls.">
-            臺灣營德股份有限公司 (INTEPLAST TAIWAN CORPORATION) 作為 Inteplast Group 全球下游塑膠加工產業鏈的核心據點之一，結合台塑企業豐富的原料資源與營德集團的全球加工技術背景。新港生產基地配備全自動拌料與原料空輸系統，並採用 PLC 自動化控制吹膜設備與精密點斷熱封技術。
-          </p>
-
-          <!-- 卓越營運獎 Card -->
-          <div style="background: #FFFBEB; border: 1px solid #FCD34D; border-radius: 14px; padding: 18px 22px; display: flex; gap: 16px; align-items: center; margin-bottom: 26px;">
-            <i class="fa-solid fa-trophy" style="font-size: 2.2rem; color: #D97706;"></i>
-            <div>
-              <div style="font-size: 1.05rem; font-weight: 800; color: #92400E; margin-bottom: 3px;" data-tw="連續榮獲 2022、2023 年集團卓越營運獎 (Excellence Award)" data-en="Recipient of 2022 & 2023 Group Excellence Awards">
-                連續榮獲 2022、2023 年集團卓越營運獎 (Excellence Award)
-              </div>
-              <div style="font-size: 0.86rem; color: #78350F;" data-tw="憑藉穩定生產品質與高良率 (月均良率突破 92%)，連續獲得集團總裁頒發最高榮譽代表。" data-en="Recognized for outstanding operational efficiency and quality yield exceeding 92%.">
-                憑藉穩定生產品質與高良率 (月均良率突破 92%)，連續獲得集團總裁頒發最高榮譽代表。
-              </div>
-            </div>
-          </div>
-
-          <a href="about.html" class="btn-hero-primary" style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 28px; border-radius: var(--radius-full); text-decoration: none; font-weight: 800; font-size: 0.95rem;" data-tw="查看更多" data-en="Read More">
-            <span data-tw="查看更多" data-en="Read More">查看更多</span> <i class="fa-solid fa-arrow-right"></i>
-          </a>
+      <div class="ps-stage">
+        <div class="ps-brandmark">
+          <strong>INTEPLAST</strong>
+          <span>TAIWAN</span>
         </div>
-
-        <!-- Right Column: Plant Image with Tag -->
-        <div style="position: relative; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border-color);">
-          <img src="./src/plant.png" alt="嘉義台塑新港廠區" style="width: 100%; display: block; height: 380px; object-fit: cover;">
-          <div style="position: absolute; bottom: 16px; left: 16px; background: rgba(10, 37, 64, 0.85); backdrop-filter: blur(8px); color: #fff; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-location-dot" style="color: var(--accent-azure);"></i>
-            <span data-tw="嘉義台塑新港廠區 · 703 噸/月自動化生產基地" data-en="Chiayi Xingang Plant · 703 Tons/Month Hub">嘉義台塑新港廠區 · 703 噸/月自動化生產基地</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 2: 6 大產品 Sticky Stacking Showcase (Scale Sheet 使用指定圖片 src/scale sheet.png) -->
-  <section class="fashion-products-section" id="productShowcase">
-    <div class="section-head">
-      <span class="pill-badge" data-tw="SIX CORE CATEGORIES" data-en="SIX CORE CATEGORIES">SIX CORE CATEGORIES</span>
-      <h2 data-tw="六大核心產品" data-en="Six Core Products">六大核心產品</h2>
-      <p data-tw="向下滑動即可瀏覽清潔袋、拉繩袋、蔬果袋、夾鏈袋、其他類與 Scale Sheet。"
-        data-en="Scroll to interact with full product specs and sub-categories.">
-        向下滑動即可瀏覽清潔袋、拉繩袋、蔬果袋、夾鏈袋、其他類與 Scale Sheet。
-      </p>
-    </div>
-
-    <!-- Andy Barefoot 3D Concertina Folding Grid Showcase (上三下三, 零圓角卡牌連體風琴牆) -->
-    <div class="concertina-wrapper">
-
-      <!-- TOP ROW (上三: 01, 02, 03) -->
-      <div class="concertina-row">
-        <!-- 01 清潔袋 -->
-        <a href="products/can-liners.html" class="concertina-card">
-          <div class="concertina-left" style="background: linear-gradient(135deg, #00529B, #00386B);">
-            <div>
-              <div class="concertina-num">001</div>
-              <div class="concertina-title" data-tw="清潔袋系列" data-en="Can Liners">清潔袋系列</div>
-              <div class="concertina-sub" data-tw="Can Liners & Trash Bags" data-en="Heavy-Duty Trash Bags">Can Liners & Trash Bags</div>
-            </div>
-            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <div class="concertina-right">
-            <img src="./src/formosa_canliner_official.png" alt="台塑清潔袋">
-          </div>
-        </a>
-
-        <!-- 02 拉繩袋 -->
-        <a href="products/draw-tape.html" class="concertina-card">
-          <div class="concertina-left" style="background: linear-gradient(135deg, #DC2626, #991B1B);">
-            <div>
-              <div class="concertina-num">002</div>
-              <div class="concertina-title" data-tw="拉繩袋系列" data-en="Draw-Tape Bags">拉繩袋系列</div>
-              <div class="concertina-sub" data-tw="Draw-Tape Bags" data-en="Easy Close Drawstring">Draw-Tape Bags</div>
-            </div>
-            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <div class="concertina-right">
-            <img src="./src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg" alt="拉繩清潔袋">
-          </div>
-        </a>
-
-        <!-- 03 蔬果袋 -->
-        <a href="products/heat-bags.html" class="concertina-card">
-          <div class="concertina-left" style="background: linear-gradient(135deg, #D97706, #B45309);">
-            <div>
-              <div class="concertina-num">003</div>
-              <div class="concertina-title" data-tw="蔬果袋" data-en="Heat Resistant">蔬果袋</div>
-              <div class="concertina-sub" data-tw="Heat-Resistant Bags" data-en="Food Grade PE Formula">Heat-Resistant Bags</div>
-            </div>
-            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <div class="concertina-right">
-            <img src="./src/formosa_heat_bag_official.png" alt="台塑耐熱袋">
-          </div>
-        </a>
+        <div class="ps-vertical">PREMIUM QUALITY. RELIABLE EVERYDAY.</div>
+        <div class="ps-numeral-ghost" id="psNumGhost" aria-hidden="true">01</div>
+        <div class="ps-numeral" id="psNum" aria-hidden="true">01</div>
+        <div class="ps-counter"><span id="psCounter">01</span> <em>/ 06</em></div>
       </div>
 
-      <!-- BOTTOM ROW (下三: 04, 05, 06) -->
-      <div class="concertina-row">
-        <!-- 04 夾鏈袋 -->
-        <a href="products/sealed-packaging.html" class="concertina-card">
-          <div class="concertina-left" style="background: linear-gradient(135deg, #10B981, #047857);">
-            <div>
-              <div class="concertina-num">004</div>
-              <div class="concertina-title" data-tw="夾鏈袋" data-en="Sealed Bags">夾鏈袋</div>
-              <div class="concertina-sub" data-tw="Sealed & Zipper Bags" data-en="Double Zipper Airtight">Sealed & Zipper Bags</div>
-            </div>
-            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <div class="concertina-right">
-            <img src="./src/ai_zipper_bag.png" alt="夾鏈袋">
-          </div>
+      <div class="ps-panel">
+        <div class="ps-eyebrow" data-tw="OUR PRODUCTS · 六大核心產品" data-en="OUR PRODUCTS">OUR PRODUCTS · 六大核心產品</div>
+        <h2 class="ps-title" id="psTitle">清潔袋系列</h2>
+        <div class="ps-rule"></div>
+        <p class="ps-desc" id="psDesc">高強度底封工藝與韌性袋材，從家用到商業清潔一次到位；連捲、單張抽取與環保再生配方齊備。</p>
+        <div class="ps-features" id="psFeatures"></div>
+        <a class="ps-cta" id="psCta" href="products/can-liners.html">
+          <span data-tw="進入專區" data-en="View Details">進入專區</span> <i class="fa-solid fa-arrow-right"></i>
         </a>
+        <div class="ps-thumbs" id="psThumbs"></div>
+      </div>
 
-        <!-- 05 其他類 -->
-        <a href="products/accessories.html" class="concertina-card">
-          <div class="concertina-left" style="background: linear-gradient(135deg, #7C3AED, #5B21B6);">
-            <div>
-              <div class="concertina-num">005</div>
-              <div class="concertina-title" data-tw="其他類" data-en="Specialty">其他類</div>
-              <div class="concertina-sub" data-tw="Specialty & Protection" data-en="Gloves & Masking Tapes">Specialty & Protection</div>
-            </div>
-            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <div class="concertina-right">
-            <img src="./src/ai_specialty.png" alt="其他類">
-          </div>
-        </a>
+      <div class="ps-index" id="psIndex"></div>
 
-        <!-- 06 Scale Sheet -->
-        <a href="products/stretch-films.html" class="concertina-card">
-          <div class="concertina-left" style="background: linear-gradient(135deg, #00A8FF, #006699);">
-            <div>
-              <div class="concertina-num">006</div>
-              <div class="concertina-title" data-tw="Scale Sheet" data-en="Scale Sheet">Scale Sheet</div>
-              <div class="concertina-sub" data-tw="Scale Sheet Series" data-en="Scale Sheet Series">Scale Sheet Series</div>
-            </div>
-            <div class="concertina-btn"><span data-tw="進入專區" data-en="Explore">進入專區</span> <i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <div class="concertina-right">
-            <img src="./src/scale sheet.png" alt="Scale Sheet">
-          </div>
-        </a>
+      <div class="ps-arrows">
+        <button type="button" class="ps-arrow prev" id="psPrev" aria-label="上一個產品"><i class="fa-solid fa-arrow-left"></i></button>
+        <button type="button" class="ps-arrow next" id="psNext" aria-label="下一個產品"><i class="fa-solid fa-arrow-right"></i></button>
       </div>
 
     </div>
+
+    <script>
+      (function () {
+        const PRODUCTS = [
+          { n: '01', short_tw: '清潔袋', short_en: 'Can Liners', href: 'products/can-liners.html',
+            title_tw: '清潔袋系列', title_en: 'Can Liners & Trash Bags',
+            desc_tw: '高強度底封工藝與韌性袋材，從家用到商業清潔一次到位；連捲、單張抽取與環保再生配方齊備。',
+            desc_en: 'Heavy-duty bottom seals and tough film for household and commercial sanitation, in coreless rolls, flat packs and recycled formulas.',
+            features: [['fa-shield-halved','韌性耐裝','Durable & Strong'],['fa-droplet','底封防漏','Leak Resistant'],['fa-arrows-spin','無芯捲裝','Coreless Roll'],['fa-recycle','環保配方','Eco Formula']] },
+          { n: '02', short_tw: '拉繩袋', short_en: 'Draw-Tape', href: 'products/draw-tape.html',
+            title_tw: '拉繩袋系列', title_en: 'Draw-Tape Bags',
+            desc_tw: '加長拉繩一拉即束，封口與提取一次完成；另有醫療感染袋規格，減少雙手接觸髒污的機會。',
+            desc_en: 'Extended drawstrings tie and lift in one motion, with medical infection-bag specifications available.',
+            features: [['fa-hand-point-up','一拉即束','One-Pull Seal'],['fa-suitcase-rolling','提把好搬','Easy Carry'],['fa-kit-medical','醫療規格','Medical Grade'],['fa-leaf','環保拉繩款','Eco Draw-Tape']] },
+          { n: '03', short_tw: '蔬果袋', short_en: 'Produce', href: 'products/heat-bags.html',
+            title_tw: '蔬果袋 · 耐熱袋', title_en: 'Heat-Resistant & Produce Bags',
+            desc_tw: '食品級 PE 配方，耐熱與高透明兼具；點斷連捲設計方便分裝與拿取，適合生鮮零售與日常備料。',
+            desc_en: 'Food-grade PE with heat resistance and high clarity; perforated rolls for grocery retail and daily prep.',
+            features: [['fa-temperature-high','耐熱安心','Heat Resistant'],['fa-eye','高透明度','High Clarity'],['fa-scissors','點斷易撕','Easy Tear'],['fa-basket-shopping','生鮮適用','Fresh Retail']] },
+          { n: '04', short_tw: '夾鏈袋', short_en: 'Zipper', href: 'products/sealed-packaging.html',
+            title_tw: '夾鏈袋 · 密實袋', title_en: 'Sealed & Zipper Bags',
+            desc_tw: '雙軌密封提供穩定氣密效果，冷凍分類、食材保鮮與生活收納都適用；立體款可站立分裝。',
+            desc_en: 'Double-track seals for reliable airtightness in freezer storage, food keeping and household organization.',
+            features: [['fa-lock','雙軌密封','Double Zipper'],['fa-snowflake','冷凍保鮮','Freezer Safe'],['fa-cube','立體站立','Stand-up Bag'],['fa-boxes-stacked','收納分類','Organizing']] },
+          { n: '05', short_tw: '其他類', short_en: 'Specialty', href: 'products/accessories.html',
+            title_tw: '手套 · 遮蔽防塵膠帶', title_en: 'Specialty & Protection',
+            desc_tw: '輕薄貼手的手套讓家務與食品備料更衛生；台塑遮蔽防塵膠帶負責裝修與工程場域的遮蔽防護。',
+            desc_en: 'Lightweight gloves for hygienic handling, plus Formosa masking film tape for renovation and jobsite protection.',
+            features: [['fa-hand-sparkles','衛生好操作','Hygienic Use'],['fa-utensils','食品備料','Food Prep'],['fa-tape','遮蔽防塵','Masking Tape'],['fa-helmet-safety','工程防護','Jobsite Ready']] },
+          { n: '06', short_tw: 'Scale Sheet', short_en: 'Scale Sheet', href: 'products/index.html',
+            title_tw: 'Scale Sheet 秤重襯紙', title_en: 'Scale Sheet',
+            desc_tw: '外銷市場的秤重襯紙，尺寸與捲幅可依客戶產線需求配合，穩定供應熟食與生鮮包裝現場。',
+            desc_en: 'Weighing scale sheeting for export markets, sized to each customer line for deli and fresh food packing.',
+            features: [['fa-globe','外銷供應','Export Supply'],['fa-ruler-combined','客製尺寸','Custom Size'],['fa-industry','穩定產能','Stable Output'],['fa-box-open','包裝現場','Packing Line']] }
+        ];
+
+        const shell = document.getElementById('psShell');
+        if (!shell) return;
+        const elNum = document.getElementById('psNum');
+        const elGhost = document.getElementById('psNumGhost');
+        const elCounter = document.getElementById('psCounter');
+        const elTitle = document.getElementById('psTitle');
+        const elDesc = document.getElementById('psDesc');
+        const elFeatures = document.getElementById('psFeatures');
+        const elCta = document.getElementById('psCta');
+        const elThumbs = document.getElementById('psThumbs');
+        const elIndex = document.getElementById('psIndex');
+        let active = 0;
+
+        PRODUCTS.forEach((p, i) => {
+          const t = document.createElement('button');
+          t.type = 'button';
+          t.className = 'ps-thumb';
+          t.innerHTML = '<b>' + p.n + '</b><small data-tw="' + p.short_tw + '" data-en="' + p.short_en + '">' + p.short_tw + '</small>';
+          t.addEventListener('click', () => show(i));
+          elThumbs.appendChild(t);
+
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = p.n;
+          b.setAttribute('aria-label', '產品 ' + p.n);
+          b.addEventListener('click', () => show(i));
+          elIndex.appendChild(b);
+        });
+
+        function show(i) {
+          active = (i + PRODUCTS.length) % PRODUCTS.length;
+          const p = PRODUCTS[active];
+          shell.classList.add('is-switching');
+          window.setTimeout(() => {
+            elNum.textContent = p.n;
+            elGhost.textContent = p.n;
+            elCounter.textContent = p.n;
+            elTitle.setAttribute('data-tw', p.title_tw);
+            elTitle.setAttribute('data-en', p.title_en);
+            elTitle.textContent = p.title_tw;
+            elDesc.setAttribute('data-tw', p.desc_tw);
+            elDesc.setAttribute('data-en', p.desc_en);
+            elDesc.textContent = p.desc_tw;
+            elCta.setAttribute('href', p.href);
+            elFeatures.innerHTML = p.features.map(f =>
+              '<div class="ps-feature"><i class="fa-solid ' + f[0] + '"></i><span data-tw="' + f[1] + '" data-en="' + f[2] + '">' + f[1] + '</span></div>'
+            ).join('');
+            elThumbs.querySelectorAll('.ps-thumb').forEach((el, idx) => el.classList.toggle('active', idx === active));
+            elIndex.querySelectorAll('button').forEach((el, idx) => el.classList.toggle('active', idx === active));
+            shell.classList.remove('is-switching');
+            if (typeof applyLanguage === 'function') {
+              applyLanguage(typeof currentLang !== 'undefined' ? currentLang : 'tw');
+            }
+          }, 180);
+        }
+
+        document.getElementById('psPrev').addEventListener('click', () => show(active - 1));
+        document.getElementById('psNext').addEventListener('click', () => show(active + 1));
+        show(0);
+      })();
+    </script>
   </section>
 
   <!-- GREEN MARK SUSTAINABILITY TEASER SECTION (環保標章認證導引區塊 - 位於產品使用特色上方) -->
@@ -1711,247 +1953,6 @@
     </div>
   </section>
 
-  <!-- SECTION 3 (Fused from Project_Mio product_intro.html): 產品特色 (保持 Project_Mio 實景原圖 use1~use6.png) -->
-  <section class="mio-product-intro-section" id="productIntroRows">
-    <div class="section-head">
-      <span class="pill-badge" data-tw="PRODUCT FEATURES & CHECKLIST" data-en="PRODUCT FEATURES & CHECKLIST">PRODUCT
-        FEATURES & CHECKLIST</span>
-      <h2 data-tw="產品使用特色" data-en="Product Features">產品使用特色</h2>
-      <p data-tw="為您解析每一款產品的極致使用功能與安全承諾。"
-        data-en="Explore the key functional benefits and safety commitments of each product line.">
-        為您解析每一款產品的極致使用功能與安全承諾。
-      </p>
-    </div>
-
-    <div class="intro-rows-list">
-
-      <!-- Row 1: 拉繩清潔袋 -->
-      <div class="intro-row-card">
-        <div class="intro-img-box">
-          <img src="./src/use3.png" alt="拉繩清潔袋使用情境">
-        </div>
-        <div class="intro-body-box">
-          <span class="intro-eyebrow">INTEPLAST DRAW-TAPE</span>
-          <h3 class="intro-h3" data-tw="拉繩清潔袋 · 一拉即束打包更省力" data-en="Draw-Tape Bags: Easy Tie & Carry">拉繩清潔袋 · 一拉即束打包更省力
-          </h3>
-          <p class="intro-p" data-tw="加長拉繩設計讓封口與提取一次完成，收拾垃圾更快速，也能減少雙手直接接觸髒污的機會。"
-            data-en="Extended drawstring makes tying and lifting effortless while preventing hands from touching waste.">
-            加長拉繩設計讓封口與提取一次完成，收拾垃圾更快速，也能減少雙手直接接觸髒污的機會。
-          </p>
-          <ul class="mio-checklist">
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="一拉即束，打包更省力"
-                data-en="One-pull easy seal">一拉即束，打包更省力</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="提把設計，方便拎舉與搬運"
-                data-en="Convenient handles for carrying">提把設計，方便拎舉與搬運</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="強韌袋材，安心承裝不破裂"
-                data-en="High tensile strength PE">強韌袋材，安心承裝不破裂</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Row 2: 商業與家用清潔袋 -->
-      <div class="intro-row-card">
-        <div class="intro-img-box">
-          <img src="./src/use3.png" alt="清潔袋使用情境">
-        </div>
-        <div class="intro-body-box">
-          <span class="intro-eyebrow">INTEPLAST CAN LINERS</span>
-          <h3 class="intro-h3" data-tw="清潔袋 · 高強度防漏底封工藝" data-en="Can Liners: Heavy-Duty Leak Proof">清潔袋 · 高強度防漏底封工藝</h3>
-          <p class="intro-p" data-tw="輕巧實用的清潔好幫手，高強度底封技術確保液體不外漏，適合各式居家與商業環境。"
-            data-en="Heavy-duty bottom seal technology eliminates leaks and distributes weight evenly for commercial use.">
-            輕巧實用的清潔好幫手，高強度底封技術確保液體不外漏，適合各式居家與商業環境。
-          </p>
-          <ul class="mio-checklist">
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="韌性袋材，不易破損漏水"
-                data-en="Durable & puncture resistant">韌性袋材，不易破損漏水</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="無芯捲裝抽取便利，收納簡單"
-                data-en="Coreless roll easy dispensing">無芯捲裝抽取便利，收納簡單</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="多種容量尺寸完整供選擇"
-                data-en="Full size range 10L to 90L">多種容量尺寸完整供選擇</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Row 3: 蔬果袋與連捲袋 -->
-      <div class="intro-row-card">
-        <div class="intro-img-box">
-          <img src="./src/use4.png" alt="蔬果袋使用情境">
-        </div>
-        <div class="intro-body-box">
-          <span class="intro-eyebrow">INTEPLAST PRODUCE ROLLS</span>
-          <h3 class="intro-h3" data-tw="蔬果袋 · 輕盈高透明，生鮮清晰辨識" data-en="Produce Bags: High Clarity Freshness">蔬果袋 ·
-            輕盈高透明，生鮮清晰辨識</h3>
-          <p class="intro-p" data-tw="讓新鮮蔬果便於分裝、攜帶與保存，點斷撕取流暢，為每日餐桌與生鮮超市多一份便利。"
-            data-en="High-clarity produce rolls for easy food identification, smooth tearing, and grocery retail convenience.">
-            讓新鮮蔬果便於分裝、攜帶與保存，點斷撕取流暢，為每日餐桌與生鮮超市多一份便利。
-          </p>
-          <ul class="mio-checklist">
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="輕盈高透明，快速辨識食材"
-                data-en="High clarity produce visibility">輕盈高透明，快速辨識食材</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="點斷連捲設計，方便分裝與拿取"
-                data-en="Easy tear-off produce roll">點斷連捲設計，方便分裝與拿取</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="適用各式生鮮蔬果與日常備料"
-                data-en="Ideal for grocery & food prep">適用各式生鮮蔬果與日常備料</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Row 4: 食品用薄膜 -->
-      <div class="intro-row-card">
-        <div class="intro-img-box">
-          <img src="./src/use5.png" alt="食品用薄膜使用情境">
-        </div>
-        <div class="intro-body-box">
-          <span class="intro-eyebrow">INTEPLAST FOOD WRAPS</span>
-          <h3 class="intro-h3" data-tw="食品用薄膜 · 緊密貼合，保留剛好的新鮮" data-en="Food Wraps: Airtight Preservation">食品用薄膜 ·
-            緊密貼合，保留剛好的新鮮</h3>
-          <p class="intro-p" data-tw="緊密貼合各式容器與食材表面，協助延緩食材乾燥與異味交叉，延長備料與冷藏新鮮度。"
-            data-en="Clings tightly to containers and ingredients to prevent drying and odor cross-contamination.">
-            緊密貼合各式容器與食材表面，協助延緩食材乾燥與異味交叉，延長備料與冷藏新鮮度。
-          </p>
-          <ul class="mio-checklist">
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="服貼延展性佳，包覆更完整"
-                data-en="Superior stretch and cling">服貼延展性佳，包覆更完整</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="透明清晰，食材保存一目了然"
-                data-en="Clear food inspection">透明清晰，食材保存一目了然</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="適用冷藏保存與飯店餐飲備料"
-                data-en="Cold storage & catering ready">適用冷藏保存與飯店餐飲備料</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Row 5: 密實袋與冷凍袋 -->
-      <div class="intro-row-card">
-        <div class="intro-img-box">
-          <img src="./src/use5.png" alt="密實袋使用情境">
-        </div>
-        <div class="intro-body-box">
-          <span class="intro-eyebrow">INTEPLAST ZIPPER BAGS</span>
-          <h3 class="intro-h3" data-tw="密實袋與冷凍袋 · 雙軌密封安心保鮮" data-en="Freezer Bags: Double Zipper Protection">密實袋與冷凍袋 ·
-            雙軌密封安心保鮮</h3>
-          <p class="intro-p" data-tw="雙軌密封防漏、方便收納，協助保存冷凍食材與分類生活小物，讓冰箱與生活井然有序。"
-            data-en="Heavy-duty double-zipper seal locking in freshness for freezer storage and organized food management.">
-            雙軌密封防漏、方便收納，協助保存冷凍食材與分類生活小物，讓冰箱與生活井然有序。
-          </p>
-          <ul class="mio-checklist">
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="雙軌密封設計，安心防漏保鮮"
-                data-en="Double zipper leak-proof seal">雙軌密封設計，安心防漏保鮮</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="透明袋身，內容物一目了然"
-                data-en="High clarity storage view">透明袋身，內容物一目了然</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="適合食材冷凍與日常小物分類"
-                data-en="Freezer safe & multi-purpose">適合食材冷凍與日常小物分類</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Row 6: 衛生防護手套與遮蔽膠帶 -->
-      <div class="intro-row-card">
-        <div class="intro-img-box">
-          <img src="./src/use6.png" alt="手套與防護使用情境">
-        </div>
-        <div class="intro-body-box">
-          <span class="intro-eyebrow">SPECIALTY & PROTECTION</span>
-          <h3 class="intro-h3" data-tw="手套與台塑遮蔽防塵膠帶 · 靈活潔淨防護" data-en="Hygiene Gloves & Masking Tapes">手套與台塑遮蔽防塵膠帶 ·
-            靈活潔淨防護</h3>
-          <p class="intro-p" data-tw="為清潔、備料與裝潢防護提供舒適保護，讓雙手與環境在每個細節中保持潔淨衛生。"
-            data-en="Comfortable protective gloves and Formosa masking dustproof film tapes for construction and home care.">
-            為清潔、備料與裝潢防護提供舒適保護，讓雙手與環境在每個細節中保持潔淨衛生。
-          </p>
-          <ul class="mio-checklist">
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="輕薄貼手，操作靈活衛生"
-                data-en="Flexible hygienic gloves">輕薄貼手，操作靈活衛生</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="適合清潔家務與食品備料處理"
-                data-en="Ideal for catering & cleaning">適合清潔家務與食品備料處理</span></li>
-            <li class="mio-check-item"><i class="fa-solid fa-circle-check"></i> <span data-tw="台塑遮蔽防塵膠帶工程防護"
-                data-en="Dustproof masking film tape">台塑遮蔽防塵膠帶工程防護</span></li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 3: 應用情境 6 Grid -->
-  <section class="scenarios-section" id="applicationScenarios">
-    <div class="section-head">
-      <span class="pill-badge" data-tw="APPLICATION SCENARIOS" data-en="APPLICATION SCENARIOS">APPLICATION
-        SCENARIOS</span>
-      <h2 data-tw="產品多元應用領域與使用情境" data-en="Versatile Industry Applications & Usage Scenarios">產品多元應用領域與使用情境</h2>
-      <p data-tw="臺灣營德品質貫穿商業清潔、工業物流、生鮮零售、冷凍保鮮與醫療防護各大領域。"
-        data-en="Empowering commercial cleaning, industrial logistics, supermarket produce, freezer preservation, and hygienic protection.">
-        臺灣營德品質貫穿商業清潔、工業物流、生鮮零售、冷凍保鮮與醫療防護各大領域。
-      </p>
-    </div>
-
-    <div class="scenarios-grid">
-      <div class="scenario-card">
-        <img src="./src/use3.png" alt="商業與機構清潔打包">
-        <div class="scenario-content">
-          <span class="scenario-badge">CLEANING & SANITATION</span>
-          <div class="scenario-title" data-tw="商業與機構清潔打包" data-en="Commercial Sanitation">商業與機構清潔打包</div>
-          <div class="scenario-desc" data-tw="自動拉繩一拉即束、嚴密防漏，適用於飯店、辦公大樓、醫療院所與清潔承包商。"
-            data-en="Easy-close drawstring and tight seals for hotels, offices, hospitals, and cleaning contractors.">
-            自動拉繩一拉即束、嚴密防漏，適用於飯店、辦公大樓、醫療院所與清潔承包商。</div>
-        </div>
-      </div>
-
-      <div class="scenario-card">
-        <img src="./src/use3.png" alt="居家日常與環境管理">
-        <div class="scenario-content">
-          <span class="scenario-badge">HOME & HOUSEHOLD</span>
-          <div class="scenario-title" data-tw="居家日常與環境管理" data-en="Household Cleaning">居家日常與環境管理</div>
-          <div class="scenario-desc" data-tw="輕巧實用的清潔幫手，韌性袋材不易破裂，適合各式居家空間與日常整理。"
-            data-en="Puncture-resistant bags designed for everyday home garbage and organization needs.">
-            輕巧實用的清潔幫手，韌性袋材不易破裂，適合各式居家空間與日常整理。</div>
-        </div>
-      </div>
-
-      <div class="scenario-card">
-        <img src="./src/use4.png" alt="生鮮超市與蔬果分裝">
-        <div class="scenario-content">
-          <span class="scenario-badge">GROCERY & PRODUCE</span>
-          <div class="scenario-title" data-tw="生鮮超市與蔬果分裝" data-en="Produce & Fresh Market">生鮮超市與蔬果分裝</div>
-          <div class="scenario-desc" data-tw="高透明連捲生鮮袋與點斷袋，便利分裝、快速辨識食材並確保衛生。"
-            data-en="High-clarity produce rolls allowing easy identification and hygienic fresh food packaging.">
-            高透明連捲生鮮袋與點斷袋，便利分裝、快速辨識食材並確保衛生。</div>
-        </div>
-      </div>
-
-      <div class="scenario-card">
-        <img src="./src/use5.png" alt="食品包覆與食材備料">
-        <div class="scenario-content">
-          <span class="scenario-badge">FOOD PREPARATION</span>
-          <div class="scenario-title" data-tw="食品包覆與食材備料" data-en="Food Prep & Wraps">食品包覆與食材備料</div>
-          <div class="scenario-desc" data-tw="緊密貼合容器與食材表面，延緩食材乾燥與異味交叉，保留新鮮美味。"
-            data-en="Protective wraps clinging tightly to containers and ingredients to preserve freshness.">
-            緊密貼合容器與食材表面，延緩食材乾燥與異味交叉，保留新鮮美味。</div>
-        </div>
-      </div>
-
-      <div class="scenario-card">
-        <img src="./src/use5.png" alt="冷凍儲存與密實保鮮">
-        <div class="scenario-content">
-          <span class="scenario-badge">FREEZER & STORAGE</span>
-          <div class="scenario-title" data-tw="冷凍儲存與密實保鮮" data-en="Freezer Preservation">冷凍儲存與密實保鮮</div>
-          <div class="scenario-desc" data-tw="雙軌密封夾鏈袋，提供極佳的密封效果，協助食材冷凍分類與生活小物收納。"
-            data-en="Double-zipper seals keeping food fresh in freezer storage while avoiding leaks.">
-            雙軌密封夾鏈袋，提供極佳的密封效果，協助食材冷凍分類與生活小物收納。</div>
-        </div>
-      </div>
-
-      <div class="scenario-card">
-        <img src="./src/plant.png" alt="嘉義台塑新港廠區自動化生產">
-        <div class="scenario-content">
-          <span class="scenario-badge">AUTOMATED MANUFACTURING</span>
-          <div class="scenario-title" data-tw="嘉義台塑新港廠區基地" data-en="Chiayi Xingang Production Base">嘉義台塑新港廠區基地</div>
-          <div class="scenario-desc" data-tw="全自動拌料與原料空輸系統，榮獲集團總裁頒發 2022、2023 年卓越營運獎。"
-            data-en="Automated extrusion & raw material handling awarded the 2022 & 2023 Excellence Award.">
-            全自動拌料與原料空輸系統，榮獲集團總裁頒發 2022、2023 年卓越營運獎。</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- CONTACT CTA -->
   <section class="cta-banner-section" id="contactCTA">
     <div class="cta-banner-container">
@@ -1979,79 +1980,40 @@
   <nav class="side-step-rail" id="sideStepRail" aria-label="章節導覽軌道">
     <div class="step-rail-track">
       
-      <!-- Step 01: 關於營德 -->
-      <div class="step-rail-item active" data-target="aboutUs">
-        <a href="#aboutUs" class="step-dot-trigger" aria-label="01 關於營德">
+      <!-- Step 01: 六大產品 -->
+      <div class="step-rail-item active" data-target="productShowcase">
+        <a href="#productShowcase" class="step-dot-trigger" aria-label="01 六大核心產品">
           <span class="step-dot"></span>
         </a>
         <div class="step-popup-card">
           <div class="popup-accent-bar"></div>
-          <div class="popup-num">01 / ABOUT US</div>
-          <div class="popup-title" data-tw="關於臺灣營德" data-en="About Inteplast Taiwan">關於臺灣營德</div>
-          <div class="popup-sub" data-tw="勤勞樸實 · 永續經營" data-en="Diligent & Sustainable">勤勞樸實 · 永續經營</div>
-        </div>
-      </div>
-
-      <!-- Step 02: 六大產品 -->
-      <div class="step-rail-item" data-target="productShowcase">
-        <a href="#productShowcase" class="step-dot-trigger" aria-label="02 六大核心產品">
-          <span class="step-dot"></span>
-        </a>
-        <div class="step-popup-card">
-          <div class="popup-accent-bar"></div>
-          <div class="popup-num">02 / CATEGORIES</div>
+          <div class="popup-num">01 / CATEGORIES</div>
           <div class="popup-title" data-tw="六大核心產品" data-en="Six Core Categories">六大核心產品</div>
           <div class="popup-sub" data-tw="清潔袋 · 拉繩袋 · 蔬果袋..." data-en="Can Liners, Drawtape...">清潔袋 · 拉繩袋 · 蔬果袋...</div>
         </div>
       </div>
 
-      <!-- Step 03: 環保綠色標章 -->
+      <!-- Step 02: 環保綠色標章 -->
       <div class="step-rail-item" data-target="greenMark">
-        <a href="#greenMark" class="step-dot-trigger" aria-label="03 環保綠色標章">
+        <a href="#greenMark" class="step-dot-trigger" aria-label="02 環保綠色標章">
           <span class="step-dot"></span>
         </a>
         <div class="step-popup-card">
           <div class="popup-accent-bar" style="background: #2F7B4B;"></div>
-          <div class="popup-num">03 / ECO MARK</div>
+          <div class="popup-num">02 / ECO MARK</div>
           <div class="popup-title" data-tw="綠色標章認證" data-en="Green Mark Certification">綠色標章認證</div>
           <div class="popup-sub" data-tw="50% 再生塑膠 · 避用重金屬" data-en="50% Recycled Plastic">50% 再生塑膠 · 避用重金屬</div>
         </div>
       </div>
 
-      <!-- Step 04: 產品特色 -->
-      <div class="step-rail-item" data-target="productIntroRows">
-        <a href="#productIntroRows" class="step-dot-trigger" aria-label="04 產品使用特色">
-          <span class="step-dot"></span>
-        </a>
-        <div class="step-popup-card">
-          <div class="popup-accent-bar"></div>
-          <div class="popup-num">04 / FEATURES</div>
-          <div class="popup-title" data-tw="產品使用特色" data-en="Product Highlights">產品使用特色</div>
-          <div class="popup-sub" data-tw="一拉即束 · 高強度防漏底封" data-en="Easy Tie & Leak Proof">一拉即束 · 高強度防漏底封</div>
-        </div>
-      </div>
-
-      <!-- Step 05: 應用情境 -->
-      <div class="step-rail-item" data-target="applicationScenarios">
-        <a href="#applicationScenarios" class="step-dot-trigger" aria-label="05 多元應用情境">
-          <span class="step-dot"></span>
-        </a>
-        <div class="step-popup-card">
-          <div class="popup-accent-bar"></div>
-          <div class="popup-num">05 / SCENARIOS</div>
-          <div class="popup-title" data-tw="多元應用情境" data-en="Application Scenarios">多元應用情境</div>
-          <div class="popup-sub" data-tw="商業清潔 · 生鮮零售 · 醫療防護" data-en="Commercial, Grocery...">商業清潔 · 生鮮零售 · 醫療防護</div>
-        </div>
-      </div>
-
-      <!-- Step 06: 聯繫窗口 -->
+      <!-- Step 03: 聯繫窗口 -->
       <div class="step-rail-item" data-target="contactCTA">
-        <a href="#contactCTA" class="step-dot-trigger" aria-label="06 聯繫專人窗口">
+        <a href="#contactCTA" class="step-dot-trigger" aria-label="03 聯繫專人窗口">
           <span class="step-dot"></span>
         </a>
         <div class="step-popup-card">
           <div class="popup-accent-bar"></div>
-          <div class="popup-num">06 / CONTACT</div>
+          <div class="popup-num">03 / CONTACT</div>
           <div class="popup-title" data-tw="聯繫專人窗口" data-en="Contact Us Desk">聯繫專人窗口</div>
           <div class="popup-sub" data-tw="留下資料 · 由專人與您對接" data-en="Leave Info & We Contact">留下資料 · 由專人與您對接</div>
         </div>
@@ -2089,7 +2051,7 @@
       /* ScrollSpy for Homepage Directory Navigation (Top TOC & Side Step Rail) */
       const tocLinks = document.querySelectorAll(".toc-link");
       const stepItems = document.querySelectorAll(".step-rail-item");
-      const sectionIds = ["aboutUs", "productShowcase", "greenMark", "productIntroRows", "applicationScenarios", "contactCTA"];
+      const sectionIds = ["productShowcase", "greenMark", "contactCTA"];
       const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
       if (sections.length > 0) {
