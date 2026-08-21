@@ -358,9 +358,31 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 50% 30%, rgba(0, 82, 155, 0.35) 0%, rgba(7, 22, 39, 0.95) 75%), url('./src/can-liners-draw-tape-hero.jpg') center/cover no-repeat;
+      background: #071627 url('./src/plant.png') center/cover no-repeat;
       z-index: 1;
-      filter: brightness(0.65) contrast(1.1);
+      filter: brightness(0.62) contrast(1.05);
+    }
+
+    /* 封面新港廠區影片背景 */
+    .hero-video {
+      position: absolute;
+      top: -12%;
+      left: -12%;
+      width: 124%;
+      height: 124%;
+      object-fit: cover;
+      z-index: 1;
+      filter: brightness(0.9) contrast(1.02);
+      pointer-events: none;
+    }
+    .hero-video-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        linear-gradient(180deg, rgba(7, 22, 39, 0.40) 0%, rgba(7, 22, 39, 0.14) 45%, rgba(7, 22, 39, 0.62) 100%),
+        linear-gradient(100deg, rgba(7, 22, 39, 0.52) 0%, rgba(7, 22, 39, 0.10) 58%, rgba(7, 22, 39, 0) 100%);
+      pointer-events: none;
     }
 
     .hero-stage-content {
@@ -651,294 +673,197 @@
     }
 
 
-    /* ===== 六大產品：編輯式輪播（左巨型序號 / 右產品資訊） ===== */
+    /* ===== 六大產品：往下捲的編輯式列表（左巨型序號＋產品圖 / 右產品資訊） ===== */
     .ps-section {
       background: #F4F3F1;
-      padding: 0;
+      padding: 96px 0 40px;
       border-top: 1px solid #E4E1DC;
       border-bottom: 1px solid #E4E1DC;
     }
-    .ps-shell {
-      position: relative;
-      max-width: 1500px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr 92px;
-      min-height: 760px;
-      align-items: stretch;
+    .ps-head {
+      max-width: 1440px;
+      margin: 0 auto 24px;
+      padding: 0 56px;
     }
+    .ps-head .ps-kicker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #8A8579;
+      margin-bottom: 18px;
+    }
+    .ps-head .ps-kicker::before { content: ""; width: 28px; height: 1px; background: #B08D57; }
+    .ps-head h2 {
+      font-size: clamp(2rem, 3.2vw, 2.9rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #14181D;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .ps-head p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: #6B675F;
+      max-width: 620px;
+      text-wrap: pretty;
+    }
+
+    .ps-list { max-width: 1440px; margin: 0 auto; padding: 0 56px; }
+
+    .ps-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 48px;
+      padding: 72px 0;
+      border-top: 1px solid #E4E1DC;
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1);
+    }
+    .ps-row.in-view { opacity: 1; transform: none; }
+    .ps-row:first-of-type { border-top: 0; padding-top: 24px; }
 
     .ps-stage {
       position: relative;
-      overflow: hidden;
-      border-right: 1px solid #E4E1DC;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
+      min-height: 380px;
     }
-
-    .ps-brandmark {
-      position: absolute;
-      top: 40px;
-      left: 44px;
-      z-index: 4;
-    }
-    .ps-brandmark strong {
-      display: block;
-      font-size: 1.05rem;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      color: #14181D;
-    }
-    .ps-brandmark span {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.34em;
-      color: #8A8579;
-      margin-top: 4px;
-    }
-
-    .ps-vertical {
-      position: absolute;
-      left: 46px;
-      bottom: 120px;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.32em;
-      color: #B08D57;
-      z-index: 4;
-    }
-
-    .ps-counter {
-      position: absolute;
-      left: 44px;
-      bottom: 40px;
-      font-size: 1rem;
-      font-weight: 800;
-      color: #14181D;
-      letter-spacing: 0.06em;
-      z-index: 4;
-    }
-    .ps-counter em { font-style: normal; color: #A9A49A; font-weight: 700; }
+    .ps-numeral-wrap { position: relative; display: grid; place-items: center; }
 
     .ps-numeral {
       position: relative;
       font-family: 'Inter', sans-serif;
-      font-size: clamp(280px, 30vw, 470px);
+      font-size: clamp(200px, 21vw, 330px);
       font-weight: 900;
-      line-height: 1;
-      letter-spacing: -0.05em;
+      line-height: .82;
+      letter-spacing: -0.055em;
       color: #14181D;
       z-index: 2;
-      transform: translateX(-4%);
     }
     .ps-numeral-ghost {
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-38%, -50%);
+      transform: translate(-46%, -54%);
       font-family: 'Inter', sans-serif;
-      font-size: clamp(280px, 30vw, 470px);
-      font-weight: 300;
-      line-height: 1;
-      letter-spacing: -0.05em;
+      font-size: clamp(200px, 21vw, 330px);
+      font-weight: 200;
+      line-height: .82;
+      letter-spacing: -0.055em;
       color: transparent;
-      -webkit-text-stroke: 2px #B08D57;
+      -webkit-text-stroke: 1.5px rgba(176, 141, 87, .75);
       z-index: 1;
       pointer-events: none;
+      white-space: nowrap;
     }
-    .ps-numeral, .ps-numeral-ghost { transition: opacity .45s ease, transform .55s cubic-bezier(.22,.61,.36,1); }
-    .ps-shell.is-switching .ps-numeral { opacity: 0; transform: translateX(-4%) translateY(-14px); }
-    .ps-shell.is-switching .ps-numeral-ghost { opacity: 0; }
 
-    .ps-panel {
-      padding: 120px 72px 56px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 0;
+    /* 產品從「0」中間穿出來：數字本體 → 產品圖 → 前層數字左下段 */
+    .ps-photo {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: clamp(160px, 16vw, 240px);
+      transform: translate(-66%, -44%) rotate(-24deg);
+      z-index: 3;
+      pointer-events: none;
+      transition: transform .7s cubic-bezier(.22,.61,.36,1);
     }
+    .ps-row:hover .ps-photo { transform: translate(-66%, -47%) rotate(-21deg) scale(1.04); }
+    .ps-photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 34px 46px rgba(20, 24, 29, .34));
+    }
+    .ps-photo.framed img {
+      border-radius: 10px;
+      box-shadow: 0 24px 40px rgba(20, 24, 29, .28);
+      filter: none;
+      mix-blend-mode: multiply;
+    }
+    .ps-numeral-front {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(200px, 21vw, 330px);
+      font-weight: 900;
+      line-height: .82;
+      letter-spacing: -0.055em;
+      color: #14181D;
+      z-index: 4;
+      pointer-events: none;
+      white-space: nowrap;
+      clip-path: polygon(0% 42%, 31% 42%, 31% 100%, 0% 100%);
+    }
+
+    .ps-body { max-width: 500px; }
     .ps-eyebrow {
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 800;
-      letter-spacing: 0.24em;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
       color: #B08D57;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
     .ps-title {
-      font-size: clamp(2.1rem, 3.4vw, 3.1rem);
+      font-size: clamp(1.7rem, 2.4vw, 2.3rem);
       font-weight: 900;
       letter-spacing: -0.02em;
       color: #14181D;
-      line-height: 1.1;
-      margin-bottom: 20px;
+      line-height: 1.16;
+      margin-bottom: 16px;
     }
-    .ps-rule { width: 44px; height: 2px; background: #B08D57; margin-bottom: 24px; }
+    .ps-rule { width: 40px; height: 2px; background: #B08D57; margin-bottom: 20px; }
     .ps-desc {
-      font-size: 1.02rem;
-      line-height: 1.85;
+      font-size: 1rem;
+      line-height: 1.9;
       color: #5D5A54;
-      max-width: 460px;
       text-wrap: pretty;
-      margin-bottom: 34px;
+      margin-bottom: 28px;
     }
-
     .ps-features {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0;
-      margin-bottom: 36px;
-      max-width: 470px;
+      max-width: 450px;
     }
     .ps-feature {
       text-align: center;
-      padding: 0 12px;
+      padding: 0 10px;
       border-left: 1px solid #E4E1DC;
     }
-    .ps-feature:first-child { border-left: 0; }
-    .ps-feature i {
-      font-size: 1.25rem;
-      color: #14181D;
-      margin-bottom: 10px;
-      display: block;
-    }
+    .ps-feature:first-child { border-left: 0; padding-left: 0; }
+    .ps-feature i { font-size: 1.1rem; color: #14181D; margin-bottom: 9px; display: block; }
     .ps-feature span {
-      font-size: 0.8rem;
+      font-size: 0.77rem;
       font-weight: 700;
-      line-height: 1.45;
-      color: #5D5A54;
+      line-height: 1.5;
+      color: #6B675F;
       display: block;
     }
 
-    .ps-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      align-self: flex-start;
-      background: #14181D;
-      color: #FFFFFF;
-      text-decoration: none;
-      font-size: 0.92rem;
-      font-weight: 800;
-      padding: 15px 30px;
-      border-radius: var(--radius-full);
-      transition: background .3s ease, transform .3s ease;
-      margin-bottom: 48px;
+    @media (max-width: 1024px) {
+      .ps-section { padding: 72px 0 32px; }
+      .ps-head, .ps-list { padding: 0 32px; }
+      .ps-row { grid-template-columns: 1fr; gap: 26px; padding: 52px 0; }
+      .ps-row:first-of-type { padding-top: 16px; }
+      .ps-stage { min-height: 300px; }
+      .ps-numeral, .ps-numeral-ghost, .ps-numeral-front { font-size: clamp(170px, 40vw, 270px); }
+      .ps-photo { width: clamp(130px, 32vw, 200px); }
+      .ps-body { max-width: none; }
     }
-    .ps-cta:hover { background: #B08D57; transform: translateY(-2px); }
-    .ps-cta i { transition: transform .3s ease; }
-    .ps-cta:hover i { transform: translateX(4px); }
-
-    .ps-thumbs {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 6px;
-      background: #EDEBE7;
-      border-radius: 16px;
-      padding: 10px;
-      max-width: 620px;
-    }
-    .ps-thumb {
-      appearance: none;
-      border: 1px solid transparent;
-      background: transparent;
-      border-radius: 11px;
-      padding: 14px 6px 11px;
-      cursor: pointer;
-      text-align: center;
-      transition: background .25s ease, border-color .25s ease;
-      font-family: inherit;
-    }
-    .ps-thumb:hover { background: rgba(255,255,255,.7); }
-    .ps-thumb.active { background: #FFFFFF; border-color: #DDD8D0; }
-    .ps-thumb b {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 800;
-      color: #14181D;
-      margin-bottom: 6px;
-      letter-spacing: 0.04em;
-    }
-    .ps-thumb small { display: block; font-size: 0.74rem; color: #8A8579; font-weight: 700; line-height: 1.3; }
-    .ps-thumb.active small { color: #B08D57; }
-
-    .ps-index {
-      border-left: 1px solid #E4E1DC;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 22px;
-      padding: 40px 0 120px;
-    }
-    .ps-index button {
-      appearance: none;
-      border: 0;
-      background: none;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 1.02rem;
-      font-weight: 800;
-      color: #C3BEB4;
-      letter-spacing: 0.04em;
-      padding: 2px 6px;
-      transition: color .25s ease;
-    }
-    .ps-index button:hover { color: #14181D; }
-    .ps-index button.active { color: #14181D; position: relative; }
-    .ps-index button.active::before {
-      content: "";
-      position: absolute;
-      left: -26px;
-      top: 50%;
-      width: 18px;
-      height: 1px;
-      background: #B08D57;
-    }
-
-    .ps-arrows {
-      position: absolute;
-      right: 26px;
-      bottom: 36px;
-      display: flex;
-      gap: 12px;
-      z-index: 5;
-    }
-    .ps-arrow {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 1px solid #DCD7CE;
-      background: #FFFFFF;
-      color: #14181D;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      font-size: 0.95rem;
-      transition: background .25s ease, color .25s ease, transform .25s ease;
-    }
-    .ps-arrow:hover { transform: translateY(-2px); }
-    .ps-arrow.next { background: #B08D57; border-color: #B08D57; color: #FFFFFF; }
-
-    @media (max-width: 1180px) {
-      .ps-shell { grid-template-columns: 1fr 1fr; }
-      .ps-index { display: none; }
-      .ps-panel { padding: 80px 48px 56px; }
-    }
-    @media (max-width: 900px) {
-      .ps-shell { grid-template-columns: 1fr; min-height: 0; }
-      .ps-stage { border-right: 0; border-bottom: 1px solid #E4E1DC; min-height: 360px; }
-      .ps-numeral, .ps-numeral-ghost { font-size: clamp(180px, 44vw, 300px); }
-      .ps-panel { padding: 44px 24px 120px; }
+    @media (max-width: 560px) {
+      .ps-head, .ps-list { padding: 0 20px; }
       .ps-features { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 0; }
-      .ps-feature:nth-child(3) { border-left: 0; }
-      .ps-thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .ps-vertical { display: none; }
-      .ps-arrows { right: 20px; bottom: 20px; }
+      .ps-feature:nth-child(3) { border-left: 0; padding-left: 0; }
     }
 
     /* Andy Barefoot 3D Concertina Accordion Wave Folding Grid (原版鋸齒波浪 3D 風琴牆) */
@@ -1689,6 +1614,8 @@
   <!-- Hero Section -->
   <div class="fashion-hero-wrapper" id="heroWrapper">
     <div class="hero-bg-layer" id="heroBg"></div>
+    <video class="hero-video" id="heroVideo" src="./src/新港.mp4" poster="./src/plant.png" autoplay muted loop playsinline preload="auto"></video>
+    <div class="hero-video-scrim"></div>
 
     <div class="hero-stage-content">
       <div class="brand-hero-badge">
@@ -1701,14 +1628,14 @@
         </div>
       </div>
 
-      <h1 class="hero-big-title" data-tw="台塑關係企業 · 六大產品專業製造"
-        data-en="Formosa Plastics Partner · Six Core Product Lines">
-        台塑關係企業 · 六大產品專業製造
+      <h1 class="hero-big-title" data-tw="台塑企業清潔袋專業製造"
+        data-en="Formosa Plastics Group · Can Liner Specialist">
+        台塑企業清潔袋專業製造
       </h1>
 
-      <p class="hero-sub-tagline" data-tw="由Inteplast USA、台塑企業與長庚生技合資成立。嘉義新港生產基地專注於清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套/防塵膠帶與 Scale Sheet。"
-        data-en="Joint venture by Inteplast Group & Formosa Plastics Corp. Manufacturing Cleaners, Draw-Tape, Heat-Resistant, Zipper Seal, Protection Tapes & Scale Sheeting.">
-        由Inteplast USA、台塑企業與長庚生技合資成立。嘉義新港生產基地專注於清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套/防塵膠帶與 Scale Sheet。
+      <p class="hero-sub-tagline" data-tw="台塑企業、Inteplast USA 與長庚生技合資設廠。以台塑原料自製清潔袋與拉繩袋，嘉義新港基地自動化吹膜；另有蔬果袋、夾鏈袋，以及集團專利抽取式 Scale Sheet。"
+        data-en="A joint venture of Formosa Plastics, Inteplast USA and Chang Gung Biotech. Built on Formosa resin, our Chiayi Xingang plant runs automated extrusion for can liners and draw-tape bags, alongside produce and zipper bags, plus the group's patented pop-up Scale Sheet.">
+        台塑企業、Inteplast USA 與長庚生技合資設廠。以台塑原料自製清潔袋與拉繩袋，嘉義新港基地自動化吹膜；另有蔬果袋、夾鏈袋，以及集團專利抽取式 Scale Sheet。
       </p>
 
       <div class="hero-btn-group">
@@ -1745,136 +1672,165 @@
     </div>
   </div>
 
-  <!-- SECTION: 六大核心產品（左巨型序號 / 右產品資訊，可切換） -->
+  <!-- SECTION: 六大核心產品（往下捲的編輯式列表） -->
   <section class="ps-section" id="productShowcase">
-    <div class="ps-shell" id="psShell">
+    <div class="ps-head">
+      <div class="ps-kicker" data-tw="SIX CORE CATEGORIES · 六大核心產品" data-en="SIX CORE CATEGORIES">SIX CORE CATEGORIES · 六大核心產品</div>
+      <h2 data-tw="六大核心產品" data-en="Six Core Products">六大核心產品</h2>
+      <p data-tw="從清潔袋、拉繩袋到蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶，以及集團專利抽取式 Scale Sheet，向下瀏覽即可看完六大產品線。" data-en="Scroll down through can liners, draw-tape, produce, zipper bags, specialty protection and our patented pop-up Scale Sheet.">
+        從清潔袋、拉繩袋到蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶，以及集團專利抽取式 Scale Sheet，向下瀏覽即可看完六大產品線。
+      </p>
+    </div>
 
-      <div class="ps-stage">
-        <div class="ps-brandmark">
-          <strong>INTEPLAST</strong>
-          <span>TAIWAN</span>
+    <div class="ps-list">
+      <article class="ps-row">
+        <div class="ps-stage">
+          <div class="ps-numeral-wrap">
+            <div class="ps-numeral-ghost" aria-hidden="true">01</div>
+            <div class="ps-numeral" aria-hidden="true">01</div>
+            <div class="ps-photo"><img src="./src/formosa_canliner_official.png" alt="台塑清潔袋"></div>
+            <div class="ps-numeral-front" aria-hidden="true">01</div>
+          </div>
         </div>
-        <div class="ps-vertical">PREMIUM QUALITY. RELIABLE EVERYDAY.</div>
-        <div class="ps-numeral-ghost" id="psNumGhost" aria-hidden="true">01</div>
-        <div class="ps-numeral" id="psNum" aria-hidden="true">01</div>
-        <div class="ps-counter"><span id="psCounter">01</span> <em>/ 06</em></div>
-      </div>
+        <div class="ps-body">
+          <div class="ps-eyebrow">CAN LINERS & TRASH BAGS</div>
+          <h3 class="ps-title" data-tw="清潔袋系列" data-en="Can Liners & Trash Bags">清潔袋系列</h3>
+          <div class="ps-rule"></div>
+          <p class="ps-desc" data-tw="以台塑原料自製，高強度底封搭配韌性袋材，從居家到商業清潔一次到位；連捲、單張抽取與環保再生配方齊備。" data-en="Made from Formosa resin with heavy-duty bottom seals, covering household and commercial sanitation in coreless rolls, flat packs and recycled formulas.">以台塑原料自製，高強度底封搭配韌性袋材，從居家到商業清潔一次到位；連捲、單張抽取與環保再生配方齊備。</p>
+          <div class="ps-features">
+            <div class="ps-feature"><i class="fa-solid fa-shield-halved"></i><span data-tw="韌性耐裝" data-en="Durable & Strong">韌性耐裝</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-droplet"></i><span data-tw="底封防漏" data-en="Leak Resistant">底封防漏</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-arrows-spin"></i><span data-tw="無芯捲裝" data-en="Coreless Roll">無芯捲裝</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-recycle"></i><span data-tw="環保配方" data-en="Eco Formula">環保配方</span></div>
+          </div>
+        </div>
+      </article>
 
-      <div class="ps-panel">
-        <div class="ps-eyebrow" data-tw="OUR PRODUCTS · 六大核心產品" data-en="OUR PRODUCTS">OUR PRODUCTS · 六大核心產品</div>
-        <h2 class="ps-title" id="psTitle">清潔袋系列</h2>
-        <div class="ps-rule"></div>
-        <p class="ps-desc" id="psDesc">高強度底封工藝與韌性袋材，從家用到商業清潔一次到位；連捲、單張抽取與環保再生配方齊備。</p>
-        <div class="ps-features" id="psFeatures"></div>
-        <a class="ps-cta" id="psCta" href="products/can-liners.html">
-          <span data-tw="進入專區" data-en="View Details">進入專區</span> <i class="fa-solid fa-arrow-right"></i>
-        </a>
-        <div class="ps-thumbs" id="psThumbs"></div>
-      </div>
+      <article class="ps-row">
+        <div class="ps-stage">
+          <div class="ps-numeral-wrap">
+            <div class="ps-numeral-ghost" aria-hidden="true">02</div>
+            <div class="ps-numeral" aria-hidden="true">02</div>
+            <div class="ps-photo framed"><img src="./src/Can-Liners-Draw-Tape-Draw-Tape-2.jpg" alt="台塑拉繩清潔袋"></div>
+            <div class="ps-numeral-front" aria-hidden="true">02</div>
+          </div>
+        </div>
+        <div class="ps-body">
+          <div class="ps-eyebrow">DRAW-TAPE BAGS</div>
+          <h3 class="ps-title" data-tw="拉繩袋系列" data-en="Draw-Tape Bags">拉繩袋系列</h3>
+          <div class="ps-rule"></div>
+          <p class="ps-desc" data-tw="加長拉繩一拉即束，封口與提取一次完成；另有醫療感染袋規格，減少雙手接觸髒污的機會。" data-en="Extended drawstrings tie and lift in one motion, with medical infection-bag specifications available.">加長拉繩一拉即束，封口與提取一次完成；另有醫療感染袋規格，減少雙手接觸髒污的機會。</p>
+          <div class="ps-features">
+            <div class="ps-feature"><i class="fa-solid fa-hand-point-up"></i><span data-tw="一拉即束" data-en="One-Pull Seal">一拉即束</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-suitcase-rolling"></i><span data-tw="提把好搬" data-en="Easy Carry">提把好搬</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-kit-medical"></i><span data-tw="醫療規格" data-en="Medical Grade">醫療規格</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-leaf"></i><span data-tw="環保拉繩款" data-en="Eco Draw-Tape">環保拉繩款</span></div>
+          </div>
+        </div>
+      </article>
 
-      <div class="ps-index" id="psIndex"></div>
+      <article class="ps-row">
+        <div class="ps-stage">
+          <div class="ps-numeral-wrap">
+            <div class="ps-numeral-ghost" aria-hidden="true">03</div>
+            <div class="ps-numeral" aria-hidden="true">03</div>
+            <div class="ps-photo"><img src="./src/formosa_heat_bag_official.png" alt="台塑耐熱袋"></div>
+            <div class="ps-numeral-front" aria-hidden="true">03</div>
+          </div>
+        </div>
+        <div class="ps-body">
+          <div class="ps-eyebrow">HEAT-RESISTANT & PRODUCE</div>
+          <h3 class="ps-title" data-tw="蔬果袋 · 耐熱袋" data-en="Heat-Resistant & Produce Bags">蔬果袋 · 耐熱袋</h3>
+          <div class="ps-rule"></div>
+          <p class="ps-desc" data-tw="食品級 PE 配方，耐熱與高透明兼具；點斷連捲設計方便分裝與拿取，適合生鮮零售與日常備料。" data-en="Food-grade PE with heat resistance and high clarity; perforated rolls for grocery retail and daily prep.">食品級 PE 配方，耐熱與高透明兼具；點斷連捲設計方便分裝與拿取，適合生鮮零售與日常備料。</p>
+          <div class="ps-features">
+            <div class="ps-feature"><i class="fa-solid fa-temperature-high"></i><span data-tw="耐熱安心" data-en="Heat Resistant">耐熱安心</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-eye"></i><span data-tw="高透明度" data-en="High Clarity">高透明度</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-scissors"></i><span data-tw="點斷易撕" data-en="Easy Tear">點斷易撕</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-basket-shopping"></i><span data-tw="生鮮適用" data-en="Fresh Retail">生鮮適用</span></div>
+          </div>
+        </div>
+      </article>
 
-      <div class="ps-arrows">
-        <button type="button" class="ps-arrow prev" id="psPrev" aria-label="上一個產品"><i class="fa-solid fa-arrow-left"></i></button>
-        <button type="button" class="ps-arrow next" id="psNext" aria-label="下一個產品"><i class="fa-solid fa-arrow-right"></i></button>
-      </div>
+      <article class="ps-row">
+        <div class="ps-stage">
+          <div class="ps-numeral-wrap">
+            <div class="ps-numeral-ghost" aria-hidden="true">04</div>
+            <div class="ps-numeral" aria-hidden="true">04</div>
+            <div class="ps-photo framed"><img src="./src/product-img/封面-夾鏈袋.webp" alt="台塑夾鏈袋"></div>
+            <div class="ps-numeral-front" aria-hidden="true">04</div>
+          </div>
+        </div>
+        <div class="ps-body">
+          <div class="ps-eyebrow">SEALED & ZIPPER BAGS</div>
+          <h3 class="ps-title" data-tw="夾鏈袋 · 密實袋" data-en="Sealed & Zipper Bags">夾鏈袋 · 密實袋</h3>
+          <div class="ps-rule"></div>
+          <p class="ps-desc" data-tw="雙軌密封提供穩定氣密效果，冷凍分類、食材保鮮與生活收納都適用；立體款可站立分裝。" data-en="Double-track seals for reliable airtightness in freezer storage, food keeping and household organization.">雙軌密封提供穩定氣密效果，冷凍分類、食材保鮮與生活收納都適用；立體款可站立分裝。</p>
+          <div class="ps-features">
+            <div class="ps-feature"><i class="fa-solid fa-lock"></i><span data-tw="雙軌密封" data-en="Double Zipper">雙軌密封</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-snowflake"></i><span data-tw="冷凍保鮮" data-en="Freezer Safe">冷凍保鮮</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-cube"></i><span data-tw="立體站立" data-en="Stand-up Bag">立體站立</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-boxes-stacked"></i><span data-tw="收納分類" data-en="Organizing">收納分類</span></div>
+          </div>
+        </div>
+      </article>
 
+      <article class="ps-row">
+        <div class="ps-stage">
+          <div class="ps-numeral-wrap">
+            <div class="ps-numeral-ghost" aria-hidden="true">05</div>
+            <div class="ps-numeral" aria-hidden="true">05</div>
+            <div class="ps-photo"><img src="./src/ai_specialty.png" alt="手套與遮蔽防塵膠帶"></div>
+            <div class="ps-numeral-front" aria-hidden="true">05</div>
+          </div>
+        </div>
+        <div class="ps-body">
+          <div class="ps-eyebrow">SPECIALTY & PROTECTION</div>
+          <h3 class="ps-title" data-tw="手套 · 遮蔽防塵膠帶" data-en="Specialty & Protection">手套 · 遮蔽防塵膠帶</h3>
+          <div class="ps-rule"></div>
+          <p class="ps-desc" data-tw="輕薄貼手的手套讓家務與食品備料更衛生；台塑遮蔽防塵膠帶負責裝修與工程場域的遮蔽防護。" data-en="Lightweight gloves for hygienic handling, plus Formosa masking film tape for renovation and jobsite protection.">輕薄貼手的手套讓家務與食品備料更衛生；台塑遮蔽防塵膠帶負責裝修與工程場域的遮蔽防護。</p>
+          <div class="ps-features">
+            <div class="ps-feature"><i class="fa-solid fa-hand-sparkles"></i><span data-tw="衛生好操作" data-en="Hygienic Use">衛生好操作</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-utensils"></i><span data-tw="食品備料" data-en="Food Prep">食品備料</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-tape"></i><span data-tw="遮蔽防塵" data-en="Masking Tape">遮蔽防塵</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-helmet-safety"></i><span data-tw="工程防護" data-en="Jobsite Ready">工程防護</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="ps-row">
+        <div class="ps-stage">
+          <div class="ps-numeral-wrap">
+            <div class="ps-numeral-ghost" aria-hidden="true">06</div>
+            <div class="ps-numeral" aria-hidden="true">06</div>
+            <div class="ps-photo"><img src="./src/scale sheet.png" alt="Scale Sheet"></div>
+            <div class="ps-numeral-front" aria-hidden="true">06</div>
+          </div>
+        </div>
+        <div class="ps-body">
+          <div class="ps-eyebrow">SCALE SHEET</div>
+          <h3 class="ps-title" data-tw="Scale Sheet 秤重襯紙" data-en="Scale Sheet">Scale Sheet 秤重襯紙</h3>
+          <div class="ps-rule"></div>
+          <p class="ps-desc" data-tw="集團專利的抽取式秤重襯紙，一張一張順暢抽取不沾黏；由集團海外廠生產，尺寸可依客戶產線配合，供應熟食與生鮮包裝現場。" data-en="The group's patented pop-up scale sheet dispenses one sheet at a time without sticking; produced at our overseas plants and sized to each customer line.">集團專利的抽取式秤重襯紙，一張一張順暢抽取不沾黏；由集團海外廠生產，尺寸可依客戶產線配合，供應熟食與生鮮包裝現場。</p>
+          <div class="ps-features">
+            <div class="ps-feature"><i class="fa-solid fa-certificate"></i><span data-tw="專利設計" data-en="Patented">專利設計</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-hand-pointer"></i><span data-tw="抽取式" data-en="Pop-up Dispense">抽取式</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-ruler-combined"></i><span data-tw="客製尺寸" data-en="Custom Size">客製尺寸</span></div>
+            <div class="ps-feature"><i class="fa-solid fa-globe"></i><span data-tw="集團海外廠" data-en="Group Plants">集團海外廠</span></div>
+          </div>
+        </div>
+      </article>
     </div>
 
     <script>
       (function () {
-        const PRODUCTS = [
-          { n: '01', short_tw: '清潔袋', short_en: 'Can Liners', href: 'products/can-liners.html',
-            title_tw: '清潔袋系列', title_en: 'Can Liners & Trash Bags',
-            desc_tw: '高強度底封工藝與韌性袋材，從家用到商業清潔一次到位；連捲、單張抽取與環保再生配方齊備。',
-            desc_en: 'Heavy-duty bottom seals and tough film for household and commercial sanitation, in coreless rolls, flat packs and recycled formulas.',
-            features: [['fa-shield-halved','韌性耐裝','Durable & Strong'],['fa-droplet','底封防漏','Leak Resistant'],['fa-arrows-spin','無芯捲裝','Coreless Roll'],['fa-recycle','環保配方','Eco Formula']] },
-          { n: '02', short_tw: '拉繩袋', short_en: 'Draw-Tape', href: 'products/draw-tape.html',
-            title_tw: '拉繩袋系列', title_en: 'Draw-Tape Bags',
-            desc_tw: '加長拉繩一拉即束，封口與提取一次完成；另有醫療感染袋規格，減少雙手接觸髒污的機會。',
-            desc_en: 'Extended drawstrings tie and lift in one motion, with medical infection-bag specifications available.',
-            features: [['fa-hand-point-up','一拉即束','One-Pull Seal'],['fa-suitcase-rolling','提把好搬','Easy Carry'],['fa-kit-medical','醫療規格','Medical Grade'],['fa-leaf','環保拉繩款','Eco Draw-Tape']] },
-          { n: '03', short_tw: '蔬果袋', short_en: 'Produce', href: 'products/heat-bags.html',
-            title_tw: '蔬果袋 · 耐熱袋', title_en: 'Heat-Resistant & Produce Bags',
-            desc_tw: '食品級 PE 配方，耐熱與高透明兼具；點斷連捲設計方便分裝與拿取，適合生鮮零售與日常備料。',
-            desc_en: 'Food-grade PE with heat resistance and high clarity; perforated rolls for grocery retail and daily prep.',
-            features: [['fa-temperature-high','耐熱安心','Heat Resistant'],['fa-eye','高透明度','High Clarity'],['fa-scissors','點斷易撕','Easy Tear'],['fa-basket-shopping','生鮮適用','Fresh Retail']] },
-          { n: '04', short_tw: '夾鏈袋', short_en: 'Zipper', href: 'products/sealed-packaging.html',
-            title_tw: '夾鏈袋 · 密實袋', title_en: 'Sealed & Zipper Bags',
-            desc_tw: '雙軌密封提供穩定氣密效果，冷凍分類、食材保鮮與生活收納都適用；立體款可站立分裝。',
-            desc_en: 'Double-track seals for reliable airtightness in freezer storage, food keeping and household organization.',
-            features: [['fa-lock','雙軌密封','Double Zipper'],['fa-snowflake','冷凍保鮮','Freezer Safe'],['fa-cube','立體站立','Stand-up Bag'],['fa-boxes-stacked','收納分類','Organizing']] },
-          { n: '05', short_tw: '其他類', short_en: 'Specialty', href: 'products/accessories.html',
-            title_tw: '手套 · 遮蔽防塵膠帶', title_en: 'Specialty & Protection',
-            desc_tw: '輕薄貼手的手套讓家務與食品備料更衛生；台塑遮蔽防塵膠帶負責裝修與工程場域的遮蔽防護。',
-            desc_en: 'Lightweight gloves for hygienic handling, plus Formosa masking film tape for renovation and jobsite protection.',
-            features: [['fa-hand-sparkles','衛生好操作','Hygienic Use'],['fa-utensils','食品備料','Food Prep'],['fa-tape','遮蔽防塵','Masking Tape'],['fa-helmet-safety','工程防護','Jobsite Ready']] },
-          { n: '06', short_tw: 'Scale Sheet', short_en: 'Scale Sheet', href: 'products/index.html',
-            title_tw: 'Scale Sheet 秤重襯紙', title_en: 'Scale Sheet',
-            desc_tw: '外銷市場的秤重襯紙，尺寸與捲幅可依客戶產線需求配合，穩定供應熟食與生鮮包裝現場。',
-            desc_en: 'Weighing scale sheeting for export markets, sized to each customer line for deli and fresh food packing.',
-            features: [['fa-globe','外銷供應','Export Supply'],['fa-ruler-combined','客製尺寸','Custom Size'],['fa-industry','穩定產能','Stable Output'],['fa-box-open','包裝現場','Packing Line']] }
-        ];
-
-        const shell = document.getElementById('psShell');
-        if (!shell) return;
-        const elNum = document.getElementById('psNum');
-        const elGhost = document.getElementById('psNumGhost');
-        const elCounter = document.getElementById('psCounter');
-        const elTitle = document.getElementById('psTitle');
-        const elDesc = document.getElementById('psDesc');
-        const elFeatures = document.getElementById('psFeatures');
-        const elCta = document.getElementById('psCta');
-        const elThumbs = document.getElementById('psThumbs');
-        const elIndex = document.getElementById('psIndex');
-        let active = 0;
-
-        PRODUCTS.forEach((p, i) => {
-          const t = document.createElement('button');
-          t.type = 'button';
-          t.className = 'ps-thumb';
-          t.innerHTML = '<b>' + p.n + '</b><small data-tw="' + p.short_tw + '" data-en="' + p.short_en + '">' + p.short_tw + '</small>';
-          t.addEventListener('click', () => show(i));
-          elThumbs.appendChild(t);
-
-          const b = document.createElement('button');
-          b.type = 'button';
-          b.textContent = p.n;
-          b.setAttribute('aria-label', '產品 ' + p.n);
-          b.addEventListener('click', () => show(i));
-          elIndex.appendChild(b);
-        });
-
-        function show(i) {
-          active = (i + PRODUCTS.length) % PRODUCTS.length;
-          const p = PRODUCTS[active];
-          shell.classList.add('is-switching');
-          window.setTimeout(() => {
-            elNum.textContent = p.n;
-            elGhost.textContent = p.n;
-            elCounter.textContent = p.n;
-            elTitle.setAttribute('data-tw', p.title_tw);
-            elTitle.setAttribute('data-en', p.title_en);
-            elTitle.textContent = p.title_tw;
-            elDesc.setAttribute('data-tw', p.desc_tw);
-            elDesc.setAttribute('data-en', p.desc_en);
-            elDesc.textContent = p.desc_tw;
-            elCta.setAttribute('href', p.href);
-            elFeatures.innerHTML = p.features.map(f =>
-              '<div class="ps-feature"><i class="fa-solid ' + f[0] + '"></i><span data-tw="' + f[1] + '" data-en="' + f[2] + '">' + f[1] + '</span></div>'
-            ).join('');
-            elThumbs.querySelectorAll('.ps-thumb').forEach((el, idx) => el.classList.toggle('active', idx === active));
-            elIndex.querySelectorAll('button').forEach((el, idx) => el.classList.toggle('active', idx === active));
-            shell.classList.remove('is-switching');
-            if (typeof applyLanguage === 'function') {
-              applyLanguage(typeof currentLang !== 'undefined' ? currentLang : 'tw');
-            }
-          }, 180);
-        }
-
-        document.getElementById('psPrev').addEventListener('click', () => show(active - 1));
-        document.getElementById('psNext').addEventListener('click', () => show(active + 1));
-        show(0);
+        const rows = document.querySelectorAll('.ps-row');
+        if (!rows.length) return;
+        if (!('IntersectionObserver' in window)) { rows.forEach(r => r.classList.add('in-view')); return; }
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+        rows.forEach(r => io.observe(r));
       })();
     </script>
   </section>
@@ -2151,7 +2107,7 @@
     });
 
     gsap.registerPlugin(ScrollTrigger);
-    gsap.to("#heroBg", {
+    gsap.to("#heroBg, #heroVideo", {
       scrollTrigger: { trigger: "#heroWrapper", start: "top top", end: "bottom top", scrub: true },
       y: 120, scale: 1.15
     });
