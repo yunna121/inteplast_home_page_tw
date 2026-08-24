@@ -824,6 +824,39 @@
       text-wrap: balance;
       color: var(--primary-navy);
       line-height: 1.02;
+      transition: color 0.3s ease;
+    }
+    .ps-row {
+      cursor: pointer;
+    }
+    .ps-row:hover .ps-title {
+      color: var(--brand-blue);
+    }
+    .ps-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 22px;
+      padding: 10px 22px;
+      background: rgba(0, 82, 155, 0.08);
+      color: var(--brand-blue);
+      border: 1px solid rgba(0, 82, 155, 0.2);
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .ps-row:hover .ps-card-link {
+      background: var(--brand-blue);
+      color: #FFFFFF;
+      transform: translateX(4px);
+    }
+    .ps-row:nth-child(even) .ps-card-link {
+      margin-left: auto;
+    }
+    .ps-row:nth-child(even):hover .ps-card-link {
+      transform: translateX(-4px);
     }
     .ps-desc {
       margin-top: 18px;
@@ -2135,12 +2168,25 @@
           }).join('');
       }
 
+      function getCatAnchor(name) {
+        name = String(name || '');
+        if (name.indexOf('清潔袋') > -1 && name.indexOf('拉繩') === -1) return 'products/index.html#cat-can-liners';
+        if (name.indexOf('拉繩') > -1) return 'products/index.html#cat-draw-tape';
+        if (name.indexOf('蔬果') > -1 || name.indexOf('耐熱') > -1) return 'products/index.html#cat-heat-bags';
+        if (name.indexOf('夾鏈') > -1 || name.indexOf('密實') > -1) return 'products/index.html#cat-sealed-packaging';
+        if (name.indexOf('手套') > -1) return 'products/index.html#cat-gloves';
+        if (name.indexOf('膠帶') > -1) return 'products/index.html#cat-masking-film';
+        if (name.indexOf('Scale') > -1) return 'products/index.html#cat-stretch-films';
+        return 'products/index.html';
+      }
+
       function rowHtml(row, i) {
         var p = photoOf(row);
         var chips = chipsHtml(row.items);
         var num = String(i + 1).padStart(2, '0');
+        var targetUrl = getCatAnchor(row.name);
         return '' +
-          '<article class="ps-row">' +
+          '<article class="ps-row" onclick="window.location.href=\'' + targetUrl + '\'" title="點擊前往產品中心對應產品">' +
           '  <div class="ps-stage">' +
           '    <div class="ps-numeral" aria-hidden="true">' + num + '</div>' +
           (p.main ? '    <div class="ps-photo" data-src="' + esc(p.main) + '" data-src2="' + esc(p.backup) + '"></div>' : '') +
@@ -2150,6 +2196,7 @@
           '    <h3 class="ps-title" data-tw="' + esc(row.name) + '" data-en="' + esc(row.name_en || row.name) + '">' + esc(row.name) + '</h3>' +
           (row.desc ? '    <p class="ps-desc" data-tw="' + esc(row.desc) + '" data-en="' + esc(row.desc) + '">' + esc(row.desc) + '</p>' : '') +
           (chips ? '    <div class="ps-items">' + chips + '</div>' : '') +
+          '    <div><a href="' + targetUrl + '" class="ps-card-link" onclick="event.stopPropagation();"><span data-tw="前往產品中心查看" data-en="View in Product Center">前往產品中心查看</span> <i class="fa-solid fa-arrow-right"></i></a></div>' +
           '  </div>' +
           '</article>';
       }
