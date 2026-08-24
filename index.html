@@ -664,7 +664,7 @@
     }
 
     /* =========================================
-       SECTION 1: 六大核心產品系列 Showcase (Sticky Stacking Cards)
+       SECTION 1: 核心產品系列系列 Showcase (Sticky Stacking Cards)
        使用 Scale Sheet 用戶指定專屬原圖 ./src/scale sheet.png
        ========================================= */
     .fashion-products-section {
@@ -673,7 +673,7 @@
     }
 
 
-    /* ===== 六大產品：交錯 hero 列（大圖＋淡描邊序號＋大型產品名） ===== */
+    /* ===== 核心產品：交錯 hero 列（大圖＋淡描邊序號＋大型產品名） ===== */
     .ps-section {
       background: #FFFFFF;
       padding: 112px 0 72px;
@@ -715,7 +715,8 @@
     .ps-row {
       position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 32px;
       align-items: center;
       padding: 30px 0;
       border-top: 1px solid #EEF2F6;
@@ -731,17 +732,15 @@
       position: relative;
       display: grid;
       align-items: center;
-      justify-items: end;
+      justify-items: center;
       min-height: 380px;
-      padding-right: 40px;
     }
-    .ps-row:nth-child(even) .ps-stage { justify-items: start; padding-right: 0; padding-left: 40px; }
     .ps-numeral {
       position: absolute;
       left: 0;
       top: 8px;
       font-family: 'Oswald', 'Inter', sans-serif;
-      font-size: clamp(190px, 17vw, 270px);
+      font-size: clamp(160px, 14vw, 220px);
       font-weight: 200;
       line-height: .82;
       letter-spacing: -0.01em;
@@ -755,6 +754,7 @@
 
     .ps-photo {
       position: relative;
+      isolation: isolate;
       z-index: 2;
       width: clamp(230px, 23vw, 320px);
       transition: transform .7s cubic-bezier(.22,.61,.36,1);
@@ -767,25 +767,33 @@
       height: clamp(240px, 22vw, 300px);
       object-fit: contain;
       display: block;
-      filter: drop-shadow(0 24px 36px rgba(10, 37, 64, .22));
+      filter: drop-shadow(0 26px 30px rgba(10, 37, 64, .28));
+    }
+    /* 落地陰影：讓產品看起來浮在桌面上 */
+    .ps-photo::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 4px;
+      width: 62%;
+      height: 26px;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse at center, rgba(10, 37, 64, .26) 0%, rgba(10, 37, 64, .10) 46%, rgba(10, 37, 64, 0) 76%);
+      filter: blur(2px);
+      z-index: -1;
+      pointer-events: none;
     }
     /* 尚未去背（白底或實拍背景）的產品照：暫以 multiply 融進背景，且不跟文字重疊（避免字壓在深色矩形上）；
        補上去背 PNG 後，把 img 的 is-plain 與 列的 ps-row--plain 兩個 class 一起移除即可回到完整重疊效果 */
     .ps-photo.is-plain img { mix-blend-mode: multiply; filter: none; }
-    .ps-row--plain .ps-body { margin-left: 0; }
-    .ps-row--plain:nth-child(even) .ps-body { margin-right: 0; }
+
 
     .ps-body {
       position: relative;
       z-index: 3;
-      max-width: 560px;
-      margin-left: -150px;
+      max-width: none;
     }
-    .ps-row:nth-child(even) .ps-body {
-      margin-left: auto;
-      margin-right: -150px;
-      text-align: right;
-    }
+    .ps-row:nth-child(even) .ps-body { text-align: right; }
     .ps-badge {
       display: flex;
       align-items: center;
@@ -808,10 +816,12 @@
       color: #A3AEBA;
       margin-bottom: 12px;
     }
+    /* 重疊只發生在巨型序號與照片之間；文字（大標／敘述／標籤）都留在文字欄內 */
     .ps-title {
-      font-size: clamp(2.4rem, 4.6vw, 5.2rem);
+      font-size: clamp(2.2rem, 3.9vw, 4.4rem);
       font-weight: 900;
       letter-spacing: -0.045em;
+      text-wrap: balance;
       color: var(--primary-navy);
       line-height: 1.02;
     }
@@ -823,15 +833,38 @@
       color: var(--text-muted);
     }
     .ps-row:nth-child(even) .ps-desc { margin-left: auto; }
+    .ps-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      max-width: 470px;
+    }
+    .ps-row:nth-child(even) .ps-items { margin-left: auto; justify-content: flex-end; }
+    .ps-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 16px;
+      border: 1px solid #BBD6EE;
+      border-radius: 999px;
+      background: #FFFFFF;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: #00529B;
+      white-space: nowrap;
+    }
+    .ps-chip.is-eco {
+      border-color: #A7D9C0;
+      background: #F1FBF6;
+      color: #0F7A4E;
+    }
 
     @media (max-width: 1024px) {
       .ps-section { padding: 80px 0 48px; }
       .ps-head, .ps-list { padding: 0 32px; }
-      .ps-body { margin-left: -100px; }
-      .ps-row:nth-child(even) .ps-body { margin-right: -100px; }
-      .ps-row--plain .ps-body { margin-left: 0; }
-      .ps-row--plain:nth-child(even) .ps-body { margin-right: 0; }
-      .ps-numeral { font-size: clamp(150px, 19vw, 210px); }
+
+      .ps-numeral { font-size: clamp(130px, 16vw, 180px); }
       .ps-stage { min-height: 320px; }
       .ps-photo { width: clamp(190px, 22vw, 260px); }
       .ps-photo img { height: clamp(200px, 21vw, 250px); }
@@ -1668,10 +1701,10 @@
       </p>
 
       <div class="hero-btn-group">
-        <a href="#productShowcase" class="btn-hero-primary" data-tw="瀏覽六大核心產品系列"
+        <a href="#productShowcase" class="btn-hero-primary" data-tw="瀏覽核心產品系列"
           data-en="Explore 6 Product Lines">
-          <i class="fa-solid fa-layer-group"></i> <span data-tw="瀏覽六大核心產品系列"
-            data-en="Explore 6 Product Lines">瀏覽六大核心產品系列</span>
+          <i class="fa-solid fa-layer-group"></i> <span data-tw="瀏覽核心產品系列"
+            data-en="Explore 6 Product Lines">瀏覽核心產品系列</span>
         </a>
       </div>
 
@@ -1701,105 +1734,18 @@
     </div>
   </div>
 
-  <!-- SECTION: 六大核心產品（產品疊在巨型序號上，往下捲） -->
+  <!-- SECTION: 核心產品系列（產品疊在巨型序號上，往下捲） -->
   <section class="ps-section" id="productShowcase">
     <div class="ps-head">
-      <div class="ps-kicker" data-tw="SIX CORE CATEGORIES · 六大核心產品" data-en="SIX CORE CATEGORIES">SIX CORE CATEGORIES · 六大核心產品</div>
-      <h2 data-tw="六大核心產品" data-en="Six Core Products">六大核心產品</h2>
-      <p class="ps-lede" data-tw="六條產線皆以台塑原料自製，嘉義新港基地一貫作業，從家用清潔袋到集團專利 Scale Sheet。" data-en="Six product lines built on Formosa resin, produced in-house at our Chiayi Xingang plant — from household can liners to the group's patented Scale Sheet.">六條產線皆以台塑原料自製，嘉義新港基地一貫作業，從家用清潔袋到集團專利 Scale Sheet。</p>
+      <div class="ps-kicker" data-tw="CORE PRODUCTS · 核心產品系列" data-en="CORE PRODUCTS">CORE PRODUCTS · 核心產品系列</div>
+      <h2 data-tw="核心產品系列" data-en="Core Products">核心產品系列</h2>
+      <p class="ps-lede" data-tw="全線產品皆以台塑原料自製，嘉義新港基地一貫作業，從家用清潔袋到集團專利 Scale Sheet。" data-en="Every line is built on Formosa resin and produced in-house at our Chiayi Xingang plant — from household can liners to the group's patented Scale Sheet.">全線產品皆以台塑原料自製，嘉義新港基地一貫作業，從家用清潔袋到集團專利 Scale Sheet。</p>
     </div>
 
-    <div class="ps-list">
-      <article class="ps-row">
-        <div class="ps-stage">
-          <div class="ps-numeral" aria-hidden="true">01</div>
-          <div class="ps-photo"><img src="./src/product-img/封面-清潔袋.png" alt="台塑清潔袋"></div>
-        </div>
-        <div class="ps-body">
-          <div class="ps-badge">01 <em>/ 06</em></div>
-          <div class="ps-eyebrow">CAN LINERS & TRASH BAGS</div>
-          <h3 class="ps-title" data-tw="清潔袋系列" data-en="Can Liners & Trash Bags">清潔袋系列</h3>
-          <p class="ps-desc" data-tw="連捲、單張抽取與環保清潔袋，台塑原料自製吹膜。" data-en="Coreless rolls, interleaved flat bags and eco recycled liners, extruded in-house.">連捲、單張抽取與環保清潔袋，台塑原料自製吹膜。</p>
-        </div>
-      </article>
+    <!-- 產品列全部由 src/data/products-data.xlsx（工作表「產品資料」）產生，見頁尾腳本；此處不寫死任何產品 -->
+    <div class="ps-list"></div>
 
-      <article class="ps-row">
-        <div class="ps-stage">
-          <div class="ps-numeral" aria-hidden="true">02</div>
-          <div class="ps-photo"><img src="./src/product-img/封面-拉繩袋.png" alt="台塑拉繩清潔袋"></div>
-        </div>
-        <div class="ps-body">
-          <div class="ps-badge">02 <em>/ 06</em></div>
-          <div class="ps-eyebrow">DRAW-TAPE BAGS</div>
-          <h3 class="ps-title" data-tw="拉繩袋系列" data-en="Draw-Tape Bags">拉繩袋系列</h3>
-          <p class="ps-desc" data-tw="一拉即束口，清潔袋與醫療感染袋兩條產線。" data-en="Pull to close — trash and medical infectious-waste lines.">一拉即束口，清潔袋與醫療感染袋兩條產線。</p>
-        </div>
-      </article>
 
-      <article class="ps-row">
-        <div class="ps-stage">
-          <div class="ps-numeral" aria-hidden="true">03</div>
-          <div class="ps-photo"><img src="./src/product-img/封面-蔬果袋.png" alt="台塑耐熱袋"></div>
-        </div>
-        <div class="ps-body">
-          <div class="ps-badge">03 <em>/ 06</em></div>
-          <div class="ps-eyebrow">HEAT-RESISTANT & PRODUCE</div>
-          <h3 class="ps-title" data-tw="蔬果袋 · 耐熱袋" data-en="Heat-Resistant & Produce Bags">蔬果袋 · 耐熱袋</h3>
-          <p class="ps-desc" data-tw="食品級原料，平裝、捲裝耐熱袋與蔬果袋。" data-en="Food-grade resin: flat and roll heat-resistant bags, plus produce bags.">食品級原料，平裝、捲裝耐熱袋與蔬果袋。</p>
-        </div>
-      </article>
-
-      <article class="ps-row">
-        <div class="ps-stage">
-          <div class="ps-numeral" aria-hidden="true">04</div>
-          <div class="ps-photo"><img src="./src/product-img/封面-夾鏈袋.png" alt="台塑夾鏈袋"></div>
-        </div>
-        <div class="ps-body">
-          <div class="ps-badge">04 <em>/ 06</em></div>
-          <div class="ps-eyebrow">SEALED & ZIPPER BAGS</div>
-          <h3 class="ps-title" data-tw="夾鏈袋 · 密實袋" data-en="Sealed & Zipper Bags">夾鏈袋 · 密實袋</h3>
-          <p class="ps-desc" data-tw="密實袋、立體密實袋、冷凍袋與 00–12 號夾鏈袋。" data-en="Seal-top, stand-up, freezer bags and reclosable zipper bags No.00–12.">密實袋、立體密實袋、冷凍袋與 00–12 號夾鏈袋。</p>
-        </div>
-      </article>
-
-      <article class="ps-row ps-row--plain">
-        <div class="ps-stage">
-          <div class="ps-numeral" aria-hidden="true">05</div>
-          <div class="ps-photo is-plain"><img src="./src/ai_specialty.png" alt="手套與遮蔽防塵膠帶"></div>
-        </div>
-        <div class="ps-body">
-          <div class="ps-badge">05 <em>/ 06</em></div>
-          <div class="ps-eyebrow">SPECIALTY & PROTECTION</div>
-          <h3 class="ps-title" data-tw="手套 · 遮蔽防塵膠帶" data-en="Specialty & Protection">手套 · 遮蔽防塵膠帶</h3>
-          <p class="ps-desc" data-tw="PE 手套與台塑遮蔽防塵膠帶。" data-en="PE disposable gloves and pre-taped masking film.">PE 手套與台塑遮蔽防塵膠帶。</p>
-        </div>
-      </article>
-
-      <article class="ps-row ps-row--plain">
-        <div class="ps-stage">
-          <div class="ps-numeral" aria-hidden="true">06</div>
-          <div class="ps-photo is-plain"><img src="./src/scale sheet.png" alt="Scale Sheet"></div>
-        </div>
-        <div class="ps-body">
-          <div class="ps-badge">06 <em>/ 06</em></div>
-          <div class="ps-eyebrow">SCALE SHEET</div>
-          <h3 class="ps-title" data-tw="Scale Sheet 秤重襯紙" data-en="Scale Sheet">Scale Sheet 秤重襯紙</h3>
-          <p class="ps-desc" data-tw="集團專利抽取式包裝紙，一張接一張自動彈出。" data-en="The group's patented pop-up sheet — one sheet lifts the next.">集團專利抽取式包裝紙，一張接一張自動彈出。</p>
-        </div>
-      </article>
-    </div>
-
-    <script>
-      (function () {
-        const rows = document.querySelectorAll('.ps-row');
-        if (!rows.length) return;
-        if (!('IntersectionObserver' in window)) { rows.forEach(r => r.classList.add('in-view')); return; }
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
-        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
-        rows.forEach(r => io.observe(r));
-      })();
-    </script>
   </section>
 
   <!-- GREEN MARK SUSTAINABILITY TEASER SECTION (環保標章認證導引區塊 - 位於產品使用特色上方) -->
@@ -1905,13 +1851,13 @@
       
       <!-- Step 01: 六大產品 -->
       <div class="step-rail-item active" data-target="productShowcase">
-        <a href="#productShowcase" class="step-dot-trigger" aria-label="01 六大核心產品">
+        <a href="#productShowcase" class="step-dot-trigger" aria-label="01 核心產品系列">
           <span class="step-dot"></span>
         </a>
         <div class="step-popup-card">
           <div class="popup-accent-bar"></div>
           <div class="popup-num">01 / CATEGORIES</div>
-          <div class="popup-title" data-tw="六大核心產品" data-en="Six Core Categories">六大核心產品</div>
+          <div class="popup-title" data-tw="核心產品系列" data-en="Core Products">核心產品系列</div>
           <div class="popup-sub" data-tw="清潔袋 · 拉繩袋 · 蔬果袋..." data-en="Can Liners, Drawtape...">清潔袋 · 拉繩袋 · 蔬果袋...</div>
         </div>
       </div>
@@ -2178,7 +2124,7 @@
   </div>
   <script src="./src/data/website-data.js"></script>
   <script src="./src/data-map.js"></script>
-  <!-- 首頁六大核心產品：讀 src/data/products-data.xlsx（工作表「產品資料」、類型＝分類 的列）；
+  <!-- 首頁核心產品系列：讀 src/data/products-data.xlsx（工作表「產品資料」、類型＝分類 的列）；
        讀不到 xlsx 時退回 src/data/products-data.js，都讀不到則保留 HTML 裡現有的六列 -->
   <script src="./src/data/products-data.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -2187,18 +2133,7 @@
       var SHEET = '產品資料';
       function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
-      // Excel「已去背」欄留空時，這份名單裡的檔名視為未去背（方框照，不與文字重疊）
-      var NOT_CUTOUT = ['ai_specialty.png', 'scale sheet.png', '封面-Scale Sheet.jpg', '封面-夾鏈袋.webp', '封面-台塑夾鏈袋.webp',
-        'formosa_heat_bag_official.png', 'formosa_heat_bag_real.png', 'formosa_canliner_official.png',
-        'ai_zipper_bag.png', 'Can-Liners-Draw-Tape-Draw-Tape-2.jpg'];
-
-      function isCutout(row, file) {
-        var flag = String(row.cutout || '').trim();
-        if (flag) return !/^(n|no|否|未|0)/i.test(flag);
-        return NOT_CUTOUT.indexOf(String(file || '').split('/').pop()) === -1;
-      }
-
-      // 只寫檔名＝src/product-img/；含斜線則相對於 src/；找不到時自动改試 src/ 根目錄
+      // 圖片路徑：只寫檔名 → 先試 src/product-img/，載不到自動改試 src/ 根目錄（反之亦然）
       function photoOf(row) {
         var n = String(row.img || '').trim().replace(/^\.?\/?src\//, '');
         if (!n) return { main: '', backup: '' };
@@ -2206,24 +2141,66 @@
         return { main: './src/product-img/' + n, backup: './src/' + n };
       }
 
-      function rowHtml(row, i, total) {
+      // 先用 Image() 探測，確認哪個資料夾有這張圖，再寫進 <img>（避免 404 紅字與匯出時抓到失敗的 URL）
+      function resolveImg(cands) {
+        return new Promise(function (done) {
+          var i = 0;
+          (function next() {
+            if (i >= cands.length) return done('');
+            var url = cands[i++];
+            var probe = new Image();
+            probe.onload = function () { done(url); };
+            probe.onerror = next;
+            probe.src = url;
+          })();
+        });
+      }
+
+      // 是否去背：載入後取樣四角 alpha，透明＝去背（產品名可壓在照片上）；
+      // 不透明＝白底或實拍方框照，自動讓文字退開不重疊。不需要在 Excel 標記。
+      function markOpaque(img) {
+        var row = img.closest('.ps-row');
+        if (!row) return;
+        try {
+          var w = 24, h = 24;
+          var c = document.createElement('canvas');
+          c.width = w; c.height = h;
+          var ctx = c.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          var d = ctx.getImageData(0, 0, w, h).data;
+          var pts = [0, (w - 1) * 4, (w * (h - 1)) * 4, (w * h - 1) * 4];
+          var opaque = pts.every(function (i) { return d[i + 3] > 250; });
+          if (opaque) {
+            row.classList.add('ps-row--plain');
+            img.parentNode.classList.add('is-plain');
+          }
+        } catch (e) { /* 跨網域圖片無法取樣時，維持預設（視為去背） */ }
+      }
+
+      // 產品細項：用「、」逗號或換行分隔，一項一顆膠囊標籤；含環保／認證字樣的自動上綠
+      function chipsHtml(items) {
+        return String(items || '').split(/[、,，\n]+/).map(function (s) { return s.trim(); }).filter(Boolean)
+          .map(function (s) {
+            var eco = /環保|認證|標章|回收|再生/.test(s);
+            return '<span class="ps-chip' + (eco ? ' is-eco' : '') + '">' + esc(s) + '</span>';
+          }).join('');
+      }
+
+      function rowHtml(row, i) {
         var p = photoOf(row);
-        if (!p.main) return '';
-        var cut = isCutout(row, p.main);
+        var chips = chipsHtml(row.items);
         var num = String(i + 1).padStart(2, '0');
-        var of = String(total).padStart(2, '0');
-        var onerr = p.backup ? ' onerror="this.onerror=null;this.src=\'' + esc(p.backup) + '\'"' : '';
         return '' +
-          '<article class="ps-row' + (cut ? '' : ' ps-row--plain') + '">' +
+          '<article class="ps-row">' +
           '  <div class="ps-stage">' +
           '    <div class="ps-numeral" aria-hidden="true">' + num + '</div>' +
-          '    <div class="ps-photo' + (cut ? '' : ' is-plain') + '"><img src="' + esc(p.main) + '" alt="' + esc(row.name) + '"' + onerr + '></div>' +
+          (p.main ? '    <div class="ps-photo" data-src="' + esc(p.main) + '" data-src2="' + esc(p.backup) + '"></div>' : '') +
           '  </div>' +
           '  <div class="ps-body">' +
-          '    <div class="ps-badge">' + num + ' <em>/ ' + of + '</em></div>' +
           (row.name_en ? '    <div class="ps-eyebrow">' + esc(row.name_en) + '</div>' : '') +
           '    <h3 class="ps-title" data-tw="' + esc(row.name) + '" data-en="' + esc(row.name_en || row.name) + '">' + esc(row.name) + '</h3>' +
           (row.desc ? '    <p class="ps-desc" data-tw="' + esc(row.desc) + '" data-en="' + esc(row.desc) + '">' + esc(row.desc) + '</p>' : '') +
+          (chips ? '    <div class="ps-items">' + chips + '</div>' : '') +
           '  </div>' +
           '</article>';
       }
@@ -2241,11 +2218,22 @@
       function render(rows) {
         var list = document.querySelector('.ps-list');
         if (!list) return false;
-        var cats = rows.filter(function (r) { return String(r.type || '').indexOf('分類') > -1; });
-        if (!cats.length) cats = rows;
-        var html = cats.map(function (r, i) { return rowHtml(r, i, cats.length); }).filter(Boolean).join('');
+        var html = rows.map(function (r, i) { return rowHtml(r, i); }).filter(Boolean).join('');
         if (!html) return false;
         list.innerHTML = html;
+        list.querySelectorAll('.ps-row').forEach(function (r) {
+          var box = r.querySelector('.ps-photo');
+          if (!box) { r.classList.add('ps-row--plain'); return; }
+          var cands = [box.getAttribute('data-src'), box.getAttribute('data-src2')].filter(Boolean);
+          resolveImg(cands).then(function (url) {
+            if (!url) { r.classList.add('ps-row--plain'); return; }
+            var img = document.createElement('img');
+            img.alt = r.querySelector('.ps-title') ? r.querySelector('.ps-title').textContent : '';
+            img.onload = function () { markOpaque(img); };
+            img.src = url;
+            box.appendChild(img);
+          });
+        });
         reveal();
         if (typeof applyLanguage === 'function') { try { applyLanguage(); } catch (e) {} }
         return true;
@@ -2253,7 +2241,7 @@
 
       function fromDataFile() {
         var rows = window.PRODUCT_DATA || [];
-        if (!rows.length || !render(rows)) console.info('[首頁] 六大產品沒讀到 products-data，汿用頁面上現有的六列。');
+        if (!rows.length || !render(rows)) console.warn('[首頁] 讀不到產品資料：請確認 src/data/products-data.xlsx 或 src/data/products-data.js 存在。');
       }
 
       function fromSheet(wb) {
@@ -2261,13 +2249,11 @@
         if (!ws) return [];
         return XLSX.utils.sheet_to_json(ws, { defval: '' }).map(function (r) {
           return {
-            type: String(r['類型'] || '').trim() || '產品',
-            cat: String(r['分類'] || '').trim(),
-            name: String(r['產品名稱'] || '').trim(),
+            name: String(r['產品'] || r['產品名稱'] || '').trim(),
             name_en: String(r['英文名稱'] || '').trim(),
-            desc: String(r['產品敍述'] || '').trim(),
+            desc: String(r['產品敘述'] || '').trim(),
             img: String(r['產品圖片'] || '').trim(),
-            cutout: String(r['已去背'] || '').trim()
+            items: String(r['產品細項'] || '').trim()
           };
         }).filter(function (r) { return r.name; });
       }

@@ -51,24 +51,22 @@
   <div class="head">
     <div class="kicker">內部維護工具</div>
     <h1>產品資料 Excel 工具</h1>
-    <p class="lede">新的一本 <code>src/data/products-data.xlsx</code>：<b>只有一張工作表「產品資料」</b>，只放產品名稱、產品圖片與產品敘述，沒有規格欄位。
-      每列一項產品，用「分類」欄區分屬於哪一個產品線。</p>
+    <p class="lede">新的一本 <code>src/data/products-data.xlsx</code>：<b>只有一張工作表「產品資料」</b>，一列一項產品：產品、英文名稱、產品敘述、產品圖片，外加「產品細項」欄（顯示成膠囊標籤）。去背與否由網頁自動判斷，不用填。</p>
   </div>
 
   <div class="card">
     <h2>1. 下載 Excel</h2>
-    <p class="sub">已帶入現有資料（六列分類 ＋ 各分類的產品項目），直接在上面重填即可。存檔位置：<code>src/data/products-data.xlsx</code></p>
+    <p class="sub">已帶入現有的七列，直接在上面改字、改圖片檔名即可。存檔位置：<code>src/data/products-data.xlsx</code></p>
     <div class="row">
       <button class="btn" id="tpl"><i class="fa-solid fa-file-excel"></i> 下載 products-data.xlsx</button>
+      <button class="btn" id="tplCsv" style="background: #FFFFFF; color: #00529B; border: 1px solid #CBD5E1;"><i class="fa-solid fa-file-csv"></i> 下載 CSV（Excel 也能開）</button>
     </div>
     <div class="cols">
-      <div class="col"><b>類型</b><span>填「分類」＝首頁六大核心產品那一列；填「產品」＝該分類頁裡的產品項目</span></div>
-      <div class="col"><b>分類</b><span>清潔袋／拉繩袋／蔬果袋／夾鏈袋／其他類／Scale Sheet</span></div>
-      <div class="col"><b>產品名稱</b><span>網頁上的大字名稱</span></div>
+      <div class="col"><b>產品</b><span>網頁上的大字名稱，一列一項</span></div>
       <div class="col"><b>英文名稱</b><span>名稱上方的英文小字（可留空）</span></div>
       <div class="col"><b>產品敘述</b><span>名稱下面那一句</span></div>
       <div class="col"><b>產品圖片</b><span>只寫檔名＝放在 <code>src/product-img/</code>；找不到會自動改試 <code>src/</code> 根目錄</span></div>
-      <div class="col"><b>已去背</b><span>Y＝去背 PNG，名稱會壓在照片上；N＝白底或實拍方框，文字自動退開不重疊；留空＝自動判斷</span></div>
+      <div class="col"><b>產品細項</b><span>用「、」或逗號分隔，一項一顆膠囊標籤（例：連捲點斷、單張抽取、環保標章認證）；含環保／認證／標章／回收／再生字樣的會自動變綠</span></div>
     </div>
   </div>
 
@@ -84,7 +82,7 @@
     <div class="status" id="status"></div>
     <div class="row"><button class="btn" id="download" disabled><i class="fa-solid fa-download"></i> 下載 products-data.js</button></div>
     <table id="preview">
-      <thead><tr><th>類型</th><th>分類</th><th>產品名稱</th><th>產品圖片</th><th>已去背</th></tr></thead>
+      <thead><tr><th>#</th><th>產品</th><th>英文名稱</th><th>產品圖片</th><th>產品細項</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -105,11 +103,22 @@
 <script>
 (function () {
   var SHEET = '產品資料';
-  var HEADERS = ['類型', '分類', '產品名稱', '英文名稱', '產品敘述', '產品圖片', '已去背'];
-  var seed = (window.PRODUCT_DATA || []).map(function (r) {
-    return { '類型': r.type || '', '分類': r.cat || '', '產品名稱': r.name || '', '英文名稱': r.name_en || '', '產品敘述': r.desc || '', '產品圖片': r.img || '', '已去背': r.cutout || '' };
+  var HEADERS = ['產品', '英文名稱', '產品敘述', '產品圖片', '產品細項'];
+  // 內建的預設內容：即使沒讀到 ../src/data/products-data.js（例如單獨開這個檔案），下載的 Excel 也會有資料
+  var DEFAULT_ROWS = [
+    { name: '清潔袋', name_en: 'CAN LINERS & TRASH BAGS', desc: '連捲、單張抽取與環保清潔袋，台塑原料自製吹膜。', img: '封面-清潔袋.png', items: '連捲點斷、單張抽取、環保標章認證' },
+    { name: '拉繩袋', name_en: 'DRAW-TAPE BAGS', desc: '一拉即束口，清潔袋與醫療感染袋兩條產線。', img: '封面-拉繩袋.png', items: '一拉即束口、醫療感染袋、環保再生料' },
+    { name: '蔬果袋', name_en: 'HEAT-RESISTANT & PRODUCE', desc: '食品級原料，平裝、捲裝耐熱袋與蔬果袋。', img: '封面-蔬果袋.png', items: '平裝、捲裝、食品級原料' },
+    { name: '夾鏈袋', name_en: 'STORAGE & ZIPPER BAGS', desc: '密實袋、立體密實袋、冷凍袋與 00–12 號夾鏈袋。', img: '封面-夾鏈袋.png', items: '密實袋、立體密實袋、冷凍袋、00–12 號' },
+    { name: '多功能手套', name_en: '', desc: '', img: '', items: '' },
+    { name: '台塑遮蔽防塵膠帶', name_en: '', desc: '', img: '', items: '' },
+    { name: 'Scale Sheet', name_en: 'Scale Sheet', desc: '集團專利抽取式包裝紙，一張接一張自動彈出。', img: 'scale sheet.png', items: '集團專利、自動彈出' }
+  ];
+
+  var source = (window.PRODUCT_DATA && window.PRODUCT_DATA.length) ? window.PRODUCT_DATA : DEFAULT_ROWS;
+  var seed = source.map(function (r) {
+    return { '產品': r.name || '', '英文名稱': r.name_en || '', '產品敘述': r.desc || '', '產品圖片': r.img || '', '產品細項': r.items || '' };
   });
-  if (!seed.length) seed = [{ '類型': '分類', '分類': '', '產品名稱': '', '英文名稱': '', '產品敘述': '', '產品圖片': '', '已去背': '' }];
 
   var status = document.getElementById('status');
   var btn = document.getElementById('download');
@@ -126,10 +135,22 @@
   document.getElementById('tpl').addEventListener('click', function () {
     if (!need()) return;
     var ws = XLSX.utils.json_to_sheet(seed, { header: HEADERS });
-    ws['!cols'] = [{ wch: 8 }, { wch: 13 }, { wch: 20 }, { wch: 28 }, { wch: 46 }, { wch: 26 }, { wch: 9 }];
+    ws['!cols'] = [{ wch: 20 }, { wch: 28 }, { wch: 46 }, { wch: 26 }, { wch: 40 }];
     var wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, SHEET);
     XLSX.writeFile(wb, 'products-data.xlsx');
+  });
+
+  document.getElementById('tplCsv').addEventListener('click', function () {
+    var esc2 = function (v) { v = String(v == null ? '' : v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    var lines = [HEADERS].concat(seed.map(function (r) { return HEADERS.map(function (h) { return r[h]; }); }));
+    var csv = '\uFEFF' + lines.map(function (r) { return r.map(esc2).join(','); }).join('\r\n') + '\r\n';
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'products-data.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
   });
 
   var drop = document.getElementById('drop');
@@ -156,13 +177,11 @@
     if (!ws) throw new Error('這個檔案裡沒有工作表。');
     var rows = XLSX.utils.sheet_to_json(ws, { defval: '' }).map(function (r) {
       return {
-        type: String(r['類型'] || '').trim() || '產品',
-        cat: String(r['分類'] || '').trim(),
-        name: String(r['產品名稱'] || '').trim(),
+        name: String(r['產品'] || r['產品名稱'] || '').trim(),
         name_en: String(r['英文名稱'] || '').trim(),
         desc: String(r['產品敘述'] || '').trim(),
         img: String(r['產品圖片'] || '').trim(),
-        cutout: String(r['已去背'] || '').trim()
+        items: String(r['產品細項'] || '').trim()
       };
     }).filter(function (r) { return r.name; });
 
@@ -174,15 +193,13 @@
       '   轉出時間：' + new Date().toLocaleString('zh-TW') + ' — 來源檔：' + name + ' */\n' +
       'window.PRODUCT_DATA = ' + JSON.stringify(rows, null, 1) + ';\n';
 
-    var cats = rows.filter(function (r) { return r.type === '分類'; });
     var noImg = rows.filter(function (r) { return !r.img; });
-    var msg = '<i class="fa-solid fa-circle-check"></i> 讀取成功：共 <b>' + rows.length + '</b> 列，其中類型「分類」<b>' + cats.length + '</b> 列（首頁用）、「產品」' + (rows.length - cats.length) + ' 列。';
-    if (cats.length !== 6) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 類型「分類」不是六列，首頁會照實際列數顯示。';
-    if (noImg.length) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 有 ' + noImg.length + ' 列沒填產品圖片（' + noImg[0].name + '），該列不會顯示圖片。';
-    say(msg, (cats.length !== 6 || noImg.length) ? 'err' : 'ok');
+    var msg = '<i class="fa-solid fa-circle-check"></i> 讀取成功：共 <b>' + rows.length + '</b> 列產品。';
+    if (noImg.length) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 有 ' + noImg.length + ' 列沒填產品圖片（' + noImg[0].name + '），該列首頁不會顯示。';
+    say(msg, noImg.length ? 'err' : 'ok');
 
-    preview.querySelector('tbody').innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r.type + '</td><td>' + (r.cat || '—') + '</td><td>' + r.name + '</td><td>' + (r.img || '—') + '</td><td>' + (r.cutout || '自動') + '</td></tr>';
+    preview.querySelector('tbody').innerHTML = rows.map(function (r, i) {
+      return '<tr><td>' + String(i + 1).padStart(2, '0') + '</td><td>' + r.name + '</td><td>' + (r.name_en || '—') + '</td><td>' + (r.img || '—') + '</td><td>' + (r.items || '—') + '</td></tr>';
     }).join('');
     preview.classList.add('show');
     btn.disabled = false;
