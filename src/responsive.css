@@ -10,6 +10,8 @@
 @media (max-width: 1024px) {
   html, body { max-width: 100%; overflow-x: hidden; }
   img, video, canvas, svg, table { max-width: 100%; }
+  /* 封面影片是刻意超出畫面的滿版背景（配合視差），不套用上面的寬度上限 */
+  .hero-video { max-width: none !important; }
   .container, .hero-container, .section-inner, .products-wrapper { width: auto !important; }
 }
 
@@ -156,6 +158,59 @@
   .brand-badge-title { font-size: 1.1rem !important; }
   .brand-badge-sub { font-size: 0.65rem !important; }
 
+  /* 首頁封面：高度改為隨內容，避免特色卡改單欄後被切掉 */
+  .fashion-hero-wrapper { height: auto !important; min-height: 100svh !important; }
+  .hero-stage-content {
+    position: relative !important;
+    left: auto !important;
+    transform: none !important;
+    padding: 88px 18px 40px !important;
+  }
+  .hero-big-title { font-size: 1.9rem !important; }
+  .hero-video {
+    top: -6% !important;
+    left: -6% !important;
+    width: 112% !important;
+    height: 112% !important;
+    object-fit: cover !important;
+  }
+  .hero-btn-group a { width: 100% !important; justify-content: center !important; min-height: 44px !important; }
+
+  /* 封面 3 項特色卡：由並排改為由上往下堆疊（圖示置左的橫式卡片） */
+  .hero-stats-row {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin-top: 28px !important;
+  }
+  .hero-stat-card {
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    column-gap: 14px !important;
+    row-gap: 2px !important;
+    align-items: center !important;
+    text-align: left !important;
+    padding: 14px 16px !important;
+  }
+  .hero-stat-card .stat-icon {
+    grid-column: 1 !important;
+    grid-row: 1 / span 3 !important;
+    align-self: center !important;
+    font-size: 1.5rem !important;
+    margin: 0 !important;
+  }
+  .hero-stat-card .stat-num { grid-column: 2 !important; font-size: 1.35rem !important; margin: 0 !important; }
+  .hero-stat-card .stat-label { grid-column: 2 !important; font-size: 0.85rem !important; margin: 0 !important; }
+  .hero-stat-card .stat-sub { grid-column: 2 !important; font-size: 0.72rem !important; line-height: 1.45 !important; }
+
+  /* 核心產品序號：縮小並內縮，避免被卡片邊界切掉 */
+  .ps-numeral,
+  .ps-row:nth-child(even) .ps-numeral {
+    right: 16px !important;
+    left: auto !important;
+    top: 4px !important;
+    font-size: 104px !important;
+  }
+
   /* 3D 折疊卡片在手機改為單欄平面卡片（3D 傾斜在窄螢幕會破圖） */
   .concertina-row { flex-direction: column !important; gap: 14px !important; perspective: none !important; }
   .concertina-card { flex-direction: row !important; transform: none !important; height: auto !important; }
@@ -198,6 +253,9 @@
   .hero-title { font-size: 1.35rem !important; }
   .hero-main-title,
   .hero-section h1 { font-size: 1.7rem !important; }
+  .hero-big-title { font-size: 1.65rem !important; }
+  .ps-numeral,
+  .ps-row:nth-child(even) .ps-numeral { font-size: 88px !important; right: 14px !important; }
   .concertina-card { flex-direction: column !important; }
   .concertina-right { min-height: 130px !important; }
 }
