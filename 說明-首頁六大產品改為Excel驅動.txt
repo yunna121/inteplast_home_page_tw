@@ -1,0 +1,32 @@
+首頁「六大核心產品」改為 Excel 驅動 — 說明
+更新日期：2026-08-24
+
+【怎麼用】
+把 update-pack 內的檔案覆蓋到本機專案（資料夾結構相同）：
+  index.html
+  src/data-map.js
+  tools/update-specs.html
+
+【要在 Excel 做什麼】
+檔案：src/data/website-data.xlsx，工作表：「分類介紹」（已存在，六列＝六項產品）
+在原有欄位右邊新增三欄（欄位名稱要完全一致，內容都可留空）：
+
+  首頁說明        首頁大字下面那一句（留空就自動用「核心亮點」那欄）
+  首頁圖片        首頁要用的產品照檔名，例如「封面-夾鏈袋.png」
+                 只寫檔名＝放在 src/product-img/；要放 src/ 根目錄的圖就寫「scale sheet.png」
+  首頁圖片已去背  Y＝去背 PNG（產品名會壓在照片上）；N＝白底或實拍方框（文字自動退開不重疊）
+                 留空＝系統自行判斷（已知的方框照清單寫在 index.html 的 NOT_CUTOUT）
+
+其餘欄位沿用：分類頁／中文名稱（首頁大字）／英文名稱（首頁英文副標）／分類封面圖。
+顯示順序＝「分類介紹」工作表的列順序；序號 01～06 由系統自動編。
+
+【改完之後】
+1. 存檔 Excel
+2. 打開 tools/update-specs.html，把 Excel 拖進去 → 下載 website-data.js → 覆蓋 src/data/website-data.js
+3. 重新整理首頁（Ctrl + F5）
+
+架上伺服器後第 2 步可省略，網頁會直接讀 xlsx。
+
+【備援機制】
+Excel 與 website-data.js 都讀不到時，首頁會保留 HTML 裡現有的六列，不會變成空白。
+圖片檔名打錯時，會自動改用「分類封面圖」那欄的圖。

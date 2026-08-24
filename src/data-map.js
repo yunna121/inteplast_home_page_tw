@@ -76,6 +76,7 @@
 
   var IMAGE_FILES = [
     '封面-Scale Sheet.jpg', '封面-手套.webp', '封面-拉繩感染袋.png', '封面-清潔袋.png',
+    '封面-拉繩袋.png', '封面-蔬果袋.png', '封面-夾鏈袋.png', '封面-環保清潔袋.webp',
     '手套 小.webp', '手套 中.webp', '手套 大.webp',
     '拉繩感染袋 小.webp', '拉繩感染袋 中.webp', '拉繩感染袋 大.webp', '拉繩感染袋 特大.webp', '拉繩感染袋 超大.webp',
     '拉繩清潔袋 大.webp', '拉繩清潔袋 特大.webp', '拉繩清潔袋 超大 經濟包.webp',
@@ -249,7 +250,11 @@
         desc: String(r['詳細介紹'] || '').trim(),
         badges: String(r['特色標籤（逗號分隔）'] || '').trim(),
         image: String(r['圖片檔名'] || '').trim(),
-        hero: String(r['分類封面圖'] || '').trim()
+        hero: String(r['分類封面圖'] || '').trim(),
+        // 首頁六大核心產品交錯列專用（皆可留空）
+        home_desc: String(r['首頁說明'] || '').trim(),
+        home_img: String(r['首頁圖片'] || '').trim(),
+        home_cutout: String(r['首頁圖片已去背'] || '').trim()
       };
     }).filter(function (c) { return c.category; });
   }

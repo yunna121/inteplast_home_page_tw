@@ -730,12 +730,15 @@
     .ps-stage {
       position: relative;
       display: grid;
-      place-items: center;
+      align-items: center;
+      justify-items: end;
       min-height: 380px;
+      padding-right: 40px;
     }
+    .ps-row:nth-child(even) .ps-stage { justify-items: start; padding-right: 0; padding-left: 40px; }
     .ps-numeral {
       position: absolute;
-      left: -12px;
+      left: 0;
       top: 8px;
       font-family: 'Oswald', 'Inter', sans-serif;
       font-size: clamp(190px, 17vw, 270px);
@@ -748,7 +751,7 @@
       pointer-events: none;
       user-select: none;
     }
-    .ps-row:nth-child(even) .ps-numeral { left: auto; right: -12px; }
+    .ps-row:nth-child(even) .ps-numeral { left: auto; right: 0; }
 
     .ps-photo {
       position: relative;
@@ -766,18 +769,21 @@
       display: block;
       filter: drop-shadow(0 24px 36px rgba(10, 37, 64, .22));
     }
-    /* 尚未去背（白底）的產品照：暫以 multiply 融進白色背景，補上去背 PNG 後可移除此 class */
+    /* 尚未去背（白底或實拍背景）的產品照：暫以 multiply 融進背景，且不跟文字重疊（避免字壓在深色矩形上）；
+       補上去背 PNG 後，把 img 的 is-plain 與 列的 ps-row--plain 兩個 class 一起移除即可回到完整重疊效果 */
     .ps-photo.is-plain img { mix-blend-mode: multiply; filter: none; }
+    .ps-row--plain .ps-body { margin-left: 0; }
+    .ps-row--plain:nth-child(even) .ps-body { margin-right: 0; }
 
     .ps-body {
       position: relative;
       z-index: 3;
       max-width: 560px;
-      margin-left: -13%;
+      margin-left: -150px;
     }
     .ps-row:nth-child(even) .ps-body {
       margin-left: auto;
-      margin-right: -13%;
+      margin-right: -150px;
       text-align: right;
     }
     .ps-badge {
@@ -792,7 +798,8 @@
       margin-bottom: 16px;
     }
     .ps-badge::after { content: ""; flex: 0 0 42px; height: 1px; background: #D6E0EA; }
-    .ps-row:nth-child(even) .ps-badge { flex-direction: row-reverse; }
+    .ps-row:nth-child(even) .ps-badge { justify-content: flex-end; }
+    .ps-row:nth-child(even) .ps-badge::after { order: -1; }
     .ps-eyebrow {
       font-size: 0.7rem;
       font-weight: 800;
@@ -820,8 +827,10 @@
     @media (max-width: 1024px) {
       .ps-section { padding: 80px 0 48px; }
       .ps-head, .ps-list { padding: 0 32px; }
-      .ps-body { margin-left: -7%; }
-      .ps-row:nth-child(even) .ps-body { margin-right: -7%; }
+      .ps-body { margin-left: -100px; }
+      .ps-row:nth-child(even) .ps-body { margin-right: -100px; }
+      .ps-row--plain .ps-body { margin-left: 0; }
+      .ps-row--plain:nth-child(even) .ps-body { margin-right: 0; }
       .ps-numeral { font-size: clamp(150px, 19vw, 210px); }
       .ps-stage { min-height: 320px; }
       .ps-photo { width: clamp(190px, 22vw, 260px); }
@@ -845,6 +854,8 @@
       .ps-row:first-of-type { border-top: 1px solid #E2E8F0; }
       .ps-row:last-of-type { border-bottom: 1px solid #E2E8F0; }
       .ps-stage { position: static; min-height: 0; display: block; }
+      .ps-row:nth-child(even) .ps-stage { padding-left: 0; }
+      .ps-stage, .ps-row:nth-child(even) .ps-stage { padding-right: 0; }
       .ps-numeral {
         left: auto;
         right: 4px;
@@ -1728,7 +1739,7 @@
       <article class="ps-row">
         <div class="ps-stage">
           <div class="ps-numeral" aria-hidden="true">03</div>
-          <div class="ps-photo is-plain"><img src="./src/product-img/封面-蔬果袋.png" alt="台塑耐熱袋"></div>
+          <div class="ps-photo"><img src="./src/product-img/封面-蔬果袋.png" alt="台塑耐熱袋"></div>
         </div>
         <div class="ps-body">
           <div class="ps-badge">03 <em>/ 06</em></div>
@@ -1741,7 +1752,7 @@
       <article class="ps-row">
         <div class="ps-stage">
           <div class="ps-numeral" aria-hidden="true">04</div>
-          <div class="ps-photo is-plain"><img src="./src/product-img/封面-夾鏈袋.png" alt="台塑夾鏈袋"></div>
+          <div class="ps-photo"><img src="./src/product-img/封面-夾鏈袋.png" alt="台塑夾鏈袋"></div>
         </div>
         <div class="ps-body">
           <div class="ps-badge">04 <em>/ 06</em></div>
@@ -1751,10 +1762,10 @@
         </div>
       </article>
 
-      <article class="ps-row">
+      <article class="ps-row ps-row--plain">
         <div class="ps-stage">
           <div class="ps-numeral" aria-hidden="true">05</div>
-          <div class="ps-photo is-plain"><img src="./src/product-img/封面-手套與遮蔽防塵膠帶.png" alt="手套與遮蔽防塵膠帶"></div>
+          <div class="ps-photo is-plain"><img src="./src/ai_specialty.png" alt="手套與遮蔽防塵膠帶"></div>
         </div>
         <div class="ps-body">
           <div class="ps-badge">05 <em>/ 06</em></div>
@@ -1764,10 +1775,10 @@
         </div>
       </article>
 
-      <article class="ps-row">
+      <article class="ps-row ps-row--plain">
         <div class="ps-stage">
           <div class="ps-numeral" aria-hidden="true">06</div>
-          <div class="ps-photo is-plain"><img src="./src/product-img/封面-Scale Sheet.png" alt="Scale Sheet"></div>
+          <div class="ps-photo is-plain"><img src="./src/scale sheet.png" alt="Scale Sheet"></div>
         </div>
         <div class="ps-body">
           <div class="ps-badge">06 <em>/ 06</em></div>
@@ -2167,6 +2178,115 @@
   </div>
   <script src="./src/data/website-data.js"></script>
   <script src="./src/data-map.js"></script>
+  <!-- 首頁六大核心產品：讀 src/data/products-data.xlsx（工作表「產品資料」、類型＝分類 的列）；
+       讀不到 xlsx 時退回 src/data/products-data.js，都讀不到則保留 HTML 裡現有的六列 -->
+  <script src="./src/data/products-data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script>
+    (function () {
+      var SHEET = '產品資料';
+      function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+      // Excel「已去背」欄留空時，這份名單裡的檔名視為未去背（方框照，不與文字重疊）
+      var NOT_CUTOUT = ['ai_specialty.png', 'scale sheet.png', '封面-Scale Sheet.jpg', '封面-夾鏈袋.webp', '封面-台塑夾鏈袋.webp',
+        'formosa_heat_bag_official.png', 'formosa_heat_bag_real.png', 'formosa_canliner_official.png',
+        'ai_zipper_bag.png', 'Can-Liners-Draw-Tape-Draw-Tape-2.jpg'];
+
+      function isCutout(row, file) {
+        var flag = String(row.cutout || '').trim();
+        if (flag) return !/^(n|no|否|未|0)/i.test(flag);
+        return NOT_CUTOUT.indexOf(String(file || '').split('/').pop()) === -1;
+      }
+
+      // 只寫檔名＝src/product-img/；含斜線則相對於 src/；找不到時自动改試 src/ 根目錄
+      function photoOf(row) {
+        var n = String(row.img || '').trim().replace(/^\.?\/?src\//, '');
+        if (!n) return { main: '', backup: '' };
+        if (n.indexOf('/') > -1) return { main: './src/' + n, backup: '' };
+        return { main: './src/product-img/' + n, backup: './src/' + n };
+      }
+
+      function rowHtml(row, i, total) {
+        var p = photoOf(row);
+        if (!p.main) return '';
+        var cut = isCutout(row, p.main);
+        var num = String(i + 1).padStart(2, '0');
+        var of = String(total).padStart(2, '0');
+        var onerr = p.backup ? ' onerror="this.onerror=null;this.src=\'' + esc(p.backup) + '\'"' : '';
+        return '' +
+          '<article class="ps-row' + (cut ? '' : ' ps-row--plain') + '">' +
+          '  <div class="ps-stage">' +
+          '    <div class="ps-numeral" aria-hidden="true">' + num + '</div>' +
+          '    <div class="ps-photo' + (cut ? '' : ' is-plain') + '"><img src="' + esc(p.main) + '" alt="' + esc(row.name) + '"' + onerr + '></div>' +
+          '  </div>' +
+          '  <div class="ps-body">' +
+          '    <div class="ps-badge">' + num + ' <em>/ ' + of + '</em></div>' +
+          (row.name_en ? '    <div class="ps-eyebrow">' + esc(row.name_en) + '</div>' : '') +
+          '    <h3 class="ps-title" data-tw="' + esc(row.name) + '" data-en="' + esc(row.name_en || row.name) + '">' + esc(row.name) + '</h3>' +
+          (row.desc ? '    <p class="ps-desc" data-tw="' + esc(row.desc) + '" data-en="' + esc(row.desc) + '">' + esc(row.desc) + '</p>' : '') +
+          '  </div>' +
+          '</article>';
+      }
+
+      function reveal() {
+        var rows = document.querySelectorAll('.ps-list .ps-row');
+        if (!rows.length) return;
+        if (!('IntersectionObserver' in window)) { rows.forEach(function (r) { r.classList.add('in-view'); }); return; }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+        rows.forEach(function (r) { io.observe(r); });
+      }
+
+      function render(rows) {
+        var list = document.querySelector('.ps-list');
+        if (!list) return false;
+        var cats = rows.filter(function (r) { return String(r.type || '').indexOf('分類') > -1; });
+        if (!cats.length) cats = rows;
+        var html = cats.map(function (r, i) { return rowHtml(r, i, cats.length); }).filter(Boolean).join('');
+        if (!html) return false;
+        list.innerHTML = html;
+        reveal();
+        if (typeof applyLanguage === 'function') { try { applyLanguage(); } catch (e) {} }
+        return true;
+      }
+
+      function fromDataFile() {
+        var rows = window.PRODUCT_DATA || [];
+        if (!rows.length || !render(rows)) console.info('[首頁] 六大產品沒讀到 products-data，汿用頁面上現有的六列。');
+      }
+
+      function fromSheet(wb) {
+        var ws = wb.Sheets[SHEET] || wb.Sheets[wb.SheetNames[0]];
+        if (!ws) return [];
+        return XLSX.utils.sheet_to_json(ws, { defval: '' }).map(function (r) {
+          return {
+            type: String(r['類型'] || '').trim() || '產品',
+            cat: String(r['分類'] || '').trim(),
+            name: String(r['產品名稱'] || '').trim(),
+            name_en: String(r['英文名稱'] || '').trim(),
+            desc: String(r['產品敍述'] || '').trim(),
+            img: String(r['產品圖片'] || '').trim(),
+            cutout: String(r['已去背'] || '').trim()
+          };
+        }).filter(function (r) { return r.name; });
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        if (!window.XLSX) { fromDataFile(); return; }
+        fetch('./src/data/products-data.xlsx', { cache: 'no-cache' })
+          .then(function (res) { if (!res.ok) throw new Error('xlsx ' + res.status); return res.arrayBuffer(); })
+          .then(function (buf) {
+            var rows = fromSheet(XLSX.read(buf, { type: 'array' }));
+            if (!rows.length || !render(rows)) fromDataFile();
+          })
+          .catch(function (err) {
+            console.info('[首頁] 改用 src/data/products-data.js（' + err.message + '）');
+            fromDataFile();
+          });
+      });
+    })();
+  </script>
   <script src="src/site-search.js"></script>
   <script src="src/mobile-nav.js"></script>
 </body>

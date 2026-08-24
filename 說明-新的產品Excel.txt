@@ -1,0 +1,36 @@
+新的一本產品 Excel — 說明
+更新日期：2026-08-24
+
+【覆蓋這些檔案】
+  index.html
+  src/data/products-data.js      ← 新增
+  tools/products-excel.html      ← 新增
+
+【新的資料來源】
+src/data/products-data.xlsx（自己還沒有這個檔，用工具下載）
+只有一張工作表「產品資料」，沒有規格欄位。欄位如下：
+
+  類型        「分類」＝首頁六大核心產品那一列；「產品」＝該分類頁裡的產品項目
+  分類        清潔袋／拉繩袋／蔬果袋／夾鏈袋／其他類／Scale Sheet
+  產品名稱    網頁上的大字名稱
+  英文名稱    名稱上方的英文小字（可留空）
+  產品敘述    名稱下面那一句
+  產品圖片    只寫檔名＝放在 src/product-img/；找不到會自動改試 src/ 根目錄
+  已去背      Y＝去背 PNG（名稱壓在照片上）；N＝白底或方框照（文字自動退開）；留空＝自動判斷
+
+顯示順序＝Excel 的列順序；首頁的序號 01～06 由網頁自動編，不用自己填。
+
+【怎麼用】
+1. 打開 tools/products-excel.html，按「下載 products-data.xlsx」
+   （已帶入現有資料：6 列分類 ＋ 17 列產品，可直接重填）
+2. 存成 src/data/products-data.xlsx，改內容
+3. 回到同一頁，把 Excel 拖進去 → 下載 products-data.js → 覆蓋 src/data/products-data.js
+4. 重新整理首頁（Ctrl + F5）
+
+架上伺服器後第 3 步可省略，網頁會直接讀 xlsx。
+
+【目前狀態】
+· 首頁「六大核心產品」已改由這本 Excel 驅動（讀類型＝分類 的六列）
+· 五個分類頁還連著舊的 website-data.xlsx 規格表，這次沒有動
+  下一步要把分類頁改成「產品名稱／圖片／敘述」的卡片列表（不再有規格表）時再一起改
+· 舊的 website-data.xlsx／website-data.js 先留著，分類頁改完才能移除

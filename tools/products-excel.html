@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>產品資料 Excel 工具 | 台灣營德</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', sans-serif; background: #F1F5F9; color: #0A2540; min-height: 100vh; padding: 48px 20px; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  .head { margin-bottom: 28px; }
+  .kicker { font-size: 0.8rem; font-weight: 900; letter-spacing: 0.12em; color: #00529B; margin-bottom: 8px; }
+  h1 { font-size: 1.75rem; font-weight: 900; margin-bottom: 10px; }
+  .lede { font-size: 0.95rem; font-weight: 500; color: #475569; line-height: 1.75; text-wrap: pretty; }
+  .card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 28px; box-shadow: 0 12px 30px -18px rgba(10,37,64,0.25); margin-bottom: 20px; }
+  h2 { font-size: 1.1rem; font-weight: 900; margin-bottom: 8px; }
+  .sub { font-size: 0.9rem; font-weight: 500; color: #64748B; line-height: 1.75; margin-bottom: 18px; }
+  .drop { border: 2px dashed #CBD5E1; border-radius: 14px; padding: 40px 24px; text-align: center; background: #F8FAFC; cursor: pointer; transition: border-color .15s, background .15s; }
+  .drop:hover, .drop.over { border-color: #00529B; background: #EFF6FF; }
+  .drop i { font-size: 2.1rem; color: #00529B; margin-bottom: 14px; display: block; }
+  .drop .t { font-size: 1.02rem; font-weight: 900; margin-bottom: 6px; }
+  .drop .s { font-size: 0.85rem; font-weight: 500; color: #64748B; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; background: #00529B; color: #FFFFFF; border: none; border-radius: 10px; font-family: inherit; font-size: 0.95rem; font-weight: 900; cursor: pointer; }
+  .btn:hover { background: #0A2540; }
+  .btn[disabled] { background: #CBD5E1; cursor: not-allowed; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+  .status { display: none; margin-top: 18px; padding: 16px 18px; border-radius: 12px; font-size: 0.9rem; font-weight: 700; line-height: 1.7; }
+  .status.ok { display: block; background: #ECFDF5; border: 1px solid #A7F3D0; color: #065F46; }
+  .status.err { display: block; background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; }
+  table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.82rem; display: none; }
+  table.show { display: table; }
+  th { background: #0A2540; color: #FFFFFF; font-weight: 800; text-align: left; padding: 9px 12px; white-space: nowrap; }
+  td { padding: 8px 12px; border-bottom: 1px solid #F1F5F9; color: #334155; font-weight: 500; }
+  tbody tr:nth-child(even) { background: #F8FAFC; }
+  .cols { display: grid; gap: 10px; margin-top: 20px; }
+  .col { display: grid; grid-template-columns: 132px 1fr; gap: 14px; font-size: 0.9rem; line-height: 1.7; align-items: baseline; }
+  .col b { font-weight: 900; }
+  .col span { color: #475569; font-weight: 500; }
+  code { background: #F1F5F9; border: 1px solid #E2E8F0; border-radius: 5px; padding: 1px 6px; font-size: 0.85em; font-weight: 700; }
+  .steps { counter-reset: s; list-style: none; display: grid; gap: 12px; }
+  .steps li { counter-increment: s; position: relative; padding-left: 44px; font-size: 0.92rem; font-weight: 500; color: #334155; line-height: 1.7; }
+  .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 28px; height: 28px; background: #EFF6FF; border: 1px solid #DBEAFE; border-radius: 8px; color: #00529B; font-weight: 900; font-size: 0.85rem; display: grid; place-items: center; }
+  .steps b { font-weight: 900; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="kicker">內部維護工具</div>
+    <h1>產品資料 Excel 工具</h1>
+    <p class="lede">新的一本 <code>src/data/products-data.xlsx</code>：<b>只有一張工作表「產品資料」</b>，只放產品名稱、產品圖片與產品敘述，沒有規格欄位。
+      每列一項產品，用「分類」欄區分屬於哪一個產品線。</p>
+  </div>
+
+  <div class="card">
+    <h2>1. 下載 Excel</h2>
+    <p class="sub">已帶入現有資料（六列分類 ＋ 各分類的產品項目），直接在上面重填即可。存檔位置：<code>src/data/products-data.xlsx</code></p>
+    <div class="row">
+      <button class="btn" id="tpl"><i class="fa-solid fa-file-excel"></i> 下載 products-data.xlsx</button>
+    </div>
+    <div class="cols">
+      <div class="col"><b>類型</b><span>填「分類」＝首頁六大核心產品那一列；填「產品」＝該分類頁裡的產品項目</span></div>
+      <div class="col"><b>分類</b><span>清潔袋／拉繩袋／蔬果袋／夾鏈袋／其他類／Scale Sheet</span></div>
+      <div class="col"><b>產品名稱</b><span>網頁上的大字名稱</span></div>
+      <div class="col"><b>英文名稱</b><span>名稱上方的英文小字（可留空）</span></div>
+      <div class="col"><b>產品敘述</b><span>名稱下面那一句</span></div>
+      <div class="col"><b>產品圖片</b><span>只寫檔名＝放在 <code>src/product-img/</code>；找不到會自動改試 <code>src/</code> 根目錄</span></div>
+      <div class="col"><b>已去背</b><span>Y＝去背 PNG，名稱會壓在照片上；N＝白底或實拍方框，文字自動退開不重疊；留空＝自動判斷</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2. 改完後轉檔</h2>
+    <p class="sub">還沒架伺服器時，網頁沒辦法直接讀本機的 xlsx，所以改完要轉出 <code>products-data.js</code> 覆蓋 <code>src/data/products-data.js</code>。</p>
+    <div class="drop" id="drop">
+      <i class="fa-solid fa-file-arrow-up"></i>
+      <div class="t">把 products-data.xlsx 拖到這裡</div>
+      <div class="s">或點一下選擇檔案</div>
+      <input type="file" id="file" accept=".xlsx,.xls" hidden>
+    </div>
+    <div class="status" id="status"></div>
+    <div class="row"><button class="btn" id="download" disabled><i class="fa-solid fa-download"></i> 下載 products-data.js</button></div>
+    <table id="preview">
+      <thead><tr><th>類型</th><th>分類</th><th>產品名稱</th><th>產品圖片</th><th>已去背</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>更新步驟</h2>
+    <ol class="steps">
+      <li>下載 Excel → 重填內容 → 存成 <b>src/data/products-data.xlsx</b>。</li>
+      <li>把 Excel 拖到上面的框，確認預覽的列數與內容。</li>
+      <li>按 <b>下載 products-data.js</b>，覆蓋 <b>src/data/products-data.js</b>。</li>
+      <li>重新整理首頁（<code>Ctrl</code> + <code>F5</code>）。</li>
+    </ol>
+  </div>
+</div>
+
+<script src="../src/data/products-data.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script>
+(function () {
+  var SHEET = '產品資料';
+  var HEADERS = ['類型', '分類', '產品名稱', '英文名稱', '產品敘述', '產品圖片', '已去背'];
+  var seed = (window.PRODUCT_DATA || []).map(function (r) {
+    return { '類型': r.type || '', '分類': r.cat || '', '產品名稱': r.name || '', '英文名稱': r.name_en || '', '產品敘述': r.desc || '', '產品圖片': r.img || '', '已去背': r.cutout || '' };
+  });
+  if (!seed.length) seed = [{ '類型': '分類', '分類': '', '產品名稱': '', '英文名稱': '', '產品敘述': '', '產品圖片': '', '已去背': '' }];
+
+  var status = document.getElementById('status');
+  var btn = document.getElementById('download');
+  var preview = document.getElementById('preview');
+  var payload = '';
+
+  function say(msg, cls) { status.className = 'status ' + cls; status.innerHTML = msg; }
+  function need() {
+    if (window.XLSX) return true;
+    say('<i class="fa-solid fa-triangle-exclamation"></i> 讀寫 Excel 的元件沒載入成功，請確認這台電腦可以連上網路後重新整理本頁。', 'err');
+    return false;
+  }
+
+  document.getElementById('tpl').addEventListener('click', function () {
+    if (!need()) return;
+    var ws = XLSX.utils.json_to_sheet(seed, { header: HEADERS });
+    ws['!cols'] = [{ wch: 8 }, { wch: 13 }, { wch: 20 }, { wch: 28 }, { wch: 46 }, { wch: 26 }, { wch: 9 }];
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, SHEET);
+    XLSX.writeFile(wb, 'products-data.xlsx');
+  });
+
+  var drop = document.getElementById('drop');
+  var input = document.getElementById('file');
+  drop.addEventListener('click', function () { input.click(); });
+  ['dragenter', 'dragover'].forEach(function (e) { drop.addEventListener(e, function (ev) { ev.preventDefault(); drop.classList.add('over'); }); });
+  ['dragleave', 'drop'].forEach(function (e) { drop.addEventListener(e, function (ev) { ev.preventDefault(); drop.classList.remove('over'); }); });
+  drop.addEventListener('drop', function (ev) { if (ev.dataTransfer.files && ev.dataTransfer.files[0]) handle(ev.dataTransfer.files[0]); });
+  input.addEventListener('change', function () { if (this.files[0]) handle(this.files[0]); });
+
+  function handle(file) {
+    if (!need()) return;
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      try { convert(new Uint8Array(e.target.result), file.name); }
+      catch (err) { say('<i class="fa-solid fa-circle-xmark"></i> 轉檔失敗：' + err.message, 'err'); }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  function convert(buf, name) {
+    var wb = XLSX.read(buf, { type: 'array' });
+    var ws = wb.Sheets[SHEET] || wb.Sheets[wb.SheetNames[0]];
+    if (!ws) throw new Error('這個檔案裡沒有工作表。');
+    var rows = XLSX.utils.sheet_to_json(ws, { defval: '' }).map(function (r) {
+      return {
+        type: String(r['類型'] || '').trim() || '產品',
+        cat: String(r['分類'] || '').trim(),
+        name: String(r['產品名稱'] || '').trim(),
+        name_en: String(r['英文名稱'] || '').trim(),
+        desc: String(r['產品敘述'] || '').trim(),
+        img: String(r['產品圖片'] || '').trim(),
+        cutout: String(r['已去背'] || '').trim()
+      };
+    }).filter(function (r) { return r.name; });
+
+    if (!rows.length) throw new Error('沒有讀到任何一列（「產品名稱」欄是空的），請確認工作表名稱為「' + SHEET + '」且欄位標題沒被改動。');
+
+    payload = '/* 產品資料檔（Excel 的快照）\n' +
+      '   正式資料來源：src/data/products-data.xlsx（工作表「' + SHEET + '」）\n' +
+      '   由 tools/products-excel.html 轉出，請勿手改。\n' +
+      '   轉出時間：' + new Date().toLocaleString('zh-TW') + ' — 來源檔：' + name + ' */\n' +
+      'window.PRODUCT_DATA = ' + JSON.stringify(rows, null, 1) + ';\n';
+
+    var cats = rows.filter(function (r) { return r.type === '分類'; });
+    var noImg = rows.filter(function (r) { return !r.img; });
+    var msg = '<i class="fa-solid fa-circle-check"></i> 讀取成功：共 <b>' + rows.length + '</b> 列，其中類型「分類」<b>' + cats.length + '</b> 列（首頁用）、「產品」' + (rows.length - cats.length) + ' 列。';
+    if (cats.length !== 6) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 類型「分類」不是六列，首頁會照實際列數顯示。';
+    if (noImg.length) msg += '<br><i class="fa-solid fa-triangle-exclamation"></i> 有 ' + noImg.length + ' 列沒填產品圖片（' + noImg[0].name + '），該列不會顯示圖片。';
+    say(msg, (cats.length !== 6 || noImg.length) ? 'err' : 'ok');
+
+    preview.querySelector('tbody').innerHTML = rows.map(function (r) {
+      return '<tr><td>' + r.type + '</td><td>' + (r.cat || '—') + '</td><td>' + r.name + '</td><td>' + (r.img || '—') + '</td><td>' + (r.cutout || '自動') + '</td></tr>';
+    }).join('');
+    preview.classList.add('show');
+    btn.disabled = false;
+  }
+
+  btn.addEventListener('click', function () {
+    if (!payload) return;
+    var blob = new Blob([payload], { type: 'text/javascript;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'products-data.js';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  });
+})();
+</script>
+</body>
+</html>
