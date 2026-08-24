@@ -379,22 +379,22 @@
           <form id="contactForm">
             <div class="form-group">
               <label for="companyName"><i class="fa-solid fa-building"></i> <span data-tw="公司名稱 (Company Name)" data-en="Company Name">公司名稱 (Company Name)</span></label>
-              <input type="text" id="companyName" class="form-control" placeholder="例：Global Packaging Co., Ltd." required>
+              <input type="text" id="companyName" name="company" class="form-control" placeholder="例：Global Packaging Co., Ltd." required>
             </div>
 
             <div class="form-group">
               <label for="email"><i class="fa-solid fa-envelope"></i> <span data-tw="商務信箱 (必填)" data-en="Business Email (Required)">商務信箱 (必填)</span></label>
-              <input type="email" id="email" class="form-control" placeholder="name@yourcompany.com" required>
+              <input type="email" id="email" name="email" class="form-control" placeholder="name@yourcompany.com" required>
             </div>
 
             <div class="form-group">
               <label for="phone"><i class="fa-solid fa-phone"></i> <span data-tw="聯絡電話 (選填)" data-en="Phone Number (Optional)">聯絡電話 (選填)</span></label>
-              <input type="tel" id="phone" class="form-control" placeholder="例：02-2712-2211 或 0912-345-678">
+              <input type="tel" id="phone" name="phone" class="form-control" placeholder="例：02-2712-2211 或 0912-345-678">
             </div>
 
             <div class="form-group">
               <label for="productCategory"><i class="fa-solid fa-boxes-packing"></i> <span data-tw="詢問產品類別 (Product Interest)" data-en="Product Interest">詢問產品類別 (Product Interest)</span></label>
-              <select id="productCategory" class="form-control">
+              <select id="productCategory" name="product" class="form-control">
                 <option value="清潔袋 (連捲 / 單張抽取 / 環保)">01 清潔袋 (連捲 / 單張抽取 / 環保)</option>
                 <option value="拉繩袋 (清潔袋 / 醫療袋)">02 拉繩袋 (清潔袋 / 醫療袋)</option>
                 <option value="耐熱袋 (平裝 / 捲裝)">03 蔬果袋 (平裝 / 捲裝)</option>
@@ -406,15 +406,21 @@
 
             <div class="form-group">
               <label for="message"><i class="fa-solid fa-comment-dots"></i> <span data-tw="需求內容與訊息 (Inquiry Message)" data-en="Inquiry Message">需求內容與訊息 (Inquiry Message)</span></label>
-              <textarea id="message" class="form-control" rows="4" placeholder="請留下您的產品需求、規格諮詢或合作方向..." required></textarea>
+              <textarea id="message" name="message" class="form-control" rows="4" placeholder="請留下您的產品需求、規格諮詢或合作方向..." required></textarea>
             </div>
 
-            <button type="submit" class="submit-btn">
+            <!-- 蜜罐欄位：真人看不到也不會填，機器人一填就被伺服器丟棄 -->
+            <div aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;">
+              <label for="companyWebsite">Website</label>
+              <input type="text" id="companyWebsite" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
               <i class="fa-solid fa-paper-plane"></i> <span data-tw="確認送出，我們會儘速聯繫您" data-en="Submit & We Will Contact You">確認送出，我們會儘速聯繫您</span>
             </button>
           </form>
 
-          <div id="statusMessage"></div>
+          <div id="statusMessage" role="status" aria-live="polite"></div>
         </div>
       </div>
 
@@ -449,29 +455,50 @@
       }
     }
 
-    // 融合 Project_Mio 表單打包與驗證邏輯
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    /* 送出目標：Google Apps Script Web App（寫入 Google Sheet 並寄出通知信）
+       換新的 Web App 時只要改這一行的網址即可。搭配 apps-script/Code.gs 使用。 */
+    const GAS_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbzIfWjZ9iellph-Jm4tFS_zvrShhG8GzHxzIz112fDys54ccGe5Wp9e-wmCVT3SAueP/exec';
+    const FALLBACK_MAILTO = 'lyanchen@wpjk.inteplast.com';
+
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      const data = {
-        company: document.getElementById('companyName').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        product: document.getElementById('productCategory').value,
-        message: document.getElementById('message').value,
-        timestamp: new Date().toISOString()
-      };
-
+      const form = e.currentTarget;
+      const submitBtn = document.getElementById('submitBtn');
       const statusDiv = document.getElementById('statusMessage');
-      statusDiv.style.color = 'var(--brand-blue)';
-      statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 資料傳送中...';
 
-      setTimeout(() => {
-        console.log("Inteplast Taiwan Contact Submission:", data);
+      submitBtn.disabled = true;
+      statusDiv.style.color = 'var(--brand-blue)';
+      statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 資料傳送中，請稍候...';
+
+      /* 15 秒沒回應就當作失敗，不讓使用者一直等 */
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+
+      try {
+        const res = await fetch(GAS_ENDPOINT_URL, {
+          method: 'POST',
+          body: new FormData(form),
+          signal: controller.signal
+        });
+        const result = await res.json();
+        if (!res.ok || !result.ok) {
+          throw new Error(result.error || ('HTTP ' + res.status));
+        }
+
         statusDiv.style.color = '#10B981';
-        statusDiv.innerHTML = '✅ 已成功送出！我們的團隊將會安排專人與您聯繫。';
-        document.getElementById('contactForm').reset();
-      }, 1000);
+        statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> 已成功送出！我們的團隊將會安排專人與您聯繫。';
+        form.reset();
+      } catch (err) {
+        statusDiv.style.color = '#DC2626';
+        statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> 送出失敗（' +
+          (err && err.name === 'AbortError' ? '連線逾時' : '系統忙碌') +
+          '），請改寄 <a href="mailto:' + FALLBACK_MAILTO + '" style="color:#DC2626; font-weight:800;">' +
+          FALLBACK_MAILTO + '</a> 或電洽 02-2712-2211 #8109。';
+      } finally {
+        clearTimeout(timeout);
+        submitBtn.disabled = false;
+      }
     });
 
     document.addEventListener("DOMContentLoaded", function() {

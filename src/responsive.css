@@ -235,6 +235,50 @@
   .card-actions-row { flex-direction: column !important; gap: 10px !important; }
   .card-actions-row a { width: 100% !important; justify-content: center !important; min-height: 44px !important; }
 
+  /* ---------- 通用：寫在 style 屬性上的左右排版，手機一律改上下 ---------- */
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1.1fr"],
+  [style*="grid-template-columns: 1.1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1.2fr"],
+  [style*="grid-template-columns: 1.2fr 1fr"],
+  [style*="grid-template-columns: 1fr 2fr"],
+  [style*="grid-template-columns: 2fr 1fr"],
+  [style*="grid-template-columns: repeat(2"],
+  [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns: repeat(auto-fit"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ---------- 環保標章區塊：圖上文下，內距縮小 ---------- */
+  .home-green-mark-section { padding: 48px 0 !important; }
+  .home-green-mark-section > div { padding: 0 14px !important; }
+  .home-green-mark-section .section-head { margin-bottom: 28px !important; }
+  .home-green-mark-section [style*="padding: 36px"] { padding: 20px !important; }
+  .home-green-mark-section [style*="padding: 40px 48px"] { padding: 24px 18px !important; }
+  .home-green-mark-section h3 { font-size: 1.25rem !important; line-height: 1.4 !important; }
+  .home-green-mark-section img { border-radius: 12px !important; }
+
+  /* ---------- 底部聯繫 CTA：改為上下排列、按鈕滿寬 ---------- */
+  .cta-banner-section { padding: 48px 14px !important; }
+  .cta-banner-container {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 22px !important;
+    padding: 28px 22px !important;
+    border-radius: 20px !important;
+    box-shadow: 0 16px 30px rgba(0, 82, 155, 0.22) !important;
+  }
+  .cta-banner-title { font-size: 1.4rem !important; line-height: 1.4 !important; margin-bottom: 8px !important; }
+  .cta-banner-desc { font-size: 0.9rem !important; line-height: 1.7 !important; max-width: none !important; }
+  .btn-cta-giant {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 48px !important;
+    font-size: 0.95rem !important;
+    padding: 14px 20px !important;
+  }
+
   /* ---------- 通用：多欄網格一律收成單欄 ---------- */
   .footer-inner,
   .footer-grid { flex-direction: column !important; gap: 16px !important; text-align: center !important; }

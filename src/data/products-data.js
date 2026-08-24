@@ -1,7 +1,7 @@
 /* 產品資料檔（Excel 的快照）
    正式資料來源：src/data/products-data.xlsx（工作表「產品資料」）
    由 tools/products-excel.html 轉出，請勿手改。
-   轉出時間：2026/8/24 下午12:05:30 — 來源檔：products-data.xlsx */
+   轉出時間：2026/8/24 下午1:59:11 — 來源檔：products-data.xlsx */
 window.PRODUCT_DATA = [
  {
   "name": "Scale Sheet",
@@ -27,7 +27,7 @@ window.PRODUCT_DATA = [
  {
   "name": "拉繩袋",
   "name_en": "Draw Tape Liners",
-  "desc": "一拉即束口，防止臭味外溢。",
+  "desc": "一拉即束口，多30%以上使用容量，並可防止臭味外溢。",
   "img": "封面-拉繩袋.png",
   "items": "清潔袋、醫療袋、環保拉繩袋"
  },
