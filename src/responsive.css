@@ -303,3 +303,26 @@
   .concertina-card { flex-direction: column !important; }
   .concertina-right { min-height: 130px !important; }
 }
+
+/* ============================================================
+   CJK 排版優化：防止標題、按鈕、內文末尾單字換行 (孤字換行)
+   ============================================================ */
+h1, h2, h3, h4, h5, h6,
+.products-hero-title, .hero-title, .section-title, .card-main-title,
+.node-name, .timeline-copy h3, .stat-label, .stat-sub {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+p, .card-desc-text, .node-role, .node-detail, .timeline-copy p, .section-lead {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+button, .btn, .btn-action-primary, .btn-action-secondary, .btn-hero-primary, .btn-hero-secondary,
+.filter-tab-btn, .hero-pill-tag, .card-num-badge, .prod-badge, .stat-num,
+.nav-link-item, .region-badge, .utility-left span, .utility-right a, .node-label {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+}

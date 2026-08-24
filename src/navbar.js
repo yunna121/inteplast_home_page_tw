@@ -48,57 +48,7 @@
       <li class="nav-item"><a href="${rootPath}index.html" class="nav-link-item ${activePage === 'home' ? 'active' : ''}" data-tw="首頁" data-en="Home">首頁</a></li>
       <li class="nav-item"><a href="${rootPath}about.html" class="nav-link-item ${activePage === 'about' ? 'active' : ''}" data-tw="關於營德" data-en="About Us">關於營德</a></li>
 
-      <li class="nav-item">
-        <a href="${productsPath}index.html" class="nav-link-item product-menu-trigger ${activePage === 'products' ? 'active' : ''}" data-tw="產品中心" data-en="Products">產品中心 <i class="fa-solid fa-chevron-down caret-icon"></i></a>
-        <div class="mega-menu-panel-6cat">
-          <div class="mega-grid-6">
-            <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-dumpster"></i> <span data-tw="01 清潔袋" data-en="01 Can Liners">01 清潔袋</span></div>
-              <ul class="mega-sub-links">
-                <li><a href="${productsPath}can-liners.html" data-tw="連捲清潔袋" data-en="Coreless Roll Liners">連捲清潔袋</a></li>
-                <li><a href="${productsPath}can-liners.html" data-tw="單張抽取" data-en="Interleaved Flat Bags">單張抽取</a></li>
-                <li><a href="${productsPath}can-liners.html" data-tw="環保清潔袋" data-en="Eco Recycled Bags">環保清潔袋</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-ribbon"></i> <span data-tw="02 拉繩袋" data-en="02 Drawtape Bags">02 拉繩袋</span></div>
-              <ul class="mega-sub-links">
-                <li><a href="${productsPath}draw-tape.html" data-tw="清潔袋" data-en="Drawtape Trash Bags">清潔袋</a></li>
-                <li><a href="${productsPath}draw-tape.html" data-tw="醫療袋" data-en="Medical Drawtape Bags">醫療袋</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-temperature-high"></i> <span data-tw="03 蔬果袋" data-en="03 Foodservice Bags">03 蔬果袋</span></div>
-              <ul class="mega-sub-links">
-                <li><a href="${productsPath}heat-bags.html" data-tw="平裝耐熱袋" data-en="Flat Heat-Resistant Bags">平裝耐熱袋</a></li>
-                <li><a href="${productsPath}heat-bags.html" data-tw="捲裝耐熱袋" data-en="Roll Heat-Resistant Bags">捲裝耐熱袋</a></li>
-                <li><a href="${productsPath}heat-bags.html#cat-produce" data-tw="蔬果袋" data-en="Produce Bags">蔬果袋</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-lock"></i> <span data-tw="04 夾鏈袋" data-en="04 Storage & Zipper Bags">04 夾鏈袋</span></div>
-              <ul class="mega-sub-links">
-                <li><a href="${productsPath}sealed-packaging.html" data-tw="密實袋" data-en="Seal Top Bags">密實袋</a></li>
-                <li><a href="${productsPath}sealed-packaging.html" data-tw="立體密實袋" data-en="Stand-Up Zipper Bags">立體密實袋</a></li>
-                <li><a href="${productsPath}sealed-packaging.html" data-tw="冷凍袋" data-en="Freezer Bags">冷凍袋</a></li>
-                <li><a href="${productsPath}sealed-packaging.html" data-tw="夾鏈袋" data-en="Reclosable Zipper Bags">夾鏈袋</a></li>
-              </ul>
-            </div>
-            <div>
-              <div class="mega-col-title-sm"><i class="fa-solid fa-box"></i> <span data-tw="05 其他類" data-en="05 Specialty Products">05 其他類</span></div>
-              <ul class="mega-sub-links">
-                <li><a href="${productsPath}accessories.html" data-tw="手套" data-en="PE Disposable Gloves">手套</a></li>
-                <li><a href="${productsPath}accessories.html" data-tw="台塑遮蔽防塵膠帶" data-en="Pre-taped Masking Film">台塑遮蔽防塵膠帶</a></li>
-              </ul>
-            </div>
-            <div>
-              <a href="${productsPath}stretch-films.html" style="text-decoration: none; color: inherit;">
-                <div class="mega-col-title-sm"><i class="fa-solid fa-sheet-plastic"></i> <span data-tw="06 Scale Sheet" data-en="06 Scale Sheet">06 Scale Sheet</span></div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </li>
+      <li class="nav-item"><a href="${productsPath}index.html" class="nav-link-item ${activePage === 'products' ? 'active' : ''}" data-tw="產品中心" data-en="Products">產品中心</a></li>
       <li class="nav-item"><a href="${rootPath}sustainability.html" class="nav-link-item ${activePage === 'sustainability' ? 'active' : ''}" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
       <li class="nav-item"><a href="${rootPath}contact.html" class="nav-link-item ${activePage === 'contact' ? 'active' : ''}" data-tw="聯繫我們" data-en="Contact Us">聯繫我們</a></li>
     </ul>
@@ -331,13 +281,52 @@
   function initNavbar() {
     if (!document.body) return;
     let container = document.getElementById('site-header-component');
-    if (!container) {
+    let existingHeader = document.querySelector('header.header');
+
+    if (container) {
+      container.innerHTML = navbarHTML;
+    } else if (existingHeader) {
+      let wrapper = document.createElement('div');
+      wrapper.id = 'site-header-component';
+      wrapper.innerHTML = navbarHTML;
+      existingHeader.replaceWith(wrapper);
+    } else {
       container = document.createElement('div');
       container.id = 'site-header-component';
+      container.innerHTML = navbarHTML;
       document.body.prepend(container);
     }
-    container.innerHTML = navbarHTML;
   }
+
+  // 點擊產品中心下拉選單細項時，在產品頁面進行平滑滾動與卡片定位
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('.mega-menu-panel-6cat a, .m-nav-sub a');
+    if (!link) return;
+
+    const href = link.getAttribute('href') || '';
+    const hashIndex = href.indexOf('#');
+    if (hashIndex === -1) return;
+
+    const hash = href.substring(hashIndex);
+    const targetId = hash.replace('#', '');
+    const isProductsPage = window.location.pathname.includes('/products/') || window.location.pathname.endsWith('products/index.html');
+
+    if (isProductsPage) {
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        const headerEl = document.querySelector('.header');
+        const headerHeight = headerEl ? headerEl.offsetHeight : 80;
+        const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+        window.scrollTo({ top: targetPos, behavior: 'smooth' });
+        if (history.pushState) {
+          history.pushState(null, null, hash);
+        } else {
+          location.hash = hash;
+        }
+      }
+    }
+  });
 
   // 全站跨頁縮放同步 Engine (支援本地 file:// 與線上伺服器 100% 同步)
   function applySavedSiteZoom() {

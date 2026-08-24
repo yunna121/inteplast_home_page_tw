@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan</title>
-  <meta name="description" content="臺灣營德產品中心 – 提供六大核心產品：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。全高清視覺展覽館與 B2B 規格對照。">
+  <meta name="description" content="臺灣營德產品中心 – 提供六大核心產品：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。全高清產品展示與 B2B 對接。">
 
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -438,15 +438,11 @@
   <section class="products-hero-section">
     <div class="products-hero-container">
       <div class="hero-pill-tag">
-        <i class="fa-solid fa-boxes-stacked"></i> VISUAL PRODUCT SHOWCASE
+        <i class="fa-solid fa-boxes-stacked"></i> PRODUCTS CENTER
       </div>
-      <h1 class="products-hero-title" data-tw="六大核心產品系列 · 視覺展覽館" data-en="Six Core Product Lines Showcase">
-        六大核心產品系列 · 視覺展覽館
+      <h1 class="products-hero-title" data-tw="產品中心" data-en="Product Center">
+        產品中心
       </h1>
-      <p class="products-hero-desc" data-tw="Inteplast USA · 台塑關係企業嘉義新港生產基地專注製造。點選下方分類頁籤或瀏覽直觀產品圖文。"
-        data-en="Manufactured by Formosa Plastics Partner Inteplast Taiwan. Explore high-definition product visual cards and full spec details below.">
-        Inteplast USA · 台塑關係企業嘉義新港生產基地專注製造。點選下方分類頁籤或瀏覽直觀產品圖文。
-      </p>
 
       <!-- Filter Pills Navigation Bar -->
       <div class="filter-tabs-bar">
@@ -531,10 +527,24 @@
         } catch (e) { /* 無法取樣時維持 contain */ }
       }
 
+      function getCatId(cat) {
+        var name = cat.name || '';
+        if (name.indexOf('清潔袋') > -1) return 'cat-can-liners';
+        if (name.indexOf('拉繩袋') > -1) return 'cat-draw-tape';
+        if (name.indexOf('蔬果袋') > -1) return 'cat-heat-bags';
+        if (name.indexOf('夾鏈袋') > -1) return 'cat-sealed-packaging';
+        if (name.indexOf('手套') > -1) return 'cat-gloves';
+        if (name.indexOf('膠帶') > -1) return 'cat-masking-film';
+        if (name.indexOf('Scale') > -1) return 'cat-stretch-films';
+        var page = PAGES[name] || PAGES[cat.cat] || '';
+        return 'cat-' + esc(page.replace('.html', ''));
+      }
+
       function cardHtml(cat, i) {
         var p = photoOf(cat);
 
-        var page = PAGES[cat.cat] || '';
+        var page = PAGES[cat.name] || PAGES[cat.cat] || '';
+        var catId = getCatId(cat);
         var list = String(cat.items || '').split(/[、,，\n]+/).map(function (s) { return s.trim(); }).filter(Boolean)
           .map(function (s) {
             var eco = /環保|認證|標章|回收|再生/.test(s);
@@ -544,7 +554,7 @@
               esc(s) + '</span>';
           }).join('');
 
-        return '<article class="visual-product-card" id="cat-' + esc(page.replace('.html', '')) + '" data-category="' + esc(cat.name) + '">' +
+        return '<article class="visual-product-card" id="' + catId + '" data-category="' + esc(cat.name) + '">' +
           '<div class="card-image-box">' +
           '<span class="card-num-badge">' + String(i + 1).padStart(3, '0') + '</span>' +
           (p.main ? '<span data-src="' + esc(p.main) + '" data-src2="' + esc(p.backup) + '" data-alt="' + esc(cat.name) + '"></span>' : '') +
@@ -558,8 +568,7 @@
           (list ? '<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px;">' + list + '</div>' : '') +
           '</div>' +
           '<div class="card-actions-row">' +
-          (page ? '<a href="' + page + '" class="btn-action-primary"><span data-tw="瀏覽' + esc(cat.name) + '專頁" data-en="View Page">瀏覽' + esc(cat.name) + '專頁</span> <i class="fa-solid fa-arrow-right"></i></a>' : '') +
-          '<a href="../contact.html" class="btn-action-secondary"><i class="fa-solid fa-envelope"></i> <span data-tw="留下資料專人對接" data-en="Contact Sales">留下資料專人對接</span></a>' +
+          '<a href="../contact.html" class="btn-action-primary"><i class="fa-solid fa-envelope"></i> <span data-tw="留下資料專人對接" data-en="Contact Sales">留下資料專人對接</span></a>' +
           '</div>' +
           '</div>' +
           '</article>';
@@ -599,6 +608,18 @@
           });
         });
         if (typeof applyLanguage === 'function') { try { applyLanguage(); } catch (e) {} }
+        if (window.location.hash) {
+          setTimeout(function() {
+            var hashId = window.location.hash.substring(1);
+            var targetEl = document.getElementById(hashId);
+            if (targetEl) {
+              var headerEl = document.querySelector('.header');
+              var headerHeight = headerEl ? headerEl.offsetHeight : 80;
+              var targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+              window.scrollTo({ top: targetPos, behavior: 'smooth' });
+            }
+          }, 250);
+        }
         return true;
       }
 
