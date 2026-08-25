@@ -19,6 +19,7 @@
       }
     })();
   </script>
+  <link rel="stylesheet" href="src/navbar.css" id="site-navbar-css">
   <style>
     html.lang-loading body {
       opacity: 0 !important;
@@ -49,63 +50,6 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--bg-light); line-height: 1.6; }
-
-    /* Top Utility Bar */
-    .top-utility-bar {
-      background: var(--primary-navy); color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
-      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: fixed; top: 0; left: 0; width: 100%; z-index: 1050;
-    }
-    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
-    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
-    .utility-left a:hover, .utility-right a:hover { color: var(--accent-azure); }
-    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
-
-    /* Header Navbar */
-    .header {
-      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
-      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
-    }
-    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-image { height: 40px; width: auto; object-fit: contain; }
-    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
-    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
-
-    .nav-menu { display: flex; align-items: center; gap: 4px; list-style: none; }
-    .nav-item { position: relative; }
-    .nav-link-item {
-      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
-      color: var(--text-main); text-decoration: none; transition: var(--transition);
-      display: inline-flex; align-items: center; gap: 6px; cursor: pointer; position: relative; z-index: 10;
-    }
-    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
-    .nav-item:hover .caret-icon { transform: rotate(180deg); }
-
-    /* 6 大類 Mega Menu Panel */
-    .mega-menu-panel-6cat {
-      position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
-      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
-      opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 1100; color: var(--text-main);
-    }
-    .mega-menu-panel-6cat::before {
-      content: ''; position: absolute; top: -16px; left: 0; width: 100%; height: 20px; background: transparent; z-index: -1;
-    }
-    .nav-item:hover .mega-menu-panel-6cat,
-    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; }
-    .nav-item:hover .caret-icon,
-    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
-    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
-    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
-    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
-    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
-
-    .header-right { display: flex; align-items: center; gap: 12px; }
-    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
-    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
 
     /* Page Hero */
     .page-hero { padding: 160px 40px 60px; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white); text-align: center; }
@@ -201,8 +145,6 @@
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
 
     @media (max-width: 900px) {
-      .mega-menu-panel, .top-utility-bar { display: none; }
-      .header { top: 0; }
       .contact-grid { grid-template-columns: 1fr; }
       .contact-tab-switcher { flex-direction: column; border-radius: 20px; }
       .tab-btn { border-radius: 14px; }
@@ -212,47 +154,9 @@
   <link rel="stylesheet" href="src/responsive.css">
 </head>
 <body>
-  <!-- 集團頂樓列 -->
-  <div class="top-utility-bar">
-    <div class="utility-left">
-      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> <span data-tw="台灣塑膠工業股份有限公司" data-en="Formosa Plastics Corp.">台灣塑膠工業股份有限公司</span></a>
-      <a href="https://www.inteplast.com/" target="_blank" rel="noopener"><span class="region-badge">USA</span> <span data-tw="Inteplast USA" data-en="Inteplast USA">Inteplast USA</span></a>
-    </div>
-    <div class="utility-right">
-      <a href="sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> <span data-tw="永續發展" data-en="Sustainability">永續發展</span></a>
-      <a href="https://www.104.com.tw/company/1a2x6bkjw0?jobsource=vipshare" target="_blank" rel="noopener" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> <span data-tw="人才招募" data-en="Careers">人才招募</span></a>
-    </div>
-  </div>
-
-  <!-- Header Navbar -->
-  <header class="header">
-    <a href="index.html" class="header-logo">
-      <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
-      <div class="logo-text-wrapper">
-        <span class="logo-text-tw" data-tw="臺灣營德股份有限公司" data-en="Inteplast Taiwan Corporation">臺灣營德股份有限公司</span>
-        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
-      </div>
-    </a>
-
-    <ul class="nav-menu">
-      <li class="nav-item"><a href="index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
-      <li class="nav-item"><a href="about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
-
-      <li class="nav-item"><a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心</a></li>
-
-      <li class="nav-item"><a href="sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
-      <li class="nav-item"><a href="contact.html" class="nav-link-item active" data-tw="聯繫我們" data-en="Contact Us">聯繫我們</a></li>
-    </ul>
-
-    <div class="header-right">
-      <button class="search-trigger-btn" id="globalSearchTrigger" type="button" onclick="if(typeof openSearchModal === 'function') openSearchModal();" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-      <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
-      <a href="contact.html" class="rfq-btn"><i class="fa-solid fa-envelope"></i><span data-tw="聯繫我們" data-en="Contact Us">聯繫我們</span></a>
-    </div>
-  </header>
+  <!-- 頁首（頂欄／選單／搜尋鈕／語言鈕／CTA）由 src/navbar.js 注入，頁面內不要再手寫一份 -->
+  <div id="site-header-component"></div>
+  <script src="src/navbar.js"></script>
 
   <section class="page-hero">
     <h1 data-tw="聯繫臺灣營德" data-en="Contact Inteplast Taiwan">聯繫臺灣營德</h1>
@@ -467,36 +371,7 @@
       }
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
-      const navItems = document.querySelectorAll(".nav-item");
-      navItems.forEach(item => {
-        let timer;
-        const panel = item.querySelector(".mega-menu-panel-6cat");
-        if (!panel) return;
-
-        item.addEventListener("mouseenter", function () {
-          clearTimeout(timer);
-          item.classList.add("open-dropdown");
-        });
-
-        item.addEventListener("mouseleave", function () {
-          timer = setTimeout(() => {
-            item.classList.remove("open-dropdown");
-          }, 300);
-        });
-
-        const trigger = item.querySelector(".product-menu-trigger");
-        if (trigger) {
-          trigger.addEventListener("click", function (e) {
-            if (window.innerWidth <= 992) {
-              e.preventDefault();
-              item.classList.toggle("open-dropdown");
-            }
-          });
-        }
-      });
-
-      document.addEventListener("click", function (e) {
+          document.addEventListener("click", function (e) {
         if (!e.target.closest(".nav-item")) {
           document.querySelectorAll(".nav-item.open-dropdown").forEach(i => i.classList.remove("open-dropdown"));
         }
@@ -512,18 +387,7 @@
       }
     });
 
-    let currentLang = localStorage.getItem('preferredLang') || 'tw';
-
-    function applyLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem('preferredLang', lang);
-      document.documentElement.lang = lang === 'tw' ? 'zh-TW' : 'en';
-
-      const langBtn = document.getElementById("langBtn");
-      if (langBtn) {
-        langBtn.innerText = lang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
-      }
-      document.querySelectorAll("[data-tw]").forEach(el => {
+          document.querySelectorAll("[data-tw]").forEach(el => {
         const text = el.getAttribute(`data-${lang}`);
         if (text) {
           const icon = el.querySelector('i');
@@ -540,20 +404,7 @@
       document.documentElement.classList.remove('lang-loading');
     }
 
-    function toggleLanguage() {
-      const nextLang = currentLang === 'tw' ? 'en' : 'tw';
-      applyLanguage(nextLang);
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedLang = localStorage.getItem('preferredLang');
-      if (savedLang && (savedLang === 'en' || savedLang === 'tw')) {
-        applyLanguage(savedLang);
-      } else {
-        document.documentElement.classList.remove('lang-loading');
-      }
-    });
-  </script>
+          </script>
   <script src="./src/data/website-data.js"></script>
   <script src="./src/data-map.js"></script>
   <script src="src/site-search.js"></script>
@@ -561,5 +412,6 @@
   <!-- 後台內容套用：content.js 是備援快照（用檔案直接開時使用），src/content.js 負責套用 -->
   <script src="./content/content.js"></script>
   <script src="./src/content.js"></script>
+  <script src="src/site-lang.js"></script>
 </body>
 </html>

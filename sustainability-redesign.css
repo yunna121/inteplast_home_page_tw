@@ -30,10 +30,7 @@ body {
   overflow-x: hidden;
 }
 
-body h1,
-body h2,
-body h3,
-body p {
+body h1, body h2, body h3, body p {
   text-wrap: pretty;
 }
 
@@ -125,9 +122,7 @@ section {
   gap: 64px;
 }
 
-.eyebrow,
-.section-kicker,
-.green-standard-eyebrow {
+.eyebrow, .section-kicker, .green-standard-eyebrow {
   color: var(--green);
   font-size: .72rem;
   font-weight: 800;
@@ -192,8 +187,7 @@ section {
   box-shadow: 0 0 0 30px rgba(255, 255, 255, .36), 0 24px 60px rgba(10, 37, 64, .08);
 }
 
-.hero-mark::before,
-.hero-mark::after {
+.hero-mark::before, .hero-mark::after {
   content: '';
   position: absolute;
   pointer-events: none;
@@ -222,10 +216,7 @@ section {
   background: url("./src/sustainability-hero-green-label.png?v=16") center / cover no-repeat;
 }
 
-.hero::before,
-.hero::after,
-.hero .leaf-decor,
-.hero-mark {
+.hero::before, .hero::after, .hero .leaf-decor, .hero-mark {
   display: none;
 }
 
@@ -241,8 +232,7 @@ section {
   padding: 32px 0;
 }
 
-.intro-grid>div:first-child,
-.products .section-heading {
+.intro-grid>div:first-child, .products .section-heading {
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -250,8 +240,7 @@ section {
   box-shadow: none;
 }
 
-.intro h2,
-.section-heading h2 {
+.intro h2, .section-heading h2 {
   margin: 8px 0 14px;
   color: var(--ink);
   font-size: clamp(1.7rem, 2.7vw, 2.35rem);
@@ -534,8 +523,7 @@ section {
   transform: rotate(-16deg);
 }
 
-.commitment .leaf-decor,
-.commitment .eco-scene {
+.commitment .leaf-decor, .commitment .eco-scene {
   display: none;
 }
 
@@ -651,8 +639,7 @@ footer {
   color: rgba(255, 255, 255, .58);
 }
 
-a:focus-visible,
-button:focus-visible {
+a:focus-visible, button:focus-visible {
   outline: 3px solid rgba(0, 82, 155, .32);
   outline-offset: 3px;
 }
@@ -662,27 +649,7 @@ body {
   font-size: 20px;
 }
 
-.top-utility-bar {
-  font-size: .875rem;
-}
-
-.logo-text-tw {
-  font-size: 1.1rem;
-}
-
-.logo-text-en {
-  font-size: .78rem;
-}
-
-.nav-link-item,
-.lang-toggle,
-.rfq-btn {
-  font-size: 1.08rem;
-}
-
-.eyebrow,
-.section-kicker,
-.green-standard-eyebrow {
+.eyebrow, .section-kicker, .green-standard-eyebrow {
   font-size: .8rem;
 }
 
@@ -699,8 +666,7 @@ body {
   font-size: 1.12rem;
 }
 
-.intro h2,
-.section-heading h2 {
+.intro h2, .section-heading h2 {
   font-size: clamp(2.3rem, 3.35vw, 3rem);
 }
 
@@ -726,8 +692,7 @@ body {
   font-size: 1.9rem;
 }
 
-.green-standard-summary,
-.green-standard-list li {
+.green-standard-summary, .green-standard-list li {
   font-size: 1.2rem;
   line-height: 1.78;
 }
@@ -777,21 +742,6 @@ footer {
 }
 
 @media (max-width: 1160px) {
-  .top-utility-bar {
-    padding-inline: 28px;
-  }
-
-  .header {
-    padding-inline: 28px;
-  }
-
-  .nav-menu {
-    display: none;
-  }
-
-  .header-right {
-    margin-left: auto;
-  }
 
   .hero-grid {
     gap: 42px;
@@ -806,8 +756,7 @@ footer {
     border-top: 1px solid var(--line);
   }
 
-  .products .section-heading,
-  .products-grid {
+  .products .section-heading, .products-grid {
     grid-column: 1 / -1;
   }
 }
@@ -815,27 +764,6 @@ footer {
 @media (max-width: 860px) {
   .container {
     width: min(100% - 40px, 1320px);
-  }
-
-  .top-utility-bar {
-    display: none;
-  }
-
-  .header {
-    min-height: 68px;
-    padding-inline: 20px;
-  }
-
-  .header-logo .logo-text-tw {
-    font-size: .88rem;
-  }
-
-  .header-logo .logo-text-en {
-    font-size: .58rem;
-  }
-
-  .lang-toggle {
-    display: none;
   }
 
   .hero {
@@ -935,15 +863,6 @@ footer {
     width: min(100% - 28px, 1320px);
   }
 
-  .header-logo>div {
-    display: none;
-  }
-
-  .rfq-btn {
-    padding: 9px 12px;
-    font-size: .78rem;
-  }
-
   .hero {
     margin-top: 65px;
     padding: 36px 0;
@@ -965,9 +884,7 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  .green-standard-list li,
-  .green-standard-list li:nth-child(2n),
-  .green-standard-list li:nth-last-child(-n+2) {
+  .green-standard-list li, .green-standard-list li:nth-child(2n), .green-standard-list li:nth-last-child(-n+2) {
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
@@ -999,8 +916,7 @@ footer {
     padding: 28px 24px;
   }
 
-  .cta p,
-  .cta .button {
+  .cta p, .cta .button {
     grid-column: 1;
     grid-row: auto;
   }
@@ -1012,9 +928,7 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
 
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     scroll-behavior: auto !important;
     transition-duration: .01ms !important;
   }

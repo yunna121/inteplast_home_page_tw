@@ -20,6 +20,7 @@
       }
     })();
   </script>
+  <link rel="stylesheet" href="src/navbar.css" id="site-navbar-css">
   <style>
     html.lang-loading body {
       opacity: 0 !important;
@@ -69,7 +70,7 @@
       body .green-standard { grid-template-columns: 1fr; grid-template-areas: 'copy' 'visual' 'list'; }
     }
 
-    /* responsive.css 在 ≤1024px 用 .container{width:auto !important} 拉滿版（給產品頁的滿版區塊用），
+    /* responsive.css 在 ≤1024px 用 .container {width:auto !important} 拉滿版（給產品頁的滿版區塊用），
        這頁的 .container 是內容欄，被拉滿版後文字會貼齊視窗邊緣，這裡蓋回內縮寬度。 */
     body .container { width: min(1350px, calc(100% - 80px)) !important; margin-inline: auto !important; }
     @media (max-width: 860px) { body .container { width: calc(100% - 40px) !important; } }
@@ -131,47 +132,9 @@
 </head>
 
 <body>
-  <!-- 集團頂樓列 -->
-  <div class="top-utility-bar">
-    <div class="utility-left">
-      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> <span data-tw="台灣塑膠工業股份有限公司" data-en="Formosa Plastics Corp.">台灣塑膠工業股份有限公司</span></a>
-      <a href="https://www.inteplast.com/" target="_blank" rel="noopener"><span class="region-badge">USA</span> <span data-tw="Inteplast USA" data-en="Inteplast USA">Inteplast USA</span></a>
-    </div>
-    <div class="utility-right">
-      <a href="sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> <span data-tw="永續發展" data-en="Sustainability">永續發展</span></a>
-      <a href="https://www.104.com.tw/company/1a2x6bkjw0?jobsource=vipshare" target="_blank" rel="noopener" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> <span data-tw="人才招募" data-en="Careers">人才招募</span></a>
-    </div>
-  </div>
-
-  <!-- Header Navbar -->
-  <header class="header">
-    <a href="index.html" class="header-logo">
-      <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
-      <div class="logo-text-wrapper">
-        <span class="logo-text-tw" data-tw="臺灣營德股份有限公司" data-en="Inteplast Taiwan Corporation">臺灣營德股份有限公司</span>
-        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
-      </div>
-    </a>
-
-    <ul class="nav-menu">
-      <li class="nav-item"><a href="index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
-      <li class="nav-item"><a href="about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
-
-      <li class="nav-item"><a href="products/index.html" class="nav-link-item" data-tw="產品中心" data-en="Products">產品中心</a></li>
-
-      <li class="nav-item"><a href="sustainability.html" class="nav-link-item active" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
-      <li class="nav-item"><a href="contact.html" class="nav-link-item" data-tw="聯繫我們" data-en="Contact Us">聯繫我們</a></li>
-    </ul>
-
-    <div class="header-right">
-      <button class="search-trigger-btn" id="globalSearchTrigger" type="button" onclick="if(typeof openSearchModal === 'function') openSearchModal();" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-      <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
-      <a href="contact.html" class="rfq-btn"><i class="fa-solid fa-envelope"></i><span data-tw="聯繫我們" data-en="Contact Us">聯繫我們</span></a>
-    </div>
-  </header>
+  <!-- 頁首（頂欄／選單／搜尋鈕／語言鈕／CTA）由 src/navbar.js 注入，頁面內不要再手寫一份 -->
+  <div id="site-header-component"></div>
+  <script src="src/navbar.js"></script>
   <main>
     <section class="hero">
       <div class="leaf-decor" aria-hidden="true"><i class="fa-solid fa-leaf"></i><i class="fa-solid fa-leaf"></i><i
@@ -301,19 +264,7 @@
 
   <!-- 雙語切換腳本 Engine (乾淨整潔 0 重複) -->
   <script>
-    let currentLang = localStorage.getItem('preferredLang') || 'tw';
-
-    function applyLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem('preferredLang', lang);
-      document.documentElement.lang = lang === 'tw' ? 'zh-TW' : 'en';
-
-      const langBtn = document.getElementById('langBtn');
-      if (langBtn) {
-        langBtn.textContent = lang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
-      }
-
-      document.querySelectorAll('[data-tw]').forEach(function(element) {
+          document.querySelectorAll('[data-tw]').forEach(function(element) {
         const replacement = element.getAttribute('data-' + lang);
         if (replacement) {
           const icon = element.querySelector('i');
@@ -330,24 +281,12 @@
       document.documentElement.classList.remove('lang-loading');
     }
 
-    function toggleLanguage() {
-      const nextLang = currentLang === 'tw' ? 'en' : 'tw';
-      applyLanguage(nextLang);
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedLang = localStorage.getItem('preferredLang');
-      if (savedLang && (savedLang === 'en' || savedLang === 'tw')) {
-        applyLanguage(savedLang);
-      } else {
-        document.documentElement.classList.remove('lang-loading');
-      }
-    });
-  </script>
+          </script>
   <script src="./src/data/website-data.js"></script>
   <script src="./src/data-map.js"></script>
   <script src="src/site-search.js"></script>
   <script src="src/mobile-nav.js"></script>
+  <script src="src/site-lang.js"></script>
 </body>
 
 </html>

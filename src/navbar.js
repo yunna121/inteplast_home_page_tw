@@ -1,13 +1,22 @@
 /**
- * Inteplast Taiwan Modular Navbar Component
- * Synchronizes Top Utility Bar & Header Navigation across all pages automatically.
+ * Inteplast Taiwan — 全站頁首元件（單一來源）
+ *
+ * 職責：注入集團頂欄 + 頁首導覽、產品錨點平滑滾動、跨頁縮放記憶。
+ *
+ * 不負責搜尋。搜尋（索引、結果、視窗）一律由 src/site-search.js 提供，
+ * 本檔只保留頁首那顆 .search-trigger-btn 按鈕，site-search.js 會接手它的點擊。
+ * 原本這裡另有一份 10 筆的 searchIndex 與自己的 modal，與 site-search.js 重複
+ * （且 site-search.js 載入時會直接移除它的 #searchModalOverlay），已整段刪除。
+ *
+ * 頁面用法：<div id="site-header-component"></div>，其餘交給本檔。
+ * 頁面內不要再手寫 .top-utility-bar / header.header 的 HTML。
  */
 (function () {
   const isSubfolder = window.location.pathname.includes('/products/');
   const rootPath = isSubfolder ? '../' : './';
   const productsPath = isSubfolder ? './' : './products/';
 
-  // Auto-inject navbar CSS if not loaded
+  // 頁面沒自己載 navbar.css 時自動補上
   if (!document.getElementById('site-navbar-css')) {
     const cssLink = document.createElement('link');
     cssLink.id = 'site-navbar-css';
@@ -31,8 +40,8 @@
       <a href="https://www.inteplast.com/" target="_blank" rel="noopener"><span class="region-badge">USA</span> <span data-tw="Inteplast USA" data-en="Inteplast USA">Inteplast USA</span></a>
     </div>
     <div class="utility-right">
-      <a href="${rootPath}sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> <span data-tw="永續發展" data-en="Sustainability">永續發展</span></a>
-      <a href="https://www.104.com.tw/company/1a2x6bkjw0?jobsource=vipshare" target="_blank" rel="noopener" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> <span data-tw="人才招募" data-en="Careers">人才招募</span></a>
+      <a href="${rootPath}sustainability.html"><i class="fa-solid fa-leaf"></i> <span data-tw="永續發展" data-en="Sustainability">永續發展</span></a>
+      <a href="https://www.104.com.tw/company/1a2x6bkjw0?jobsource=vipshare" target="_blank" rel="noopener"><i class="fa-solid fa-user-tie"></i> <span data-tw="人才招募" data-en="Careers">人才招募</span></a>
     </div>
   </div>
   <header class="header">
@@ -47,7 +56,6 @@
     <ul class="nav-menu">
       <li class="nav-item"><a href="${rootPath}index.html" class="nav-link-item ${activePage === 'home' ? 'active' : ''}" data-tw="首頁" data-en="Home">首頁</a></li>
       <li class="nav-item"><a href="${rootPath}about.html" class="nav-link-item ${activePage === 'about' ? 'active' : ''}" data-tw="關於營德" data-en="About Us">關於營德</a></li>
-
       <li class="nav-item"><a href="${productsPath}index.html" class="nav-link-item ${activePage === 'products' ? 'active' : ''}" data-tw="產品中心" data-en="Products">產品中心</a></li>
       <li class="nav-item"><a href="${rootPath}sustainability.html" class="nav-link-item ${activePage === 'sustainability' ? 'active' : ''}" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
       <li class="nav-item"><a href="${rootPath}contact.html" class="nav-link-item ${activePage === 'contact' ? 'active' : ''}" data-tw="聯繫我們" data-en="Contact Us">聯繫我們</a></li>
@@ -57,249 +65,35 @@
       <button class="search-trigger-btn" id="globalSearchTrigger" type="button" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
-      <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
+      <button class="lang-toggle" id="langBtn" type="button" onclick="if (typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
       <a href="${rootPath}contact.html" class="rfq-btn"><i class="fa-solid fa-envelope"></i><span data-tw="聯繫我們" data-en="Contact Us">聯繫我們</span></a>
     </div>
   </header>
   `;
 
-  const searchIndex = [
-    {
-      title: '清潔袋系列 (Can Liners & Trash Bags)',
-      desc: '連捲清潔袋、單張抽取清潔袋、商業高強度防漏底封與環保清潔袋系列。',
-      category: '清潔袋 01',
-      url: `${productsPath}can-liners.html`,
-      icon: 'fa-dumpster',
-      keywords: ['清潔袋', '垃圾袋', '連捲', '單張', '環保袋', 'can liners', 'trash bags', 'roll liners', 'eco bags']
-    },
-    {
-      title: '拉繩袋系列 (Draw-Tape & Medical Bags)',
-      desc: '加長拉繩一拉即束、方便拎舉打包，醫療等級隔離警示袋。',
-      category: '拉繩袋 02',
-      url: `${productsPath}draw-tape.html`,
-      icon: 'fa-ribbon',
-      keywords: ['拉繩袋', '拉繩', '醫療袋', '束口袋', '提把袋', 'drawtape', 'drawstring', 'medical bags']
-    },
-    {
-      title: '蔬果袋 (Foodservice Heat-Resistant Bags)',
-      desc: '平裝耐熱袋與捲裝耐熱袋，高強度 PE 耐熱食品級配方。',
-      category: '耐熱袋 03',
-      url: `${productsPath}heat-bags.html`,
-      icon: 'fa-temperature-high',
-      keywords: ['耐熱袋', '平裝', '捲裝', '食品袋', '高溫', 'heat resistant', 'foodservice', 'hdpe']
-    },
-    {
-      title: '夾鏈袋 (Zipper & Freezer Bags)',
-      desc: '雙軌密封密實袋、立體密實袋、冷凍保鮮袋與夾鏈袋。',
-      category: '夾鏈袋 04',
-      url: `${productsPath}sealed-packaging.html`,
-      icon: 'fa-lock',
-      keywords: ['密實袋', '夾鏈袋', '冷凍袋', '密封袋', '立體袋', 'zipper bags', 'freezer bags', 'seal top']
-    },
-    {
-      title: '手套 (PE Disposable Gloves)',
-      desc: '輕薄貼手手套，適合餐飲備料、食品處理與日常清潔家務。',
-      category: '其他類 05',
-      url: `${productsPath}accessories.html`,
-      icon: 'fa-hand-dots',
-      keywords: ['手套', '衛生手套', '塑膠手套', '一次性手套', 'gloves', 'pe gloves', 'disposable gloves']
-    },
-    {
-      title: '台塑遮蔽防塵膠帶 (Pre-taped Masking Film)',
-      desc: '台塑專利遮蔽防塵膠帶，適用於建築施工、裝潢修繕與居家防塵。',
-      category: '其他類 05',
-      url: `${productsPath}accessories.html`,
-      icon: 'fa-tape',
-      keywords: ['膠帶', '遮蔽膠帶', '防塵膠帶', '台塑膠帶', 'masking film', 'taped film', 'masking tape']
-    },
-    {
-      title: 'Scale Sheet',
-      desc: 'Scale Sheet 薄膜系列，歡迎與專員聯繫。',
-      category: 'Scale Sheet 06',
-      url: `${productsPath}stretch-films.html`,
-      icon: 'fa-sheet-plastic',
-      keywords: ['scale sheet', '磅秤', '切片膜', '襯墊', '生鮮膜', '熟食膜', 'deli liner', 'produce sheet']
-    },
-    {
-      title: '國家環保標章產品專區 (Green Mark Certified)',
-      desc: '通過環境部審查之台塑環保拉繩清潔袋與台塑環保清潔袋使用證書。',
-      category: '永續發展',
-      url: `${rootPath}sustainability.html`,
-      icon: 'fa-leaf',
-      keywords: ['環保標章', '永續發展', 'esg', '再生塑膠', 'sustainability', 'eco mark', 'green mark', 'recycled']
-    },
-    {
-      title: '關於臺灣營德 (About Inteplast Taiwan)',
-      desc: '台塑關係企業與 Inteplast USA 合資大廠，嘉義新港廠區 703 噸/月自動化基地。',
-      category: '關於我們',
-      url: `${rootPath}about.html`,
-      icon: 'fa-building-user',
-      keywords: ['關於營德', '新港廠', '嘉義廠', 'iso 9001', '卓越營運獎', 'about us', 'xingang']
-    },
-    {
-      title: '聯繫我們 (Contact Us)',
-      desc: '留下您的聯絡資訊與需求，我們的業務團隊將安排專人與您聯繫。',
-      category: '聯繫我們',
-      url: `${rootPath}contact.html`,
-      icon: 'fa-envelope',
-      keywords: ['聯繫', '聯絡', '報價', '諮詢', 'contact', 'inquiry']
-    }
-  ];
-
-  function renderSearchResults(query) {
-    const resultsList = document.getElementById('searchResultsList');
-    if (!resultsList) return;
-    const q = (query || '').trim().toLowerCase();
-    resultsList.innerHTML = '';
-
-    const filtered = searchIndex.filter(item => {
-      if (!q) return true;
-      return item.title.toLowerCase().includes(q) ||
-             item.desc.toLowerCase().includes(q) ||
-             item.category.toLowerCase().includes(q) ||
-             item.keywords.some(k => k.toLowerCase().includes(q));
-    });
-
-    if (filtered.length === 0) {
-      resultsList.innerHTML = `
-        <div style="padding: 40px; text-align: center; color: #64748B;">
-          <i class="fa-solid fa-magnifying-glass" style="font-size: 2rem; margin-bottom: 12px; opacity: 0.5;"></i>
-          <p style="font-size: 0.95rem; font-weight: 700;">找不到與「${query}」相符的產品</p>
-          <p style="font-size: 0.85rem; margin-top: 4px;">請嘗試更換關鍵字，或點選下方按鈕直接聯繫團隊報價。</p>
-        </div>
-      `;
-      return;
-    }
-
-    filtered.forEach(item => {
-      const itemEl = document.createElement('a');
-      itemEl.className = 'search-result-item';
-      itemEl.href = item.url;
-      itemEl.innerHTML = `
-        <div class="search-result-icon"><i class="fa-solid ${item.icon}"></i></div>
-        <div class="search-result-info">
-          <div class="search-result-title">${item.title}</div>
-          <div class="search-result-desc">${item.desc}</div>
-        </div>
-        <span class="search-result-category">${item.category}</span>
-      `;
-      resultsList.appendChild(itemEl);
-    });
-  }
-
-  function initSearchModal() {
-    if (!document.body) return;
-    if (!document.getElementById('searchModalOverlay')) {
-      const modalHTML = `
-      <div id="searchModalOverlay" class="search-modal-overlay">
-        <div class="search-modal-container">
-          <div class="search-input-header">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="searchInputField" class="search-input-field" placeholder="搜尋產品、規格或關鍵字... (例如: 清潔袋, 拉繩, 蔬果袋, 密實袋, 環保標章, Gloves...)" autocomplete="off">
-            <button id="closeSearchModal" class="close-search-modal-btn" type="button" onclick="if(typeof closeSearchModal === 'function') closeSearchModal();" aria-label="關閉搜尋"><i class="fa-solid fa-xmark"></i></button>
-          </div>
-          <div class="search-quick-tags">
-            <span class="search-tag-label" data-tw="快速篩選：" data-en="Quick Tags:">快速篩選：</span>
-            <button class="quick-tag-btn" type="button" data-query="清潔袋">清潔袋</button>
-            <button class="quick-tag-btn" type="button" data-query="拉繩袋">拉繩袋</button>
-            <button class="quick-tag-btn" type="button" data-query="蔬果袋">蔬果袋</button>
-            <button class="quick-tag-btn" type="button" data-query="密實袋">密實袋</button>
-            <button class="quick-tag-btn" type="button" data-query="手套">衛生手套</button>
-            <button class="quick-tag-btn" type="button" data-query="環保標章">環保標章</button>
-            <button class="quick-tag-btn" type="button" data-query="Scale Sheet">Scale Sheet</button>
-          </div>
-          <div id="searchResultsList" class="search-results-list"></div>
-          <div class="search-modal-footer">
-            <span><kbd>ESC</kbd> 關閉搜尋</span>
-            <span><kbd>Ctrl + K</kbd> 快速開啟</span>
-          </div>
-        </div>
-      </div>
-      `;
-      document.body.insertAdjacentHTML('beforeend', modalHTML);
-    }
-
-    const overlay = document.getElementById('searchModalOverlay');
-    const input = document.getElementById('searchInputField');
-
-    if (input && !input.dataset.bound) {
-      input.dataset.bound = 'true';
-      input.addEventListener('input', function() {
-        renderSearchResults(this.value);
-      });
-    }
-  }
-
-  window.openSearchModal = function() {
-    initSearchModal();
-    const overlay = document.getElementById('searchModalOverlay');
-    const input = document.getElementById('searchInputField');
-    if (overlay) {
-      overlay.classList.add('active');
-      renderSearchResults(input ? input.value : '');
-      setTimeout(() => { if (input) input.focus(); }, 100);
-    }
-  };
-
-  window.closeSearchModal = function() {
-    const overlay = document.getElementById('searchModalOverlay');
-    if (overlay) {
-      overlay.classList.remove('active');
-    }
-  };
-
-  document.addEventListener('click', function(e) {
-    const overlay = document.getElementById('searchModalOverlay');
-    if (!overlay) return;
-
-    if (e.target.closest('#globalSearchTrigger') || e.target.closest('.search-trigger-btn')) {
-      window.openSearchModal();
-    } else if (e.target === overlay || e.target.closest('#closeSearchModal')) {
-      window.closeSearchModal();
-    } else if (e.target.classList.contains('quick-tag-btn')) {
-      const query = e.target.getAttribute('data-query');
-      const input = document.getElementById('searchInputField');
-      if (input) input.value = query;
-      renderSearchResults(query);
-      if (input) input.focus();
-    }
-  });
-
-  document.addEventListener('keydown', function(e) {
-    const overlay = document.getElementById('searchModalOverlay');
-    if (!overlay) return;
-
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-      e.preventDefault();
-      if (overlay.classList.contains('active')) window.closeSearchModal();
-      else window.openSearchModal();
-    } else if (e.key === 'Escape' && overlay.classList.contains('active')) {
-      window.closeSearchModal();
-    }
-  });
-
   function initNavbar() {
     if (!document.body) return;
-    let container = document.getElementById('site-header-component');
-    let existingHeader = document.querySelector('header.header');
-
+    const container = document.getElementById('site-header-component');
     if (container) {
       container.innerHTML = navbarHTML;
-    } else if (existingHeader) {
-      let wrapper = document.createElement('div');
-      wrapper.id = 'site-header-component';
-      wrapper.innerHTML = navbarHTML;
+      return;
+    }
+    // 舊頁面還手寫著 header 時的相容路徑：整段換掉，避免兩份頁首並存
+    const existingHeader = document.querySelector('header.header');
+    const existingUtility = document.querySelector('.top-utility-bar');
+    const wrapper = document.createElement('div');
+    wrapper.id = 'site-header-component';
+    wrapper.innerHTML = navbarHTML;
+    if (existingHeader) {
       existingHeader.replaceWith(wrapper);
+      if (existingUtility) existingUtility.remove();
     } else {
-      container = document.createElement('div');
-      container.id = 'site-header-component';
-      container.innerHTML = navbarHTML;
-      document.body.prepend(container);
+      document.body.prepend(wrapper);
     }
   }
 
-  // 點擊產品中心下拉選單細項時，在產品頁面進行平滑滾動與卡片定位
-  document.addEventListener('click', function(e) {
+  // 產品中心下拉細項：同頁錨點改為平滑滾動並避開固定頁首
+  document.addEventListener('click', function (e) {
     const link = e.target.closest('.mega-menu-panel-6cat a, .m-nav-sub a');
     if (!link) return;
 
@@ -308,77 +102,56 @@
     if (hashIndex === -1) return;
 
     const hash = href.substring(hashIndex);
-    const targetId = hash.replace('#', '');
     const isProductsPage = window.location.pathname.includes('/products/') || window.location.pathname.endsWith('products/index.html');
+    if (!isProductsPage) return;
 
-    if (isProductsPage) {
-      const targetEl = document.getElementById(targetId);
-      if (targetEl) {
-        e.preventDefault();
-        const headerEl = document.querySelector('.header');
-        const headerHeight = headerEl ? headerEl.offsetHeight : 80;
-        const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
-        window.scrollTo({ top: targetPos, behavior: 'smooth' });
-        if (history.pushState) {
-          history.pushState(null, null, hash);
-        } else {
-          location.hash = hash;
-        }
-      }
-    }
+    const targetEl = document.getElementById(hash.replace('#', ''));
+    if (!targetEl) return;
+
+    e.preventDefault();
+    const headerEl = document.querySelector('.header');
+    const headerHeight = headerEl ? headerEl.offsetHeight : 80;
+    const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+    window.scrollTo({ top: targetPos, behavior: 'smooth' });
+    if (history.pushState) history.pushState(null, null, hash);
+    else location.hash = hash;
   });
 
-  // 全站跨頁縮放同步 Engine (支援本地 file:// 與線上伺服器 100% 同步)
+  // 跨頁縮放記憶（支援 file:// 直接開啟的情境）
   function applySavedSiteZoom() {
     const savedZoom = localStorage.getItem('siteZoomLevel');
-    if (savedZoom) {
-      document.documentElement.style.zoom = savedZoom;
-    }
+    if (savedZoom) document.documentElement.style.zoom = savedZoom;
+  }
+
+  function setZoom(value) {
+    const z = Math.min(1.5, Math.max(0.7, value));
+    localStorage.setItem('siteZoomLevel', z.toFixed(2));
+    document.documentElement.style.zoom = z;
+  }
+
+  function currentZoom() {
+    return parseFloat(localStorage.getItem('siteZoomLevel') || '1');
   }
 
   applySavedSiteZoom();
 
-  window.addEventListener('keydown', function(e) {
-    if (e.ctrlKey || e.metaKey) {
-      if (e.key === '+' || e.key === '=' || e.key === 'NumpadAdd') {
-        let currentZoom = parseFloat(localStorage.getItem('siteZoomLevel') || '1');
-        currentZoom = Math.min(1.5, currentZoom + 0.1);
-        localStorage.setItem('siteZoomLevel', currentZoom.toFixed(2));
-        document.documentElement.style.zoom = currentZoom;
-      } else if (e.key === '-' || e.key === 'NumpadSubtract') {
-        let currentZoom = parseFloat(localStorage.getItem('siteZoomLevel') || '1');
-        currentZoom = Math.max(0.7, currentZoom - 0.1);
-        localStorage.setItem('siteZoomLevel', currentZoom.toFixed(2));
-        document.documentElement.style.zoom = currentZoom;
-      } else if (e.key === '0' || e.key === 'Numpad0') {
-        localStorage.removeItem('siteZoomLevel');
-        document.documentElement.style.zoom = '1';
-      }
+  window.addEventListener('keydown', function (e) {
+    if (!(e.ctrlKey || e.metaKey)) return;
+    if (e.key === '+' || e.key === '=' || e.key === 'NumpadAdd') setZoom(currentZoom() + 0.1);
+    else if (e.key === '-' || e.key === 'NumpadSubtract') setZoom(currentZoom() - 0.1);
+    else if (e.key === '0' || e.key === 'Numpad0') {
+      localStorage.removeItem('siteZoomLevel');
+      document.documentElement.style.zoom = '1';
     }
   });
 
-  window.addEventListener('wheel', function(e) {
-    if (e.ctrlKey || e.metaKey) {
-      let currentZoom = parseFloat(localStorage.getItem('siteZoomLevel') || '1');
-      if (e.deltaY < 0) {
-        currentZoom = Math.min(1.5, currentZoom + 0.05);
-      } else {
-        currentZoom = Math.max(0.7, currentZoom - 0.05);
-      }
-      localStorage.setItem('siteZoomLevel', currentZoom.toFixed(2));
-      document.documentElement.style.zoom = currentZoom;
-    }
-  }, { passive: false });
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      initNavbar();
-      initSearchModal();
-      applySavedSiteZoom();
-    });
+  // 本檔放在 <body> 最上方、placeholder 之後，所以通常這裡就能立刻注入
+  // （不等 DOMContentLoaded，頁首才不會在慢速連線下晚一大截才出現）
+  if (document.getElementById('site-header-component')) {
+    initNavbar();
+  } else if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavbar);
   } else {
     initNavbar();
-    initSearchModal();
-    applySavedSiteZoom();
   }
 })();

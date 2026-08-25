@@ -5,158 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scale Sheet 產品專頁 | 臺灣營德 Inteplast Taiwan</title>
   <meta name="description" content="臺灣營德 Scale Sheet 產品專頁。">
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <!-- 導覽樣式的唯一來源。id 必須是 site-navbar-css，navbar.js 才不會再注入第二份 -->
+  <link rel="stylesheet" href="../src/navbar.css" id="site-navbar-css">
+
   <style>
+    /* 只放這一頁自己的樣式。
+       .header / .top-utility-bar / .nav-* / .mega-* / .search-* 一律不要出現在這裡，
+       它們住在 src/navbar.css。 */
     :root {
-      --primary-navy: #0A2540;
-      --brand-blue: #00529B;
       --brand-blue-hover: #003d75;
-      --accent-azure: #00A8FF;
       --accent-emerald: #10B981;
       --bg-light: #F8FAFC;
-      --surface-white: #FFFFFF;
-      --text-main: #1E293B;
-      --text-muted: #64748B;
-      --border-color: #E2E8F0;
-      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
       --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
       --radius-sm: 8px;
-      --radius-md: 16px;
       --radius-lg: 24px;
-      --radius-full: 9999px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: #F8FAFC; line-height: 1.6; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--bg-light); line-height: 1.6; }
 
-    .header {
-      position: fixed; top: 31px; left: 0; width: 100%; padding: 12px 40px;
-      display: flex; justify-content: space-between; align-items: center; z-index: 1000;
-      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition);
+    /* 固定頁首的高度用變數算，頂欄高度改了這裡不用跟著改 */
+    .page-hero {
+      padding: calc(var(--utility-h) + var(--header-h) + 40px) 40px 50px;
+      background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue));
+      color: var(--surface-white);
     }
-    .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .logo-image { height: 40px; width: auto; }
-    .logo-text-tw { font-size: 1.05rem; font-weight: 800; color: var(--primary-navy); display: block; }
-    .logo-text-en { font-size: 0.72rem; font-weight: 700; color: var(--brand-blue); display: block; }
-
-    .nav-menu { display: flex; align-items: center; gap: 6px; list-style: none; }
-    .nav-item { position: relative; }
-    .nav-link-item {
-      padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 700;
-      color: var(--text-main); text-decoration: none; transition: var(--transition);
-      display: inline-flex; align-items: center; gap: 6px; cursor: pointer; position: relative; z-index: 10;
-    }
-    .nav-link-item:hover, .nav-item:hover > .nav-link-item, .nav-link-item.active { background: rgba(0, 82, 155, 0.08); color: var(--brand-blue); }
-    .caret-icon { font-size: 0.75rem; transition: transform 0.3s ease; }
-    
-    .mega-menu-panel-6cat {
-      position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
-      width: 1120px; background: var(--surface-white); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); box-shadow: 0 30px 60px -12px rgba(10,37,64,0.22); padding: 32px;
-      opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 1100; color: var(--text-main);
-    }
-    .mega-menu-panel-6cat::before {
-      content: ''; position: absolute; top: -16px; left: 0; width: 100%; height: 20px; background: transparent; z-index: -1;
-    }
-    .nav-item:hover .mega-menu-panel-6cat,
-    .nav-item.open-dropdown .mega-menu-panel-6cat { opacity: 1; visibility: visible; pointer-events: auto; }
-    .nav-item:hover .caret-icon,
-    .nav-item.open-dropdown .caret-icon { transform: rotate(180deg); }
-    .mega-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: left; }
-    .mega-col-title-sm { font-size: 0.82rem; font-weight: 800; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid rgba(0, 82, 155, 0.15); display: flex; align-items: center; gap: 6px; }
-    .mega-sub-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .mega-sub-links a { color: var(--text-main); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: var(--transition); display: block; }
-    .mega-sub-links a:hover { color: var(--brand-blue); transform: translateX(3px); }
-
-    .header-right { display: flex; align-items: center; gap: 12px; }
-    .lang-toggle { background: var(--surface-white); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: var(--transition); }
-    .rfq-btn { background: linear-gradient(135deg, var(--brand-blue), #00386B); color: var(--surface-white); padding: 10px 22px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
-
-    .top-utility-bar {
-      background: #051322; color: rgba(255, 255, 255, 0.75); font-size: 0.78rem;
-      padding: 6px 40px; display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: fixed; top: 0; left: 0; width: 100%; z-index: 1050;
-    }
-    .utility-left, .utility-right { display: flex; align-items: center; gap: 20px; }
-    .utility-left a, .utility-right a { color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
-    .region-badge { background: rgba(0, 168, 255, 0.18); color: var(--accent-azure); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
-
-    .page-hero { padding: 140px 40px 50px; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white); margin-top: 31px; }
     .hero-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+    .hero-eyebrow { color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; }
     .hero-title { font-size: 2.3rem; font-weight: 800; margin-bottom: 14px; }
-    .hero-desc { font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 20px; }
-    .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.2); }
+    .hero-desc { font-size: 1rem; color: rgba(255, 255, 255, 0.85); line-height: 1.7; margin-bottom: 20px; }
+    .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255, 255, 255, 0.2); }
 
     .section { padding: 80px 40px; }
     .coming-soon-card {
-      max-width: 800px; margin: 0 auto; background: #FFFFFF; border: 1px solid var(--border-color);
+      max-width: 800px; margin: 0 auto; background: var(--surface-white); border: 1px solid var(--border-color);
       border-radius: 20px; padding: 60px 40px; text-align: center; box-shadow: var(--shadow-md);
     }
     .coming-soon-icon { font-size: 3.5rem; color: var(--brand-blue); margin-bottom: 20px; }
     .coming-soon-title { font-size: 1.6rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 12px; }
     .coming-soon-desc { font-size: 1rem; color: var(--text-muted); max-width: 550px; margin: 0 auto 30px; }
 
-    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+    .footer { background: var(--primary-navy); color: rgba(255, 255, 255, 0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
   </style>
-  <link rel="stylesheet" href="../src/navbar.css">
   <link rel="stylesheet" href="../src/responsive.css">
 </head>
 <body>
-  <!-- 集團頂樓列 -->
-  <div class="top-utility-bar">
-    <div class="utility-left">
-      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> <span data-tw="台灣塑膠工業股份有限公司" data-en="Formosa Plastics Corporation">台灣塑膠工業股份有限公司</span></a>
-      <a href="https://www.inteplast.com/" target="_blank" rel="noopener"><span class="region-badge">USA</span> <span data-tw="Inteplast USA" data-en="Inteplast USA">Inteplast USA</span></a>
-    </div>
-    <div class="utility-right">
-      <a href="../sustainability.html" data-tw="永續發展" data-en="Sustainability"><i class="fa-solid fa-leaf"></i> 永續發展</a>
-      <a href="../contact.html" data-tw="人才招募" data-en="Careers"><i class="fa-solid fa-user-tie"></i> 人才招募</a>
-    </div>
-  </div>
-
-  <!-- Header Navbar -->
-  <header class="header">
-    <a href="../index.html" class="header-logo">
-      <img src="../src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="logo-image">
-      <div class="logo-text-wrapper">
-        <span class="logo-text-tw">臺灣營德股份有限公司</span>
-        <span class="logo-text-en">INTEPLAST TAIWAN CORPORATION</span>
-      </div>
-    </a>
-
-    <ul class="nav-menu">
-      <li class="nav-item"><a href="../index.html" class="nav-link-item" data-tw="首頁" data-en="Home">首頁</a></li>
-      <li class="nav-item"><a href="../about.html" class="nav-link-item" data-tw="關於營德" data-en="About Us">關於營德</a></li>
-
-      <li class="nav-item"><a href="index.html" class="nav-link-item active" data-tw="產品中心" data-en="Products">產品中心</a></li>
-
-      <li class="nav-item"><a href="../sustainability.html" class="nav-link-item" data-tw="永續發展" data-en="Sustainability">永續發展</a></li>
-      <li class="nav-item"><a href="../contact.html" class="nav-link-item" data-tw="聯繫我們" data-en="Contact Us">聯繫我們</a></li>
-    </ul>
-
-    <div class="header-right">
-      <button class="search-trigger-btn" id="globalSearchTrigger" type="button" aria-label="全站搜尋" title="搜尋產品 (Ctrl+K)">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-      <button class="lang-toggle" id="langBtn" type="button" onclick="if(typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
-      <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-paper-plane"></i><span data-tw="聯絡我們" data-en="Contact Us">聯絡我們</span></a>
-    </div>
-  </header>
+  <!-- 頁首由 src/navbar.js 注入（頂欄、選單、搜尋按鈕、語言鈕、CTA）。
+       頁面內不要再手寫一份，否則兩份頁首會打架。 -->
+  <div id="site-header-component"></div>
+  <script src="../src/navbar.js"></script>
 
   <section class="page-hero">
     <div class="hero-container">
       <div>
-        <span style="color: var(--accent-azure); font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;">SCALE SHEET PRODUCT SERIES</span>
+        <span class="hero-eyebrow">SCALE SHEET PRODUCT SERIES</span>
         <h1 class="hero-title">Scale Sheet 產品專頁</h1>
         <p class="hero-desc">
           臺灣營德生產之 Scale Sheet 薄膜產品系列。若您有大宗採購或規格諮詢需求，歡迎與專員聯繫。
@@ -164,7 +74,7 @@
         <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-calculator"></i> 專人諮詢與詢價</a>
       </div>
       <div>
-        <img src="../src/scale sheet.png" alt="Scale Sheet 展示" class="product-hero-img" data-hero-img>
+        <img src="../src/scale sheet.png" alt="Scale Sheet 展示" class="product-hero-img" data-hero-img loading="lazy">
       </div>
     </div>
   </section>
@@ -188,86 +98,15 @@
     </div>
   </footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const navItems = document.querySelectorAll(".nav-item");
-      navItems.forEach(item => {
-        let timer;
-        const panel = item.querySelector(".mega-menu-panel-6cat");
-        if (!panel) return;
-
-        item.addEventListener("mouseenter", function() {
-          clearTimeout(timer);
-          item.classList.add("open-dropdown");
-        });
-
-        item.addEventListener("mouseleave", function() {
-          timer = setTimeout(() => {
-            item.classList.remove("open-dropdown");
-          }, 250);
-        });
-      });
-    });
-
-    let currentLang = localStorage.getItem('preferredLang') || 'tw';
-
-    function applyLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem('preferredLang', lang);
-      document.documentElement.lang = lang === 'tw' ? 'zh-TW' : 'en';
-
-      const langBtn = document.getElementById("langBtn");
-      if (langBtn) {
-        langBtn.innerText = lang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
-      }
-      document.querySelectorAll("[data-tw]").forEach(el => {
-        const text = el.getAttribute(`data-${lang}`);
-        if (text) {
-          const icon = el.querySelector('i');
-          if (icon) {
-            const iconClone = icon.cloneNode(true);
-            el.innerHTML = '';
-            el.appendChild(iconClone);
-            el.appendChild(document.createTextNode(' ' + text));
-          } else {
-            el.innerText = text;
-          }
-        }
-      });
-    }
-
-    function toggleLanguage() {
-      const nextLang = currentLang === 'tw' ? 'en' : 'tw';
-      applyLanguage(nextLang);
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedLang = localStorage.getItem('preferredLang');
-      if (savedLang && (savedLang === 'en' || savedLang === 'tw')) {
-        applyLanguage(savedLang);
-      }
-    });
-  </script>
-  <!-- SheetJS Library for Direct Excel (.xlsx) Specs Parsing -->
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      fetch("../src/data/products.xlsx")
-        .then(res => res.arrayBuffer())
-        .then(buffer => {
-          const workbook = XLSX.read(buffer, { type: "array" });
-          const specSheet = workbook.Sheets["容量尺寸規格對照總表"] || workbook.Sheets[workbook.SheetNames[1]];
-          if (!specSheet) return;
-          const rows = XLSX.utils.sheet_to_json(specSheet);
-          console.log("Loaded Scale Sheet specs from Excel", rows.filter(r => String(r["產品編號"] || "").includes("006")));
-        })
-        .catch(err => console.log("Excel load fallback", err));
-    });
-  </script>
+  <!-- 這一頁不再自帶語言切換與 Excel 讀取程式碼：
+       語言切換 → src/site-lang.js
+       規格資料 → website-data.js + data-map.js + spec-render.js
+       （原本的 SheetJS 與 src/data/products.xlsx 讀取已移除，該檔案不存在，只會 console.log） -->
   <script src="../src/data/website-data.js"></script>
   <script src="../src/data-map.js"></script>
   <script src="../src/spec-render.js"></script>
   <script src="../src/site-search.js"></script>
+  <script src="../src/site-lang.js"></script>
   <script src="../src/mobile-nav.js"></script>
 </body>
 </html>

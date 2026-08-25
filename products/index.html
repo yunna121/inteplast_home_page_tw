@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../src/navbar.css">
+  <link rel="stylesheet" href="../src/navbar.css" id="site-navbar-css">
 
   <style>
     :root {
@@ -429,10 +429,12 @@
 </head>
 
 <body>
+  <!-- 頁首由 src/navbar.js 注入 -->
+  <div id="site-header-component"></div>
+  <script src="../src/navbar.js"></script>
 
   <!-- Top Utility Bar & Header Navigation Auto-Injected by src/navbar.js -->
   <div id="site-navbar"></div>
-  <script src="../src/navbar.js"></script>
 
   <!-- Page Hero Stage -->
   <section class="products-hero-section">
@@ -667,6 +669,7 @@
   </script>
   <script src="../src/site-search.js"></script>
   <script src="../src/mobile-nav.js"></script>
+  <script src="../src/site-lang.js"></script>
 </body>
 
 </html>
