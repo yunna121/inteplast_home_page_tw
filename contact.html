@@ -303,7 +303,7 @@
             <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
             <div>
               <div class="info-title" data-tw="電子郵件 Email" data-en="Email Address">電子郵件 Email</div>
-              <div class="info-text"><a href="mailto:yuping86@fpc.com.tw" style="color: var(--brand-blue); text-decoration: none; font-weight: 700;">yuping86@fpc.com.tw</a></div>
+              <div class="info-text"><a href="mailto:lyanchen@wpjk.inteplast.com" style="color: var(--brand-blue); text-decoration: none; font-weight: 700;">lyanchen@wpjk.inteplast.com</a></div>
             </div>
           </div>
 
@@ -312,7 +312,7 @@
             <a href="tel:0227122211,8109" class="submit-btn" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px;">
               <i class="fa-solid fa-phone"></i> <span data-tw="撥打總機專線" data-en="Call Office Directly">撥打總機專線</span>
             </a>
-            <a href="mailto:yuping86@fpc.com.tw" class="submit-btn" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px; background: #0A2540;">
+            <a href="mailto:lyanchen@wpjk.inteplast.com" class="submit-btn" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px; background: #0A2540;">
               <i class="fa-solid fa-envelope"></i> <span data-tw="寄送 Email 諮詢" data-en="Send Email Inquiry">寄送 Email 諮詢</span>
             </a>
           </div>
@@ -346,7 +346,7 @@
               <select id="productCategory" name="product" class="form-control">
                 <option value="清潔袋 (連捲 / 單張抽取 / 環保)">01 清潔袋 (連捲 / 單張抽取 / 環保)</option>
                 <option value="拉繩袋 (清潔袋 / 醫療袋)">02 拉繩袋 (清潔袋 / 醫療袋)</option>
-                <option value="耐熱袋 (平裝 / 捲裝)">03 蔬果袋 (平裝 / 捲裝)</option>
+                <option value="蔬果袋 (平裝 / 捲裝)">03 蔬果袋 (平裝 / 捲裝)</option>
                 <option value="夾鏈袋 (密實袋 / 立體密實袋 / 冷凍袋 / 夾鏈袋)">04 夾鏈袋 (密實袋 / 立體密實袋 / 冷凍袋 / 夾鏈袋)</option>
                 <option value="其他類 (手套 / 台塑遮蔽防塵膠帶)">05 其他類 (手套 / 台塑遮蔽防塵膠帶)</option>
                 <option value="Scale Sheet">06 Scale Sheet</option>
@@ -404,9 +404,19 @@
       }
     }
 
-    /* 送出目標：Google Apps Script Web App（寫入 Google Sheet 並寄出通知信）
-       換新的 Web App 時只要改這一行的網址即可。搭配 apps-script/Code.gs 使用。 */
-    const GAS_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbzIfWjZ9iellph-Jm4tFS_zvrShhG8GzHxzIz112fDys54ccGe5Wp9e-wmCVT3SAueP/exec';
+    /* 送出目標：Google 表單「Contact Us」的接收網址（回覆自動存進該表單的 Google Sheet）
+       換成別的 Google 表單時，改 GOOGLE_FORM_ACTION 與 FORM_FIELDS 這兩塊即可：
+       表單編輯畫面 → ⋮ → 取得預先填入的連結 → 各欄位隨便填 → 取得連結，
+       連結裡的 entry.數字 依序對應下面五個欄位。
+       注意：五個欄位在 Google 表單裡都是「簡答」，所以產品類別隨時增減都不用改表單。 */
+    const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSego9iJfpcC1sxRYCozctTgsozldiuiO_KvMkOIbDfXXpCTYA/formResponse';
+    const FORM_FIELDS = {
+      company: 'entry.573666751',   // 公司名稱 (Company Name)
+      email:   'entry.1905224817',  // 商務信箱 (必填)
+      phone:   'entry.825551635',   // 聯絡電話 (選填)
+      product: 'entry.618482777',   // 詢問產品類別 (Product Interest)
+      message: 'entry.1658017078'   // 需求內容與訊息 (Inquiry Message)
+    };
     const FALLBACK_MAILTO = 'lyanchen@wpjk.inteplast.com';
 
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
@@ -416,36 +426,43 @@
       const submitBtn = document.getElementById('submitBtn');
       const statusDiv = document.getElementById('statusMessage');
 
+      /* 蜜罐：機器人填了 website 就當作已送出，不真的送 */
+      if (form.website && form.website.value) {
+        statusDiv.style.color = '#10B981';
+        statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> 已成功送出！我們的團隊將會安排專人與您聯繫。';
+        form.reset();
+        return;
+      }
+
       submitBtn.disabled = true;
       statusDiv.style.color = 'var(--brand-blue)';
       statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 資料傳送中，請稍候...';
 
-      /* 15 秒沒回應就當作失敗，不讓使用者一直等 */
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 15000);
+      const payload = new URLSearchParams();
+      Object.keys(FORM_FIELDS).forEach(function(name) {
+        const field = form.elements[name];
+        payload.append(FORM_FIELDS[name], field ? field.value : '');
+      });
 
       try {
-        const res = await fetch(GAS_ENDPOINT_URL, {
+        /* Google 表單不回傳可讀取的回應（跨網域），因此以 no-cors 送出；
+           沒有拋錯就代表請求已送達 Google，資料會進 Sheet。 */
+        await fetch(GOOGLE_FORM_ACTION, {
           method: 'POST',
-          body: new FormData(form),
-          signal: controller.signal
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: payload.toString()
         });
-        const result = await res.json();
-        if (!res.ok || !result.ok) {
-          throw new Error(result.error || ('HTTP ' + res.status));
-        }
 
         statusDiv.style.color = '#10B981';
         statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> 已成功送出！我們的團隊將會安排專人與您聯繫。';
         form.reset();
       } catch (err) {
         statusDiv.style.color = '#DC2626';
-        statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> 送出失敗（' +
-          (err && err.name === 'AbortError' ? '連線逾時' : '系統忙碌') +
-          '），請改寄 <a href="mailto:' + FALLBACK_MAILTO + '" style="color:#DC2626; font-weight:800;">' +
+        statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> 送出失敗（連線異常），請改寄 <a href="mailto:' +
+          FALLBACK_MAILTO + '" style="color:#DC2626; font-weight:800;">' +
           FALLBACK_MAILTO + '</a> 或電洽 02-2712-2211 #8109。';
       } finally {
-        clearTimeout(timeout);
         submitBtn.disabled = false;
       }
     });
