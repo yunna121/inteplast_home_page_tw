@@ -285,7 +285,7 @@
             <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
             <div>
               <div class="info-title" data-tw="公司地址 Address" data-en="Company Address">公司地址 Address</div>
-              <div class="info-text" data-tw="臺北市松山區敦化北路205號6樓609室" data-en="6F., No. 205, Dunhua N. Rd., Songshan Dist., Taipei City, Taiwan">
+              <div class="info-text" data-site="address" data-tw="臺北市松山區敦化北路205號6樓609室" data-en="6F., No. 205, Dunhua N. Rd., Songshan Dist., Taipei City, Taiwan">
                 臺北市松山區敦化北路205號6樓609室
               </div>
             </div>
@@ -295,7 +295,7 @@
             <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
             <div>
               <div class="info-title" data-tw="總機電話 Telephone" data-en="Telephone">總機電話 Telephone</div>
-              <div class="info-text">02-2712-2211 #8109 (+886-2-2712-2211 #8109)</div>
+              <div class="info-text" data-site="phone">02-2712-2211 #8109 (+886-2-2712-2211 #8109)</div>
             </div>
           </div>
 
@@ -303,16 +303,16 @@
             <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
             <div>
               <div class="info-title" data-tw="電子郵件 Email" data-en="Email Address">電子郵件 Email</div>
-              <div class="info-text"><a href="mailto:lyanchen@wpjk.inteplast.com" style="color: var(--brand-blue); text-decoration: none; font-weight: 700;">lyanchen@wpjk.inteplast.com</a></div>
+              <div class="info-text"><a href="mailto:lyanchen@wpjk.inteplast.com" data-site-href="email" data-site="email" style="color: var(--brand-blue); text-decoration: none; font-weight: 700;">lyanchen@wpjk.inteplast.com</a></div>
             </div>
           </div>
 
           <!-- 直接聯繫快捷按鈕組 -->
           <div style="margin-top: 36px; display: flex; gap: 16px; flex-wrap: wrap;">
-            <a href="tel:0227122211,8109" class="submit-btn" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px;">
+            <a href="tel:0227122211,8109" data-site-href="phone" class="submit-btn" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px;">
               <i class="fa-solid fa-phone"></i> <span data-tw="撥打總機專線" data-en="Call Office Directly">撥打總機專線</span>
             </a>
-            <a href="mailto:lyanchen@wpjk.inteplast.com" class="submit-btn" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px; background: #0A2540;">
+            <a href="mailto:lyanchen@wpjk.inteplast.com" data-site-href="email" class="submit-btn" style="display: inline-flex; text-decoration: none; width: auto; padding: 12px 28px; background: #0A2540;">
               <i class="fa-solid fa-envelope"></i> <span data-tw="寄送 Email 諮詢" data-en="Send Email Inquiry">寄送 Email 諮詢</span>
             </a>
           </div>
@@ -378,7 +378,7 @@
 
   <footer class="footer">
     <div class="container">
-      <div class="footer-bottom">
+      <div class="footer-bottom" data-site="copyright">
         © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
       </div>
     </div>
@@ -558,5 +558,8 @@
   <script src="./src/data-map.js"></script>
   <script src="src/site-search.js"></script>
   <script src="src/mobile-nav.js"></script>
+  <!-- 後台內容套用：content.js 是備援快照（用檔案直接開時使用），src/content.js 負責套用 -->
+  <script src="./content/content.js"></script>
+  <script src="./src/content.js"></script>
 </body>
 </html>
