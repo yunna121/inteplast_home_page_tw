@@ -85,6 +85,7 @@
 <script src="../src/data/website-data.js"></script>
 <script src="../src/data/products-data.js"></script>
 <script src="../src/data-map.js"></script>
+<script src="../src/search-records.js"></script>
 <script>
 (function () {
   var logEl = document.getElementById('log');
@@ -109,53 +110,13 @@
      - product：產品／頁面層（來自 website-data.js 的搜尋索引）
      - spec：單一規格層（來自「產品規格」工作表），讓客戶搜「45L」直接看到那一筆
   */
+  // 記錄的定義集中在 src/search-records.js（語意向量工具也用同一份）
   function buildRecords() {
-    var recs = [];
-    var data = (window.SITE_DATA && window.SITE_DATA.search) || {};
-
-    (data.docs || []).forEach(function (d, i) {
-      recs.push({
-        objectID: 'doc-' + i,
-        type: 'product',
-        title: d.title,
-        category: d.category || '',
-        desc: d.desc || '',
-        body: d.body || '',
-        keywords: d.keywords || [],
-        icon: d.icon || 'fa-cube',
-        url: d.url,
-        weight: 100
-      });
-    });
-
-    var specs = window.SITE_MAP ? window.SITE_MAP.specs() : [];
-    specs.forEach(function (r, i) {
-      var bits = [r.cap, r.size, r.dim, r.qty].filter(Boolean);
-      recs.push({
-        objectID: 'spec-' + i,
-        type: 'spec',
-        title: r.series,
-        category: r.categoryName || '',
-        desc: bits.join('　'),
-        body: [r.spec, r.dim, r.qty, (r.colors || []).map(function (c) { return c.name; }).join(' ')].filter(Boolean).join(' '),
-        keywords: (r.colors || []).map(function (c) { return c.name; }),
-        cap: r.cap || '',
-        size: r.size || '',
-        dim: r.dim || '',
-        icon: 'fa-table-list',
-        /* 指向該分類的產品頁本身（規格表就在那頁）。
-           不加 #cat-… 片段：那些錨點只存在於 products/index.html，
-           而且用的是英文 slug，加了會變成無效連結。 */
-        url: (r.page || 'index') + '.html',
-        weight: 50
-      });
-    });
-
-    return recs;
+    return window.buildSearchRecords ? window.buildSearchRecords() : [];
   }
 
   var SETTINGS = {
-    searchableAttributes: ['unordered(title)', 'unordered(keywords)', 'unordered(cap,size,dim)', 'unordered(category)', 'unordered(desc)', 'unordered(body)'],
+    searchableAttributes: ['unordered(title,alias)', 'unordered(keywords)', 'unordered(cap,size,dim)', 'unordered(category)', 'unordered(desc)', 'unordered(body)'],
     attributesForFaceting: ['filterOnly(type)', 'category'],
     customRanking: ['desc(weight)'],
     /* 中文：indexLanguages/queryLanguages 設 zh 才會做中文分詞，
@@ -172,6 +133,28 @@
     attributesToSnippet: ['desc:28', 'body:28'],
     hitsPerPage: 12
   };
+
+  /* 同義詞：Excel「搜尋同義詞」工作表 → Algolia synonyms
+     沒有這一步的話，Algolia 不認識「垃圾袋」「束口袋」這類客戶慣用說法。
+     用 oneWaySynonym：客戶輸入的說法 → 對應到的產品（反向不成立）。 */
+  function buildSynonyms() {
+    var data = (window.SITE_DATA && window.SITE_DATA.search) || {};
+    var out = [];
+    (data.synonyms || []).forEach(function (g, i) {
+      var says = (g.say || []).filter(Boolean);
+      var means = (g.mean || []).filter(Boolean);
+      if (!says.length || !means.length) return;
+      says.forEach(function (say, j) {
+        out.push({
+          objectID: 'syn-' + i + '-' + j,
+          type: 'oneWaySynonym',
+          input: say,
+          synonyms: means
+        });
+      });
+    });
+    return out;
+  }
 
   function creds() {
     var appId = document.getElementById('appId').value.trim();
@@ -204,7 +187,8 @@
       var recs = buildRecords();
       var byType = {};
       recs.forEach(function (r) { byType[r.type] = (byType[r.type] || 0) + 1; });
-      log('讀到 ' + recs.length + ' 筆記錄：產品／頁面 ' + (byType.product || 0) + ' 筆、規格 ' + (byType.spec || 0) + ' 筆', 'ok');
+      log('讀到 ' + recs.length + ' 筆記錄：產品 ' + (byType.product || 0) + ' 筆、規格 ' + (byType.spec || 0) + ' 筆、頁面 ' + (byType.page || 0) + ' 筆', 'ok');
+      log('同義詞 ' + buildSynonyms().length + ' 組');
 
       var rows = recs.slice(0, 12).map(function (r) {
         return '<tr><td>' + r.type + '</td><td>' + r.title + '</td><td>' + (r.desc || '').slice(0, 40) + '</td></tr>';
@@ -257,6 +241,12 @@
       .then(function () {
         log('套用搜尋設定…');
         return api(c, '/settings', 'PUT', SETTINGS);
+      })
+      .then(function () {
+        var syn = buildSynonyms();
+        if (!syn.length) { log('沒有同義詞可上傳'); return; }
+        log('上傳 ' + syn.length + ' 組同義詞…');
+        return api(c, '/synonyms/batch?replaceExistingSynonyms=true', 'POST', syn);
       })
       .then(function () {
         log('全部完成！到網站按搜尋就會用新索引了。', 'ok');

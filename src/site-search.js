@@ -415,46 +415,161 @@
     logTimer = setTimeout(function () { logSearch(query, hits); }, 900);
   }
 
+  /* ============================================================
+     語意搜尋（transformers.js，完全在瀏覽器內執行）
+     ------------------------------------------------------------
+     為什麼要這一層：關鍵字比對只能對上字面，客戶說「可以裝熱湯的袋子」
+     就對不到「耐熱袋」。語意向量比的是意思，所以不需要人工同義詞表。
+
+     設計取捨：
+     - 向量檔（src/data/embeddings.json）由 tools/build-embeddings.html 離線算好，
+       網站只需在查詢時把「一句話」轉成向量 → 只有查詢端要跑模型
+     - 模型約 40MB，第一次搜尋才下載、之後瀏覽器快取；
+       在它就緒前完全不影響搜尋（關鍵字結果照樣立刻出現）
+     - 只補「關鍵字沒找到但語意相近」的結果，不覆蓋精準命中的排序
+     - 任何一步失敗就安靜跳過
+     ============================================================ */
+  var SEM = {
+    ready: false,
+    loading: false,
+    items: null,
+    extractor: null,
+    threshold: 0.80,   // e5 模型的相似度普遍偏高，門檻要拉高才不會塞雜訊
+    max: 4
+  };
+
+  function loadSemantic() {
+    if (SEM.loading || SEM.ready) return;
+    SEM.loading = true;
+
+    var base = /\/products\//.test(location.pathname) ? '../' : '';
+    fetch(base + 'src/data/embeddings.json')
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
+        if (!data || !data.items || !data.items.length) throw new Error('no embeddings');
+        SEM.items = data.items;
+        return import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.2');
+      })
+      .then(function (mod) {
+        mod.env.allowLocalModels = false;
+        return mod.pipeline('feature-extraction', 'Xenova/multilingual-e5-small', { dtype: 'q8' });
+      })
+      .then(function (ex) {
+        SEM.extractor = ex;
+        SEM.ready = true;
+        SEM.loading = false;
+        // 模型晚到：把使用者已經打好的字重跑一次，結果自動升級
+        var input = document.getElementById('omSearchInput');
+        if (input && input.value.trim()) render(input.value);
+      })
+      .catch(function () { SEM.loading = false; });
+  }
+
+  function semanticHits(query) {
+    if (!SEM.ready) { loadSemantic(); return Promise.resolve([]); }
+    return SEM.extractor('query: ' + query, { pooling: 'mean', normalize: true })
+      .then(function (out) {
+        var qv = out.tolist()[0];
+        var scored = [];
+        SEM.items.forEach(function (it) {
+          var s = 0;
+          for (var i = 0; i < qv.length; i++) s += qv[i] * it.vec[i];
+          if (s >= SEM.threshold) scored.push({ it: it, s: s });
+        });
+        scored.sort(function (a, b) { return b.s - a.s; });
+        return scored.slice(0, SEM.max).map(function (x) {
+          return {
+            item: {
+              title: x.it.title,
+              category: x.it.category || '',
+              icon: x.it.icon || 'fa-cube',
+              desc: x.it.desc || '',
+              url: resolveUrl(x.it.url)
+            },
+            score: x.s,
+            why: '',
+            snippet: x.it.desc || '',
+            semantic: true
+          };
+        });
+      })
+      .catch(function () { return []; });
+  }
+
+  /** 把語意結果補在關鍵字結果後面（已出現過的不重複） */
+  function mergeSemantic(query, base) {
+    return semanticHits(query).then(function (extra) {
+      if (!extra.length) return base;
+      var seen = {};
+      base.results.forEach(function (r) { seen[r.item.url + '|' + r.item.title] = true; });
+      var add = extra.filter(function (r) { return !seen[r.item.url + '|' + r.item.title]; });
+      if (!add.length) return base;
+      return {
+        results: base.results.concat(add),
+        suggestions: base.results.length ? [] : base.suggestions,
+        expanded: base.expanded,
+        remote: base.remote
+      };
+    });
+  }
+
   /* ---------- 介面 ---------- */
   var EXTRA_CSS = `
-  .om-search-overlay { position: fixed; inset: 0; background: rgba(5,19,34,0.55); backdrop-filter: blur(6px);
-    z-index: 12000; display: none; align-items: flex-start; justify-content: center; padding: 90px 20px 40px; }
-  .om-search-overlay.active { display: flex; }
-  .om-search-box { width: 100%; max-width: 760px; background: #FFFFFF; border-radius: 18px;
-    box-shadow: 0 30px 70px -20px rgba(10,37,64,0.5); overflow: hidden; font-family: 'Inter','Noto Sans TC',sans-serif; }
-  .om-search-head { display: flex; align-items: center; gap: 12px; padding: 18px 22px; border-bottom: 1px solid #E2E8F0; }
-  .om-search-head i { color: #00529B; font-size: 1.05rem; }
-  .om-search-input { flex: 1; border: none; outline: none; font-size: 1.02rem; font-weight: 600; color: #1E293B; background: transparent; }
-  .om-search-close { background: #F1F5F9; border: 1px solid #E2E8F0; color: #64748B; width: 34px; height: 34px;
-    border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
-  .om-search-close:hover { background: #00529B; color: #FFFFFF; border-color: #00529B; }
-  .om-search-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 14px 22px; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; }
-  .om-search-tags .lbl { font-size: 0.78rem; font-weight: 800; color: #64748B; margin-right: 4px; }
-  .om-tag { background: #FFFFFF; border: 1px solid #CBD5E1; color: #334155; font-size: 0.8rem; font-weight: 700;
-    padding: 5px 12px; border-radius: 9999px; cursor: pointer; }
+  /* 頁首常駐搜尋條：取代原本的彈出視窗。
+     輸入框一直在，結果以下拉面板貼在輸入框下方（不遮擋整頁）。 */
+  .om-searchbar { position: relative; display: flex; align-items: center; gap: 8px;
+    width: 240px; margin-right: 10px; padding: 0 12px; height: 38px;
+    background: #F1F5F9; border: 1px solid #E2E8F0; border-radius: 9999px;
+    transition: width 0.22s ease, background 0.2s ease, border-color 0.2s ease; }
+  .om-searchbar:focus-within { width: 320px; background: #FFFFFF; border-color: #00529B;
+    box-shadow: 0 0 0 3px rgba(0,82,155,0.12); }
+  .om-searchbar > i { color: #64748B; font-size: 0.88rem; flex: 0 0 auto; }
+  .om-searchbar:focus-within > i { color: #00529B; }
+  .om-searchbar input { flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+    font-family: inherit; font-size: 0.88rem; font-weight: 600; color: #1E293B; }
+  .om-searchbar input::placeholder { color: #94A3B8; font-weight: 600; }
+  .om-sb-clear { display: none; background: none; border: none; padding: 0; cursor: pointer;
+    color: #94A3B8; font-size: 0.85rem; flex: 0 0 auto; }
+  .om-sb-clear:hover { color: #00529B; }
+  .om-searchbar.has-text .om-sb-clear { display: block; }
+
+  .om-panel { position: absolute; top: calc(100% + 10px); right: 0; width: 520px; max-width: calc(100vw - 32px);
+    background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px;
+    box-shadow: 0 24px 50px -18px rgba(10,37,64,0.35); overflow: hidden; z-index: 12000; display: none; }
+  .om-panel.active { display: block; }
+  .om-search-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 16px;
+    background: #F8FAFC; border-bottom: 1px solid #E2E8F0; }
+  .om-search-tags .lbl { font-size: 0.74rem; font-weight: 800; color: #64748B; margin-right: 2px; }
+  .om-tag { background: #FFFFFF; border: 1px solid #CBD5E1; color: #334155; font-size: 0.76rem; font-weight: 700;
+    padding: 4px 10px; border-radius: 9999px; cursor: pointer; }
   .om-tag:hover { border-color: #00529B; color: #00529B; background: #EFF6FF; }
-  .om-search-hint { padding: 10px 22px; font-size: 0.82rem; font-weight: 700; color: #00529B; background: #EFF6FF; border-bottom: 1px solid #DBEAFE; }
-  .om-search-list { max-height: 52vh; overflow-y: auto; overflow-x: hidden; }
-  .om-result { display: flex; align-items: center; gap: 14px; padding: 14px 22px; text-decoration: none;
+  .om-search-hint { padding: 9px 16px; font-size: 0.78rem; font-weight: 700; color: #00529B;
+    background: #EFF6FF; border-bottom: 1px solid #DBEAFE; }
+  .om-search-list { max-height: 58vh; overflow-y: auto; overflow-x: hidden; }
+  .om-result { display: flex; align-items: center; gap: 12px; padding: 12px 16px; text-decoration: none;
     border-bottom: 1px solid #F1F5F9; }
-  .om-result:hover { background: #EFF6FF; }
-  .om-result-icon { width: 40px; height: 40px; flex: 0 0 40px; border-radius: 10px; background: #0A2540; color: #FFFFFF;
-    display: grid; place-items: center; font-size: 0.95rem; }
+  .om-result:hover, .om-result.sel { background: #EFF6FF; }
+  .om-result-icon { width: 36px; height: 36px; flex: 0 0 36px; border-radius: 9px; background: #0A2540; color: #FFFFFF;
+    display: grid; place-items: center; font-size: 0.85rem; }
   .om-result-info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-  .om-result-title { display: block; font-size: 0.98rem; font-weight: 800; color: #0A2540; }
-  .om-result-desc { display: block; font-size: 0.82rem; font-weight: 500; color: #64748B; margin-top: 2px; line-height: 1.5;
+  .om-result-title { display: block; font-size: 0.92rem; font-weight: 800; color: #0A2540; }
+  .om-result-desc { display: block; font-size: 0.78rem; font-weight: 500; color: #64748B; margin-top: 2px; line-height: 1.5;
     overflow-wrap: anywhere; text-wrap: pretty; }
   .om-result-desc mark { background: #FEF08A; color: #0A2540; padding: 0 2px; border-radius: 3px; }
-  .om-result-cat { font-size: 0.74rem; font-weight: 800; color: #00529B; background: #EFF6FF; border: 1px solid #DBEAFE;
-    padding: 3px 10px; border-radius: 6px; white-space: nowrap; }
-  .om-empty { padding: 36px 22px; text-align: center; color: #64748B; }
-  .om-empty .t { font-size: 0.98rem; font-weight: 800; color: #0A2540; margin-bottom: 6px; }
-  .om-empty .s { font-size: 0.85rem; margin-bottom: 16px; }
-  .om-search-foot { display: flex; justify-content: space-between; gap: 12px; padding: 12px 22px; background: #F8FAFC;
-    border-top: 1px solid #E2E8F0; font-size: 0.78rem; font-weight: 600; color: #64748B; }
-  .om-search-foot kbd { background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 4px; padding: 1px 6px; font-weight: 800; }
-  @media (max-width: 640px) {
-    .om-search-overlay { padding: 70px 12px 20px; }
+  .om-result-cat { font-size: 0.7rem; font-weight: 800; color: #00529B; background: #EFF6FF; border: 1px solid #DBEAFE;
+    padding: 3px 9px; border-radius: 6px; white-space: nowrap; }
+  .om-empty { padding: 28px 18px; text-align: center; color: #64748B; }
+  .om-empty .t { font-size: 0.92rem; font-weight: 800; color: #0A2540; margin-bottom: 6px; }
+  .om-empty .s { font-size: 0.8rem; margin-bottom: 14px; }
+
+  @media (max-width: 1200px) {
+    .om-searchbar { width: 190px; }
+    .om-searchbar:focus-within { width: 250px; }
+  }
+  /* 1000px 以下頁首交給漢堡選單，搜尋條攤成整列 */
+  @media (max-width: 1000px) {
+    .om-searchbar, .om-searchbar:focus-within { width: 100%; margin: 0; }
+    .om-panel { width: 100%; right: auto; left: 0; }
     .om-result-cat { display: none; }
   }
   `;
@@ -468,33 +583,59 @@
     }
     var old = document.getElementById('searchModalOverlay');
     if (old) old.remove();
-    if (document.getElementById('omSearchOverlay')) return;
+    if (document.getElementById('omSearchBar')) return;
 
-    var html = '' +
-      '<div id="omSearchOverlay" class="om-search-overlay">' +
-        '<div class="om-search-box">' +
-          '<div class="om-search-head">' +
-            '<i class="fa-solid fa-magnifying-glass"></i>' +
-            '<input id="omSearchInput" class="om-search-input" type="text" autocomplete="off" placeholder="搜尋產品、尺寸或規格（垃圾袋、束口袋、45L、0號、ziplock 都找得到）">' +
-            '<button id="omSearchClose" class="om-search-close" type="button" aria-label="關閉搜尋"><i class="fa-solid fa-xmark"></i></button>' +
-          '</div>' +
-          '<div class="om-search-tags">' +
-            '<span class="lbl">熱門搜尋：</span>' +
-            '<button class="om-tag" type="button" data-q="垃圾袋">垃圾袋</button>' +
-            '<button class="om-tag" type="button" data-q="束口袋">束口袋</button>' +
-            '<button class="om-tag" type="button" data-q="熱食袋">熱食袋</button>' +
-            '<button class="om-tag" type="button" data-q="保鮮袋">保鮮袋</button>' +
-            '<button class="om-tag" type="button" data-q="夾鍊袋">夾鍊袋</button>' +
-            '<button class="om-tag" type="button" data-q="45L">45L</button>' +
-            '<button class="om-tag" type="button" data-q="環保標章">環保標章</button>' +
-          '</div>' +
-          '<div id="omSearchHint" class="om-search-hint" style="display:none;"></div>' +
-          '<div id="omSearchList" class="om-search-list"></div>' +
-          '<div class="om-search-foot"><span><kbd>ESC</kbd> 關閉</span><span><kbd>Ctrl</kbd> + <kbd>K</kbd> 開啟搜尋</span></div>' +
+    /* 頁首那顆放大鏡按鈕換成常駐搜尋條；找不到頁首時不插入
+       （漢堡選單會另外呼叫 openSearchModal 聚焦這個輸入框） */
+    var trigger = document.getElementById('globalSearchTrigger') || document.querySelector('.search-trigger-btn');
+    if (!trigger || !trigger.parentNode) return;
+
+    var bar = document.createElement('div');
+    bar.className = 'om-searchbar';
+    bar.id = 'omSearchBar';
+    bar.innerHTML =
+      '<i class="fa-solid fa-magnifying-glass"></i>' +
+      '<input id="omSearchInput" type="text" autocomplete="off" aria-label="全站搜尋" ' +
+        'data-ph-tw="搜尋產品、尺寸或規格" data-ph-en="Search products, sizes or specs" ' +
+        'placeholder="搜尋產品、尺寸或規格">' +
+      '<button class="om-sb-clear" id="omSearchClear" type="button" aria-label="清除"><i class="fa-solid fa-xmark"></i></button>' +
+      '<div class="om-panel" id="omSearchPanel">' +
+        '<div class="om-search-tags">' +
+          '<span class="lbl">熱門：</span>' +
+          '<button class="om-tag" type="button" data-q="垃圾袋">垃圾袋</button>' +
+          '<button class="om-tag" type="button" data-q="束口袋">束口袋</button>' +
+          '<button class="om-tag" type="button" data-q="熱食袋">熱食袋</button>' +
+          '<button class="om-tag" type="button" data-q="夾鍊袋">夾鍊袋</button>' +
+          '<button class="om-tag" type="button" data-q="45L">45L</button>' +
         '</div>' +
+        '<div id="omSearchHint" class="om-search-hint" style="display:none;"></div>' +
+        '<div id="omSearchList" class="om-search-list"></div>' +
       '</div>';
-    document.body.insertAdjacentHTML('beforeend', html);
-    document.getElementById('omSearchInput').addEventListener('input', function () { render(this.value); });
+
+    trigger.parentNode.replaceChild(bar, trigger);
+
+    var input = document.getElementById('omSearchInput');
+    input.addEventListener('input', function () {
+      bar.classList.toggle('has-text', !!this.value);
+      openPanel();
+      render(this.value);
+    });
+    input.addEventListener('focus', function () { openPanel(); render(this.value); });
+    document.getElementById('omSearchClear').addEventListener('click', function () {
+      input.value = '';
+      bar.classList.remove('has-text');
+      input.focus();
+      render('');
+    });
+  }
+
+  function openPanel() {
+    var p = document.getElementById('omSearchPanel');
+    if (p) p.classList.add('active');
+  }
+  function closePanel() {
+    var p = document.getElementById('omSearchPanel');
+    if (p) p.classList.remove('active');
   }
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
@@ -506,14 +647,21 @@
     var r = preset || search(query);
     var q = (query || '').trim();
 
-    // 本地結果先畫出來，Algolia 回來後再換掉（只認最後一次查詢）
+    /* 三段式：本地結果立刻畫 → Algolia 回來替換 → 語意結果補上。
+       只認最後一次查詢（seq），避免慢的回應蓋掉新的輸入。 */
     if (!preset && q) {
       var seq = ++remoteSeq;
+      if (q.length >= 2) loadSemantic();
       remoteSearch(q).then(function (rr) {
         if (seq !== remoteSeq) return;
-        if (rr && rr.results.length) render(q, rr);
-        // 記錄以遠端筆數為準：本地漏掉、Algolia 找到的查詢不該被記成「無結果」
-        queueLog(q, rr ? rr.results.length : r.results.length);
+        var base = (rr && rr.results.length) ? rr : r;
+        if (rr && rr.results.length) render(q, base);
+        return mergeSemantic(q, base).then(function (merged) {
+          if (seq !== remoteSeq) return;
+          if (merged !== base) render(q, merged);
+          // 記錄以最終筆數為準：關鍵字漏掉、語意或 Algolia 找到的不該記成「無結果」
+          queueLog(q, merged.results.length);
+        });
       });
     }
 
@@ -548,42 +696,52 @@
     }).join('');
   }
 
+  // 保留這兩個名字：漢堡選單與舊頁面仍在呼叫
   window.openSearchModal = function () {
     ensureUI();
-    var o = document.getElementById('omSearchOverlay');
     var i = document.getElementById('omSearchInput');
-    o.classList.add('active');
-    render(i ? i.value : '');
-    setTimeout(function () { if (i) i.focus(); }, 60);
+    if (!i) return;
+    openPanel();
+    render(i.value);
+    i.focus();
   };
-  window.closeSearchModal = function () {
-    var o = document.getElementById('omSearchOverlay');
-    if (o) o.classList.remove('active');
-  };
+  window.closeSearchModal = closePanel;
 
   document.addEventListener('click', function (e) {
     var t = e.target;
-    if (t.closest && (t.closest('#globalSearchTrigger') || t.closest('.search-trigger-btn'))) {
-      e.preventDefault(); window.openSearchModal(); return;
-    }
-    var overlay = document.getElementById('omSearchOverlay');
-    if (!overlay) return;
-    if (t === overlay || (t.closest && t.closest('#omSearchClose'))) { window.closeSearchModal(); return; }
+    var bar = document.getElementById('omSearchBar');
+
+    // 點面板外面就收起來
+    if (bar && !bar.contains(t)) { closePanel(); }
+
     var tag = t.closest && t.closest('.om-tag');
     if (tag) {
+      e.preventDefault();
       var q = tag.getAttribute('data-q');
       var input = document.getElementById('omSearchInput');
-      if (input) { input.value = q; input.focus(); }
+      if (input) {
+        input.value = q;
+        input.focus();
+        if (bar) bar.classList.add('has-text');
+      }
+      openPanel();
       render(q);
     }
   });
 
   document.addEventListener('keydown', function (e) {
+    var input = document.getElementById('omSearchInput');
     if ((e.ctrlKey || e.metaKey) && String(e.key).toLowerCase() === 'k') {
       e.preventDefault();
-      var o = document.getElementById('omSearchOverlay');
-      if (o && o.classList.contains('active')) window.closeSearchModal(); else window.openSearchModal();
-    } else if (e.key === 'Escape') { window.closeSearchModal(); }
+      if (input) { openPanel(); input.focus(); input.select(); }
+    } else if (e.key === 'Escape') {
+      closePanel();
+      if (input) input.blur();
+    } else if (e.key === 'Enter' && input && document.activeElement === input) {
+      // Enter 直接前往第一筆結果
+      var first = document.querySelector('#omSearchList .om-result');
+      if (first) { e.preventDefault(); location.href = first.getAttribute('href'); }
+    }
   });
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ensureUI);

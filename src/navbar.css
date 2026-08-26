@@ -345,6 +345,8 @@
   box-shadow: 0 6px 18px rgba(0, 82, 155, 0.35);
 }
 
+/* 這顆按鈕在 site-search.js 載入後會被常駐搜尋條（.om-searchbar）取代；
+   樣式保留是為了載入前那一瞬間不要跳版。 */
 .search-trigger-btn {
   display: inline-flex;
   align-items: center;
