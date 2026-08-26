@@ -41,7 +41,7 @@
 <body>
 <div class="wrap">
   <h1>搜尋索引上傳</h1>
-  <div class="sub">把網站的產品資料與規格上傳到 Algolia。Excel 改完、轉出 js 之後，回來按一次上傳即可。</div>
+  <div class="sub">把網站的產品資料上傳到 Algolia。Excel 改完、轉出 js 之後，回來按一次上傳即可。</div>
 
   <div class="card">
     <h2>1. 填入金鑰</h2>
@@ -63,7 +63,7 @@
 
   <div class="card">
     <h2>2. 檢查要上傳的內容</h2>
-    <p>讀取的是網站正在用的同一份資料（website-data.js、products-data.js），所以上傳的內容與網站顯示一致。</p>
+    <p>讀取的是網站正在用的同一份資料（src/data/products-data.js，經 src/search-records.js 組成），所以上傳的內容與網站顯示一致。</p>
     <div class="actions">
       <button type="button" id="btnPreview" class="ghost">重新讀取並預覽</button>
     </div>
@@ -72,7 +72,7 @@
 
   <div class="card">
     <h2>3. 上傳</h2>
-    <p>上傳會先清空舊索引再全部重寫，所以刪掉的產品不會殘留。同時會套用中文分詞、錯字容錯與欄位權重設定。</p>
+    <p>上傳會先清空舊索引再全部重寫，所以刪掉的產品不會殘留。同時會套用中文分詞、錯字容錯與欄位權重設定。客戶慣用說法（垃圾袋、束口袋…）由網站的語意搜尋處理，這裡不需要維護同義詞。</p>
     <div class="actions">
       <button type="button" id="btnUpload">開始上傳</button>
       <button type="button" id="btnSettingsOnly" class="ghost">只更新搜尋設定</button>
@@ -82,7 +82,6 @@
   <div id="log">等待操作…</div>
 </div>
 
-<script src="../src/data/website-data.js"></script>
 <script src="../src/data/products-data.js"></script>
 <script src="../src/search-records.js"></script>
 <script>
@@ -105,9 +104,8 @@
   });
 
   /* ---------- 組出 Algolia 記錄 ----------
-     兩種記錄混在同一個索引裡，用 type 區分：
-     - product：產品／頁面層（來自 website-data.js 的搜尋索引）
-     - spec：單一規格層（來自「產品規格」工作表），讓客戶搜「45L」直接看到那一筆
+     - product：產品層（來自 src/data/products-data.js）
+     - page：一般頁面（關於／永續／聯絡／產品中心，寫在 src/search-records.js）
   */
   // 記錄的定義集中在 src/search-records.js（語意向量工具也用同一份）
   function buildRecords() {
@@ -133,27 +131,6 @@
     hitsPerPage: 12
   };
 
-  /* 同義詞：Excel「搜尋同義詞」工作表 → Algolia synonyms
-     沒有這一步的話，Algolia 不認識「垃圾袋」「束口袋」這類客戶慣用說法。
-     用 oneWaySynonym：客戶輸入的說法 → 對應到的產品（反向不成立）。 */
-  function buildSynonyms() {
-    var data = (window.SITE_DATA && window.SITE_DATA.search) || {};
-    var out = [];
-    (data.synonyms || []).forEach(function (g, i) {
-      var says = (g.say || []).filter(Boolean);
-      var means = (g.mean || []).filter(Boolean);
-      if (!says.length || !means.length) return;
-      says.forEach(function (say, j) {
-        out.push({
-          objectID: 'syn-' + i + '-' + j,
-          type: 'oneWaySynonym',
-          input: say,
-          synonyms: means
-        });
-      });
-    });
-    return out;
-  }
 
   function creds() {
     var appId = document.getElementById('appId').value.trim();
@@ -187,7 +164,6 @@
       var byType = {};
       recs.forEach(function (r) { byType[r.type] = (byType[r.type] || 0) + 1; });
       log('讀到 ' + recs.length + ' 筆記錄：產品 ' + (byType.product || 0) + ' 筆、頁面 ' + (byType.page || 0) + ' 筆', 'ok');
-      log('同義詞 ' + buildSynonyms().length + ' 組');
 
       var rows = recs.slice(0, 12).map(function (r) {
         return '<tr><td>' + r.type + '</td><td>' + r.title + '</td><td>' + (r.desc || '').slice(0, 40) + '</td></tr>';
@@ -217,7 +193,7 @@
       c = creds();
       recs = buildRecords();
     } catch (err) { return log(err.message, 'err'); }
-    if (!recs.length) return log('沒有可上傳的資料，請確認 website-data.js 有讀到', 'err');
+    if (!recs.length) return log('沒有可上傳的資料，請確認 src/data/products-data.js 有讀到', 'err');
 
     var btn = this;
     btn.disabled = true;
@@ -240,12 +216,6 @@
       .then(function () {
         log('套用搜尋設定…');
         return api(c, '/settings', 'PUT', SETTINGS);
-      })
-      .then(function () {
-        var syn = buildSynonyms();
-        if (!syn.length) { log('沒有同義詞可上傳'); return; }
-        log('上傳 ' + syn.length + ' 組同義詞…');
-        return api(c, '/synonyms/batch?replaceExistingSynonyms=true', 'POST', syn);
       })
       .then(function () {
         log('全部完成！到網站按搜尋就會用新索引了。', 'ok');

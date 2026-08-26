@@ -499,16 +499,6 @@
   <script>
     (function () {
       var SHEET = '產品資料';
-      // 產品名稱 → 專頁；沒列到的產品不顯示「瀏覽專頁」按鈕
-      var PAGES = {
-        '清潔袋': 'can-liners.html',
-        '拉繩袋': 'draw-tape.html',
-        '蔬果袋': 'heat-bags.html',
-        '夾鏈袋': 'sealed-packaging.html',
-        '多功能手套': 'accessories.html',
-        '台塑遮蔽防塵膠帶': 'accessories.html',
-        'Scale Sheet': 'stretch-films.html'
-      };
       function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
       // 圖片路徑：只寫檔名 → 先試 src/product-img/，載不到自動改試 src/ 根目錄
@@ -552,7 +542,8 @@
         } catch (e) { /* 無法取樣時維持 contain */ }
       }
 
-      function getCatId(cat) {
+      /* 卡片的錨點代號：首頁與搜尋結果都用 products/index.html#cat-xxx 連過來 */
+      function getCatId(cat, i2) {
         var name = cat.name || '';
         if (name.indexOf('清潔袋') > -1) return 'cat-can-liners';
         if (name.indexOf('拉繩袋') > -1) return 'cat-draw-tape';
@@ -560,16 +551,13 @@
         if (name.indexOf('夾鏈袋') > -1) return 'cat-sealed-packaging';
         if (name.indexOf('手套') > -1) return 'cat-gloves';
         if (name.indexOf('膠帶') > -1) return 'cat-masking-film';
-        if (name.indexOf('Scale') > -1) return 'cat-stretch-films';
-        var page = PAGES[name] || PAGES[cat.cat] || '';
-        return 'cat-' + esc(page.replace('.html', ''));
+        if (name.indexOf('Scale') > -1 || name.indexOf('Tare') > -1) return 'cat-stretch-films';
+        return 'cat-' + (i2 || 0);
       }
 
       function cardHtml(cat, i) {
         var p = photoOf(cat);
-
-        var page = PAGES[cat.name] || PAGES[cat.cat] || '';
-        var catId = getCatId(cat);
+        var catId = getCatId(cat, i);
         var list = String(cat.items || '').split(/[、,，\n]+/).map(function (s) { return s.trim(); }).filter(Boolean)
           .map(function (s) {
             var eco = /環保|認證|標章|回收|再生/.test(s);
