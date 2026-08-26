@@ -60,6 +60,21 @@
     @media(max-width:760px){.container {width:min(100% - 36px,var(--container))}.logo-copy {display:none}.story-hero {min-height:720px;padding-top:64px}.hero-inner {padding-top:92px;padding-bottom:46px}.story-hero::after {background:linear-gradient(100deg,rgba(11,79,131,.93),rgba(8,119,186,.65)),linear-gradient(0deg,rgba(11,79,131,.78),transparent 65%)}.hero-fact {grid-template-columns:64px 1fr}.partnership, .origin, .history, .capabilities, .closing {padding-block:82px}.network-node {min-height:0;padding:30px 26px}.timeline::before {left:77px}.timeline-item {grid-template-columns:58px 1fr;gap:40px;min-height:140px}.timeline-item::before {left:72px}.timeline-year {font-size:1.45rem}.timeline-item.future .timeline-copy {padding:22px}.capability-grid {grid-template-columns:1fr}.capability {min-height:auto}.factory-image {min-height:320px}.footer-inner {flex-direction:column;align-items:flex-start}}
     @media(prefers-reduced-motion:reduce){html {scroll-behavior:auto}*, *::before, *::after {animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal {opacity:1;transform:none}}
   </style>
+  <!-- Google Analytics 4（G-0FS2ZC88V0）
+       只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
+  <script>
+    (function () {
+      if (location.hostname !== 'yunna121.github.io') return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0FS2ZC88V0';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', 'G-0FS2ZC88V0');
+    })();
+  </script>
 </head>
 <body>
   <!-- 頁首（頂欄／選單／搜尋鈕／語言鈕／CTA）由 src/navbar.js 注入，頁面內不要再手寫一份 -->

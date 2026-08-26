@@ -448,6 +448,21 @@
     }
   </style>
   <link rel="stylesheet" href="../src/responsive.css">
+  <!-- Google Analytics 4（G-0FS2ZC88V0）
+       只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
+  <script>
+    (function () {
+      if (location.hostname !== 'yunna121.github.io') return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0FS2ZC88V0';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', 'G-0FS2ZC88V0');
+    })();
+  </script>
 </head>
 
 <body>
