@@ -1,7 +1,7 @@
 /* 產品資料檔（Excel 的快照）
    正式資料來源：src/data/products-data.xlsx（工作表「產品資料」）
    由 tools/products-excel.html 轉出，請勿手改。
-   轉出時間：2026/8/26 下午12:12:14 — 來源檔：products-data.xlsx */
+   轉出時間：2026/8/26 下午1:48:12 — 來源檔：products-data.xlsx */
 window.PRODUCT_DATA = [
  {
   "name": "Scale Sheet",

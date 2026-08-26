@@ -666,6 +666,7 @@
           return {
             name: String(r['產品'] || r['產品名稱'] || '').trim(),
             name_en: String(r['英文名稱'] || '').trim(),
+            highlight: String(r['重點'] || '').trim(),
             desc: String(r['產品敘述'] || '').trim(),
             img: String(r['產品圖片'] || '').trim(),
             items: String(r['產品細項'] || '').trim()
