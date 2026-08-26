@@ -84,7 +84,6 @@
 
 <script src="../src/data/website-data.js"></script>
 <script src="../src/data/products-data.js"></script>
-<script src="../src/data-map.js"></script>
 <script src="../src/search-records.js"></script>
 <script>
 (function () {
@@ -116,7 +115,7 @@
   }
 
   var SETTINGS = {
-    searchableAttributes: ['unordered(title,alias)', 'unordered(keywords)', 'unordered(cap,size,dim)', 'unordered(category)', 'unordered(desc)', 'unordered(body)'],
+    searchableAttributes: ['unordered(title,alias)', 'unordered(keywords)', 'unordered(category)', 'unordered(desc)', 'unordered(body)'],
     attributesForFaceting: ['filterOnly(type)', 'category'],
     customRanking: ['desc(weight)'],
     /* 中文：indexLanguages/queryLanguages 設 zh 才會做中文分詞，
@@ -187,7 +186,7 @@
       var recs = buildRecords();
       var byType = {};
       recs.forEach(function (r) { byType[r.type] = (byType[r.type] || 0) + 1; });
-      log('讀到 ' + recs.length + ' 筆記錄：產品 ' + (byType.product || 0) + ' 筆、規格 ' + (byType.spec || 0) + ' 筆、頁面 ' + (byType.page || 0) + ' 筆', 'ok');
+      log('讀到 ' + recs.length + ' 筆記錄：產品 ' + (byType.product || 0) + ' 筆、頁面 ' + (byType.page || 0) + ' 筆', 'ok');
       log('同義詞 ' + buildSynonyms().length + ' 組');
 
       var rows = recs.slice(0, 12).map(function (r) {

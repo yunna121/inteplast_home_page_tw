@@ -5,8 +5,8 @@
    （tools/build-embeddings.html）都用這裡的 buildSearchRecords()，
    避免兩邊各寫一份、日後長歪。
 
-   產品分類讀 products-data.js（實際維護的那份），
-   規格讀 SITE_MAP.specs()，一般頁面（關於／永續／聯絡）讀 website-data.js。
+   產品一律讀 products-data.js（唯一維護來源），
+   一般頁面（關於／永續／聯絡）讀 website-data.js。
    ============================================================ */
 (function () {
   var PAGES = {
@@ -51,28 +51,8 @@
       });
     });
 
-    var specs = window.SITE_MAP ? window.SITE_MAP.specs() : [];
-    specs.forEach(function (r, i) {
-      var bits = [r.cap, r.size, r.dim, r.qty].filter(Boolean);
-      recs.push({
-        objectID: 'spec-' + i,
-        type: 'spec',
-        title: r.series,
-        alias: [],
-        category: r.categoryName || '',
-        desc: bits.join('　'),
-        body: [r.spec, r.dim, r.qty, (r.colors || []).map(function (c) { return c.name; }).join(' ')].filter(Boolean).join(' '),
-        keywords: (r.colors || []).map(function (c) { return c.name; }),
-        cap: r.cap || '',
-        size: r.size || '',
-        dim: r.dim || '',
-        icon: 'fa-table-list',
-        /* 指向該分類的產品頁本身（規格表就在那頁）。不加 #cat-… 片段：
-           那些錨點只存在於 products/index.html 且用英文代號，加了會失效。 */
-        url: '@root:products/' + (r.page || 'index') + '.html',
-        weight: 50
-      });
-    });
+    /* 規格層（website-data.xlsx 的「產品規格」工作表）已不納入搜尋：
+       產品資料一律以 products-data.js 為準，避免兩份 Excel 各說一套。 */
 
     var data = (window.SITE_DATA && window.SITE_DATA.search) || {};
     var GENERIC = { '聯繫我們': 1, '關於我們': 1, '永續發展': 1, '產品': 1 };

@@ -68,7 +68,6 @@
 
 <script src="../src/data/website-data.js"></script>
 <script src="../src/data/products-data.js"></script>
-<script src="../src/data-map.js"></script>
 <script src="../src/search-records.js"></script>
 <script type="module">
 import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.2';
@@ -114,7 +113,7 @@ document.getElementById('btnPreview').addEventListener('click', () => {
   const recs = window.buildSearchRecords();
   const by = {};
   recs.forEach(r => { by[r.type] = (by[r.type] || 0) + 1; });
-  log(`共 ${recs.length} 筆：產品 ${by.product || 0}、規格 ${by.spec || 0}、頁面 ${by.page || 0}`, 'ok');
+  log(`共 ${recs.length} 筆：產品 ${by.product || 0}、頁面 ${by.page || 0}`, 'ok');
   log('範例文字：\n' + window.searchRecordText(recs[0]).slice(0, 200) + '…');
 });
 
