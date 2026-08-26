@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation - 台塑關係企業六大產品與應用情境</title>
+  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation</title>
   <meta name="description"
     content="臺灣營德股份有限公司 (Inteplast Taiwan Corporation) 為台塑關係企業與 Inteplast USA 合資大廠，專業生產清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套/遮蔽膠帶與 Scale Sheet，提供多元日常與工業應用情境。">
   <meta name="keywords"
@@ -22,7 +22,7 @@
 
   <!-- 防止語系切換中文閃爍 (Anti-FOUC Instant Language Preloader) -->
   <script>
-    (function() {
+    (function () {
       if (localStorage.getItem('preferredLang') === 'en') {
         document.documentElement.classList.add('lang-loading');
       }
@@ -95,15 +95,18 @@
       margin-top: var(--utility-h);
     }
 
+    /* 影片載入前的底層：原本鋪 plant.png（3.9MB），影片還沒好時會先看到那張廠區照，
+       且它跟影片內容不同、會有「換圖」的突兀感。改為品牌深藍漸層，不必等圖片下載。 */
     .hero-bg-layer {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: #071627 url('./src/plant.png') center/cover no-repeat;
+      background:
+        radial-gradient(120% 90% at 20% 10%, #0F3355 0%, rgba(15, 51, 85, 0) 60%),
+        linear-gradient(160deg, #0A2540 0%, #071627 100%);
       z-index: 1;
-      filter: brightness(0.62) contrast(1.05);
     }
 
     /* 封面新港廠區影片背景 */
@@ -117,7 +120,11 @@
       z-index: 1;
       filter: brightness(1) contrast(1.02);
       pointer-events: none;
+      opacity: 0;
+      /* 載入完成才淡入（onloadeddata），不用 poster 佔位 */
+      transition: opacity 0.7s ease;
     }
+
     .hero-video-scrim {
       position: absolute;
       inset: 0;
@@ -159,7 +166,7 @@
     }
 
     .brand-logo-img {
-      height: 40px;
+      height: 56px;
       width: auto;
       object-fit: contain;
     }
@@ -337,11 +344,13 @@
       line-height: 1.6;
     }
 
-    .home-corp-overview-section .section-head h2, .home-green-mark-section .section-head h2 {
+    .home-corp-overview-section .section-head h2,
+    .home-green-mark-section .section-head h2 {
       color: var(--primary-navy) !important;
     }
 
-    .home-corp-overview-section .section-head p, .home-green-mark-section .section-head p {
+    .home-corp-overview-section .section-head p,
+    .home-green-mark-section .section-head p {
       color: var(--text-muted) !important;
     }
 
@@ -421,7 +430,13 @@
       border-top: 1px solid #E7EDF3;
       border-bottom: 1px solid #E7EDF3;
     }
-    .ps-head { max-width: 1400px; margin: 0 auto 40px; padding: 0 56px; }
+
+    .ps-head {
+      max-width: 1400px;
+      margin: 0 auto 40px;
+      padding: 0 56px;
+    }
+
     .ps-head .ps-kicker {
       display: flex;
       align-items: center;
@@ -433,7 +448,14 @@
       color: #96A2AE;
       margin-bottom: 16px;
     }
-    .ps-head .ps-kicker::before { content: ""; width: 28px; height: 1px; background: var(--brand-blue); }
+
+    .ps-head .ps-kicker::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--brand-blue);
+    }
+
     .ps-head h2 {
       font-size: clamp(2.4rem, 3.8vw, 3.4rem);
       font-weight: 900;
@@ -442,7 +464,11 @@
       line-height: 1.15;
     }
 
-    .ps-list { max-width: 1400px; margin: 0 auto; padding: 0 56px; }
+    .ps-list {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 56px;
+    }
 
     .ps-head .ps-lede {
       margin-top: 14px;
@@ -463,11 +489,21 @@
       border-top: 1px solid #EEF2F6;
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1);
+      transition: opacity .8s cubic-bezier(.22, .61, .36, 1), transform .8s cubic-bezier(.22, .61, .36, 1);
     }
-    .ps-row.in-view { opacity: 1; transform: none; }
-    .ps-row:first-of-type { border-top: 0; }
-    .ps-row:nth-child(even) .ps-stage { order: 2; }
+
+    .ps-row.in-view {
+      opacity: 1;
+      transform: none;
+    }
+
+    .ps-row:first-of-type {
+      border-top: 0;
+    }
+
+    .ps-row:nth-child(even) .ps-stage {
+      order: 2;
+    }
 
     .ps-stage {
       position: relative;
@@ -476,6 +512,7 @@
       justify-items: center;
       min-height: 420px;
     }
+
     .ps-numeral {
       position: absolute;
       left: 0;
@@ -491,18 +528,29 @@
       pointer-events: none;
       user-select: none;
     }
-    .ps-row:nth-child(even) .ps-numeral { left: auto; right: 0; }
+
+    .ps-row:nth-child(even) .ps-numeral {
+      left: auto;
+      right: 0;
+    }
 
     .ps-photo {
       position: relative;
       isolation: isolate;
       z-index: 2;
       width: clamp(280px, 28vw, 380px);
-      transition: transform .7s cubic-bezier(.22,.61,.36,1);
+      transition: transform .7s cubic-bezier(.22, .61, .36, 1);
     }
+
     /* 偶數列改為圖壓字 */
-    .ps-row:nth-child(even) .ps-photo { z-index: 4; }
-    .ps-row:hover .ps-photo { transform: translateY(-8px); }
+    .ps-row:nth-child(even) .ps-photo {
+      z-index: 4;
+    }
+
+    .ps-row:hover .ps-photo {
+      transform: translateY(-8px);
+    }
+
     .ps-photo img {
       width: 100%;
       height: clamp(280px, 26vw, 360px);
@@ -510,6 +558,7 @@
       display: block;
       filter: drop-shadow(0 26px 30px rgba(10, 37, 64, .28));
     }
+
     /* 落地陰影：讓產品看起來浮在桌面上 */
     .ps-photo::after {
       content: "";
@@ -524,9 +573,13 @@
       z-index: -1;
       pointer-events: none;
     }
+
     /* 尚未去背（白底或實拍背景）的產品照：暫以 multiply 融進背景，且不跟文字重疊（避免字壓在深色矩形上）；
        補上去背 PNG 後，把 img 的 is-plain 與 列的 ps-row--plain 兩個 class 一起移除即可回到完整重疊效果 */
-    .ps-photo.is-plain img { mix-blend-mode: multiply; filter: none; }
+    .ps-photo.is-plain img {
+      mix-blend-mode: multiply;
+      filter: none;
+    }
 
 
     .ps-body {
@@ -534,7 +587,11 @@
       z-index: 3;
       max-width: none;
     }
-    .ps-row:nth-child(even) .ps-body { text-align: right; }
+
+    .ps-row:nth-child(even) .ps-body {
+      text-align: right;
+    }
+
     .ps-badge {
       display: flex;
       align-items: center;
@@ -546,9 +603,22 @@
       color: var(--brand-blue);
       margin-bottom: 16px;
     }
-    .ps-badge::after { content: ""; flex: 0 0 42px; height: 1px; background: #D6E0EA; }
-    .ps-row:nth-child(even) .ps-badge { justify-content: flex-end; }
-    .ps-row:nth-child(even) .ps-badge::after { order: -1; }
+
+    .ps-badge::after {
+      content: "";
+      flex: 0 0 42px;
+      height: 1px;
+      background: #D6E0EA;
+    }
+
+    .ps-row:nth-child(even) .ps-badge {
+      justify-content: flex-end;
+    }
+
+    .ps-row:nth-child(even) .ps-badge::after {
+      order: -1;
+    }
+
     .ps-eyebrow {
       font-size: 0.88rem;
       font-weight: 800;
@@ -557,6 +627,7 @@
       color: #A3AEBA;
       margin-bottom: 12px;
     }
+
     /* 重疊只發生在巨型序號與照片之間；文字（大標／敘述／標籤）都留在文字欄內 */
     .ps-title {
       font-size: clamp(2.6rem, 4.5vw, 5.0rem);
@@ -567,12 +638,15 @@
       line-height: 1.02;
       transition: color 0.3s ease;
     }
+
     .ps-row {
       cursor: pointer;
     }
+
     .ps-row:hover .ps-title {
       color: var(--brand-blue);
     }
+
     .ps-card-link {
       display: inline-flex;
       align-items: center;
@@ -588,17 +662,21 @@
       text-decoration: none;
       transition: all 0.3s ease;
     }
+
     .ps-row:hover .ps-card-link {
       background: var(--brand-blue);
       color: #FFFFFF;
       transform: translateX(4px);
     }
+
     .ps-row:nth-child(even) .ps-card-link {
       margin-left: auto;
     }
+
     .ps-row:nth-child(even):hover .ps-card-link {
       transform: translateX(-4px);
     }
+
     .ps-desc {
       margin-top: 18px;
       max-width: 540px;
@@ -606,7 +684,11 @@
       line-height: 1.75;
       color: var(--text-muted);
     }
-    .ps-row:nth-child(even) .ps-desc { margin-left: auto; }
+
+    .ps-row:nth-child(even) .ps-desc {
+      margin-left: auto;
+    }
+
     .ps-items {
       display: flex;
       flex-wrap: wrap;
@@ -614,7 +696,12 @@
       margin-top: 20px;
       max-width: 560px;
     }
-    .ps-row:nth-child(even) .ps-items { margin-left: auto; justify-content: flex-end; }
+
+    .ps-row:nth-child(even) .ps-items {
+      margin-left: auto;
+      justify-content: flex-end;
+    }
+
     .ps-chip {
       display: inline-flex;
       align-items: center;
@@ -628,6 +715,7 @@
       color: #00529B;
       white-space: nowrap;
     }
+
     .ps-chip.is-eco {
       border-color: #A7D9C0;
       background: #F1FBF6;
@@ -635,21 +723,53 @@
     }
 
     @media (max-width: 1024px) {
-      .ps-section { padding: 80px 0 48px; }
-      .ps-head, .ps-list { padding: 0 32px; }
+      .ps-section {
+        padding: 80px 0 48px;
+      }
 
-      .ps-numeral { font-size: clamp(150px, 18vw, 200px); }
-      .ps-stage { min-height: 400px; }
-      .ps-photo { width: clamp(280px, 30vw, 380px); }
-      .ps-photo img { height: clamp(280px, 28vw, 360px); }
-      .ps-desc { font-size: 0.9rem; }
+      .ps-head,
+      .ps-list {
+        padding: 0 32px;
+      }
+
+      .ps-numeral {
+        font-size: clamp(150px, 18vw, 200px);
+      }
+
+      .ps-stage {
+        min-height: 400px;
+      }
+
+      .ps-photo {
+        width: clamp(280px, 30vw, 380px);
+      }
+
+      .ps-photo img {
+        height: clamp(280px, 28vw, 360px);
+      }
+
+      .ps-desc {
+        font-size: 0.9rem;
+      }
     }
 
     /* 手機端 768px 以下：改為單欄文字牆卡片（序號淡藍實心、照片居中、名字與說明壓在底部） */
     @media (max-width: 768px) {
-      .ps-section { padding: 64px 0 40px; }
-      .ps-head { margin-bottom: 28px; padding: 0 20px; }
-      .ps-list { padding: 0 20px; display: flex; flex-direction: column; }
+      .ps-section {
+        padding: 64px 0 40px;
+      }
+
+      .ps-head {
+        margin-bottom: 28px;
+        padding: 0 20px;
+      }
+
+      .ps-list {
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+      }
+
       .ps-row {
         display: block;
         position: relative;
@@ -658,11 +778,30 @@
         border-top: 1px solid #E2E8F0;
         overflow: hidden;
       }
-      .ps-row:first-of-type { border-top: 1px solid #E2E8F0; }
-      .ps-row:last-of-type { border-bottom: 1px solid #E2E8F0; }
-      .ps-stage { position: static; min-height: 0; display: block; }
-      .ps-row:nth-child(even) .ps-stage { padding-left: 0; }
-      .ps-stage, .ps-row:nth-child(even) .ps-stage { padding-right: 0; }
+
+      .ps-row:first-of-type {
+        border-top: 1px solid #E2E8F0;
+      }
+
+      .ps-row:last-of-type {
+        border-bottom: 1px solid #E2E8F0;
+      }
+
+      .ps-stage {
+        position: static;
+        min-height: 0;
+        display: block;
+      }
+
+      .ps-row:nth-child(even) .ps-stage {
+        padding-left: 0;
+      }
+
+      .ps-stage,
+      .ps-row:nth-child(even) .ps-stage {
+        padding-right: 0;
+      }
+
       .ps-numeral {
         left: auto;
         right: 4px;
@@ -672,7 +811,12 @@
         color: #EAF2FA;
         -webkit-text-stroke: 0;
       }
-      .ps-row:nth-child(even) .ps-numeral { left: auto; right: 4px; }
+
+      .ps-row:nth-child(even) .ps-numeral {
+        left: auto;
+        right: 4px;
+      }
+
       .ps-photo {
         position: absolute;
         left: 50%;
@@ -681,9 +825,20 @@
         width: 220px;
         z-index: 2;
       }
-      .ps-row:nth-child(even) .ps-photo { z-index: 2; }
-      .ps-row:hover .ps-photo { transform: translateX(-50%); }
-      .ps-photo img { height: 210px; filter: drop-shadow(0 18px 26px rgba(10, 37, 64, .2)); }
+
+      .ps-row:nth-child(even) .ps-photo {
+        z-index: 2;
+      }
+
+      .ps-row:hover .ps-photo {
+        transform: translateX(-50%);
+      }
+
+      .ps-photo img {
+        height: 210px;
+        filter: drop-shadow(0 18px 26px rgba(10, 37, 64, .2));
+      }
+
       .ps-body,
       .ps-row:nth-child(even) .ps-body {
         position: absolute;
@@ -695,11 +850,30 @@
         text-align: left;
         z-index: 3;
       }
-      .ps-badge { display: none; }
-      .ps-eyebrow { font-size: 0.62rem; letter-spacing: 0.2em; margin-bottom: 6px; }
-      .ps-title { font-size: 2.05rem; letter-spacing: -0.04em; }
+
+      .ps-badge {
+        display: none;
+      }
+
+      .ps-eyebrow {
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+        margin-bottom: 6px;
+      }
+
+      .ps-title {
+        font-size: 2.05rem;
+        letter-spacing: -0.04em;
+      }
+
       .ps-desc,
-      .ps-row:nth-child(even) .ps-desc { margin-top: 6px; margin-left: 0; font-size: 0.8rem; line-height: 1.55; max-width: none; }
+      .ps-row:nth-child(even) .ps-desc {
+        margin-top: 6px;
+        margin-left: 0;
+        font-size: 0.8rem;
+        line-height: 1.55;
+        max-width: none;
+      }
     }
 
     /* Andy Barefoot 3D Concertina Accordion Wave Folding Grid (原版鋸齒波浪 3D 風琴牆) */
@@ -773,7 +947,8 @@
       position: relative;
     }
 
-    .concertina-card:hover .concertina-left, .concertina-card:hover .concertina-right {
+    .concertina-card:hover .concertina-left,
+    .concertina-card:hover .concertina-right {
       transform: rotateY(0deg) !important;
       box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2) !important;
     }
@@ -1165,7 +1340,9 @@
 
     @media (max-width: 1000px) {
 
-      .stack-card, .intro-row-card, .intro-row-card:nth-child(even) {
+      .stack-card,
+      .intro-row-card,
+      .intro-row-card:nth-child(even) {
         grid-template-columns: 1fr;
       }
 
@@ -1183,7 +1360,9 @@
     }
 
     /* Scroll margin offset for fixed header navigation */
-    #productShowcase, #greenMark, #contactCTA {
+    #productShowcase,
+    #greenMark,
+    #contactCTA {
       scroll-margin-top: 110px;
     }
 
@@ -1253,7 +1432,8 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .step-rail-item.active .step-dot, .step-rail-item:hover .step-dot {
+    .step-rail-item.active .step-dot,
+    .step-rail-item:hover .step-dot {
       background: #00D2FF;
       border-color: #FFFFFF;
       box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.35), 0 4px 12px rgba(0, 210, 255, 0.4);
@@ -1323,14 +1503,17 @@
     }
 
     /* Popup triggers on hover or when active */
-    .step-rail-item:hover .step-popup-card, .step-rail-item.active:hover .step-popup-card {
+    .step-rail-item:hover .step-popup-card,
+    .step-rail-item.active:hover .step-popup-card {
       opacity: 1;
       visibility: visible;
       transform: translateY(-50%) translateX(0);
     }
 
     @media (max-width: 1024px) {
-      .side-step-rail { display: none; }
+      .side-step-rail {
+        display: none;
+      }
     }
   </style>
   <link rel="stylesheet" href="./src/navbar.css">
@@ -1341,16 +1524,18 @@
   <!-- 頁首（頂欄／選單／搜尋鈕／語言鈕／CTA）由 src/navbar.js 注入，頁面內不要再手寫一份 -->
   <div id="site-header-component"></div>
   <script src="src/navbar.js"></script>
+  <script src="src/site-year.js"></script>
 
   <!-- Hero Section -->
   <div class="fashion-hero-wrapper" id="heroWrapper">
     <div class="hero-bg-layer" id="heroBg"></div>
-    <video class="hero-video" id="heroVideo" src="./src/首頁video.mp4" poster="./src/plant.png" autoplay muted loop playsinline preload="auto"></video>
+    <video class="hero-video" id="heroVideo" src="./src/首頁video.mp4" autoplay muted loop playsinline preload="auto"
+      onloadeddata="this.style.opacity=1"></video>
     <div class="hero-video-scrim"></div>
 
     <div class="hero-stage-content">
       <div class="brand-hero-badge">
-        <img src="./src/inteplast-logo-blue.svg" alt="Inteplast Logo" class="brand-logo-img">
+        <img src="./src/ITC Logo.png" alt="Inteplast Taiwan Logo" class="brand-logo-img">
         <div class="brand-divider"></div>
         <div>
           <div class="brand-badge-title" data-tw="臺灣營德股份有限公司" data-en="INTEPLAST TAIWAN CORPORATION">臺灣營德股份有限公司</div>
@@ -1359,19 +1544,18 @@
         </div>
       </div>
 
-      <h1 class="hero-big-title" data-tw="台塑企業清潔袋專業製造"
-        data-en="Formosa Plastics Group · Can Liner Specialist">
+      <h1 class="hero-big-title" data-tw="台塑企業清潔袋專業製造" data-en="Formosa Plastics Group · Can Liner Specialist">
         台塑企業清潔袋專業製造
       </h1>
 
-      <p class="hero-sub-tagline" data-tw="台塑企業、Inteplast USA 與長庚生技合資設廠。以台塑原料自製清潔袋與拉繩袋，嘉義新港基地自動化吹膜；另有蔬果袋、夾鏈袋，以及集團專利抽取式 Scale Sheet。"
+      <p class="hero-sub-tagline"
+        data-tw="台塑企業、Inteplast USA 與長庚生技合資設廠。以台塑原料自製清潔袋與拉繩袋，嘉義新港基地自動化吹膜；另有蔬果袋、夾鏈袋，以及集團專利抽取式 Scale Sheet。"
         data-en="A joint venture of Formosa Plastics, Inteplast USA and Chang Gung Biotech. Built on Formosa resin, our Chiayi Xingang plant runs automated extrusion for can liners and draw-tape bags, alongside produce and zipper bags, plus the group's patented pop-up Scale Sheet.">
         台塑企業、Inteplast USA 與長庚生技合資設廠。以台塑原料自製清潔袋與拉繩袋，嘉義新港基地自動化吹膜；另有蔬果袋、夾鏈袋，以及集團專利抽取式 Scale Sheet。
       </p>
 
       <div class="hero-btn-group">
-        <a href="#productShowcase" class="btn-hero-primary" data-tw="瀏覽核心產品系列"
-          data-en="Explore 6 Product Lines">
+        <a href="#productShowcase" class="btn-hero-primary" data-tw="瀏覽核心產品系列" data-en="Explore 6 Product Lines">
           <i class="fa-solid fa-layer-group"></i> <span data-tw="瀏覽核心產品系列"
             data-en="Explore 6 Product Lines">瀏覽核心產品系列</span>
         </a>
@@ -1381,9 +1565,12 @@
       <div class="hero-stats-row">
         <div class="hero-stat-card">
           <div class="stat-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
-          <div class="stat-num"><span class="counter-num" data-target="43">0</span> <small data-tw="年 (1983-2026)" data-en="Yrs (1983-2026)">年 (1983-2026)</small></div>
-          <div class="stat-label" data-tw="43 年全球品牌資歷" data-en="43 Years Group History">43 年全球品牌資歷</div>
-          <div class="stat-sub" data-tw="Inteplast USA 1983 創立 · 2014 在台設廠" data-en="Founded 1983 · Taiwan Plant Est. 2014">Inteplast USA 1983 創立 · 2014 在台設廠</div>
+          <div class="stat-num"><span class="counter-num" data-target="{{years}}">0</span> <small
+              data-tw="年 (1983-{{year}})" data-en="Yrs (1983-{{year}})">年 (1983-{{year}})</small></div>
+          <div class="stat-label" data-tw="{{years}} 年全球品牌資歷" data-en="{{years}} Years Group History">{{years}} 年全球品牌資歷
+          </div>
+          <div class="stat-sub" data-tw="Inteplast USA 1983 創立 · 2014 在台設廠"
+            data-en="Founded 1983 · Taiwan Plant Est. 2014">Inteplast USA 1983 創立 · 2014 在台設廠</div>
         </div>
 
         <div class="hero-stat-card">
@@ -1408,7 +1595,9 @@
     <div class="ps-head">
       <div class="ps-kicker" data-tw="CORE PRODUCTS · 核心產品系列" data-en="CORE PRODUCTS">CORE PRODUCTS · 核心產品系列</div>
       <h2 data-tw="核心產品系列" data-en="Core Products">核心產品系列</h2>
-      <p class="ps-lede" data-tw="全線產品皆以台塑原料自製，嘉義新港基地一貫作業，從家用清潔袋到集團專利 Scale Sheet。" data-en="Every line is built on Formosa resin and produced in-house at our Chiayi Xingang plant — from household can liners to the group's patented Scale Sheet.">全線產品皆以台塑原料自製，嘉義新港基地一貫作業，從家用清潔袋到集團專利 Scale Sheet。</p>
+      <p class="ps-lede" data-tw="全線產品皆以台塑原料自製，嘉義新港基地一貫作業，從家用清潔袋到集團專利 Scale Sheet。"
+        data-en="Every line is built on Formosa resin and produced in-house at our Chiayi Xingang plant — from household can liners to the group's patented Scale Sheet.">
+        全線產品皆以台塑原料自製，嘉義新港基地一貫作業，從家用清潔袋到集團專利 Scale Sheet。</p>
     </div>
 
     <!-- 產品列全部由 src/data/products-data.xlsx（工作表「產品資料」）產生，見頁尾腳本；此處不寫死任何產品 -->
@@ -1418,68 +1607,101 @@
   </section>
 
   <!-- GREEN MARK SUSTAINABILITY TEASER SECTION (環保標章認證導引區塊 - 位於產品使用特色上方) -->
-  <section class="home-green-mark-section" id="greenMark" style="padding: 70px 0; background: #F8FAFC; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+  <section class="home-green-mark-section" id="greenMark"
+    style="padding: 70px 0; background: #F8FAFC; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
     <div style="max-width: 1350px; margin: 0 auto; padding: 0 40px;">
-      
+
       <!-- Unified Section Head -->
       <div class="section-head" style="margin-bottom: 48px;">
-        <span class="pill-badge" style="background: rgba(67,172,89,0.1); color: #2F7B4B; border-color: rgba(67,172,89,0.3);" data-tw="ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品" data-en="ENVIRONMENTAL LABEL PRODUCTS">
-          <i class="fa-solid fa-leaf"></i> <span data-tw="ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品" data-en="ENVIRONMENTAL LABEL PRODUCTS">ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品</span>
+        <span class="pill-badge"
+          style="background: rgba(67,172,89,0.1); color: #2F7B4B; border-color: rgba(67,172,89,0.3);"
+          data-tw="ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品" data-en="ENVIRONMENTAL LABEL PRODUCTS">
+          <i class="fa-solid fa-leaf"></i> <span data-tw="ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品"
+            data-en="ENVIRONMENTAL LABEL PRODUCTS">ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品</span>
         </span>
         <h2 data-tw="環保不打折，每一款都經過層層把關" data-en="Uncompromised Eco Quality, Rigorously Audited">
           環保不打折，每一款都經過層層把關
         </h2>
-        <p data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。" data-en="Formosa Eco Drawtape and Can Liner bags are fully Green Mark certified from raw materials to manufacturing.">
+        <p data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。"
+          data-en="Formosa Eco Drawtape and Can Liner bags are fully Green Mark certified from raw materials to manufacturing.">
           台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。
         </p>
       </div>
 
       <!-- Main Combined Card (100% Matching Screenshot Layout) -->
-      <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md);">
+      <div
+        style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md);">
         <div style="display: grid; grid-template-columns: 1fr 1.1fr; align-items: stretch;">
-          
+
           <!-- Left Visual Box: Light Green Tint Box with Certificate Image -->
           <div style="background: #EFF8ED; padding: 36px; display: flex; align-items: center; justify-content: center;">
-            <img src="./src/combine.png" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書" style="width: 100%; max-width: 520px; height: auto; border-radius: 14px; box-shadow: 0 16px 32px rgba(35, 82, 62, 0.12); object-fit: cover;">
+            <img src="./src/combine.png" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書"
+              style="width: 100%; max-width: 520px; height: auto; border-radius: 14px; box-shadow: 0 16px 32px rgba(35, 82, 62, 0.12); object-fit: cover;">
           </div>
 
           <!-- Right Content Box: Intro + 2x2 Grid + Read More Button -->
-          <div style="padding: 40px 48px; display: flex; flex-direction: column; justify-content: space-between; background: #FFFFFF;">
+          <div
+            style="padding: 40px 48px; display: flex; flex-direction: column; justify-content: space-between; background: #FFFFFF;">
             <div>
-              <span style="font-size: 0.78rem; font-weight: 800; color: #2F7B4B; letter-spacing: 0.05em; display: inline-block; margin-bottom: 8px;" data-tw="環保標章認證產品" data-en="ENVIRONMENTAL LABEL CERTIFIED">
+              <span
+                style="font-size: 0.78rem; font-weight: 800; color: #2F7B4B; letter-spacing: 0.05em; display: inline-block; margin-bottom: 8px;"
+                data-tw="環保標章認證產品" data-en="ENVIRONMENTAL LABEL CERTIFIED">
                 環保標章認證產品
               </span>
-              <h3 style="font-size: 1.75rem; font-weight: 900; color: var(--primary-navy); margin-bottom: 12px; line-height: 1.3;" data-tw="環保不打折，每一款都經過層層把關" data-en="Uncompromised Quality, Rigorously Audited">
+              <h3
+                style="font-size: 1.75rem; font-weight: 900; color: var(--primary-navy); margin-bottom: 12px; line-height: 1.3;"
+                data-tw="環保不打折，每一款都經過層層把關" data-en="Uncompromised Quality, Rigorously Audited">
                 環保不打折，每一款都經過層層把關
               </h3>
-              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 28px;" data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。" data-en="Formosa Eco Drawtape and Can Liner bags are fully Green Mark certified from raw materials to manufacturing.">
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 28px;"
+                data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。"
+                data-en="Formosa Eco Drawtape and Can Liner bags are fully Green Mark certified from raw materials to manufacturing.">
                 台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。
               </p>
             </div>
 
             <!-- 2x2 Feature Grid -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; margin-bottom: 28px;">
+            <div
+              style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; margin-bottom: 28px;">
               <div style="background: #F8FAFC; padding: 18px 20px;">
-                <strong style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;" data-tw="通過環境審查" data-en="Passed Environmental Audits">通過環境審查</strong>
-                <span style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; display: block;" data-tw="符合環保標章規格標準，取得產品標示資格。" data-en="Meets official Green Mark specifications.">符合環保標章規格標準，取得產品標示資格。</span>
+                <strong
+                  style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;"
+                  data-tw="通過環境審查" data-en="Passed Environmental Audits">通過環境審查</strong>
+                <span style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; display: block;"
+                  data-tw="符合環保標章規格標準，取得產品標示資格。"
+                  data-en="Meets official Green Mark specifications.">符合環保標章規格標準，取得產品標示資格。</span>
               </div>
               <div style="background: #F8FAFC; padding: 18px 20px;">
-                <strong style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;" data-tw="50% 再生塑膠" data-en="50% Recycled Plastic">50% 再生塑膠</strong>
-                <span style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; display: block;" data-tw="減少對原生塑膠資源的依賴，延續材料價值。" data-en="Reduces reliance on virgin plastics.">減少對原生塑膠資源的依賴，延續材料價值。</span>
+                <strong
+                  style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;"
+                  data-tw="50% 再生塑膠" data-en="50% Recycled Plastic">50% 再生塑膠</strong>
+                <span style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; display: block;"
+                  data-tw="減少對原生塑膠資源的依賴，延續材料價值。"
+                  data-en="Reduces reliance on virgin plastics.">減少對原生塑膠資源的依賴，延續材料價值。</span>
               </div>
               <div style="background: #F8FAFC; padding: 18px 20px;">
-                <strong style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;" data-tw="避用重金屬" data-en="Zero Heavy Metals">避用重金屬</strong>
-                <span style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; display: block;" data-tw="不使用鉛、鎘、汞及六價鉻等重金屬。" data-en="Free of lead, cadmium, mercury, and hexavalent chromium.">不使用鉛、鎘、汞及六價鉻等重金屬。</span>
+                <strong
+                  style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;"
+                  data-tw="避用重金屬" data-en="Zero Heavy Metals">避用重金屬</strong>
+                <span style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; display: block;"
+                  data-tw="不使用鉛、鎘、汞及六價鉻等重金屬。"
+                  data-en="Free of lead, cadmium, mercury, and hexavalent chromium.">不使用鉛、鎘、汞及六價鉻等重金屬。</span>
               </div>
               <div style="background: #F8FAFC; padding: 18px 20px;">
-                <strong style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;" data-tw="製程審慎管理" data-en="Strict Process Control">製程審慎管理</strong>
-                <span style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; display: block;" data-tw="避用列管毒性化學物質及相關管制物。" data-en="Free of regulated toxic chemical substances.">避用列管毒性化學物質及相關管制物。</span>
+                <strong
+                  style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;"
+                  data-tw="製程審慎管理" data-en="Strict Process Control">製程審慎管理</strong>
+                <span style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; display: block;"
+                  data-tw="避用列管毒性化學物質及相關管制物。"
+                  data-en="Free of regulated toxic chemical substances.">避用列管毒性化學物質及相關管制物。</span>
               </div>
             </div>
 
             <!-- Read More Button linking to sustainability.html -->
             <div>
-              <a href="sustainability.html" class="btn-hero-primary" style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 28px; border-radius: var(--radius-full); text-decoration: none; font-weight: 800; font-size: 0.95rem; background: #2F7B4B; color: #FFFFFF;" data-tw="查看更多" data-en="Read More">
+              <a href="sustainability.html" class="btn-hero-primary"
+                style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 28px; border-radius: var(--radius-full); text-decoration: none; font-weight: 800; font-size: 0.95rem; background: #2F7B4B; color: #FFFFFF;"
+                data-tw="查看更多" data-en="Read More">
                 <span data-tw="查看更多" data-en="Read More">查看更多</span> <i class="fa-solid fa-arrow-right"></i>
               </a>
             </div>
@@ -1495,7 +1717,8 @@
   <section class="cta-banner-section" id="contactCTA">
     <div class="cta-banner-container">
       <div>
-        <div class="cta-banner-title" data-tw="留下聯絡資料，我們將由專人與您聯繫" data-en="Leave Your Contact Details & We Will Be In Touch">
+        <div class="cta-banner-title" data-tw="留下聯絡資料，我們將由專人與您聯繫"
+          data-en="Leave Your Contact Details & We Will Be In Touch">
           留下聯絡資料，我們將由專人與您聯繫</div>
         <div class="cta-banner-desc" data-tw="無論是產品規格諮詢、外銷配合或客製化需求，歡迎留下資訊，我們將有專人與您對接。"
           data-en="Leave your inquiries and contact details, and our sales team will reach out to you.">
@@ -1510,14 +1733,14 @@
 
   <footer class="footer">
     <div class="footer-bottom">
-      © 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
+      © {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
     </div>
   </footer>
 
   <!-- 🧭 右側豎向 Step 導覽軌道與快顯 Popup 卡片 (100% 匹配用戶圖示設計) -->
   <nav class="side-step-rail" id="sideStepRail" aria-label="章節導覽軌道">
     <div class="step-rail-track">
-      
+
       <!-- Step 01: 六大產品 -->
       <div class="step-rail-item active" data-target="productShowcase">
         <a href="#productShowcase" class="step-dot-trigger" aria-label="01 核心產品系列">
@@ -1694,7 +1917,7 @@
       y: 120, scale: 1.15
     });
 
-              </script>
+  </script>
 
   <!-- 回到頂部 Floating Button -->
   <button id="backToTopBtn" class="back-to-top-btn" type="button" aria-label="回到頁首 / Back to Top" title="回到頂部">
@@ -1703,10 +1926,10 @@
 
   <script>
     // 回到頂部按鈕觸發與平滑捲動機制
-    (function() {
+    (function () {
       const backToTopBtn = document.getElementById('backToTopBtn');
       if (backToTopBtn) {
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
           if (window.scrollY > 350) {
             backToTopBtn.classList.add('visible');
           } else {
@@ -1714,7 +1937,7 @@
           }
         });
 
-        backToTopBtn.addEventListener('click', function() {
+        backToTopBtn.addEventListener('click', function () {
           window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -1729,8 +1952,11 @@
     <div class="search-modal-container">
       <div class="search-input-header">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInputField" class="search-input-field" placeholder="搜尋產品、規格或關鍵字... (例如: 清潔袋, 拉繩, 蔬果袋, 密實袋, 環保標章, Gloves...)" autocomplete="off">
-        <button id="closeSearchModal" class="close-search-modal-btn" type="button" onclick="if(typeof closeSearchModal === 'function') closeSearchModal();" aria-label="關閉搜尋"><i class="fa-solid fa-xmark"></i></button>
+        <input type="text" id="searchInputField" class="search-input-field"
+          placeholder="搜尋產品、規格或關鍵字... (例如: 清潔袋, 拉繩, 蔬果袋, 密實袋, 環保標章, Gloves...)" autocomplete="off">
+        <button id="closeSearchModal" class="close-search-modal-btn" type="button"
+          onclick="if(typeof closeSearchModal === 'function') closeSearchModal();" aria-label="關閉搜尋"><i
+            class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="search-quick-tags">
         <span class="search-tag-label" data-tw="快速篩選：" data-en="Quick Tags:">快速篩選：</span>
@@ -1876,7 +2102,7 @@
           });
         });
         reveal();
-        if (typeof applyLanguage === 'function') { try { applyLanguage(); } catch (e) {} }
+        if (typeof applyLanguage === 'function') { try { applyLanguage(); } catch (e) { } }
         return true;
       }
 

@@ -27,10 +27,9 @@
         var icon = el.querySelector('i');
         el.dataset.langIcon = icon ? icon.outerHTML : '';
       }
-      el.innerHTML = el.dataset.langIcon
-        ? el.dataset.langIcon + ' ' + text
-        : '';
-      if (!el.dataset.langIcon) el.textContent = text;
+      // 用 innerHTML 而不是 innerText：data-tw / data-en 裡本來就寫了 <br> 當刻意換行
+      // （原本用 innerText，永續發展頁的標題會直接印出一堆「<br>」字樣）
+      el.innerHTML = el.dataset.langIcon ? el.dataset.langIcon + ' ' + text : text;
     });
   }
 

@@ -135,6 +135,7 @@
   <!-- 頁首（頂欄／選單／搜尋鈕／語言鈕／CTA）由 src/navbar.js 注入，頁面內不要再手寫一份 -->
   <div id="site-header-component"></div>
   <script src="src/navbar.js"></script>
+  <script src="src/site-year.js"></script>
   <main>
     <section class="hero">
       <div class="leaf-decor" aria-hidden="true"><i class="fa-solid fa-leaf"></i><i class="fa-solid fa-leaf"></i><i
@@ -260,7 +261,7 @@
       </div>
     </section>
   </main>
-  <footer>© 2026 INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</footer>
+  <footer>© {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</footer>
 
   <!-- 雙語切換腳本 Engine (乾淨整潔 0 重複) -->
   <script>

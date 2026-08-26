@@ -48,6 +48,34 @@ index / about / contact / sustainability / products/index / can-liners / draw-ta
 ### sustainability-redesign.css
 刪掉它那份 `.header` / `.logo-text-tw` / `.lang-toggle`（17 條規則）。
 
+## 首頁：影片載入前的廠區照已移除
+那張照片有兩個來源，都是同一張 `src/plant.png`（3.9MB）：
+1. `<video poster="./src/plant.png">`
+2. `.hero-bg-layer` 的 `background: #071627 url('./src/plant.png')`
+
+兩處都移除，改為：
+- `.hero-bg-layer` 用品牌深藍漸層（不必等圖片下載，第一時間就是實色）
+- 影片 `opacity: 0` + `onloadeddata` 淡入，載好才出現，不再有「先照片後換影片」的突兀感
+
+順帶少掉首頁 3.9MB 的圖片下載。
+
+## 年份自動更新（新增 src/site-year.js）
+原本完全是手動的 —— repo 裡沒有任何 `getFullYear()`，2026 寫死在 12 個地方（10 個頁尾版權 + 首頁「43 年 (1983-2026)」+ content/site.json）。
+
+現在頁面裡改寫成兩個代號，載入時自動換成實際數字：
+- `{{year}}` → 今年
+- `{{years}}` → 從 1983 算起的年數（起始年寫在 `site-year.js` 最上面的 `FOUNDED`，只有這一處）
+
+已改的地方：12 個頁尾的 `© {{year}}`、首頁 `data-target="{{years}}"`、`年 (1983-{{year}})`、`{{years}} 年全球品牌資歷`（中英文都改）。
+明年 1 月 1 日不用動任何檔案。
+
+替換範圍包含文字節點與 `data-tw` / `data-en` / `data-target` / `title` / `alt` 等屬性，所以語言切換後也是正確年份。
+`site-year.js` 載入位置在 `navbar.js` 之後、各頁計數動畫之前，計數動畫讀到的已經是數字。
+
+**刻意沒動的**：`about.html` 時間軸的 1983 / 2014 / 2026 是歷史里程碑，不該跟著今年跑。
+
+**`content/site.json` 的 copyright 欄位**沒改 —— 那是 CMS 欄位，由 `content/content.js` 注入。若你要它也自動化，把欄位值改成 `© {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.`，並在 content.js 注入完成後呼叫一次 `window.applyYearTokens(document.body)`。要我改的話跟我說。
+
 ## 上傳注意
 `src/` 有 3 個檔案要換，請把整個 `src` 資料夾拖進 GitHub（上次只上傳到 `src/data` 那層，導致 repo 缺檔）。
 
