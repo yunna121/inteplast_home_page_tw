@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>臺灣營德股份有限公司 | Inteplast Taiwan Corporation</title>
+  <title>台灣營德股份有限公司 | Inteplast Taiwan Corporation</title>
   <meta name="description"
-    content="臺灣營德股份有限公司 (Inteplast Taiwan Corporation) 為台塑關係企業與 Inteplast USA 合資大廠，專業生產清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套/遮蔽膠帶與 Scale Sheet，提供多元日常與工業應用情境。">
+    content="台灣營德股份有限公司 (Inteplast Taiwan Corporation) 為台塑關係企業與 Inteplast USA 合資大廠，專業生產清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套/遮蔽膠帶與 Scale Sheet，提供多元日常與工業應用情境。">
   <meta name="keywords"
-    content="Inteplast, 臺灣營德, 台塑企業, 嘉義新港廠, ISO 9001, 清潔袋, 拉繩袋, 蔬果袋, 耐熱袋, 密封包裝, 密實袋, 夾鏈袋, Scale Sheet, 防塵膠帶, 使用情境">
+    content="Inteplast, 台灣營德, 台塑企業, 嘉義新港廠, ISO 9001, 清潔袋, 拉繩袋, 蔬果袋, 耐熱袋, 密封包裝, 密實袋, 夾鏈袋, Scale Sheet, 防塵膠帶, 使用情境">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -160,13 +160,14 @@
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.5);
-      padding: 14px 32px;
+      padding: 16px 34px;
       border-radius: var(--radius-full);
       margin-bottom: 24px;
     }
 
+    /* 公司名已在 logo 圖裡，旁邊不再另外排一份文字 */
     .brand-logo-img {
-      height: 56px;
+      height: 74px;
       width: auto;
       object-fit: contain;
     }
@@ -647,6 +648,36 @@
       color: var(--brand-blue);
     }
 
+    /* Excel「重點」欄：想特別強調的一句話，比敘述大且深色 */
+    .ps-highlight {
+      margin-top: 20px;
+      max-width: 560px;
+      font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+      font-weight: 900;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+      color: var(--brand-blue);
+      text-wrap: pretty;
+    }
+
+    .ps-row:nth-child(even) .ps-highlight {
+      margin-left: auto;
+    }
+
+    /* 有重點時敘述貼近一點，兩段讀起來是一組 */
+    .ps-highlight + .ps-desc {
+      margin-top: 10px;
+    }
+
+    /* 產品別稱（例：Scale Sheet 又稱 Tare Sheet） */
+    .ps-alias {
+      margin-top: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text-muted);
+    }
+
     .ps-card-link {
       display: inline-flex;
       align-items: center;
@@ -864,6 +895,20 @@
       .ps-title {
         font-size: 2.05rem;
         letter-spacing: -0.04em;
+      }
+
+      .ps-alias {
+        margin-top: 4px;
+        font-size: 0.78rem;
+      }
+
+      .ps-highlight,
+      .ps-row:nth-child(even) .ps-highlight {
+        margin-top: 8px;
+        margin-left: 0;
+        max-width: none;
+        font-size: 0.95rem;
+        line-height: 1.45;
       }
 
       .ps-desc,
@@ -1535,13 +1580,7 @@
 
     <div class="hero-stage-content">
       <div class="brand-hero-badge">
-        <img src="./src/ITC Logo.png" alt="Inteplast Taiwan Logo" class="brand-logo-img">
-        <div class="brand-divider"></div>
-        <div>
-          <div class="brand-badge-title" data-tw="臺灣營德股份有限公司" data-en="INTEPLAST TAIWAN CORPORATION">臺灣營德股份有限公司</div>
-          <div class="brand-badge-sub" data-tw="INTEPLAST TAIWAN CORPORATION" data-en="FORMOSA PLASTICS GROUP PARTNER">
-            INTEPLAST TAIWAN CORPORATION</div>
-        </div>
+        <img src="./src/ITC Logo.png" alt="台灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION" class="brand-logo-img">
       </div>
 
       <h1 class="hero-big-title" data-tw="台塑企業清潔袋專業製造" data-en="Formosa Plastics Group · Can Liner Specialist">
@@ -1967,6 +2006,7 @@
         <button class="quick-tag-btn" type="button" data-query="手套">手套</button>
         <button class="quick-tag-btn" type="button" data-query="環保標章">環保標章</button>
         <button class="quick-tag-btn" type="button" data-query="Scale Sheet">Scale Sheet</button>
+        <button class="quick-tag-btn" type="button" data-query="Tare Sheet">Tare Sheet</button>
       </div>
       <div id="searchResultsList" class="search-results-list"></div>
       <div class="search-modal-footer">
@@ -2051,11 +2091,20 @@
         return 'products/index.html';
       }
 
+      /* Excel 產品名寫成「主名稱 / 別稱」時（例：Scale Sheet / Tare Sheet），
+         大標只放主名稱，別稱改成小字一行，避免五、六十 px 的大標被迫斷成兩行。 */
+      function splitAlias(name) {
+        var parts = String(name || '').split('/').map(function (s) { return s.trim(); }).filter(Boolean);
+        return { main: parts.shift() || '', alias: parts.join(' / ') };
+      }
+
       function rowHtml(row, i) {
         var p = photoOf(row);
         var chips = chipsHtml(row.items);
         var num = String(i + 1).padStart(2, '0');
         var targetUrl = getCatAnchor(row.name);
+        var tw = splitAlias(row.name);
+        var en = splitAlias(row.name_en || row.name);
         return '' +
           '<article class="ps-row" onclick="window.location.href=\'' + targetUrl + '\'" title="點擊前往產品中心對應產品">' +
           '  <div class="ps-stage">' +
@@ -2063,8 +2112,10 @@
           (p.main ? '    <div class="ps-photo" data-src="' + esc(p.main) + '" data-src2="' + esc(p.backup) + '"></div>' : '') +
           '  </div>' +
           '  <div class="ps-body">' +
-          (row.name_en ? '    <div class="ps-eyebrow">' + esc(row.name_en) + '</div>' : '') +
-          '    <h3 class="ps-title" data-tw="' + esc(row.name) + '" data-en="' + esc(row.name_en || row.name) + '">' + esc(row.name) + '</h3>' +
+          (row.name_en ? '    <div class="ps-eyebrow">' + esc(en.main) + '</div>' : '') +
+          '    <h3 class="ps-title" data-tw="' + esc(tw.main) + '" data-en="' + esc(en.main) + '">' + esc(tw.main) + '</h3>' +
+          (tw.alias ? '    <div class="ps-alias" data-tw="又稱 ' + esc(tw.alias) + '" data-en="Also known as ' + esc(en.alias || tw.alias) + '">又稱 ' + esc(tw.alias) + '</div>' : '') +
+          (row.highlight ? '    <p class="ps-highlight" data-tw="' + esc(row.highlight) + '" data-en="' + esc(row.highlight) + '">' + esc(row.highlight) + '</p>' : '') +
           (row.desc ? '    <p class="ps-desc" data-tw="' + esc(row.desc) + '" data-en="' + esc(row.desc) + '">' + esc(row.desc) + '</p>' : '') +
           (chips ? '    <div class="ps-items">' + chips + '</div>' : '') +
           '    <div><a href="' + targetUrl + '" class="ps-card-link" onclick="event.stopPropagation();"><span data-tw="前往產品中心查看" data-en="View in Product Center">前往產品中心查看</span> <i class="fa-solid fa-arrow-right"></i></a></div>' +

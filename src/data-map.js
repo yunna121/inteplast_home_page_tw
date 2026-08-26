@@ -16,7 +16,8 @@
     '蔬果袋': 'heat-bags',
     '夾鏈袋': 'sealed-packaging',
     '其他類': 'accessories',
-    'Scale Sheet': 'stretch-films'
+    'Scale Sheet': 'stretch-films',
+    'Tare Sheet': 'stretch-films'
   };
 
   // 顏色名稱 → 標籤色（Excel 只需寫「透明 / 粉紅」這樣的名稱）

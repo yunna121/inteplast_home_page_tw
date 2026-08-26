@@ -32,9 +32,8 @@
     padding: 10px 14px !important;
     gap: 8px !important;
   }
-  .logo-image { height: 42px !important; }
-  .logo-text-tw { font-size: 0.9rem !important; letter-spacing: 0 !important; }
-  .logo-text-en { font-size: 0.55rem !important; letter-spacing: 0.5px !important; }
+  /* logo 已改為單一張整組圖（公司名在圖裡），只調圖高即可 */
+  .logo-image { height: 46px !important; }
   .header-right { gap: 6px !important; }
   .header-right .rfq-btn,
   .header-right .lang-toggle { display: none !important; }
@@ -155,8 +154,9 @@
   .hero-main-title,
   .hero-section h1 { font-size: 2rem !important; line-height: 1.25 !important; }
   .hero-sub-tagline { font-size: 0.95rem !important; line-height: 1.7 !important; }
-  .brand-badge-title { font-size: 1.1rem !important; }
-  .brand-badge-sub { font-size: 0.65rem !important; }
+  /* 首頁封面品牌牌改為只放 logo 圖 */
+  .brand-hero-badge { padding: 12px 20px !important; }
+  .brand-logo-img { height: 48px !important; }
 
   /* 首頁封面：高度改為隨內容，避免特色卡改單欄後被切掉 */
   .fashion-hero-wrapper { height: auto !important; min-height: 100svh !important; }
@@ -292,8 +292,8 @@
    小手機：480px 以下
    ============================================================ */
 @media (max-width: 480px) {
-  .logo-text-tw { font-size: 0.8rem !important; }
-  .logo-text-en { display: none !important; }
+  .logo-image { height: 40px !important; }
+  .brand-logo-img { height: 42px !important; }
   .hero-title { font-size: 1.35rem !important; }
   .hero-main-title,
   .hero-section h1 { font-size: 1.7rem !important; }

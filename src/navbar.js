@@ -35,9 +35,9 @@
   const navbarHTML = `
   <div class="top-utility-bar">
     <div class="utility-left">
-      <span><i class="fa-solid fa-earth-americas"></i> INTEPLAST GROUP GLOBAL NETWORK</span>
-      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span class="region-badge">TAIWAN HQ</span> <span data-tw="台灣塑膠工業股份有限公司" data-en="Formosa Plastics Corp.">台灣塑膠工業股份有限公司</span></a>
-      <a href="https://www.inteplast.com/" target="_blank" rel="noopener"><span class="region-badge">USA</span> <span data-tw="Inteplast USA" data-en="Inteplast USA">Inteplast USA</span></a>
+      <span><i class="fa-solid fa-earth-americas"></i> <span data-tw="相關連結" data-en="Related Links">相關連結</span></span>
+      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span data-tw="台灣塑膠工業股份有限公司" data-en="Formosa Plastics Corp.">台灣塑膠工業股份有限公司</span></a>
+      <a href="https://www.inteplast.com/" target="_blank" rel="noopener"><span data-tw="Inteplast USA" data-en="Inteplast USA">Inteplast USA</span></a>
     </div>
     <div class="utility-right">
       <a href="${rootPath}sustainability.html"><i class="fa-solid fa-leaf"></i> <span data-tw="永續發展" data-en="Sustainability">永續發展</span></a>
@@ -45,8 +45,8 @@
     </div>
   </div>
   <header class="header">
-    <a href="${rootPath}index.html" class="header-logo" title="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
-      <img src="${rootPath}src/ITC Logo.png" alt="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION" class="logo-image">
+    <a href="${rootPath}index.html" class="header-logo" title="台灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
+      <img src="${rootPath}src/ITC Logo.png" alt="台灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION" class="logo-image">
     </a>
 
     <ul class="nav-menu">

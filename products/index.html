@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan</title>
-  <meta name="description" content="臺灣營德產品中心 – 提供六大核心產品：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。全高清產品展示與 B2B 對接。">
+  <title>產品中心 | 台灣營德股份有限公司 Inteplast Taiwan</title>
+  <meta name="description" content="台灣營德產品中心 – 提供六大核心產品：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。全高清產品展示與 B2B 對接。">
 
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -286,6 +286,28 @@
       gap: 8px;
     }
 
+    /* 別稱（例：Scale Sheet 又稱 Tare Sheet） */
+    .card-alias-text {
+      margin-top: 6px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* Excel「重點」欄：比敘述大一級、深色加粗 */
+    .card-highlight-text {
+      margin-top: 14px;
+      font-size: 1.28rem;
+      font-weight: 900;
+      line-height: 1.45;
+      color: var(--brand-blue);
+      text-wrap: pretty;
+    }
+
+    .card-highlight-text + .card-desc-text {
+      margin-top: 8px;
+    }
+
     .card-desc-text {
       font-size: 1.12rem;
       color: var(--text-muted);
@@ -557,6 +579,10 @@
               esc(s) + '</span>';
           }).join('');
 
+        /* Excel 產品名寫成「主名稱 / 別稱」時，大標只放主名稱，別稱另起小字一行（與首頁同規則） */
+        var tw = splitAlias(cat.name);
+        var en = splitAlias(cat.name_en || cat.name);
+
         return '<article class="visual-product-card" id="' + catId + '" data-category="' + esc(cat.name) + '">' +
           '<div class="card-image-box">' +
           '<span class="card-num-badge">' + String(i + 1).padStart(3, '0') + '</span>' +
@@ -565,8 +591,10 @@
           '<div class="card-info-content">' +
           '<div>' +
           '<div class="card-header-group"><div class="card-title-row">' +
-          '<h2 class="card-main-title" data-tw="' + esc(cat.name) + '" data-en="' + esc(cat.name_en || cat.name) + '">' + esc(cat.name) + '</h2>' +
+          '<h2 class="card-main-title" data-tw="' + esc(tw.main) + '" data-en="' + esc(en.main) + '">' + esc(tw.main) + '</h2>' +
           '</div></div>' +
+          (tw.alias ? '<div class="card-alias-text" data-tw="又稱 ' + esc(tw.alias) + '" data-en="Also known as ' + esc(en.alias || tw.alias) + '">又稱 ' + esc(tw.alias) + '</div>' : '') +
+          (cat.highlight ? '<p class="card-highlight-text" data-tw="' + esc(cat.highlight) + '" data-en="' + esc(cat.highlight) + '">' + esc(cat.highlight) + '</p>' : '') +
           (cat.desc ? '<p class="card-desc-text" data-tw="' + esc(cat.desc) + '" data-en="' + esc(cat.desc) + '">' + esc(cat.desc) + '</p>' : '') +
           (list ? '<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px;">' + list + '</div>' : '') +
           '</div>' +
@@ -575,6 +603,11 @@
           '</div>' +
           '</div>' +
           '</article>';
+      }
+
+      function splitAlias(name) {
+        var parts = String(name || '').split('/').map(function (s) { return s.trim(); }).filter(Boolean);
+        return { main: parts.shift() || '', alias: parts.join(' / ') };
       }
 
       function render(rows) {

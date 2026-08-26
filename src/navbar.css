@@ -26,7 +26,7 @@
      看起來就是「每頁黑色那條位置不一樣」）。現在頂欄用固定 height + line-height: 1，
      高度不再受字體影響，header 永遠貼齊頂欄底部。 */
   --utility-h: 34px;
-  --header-h: 72px;
+  --header-h: 88px;
 }
 
 /* 注入前的骨架：navbar.js 還沒執行時，頂部就已經是實色，不會先空一塊再跳出來。
@@ -123,9 +123,11 @@
   text-decoration: none;
 }
 
+/* 整組 logo 圖（含中英文公司名）。原本 58px 太小，放大到 66px，
+   --header-h 一併從 72px 加到 88px，頁面 padding-top 用變數算就會自動跟上。 */
 .logo-image {
-  height: 58px;
-  max-height: 64px;
+  height: 66px;
+  max-height: 70px;
   width: auto;
   object-fit: contain;
 }
@@ -133,12 +135,13 @@
 .logo-text-wrapper {
   display: flex;
   flex-direction: column;
+  gap: 2px;
 }
 
 .logo-text-tw {
   /* 標誌中文名使用標楷體；未安裝標楷體的裝置退回黑體 */
   font-family: 'DFKai-SB', 'BiauKai', 'Kaiti TC', 'STKaiti', 'KaiTi', 'Noto Sans TC', sans-serif;
-  font-size: 1.16rem;
+  font-size: 1.34rem;
   font-weight: 800;
   color: var(--primary-navy);
   letter-spacing: 1px;
@@ -146,7 +149,7 @@
 }
 
 .logo-text-en {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--brand-blue);
   letter-spacing: 0.5px;
@@ -378,6 +381,16 @@
     display: flex;
     justify-content: space-between;
     padding: 12px 20px;
+  }
+  .logo-image {
+    height: 54px;
+  }
+}
+
+/* 窄螢幕再縮一階，讓漢堡按鈕有空間 */
+@media (max-width: 560px) {
+  .logo-image {
+    height: 42px;
   }
 }
 

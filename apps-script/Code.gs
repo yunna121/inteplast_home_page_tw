@@ -1,5 +1,5 @@
 /**
- * 臺灣營德官網「留下聯絡資料」接收端
+ * 台灣營德官網「留下聯絡資料」接收端
  * 功能：把 contact.html 表單寫進 Google Sheet + 寄出通知信，並回傳 JSON 讓前端能分辨成功／失敗
  *
  * 部署步驟
@@ -15,7 +15,26 @@
 
 const SHEET_ID = '';                                 // 空白＝寫進本 Apps Script 所屬的 Sheet
 const SHEET_NAME = '聯絡表單';
-const NOTIFY_TO = 'lyanchen@wpjk.inteplast.com';     // 收通知信的信箱，多個用逗號分隔
+/* 寄件人＝部署這支腳本的帳號（inteplasttaiwanc@gmail.com）。
+
+   收通知信的信箱不寫死在這裡：contact.html 送出時會一併帶上頁面上「聯絡我們」
+   顯示的那個信箱（notifyTo 欄位，來源是 content/site.json 的 email），
+   所以之後只要改 CMS／site.json，通知信就跟著換，不必重新部署這支腳本。
+   下面的 NOTIFY_TO 只是萬一沒帶到時的備援。
+   ALLOWED_NOTIFY_DOMAINS 是白名單：避免有人偽造 notifyTo 把這支腳本當成轉信機。 */
+const NOTIFY_TO = 'lyanchen@wpjk.inteplast.com';
+const ALLOWED_NOTIFY_DOMAINS = ['wpjk.inteplast.com', 'inteplast.com', 'gmail.com'];
+
+/** 取實際要寄的通知信箱：優先用表單帶來的，過濾掉白名單外的網域 */
+function resolveNotifyTo_(p) {
+  var raw = String((p && p.notifyTo) || '').trim();
+  if (!raw) return NOTIFY_TO;
+  var ok = raw.split(',').map(function (s) { return s.trim(); }).filter(function (addr) {
+    var m = addr.match(/^[^@\s]+@([^@\s]+)$/);
+    return m && ALLOWED_NOTIFY_DOMAINS.indexOf(m[1].toLowerCase()) !== -1;
+  });
+  return ok.length ? ok.join(',') : NOTIFY_TO;
+}
 const SEND_AUTO_REPLY = true;                        // 是否自動回覆填表人
 const HEADERS = ['送出時間', '公司名稱', '商務信箱', '聯絡電話', '詢問產品類別', '需求內容'];
 
@@ -85,9 +104,10 @@ function getSheet_() {
 }
 
 function sendNotifyMail_(p) {
-  if (!NOTIFY_TO) return;
+  var to = resolveNotifyTo_(p);
+  if (!to) return;
   MailApp.sendEmail({
-    to: NOTIFY_TO,
+    to: to,
     subject: '【官網詢價】' + (p.company || '未填公司') + ' · ' + (p.product || '未選類別'),
     body:
       '官網「留下聯絡資料」新進一筆：\n\n' +
@@ -104,14 +124,14 @@ function sendNotifyMail_(p) {
 function sendAutoReply_(p) {
   MailApp.sendEmail({
     to: p.email,
-    subject: '臺灣營德股份有限公司｜已收到您的聯絡資料',
+    subject: '台灣營德股份有限公司｜已收到您的聯絡資料',
     body:
       (p.company || '您好') + '，您好：\n\n' +
       '我們已收到您在官網留下的聯絡資料，將由專人於工作日內與您聯繫。\n\n' +
       '您填寫的內容：\n' +
       '產品類別：' + (p.product || '-') + '\n' +
       '需求內容：' + (p.message || '-') + '\n\n' +
-      '臺灣營德股份有限公司 Inteplast Taiwan Corporation\n' +
+      '台灣營德股份有限公司 Inteplast Taiwan Corporation\n' +
       '電話 02-2712-2211 #8109\n'
   });
 }

@@ -13,11 +13,20 @@
     currentLang = lang === 'en' ? 'en' : 'tw';
     localStorage.setItem(STORAGE_KEY, currentLang);
     document.documentElement.lang = currentLang === 'tw' ? 'zh-TW' : 'en';
+    // 各頁 head 會在 preferredLang === 'en' 時加上 lang-loading（body opacity:0 防閃爍），
+    // 這裡是唯一負責解除它的地方；不解除的話英文使用者會看到整頁空白。
+    document.documentElement.classList.remove('lang-loading');
 
     var langBtn = document.getElementById('langBtn');
     if (langBtn) {
       langBtn.textContent = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
     }
+
+    // 輸入框提示文字：掛 data-ph-tw / data-ph-en 的欄位跟著切語言
+    document.querySelectorAll('[data-ph-tw]').forEach(function (el) {
+      var ph = el.getAttribute('data-ph-' + currentLang);
+      if (ph !== null) el.setAttribute('placeholder', ph);
+    });
 
     document.querySelectorAll('[data-tw]').forEach(function (el) {
       var text = el.getAttribute('data-' + currentLang);

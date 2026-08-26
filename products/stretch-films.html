@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scale Sheet 產品專頁 | 臺灣營德 Inteplast Taiwan</title>
-  <meta name="description" content="臺灣營德 Scale Sheet 產品專頁。">
+  <title>Scale Sheet / Tare Sheet 產品專頁 | 台灣營德 Inteplast Taiwan</title>
+  <meta name="description" content="台灣營德 Scale Sheet 與 Tare Sheet 產品專頁。">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -44,9 +44,11 @@
     .product-hero-img { width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid rgba(255, 255, 255, 0.2); }
 
     .section { padding: 80px 40px; }
+    /* 兩個系列（Scale Sheet / Tare Sheet）並排，卡片小於 320px 時自動收成單欄 */
+    .series-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; align-items: start; }
     .coming-soon-card {
-      max-width: 800px; margin: 0 auto; background: var(--surface-white); border: 1px solid var(--border-color);
-      border-radius: 20px; padding: 60px 40px; text-align: center; box-shadow: var(--shadow-md);
+      margin: 0; background: var(--surface-white); border: 1px solid var(--border-color);
+      border-radius: 20px; padding: 48px 32px; text-align: center; box-shadow: var(--shadow-md);
     }
     .coming-soon-icon { font-size: 3.5rem; color: var(--brand-blue); margin-bottom: 20px; }
     .coming-soon-title { font-size: 1.6rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 12px; }
@@ -67,10 +69,10 @@
   <section class="page-hero">
     <div class="hero-container">
       <div>
-        <span class="hero-eyebrow">SCALE SHEET PRODUCT SERIES</span>
-        <h1 class="hero-title">Scale Sheet 產品專頁</h1>
+        <span class="hero-eyebrow">SCALE SHEET / TARE SHEET PRODUCT SERIES</span>
+        <h1 class="hero-title">Scale Sheet / Tare Sheet 產品專頁</h1>
         <p class="hero-desc">
-          臺灣營德生產之 Scale Sheet 薄膜產品系列。若您有大宗採購或規格諮詢需求，歡迎與專員聯繫。
+          台灣營德生產之 Scale Sheet 與 Tare Sheet 薄膜產品系列。若您有大宗採購或規格諮詢需求，歡迎與專員聯繫。
         </p>
         <a href="../contact.html" class="rfq-btn"><i class="fa-solid fa-calculator"></i> 專人諮詢與詢價</a>
       </div>
@@ -81,13 +83,23 @@
   </section>
 
   <section class="section">
-    <div class="coming-soon-card">
-      <div class="coming-soon-icon"><i class="fa-solid fa-folder-open"></i></div>
-      <h2 class="coming-soon-title">Scale Sheet</h2>
-      <p class="coming-soon-desc">
-        若您有 Scale Sheet 產品之大宗採購、外銷客製或規格諮詢需求，歡迎隨時與我們的專員聯繫！
-      </p>
-      <a href="../contact.html" class="rfq-btn" style="display: inline-flex;"><i class="fa-solid fa-paper-plane"></i> 聯絡業務專員專人諮詢</a>
+    <div class="series-grid">
+      <div class="coming-soon-card" id="cat-scale-sheet">
+        <div class="coming-soon-icon"><i class="fa-solid fa-folder-open"></i></div>
+        <h2 class="coming-soon-title">Scale Sheet</h2>
+        <p class="coming-soon-desc">
+          若您有 Scale Sheet 產品之大宗採購、外銷客製或規格諮詢需求，歡迎隨時與我們的專員聯繫！
+        </p>
+        <a href="../contact.html" class="rfq-btn" style="display: inline-flex;"><i class="fa-solid fa-paper-plane"></i> 聯絡業務專員專人諮詢</a>
+      </div>
+      <div class="coming-soon-card" id="cat-tare-sheet">
+        <div class="coming-soon-icon"><i class="fa-solid fa-folder-open"></i></div>
+        <h2 class="coming-soon-title">Tare Sheet</h2>
+        <p class="coming-soon-desc">
+          若您有 Tare Sheet 產品之大宗採購、外銷客製或規格諮詢需求，歡迎隨時與我們的專員聯繫！
+        </p>
+        <a href="../contact.html" class="rfq-btn" style="display: inline-flex;"><i class="fa-solid fa-paper-plane"></i> 聯絡業務專員專人諮詢</a>
+      </div>
     </div>
   </section>
 
