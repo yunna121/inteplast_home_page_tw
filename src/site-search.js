@@ -302,6 +302,119 @@
 
   window.siteSearch = search;
 
+  /* ============================================================
+     Algolia 遠端搜尋
+     ------------------------------------------------------------
+     搜尋框的行為是「先本地、後遠端」：
+     1. 打字時先用上面的本地 BM25 立刻顯示結果（零延遲）
+     2. 同時向 Algolia 查詢，回來後換成它的結果（分詞、錯字容錯更強，
+        且能對到單一規格，例如「45L」直接指到那一筆）
+     3. Algolia 連不上或未設定 → 安靜留在本地結果，不影響使用
+
+     這裡的 Search-Only Key 是唯讀的，設計上就可以公開；
+     有寫入權的 Admin Key 只存在 tools/algolia-upload.html 使用者的瀏覽器裡。
+     索引內容用 tools/algolia-upload.html 上傳。
+     ============================================================ */
+  var ALGOLIA = {
+    appId: 'YRQS01JBND',
+    searchKey: '86d243489a6c083a51f3fd4f0a222ef0',
+    index: 'inteplast_tw'
+  };
+
+  var remoteSeq = 0;
+  var remoteCache = {};
+
+  function remoteSearch(query) {
+    var q = String(query || '').trim();
+    if (!ALGOLIA.appId || !q) return Promise.resolve(null);
+    if (remoteCache[q]) return Promise.resolve(remoteCache[q]);
+
+    return fetch('https://' + ALGOLIA.appId + '-dsn.algolia.net/1/indexes/' + ALGOLIA.index + '/query', {
+      method: 'POST',
+      headers: {
+        'X-Algolia-Application-Id': ALGOLIA.appId,
+        'X-Algolia-API-Key': ALGOLIA.searchKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ query: q, hitsPerPage: 12 })
+    })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (j) {
+        if (!j || !j.hits) return null;
+        var out = j.hits.map(function (h) {
+          var hl = (h._highlightResult || {});
+          var snippet = (h._snippetResult && h._snippetResult.desc && h._snippetResult.desc.value)
+            || (hl.desc && hl.desc.value) || h.desc || '';
+          return {
+            item: {
+              title: h.title,
+              category: h.category || '',
+              icon: h.icon || 'fa-cube',
+              desc: h.desc || '',
+              url: resolveUrl(h.url)
+            },
+            score: 1,
+            why: '',
+            snippet: snippet
+          };
+        });
+        var res2 = { results: out, suggestions: [], expanded: [], remote: true };
+        remoteCache[q] = res2;
+        return res2;
+      })
+      .catch(function () { return null; });
+  }
+
+  /* ============================================================
+     搜尋記錄 — 送到 Apps Script（同一支 /exec，action=search）
+     ------------------------------------------------------------
+     目的：知道客戶在找什麼，尤其是「搜尋了但我們沒有的東西」（結果 0 筆）
+     那份清單就是新產品開發的線索。
+
+     設計取捨：
+     - debounce 900ms：使用者打「清潔袋」不會記成 清/清潔/清潔袋 三筆，
+       只記他停下來的那一次
+     - 少於 2 字不記：單字雜訊太多
+     - 同一次瀏覽的相同查詢只記一次（sameSession）
+     - 用 sendBeacon／keepalive fetch，不等回應也不擋畫面，
+       送不出去就安靜放棄（絕不影響搜尋體驗）
+     ============================================================ */
+  var LOG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz1hF2WW-easWE11AHvlnzvOXMG8qDSElR_IYcVx6vj0TWoXHrA-Mzuu78qcTJS7GMX/exec';
+  var logTimer = null;
+  var logged = {};
+
+  function logSearch(query, hits) {
+    var q = String(query || '').trim();
+    if (!LOG_ENDPOINT || q.length < 2) return;
+    /* 去重只看查詢字串（不含筆數）：Algolia 比本地慢時會渲染兩次，
+       若把筆數放進 key 就會同一個查詢記兩列，其中一列還是錯的「無結果」 */
+    var key = q.toLowerCase();
+    if (logged[key]) return;
+    logged[key] = true;
+
+    var body = new URLSearchParams({
+      action: 'search',
+      q: q,
+      hits: String(hits),
+      page: location.pathname + location.hash,
+      lang: document.documentElement.lang || '',
+      ref: document.referrer || ''
+    });
+
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(LOG_ENDPOINT, body);
+      } else {
+        fetch(LOG_ENDPOINT, { method: 'POST', body: body, mode: 'no-cors', keepalive: true });
+      }
+    } catch (err) { /* 記錄失敗不影響使用 */ }
+  }
+
+  function queueLog(query, hits) {
+    clearTimeout(logTimer);
+    logTimer = setTimeout(function () { logSearch(query, hits); }, 900);
+  }
+
   /* ---------- 介面 ---------- */
   var EXTRA_CSS = `
   .om-search-overlay { position: fixed; inset: 0; background: rgba(5,19,34,0.55); backdrop-filter: blur(6px);
@@ -386,12 +499,23 @@
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-  function render(query) {
+  function render(query, preset) {
     var list = document.getElementById('omSearchList');
     var hint = document.getElementById('omSearchHint');
     if (!list) return;
-    var r = search(query);
+    var r = preset || search(query);
     var q = (query || '').trim();
+
+    // 本地結果先畫出來，Algolia 回來後再換掉（只認最後一次查詢）
+    if (!preset && q) {
+      var seq = ++remoteSeq;
+      remoteSearch(q).then(function (rr) {
+        if (seq !== remoteSeq) return;
+        if (rr && rr.results.length) render(q, rr);
+        // 記錄以遠端筆數為準：本地漏掉、Algolia 找到的查詢不該被記成「無結果」
+        queueLog(q, rr ? rr.results.length : r.results.length);
+      });
+    }
 
     var mapped = [];
     r.results.forEach(function (x) { if (x.why && mapped.indexOf(x.why) < 0) mapped.push(x.why); });

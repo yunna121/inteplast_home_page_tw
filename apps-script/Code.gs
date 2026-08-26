@@ -15,6 +15,8 @@
 
 const SHEET_ID = '';                                 // 空白＝寫進本 Apps Script 所屬的 Sheet
 const SHEET_NAME = '聯絡表單';
+const SEARCH_SHEET_NAME = '搜尋紀錄';
+const SEARCH_HEADERS = ['時間', '搜尋詞', '結果筆數', '有無結果', '頁面', '語言', '國家', '來源'];
 /* 寄件人＝部署這支腳本的帳號（inteplasttaiwanc@gmail.com）。
 
    收通知信的信箱不寫死在這裡：contact.html 送出時會一併帶上頁面上「聯絡我們」
@@ -41,6 +43,11 @@ const HEADERS = ['送出時間', '公司名稱', '商務信箱', '聯絡電話',
 function doPost(e) {
   try {
     const p = (e && e.parameter) || {};
+
+    // 站內搜尋記錄走另一條路：只寫 Sheet、不寄信
+    if (p.action === 'search') {
+      return logSearch_(p);
+    }
 
     // 蜜罐：真人不會填 website，這裡直接假裝成功，不寫入也不寄信
     if (p.website) {
@@ -76,6 +83,43 @@ function doPost(e) {
   } catch (err) {
     return json_({ ok: false, error: String(err) });
   }
+}
+
+/**
+ * 站內搜尋記錄
+ * 「有無結果」欄可直接篩選＝「無」，那就是客戶想找、但我們網站上沒有的東西。
+ * 國家由 Apps Script 依請求推得（拿不到就留空），不記錄 IP 或任何個資。
+ */
+function logSearch_(p) {
+  const q = String(p.q || '').trim();
+  if (!q || q.length > 120) return json_({ ok: false, error: 'bad query' });
+
+  const hits = Number(p.hits || 0);
+  getSearchSheet_().appendRow([
+    new Date(),
+    q,
+    hits,
+    hits > 0 ? '有' : '無',
+    String(p.page || '').slice(0, 200),
+    String(p.lang || '').slice(0, 12),
+    String(p.country || ''),
+    String(p.ref || '').slice(0, 200)
+  ]);
+  return json_({ ok: true, logged: true });
+}
+
+function getSearchSheet_() {
+  const ss = SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(SEARCH_SHEET_NAME);
+  if (!sheet) sheet = ss.insertSheet(SEARCH_SHEET_NAME);
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(SEARCH_HEADERS);
+    sheet.getRange(1, 1, 1, SEARCH_HEADERS.length).setFontWeight('bold');
+    sheet.setFrozenRows(1);
+    sheet.setColumnWidth(2, 200);
+    sheet.setColumnWidth(5, 220);
+  }
+  return sheet;
 }
 
 /** 用瀏覽器直接開 /exec 可確認服務是否活著 */
