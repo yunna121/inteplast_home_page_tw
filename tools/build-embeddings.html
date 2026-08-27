@@ -131,16 +131,22 @@ document.getElementById('btnRun').addEventListener('click', async (e) => {
       const chunk = recs.slice(i, i + BATCH);
       const vecs = await embed(chunk.map(window.searchRecordText), 'passage');
       chunk.forEach((r, j) => {
+        // int8 量化＋base64：檔案比三位小數再小 4 倍（11 筆約 9KB），
+        // 餘弦相似度的排序不受影響。site-search.js 會還原成單位向量。
+        const q8 = vecs[j].map(v => Math.max(-127, Math.min(127, Math.round(v * 127))));
+        let bin = '';
+        q8.forEach(v => { bin += String.fromCharCode(v & 0xff); });
         items.push({
           id: r.objectID,
           type: r.type,
           title: r.title,
+          title_en: r.title_en || '',
           category: r.category,
           desc: r.desc,
+          desc_en: r.desc_en || '',
           icon: r.icon,
           url: r.url,
-          // 三位小數就夠了，檔案小一半以上，相似度排序不受影響
-          vec: vecs[j].map(v => Math.round(v * 1000) / 1000)
+          vecb64: btoa(bin)
         });
       });
       progress(0.35 + 0.65 * ((i + chunk.length) / recs.length));
@@ -148,7 +154,7 @@ document.getElementById('btnRun').addEventListener('click', async (e) => {
     }
 
     vectors = items;
-    const payload = { model: MODEL, dim: items[0].vec.length, prefix: 'e5', built: new Date().toISOString(), items };
+    const payload = { model: MODEL, dim: 384, prefix: 'e5', quant: 'int8', built: new Date().toISOString(), items };
     const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -158,7 +164,7 @@ document.getElementById('btnRun').addEventListener('click', async (e) => {
 
     progress(1);
     log(`完成！已下載 embeddings.json（${(blob.size / 1024).toFixed(0)} KB）`, 'ok');
-    log('請放到 src/data/ 後 push，網站的語意搜尋就會生效。', 'ok');
+    log('請放到 src/data/ 覆蓋舊檔後 push —— 這是搜尋的唯一資料來源，改過產品文字就要重跑一次。', 'ok');
   } catch (err) {
     log('失敗：' + err.message, 'err');
   }
@@ -171,6 +177,15 @@ document.getElementById('btnTry').addEventListener('click', async () => {
   if (!vectors) return log('請先按「開始產生」，或重新整理後直接試搜（需要先算過向量）', 'err');
   reset();
   const [qv] = await embed([q], 'query');
+  const dec = b64 => {
+    const bin = atob(b64), n = bin.length, v = new Float32Array(n);
+    let sum = 0;
+    for (let i = 0; i < n; i++) { const c = bin.charCodeAt(i); v[i] = (c > 127 ? c - 256 : c) / 127; sum += v[i] * v[i]; }
+    const nr = Math.sqrt(sum) || 1;
+    for (let k = 0; k < n; k++) v[k] /= nr;
+    return v;
+  };
+  vectors.forEach(it => { if (!it.vec) it.vec = dec(it.vecb64); });
   const scored = vectors.map(it => {
     let s = 0;
     for (let i = 0; i < qv.length; i++) s += qv[i] * it.vec[i];

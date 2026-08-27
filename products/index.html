@@ -4,8 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan</title>
-  <meta name="description" content="臺灣營德產品中心 – 提供六大核心產品：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。全高清產品展示與 B2B 對接。">
+  <script>
+    (function () {
+      if (localStorage.getItem('preferredLang') === 'en') {
+        document.documentElement.classList.add('lang-loading');
+      }
+    })();
+  </script>
+  <style>html.lang-loading body { opacity: 0 !important; }</style>
+  <title data-tw="產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan" data-en="Products | Inteplast Taiwan Corporation">產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan</title>
+  <meta name="description" data-desc-tw="臺灣營德產品中心 – 提供六大核心產品：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。全高清產品展示與 B2B 對接。" data-desc-en="Inteplast Taiwan product centre: can liners, draw tape liners, produce bags, zipper bags, multifunctional gloves, pre-taped masking film and Scale Sheet, with full product detail for B2B buyers." content="臺灣營德產品中心 – 提供六大核心產品：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。全高清產品展示與 B2B 對接。">
 
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -634,10 +642,15 @@
           rows.forEach(function (r, i) {
             var btn = document.createElement('button');
             btn.className = 'filter-tab-btn';
-            btn.innerHTML = '<span>' + String(i + 1).padStart(2, '0') + ' ' + esc(r.name) + '</span>';
+            var noStr = String(i + 1).padStart(2, '0');
+            var nameTw = String(r.name || '').split('/')[0].trim();
+            var nameEn = String(r.name_en || nameTw).split('/')[0].trim();
+            btn.innerHTML = '<span data-tw="' + esc(noStr + ' ' + nameTw) + '" data-en="' + esc(noStr + ' ' + nameEn) + '">' + esc(noStr + ' ' + nameTw) + '</span>';
             btn.addEventListener('click', function () { filterGallery(r.name, btn); });
             bar.appendChild(btn);
           });
+          // 篩選鈕是動態產生的，若目前是英文版要補套一次
+          if (typeof window.applyLanguage === 'function') window.applyLanguage();
         }
         container.querySelectorAll('.card-image-box [data-src]').forEach(function (ph) {
           var cands = [ph.getAttribute('data-src'), ph.getAttribute('data-src2')].filter(Boolean);

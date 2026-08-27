@@ -74,6 +74,7 @@
   .m-nav-cta { background: #00529B; color: #FFFFFF; border: none; }
   .m-nav-lang { background: #FFFFFF; color: #334155; border: 1px solid #CBD5E1; }
   .m-nav-util { margin-top: 10px; padding-top: 14px; border-top: 1px solid #E2E8F0; }
+  .m-nav-util a { display: flex; align-items: center; gap: 6px; }
   @media (max-width: 1024px) {
     .m-nav-toggle { display: inline-flex; }
   }
@@ -92,6 +93,14 @@
 
   function esc(s) { return (s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
+  /* 抽屜的字要跟著全站語言切換：加上 data-tw / data-en 讓 src/site-lang.js 接手。
+     沒有英文時只放 data-tw，切英文時保留中文（不會變空白）。 */
+  function i18n(tw, en) {
+    var out = ' data-tw="' + esc(tw) + '"';
+    if (en) out += ' data-en="' + esc(en) + '"';
+    return out;
+  }
+
   /* 從頁首既有選單抓出結構，抽屜內容自動同步 */
   function readMenu() {
     var out = [];
@@ -100,6 +109,7 @@
       if (!link) return;
       var entry = {
         label: (link.getAttribute('data-tw') || link.textContent || '').trim(),
+        labelEn: (link.getAttribute('data-en') || '').trim(),
         href: link.getAttribute('href') || '#',
         groups: []
       };
@@ -108,7 +118,7 @@
         var title = titleEl ? (titleEl.querySelector('span') ? titleEl.querySelector('span').textContent : titleEl.textContent).trim() : '';
         var links = [];
         col.querySelectorAll('.mega-sub-links a').forEach(function (a) {
-          links.push({ label: (a.getAttribute('data-tw') || a.textContent || '').trim(), href: a.getAttribute('href') || '#' });
+          links.push({ label: (a.getAttribute('data-tw') || a.textContent || '').trim(), labelEn: (a.getAttribute('data-en') || '').trim(), href: a.getAttribute('href') || '#' });
         });
         // Scale Sheet 這欄的標題本身就是連結
         if (!links.length) {
@@ -152,28 +162,29 @@
       document.querySelectorAll('.top-utility-bar a').forEach(function (a) {
         var sp = a.querySelector('span');
         var label = ((sp ? sp.getAttribute('data-tw') || sp.textContent : a.textContent) || '').trim();
+        var labelEn = ((sp && sp.getAttribute('data-en')) || '').trim();
         var href = a.getAttribute('href') || '#';
         // 主選單已經有的（例：永續發展）就不重複放
         if (!label || seen[href.replace(/^\.\//, '')]) return;
-        out.push({ label: label, href: href, external: a.getAttribute('target') === '_blank' });
+        out.push({ label: label, labelEn: labelEn, href: href, external: a.getAttribute('target') === '_blank' });
       });
       return out;
     }
 
     var body = items.map(function (it, idx) {
       if (!it.groups.length) {
-        return '<a class="m-nav-link" href="' + esc(it.href) + '">' + esc(it.label) + '</a>';
+        return '<a class="m-nav-link" href="' + esc(it.href) + '"' + i18n(it.label, it.labelEn) + '>' + esc(it.label) + '</a>';
       }
       var groups = it.groups.map(function (g) {
         return '<div class="m-nav-group">' +
           (g.title ? '<div class="m-nav-group-title">' + esc(g.title) + '</div>' : '') +
-          g.links.map(function (l) { return '<a href="' + esc(l.href) + '">' + esc(l.label) + '</a>'; }).join('') +
+          g.links.map(function (l) { return '<a href="' + esc(l.href) + '"' + i18n(l.label, l.labelEn) + '>' + esc(l.label) + '</a>'; }).join('') +
         '</div>';
       }).join('');
-      return '<button class="m-nav-link" type="button" data-acc="' + idx + '">' + esc(it.label) +
+      return '<button class="m-nav-link" type="button" data-acc="' + idx + '"' + i18n(it.label, it.labelEn) + '>' + esc(it.label) +
         ' <i class="fa-solid fa-chevron-down"></i></button>' +
         '<div class="m-nav-sub" data-sub="' + idx + '">' +
-          '<div class="m-nav-group"><a href="' + esc(it.href) + '" style="font-weight:800;color:#00529B;">查看全部產品 →</a></div>' +
+          '<div class="m-nav-group"><a href="' + esc(it.href) + '" style="font-weight:800;color:#00529B;"' + i18n('查看全部產品 →', 'View all products →') + '>查看全部產品 →</a></div>' +
           groups +
         '</div>';
     }).join('');
@@ -181,10 +192,11 @@
     var utility = readUtility(items);
     var utilityBlock = utility.length
       ? '<div class="m-nav-group m-nav-util">' +
-          '<div class="m-nav-group-title">相關連結</div>' +
+          '<div class="m-nav-group-title"' + i18n('相關連結', 'Related Links') + '>相關連結</div>' +
           utility.map(function (u) {
             return '<a href="' + esc(u.href) + '"' + (u.external ? ' target="_blank" rel="noopener"' : '') + '>' +
-              esc(u.label) + (u.external ? ' <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.66rem;opacity:.6"></i>' : '') +
+              '<span' + i18n(u.label, u.labelEn) + '>' + esc(u.label) + '</span>' +
+              (u.external ? ' <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.66rem;opacity:.6"></i>' : '') +
             '</a>';
           }).join('') +
         '</div>'
@@ -194,16 +206,18 @@
       '<div class="m-nav-backdrop" id="mNavBackdrop"></div>' +
       '<aside class="m-nav-drawer" id="mNavDrawer" aria-hidden="true">' +
         '<div class="m-nav-head">' +
-          '<span>選單 MENU</span>' +
+          '<span' + i18n('選單 MENU', 'MENU') + '>選單 MENU</span>' +
           '<button class="m-nav-close" id="mNavClose" type="button" aria-label="關閉選單"><i class="fa-solid fa-xmark"></i></button>' +
         '</div>' +
         '<div class="m-nav-body">' + body + utilityBlock + '</div>' +
         '<div class="m-nav-foot">' +
-          '<a class="m-nav-cta" href="' + esc(contactHref) + '"><i class="fa-solid fa-envelope"></i> 聯繫我們</a>' +
+          '<a class="m-nav-cta" href="' + esc(contactHref) + '"' + i18n('聯繫我們', 'Contact Us') + '><i class="fa-solid fa-envelope"></i> 聯繫我們</a>' +
           '<button class="m-nav-lang" id="mNavLang" type="button">EN / 繁中</button>' +
         '</div>' +
       '</aside>';
     document.body.insertAdjacentHTML('beforeend', html);
+    // 抽屜是動態插入的，若使用者目前是英文版，補套一次
+    if (typeof window.applyLanguage === 'function') window.applyLanguage();
   }
 
   function open() {

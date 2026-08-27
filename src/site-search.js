@@ -1,22 +1,26 @@
 /* ============================================================
    全站搜尋 — 臺灣營德
    ------------------------------------------------------------
-   三層架構：
+   單一引擎：語意搜尋（向量）。
 
-   1. Algolia（inteplast_tw）— 分詞、錯字容錯，約 100ms 回應。
-      查詢帶 removeWordsIfNoResults: 'allOptional'：中文分詞把「束口袋」切成
-      束口＋袋 時，預設要「全部命中」會變成 0 筆（打「束口」有、打「束口袋」沒有
-      就是這個原因）；改成找不到時逐字放寬，長詞不會比短詞更難找。
-   2. 本地索引（同一份 search-records.js）— 中文雙字組（bigram）比對 ＋ 口語同義詞表。
-      Algolia 沒回、離線、用 file:// 直接開檔時都能用，是保底層。
-   3. 語意層（transformers.js，在瀏覽器內跑）— 補上「意思相近但字面不同」
-      的結果，例如「可以裝熱湯的袋子」對到蔬果袋。
+   為什麼不用關鍵字引擎（Algolia／Meilisearch 之類）：
+   客戶打「垃圾袋」而我們的品名是「清潔袋」——兩個詞沒有任何一個字相同。
+   任何字面比對的引擎都不可能命中，只能靠人工維護同義詞表。
+   向量搜尋是把整句話轉成語意座標再比距離，「垃圾袋」與「清潔袋」
+   在語意空間裡本來就很近，所以不需要同義詞表。
 
-   索引由 tools/algolia-upload.html 上傳；
-   語意向量由 tools/build-embeddings.html 產生成 src/data/embeddings.json。
-   兩者都讀 src/search-records.js 的同一份記錄定義。
+   資料只有一份：src/data/embeddings.json
+   （由 tools/build-embeddings.html 產生，內含標題／敘述／中英文／網址
+     與 int8 量化後的向量；11 筆約 9KB。）
 
-   介面是頁首常駐搜尋條（不是彈出視窗），結果以下拉面板貼在輸入框下方。
+   查詢流程：
+   1. 立即：字面包含比對（打「清潔袋」「can liner」這種正式品名時
+      不必等模型，先給結果）。這不是第二個引擎，只是十來行的快速通道。
+   2. 模型就緒後：把使用者那一句轉成向量，與 11 筆比餘弦相似度並排序。
+      模型約 30MB，第一次搜尋才下載、之後由瀏覽器快取。
+   3. 沒有夠像的結果時，仍列出最接近的三筆（不給死路）。
+
+   介面是頁首常駐搜尋條，結果以下拉面板貼在輸入框下方。
    ============================================================ */
 (function () {
   var inProducts = /\/products\//.test(location.pathname);
@@ -29,220 +33,80 @@
     return (inProducts ? '' : 'products/') + u;
   }
 
-  /* ---------- Algolia ----------
-     這裡的 Search-Only Key 是唯讀的，設計上就可以公開；
-     有寫入權的 Admin Key 只留在 tools/algolia-upload.html 使用者的瀏覽器裡。 */
-  var ALGOLIA = {
-    appId: 'YRQS01JBND',
-    searchKey: '86d243489a6c083a51f3fd4f0a222ef0',
-    index: 'inteplast_tw'
-  };
-
   var seqNo = 0;
-  var cache = {};
-
-  function remoteSearch(query) {
-    var q = String(query || '').trim();
-    if (!q) return Promise.resolve({ results: [] });
-    if (cache[q]) return Promise.resolve(cache[q]);
-
-    return fetch('https://' + ALGOLIA.appId + '-dsn.algolia.net/1/indexes/' + ALGOLIA.index + '/query', {
-      method: 'POST',
-      headers: {
-        'X-Algolia-Application-Id': ALGOLIA.appId,
-        'X-Algolia-API-Key': ALGOLIA.searchKey,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        query: q,
-        hitsPerPage: 12,
-        // 中文分詞：找不到時把詞逐一改為選擇性（束口袋 → 束口 OR 袋），避免長詞 0 筆
-        removeWordsIfNoResults: 'allOptional',
-        queryLanguages: ['zh'],
-        indexLanguages: ['zh'],
-        ignorePlurals: true,
-        typoTolerance: true,
-        attributesToSnippet: ['desc:30']
-      })
-    })
-      .then(function (res) { return res.ok ? res.json() : null; })
-      .then(function (j) {
-        if (!j || !j.hits) return { results: [] };
-        var out = { results: j.hits.map(function (h) {
-          var hl = h._highlightResult || {};
-          var sn = h._snippetResult || {};
-          return {
-            title: h.title,
-            category: h.category || '',
-            icon: h.icon || 'fa-cube',
-            desc: h.desc || '',
-            url: resolveUrl(h.url),
-            snippet: (sn.desc && sn.desc.value) || (hl.desc && hl.desc.value) || h.desc || ''
-          };
-        }) };
-        cache[q] = out;
-        return out;
-      })
-      .catch(function () { return { results: [] }; });
-  }
 
   /* ============================================================
-     本地索引（保底層）
+     資料載入 ＋ 字面快速通道
      ------------------------------------------------------------
-     資料來源就是 Algolia 與語意向量共用的那份 src/search-records.js，
-     第一次查詢時才動態載入（一般頁面沒有引入 products-data.js）。
-
-     比對方式：中文切雙字組（束口袋 → 束口、口袋），latin 與數字整段當一個詞；
-     再加一層口語同義詞（垃圾袋→清潔袋、束口袋→拉繩袋…），
-     讓客戶用日常說法也找得到正式品名。
+     embeddings.json 同時是資料來源與向量來源，所以整個搜尋只讀一個檔。
+     快速通道＝「查詢字整段出現在標題／英文名／分類／敘述裡」就直接算命中，
+     讓打正式品名的人不用等模型下載。
      ============================================================ */
-  var SYNONYMS = {
-    '垃圾袋': '清潔袋', '垃圾': '清潔袋', '塑膠袋': '清潔袋',
-    '束口袋': '拉繩袋', '束口': '拉繩袋', '抽繩袋': '拉繩袋', '綁繩袋': '拉繩袋',
-    '保鮮袋': '夾鏈袋', '密封袋': '夾鏈袋', '冷凍袋': '夾鏈袋', '密實袋': '夾鏈袋',
-    'ziplock': '夾鏈袋', 'ziploc': '夾鏈袋', 'zipper': '夾鏈袋',
-    '耐熱袋': '蔬果袋', '市場袋': '蔬果袋', '食品袋': '蔬果袋', '蔬菜袋': '蔬果袋',
-    '手套': '多功能手套', 'glove': '多功能手套', 'gloves': '多功能手套',
-    '膠帶': '遮蔽防塵膠帶', '防塵': '遮蔽防塵膠帶', '遮蔽': '遮蔽防塵膠帶',
-    '磅秤紙': 'Scale Sheet', '秤紙': 'Scale Sheet', 'tare sheet': 'Scale Sheet',
-    '環保標章': '環保', '報價': '聯繫我們', '詢價': '聯繫我們'
-  };
+  var DB = { loading: null, items: null };
 
-  var LOCAL = { ready: false, loading: false, recs: null, docs: null };
+  function loadDB() {
+    if (DB.loading) return DB.loading;
+    DB.loading = fetch(ROOT + 'src/data/embeddings.json')
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
+        if (!data || !data.items || !data.items.length) return null;
+        data.items.forEach(function (it) { it.vecf = decodeVec(it.vecb64); });
+        DB.items = data.items;
+        return data.items;
+      })
+      .catch(function () { return null; });
+    return DB.loading;
+  }
+
+  /** int8 量化向量還原：base64 → 有號位元組 → 單位向量 */
+  function decodeVec(b64) {
+    var bin = atob(b64), n = bin.length, v = new Float32Array(n), sum = 0;
+    for (var i = 0; i < n; i++) {
+      var b = bin.charCodeAt(i);
+      v[i] = (b > 127 ? b - 256 : b) / 127;
+      sum += v[i] * v[i];
+    }
+    var norm = Math.sqrt(sum) || 1;
+    for (var k = 0; k < n; k++) v[k] /= norm;
+    return v;
+  }
 
   function normText(s) {
     return String(s || '').toLowerCase()
       .replace(/[\uFF01-\uFF5E]/g, function (ch) { return String.fromCharCode(ch.charCodeAt(0) - 0xFEE0); })
-      .replace(/[\s\u3000、，,。．.\-_/（）()「」【】]+/g, ' ')
+      .replace(/[\s\u3000、，,。．.\-_/（）()「」【】]+/g, '')
       .trim();
   }
 
-  /** 中文雙字組 ＋ latin/數字整詞 */
-  function grams(s) {
-    var t = normText(s), out = [];
-    (t.match(/[a-z0-9]+/g) || []).forEach(function (w) { out.push(w); });
-    t.replace(/[a-z0-9]+/g, ' ').split(/\s+/).forEach(function (seg) {
-      if (!seg) return;
-      if (seg.length === 1) { out.push(seg); return; }
-      for (var i = 0; i < seg.length - 1; i++) out.push(seg.slice(i, i + 2));
-    });
-    return out;
+  function toRow(it, semantic) {
+    return {
+      title: (isEn() && it.title_en) ? it.title_en : it.title,
+      category: it.category || '',
+      icon: it.icon || 'fa-cube',
+      desc: (isEn() && it.desc_en) ? it.desc_en : (it.desc || ''),
+      url: resolveUrl(it.url),
+      snippet: (isEn() && it.desc_en) ? it.desc_en : (it.desc || ''),
+      semantic: !!semantic
+    };
   }
 
-  function expandQuery(q) {
-    var n = normText(q), extra = [];
-    Object.keys(SYNONYMS).forEach(function (k) {
-      if (n.indexOf(normText(k)) > -1) extra.push(SYNONYMS[k]);
-    });
-    return extra;
-  }
-
-  function ensureLocalIndex() {
-    if (LOCAL.ready || LOCAL.loading) return Promise.resolve(LOCAL.ready);
-    LOCAL.loading = true;
-
-    function inject(src) {
-      return new Promise(function (res, rej) {
-        var s = document.createElement('script');
-        s.src = src; s.onload = res; s.onerror = rej;
-        document.head.appendChild(s);
-      });
-    }
-
-    var need = [];
-    if (!window.PRODUCT_DATA) need.push(ROOT + 'src/data/products-data.js');
-    if (!window.buildSearchRecords) need.push(ROOT + 'src/search-records.js');
-
-    return need.reduce(function (p, src) { return p.then(function () { return inject(src); }); }, Promise.resolve())
-      .then(function () {
-        LOCAL.recs = window.buildSearchRecords ? window.buildSearchRecords() : [];
-        LOCAL.docs = LOCAL.recs.map(function (r) {
-          var text = [r.title, (r.alias || []).join(' '), r.category, r.desc, (r.keywords || []).join(' '), r.body].filter(Boolean).join(' ');
-          var g = {};
-          grams(r.title).forEach(function (x) { g[x] = 3; });          // 標題權重高
-          grams(text).forEach(function (x) { if (!g[x]) g[x] = 1; });
-          return { rec: r, gramMap: g, title: normText(r.title) };
-        });
-        LOCAL.ready = LOCAL.docs.length > 0;
-        LOCAL.loading = false;
-        return LOCAL.ready;
-      })
-      .catch(function () { LOCAL.loading = false; return false; });
-  }
-
-  function localHits(query) {
-    return ensureLocalIndex().then(function (ok) {
-      if (!ok) return [];
-      var qn = normText(query);
-      if (!qn) return [];
-      var qGrams = grams(query);
-      var synonyms = expandQuery(query);
-      synonyms.forEach(function (s) { qGrams = qGrams.concat(grams(s)); });
-      if (!qGrams.length) return [];
-
+  /** 字面包含：標題權重最高，敘述也算 */
+  function literalHits(query) {
+    return loadDB().then(function (items) {
+      if (!items) return [];
+      var q = normText(query);
+      if (q.length < 2) return [];
       var scored = [];
-      LOCAL.docs.forEach(function (d) {
-        var hit = 0, score = 0;
-        qGrams.forEach(function (g) {
-          if (d.gramMap[g]) { hit++; score += d.gramMap[g]; }
-        });
-        if (d.title.indexOf(qn) > -1) score += 12;
-        synonyms.forEach(function (s) { if (d.title.indexOf(normText(s)) > -1) score += 8; });
-        // 命中比例太低就不算（避免只中一個字就冒出來）
-        if (hit / qGrams.length < 0.34 && score < 12) return;
-        if (score > 0) scored.push({ d: d, s: score });
-      });
-
-      scored.sort(function (a, b) { return b.s - a.s; });
-      return scored.slice(0, 8).map(function (x) {
-        var r = x.d.rec;
-        return {
-          title: r.title,
-          category: r.category || '',
-          icon: r.icon || 'fa-cube',
-          desc: r.desc || '',
-          url: resolveUrl(r.url),
-          snippet: r.desc || ''
-        };
-      });
-    });
-  }
-
-  /** 0 筆時的「你可能在找」：不套門檻，單字重疊也算，抓最接近的三筆
-      （例：打「漱口帶」→ 膠帶（共用「帶」）、拉繩袋（共用「口」）） */
-  function looseLocal(query) {
-    return ensureLocalIndex().then(function (ok) {
-      if (!ok) return [];
-      var qn = normText(query);
-      if (!qn) return [];
-      var qGrams = grams(query);
-      expandQuery(query).forEach(function (s) { qGrams = qGrams.concat(grams(s)); });
-      var qChars = qn.replace(/[a-z0-9\s]/g, '').split('');
-
-      var scored = [];
-      LOCAL.docs.forEach(function (d) {
+      items.forEach(function (it) {
+        var title = normText(it.title) + ' ' + normText(it.title_en) + ' ' + normText(it.category);
+        var body = normText(it.desc) + ' ' + normText(it.desc_en);
         var s = 0;
-        qGrams.forEach(function (g) { if (d.gramMap[g]) s += 2; });
-        qChars.forEach(function (c) { if (d.title.indexOf(c) > -1) s += 2; });
-        if (s > 0) scored.push({ d: d, s: s });
+        if (title.indexOf(q) > -1) s = 10;
+        else if (body.indexOf(q) > -1) s = 4;
+        if (s) scored.push({ it: it, s: s });
       });
       scored.sort(function (a, b) { return b.s - a.s; });
-      return scored.slice(0, 3).map(function (x) {
-        var r = x.d.rec;
-        return { title: r.title, category: r.category || '', icon: r.icon || 'fa-cube',
-          desc: r.desc || '', url: resolveUrl(r.url), snippet: r.desc || '' };
-      });
-    });
-  }
-
-  /** 把本地結果併進來（Algolia 已有的不重複），Algolia 空手時本地就是主結果 */
-  function mergeLocal(query, base) {
-    return localHits(query).then(function (extra) {
-      if (!extra.length) return base;
-      var seen = {};
-      base.results.forEach(function (r) { seen[r.url + '|' + r.title] = true; });
-      var add = extra.filter(function (r) { return !seen[r.url + '|' + r.title]; });
-      return add.length ? { results: base.results.concat(add) } : base;
+      return scored.map(function (x) { return toRow(x.it, false); });
     });
   }
 
@@ -288,33 +152,51 @@
   }
 
   /* ============================================================
-     語意搜尋（transformers.js，完全在瀏覽器內執行）
+     語意搜尋（transformers.js，完全在瀏覽器內執行）— 主引擎
      ------------------------------------------------------------
-     產品向量離線算好放在 src/data/embeddings.json，
-     網站只需把「使用者打的那一句」轉成向量 → 只有查詢端要跑模型。
+     資料的向量已離線算好在 embeddings.json，網站只需把「使用者打的那一句」
+     轉成向量，所以只有查詢端要跑模型。模型約 30MB，第一次搜尋才下載，
+     之後瀏覽器快取；在它就緒前由字面快速通道頂著。
 
-     模型約 40MB，第一次搜尋才下載、之後瀏覽器快取；
-     在它就緒前搜尋照常運作（Algolia 結果先出來），載好後結果自動升級。
-     任何一步失敗就安靜跳過。
+     門檻 FLOOR 以下視為「不夠像」，此時不當作結果，改走「你可能在找」。
      ============================================================ */
+  /* 門檻怎麼定的（實測數據）：
+     「垃圾袋」→ 清潔袋 0.873、拉繩袋 0.861、蔬果袋 0.856…
+     「手套」  → 多功能手套 0.856、下一名 0.830
+     「asdfgh」→ 最高只有 0.770；「qqqqqq」→ 0.822
+     e5 的絕對分數壓縮得很高（對的 0.873、錯的 0.861 只差 0.012），
+     所以單靠絕對門檻沒有用。做法是兩道關卡：
+       FLOOR — 最高分沒到這個數，就當成「沒有夠像的」走建議清單
+       GAP   — 只留跟最高分差距在這個範圍內的，其餘視為雜訊 */
   var SEM = {
     ready: false,
     loading: false,
-    items: null,
     extractor: null,
-    threshold: 0.76,   // e5 模型相似度普遍偏高；0.80 太嚴，換句話說的查詢會全被濾掉
+    FLOOR: 0.83,
+    // 英文查詢對中文為主的資料，整體分數會低一截（ziplock、trash bag
+    // 明明對得上，卻卡在 0.83 以下），所以拉丁字母為主的查詢用較低的門檻
+    FLOOR_LATIN: 0.80,
+    // 亂碼（qqqqqq、xyzxyz）的分數分布是平的：第一名與第二名幾乎同分。
+    // 真實查詢的第一名會明顯領先。放寬英文門檻時就靠這個差距把亂碼擋掉。
+    MIN_LEAD: 0.01,
+    GAP: 0.02,
     max: 4
   };
+
+  /** 查詢是否以拉丁字母為主（用來選門檻） */
+  function isLatinQuery(q) {
+    var latin = (String(q).match(/[a-z]/gi) || []).length;
+    var cjk = (String(q).match(/[\u4e00-\u9fff]/g) || []).length;
+    return latin > 0 && latin >= cjk * 2;
+  }
 
   function loadSemantic() {
     if (SEM.loading || SEM.ready) return;
     SEM.loading = true;
 
-    fetch(ROOT + 'src/data/embeddings.json')
-      .then(function (res) { return res.ok ? res.json() : null; })
-      .then(function (data) {
-        if (!data || !data.items || !data.items.length) throw new Error('no embeddings');
-        SEM.items = data.items;
+    loadDB()
+      .then(function (items) {
+        if (!items) throw new Error('no embeddings');
         return import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.2');
       })
       .then(function (mod) {
@@ -332,42 +214,21 @@
       .catch(function () { SEM.loading = false; });
   }
 
-  function semanticHits(query) {
-    if (!SEM.ready) { loadSemantic(); return Promise.resolve([]); }
+  /** 全部排序後回傳 [{row, score}]，門檻交給呼叫端決定 */
+  function semanticRanked(query) {
+    if (!SEM.ready) { loadSemantic(); return Promise.resolve(null); }
     return SEM.extractor('query: ' + query, { pooling: 'mean', normalize: true })
       .then(function (out) {
         var qv = out.tolist()[0];
-        var scored = [];
-        SEM.items.forEach(function (it) {
+        var scored = DB.items.map(function (it) {
           var s = 0;
-          for (var i = 0; i < qv.length; i++) s += qv[i] * it.vec[i];
-          if (s >= SEM.threshold) scored.push({ it: it, s: s });
+          for (var i = 0; i < qv.length; i++) s += qv[i] * it.vecf[i];
+          return { it: it, s: s };
         });
         scored.sort(function (a, b) { return b.s - a.s; });
-        return scored.slice(0, SEM.max).map(function (x) {
-          return {
-            title: x.it.title,
-            category: x.it.category || '',
-            icon: x.it.icon || 'fa-cube',
-            desc: x.it.desc || '',
-            url: resolveUrl(x.it.url),
-            snippet: x.it.desc || '',
-            semantic: true
-          };
-        });
+        return scored;
       })
-      .catch(function () { return []; });
-  }
-
-  /** 語意結果補在關鍵字結果後面，已出現過的不重複 */
-  function mergeSemantic(query, base) {
-    return semanticHits(query).then(function (extra) {
-      if (!extra.length) return base;
-      var seen = {};
-      base.results.forEach(function (r) { seen[r.url + '|' + r.title] = true; });
-      var add = extra.filter(function (r) { return !seen[r.url + '|' + r.title]; });
-      return add.length ? { results: base.results.concat(add) } : base;
-    });
+      .catch(function () { return null; });
   }
 
   /* ---------- 介面 ---------- */
@@ -449,6 +310,26 @@
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
+  /* 搜尋面板的文字也要跟著全站語言（site-lang.js 會把 <html lang> 設成 zh-TW / en）。
+     這些字是動態產生的，掛 data-tw 沒用，所以直接依語言取字。 */
+  function isEn() { return (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0; }
+  var T = {
+    hot:      ['熱門：', 'Popular:'],
+    noResult: ['找不到與「{q}」相符的產品', 'No results for “{q}”'],
+    noHint:   ['我們的品項持續增加中，歡迎<a href="{url}">直接與專員聯繫</a>詢問。',
+               'Our range keeps growing — <a href="{url}">contact our team</a> and we will help.'],
+    maybeT:   ['找不到與「{q}」完全相符的產品', 'No exact match for “{q}”'],
+    maybeS:   ['你可能在找：', 'You might be looking for:'],
+    other:    ['都不是？歡迎<a href="{url}">直接與專員聯繫</a>詢問。',
+               'None of these? <a href="{url}">Contact our team</a> and we will help.'],
+    loading:  ['搜尋中…', 'Searching…']
+  };
+  function t(key, vars) {
+    var str = T[key][isEn() ? 1 : 0];
+    Object.keys(vars || {}).forEach(function (k) { str = str.split('{' + k + '}').join(vars[k]); });
+    return str;
+  }
+
   function ensureUI() {
     if (!document.getElementById('omSearchStyle')) {
       var st = document.createElement('style');
@@ -470,17 +351,17 @@
     bar.innerHTML =
       '<i class="fa-solid fa-magnifying-glass"></i>' +
       '<input id="omSearchInput" type="text" autocomplete="off" aria-label="全站搜尋" ' +
-        'data-ph-tw="搜尋產品、尺寸或規格" data-ph-en="Search products, sizes or specs" ' +
-        'placeholder="搜尋產品、尺寸或規格">' +
+        'data-ph-tw="搜尋產品或用途" data-ph-en="Search products or uses" ' +
+        'placeholder="搜尋產品或用途">' +
       '<button class="om-sb-clear" id="omSearchClear" type="button" aria-label="清除"><i class="fa-solid fa-xmark"></i></button>' +
       '<div class="om-panel" id="omSearchPanel">' +
         '<div class="om-search-tags">' +
-          '<span class="lbl">熱門：</span>' +
-          '<button class="om-tag" type="button" data-q="垃圾袋">垃圾袋</button>' +
-          '<button class="om-tag" type="button" data-q="束口袋">束口袋</button>' +
-          '<button class="om-tag" type="button" data-q="耐熱袋">耐熱袋</button>' +
-          '<button class="om-tag" type="button" data-q="夾鏈袋">夾鏈袋</button>' +
-          '<button class="om-tag" type="button" data-q="手套">手套</button>' +
+          '<span class="lbl" id="omHotLabel">熱門：</span>' +
+          '<button class="om-tag" type="button" data-q="垃圾袋" data-q-en="trash bag" data-tw="垃圾袋" data-en="Trash bags">垃圾袋</button>' +
+          '<button class="om-tag" type="button" data-q="束口袋" data-q-en="drawstring bag" data-tw="束口袋" data-en="Drawstring">束口袋</button>' +
+          '<button class="om-tag" type="button" data-q="保鮮袋" data-q-en="freezer bag" data-tw="保鮮袋" data-en="Freezer bags">保鮮袋</button>' +
+          '<button class="om-tag" type="button" data-q="蔬果袋" data-q-en="produce bag" data-tw="蔬果袋" data-en="Produce bags">蔬果袋</button>' +
+          '<button class="om-tag" type="button" data-q="手套" data-q-en="gloves" data-tw="手套" data-en="Gloves">手套</button>' +
         '</div>' +
         '<div id="omSearchList" class="om-search-list"></div>' +
       '</div>';
@@ -516,6 +397,9 @@
   function openPanel() {
     var p = document.getElementById('omSearchPanel');
     if (p) p.classList.add('active');
+    loadSemantic();   // 面板一打開就開始載模型，使用者打完字通常已就緒
+    var lbl = document.getElementById('omHotLabel');
+    if (lbl) lbl.textContent = t('hot');
   }
   function closePanel() {
     var p = document.getElementById('omSearchPanel');
@@ -543,23 +427,28 @@
     }
 
     if (!preset.results.length) {
-      list.innerHTML = '<div class="om-empty">' +
-        '<div class="t">找不到與「' + esc(q) + '」相符的產品</div>' +
-        '<div class="s">我們的品項持續增加中，歡迎<a href="' + ROOT + 'contact.html">直接與專員聯繫</a>詢問。</div>' +
-        '</div>';
-      // 再補一層「你可能在找」：完全 0 筆時不要只給死路
-      looseLocal(q).then(function (sug) {
-        if (lastQuery !== q || !sug.length) return;
+      // 模型還在下載、且字面也沒命中：說明狀態，不要謊報「找不到」
+      if (preset.pending) {
+        list.innerHTML = '<div class="om-empty"><div class="s">' + t('loading') + '</div></div>';
+        return;
+      }
+      // 有「最接近的幾筆」就給建議，沒有才是真的死路
+      if (preset.suggestions && preset.suggestions.length) {
         list.innerHTML =
           '<div class="om-empty" style="padding:18px 18px 8px">' +
-            '<div class="t">找不到與「' + esc(q) + '」完全相符的產品</div>' +
-            '<div class="s">你可能在找：</div>' +
+            '<div class="t">' + t('maybeT', { q: esc(q) }) + '</div>' +
+            '<div class="s">' + t('maybeS') + '</div>' +
           '</div>' +
-          sug.map(resultRow).join('') +
+          preset.suggestions.map(resultRow).join('') +
           '<div class="om-empty" style="padding:12px 18px 18px">' +
-            '<div class="s">都不是？歡迎<a href="' + ROOT + 'contact.html">直接與專員聯繫</a>詢問。</div>' +
+            '<div class="s">' + t('other', { url: ROOT + 'contact.html' }) + '</div>' +
           '</div>';
-      });
+        return;
+      }
+      list.innerHTML = '<div class="om-empty">' +
+        '<div class="t">' + t('noResult', { q: esc(q) }) + '</div>' +
+        '<div class="s">' + t('noHint', { url: ROOT + 'contact.html' }) + '</div>' +
+        '</div>';
       return;
     }
 
@@ -579,18 +468,51 @@
 
   function runQuery(q, seq) {
     if (seq !== seqNo) return;
-    remoteSearch(q).then(function (base) {
+
+    // 先用字面快速通道給即時結果（模型還在下載時就是它在撐）
+    literalHits(q).then(function (lit) {
       if (seq !== seqNo) return;
-      render(q, base);
-      // 本地索引（同義詞＋雙字組）先補，再等語意層
-      return mergeLocal(q, base).then(function (withLocal) {
+      if (lit.length) render(q, { results: lit });
+
+      return semanticRanked(q).then(function (ranked) {
         if (seq !== seqNo) return;
-        if (withLocal !== base) render(q, withLocal);
-        return mergeSemantic(q, withLocal).then(function (merged) {
-          if (seq !== seqNo) return;
-          if (merged !== withLocal) render(q, merged);
-          queueLog(q, merged.results.length);
-        });
+
+        // 模型還沒就緒：維持字面結果；連字面也沒有就顯示「載入中」
+        if (!ranked) {
+          if (!lit.length) render(q, { results: [], pending: SEM.loading });
+          else queueLog(q, lit.length);
+          return;
+        }
+
+        // 兩道關卡：最高分要夠高，且只留與最高分接近的幾筆
+        var best = ranked.length ? ranked[0].s : 0;
+        var second = ranked.length > 1 ? ranked[1].s : 0;
+        // 分數夠高就直接採用；只有「英文查詢、分數中段」才額外要求領先幅度
+        var confident = best >= SEM.FLOOR ||
+          (isLatinQuery(q) && best >= SEM.FLOOR_LATIN && (best - second) >= SEM.MIN_LEAD);
+        var good = confident
+          ? ranked.filter(function (x) { return x.s >= best - SEM.GAP; }).slice(0, SEM.max)
+          : [];
+
+        if (good.length) {
+          // 字面命中的排在前面（使用者打的就是正式品名，那一定是他要的）
+          var rows = lit.slice();
+          var seen = {};
+          rows.forEach(function (r) { seen[r.url + '|' + r.title] = true; });
+          good.forEach(function (x) {
+            var r = toRow(x.it, true);
+            if (!seen[r.url + '|' + r.title]) rows.push(r);
+          });
+          render(q, { results: rows });
+          queueLog(q, rows.length);
+        } else if (lit.length) {
+          render(q, { results: lit });
+          queueLog(q, lit.length);
+        } else {
+          // 沒有夠像的：列出最接近的三筆，不給死路
+          render(q, { results: [], suggestions: ranked.slice(0, 3).map(function (x) { return toRow(x.it, true); }) });
+          queueLog(q, 0);
+        }
       });
     });
   }
@@ -617,7 +539,7 @@
     var tag = t.closest && t.closest('.om-tag');
     if (tag) {
       e.preventDefault();
-      var q = tag.getAttribute('data-q');
+      var q = (isEn() && tag.getAttribute('data-q-en')) || tag.getAttribute('data-q');
       var input = document.getElementById('omSearchInput');
       if (input) {
         input.value = q;

@@ -10,6 +10,10 @@
   var currentLang = localStorage.getItem(STORAGE_KEY) === 'en' ? 'en' : 'tw';
 
   function applyLanguage(lang) {
+    /* 沒帶參數時＝「照目前語言再套一次」（頁尾、漢堡選單、產品篩選鈕等
+       動態插入內容後會這樣呼叫）。原本沒帶參數會落到 'tw' 並寫回
+       localStorage，等於每次換頁都把使用者選的英文清掉。 */
+    if (lang === undefined || lang === null) lang = currentLang;
     currentLang = lang === 'en' ? 'en' : 'tw';
     localStorage.setItem(STORAGE_KEY, currentLang);
     document.documentElement.lang = currentLang === 'tw' ? 'zh-TW' : 'en';
@@ -21,6 +25,13 @@
     if (langBtn) {
       langBtn.textContent = currentLang === 'tw' ? 'EN / 繁中' : '繁中 / EN';
     }
+
+    // 頁面標題與 meta description：Google 搜尋結果顯示的就是這兩行，
+    // 英文版要換成英文（<title> 由下面的 [data-tw] 迴圈處理）
+    document.querySelectorAll('[data-desc-tw]').forEach(function (el) {
+      var c = el.getAttribute('data-desc-' + currentLang);
+      if (c) el.setAttribute('content', c);
+    });
 
     // 輸入框提示文字：掛 data-ph-tw / data-ph-en 的欄位跟著切語言
     document.querySelectorAll('[data-ph-tw]').forEach(function (el) {

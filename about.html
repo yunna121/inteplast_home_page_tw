@@ -3,8 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="認識臺灣營德股份有限公司：從台塑新港廠到 Inteplast Group 全球製造網絡，超過三十年的塑膠薄膜、清潔袋與軟包裝製造歷程。">
-  <title>關於臺灣營德｜從新港出發的全球製造實力</title>
+  <script>
+    // 英文使用者換頁時先隱藏內容，避免中文閃一下（site-lang.js 負責解除）
+    (function () {
+      if (localStorage.getItem('preferredLang') === 'en') {
+        document.documentElement.classList.add('lang-loading');
+      }
+    })();
+  </script>
+  <style>html.lang-loading body { opacity: 0 !important; }</style>
+  <meta name="description" data-desc-tw="認識臺灣營德股份有限公司：從台塑新港廠到 Inteplast Group 全球製造網絡，超過三十年的塑膠薄膜、清潔袋與軟包裝製造歷程。" data-desc-en="Inteplast Taiwan Corporation: from the Formosa Plastics Xingang plant to the Inteplast Group global network, over thirty years of plastic film, can liner and flexible packaging manufacturing." content="認識臺灣營德股份有限公司：從台塑新港廠到 Inteplast Group 全球製造網絡，超過三十年的塑膠薄膜、清潔袋與軟包裝製造歷程。">
+  <title data-tw="關於臺灣營德｜從新港出發的全球製造實力" data-en="About Inteplast Taiwan | Global Manufacturing from Xingang, Chiayi">關於臺灣營德｜從新港出發的全球製造實力</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -136,8 +145,8 @@
   <script src="src/mobile-nav.js"></script>
   <script src="src/footer.js"></script>
   <script>
-    let currentLang="tw";
-    function toggleLanguage(){currentLang=currentLang==="tw"?"en":"tw";document.documentElement.lang=currentLang==="tw"?"zh-TW":"en";document.getElementById("langBtn").textContent=currentLang==="tw"?"EN / 繁中":"繁中 / EN";document.querySelectorAll("[data-tw]").forEach(function(element){const replacement=element.getAttribute("data-"+currentLang);if(replacement)element.textContent=replacement})}
+    /* 語言切換統一由 src/site-lang.js 提供（原本這裡有一份頁內版本，
+       固定從 tw 起算，會覆蓋使用者選的語言）。 */
     const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if(reduceMotion||!("IntersectionObserver" in window)){document.querySelectorAll(".reveal").forEach(function(element){element.classList.add("visible")})}else{const observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}})},{threshold:.12});document.querySelectorAll(".reveal").forEach(function(element){observer.observe(element)})}
   </script>
