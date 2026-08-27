@@ -1356,7 +1356,7 @@
       line-height: 1.5;
     }
 
-    /* RFQ CTA */
+    /* 底部聯繫 CTA */
     .cta-banner-section {
       padding: 100px 40px;
     }
@@ -2114,13 +2114,18 @@
         } catch (e) { /* 跨網域圖片無法取樣時，維持預設（視為去背） */ }
       }
 
-      // 產品細項：用「、」逗號或換行分隔，一項一顆膠囊標籤；含環保／認證字樣的自動上綠
-      function chipsHtml(items) {
-        return String(items || '').split(/[、,，\n]+/).map(function (s) { return s.trim(); }).filter(Boolean)
-          .map(function (s) {
-            var eco = /環保|認證|標章|回收|再生/.test(s);
-            return '<span class="ps-chip' + (eco ? ' is-eco' : '') + '">' + esc(s) + '</span>';
-          }).join('');
+      // 產品細項：用「、」逗號或換行分隔，一項一顆膠囊標籤；含環保／認證字樣的自動上綠。
+      // 英文取 Excel「產品細項英文」欄同一個位置的項目；沒填就沿用中文。
+      function splitItems(s) {
+        return String(s || '').split(/[、,，\n]+/).map(function (x) { return x.trim(); }).filter(Boolean);
+      }
+      function chipsHtml(items, itemsEn) {
+        var en = splitItems(itemsEn);
+        return splitItems(items).map(function (s, i) {
+          var eco = /環保|認證|標章|回收|再生/.test(s);
+          var e = en[i] || s;
+          return '<span class="ps-chip' + (eco ? ' is-eco' : '') + '" data-tw="' + esc(s) + '" data-en="' + esc(e) + '">' + esc(s) + '</span>';
+        }).join('');
       }
 
       function getCatAnchor(name) {
@@ -2144,7 +2149,7 @@
 
       function rowHtml(row, i) {
         var p = photoOf(row);
-        var chips = chipsHtml(row.items);
+        var chips = chipsHtml(row.items, row.items_en);
         var num = String(i + 1).padStart(2, '0');
         var targetUrl = getCatAnchor(row.name);
         var tw = splitAlias(row.name);
@@ -2159,7 +2164,7 @@
           (row.name_en ? '    <div class="ps-eyebrow">' + esc(en.main) + '</div>' : '') +
           '    <h3 class="ps-title" data-tw="' + esc(tw.main) + '" data-en="' + esc(en.main) + '">' + esc(tw.main) + '</h3>' +
           (tw.alias ? '    <div class="ps-alias" data-tw="又稱 ' + esc(tw.alias) + '" data-en="Also known as ' + esc(en.alias || tw.alias) + '">又稱 ' + esc(tw.alias) + '</div>' : '') +
-          (row.highlight ? '    <p class="ps-highlight" data-tw="' + esc(row.highlight) + '" data-en="' + esc(row.highlight) + '">' + esc(row.highlight) + '</p>' : '') +
+          (row.highlight ? '    <p class="ps-highlight" data-tw="' + esc(row.highlight) + '" data-en="' + esc(row.highlight_en || row.highlight) + '">' + esc(row.highlight) + '</p>' : '') +
           (chips ? '    <div class="ps-items">' + chips + '</div>' : '') +
           '    <div><a href="' + targetUrl + '" class="ps-card-link" onclick="event.stopPropagation();"><span data-tw="前往產品中心查看" data-en="View in Product Center">前往產品中心查看</span> <i class="fa-solid fa-arrow-right"></i></a></div>' +
           '  </div>' +

@@ -83,7 +83,7 @@ collections:
     label: 網站設定
     files:
       - name: site
-        label: 公司資訊與詢價信箱
+        label: 公司資訊與聯絡信箱
         file: content/site.json
         description: 改這裡會同時更新所有頁面的聯絡資訊與頁尾。
         fields:
@@ -91,7 +91,7 @@ collections:
           - { name: address, label: 公司地址, widget: string }
           - { name: phone, label: 總機電話（顯示用）, widget: string, hint: '例：02-2712-2211 #8109' }
           - { name: phone_link, label: 總機電話（撥號用）, widget: string, hint: '只留數字與逗號，例：0227122211,8109' }
-          - { name: email, label: 詢價信箱收件人, widget: string }
+          - { name: email, label: 聯絡信箱收件人, widget: string }
           - { name: email_cc, label: 副本收件人, widget: string, required: false }
           - { name: copyright, label: 頁尾版權文字, widget: string }
 

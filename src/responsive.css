@@ -2,7 +2,7 @@
    全站手機／平板響應式樣式 (Responsive)
    ------------------------------------------------------------
    最後載入，用於修正各頁在窄螢幕的破版：
-   固定寬度容器、多欄網格、寬表格、等比例對比牆、浮動詢價籃等。
+   固定寬度容器、多欄網格、寬表格、等比例對比牆等。
    全站斷點統一三段：1024px（平板，多欄收單欄）／768px（手機，主要單欄化）／
    480px（小手機微調字級與 logo）。最小版面寬度 320px，再窄就橫向滑動。
    桌機版樣式完全不受影響（僅在斷點內生效）。
@@ -38,7 +38,6 @@ html, body { min-width: 320px; }
 .top-utility-bar,
 .header,
 #site-header-component:empty,
-#rfqFloatingBasket,
 .m-nav-drawer { min-width: 320px; }
 
 @media (max-width: 319px) {
@@ -52,7 +51,7 @@ html, body { min-width: 320px; }
   .hero-container { grid-template-columns: 1fr !important; gap: 28px !important; }
   /* 漢堡選單從 1024px 開始出現，語言鈕與聯繫按鈕改由抽屜內提供，
      否則頁首在 769–1024 之間會擠成三顆按鈕、右側被切掉 */
-  .header-right .rfq-btn,
+  .header-right .contact-btn,
   .header-right .lang-toggle { display: none !important; }
 }
 
@@ -174,32 +173,10 @@ html, body { min-width: 320px; }
   .edm-size-pill { font-size: 0.92rem !important; }
   .edm-spec-card-dim { font-size: 0.84rem !important; }
 
-  /* ---------- 詢價按鈕：符合手機點擊尺寸 ---------- */
-  .btn-quote-add,
-  .btn-quote-dark {
-    min-height: 44px !important;
-    white-space: nowrap !important;
-    font-size: 0.85rem !important;
-  }
-
   /* ---------- 圖左表右 → 上下堆疊（斷點與 src/spec-render.js 一致） ---------- */
   .spec-with-photo { grid-template-columns: 1fr !important; }
   .spec-photo-pane { padding: 20px !important; border-right: none !important; border-bottom: 1px solid #E2E8F0 !important; }
   .spec-stage { height: 210px !important; }
-
-  /* ---------- 浮動詢價籃 ---------- */
-  #rfqFloatingBasket {
-    left: 12px !important;
-    right: 12px !important;
-    bottom: 12px !important;
-    width: auto !important;
-    flex-wrap: wrap !important;
-    gap: 10px !important;
-    padding: 14px 16px !important;
-    border-radius: 16px !important;
-  }
-  #rfqFloatingBasket .basket-submit-btn { flex: 1 1 auto !important; justify-content: center !important; min-height: 44px !important; }
-  #rfqFloatingBasket .basket-clear-btn { min-height: 44px !important; }
 
   /* ---------- 搜尋視窗 ---------- */
   .om-search-overlay { padding: 70px 12px 20px !important; }

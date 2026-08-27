@@ -104,7 +104,8 @@
 <script>
 (function () {
   var SHEET = '產品資料';
-  var HEADERS = ['產品', '英文名稱', '重點', '產品敘述', '產品圖片', '產品細項'];
+  // 中英文放同一個檔案：中文欄位後面直接接英文欄位（空白＝網站切英文時沿用中文）
+  var HEADERS = ['產品', '英文名稱', '重點', '重點英文', '產品敘述', '產品敘述英文', '產品圖片', '產品細項', '產品細項英文'];
   // 內建的預設內容：即使沒讀到 ../src/data/products-data.js（例如單獨開這個檔案），下載的 Excel 也會有資料
   var DEFAULT_ROWS = [
     { name: '清潔袋', name_en: 'CAN LINERS & TRASH BAGS', desc: '連捲、單張抽取與環保清潔袋，台塑原料自製吹膜。', img: '封面-清潔袋.png', items: '連捲點斷、單張抽取、環保標章認證' },
@@ -118,7 +119,7 @@
 
   var source = (window.PRODUCT_DATA && window.PRODUCT_DATA.length) ? window.PRODUCT_DATA : DEFAULT_ROWS;
   var seed = source.map(function (r) {
-    return { '產品': r.name || '', '英文名稱': r.name_en || '', '重點': r.highlight || '', '產品敘述': r.desc || '', '產品圖片': r.img || '', '產品細項': r.items || '' };
+    return { '產品': r.name || '', '英文名稱': r.name_en || '', '重點': r.highlight || '', '重點英文': r.highlight_en || '', '產品敘述': r.desc || '', '產品敘述英文': r.desc_en || '', '產品圖片': r.img || '', '產品細項': r.items || '', '產品細項英文': r.items_en || '' };
   });
 
   var status = document.getElementById('status');
@@ -136,7 +137,7 @@
   document.getElementById('tpl').addEventListener('click', function () {
     if (!need()) return;
     var ws = XLSX.utils.json_to_sheet(seed, { header: HEADERS });
-    ws['!cols'] = [{ wch: 20 }, { wch: 28 }, { wch: 40 }, { wch: 46 }, { wch: 26 }, { wch: 40 }];
+    ws['!cols'] = [{ wch: 20 }, { wch: 28 }, { wch: 40 }, { wch: 44 }, { wch: 46 }, { wch: 50 }, { wch: 26 }, { wch: 40 }, { wch: 44 }];
     var wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, SHEET);
     XLSX.writeFile(wb, 'products-data.xlsx');
@@ -181,9 +182,12 @@
         name: String(r['產品'] || r['產品名稱'] || '').trim(),
         name_en: String(r['英文名稱'] || '').trim(),
         highlight: String(r['重點'] || '').trim(),
+        highlight_en: String(r['重點英文'] || '').trim(),
         desc: String(r['產品敘述'] || '').trim(),
+        desc_en: String(r['產品敘述英文'] || '').trim(),
         img: String(r['產品圖片'] || '').trim(),
-        items: String(r['產品細項'] || '').trim()
+        items: String(r['產品細項'] || '').trim(),
+        items_en: String(r['產品細項英文'] || '').trim()
       };
     }).filter(function (r) { return r.name; });
 

@@ -62,7 +62,7 @@
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
       <button class="lang-toggle" id="langBtn" type="button" onclick="if (typeof toggleLanguage === 'function') toggleLanguage();" aria-label="切換語言">EN / 繁中</button>
-      <a href="${rootPath}contact.html" class="rfq-btn"><i class="fa-solid fa-envelope"></i><span data-tw="聯繫我們" data-en="Contact Us">聯繫我們</span></a>
+      <a href="${rootPath}contact.html" class="contact-btn"><i class="fa-solid fa-envelope"></i><span data-tw="聯繫我們" data-en="Contact Us">聯繫我們</span></a>
     </div>
   </header>
   `;

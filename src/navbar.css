@@ -324,7 +324,7 @@
   color: var(--brand-blue);
 }
 
-.rfq-btn {
+.contact-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -340,7 +340,7 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.rfq-btn:hover {
+.contact-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(0, 82, 155, 0.35);
 }
@@ -381,14 +381,14 @@
   .nav-menu { gap: 2px; }
   .nav-link-item { padding: 8px 9px; font-size: 0.85rem; }
   .header-right { gap: 8px; }
-  .header-right .rfq-btn {
+  .header-right .contact-btn {
     width: 40px;
     height: 40px;
     padding: 0;
     justify-content: center;
     border-radius: 9999px;
   }
-  .header-right .rfq-btn span { display: none; }
+  .header-right .contact-btn span { display: none; }
   .lang-toggle { min-width: 88px; padding: 8px 10px; font-size: 0.8rem; }
 }
 

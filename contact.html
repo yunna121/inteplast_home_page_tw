@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>聯繫我們與 RFQ 詢價 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
+  <title>聯繫我們 | 臺灣營德股份有限公司 Inteplast Taiwan Corporation</title>
   <meta name="description" content="聯繫臺灣營德股份有限公司 (Inteplast Taiwan) 外銷業務團隊。地址：臺北市松山區敦化北路205號6樓609室，電話：02-2712-2211 #8109。">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,8 +66,8 @@
     .info-title { font-size: 1.1rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 4px; }
     .info-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
 
-    /* 融入 Project_Mio 的 B2B 詢價表單設計與驗證邏輯 */
-    .rfq-form-card { background: var(--surface-white); border-radius: var(--radius-md); padding: 40px; border: 1px solid var(--border-color); box-shadow: var(--shadow-md); }
+    /* 聯絡表單樣式與驗證邏輯 */
+    .contact-form-card { background: var(--surface-white); border-radius: var(--radius-md); padding: 40px; border: 1px solid var(--border-color); box-shadow: var(--shadow-md); }
     .form-group { margin-bottom: 22px; }
     .form-group label { display: block; font-size: 0.9rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 8px; }
     .form-control {
@@ -242,7 +242,7 @@
 
       <!-- 面板 2：留下資料由我們聯繫您 -->
       <div id="panelFormMode" class="contact-panel">
-        <div class="rfq-form-card" style="max-width: 820px; margin: 0 auto; padding: 44px 48px;">
+        <div class="contact-form-card" style="max-width: 820px; margin: 0 auto; padding: 44px 48px;">
           <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 24px;" data-tw="留下您的聯絡資料" data-en="Leave Your Contact Details">留下您的聯絡資料</h2>
 
           <form id="contactForm">
@@ -300,7 +300,7 @@
   </section>
 
   <!-- GAS 回傳的頁面丟進這個隱藏 iframe，載入完成＝Apps Script 已收到並處理完 -->
-  <iframe name="gasReceiver" id="gasReceiver" title="RFQ submission receiver" hidden></iframe>
+  <iframe name="gasReceiver" id="gasReceiver" title="Contact form submission receiver" hidden></iframe>
 
   <footer class="footer">
     <div class="container">
@@ -401,14 +401,8 @@
         }
       });
 
-      const urlParams = new URLSearchParams(window.location.search);
-      const specs = urlParams.get('specs');
-      if (specs) {
-        const msgField = document.getElementById('message');
-        if (msgField) {
-          msgField.value = `您好，我需要針對以下預先勾選的產品規格進行批量採購詢價：\n\n• ${decodeURIComponent(specs).split(' ; ').join('\n• ')}\n\n預計採購數量與交期需求：`;
-        }
-      }
+      /* 舊版的詢價籃會用 ?specs= 把勾選的規格帶進來自動填訊息；
+         規格頁與詢價籃都已移除，這段沒有來源、留著只會誤導，故刪除。 */
     </script>
   <script src="src/site-search.js"></script>
   <script src="src/mobile-nav.js"></script>
