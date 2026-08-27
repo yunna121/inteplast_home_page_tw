@@ -10,6 +10,11 @@
 @media (max-width: 1024px) {
   html, body { max-width: 100%; overflow-x: hidden; }
   img, video, canvas, svg, table { max-width: 100%; }
+  /* grid／flex 子項預設 min-width:auto，會被最長的一段文字撐開整個欄位（右側文字溢出的主因）。
+     窄螢幕一律允許收縮；橫向滑動的區塊不受影響（它們用 flex:0 0 auto 決定寬度）。 */
+  *:not(svg):not(svg *) { min-width: 0; }
+  /* 長英數字串（email、網址、料號）在窄螢幕可斷行 */
+  a[href^="mailto"], a[href^="http"], .info-text, .info-text a, .footer a { overflow-wrap: anywhere; }
   /* 封面影片是刻意超出畫面的滿版背景（配合視差），不套用上面的寬度上限 */
   .hero-video { max-width: none !important; }
   .container, .hero-container, .section-inner, .products-wrapper { width: auto !important; }
@@ -305,24 +310,56 @@
 }
 
 /* ============================================================
-   CJK 排版優化：防止標題、按鈕、內文末尾單字換行 (孤字換行)
+   CJK 排版優化
+   ------------------------------------------------------------
+   注意：不再使用 word-break: keep-all。keep-all 會讓整句中文變成
+   一個不可斷的「長字」，grid／flex 欄位被撐成句子長度，造成窄螢幕
+   右側文字超出畫面。改用 auto-phrase（支援的瀏覽器依語意斷句，
+   同樣不會出現難看的斷點），不支援時退回正常斷行。
    ============================================================ */
 h1, h2, h3, h4, h5, h6,
 .products-hero-title, .hero-title, .section-title, .card-main-title,
 .node-name, .timeline-copy h3, .stat-label, .stat-sub {
-  word-break: keep-all;
+  word-break: normal;
+  line-break: strict;
   overflow-wrap: break-word;
   text-wrap: balance;
 }
 
 p, .card-desc-text, .node-role, .node-detail, .timeline-copy p, .section-lead {
-  word-break: keep-all;
+  word-break: normal;
+  line-break: strict;
   overflow-wrap: break-word;
+  text-wrap: pretty;
 }
 
-button, .btn, .btn-action-primary, .btn-action-secondary, .btn-hero-primary, .btn-hero-secondary,
-.filter-tab-btn, .hero-pill-tag, .card-num-badge, .prod-badge, .stat-num,
-.nav-link-item, .region-badge, .utility-left span, .utility-right a, .node-label {
-  white-space: nowrap !important;
-  word-break: keep-all !important;
+@supports (word-break: auto-phrase) {
+  h1, h2, h3, h4, h5, h6,
+  .products-hero-title, .hero-title, .section-title, .card-main-title,
+  .node-name, .timeline-copy h3, .stat-label, .stat-sub,
+  p, .card-desc-text, .node-role, .node-detail, .timeline-copy p, .section-lead {
+    word-break: auto-phrase;
+  }
+}
+
+/* 短標籤、膠囊、序號才需要不換行（都是 2～8 字的內容） */
+.hero-pill-tag, .card-num-badge, .prod-badge, .stat-num,
+.nav-link-item, .region-badge, .utility-left span, .utility-right a, .node-label,
+.ps-chip, .edm-size-pill, .scale-no-pill {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+/* 橫向滑動列裡的篩選鈕維持單行（容器本身可滑動） */
+.filter-tab-btn, .filter-btn { white-space: nowrap; word-break: keep-all; }
+
+/* 按鈕文字在窄螢幕允許換行，避免長字串（例：留下資料 · 由我們聯繫您）被切掉 */
+@media (max-width: 768px) {
+  button:not(.filter-tab-btn):not(.filter-btn),
+  .btn, .btn-action-primary, .btn-action-secondary,
+  .btn-hero-primary, .btn-hero-secondary, .btn-quote-add, .btn-quote-dark, .btn-cta-giant {
+    white-space: normal !important;
+    word-break: normal !important;
+    text-align: center;
+  }
 }
