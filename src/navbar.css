@@ -370,8 +370,31 @@
   transform: scale(1.06);
 }
 
-/* 1000px 以下交給 mobile-nav.js 的漢堡選單 */
-@media (max-width: 1000px) {
+/* 桌機窄版（≤1400px）：logo＋五個選單＋搜尋＋語言鈕＋聯繫鈕會塞不進一列。
+   聯繫鈕不隱藏（客戶最重要的入口），改成只留信封圖示的圓鈕；
+   logo、選單內距、語言鈕一併縮一階。語言切換全程保留，
+   1024px 以下才整組交給漢堡抽屜。 */
+@media (max-width: 1400px) {
+  .header { padding: 12px 20px; }
+  .header-logo { gap: 10px; }
+  .logo-image { height: 50px; }
+  .nav-menu { gap: 2px; }
+  .nav-link-item { padding: 8px 9px; font-size: 0.85rem; }
+  .header-right { gap: 8px; }
+  .header-right .rfq-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 9999px;
+  }
+  .header-right .rfq-btn span { display: none; }
+  .lang-toggle { min-width: 88px; padding: 8px 10px; font-size: 0.8rem; }
+}
+
+/* 平板／手機（≤1024px）：交給 mobile-nav.js 的漢堡選單。
+   斷點統一為全站三段：1024 / 768 / 480 */
+@media (max-width: 1024px) {
   :root {
     --utility-h: 0px;
   }
@@ -389,8 +412,8 @@
   }
 }
 
-/* 窄螢幕再縮一階，讓漢堡按鈕有空間 */
-@media (max-width: 560px) {
+/* 小手機（≤480px）再縮一階，讓漢堡按鈕有空間 */
+@media (max-width: 480px) {
   .logo-image {
     height: 42px;
   }

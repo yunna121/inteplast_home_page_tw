@@ -651,13 +651,15 @@
     /* Excel「重點」欄：想特別強調的一句話，比敘述大且深色 */
     .ps-highlight {
       margin-top: 20px;
-      max-width: 560px;
+      /* 上限 680px（原本 560px 會讓最長的一句在桌機也斷成兩行）；
+         balance：萬一遇到更長的句子換行時，兩行長度平均，不會第二行只剩兩字 */
+      max-width: 680px;
       font-size: clamp(1.25rem, 1.7vw, 1.5rem);
       font-weight: 900;
       line-height: 1.45;
       letter-spacing: -0.01em;
       color: var(--brand-blue);
-      text-wrap: pretty;
+      text-wrap: balance;
     }
 
     .ps-row:nth-child(even) .ps-highlight {
@@ -784,7 +786,7 @@
       }
     }
 
-    /* 手機端 768px 以下：改為單欄文字牆卡片（序號淡藍實心、照片居中、名字與說明壓在底部） */
+    /* 手機端 768px 以下：改為上下堆疊卡片（照片在上、文字在下，不再重疊；實拍白底照也不會壓到字） */
     @media (max-width: 768px) {
       .ps-section {
         padding: 64px 0 40px;
@@ -802,10 +804,12 @@
       }
 
       .ps-row {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
         position: relative;
-        height: 360px;
-        padding: 0;
+        height: auto;
+        padding: 26px 0 30px;
         border-top: 1px solid #E2E8F0;
         overflow: hidden;
       }
@@ -819,13 +823,38 @@
       }
 
       .ps-stage {
-        position: static;
+        position: relative;
         min-height: 0;
         display: block;
+        height: 200px;
       }
+
+      /* 尚無產品照的列不留整塊空白，只留序號的空間 */
+      .ps-row--plain:not(:has(.ps-photo img)) .ps-stage { height: 86px; }
 
       .ps-row:nth-child(even) .ps-stage {
         padding-left: 0;
+        order: 0;
+      }
+
+      /* 手機一律左起、照片在上：清掉電腦版左右交錯的靠右對齊 */
+      .ps-row:nth-child(even) .ps-body,
+      .ps-row:nth-child(even) .ps-highlight,
+      .ps-row:nth-child(even) .ps-desc,
+      .ps-row:nth-child(even) .ps-items,
+      .ps-row:nth-child(even) .ps-card-link {
+        margin-left: 0;
+        margin-right: 0;
+        text-align: left;
+        justify-content: flex-start;
+      }
+
+      .ps-row:nth-child(even) .ps-card-link {
+        margin-right: auto;
+      }
+
+      .ps-row:nth-child(even):hover .ps-card-link {
+        transform: none;
       }
 
       .ps-stage,
@@ -836,11 +865,12 @@
       .ps-numeral {
         left: auto;
         right: 4px;
-        top: -26px;
-        font-size: 140px;
+        top: -18px;
+        font-size: 116px;
         font-weight: 300;
         color: #EAF2FA;
         -webkit-text-stroke: 0;
+        z-index: 1;
       }
 
       .ps-row:nth-child(even) .ps-numeral {
@@ -851,9 +881,9 @@
       .ps-photo {
         position: absolute;
         left: 50%;
-        top: 20px;
+        top: 0;
         transform: translateX(-50%);
-        width: 220px;
+        width: 200px;
         z-index: 2;
       }
 
@@ -866,17 +896,18 @@
       }
 
       .ps-photo img {
-        height: 210px;
-        filter: drop-shadow(0 18px 26px rgba(10, 37, 64, .2));
+        height: 190px;
+        object-fit: contain;
+        filter: drop-shadow(0 14px 22px rgba(10, 37, 64, .18));
       }
 
       .ps-body,
       .ps-row:nth-child(even) .ps-body {
-        position: absolute;
-        left: 18px;
-        right: 18px;
-        bottom: 20px;
-        margin: 0;
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin: 18px 0 0;
         max-width: none;
         text-align: left;
         z-index: 3;
@@ -1383,7 +1414,7 @@
       text-align: center;
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1024px) {
 
       .stack-card,
       .intro-row-card,
@@ -2206,6 +2237,7 @@
   </script>
   <script src="src/site-search.js"></script>
   <script src="src/mobile-nav.js"></script>
+  <script src="src/footer.js"></script>
   <script src="src/site-lang.js"></script>
 </body>
 

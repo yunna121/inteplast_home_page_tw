@@ -66,20 +66,21 @@
     body .green-standard-visual { min-height: 0; padding: 0; }
     body .green-standard-visual img { height: 100%; min-height: 260px; border-radius: 0; object-fit: cover; box-shadow: none; }
     body .green-standard-list { border-top: 1px solid var(--line); }
-    @media (max-width: 860px) {
+    @media (max-width: 1024px) {
       body .green-standard { grid-template-columns: 1fr; grid-template-areas: 'copy' 'visual' 'list'; }
     }
 
     /* responsive.css 在 ≤1024px 用 .container {width:auto !important} 拉滿版（給產品頁的滿版區塊用），
        這頁的 .container 是內容欄，被拉滿版後文字會貼齊視窗邊緣，這裡蓋回內縮寬度。 */
     body .container { width: min(1350px, calc(100% - 80px)) !important; margin-inline: auto !important; }
-    @media (max-width: 860px) { body .container { width: calc(100% - 40px) !important; } }
-    @media (max-width: 600px) { body .container { width: calc(100% - 28px) !important; } }
+    @media (max-width: 1024px) { body .container { width: calc(100% - 40px) !important; } }
+    @media (max-width: 480px) { body .container { width: calc(100% - 28px) !important; } }
 
-    /* 這頁基準字級 20px，intro 右欄在 1160px 以下只剩約 495px，
-       三欄清單每欄僅 117px 文字寬（一行不到五個字），所以堆疊時機提前到 1160px，
-       與 redesign.css 收起選單的斷點一致（原本要等到 860px）。 */
-    @media (max-width: 1160px) {
+    /* 斷點統一為全站三段：1024 / 768 / 480。
+       這頁基準字級 20px，原本靠 1160px 提前堆疊；欄數改由 auto-fit 自動決定
+       （見 sustainability-redesign.css 的 .points / .commitment-grid / .cta），
+       所以這裡只保留 1024px 這一段。 */
+    @media (max-width: 1024px) {
       body .intro-grid { grid-template-columns: 1fr; gap: 28px; }
       body .points { grid-template-columns: 1fr; }
       body .points li { padding: 20px 0; border-left: 0; border-top: 1px solid var(--line); }
@@ -300,6 +301,7 @@
           </script>
   <script src="src/site-search.js"></script>
   <script src="src/mobile-nav.js"></script>
+  <script src="src/footer.js"></script>
   <script src="src/site-lang.js"></script>
 </body>
 

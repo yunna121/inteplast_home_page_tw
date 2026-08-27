@@ -3,6 +3,8 @@
    ------------------------------------------------------------
    最後載入，用於修正各頁在窄螢幕的破版：
    固定寬度容器、多欄網格、寬表格、等比例對比牆、浮動詢價籃等。
+   全站斷點統一三段：1024px（平板，多欄收單欄）／768px（手機，主要單欄化）／
+   480px（小手機微調字級與 logo）。最小版面寬度 320px，再窄就橫向滑動。
    桌機版樣式完全不受影響（僅在斷點內生效）。
    ============================================================ */
 
@@ -12,12 +14,35 @@
   img, video, canvas, svg, table { max-width: 100%; }
   /* grid／flex 子項預設 min-width:auto，會被最長的一段文字撐開整個欄位（右側文字溢出的主因）。
      窄螢幕一律允許收縮；橫向滑動的區塊不受影響（它們用 flex:0 0 auto 決定寬度）。 */
-  *:not(svg):not(svg *) { min-width: 0; }
+  body *:not(svg):not(svg *) { min-width: 0; }
   /* 長英數字串（email、網址、料號）在窄螢幕可斷行 */
   a[href^="mailto"], a[href^="http"], .info-text, .info-text a, .footer a { overflow-wrap: anywhere; }
   /* 封面影片是刻意超出畫面的滿版背景（配合視差），不套用上面的寬度上限 */
   .hero-video { max-width: none !important; }
-  .container, .hero-container, .section-inner, .products-wrapper { width: auto !important; }
+  /* .hero-container / .section-inner / .products-wrapper 可能寫死像素寬，窄螢幕要放開。
+     .container 不在此列：各頁的 .container 自己用 calc(100% - 留白) 定義，
+     一旦被 width:auto 蓋掉，左右留白就消失、文字會貼齊畫面邊緣。 */
+  .hero-container, .section-inner, .products-wrapper { width: auto !important; }
+  .container { max-width: 100%; }
+}
+
+/* ---------- 最小版面寬度：320px ----------
+   320px 是現役手機的最窄尺寸（iPhone SE 第一代、部分小螢幕 Android）。
+   再往下縮，字級與 44px 點擊區就保不住，因此不再縮放：版面固定在 320px，
+   更窄的裝置（例如 Galaxy Fold 摺起來約 280px）改為可橫向滑動。 */
+html, body { min-width: 320px; }
+
+/* 以「視窗寬」計算的元素不會跟著 320px 下限走（100vw、以及固定定位的 100%），
+   必須自己抵住 320px，否則會比內容窄，右側露出背景。 */
+.fashion-hero-wrapper { width: 100%; min-width: 320px; }
+.top-utility-bar,
+.header,
+#site-header-component:empty,
+#rfqFloatingBasket,
+.m-nav-drawer { min-width: 320px; }
+
+@media (max-width: 319px) {
+  html, body { overflow-x: auto; }
 }
 
 /* ============================================================
@@ -25,6 +50,37 @@
    ============================================================ */
 @media (max-width: 1024px) {
   .hero-container { grid-template-columns: 1fr !important; gap: 28px !important; }
+  /* 漢堡選單從 1024px 開始出現，語言鈕與聯繫按鈕改由抽屜內提供，
+     否則頁首在 769–1024 之間會擠成三顆按鈕、右側被切掉 */
+  .header-right .rfq-btn,
+  .header-right .lang-toggle { display: none !important; }
+}
+
+/* ============================================================
+   矮螢幕／平板以下的首頁封面
+   ------------------------------------------------------------
+   桌機版封面是 height:100vh + overflow:hidden，內容用絕對定位置中。
+   在矮螢幕（例如 1024×600 的智慧螢幕、1366×768 筆電）內容會超過 600px
+   而被裁掉，置中後最上面的 logo 牌還會被固定頁首蓋住。
+   這裡改為高度由內容決定、上內距讓開頁首。
+   ============================================================ */
+@media (max-width: 1024px), (max-height: 820px) {
+  .fashion-hero-wrapper {
+    height: auto !important;
+    min-height: 100svh !important;
+    /* 高螢幕（例如 iPad 直立 1024×1366）內容只有約 700px，
+       若靠上排會留下一大片空白照片；改成垂直置中。
+       矮螢幕時內容比視窗高，min-height 讓它自然往下長。 */
+    display: flex !important;
+    align-items: center !important;
+  }
+  .hero-stage-content {
+    position: relative !important;
+    left: auto !important;
+    transform: none !important;
+    height: auto !important;
+    padding: calc(var(--utility-h) + var(--header-h) + 24px) 40px 48px !important;
+  }
 }
 
 /* ============================================================
@@ -40,12 +96,11 @@
   /* logo 已改為單一張整組圖（公司名在圖裡），只調圖高即可 */
   .logo-image { height: 46px !important; }
   .header-right { gap: 6px !important; }
-  .header-right .rfq-btn,
-  .header-right .lang-toggle { display: none !important; }
   .search-trigger-btn { margin-right: 0 !important; width: 36px !important; height: 36px !important; }
 
   /* ---------- 產品頁首圖 ---------- */
-  .page-hero { padding: 28px 18px !important; }
+  /* 上内距必須含固定頁首的高度（否則標題會被頁首蓋住） */
+  .page-hero { padding: calc(var(--utility-h) + var(--header-h) + 28px) 18px 28px !important; }
   .hero-title { font-size: 1.55rem !important; line-height: 1.35 !important; }
   .hero-desc { font-size: 0.92rem !important; line-height: 1.7 !important; }
   .product-hero-img { max-height: 240px !important; object-fit: contain !important; margin: 0 auto !important; display: block !important; }
@@ -169,7 +224,9 @@
     position: relative !important;
     left: auto !important;
     transform: none !important;
-    padding: 88px 18px 40px !important;
+    /* 頁首高 88px，固定寫 88px 會讓首屏的 logo 牌貧齊頁首底部、看起來像重疊，
+       改用變數再加 24px 間距 */
+    padding: calc(var(--utility-h) + var(--header-h) + 24px) 18px 40px !important;
   }
   .hero-big-title { font-size: 1.9rem !important; }
   .hero-video {
@@ -240,6 +297,19 @@
   .card-actions-row { flex-direction: column !important; gap: 10px !important; }
   .card-actions-row a { width: 100% !important; justify-content: center !important; min-height: 44px !important; }
 
+  /* ---------- 桌機左右並排的內容區塊，手機一律改上下 ---------- */
+  /* 永續頁：產品卡（圖左文右）、三點清單、承諾雙卡、標章清單 */
+  .product-card { grid-template-columns: 1fr !important; }
+  .product-image { min-height: 210px !important; }
+  .points,
+  .commitment-grid { flex-direction: column !important; }
+  .green-standard-list { grid-template-columns: 1fr !important; }
+  .commitment-card { border-left: 0 !important; }
+
+  /* 區塊已經有 14px 側邊距，內層 .container 寫在 style 屬性上的 40px 在手機會疊加，
+     加上卡片內距後文字離畫面邊緣已經 74px，內容欄只剩一半寬。 */
+  .section > .container { padding-left: 0 !important; padding-right: 0 !important; }
+
   /* ---------- 通用：寫在 style 屬性上的左右排版，手機一律改上下 ---------- */
   [style*="grid-template-columns: 1fr 1fr"],
   [style*="grid-template-columns: 1fr 1.1fr"],
@@ -298,6 +368,30 @@
    ============================================================ */
 @media (max-width: 480px) {
   .logo-image { height: 40px !important; }
+
+  /* 聯繫頁：圖示原本在左、文字在右，小手機只剩約 200px 給文字，
+     電話與 email 會被斷成三四行。改為圖示在上、文字整寬。 */
+  .info-item {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .info-icon {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 1.25rem !important;
+  }
+  .info-card { padding: 24px 20px !important; }
+
+  /* 三組資訊之間加分隔線與呼吸，不再黏成一圖 */
+  .info-item {
+    padding-bottom: 18px !important;
+    margin-bottom: 18px !important;
+    border-bottom: 1px solid var(--border-color, #E2E8F0) !important;
+  }
+  .info-item:last-of-type {
+    padding-bottom: 0 !important;
+    border-bottom: 0 !important;
+  }
   .brand-logo-img { height: 42px !important; }
   .hero-title { font-size: 1.35rem !important; }
   .hero-main-title,
@@ -310,20 +404,54 @@
 }
 
 /* ============================================================
+   極窄頁首（360px 以下）
+   ------------------------------------------------------------
+   360px 以上的主流手機（375、390、430）空間足够放完整的中英文 logo；
+   只有 320–360px 的小螢幕會跟搜尋、漢堡按鈕互擠，
+   這時才把 logo（1135×220 整組圖）裁到左側 242px 的圓形標記。
+   ============================================================ */
+@media (max-width: 360px) {
+  /* 320–360px：卡片標題欄只有約 140–210px 寬，9–10 字的標題會被迫斷出孤字
+     （例「高雄前鎮廠遷廠合／併」）。字級收一階讓這類標題排回一行。 */
+  .timeline-copy h3,
+  .capability h3,
+  .commitment-card h3 { font-size: 0.95rem !important; line-height: 1.45 !important; }
+
+  .logo-image {
+    width: 44px !important;
+    height: 40px !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: left center !important;
+    flex: 0 0 auto !important;
+  }
+  .header-logo { gap: 0 !important; }
+}
+
+/* ============================================================
    CJK 排版優化
    ------------------------------------------------------------
-   注意：不再使用 word-break: keep-all。keep-all 會讓整句中文變成
-   一個不可斷的「長字」，grid／flex 欄位被撐成句子長度，造成窄螢幕
-   右側文字超出畫面。改用 auto-phrase（支援的瀏覽器依語意斷句，
-   同樣不會出現難看的斷點），不支援時退回正常斷行。
+   標題（短、一定要排得好看）：keep-all 不讓詞彙被拆開
+   （沒有 keep-all 時會出現「讓穩定品質，成／為製程的日常」這種斷行），
+   断行因此發生在逗號等標點處；搭配 overflow-wrap: break-word，
+   真的放不下時才強制断，不會溢出畫面。
+   （之前右側文字溢出的真正原因是 grid／flex 子項的 min-width:auto，
+     已在上面的 1024px 區塊用 body *{min-width:0} 修正。）
+
+   內文段落：保持正常断行（段落很長，keep-all 效益低、風險高），
+   支援 auto-phrase 的瀏覽器則依語意断句。
    ============================================================ */
 h1, h2, h3, h4, h5, h6,
 .products-hero-title, .hero-title, .section-title, .card-main-title,
 .node-name, .timeline-copy h3, .stat-label, .stat-sub {
-  word-break: normal;
+  word-break: keep-all;
   line-break: strict;
-  overflow-wrap: break-word;
-  text-wrap: balance;
+  /* anywhere（而非 break-word）：沒有標點可斷的長標題，
+     讓 text-wrap: balance 有斷點可選，才會平均分行，
+     不會出現「高雄前鎮廠遷廠合／併」這種孤字。 */
+  overflow-wrap: anywhere;
+  /* pretty 專門避免「最後一行只剩一個字」的孤字（balance 只求各行等長） */
+  text-wrap: pretty;
 }
 
 p, .card-desc-text, .node-role, .node-detail, .timeline-copy p, .section-lead {
@@ -334,9 +462,6 @@ p, .card-desc-text, .node-role, .node-detail, .timeline-copy p, .section-lead {
 }
 
 @supports (word-break: auto-phrase) {
-  h1, h2, h3, h4, h5, h6,
-  .products-hero-title, .hero-title, .section-title, .card-main-title,
-  .node-name, .timeline-copy h3, .stat-label, .stat-sub,
   p, .card-desc-text, .node-role, .node-detail, .timeline-copy p, .section-lead {
     word-break: auto-phrase;
   }

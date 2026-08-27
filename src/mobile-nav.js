@@ -73,7 +73,8 @@
   }
   .m-nav-cta { background: #00529B; color: #FFFFFF; border: none; }
   .m-nav-lang { background: #FFFFFF; color: #334155; border: 1px solid #CBD5E1; }
-  @media (max-width: 1000px) {
+  .m-nav-util { margin-top: 10px; padding-top: 14px; border-top: 1px solid #E2E8F0; }
+  @media (max-width: 1024px) {
     .m-nav-toggle { display: inline-flex; }
   }
   @media print {
@@ -142,6 +143,23 @@
     var contactItem = items.filter(function (i) { return /contact/.test(i.href); })[0];
     if (contactItem) contactHref = contactItem.href;
 
+    /* 頂欄（.top-utility-bar）在 1024px 以下隱藏，裡面的相關連結沒有別的入口，
+       所以直接從頂欄讀出來放進抽屜（頂欄改了這裡自動跟上）。 */
+    function readUtility(menuItems) {
+      var seen = {};
+      (menuItems || []).forEach(function (i) { seen[(i.href || '').replace(/^\.\//, '')] = true; });
+      var out = [];
+      document.querySelectorAll('.top-utility-bar a').forEach(function (a) {
+        var sp = a.querySelector('span');
+        var label = ((sp ? sp.getAttribute('data-tw') || sp.textContent : a.textContent) || '').trim();
+        var href = a.getAttribute('href') || '#';
+        // 主選單已經有的（例：永續發展）就不重複放
+        if (!label || seen[href.replace(/^\.\//, '')]) return;
+        out.push({ label: label, href: href, external: a.getAttribute('target') === '_blank' });
+      });
+      return out;
+    }
+
     var body = items.map(function (it, idx) {
       if (!it.groups.length) {
         return '<a class="m-nav-link" href="' + esc(it.href) + '">' + esc(it.label) + '</a>';
@@ -160,6 +178,18 @@
         '</div>';
     }).join('');
 
+    var utility = readUtility(items);
+    var utilityBlock = utility.length
+      ? '<div class="m-nav-group m-nav-util">' +
+          '<div class="m-nav-group-title">相關連結</div>' +
+          utility.map(function (u) {
+            return '<a href="' + esc(u.href) + '"' + (u.external ? ' target="_blank" rel="noopener"' : '') + '>' +
+              esc(u.label) + (u.external ? ' <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.66rem;opacity:.6"></i>' : '') +
+            '</a>';
+          }).join('') +
+        '</div>'
+      : '';
+
     var html =
       '<div class="m-nav-backdrop" id="mNavBackdrop"></div>' +
       '<aside class="m-nav-drawer" id="mNavDrawer" aria-hidden="true">' +
@@ -167,7 +197,7 @@
           '<span>選單 MENU</span>' +
           '<button class="m-nav-close" id="mNavClose" type="button" aria-label="關閉選單"><i class="fa-solid fa-xmark"></i></button>' +
         '</div>' +
-        '<div class="m-nav-body">' + body + '</div>' +
+        '<div class="m-nav-body">' + body + utilityBlock + '</div>' +
         '<div class="m-nav-foot">' +
           '<a class="m-nav-cta" href="' + esc(contactHref) + '"><i class="fa-solid fa-envelope"></i> 聯繫我們</a>' +
           '<button class="m-nav-lang" id="mNavLang" type="button">EN / 繁中</button>' +
