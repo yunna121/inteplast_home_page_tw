@@ -1,5 +1,5 @@
 /**
- * 台灣營德官網「留下聯絡資料」接收端
+ * 臺灣營德官網「留下聯絡資料」接收端
  * 功能：把 contact.html 表單寫進 Google Sheet + 寄出通知信，並回傳 JSON 讓前端能分辨成功／失敗
  *
  * 部署步驟
@@ -168,14 +168,14 @@ function sendNotifyMail_(p) {
 function sendAutoReply_(p) {
   MailApp.sendEmail({
     to: p.email,
-    subject: '台灣營德股份有限公司｜已收到您的聯絡資料',
+    subject: '臺灣營德股份有限公司｜已收到您的聯絡資料',
     body:
       (p.company || '您好') + '，您好：\n\n' +
       '我們已收到您在官網留下的聯絡資料，將由專人於工作日內與您聯繫。\n\n' +
       '您填寫的內容：\n' +
       '產品類別：' + (p.product || '-') + '\n' +
       '需求內容：' + (p.message || '-') + '\n\n' +
-      '台灣營德股份有限公司 Inteplast Taiwan Corporation\n' +
+      '臺灣營德股份有限公司 Inteplast Taiwan Corporation\n' +
       '電話 02-2712-2211 #8109\n'
   });
 }

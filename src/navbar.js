@@ -45,8 +45,8 @@
     </div>
   </div>
   <header class="header">
-    <a href="${rootPath}index.html" class="header-logo" title="台灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
-      <img src="${rootPath}src/ITC Logo.png" alt="台灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION" class="logo-image">
+    <a href="${rootPath}index.html" class="header-logo" title="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
+      <img src="${rootPath}src/ITC Logo.png" alt="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION" class="logo-image">
     </a>
 
     <ul class="nav-menu">
