@@ -740,6 +740,10 @@
    ],
    "images": [
     {
+     "from": "excellence-awards.png",
+     "to": ""
+    },
+    {
      "from": "inteplast-logo-blue.svg",
      "to": ""
     },
