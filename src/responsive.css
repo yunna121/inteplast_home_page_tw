@@ -53,6 +53,12 @@ html, body { min-width: 320px; }
      否則頁首在 769–1024 之間會擠成三顆按鈕、右側被切掉 */
   .header-right .contact-btn,
   .header-right .lang-toggle { display: none !important; }
+
+  /* .page-hero 的上內距必須含固定頁首的高度，否則標題會被蓋住。
+     這條要放在 1024px 這一層：漢堡版頁首從 1024px 就開始，
+     只寫在 768px 以下的話 769–1024 之間會被切掉。
+     （.products-hero-section 已在該頁的基礎樣式用同一組變數計算，不需覆寫。） */
+  .page-hero { padding-top: calc(var(--utility-h) + var(--header-h) + 28px) !important; }
 }
 
 /* ============================================================
@@ -98,15 +104,11 @@ html, body { min-width: 320px; }
   .search-trigger-btn { margin-right: 0 !important; width: 36px !important; height: 36px !important; }
 
   /* ---------- 產品頁首圖 ---------- */
-  /* 上内距必須含固定頁首的高度（否則標題會被頁首蓋住） */
-  .page-hero { padding: calc(var(--utility-h) + var(--header-h) + 28px) 18px 28px !important; }
+  /* 上內距已在 1024px 那一層處理，這裡只調左右與下方 */
+  .page-hero { padding-left: 18px !important; padding-right: 18px !important; padding-bottom: 28px !important; }
   .hero-title { font-size: 1.55rem !important; line-height: 1.35 !important; }
   .hero-desc { font-size: 0.92rem !important; line-height: 1.7 !important; }
   .product-hero-img { max-height: 240px !important; object-fit: contain !important; margin: 0 auto !important; display: block !important; }
-
-  /* 產品中心首圖：原本上內距 70px 小於固定頁首的高度，
-     最上面的「PRODUCTS CENTER」小標會被頁首蓋掉。 */
-  .products-hero-section { padding-top: calc(var(--utility-h) + var(--header-h) + 24px) !important; }
 
   /* 首圖容器的 padding:0 40px 寫在 style 屬性上，手機只剩 270px 可用，
      篩選標籤因此每排只排得下兩顆。收成 8px 讓它有完整寬度。 */
