@@ -167,6 +167,76 @@
       gap: 50px;
     }
 
+    /* 專利區：只在選到有專利的產品（或顯示全部）時出現，接在卡片下方 */
+    .patent-section {
+      display: none;
+      max-width: 1350px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+    .patent-section.is-visible { display: block; }
+    .patent-inner {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 56px;
+      align-items: center;
+      padding: 48px;
+      background: #F7FAFD;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+    }
+    .patent-figure { margin: 0; }
+    .patent-figure img {
+      display: block;
+      width: 380px;
+      max-width: 100%;
+      height: auto;
+      aspect-ratio: 621/819;
+      margin-inline: auto;
+      background: var(--surface-white);
+      border: 1px solid var(--border-color);
+    }
+    .patent-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--brand-blue);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .patent-eyebrow::before { content: ""; width: 26px; height: 2px; background: currentColor; }
+    .patent-title {
+      margin-top: 14px;
+      color: var(--primary-navy);
+      font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    .patent-lead { margin-top: 18px; color: var(--text-muted); font-size: 1rem; line-height: 1.8; text-wrap: pretty; }
+    .patent-no {
+      width: 380px;
+      max-width: 100%;
+      margin: -1px auto 0;
+      padding: 13px 18px;
+      display: grid;
+      gap: 2px;
+      background: var(--surface-white);
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+    .patent-no span { color: var(--text-muted); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .patent-no code {
+      font-family: "Barlow Condensed", ui-monospace, monospace;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--brand-blue);
+      line-height: 1.1;
+    }
+
     /* Visual Product Card Structure */
     .visual-product-card {
       background: var(--surface-white);
@@ -435,6 +505,11 @@
     }
 
     @media (max-width: 1024px) {
+      .patent-inner { grid-template-columns: 1fr; gap: 32px; padding: 32px 24px; }
+      .patent-inner > div { order: 1; }
+      .patent-figure { order: 2; }
+      .patent-figure img { width: 300px; }
+      .patent-no { width: 300px; }
       .visual-product-card {
         grid-template-columns: 1fr;
       }
@@ -506,6 +581,9 @@
   <main class="gallery-container">
     <!-- 卡片由 src/data/products-data.xlsx（工作表「產品資料」）產生，見頁尾腳本 -->
   </main>
+
+  <!-- 專利區：內容由 products-data 的「專利證書圖／專利號」欄產生，見頁尾腳本 -->
+  <section class="patent-section" id="patentSection" data-screen-label="美國專利"></section>
 
   <!-- Footer Footer Auto-Injected / Standard Footer -->
   <footer class="footer" style="background: #0A2540; color: #FFFFFF; padding: 40px 0; text-align: center; font-size: 0.9rem;">
@@ -719,12 +797,61 @@
       });
     })();
 
+    /* 專利區：資料來自 products-data 的「專利證書圖／專利號」欄。
+       只在使用者明確選到那個產品時才出現——「顯示全部」是總覽，
+       塞一塊只屬於單一產品的專利說明會不成比例。 */
+    (function () {
+      function build() {
+        var rows = window.PRODUCT_DATA || [];
+        var row = null;
+        for (var i = 0; i < rows.length; i++) {
+          if (String(rows[i].patent || '').trim()) { row = rows[i]; break; }
+        }
+        var sec = document.getElementById('patentSection');
+        if (!sec || !row) return;
+
+        var esc = function (s) {
+          return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        };
+        var name = String(row.name || '').split('/')[0].trim();
+        var no = String(row.patent_no || '').trim();
+        var product = String(row.img || '').trim();
+
+        sec.setAttribute('data-patent-category', row.name);
+        sec.innerHTML =
+          '<div class="patent-inner">' +
+            '<figure class="patent-figure">' +
+              '<img src="../src/' + esc(row.patent) + '" alt="' + esc(name) + ' 美國專利證書' + (no ? ' ' + esc(no) : '') + '" width="621" height="819" loading="lazy">' +
+              (no ? '<figcaption class="patent-no"><span data-tw="專利號" data-en="Patent number">專利號</span><code>' + esc(no) + '</code></figcaption>' : '') +
+            '</figure>' +
+            '<div>' +
+              '<span class="patent-eyebrow">Patented technology</span>' +
+              '<h2 class="patent-title" data-tw="抽取式設計，取得美國專利" data-en="A pop-up design, patented in the United States">抽取式設計，取得美國專利</h2>' +
+              '<p class="patent-lead" data-tw="Scale Sheet 的單張抽取結構已取得美國專利。取用一張就是一張，不必翻找、不會沾黏，讓秤重與分裝的每一次動作都省下時間。" data-en="The single-sheet pop-up structure behind Scale Sheet is protected by a United States patent. One pull, one sheet — no fumbling, no sticking, and time saved on every weigh and repack.">Scale Sheet 的單張抽取結構已取得美國專利。取用一張就是一張，不必翻找、不會沾黏，讓秤重與分裝的每一次動作都省下時間。</p>' +
+            '</div>' +
+          '</div>';
+        if (typeof window.applyLanguage === 'function') window.applyLanguage();
+      }
+
+      window.syncPatentSection = function (category) {
+        var sec = document.getElementById('patentSection');
+        if (!sec) return;
+        if (!sec.innerHTML.trim()) build();
+        var target = sec.getAttribute('data-patent-category');
+        sec.classList.toggle('is-visible', !!target && category === target);
+      };
+
+      document.addEventListener('DOMContentLoaded', function () { build(); });
+    })();
+
     function filterGallery(category, btnElement) {
       document.querySelectorAll('.filter-tab-btn').forEach(function (btn) { btn.classList.remove('active'); });
       if (btnElement) btnElement.classList.add('active');
       document.querySelectorAll('.visual-product-card').forEach(function (card) {
         card.style.display = (category === 'all' || card.getAttribute('data-category') === category) ? 'grid' : 'none';
       });
+      if (typeof window.syncPatentSection === 'function') window.syncPatentSection(category);
     }
   </script>
   <script src="../src/site-search.js"></script>

@@ -66,13 +66,11 @@
     .patent-section {padding:112px 0;background:var(--paper)}
     .patent-grid {display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:center}
     .patent-figure {margin:0}
-    .patent-figure figcaption {margin-top:16px;color:var(--muted);font-size:.86rem;text-align:center}
     .patent-card {padding:0;display:block;width:max-content;max-width:100%;margin-inline:auto;background:var(--white);border:1px solid var(--line)}
     .patent-card img {display:block;width:420px;max-width:100%;height:auto;aspect-ratio:621/819}
     .patent-product {width:100%;max-width:200px;height:auto;aspect-ratio:368/328;margin-bottom:6px}
     .patent-copy .section-title {font-size:clamp(1.9rem,3vw,2.9rem)}
-    .patent-meta {margin-top:32px}
-    .patent-meta > div {padding:14px 22px;display:inline-grid;gap:2px;background:var(--white);border:1px solid var(--line)}
+    .patent-meta {width:420px;max-width:100%;margin:-1px auto 0;padding:13px 18px;display:grid;gap:2px;background:var(--white);border:1px solid var(--line);text-align:center}
     .patent-meta span {color:var(--muted);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
     .patent-meta code {font-family:"Barlow Condensed",ui-monospace,monospace;font-size:1.5rem;font-weight:700;letter-spacing:.03em;color:var(--brand-blue);line-height:1.1}
 
@@ -98,8 +96,8 @@
       .factory-copy p {margin-top:18px;font-size:.95rem}
       .process-list {margin-top:26px}
     }
-    @media(max-width:1024px){:root {--utility-height:0px}.awards-grid {grid-template-columns:1fr;gap:44px}.awards-figure {order:-1}.patent-grid {grid-template-columns:1fr;gap:40px}.hero-inner {grid-template-columns:1fr;gap:52px}.network-map {grid-template-columns:1fr}.network-map::before {display:none}.network-node {min-height:280px}.origin-grid, .capability-intro {grid-template-columns:1fr;gap:38px}.origin-sticky {position:static}.factory-feature {grid-template-columns:1fr}.factory-image {min-height:430px}}
-    @media(max-width:768px){.awards {padding:72px 0}.patent-section {padding:72px 0}.patent-product {max-width:150px}.patent-meta {margin-top:24px;gap:12px 18px}.patent-meta code {font-size:1.3rem}.container {width:min(100% - 36px,var(--container))}.logo-copy {display:none}.story-hero {min-height:720px;padding-top:64px}.hero-inner {padding-top:92px;padding-bottom:46px}.story-hero::after {background:linear-gradient(100deg,rgba(11,79,131,.93),rgba(8,119,186,.65)),linear-gradient(0deg,rgba(11,79,131,.78),transparent 65%)}.hero-fact {grid-template-columns:64px 1fr}.partnership, .origin, .history, .capabilities, .closing {padding-block:82px}.network-node {min-height:0;padding:30px 26px}.timeline::before {left:77px}.timeline-item {grid-template-columns:58px 1fr;gap:40px;min-height:140px}.timeline-item::before {left:72px}.timeline-year {font-size:1.45rem}.timeline-item.future .timeline-copy {padding:22px}.capability-grid {grid-template-columns:1fr}.capability {min-height:auto}.factory-image {min-height:320px}.footer-inner {flex-direction:column;align-items:flex-start}}
+    @media(max-width:1024px){:root {--utility-height:0px}.awards-grid {grid-template-columns:1fr;gap:44px}.awards-figure {order:-1}.patent-grid {grid-template-columns:1fr;gap:36px}.patent-copy {order:1}.patent-figure {order:2}.patent-card img {width:300px}.patent-meta {width:300px}.patent-product {max-width:120px}.hero-inner {grid-template-columns:1fr;gap:52px}.network-map {grid-template-columns:1fr}.network-map::before {display:none}.network-node {min-height:280px}.origin-grid, .capability-intro {grid-template-columns:1fr;gap:38px}.origin-sticky {position:static}.factory-feature {grid-template-columns:1fr}.factory-image {min-height:430px}}
+    @media(max-width:768px){.awards {padding:72px 0}.patent-section {padding:72px 0}.patent-product {max-width:104px}.patent-card img {width:260px}.patent-meta {width:260px}.patent-meta code {font-size:1.3rem}.container {width:min(100% - 36px,var(--container))}.logo-copy {display:none}.story-hero {min-height:720px;padding-top:64px}.hero-inner {padding-top:92px;padding-bottom:46px}.story-hero::after {background:linear-gradient(100deg,rgba(11,79,131,.93),rgba(8,119,186,.65)),linear-gradient(0deg,rgba(11,79,131,.78),transparent 65%)}.hero-fact {grid-template-columns:64px 1fr}.partnership, .origin, .history, .capabilities, .closing {padding-block:82px}.network-node {min-height:0;padding:30px 26px}.timeline::before {left:77px}.timeline-item {grid-template-columns:58px 1fr;gap:40px;min-height:140px}.timeline-item::before {left:72px}.timeline-year {font-size:1.45rem}.timeline-item.future .timeline-copy {padding:22px}.capability-grid {grid-template-columns:1fr}.capability {min-height:auto}.factory-image {min-height:320px}.footer-inner {flex-direction:column;align-items:flex-start}}
     @media(prefers-reduced-motion:reduce){html {scroll-behavior:auto}*, *::before, *::after {animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal {opacity:1;transform:none}}
   </style>
   <!-- Google Analytics 4（G-0FS2ZC88V0）
@@ -183,18 +181,16 @@
           <div class="patent-card">
             <img src="./src/scale-sheet-patent.jpg" alt="Scale Sheet 抽取式設計的美國專利證書 US12006129" width="621" height="819" loading="lazy">
           </div>
+          <figcaption class="patent-meta">
+            <span data-tw="專利號" data-en="Patent number">專利號</span>
+            <code>US12006129</code>
+          </figcaption>
         </figure>
         <div class="patent-copy reveal">
           <img class="patent-product" src="./src/product-img/封面-Scale Sheet.png" alt="Scale Sheet 抽取式盒裝，單張抽取設計" width="368" height="328" loading="lazy">
           <span class="eyebrow">Patented technology</span>
           <h2 class="section-title" data-tw="抽取式設計，取得美國專利" data-en="A pop-up design, patented in the United States">抽取式設計，<br>取得美國專利</h2>
           <p class="section-lead" data-tw="Scale Sheet 的單張抽取結構已取得美國專利。取用一張就是一張，不必翻找、不會沾黏，讓秤重與分裝的每一次動作都省下時間。" data-en="The single-sheet pop-up structure behind Scale Sheet is protected by a United States patent. One pull, one sheet — no fumbling, no sticking, and time saved on every weigh and repack.">Scale Sheet 的單張抽取結構已取得美國專利。取用一張就是一張，不必翻找、不會沾黏，讓秤重與分裝的每一次動作都省下時間。</p>
-          <div class="patent-meta">
-            <div>
-              <span data-tw="專利號" data-en="Patent number">專利號</span>
-              <code>US12006129</code>
-            </div>
-          </div>
         </div>
       </div>
     </div></section>
