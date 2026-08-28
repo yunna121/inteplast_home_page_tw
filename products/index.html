@@ -770,11 +770,36 @@
             name: String(r['產品'] || r['產品名稱'] || '').trim(),
             name_en: String(r['英文名稱'] || '').trim(),
             highlight: String(r['重點'] || '').trim(),
+            highlight_en: String(r['重點英文'] || '').trim(),
             desc: String(r['產品敘述'] || '').trim(),
+            desc_en: String(r['產品敘述英文'] || '').trim(),
             img: String(r['產品圖片'] || '').trim(),
-            items: String(r['產品細項'] || '').trim()
+            items: String(r['產品細項'] || '').trim(),
+            items_en: String(r['產品細項英文'] || '').trim(),
+            patent: String(r['專利證書圖'] || '').trim(),
+            patent_no: String(r['專利號'] || '').trim()
           };
         }).filter(function (r) { return r.name; });
+      }
+
+      /* 安全網：xlsx 少填某個欄位時，用 products-data.js 依產品名補上，
+         xlsx 有值就一律以 xlsx 為準。
+         （會需要這層是因為上面的 fromSheet 曾經漏讀英文與專利欄位——
+           xlsx 明明有「重點英文」等欄，網站卻整批丟掉，切英文只好退回中文。） */
+      function fillMissing(rows) {
+        var fallback = window.PRODUCT_DATA || [];
+        if (!fallback.length) return rows;
+        var byName = {};
+        fallback.forEach(function (f) { byName[String(f.name || '').trim()] = f; });
+        var keys = ['name_en', 'highlight_en', 'desc_en', 'items_en', 'patent', 'patent_no'];
+        rows.forEach(function (r) {
+          var f = byName[r.name];
+          if (!f) return;
+          keys.forEach(function (k) {
+            if (!String(r[k] || '').trim() && String(f[k] || '').trim()) r[k] = f[k];
+          });
+        });
+        return rows;
       }
 
       function fromDataFile() {
@@ -787,7 +812,7 @@
         fetch('../src/data/products-data.xlsx', { cache: 'no-cache' })
           .then(function (res) { if (!res.ok) throw new Error('xlsx ' + res.status); return res.arrayBuffer(); })
           .then(function (buf) {
-            var rows = fromSheet(XLSX.read(buf, { type: 'array' }));
+            var rows = fillMissing(fromSheet(XLSX.read(buf, { type: 'array' })));
             if (!rows.length || !render(rows)) fromDataFile();
           })
           .catch(function (err) {
