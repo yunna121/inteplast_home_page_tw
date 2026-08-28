@@ -590,12 +590,15 @@
           .map(function (s, idx) {
             var eco = /環保|認證|標章|回收|再生/.test(s);
             var e = itemsEn[idx] || s;
-            return '<span data-tw="' + esc(s) + '" data-en="' + esc(e) + '" style="display: inline-flex; align-items: center; padding: 7px 16px; border: 1px solid ' +
+            var base = 'display: inline-flex; align-items: center; gap: 7px; padding: 7px 16px; border: 1px solid ' +
               (eco ? '#A7D9C0' : '#BBD6EE') + '; border-radius: 999px; background: ' + (eco ? '#F1FBF6' : '#FFFFFF') +
-              '; font-size: 0.84rem; font-weight: 700; color: ' + (eco ? '#0F7A4E' : '#00529B') + '; white-space: nowrap;">' +
+              '; font-size: 0.84rem; font-weight: 700; color: ' + (eco ? '#0F7A4E' : '#00529B') + '; white-space: nowrap;';
+            return '<span data-tw="' + esc(s) + '" data-en="' + esc(e) + '" style="' + base + '">' +
               esc(s) + '</span>';
           }).join('');
 
+        /* 專利證書：縮圖直接看得見（純文字標籤客戶不會知道背後有東西可看），
+           點縮圖在燈箱裡放大讀原件。 */
         /* Excel 產品名寫成「主名稱 / 別稱」時，大標只放主名稱，別稱另起小字一行（與首頁同規則） */
         var tw = splitAlias(cat.name);
         var en = splitAlias(cat.name_en || cat.name);

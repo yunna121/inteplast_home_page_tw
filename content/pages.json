@@ -740,7 +740,15 @@
    ],
    "images": [
     {
-     "from": "excellence-awards.png",
+     "from": "excellence-awards.jpg",
+     "to": ""
+    },
+    {
+     "from": "scale-sheet-patent.jpg",
+     "to": ""
+    },
+    {
+     "from": "封面-Scale Sheet.png",
      "to": ""
     },
     {

@@ -11,6 +11,8 @@ window.PRODUCT_DATA = [
   "desc": "結合集團專利技術打造的抽取式 Scale Sheet，打破傳統取用的繁瑣與不便。採用貼心的單張抽取設計，不僅取用俐落、大幅節省作業時間，更能有效管控使用成本。質地強韌、防沾黏且不易破損，是生鮮秤重、餐飲備料、工業分裝及各大商場櫃台追求高效率作業的不可或缺的專業首選。",
   "img": "封面-Scale Sheet.png",
   "items": "專利證書",
+  "patent": "scale-sheet-patent.jpg",
+  "patent_no": "US12006129",
   "highlight_en": "Tare Sheet: group-patented pop-up design for faster weighing",
   "desc_en": "A pop-up Scale Sheet built on Inteplast Group patented technology, replacing the fumbling of conventional sheet stacks. Single-sheet dispensing keeps handling quick, cuts labour time and keeps consumption under control. Tough, non-stick and tear-resistant, it is the professional choice for fresh-food weighing, kitchen prep, industrial repacking and high-volume retail counters.",
   "items_en": "Patent certificate"

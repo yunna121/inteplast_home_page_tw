@@ -104,24 +104,31 @@ html, body { min-width: 320px; }
   .hero-desc { font-size: 0.92rem !important; line-height: 1.7 !important; }
   .product-hero-img { max-height: 240px !important; object-fit: contain !important; margin: 0 auto !important; display: block !important; }
 
-  /* ---------- 篩選列：可橫向滑動，不再擠成好幾排 ---------- */
+  /* 產品中心首圖：原本上內距 70px 小於固定頁首的高度，
+     最上面的「PRODUCTS CENTER」小標會被頁首蓋掉。 */
+  .products-hero-section { padding-top: calc(var(--utility-h) + var(--header-h) + 24px) !important; }
+
+  /* 首圖容器的 padding:0 40px 寫在 style 屬性上，手機只剩 270px 可用，
+     篩選標籤因此每排只排得下兩顆。收成 8px 讓它有完整寬度。 */
+  .products-hero-container { padding-left: 8px !important; padding-right: 8px !important; }
+
+  /* ---------- 篩選列：自動換行成多排 ----------
+     原本改成橫向滑動，但手機上被切掉的那顆很容易被忽略（沒人知道可以滑），
+     而且第一顆會滑出畫面外。這些標籤都很短，換行後兩三排就排完、全部看得見。 */
   .filter-pills-bar,
   .filter-tabs-bar {
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none;
+    flex-wrap: wrap !important;
+    overflow-x: visible !important;
+    justify-content: center !important;
     padding: 10px 14px !important;
     gap: 8px !important;
   }
-  .filter-pills-bar::-webkit-scrollbar,
-  .filter-tabs-bar::-webkit-scrollbar { display: none; }
   .filter-btn,
   .filter-tab-btn {
     flex: 0 0 auto !important;
     white-space: nowrap !important;
-    font-size: 0.82rem !important;
-    padding: 9px 14px !important;
+    font-size: 0.8rem !important;
+    padding: 8px 13px !important;
     min-height: 44px !important;
   }
 
@@ -269,7 +276,10 @@ html, body { min-width: 320px; }
   .visual-product-card { grid-template-columns: 1fr !important; }
   .card-image-box { min-height: 200px !important; }
   .card-info-content { padding: 20px 18px !important; }
-  .card-main-title { font-size: 1.2rem !important; line-height: 1.4 !important; }
+  /* 產品名原本 1.2rem，比下面的重點文字（1.28rem）還小，層級反了。
+     標題放大、重點收一階，恢復「名稱 > 重點 > 敘述」的順序。 */
+  .card-main-title { font-size: 1.65rem !important; line-height: 1.35 !important; }
+  .card-highlight-text { font-size: 1.02rem !important; line-height: 1.55 !important; }
   .card-desc-text { font-size: 0.9rem !important; }
   .card-actions-row { flex-direction: column !important; gap: 10px !important; }
   .card-actions-row a { width: 100% !important; justify-content: center !important; min-height: 44px !important; }
