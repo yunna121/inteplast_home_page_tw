@@ -77,6 +77,13 @@
     .footer {padding:42px 40px 28px;color:rgba(255,255,255,.62);background:var(--navy-950);font-size:.84rem}.footer-inner {display:flex;align-items:center;justify-content:space-between;gap:24px}.footer img {height:32px;width:auto;filter:brightness(0) invert(1);opacity:.84}
     .reveal {opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}.reveal.visible {opacity:1;transform:none}
 
+    @media(min-width:1025px) and (max-width:1280px){
+      .factory-feature {grid-template-columns:1.05fr .95fr}
+      .factory-copy {padding:52px 44px}
+      .factory-copy h2 {font-size:clamp(1.7rem,2.4vw,2.2rem)}
+      .factory-copy p {margin-top:18px;font-size:.95rem}
+      .process-list {margin-top:26px}
+    }
     @media(max-width:1024px){:root {--utility-height:0px}.awards-grid {grid-template-columns:1fr;gap:44px}.awards-figure {order:-1}.hero-inner {grid-template-columns:1fr;gap:52px}.network-map {grid-template-columns:1fr}.network-map::before {display:none}.network-node {min-height:280px}.origin-grid, .capability-intro {grid-template-columns:1fr;gap:38px}.origin-sticky {position:static}.factory-feature {grid-template-columns:1fr}.factory-image {min-height:430px}}
     @media(max-width:768px){.awards {padding:72px 0}.container {width:min(100% - 36px,var(--container))}.logo-copy {display:none}.story-hero {min-height:720px;padding-top:64px}.hero-inner {padding-top:92px;padding-bottom:46px}.story-hero::after {background:linear-gradient(100deg,rgba(11,79,131,.93),rgba(8,119,186,.65)),linear-gradient(0deg,rgba(11,79,131,.78),transparent 65%)}.hero-fact {grid-template-columns:64px 1fr}.partnership, .origin, .history, .capabilities, .closing {padding-block:82px}.network-node {min-height:0;padding:30px 26px}.timeline::before {left:77px}.timeline-item {grid-template-columns:58px 1fr;gap:40px;min-height:140px}.timeline-item::before {left:72px}.timeline-year {font-size:1.45rem}.timeline-item.future .timeline-copy {padding:22px}.capability-grid {grid-template-columns:1fr}.capability {min-height:auto}.factory-image {min-height:320px}.footer-inner {flex-direction:column;align-items:flex-start}}
     @media(prefers-reduced-motion:reduce){html {scroll-behavior:auto}*, *::before, *::after {animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal {opacity:1;transform:none}}
