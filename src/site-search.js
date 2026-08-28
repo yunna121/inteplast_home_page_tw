@@ -78,10 +78,17 @@
       .trim();
   }
 
+  /** 右側標籤一律顯示「另一個語言的名稱」當雙語對照：英文標題配中文名、
+      中文標題配英文名——兩種語言下都不會跟標題重複。
+      原本固定吃 it.category，所以英文版的標籤還是中文。 */
+  function badgeFor(it) {
+    return isEn() ? (it.title || '') : (it.title_en || it.category || '');
+  }
+
   function toRow(it, semantic) {
     return {
       title: (isEn() && it.title_en) ? it.title_en : it.title,
-      category: it.category || '',
+      category: badgeFor(it),
       icon: it.icon || 'fa-cube',
       desc: (isEn() && it.desc_en) ? it.desc_en : (it.desc || ''),
       url: resolveUrl(it.url),
@@ -160,26 +167,30 @@
 
      門檻 FLOOR 以下視為「不夠像」，此時不當作結果，改走「你可能在找」。
      ============================================================ */
-  /* 門檻怎麼定的（實測數據）：
-     「垃圾袋」→ 清潔袋 0.873、拉繩袋 0.861、蔬果袋 0.856…
-     「手套」  → 多功能手套 0.856、下一名 0.830
-     「asdfgh」→ 最高只有 0.770；「qqqqqq」→ 0.822
-     e5 的絕對分數壓縮得很高（對的 0.873、錯的 0.861 只差 0.012），
-     所以單靠絕對門檻沒有用。做法是兩道關卡：
-       FLOOR — 最高分沒到這個數，就當成「沒有夠像的」走建議清單
-       GAP   — 只留跟最高分差距在這個範圍內的，其餘視為雜訊 */
+  /* 門檻怎麼定的（都是實測數據）：
+
+     e5 的絕對分數壓縮得很高，光看分數分不出對錯：
+       「垃圾袋」→ 清潔袋 0.873、拉繩袋 0.861（對的只贏 0.012）
+     而英文查詢對中文為主的資料，分數整體再低一截：
+       「ziplock」→ 夾鏈袋 0.811（明明是正解，卻不到 0.83）
+
+     真正可靠的訊號是「第一名是產品還是頁面」：
+       ziplock 0.811、can liner 0.813、gloves 0.822、produce bag 0.848
+         → 第一名都是產品
+       qqqqqq 0.824、xyzxyz 0.805、zzz 0.795、hello world 0.783
+         → 第一名都是頁面（亂碼跟哪個產品都不像，只會貼上泛用的頁面文字）
+     所以：分數夠高就直接採用；分數中段時，要求第一名是產品、
+     且贏過最高分的頁面，才算命中。
+
+     GAP 只留與第一名接近的幾筆，其餘視為雜訊。 */
   var SEM = {
     ready: false,
     loading: false,
     extractor: null,
     FLOOR: 0.83,
-    // 英文查詢對中文為主的資料，整體分數會低一截（ziplock、trash bag
-    // 明明對得上，卻卡在 0.83 以下），所以拉丁字母為主的查詢用較低的門檻
-    FLOOR_LATIN: 0.80,
-    // 亂碼（qqqqqq、xyzxyz）的分數分布是平的：第一名與第二名幾乎同分。
-    // 真實查詢的第一名會明顯領先。放寬英文門檻時就靠這個差距把亂碼擋掉。
-    MIN_LEAD: 0.01,
+    PAGE_LEAD: 0.005,
     GAP: 0.02,
+    GAP_LATIN: 0.012,   // 英文的分數分布較密，範圍要收窄才不會夾帶雜訊
     max: 4
   };
 
@@ -486,12 +497,16 @@
 
         // 兩道關卡：最高分要夠高，且只留與最高分接近的幾筆
         var best = ranked.length ? ranked[0].s : 0;
-        var second = ranked.length > 1 ? ranked[1].s : 0;
-        // 分數夠高就直接採用；只有「英文查詢、分數中段」才額外要求領先幅度
+        var topIsProduct = ranked.length && ranked[0].it.type === 'product';
+        var bestPage = 0;
+        ranked.forEach(function (x) { if (x.it.type !== 'product' && x.s > bestPage) bestPage = x.s; });
+
         var confident = best >= SEM.FLOOR ||
-          (isLatinQuery(q) && best >= SEM.FLOOR_LATIN && (best - second) >= SEM.MIN_LEAD);
+          (topIsProduct && (best - bestPage) >= SEM.PAGE_LEAD);
+
+        var gap = isLatinQuery(q) ? SEM.GAP_LATIN : SEM.GAP;
         var good = confident
-          ? ranked.filter(function (x) { return x.s >= best - SEM.GAP; }).slice(0, SEM.max)
+          ? ranked.filter(function (x) { return x.s >= best - gap; }).slice(0, SEM.max)
           : [];
 
         if (good.length) {
