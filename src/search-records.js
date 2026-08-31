@@ -1,9 +1,10 @@
 /* ============================================================
    搜尋資料來源（單一定義）
    ------------------------------------------------------------
-   Algolia 上傳（tools/algolia-upload.html）與語意向量產生
-   （tools/build-embeddings.html）都用這裡的 buildSearchRecords()，
-   避免兩邊各寫一份、日後長歪。
+   定義「網站要搜尋什麼」。本檔只在建置時載入 —— 由
+   tools/build-embeddings.html 呼叫 buildSearchRecords()，
+   把結果算成向量寫進 src/data/embeddings.json。
+   網站正式頁面不載本檔，執行時只讀 embeddings.json。
 
    產品一律讀 products-data.js（唯一維護來源）；
    一般頁面（關於／永續／聯絡／產品中心）直接寫在本檔的 PAGE_DOCS。

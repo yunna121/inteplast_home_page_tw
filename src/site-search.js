@@ -153,7 +153,8 @@
   function logSearch(query, hits) {
     var q = String(query || '').trim();
     if (!LOG_ENDPOINT || q.length < 2) return;
-    // 去重只看查詢字串：同一個查詢會渲染多次（Algolia、語意各一次），筆數不同不該記兩列
+    // 去重只看查詢字串：同一個查詢會因為模型晚到而渲染兩次（先字面、後語意），
+    // 筆數不同但那是同一次搜尋，不該記成兩列
     var key = q.toLowerCase();
     if (logged[key]) return;
     logged[key] = true;
