@@ -107,12 +107,24 @@ async function embed(texts, prefix) {
   return out.tolist();
 }
 
+/** int8 量化＋base64：檔案比三位小數再小 4 倍，餘弦相似度的排序不受影響。
+    site-search.js 會還原成單位向量。 */
+function q8b64(vec) {
+  let bin = '';
+  vec.forEach(v => {
+    bin += String.fromCharCode(Math.max(-127, Math.min(127, Math.round(v * 127))) & 0xff);
+  });
+  return btoa(bin);
+}
+
 document.getElementById('btnPreview').addEventListener('click', () => {
   reset();
   const recs = window.buildSearchRecords();
   const by = {};
   recs.forEach(r => { by[r.type] = (by[r.type] || 0) + 1; });
   log(`共 ${recs.length} 筆：產品 ${by.product || 0}、頁面 ${by.page || 0}`, 'ok');
+  const tagCount = recs.reduce((n, r) => n + (r.tags || []).length, 0);
+  log(`另有 ${tagCount} 個細項要各算一支向量`, 'ok');
   log('範例文字：\n' + window.searchRecordText(recs[0]).slice(0, 200) + '…');
 });
 
@@ -131,11 +143,6 @@ document.getElementById('btnRun').addEventListener('click', async (e) => {
       const chunk = recs.slice(i, i + BATCH);
       const vecs = await embed(chunk.map(window.searchRecordText), 'passage');
       chunk.forEach((r, j) => {
-        // int8 量化＋base64：檔案比三位小數再小 4 倍（11 筆約 9KB），
-        // 餘弦相似度的排序不受影響。site-search.js 會還原成單位向量。
-        const q8 = vecs[j].map(v => Math.max(-127, Math.min(127, Math.round(v * 127))));
-        let bin = '';
-        q8.forEach(v => { bin += String.fromCharCode(v & 0xff); });
         items.push({
           id: r.objectID,
           type: r.type,
@@ -146,11 +153,29 @@ document.getElementById('btnRun').addEventListener('click', async (e) => {
           desc_en: r.desc_en || '',
           icon: r.icon,
           url: r.url,
-          vecb64: btoa(bin)
+          vecb64: q8b64(vecs[j]),
+          // 每個細項各存一支小向量，語意命中時才知道是「哪一個」細項對上，
+          // 搜尋結果就能標「符合：市場袋」。約 23 支，檔案多 ~20KB。
+          tags: (r.tags || []).map(t => ({ t: t.t, t_en: t.t_en }))
         });
       });
-      progress(0.35 + 0.65 * ((i + chunk.length) / recs.length));
+      progress(0.35 + 0.45 * ((i + chunk.length) / recs.length));
       log(`已處理 ${items.length} / ${recs.length}`);
+    }
+
+    // 第二輪：細項向量。文字用「品名。細項中文 細項英文」——短字要有上下文才對得準
+    const tagJobs = [];
+    items.forEach((it, ii) => {
+      (it.tags || []).forEach((tg, ti) => {
+        tagJobs.push({ ii: ii, ti: ti, text: it.title + '。' + tg.t + ' ' + tg.t_en });
+      });
+    });
+    log(`細項向量 ${tagJobs.length} 支`);
+    for (let i = 0; i < tagJobs.length; i += BATCH) {
+      const chunk = tagJobs.slice(i, i + BATCH);
+      const vecs = await embed(chunk.map(j => j.text), 'passage');
+      chunk.forEach((j, k) => { items[j.ii].tags[j.ti].vecb64 = q8b64(vecs[k]); });
+      progress(0.8 + 0.2 * ((i + chunk.length) / (tagJobs.length || 1)));
     }
 
     vectors = items;

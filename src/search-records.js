@@ -28,6 +28,18 @@
     return String(s || '').split(/[、,，/]+/).map(function (x) { return x.trim(); }).filter(Boolean);
   }
 
+  /* 不是「用途」的細項，不當命中標籤顯示在搜尋結果裡（它們仍留在 keywords／body 供比對）。 */
+  var NON_USE_TAGS = { '專利證書': 1, 'Patent certificate': 1 };
+
+  /** items／items_en 依序配對成 [{t, t_en}]，供「符合：___」標籤與逐項向量使用。
+      兩邊筆數對不上時以中文為準，英文缺的就回退中文。 */
+  function pairTags(items, items_en) {
+    var zh = splitList(items), en = splitList(items_en);
+    return zh.map(function (t, i) {
+      return { t: t, t_en: en[i] || t };
+    }).filter(function (x) { return !NON_USE_TAGS[x.t]; });
+  }
+
   function buildSearchRecords() {
     var recs = [];
 
@@ -46,6 +58,7 @@
         desc_en: p.highlight_en || p.desc_en || '',
         body: [p.desc, p.items, p.name_en, alias.join(' ')].filter(Boolean).join(' '),
         keywords: [p.name_en].concat(alias).concat(splitList(p.items)).filter(Boolean),
+        tags: pairTags(p.items, p.items_en),
         icon: 'fa-box-open',
         /* @root: 前綴＝相對站台根目錄（site-search.js 的 resolveUrl 慣例） */
         url: '@root:products/index.html' + anchorFor(p.name),
@@ -76,6 +89,7 @@
         desc_en: d.desc_en || '',
         body: d.desc,
         keywords: d.keywords,
+        tags: [],
         icon: d.icon,
         url: d.url,
         weight: 30

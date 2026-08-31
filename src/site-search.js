@@ -20,6 +20,10 @@
       模型約 30MB，第一次搜尋才下載、之後由瀏覽器快取。
    3. 沒有夠像的結果時，仍列出最接近的三筆（不給死路）。
 
+   命中細項時（打「市場袋」而品名是「蔬果袋」），結果會在敘述下方
+   多一行「符合：市場袋」說明為什麼這筆會出現 —— 字面命中直接知道，
+   語意命中則靠 embeddings.json 裡每個細項各自的小向量比出來。
+
    介面是頁首常駐搜尋條，結果以下拉面板貼在輸入框下方。
    ============================================================ */
 (function () {
@@ -50,7 +54,12 @@
       .then(function (res) { return res.ok ? res.json() : null; })
       .then(function (data) {
         if (!data || !data.items || !data.items.length) return null;
-        data.items.forEach(function (it) { it.vecf = decodeVec(it.vecb64); });
+        data.items.forEach(function (it) {
+          it.vecf = decodeVec(it.vecb64);
+          (it.tags || []).forEach(function (tg) {
+            if (tg.vecb64) tg.vecf = decodeVec(tg.vecb64);
+          });
+        });
         DB.items = data.items;
         return data.items;
       })
@@ -78,17 +87,16 @@
       .trim();
   }
 
-  /** 右側標籤一律顯示「另一個語言的名稱」當雙語對照：英文標題配中文名、
-      中文標題配英文名——兩種語言下都不會跟標題重複。
-      原本固定吃 it.category，所以英文版的標籤還是中文。 */
-  function badgeFor(it) {
-    return isEn() ? (it.title || '') : (it.title_en || it.category || '');
+  /** 命中的細項要顯示成使用者當下的語言 */
+  function tagLabel(tag) {
+    if (!tag) return '';
+    return isEn() ? (tag.t_en || tag.t || '') : (tag.t || '');
   }
 
-  function toRow(it, semantic) {
+  function toRow(it, semantic, tag) {
     return {
       title: (isEn() && it.title_en) ? it.title_en : it.title,
-      category: badgeFor(it),
+      tag: tagLabel(tag),
       icon: it.icon || 'fa-cube',
       desc: (isEn() && it.desc_en) ? it.desc_en : (it.desc || ''),
       url: resolveUrl(it.url),
@@ -97,7 +105,16 @@
     };
   }
 
-  /** 字面包含：標題權重最高，敘述也算 */
+  /** 字面命中的細項：整段查詢字出現在細項裡（中英文都比） */
+  function literalTag(it, q) {
+    var tags = it.tags || [];
+    for (var i = 0; i < tags.length; i++) {
+      if (normText(tags[i].t).indexOf(q) > -1 || normText(tags[i].t_en).indexOf(q) > -1) return tags[i];
+    }
+    return null;
+  }
+
+  /** 字面包含：標題最高，細項次之，敘述最低 */
   function literalHits(query) {
     return loadDB().then(function (items) {
       if (!items) return [];
@@ -107,13 +124,16 @@
       items.forEach(function (it) {
         var title = normText(it.title) + ' ' + normText(it.title_en) + ' ' + normText(it.category);
         var body = normText(it.desc) + ' ' + normText(it.desc_en);
+        var tag = literalTag(it, q);
         var s = 0;
         if (title.indexOf(q) > -1) s = 10;
+        else if (tag) s = 8;
         else if (body.indexOf(q) > -1) s = 4;
-        if (s) scored.push({ it: it, s: s });
+        // 打的就是正式品名時不標細項 —— 標了是廢話
+        if (s) scored.push({ it: it, s: s, tag: s === 10 ? null : tag });
       });
       scored.sort(function (a, b) { return b.s - a.s; });
-      return scored.map(function (x) { return toRow(x.it, false); });
+      return scored.map(function (x) { return toRow(x.it, false, x.tag); });
     });
   }
 
@@ -191,6 +211,7 @@
     PAGE_LEAD: 0.005,
     GAP: 0.02,
     GAP_LATIN: 0.012,   // 英文的分數分布較密，範圍要收窄才不會夾帶雜訊
+    TAG_LEAD: 0,        // 細項要贏過整筆多少才算「就是它命中的」（0 = 只要贏就算）
     max: 4
   };
 
@@ -225,7 +246,8 @@
       .catch(function () { SEM.loading = false; });
   }
 
-  /** 全部排序後回傳 [{row, score}]，門檻交給呼叫端決定 */
+  /** 全部排序後回傳 { scored, qv }，門檻交給呼叫端決定。
+      qv 一併回傳，讓呼叫端可以再比一次細項向量。 */
   function semanticRanked(query) {
     if (!SEM.ready) { loadSemantic(); return Promise.resolve(null); }
     return SEM.extractor('query: ' + query, { pooling: 'mean', normalize: true })
@@ -237,9 +259,25 @@
           return { it: it, s: s };
         });
         scored.sort(function (a, b) { return b.s - a.s; });
-        return scored;
+        return { scored: scored, qv: qv };
       })
       .catch(function () { return null; });
+  }
+
+  /** 這一筆是「靠哪個細項」對上的？
+      判準不用魔術數字：只有當某個細項比整筆記錄本身還像查詢時，
+      才代表使用者打的是那個細項（打「市場袋」→ 市場袋 0.95 > 蔬果袋整筆 0.87）。
+      打「gloves」時手套整筆最高、細項（無粉末…）都比不過，就不會亂標。 */
+  function bestTag(it, qv, itemScore) {
+    var tags = it.tags || [];
+    var best = null, bestS = itemScore + SEM.TAG_LEAD;
+    for (var i = 0; i < tags.length; i++) {
+      if (!tags[i].vecf) continue;
+      var s = 0;
+      for (var k = 0; k < qv.length; k++) s += qv[k] * tags[i].vecf[k];
+      if (s > bestS) { bestS = s; best = tags[i]; }
+    }
+    return best;
   }
 
   /* ---------- 介面 ---------- */
@@ -282,8 +320,11 @@
   .om-result-desc { display: block; font-size: 0.78rem; font-weight: 500; color: #64748B; margin-top: 2px; line-height: 1.5;
     overflow-wrap: anywhere; text-wrap: pretty; }
   .om-result-desc mark { background: #FEF08A; color: #0A2540; padding: 0 2px; border-radius: 3px; }
-  .om-result-cat { font-size: 0.7rem; font-weight: 800; color: #00529B; background: #EFF6FF; border: 1px solid #DBEAFE;
-    padding: 3px 9px; border-radius: 6px; white-space: nowrap; }
+  /* 命中細項的註腳：跟著敘述走（手機也看得到），沒命中就整行不存在。
+     比 desc 再輕一級，一行結果只留一個重點。 */
+  .om-result-tag { display: flex; align-items: center; gap: 5px; margin-top: 6px;
+    font-size: 0.72rem; font-weight: 600; color: #94A3B8; }
+  .om-result-tag b { font-weight: 800; color: #00529B; background: #EFF6FF; padding: 1px 7px; border-radius: 5px; }
   .om-empty { padding: 28px 18px; text-align: center; color: #64748B; }
   .om-empty .t { font-size: 0.92rem; font-weight: 800; color: #0A2540; margin-bottom: 6px; }
   .om-empty .s { font-size: 0.8rem; }
@@ -298,7 +339,6 @@
   @media (max-width: 1024px) {
     .om-searchbar, .om-searchbar:focus-within { width: 100%; margin: 0; }
     .om-panel { width: 100%; right: auto; left: 0; }
-    .om-result-cat { display: none; }
   }
   /* 手機（768px 以下）：搜尋條收成一顆放大鏡，點了才展開成整條，
      讓 logo 與漢堡按鈕不會被擠壓 */
@@ -333,7 +373,8 @@
     maybeS:   ['你可能在找：', 'You might be looking for:'],
     other:    ['都不是？歡迎<a href="{url}">直接與專員聯繫</a>詢問。',
                'None of these? <a href="{url}">Contact our team</a> and we will help.'],
-    loading:  ['搜尋中…', 'Searching…']
+    loading:  ['搜尋中…', 'Searching…'],
+    matched:  ['符合：', 'Matched:\u00a0']
   };
   function t(key, vars) {
     var str = T[key][isEn() ? 1 : 0];
@@ -472,8 +513,8 @@
       '<span class="om-result-info">' +
         '<span class="om-result-title">' + esc(x.title) + '</span>' +
         '<span class="om-result-desc">' + (x.snippet || esc(x.desc)) + '</span>' +
+        (x.tag ? '<span class="om-result-tag">' + t('matched') + '<b>' + esc(x.tag) + '</b></span>' : '') +
       '</span>' +
-      '<span class="om-result-cat">' + esc(x.category) + '</span>' +
     '</a>';
   }
 
@@ -485,15 +526,17 @@
       if (seq !== seqNo) return;
       if (lit.length) render(q, { results: lit });
 
-      return semanticRanked(q).then(function (ranked) {
+      return semanticRanked(q).then(function (res) {
         if (seq !== seqNo) return;
 
         // 模型還沒就緒：維持字面結果；連字面也沒有就顯示「載入中」
-        if (!ranked) {
+        if (!res) {
           if (!lit.length) render(q, { results: [], pending: SEM.loading });
           else queueLog(q, lit.length);
           return;
         }
+
+        var ranked = res.scored, qv = res.qv;
 
         // 兩道關卡：最高分要夠高，且只留與最高分接近的幾筆
         var best = ranked.length ? ranked[0].s : 0;
@@ -515,7 +558,7 @@
           var seen = {};
           rows.forEach(function (r) { seen[r.url + '|' + r.title] = true; });
           good.forEach(function (x) {
-            var r = toRow(x.it, true);
+            var r = toRow(x.it, true, bestTag(x.it, qv, x.s));
             if (!seen[r.url + '|' + r.title]) rows.push(r);
           });
           render(q, { results: rows });
@@ -524,8 +567,9 @@
           render(q, { results: lit });
           queueLog(q, lit.length);
         } else {
-          // 沒有夠像的：列出最接近的三筆，不給死路
-          render(q, { results: [], suggestions: ranked.slice(0, 3).map(function (x) { return toRow(x.it, true); }) });
+          // 沒有夠像的：列出最接近的三筆，不給死路。
+          // 這裡不標細項 —— 它們是「最接近的」，不是命中。
+          render(q, { results: [], suggestions: ranked.slice(0, 3).map(function (x) { return toRow(x.it, true, null); }) });
           queueLog(q, 0);
         }
       });
