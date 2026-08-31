@@ -1,7 +1,13 @@
 /* ============================================================
    全站搜尋 — 臺灣營德
    ------------------------------------------------------------
-   單一引擎：語意搜尋（向量）。
+   單一引擎：語意搜尋（向量）。結果只給產品。
+
+   頁面（關於／永續／聯絡／產品中心）仍在索引裡，但不顯示：
+   它們是亂碼偵測的基準線 —— 亂碼跟哪個產品都不像，只會貼上泛用的頁面文字，
+   所以「第一名是頁面還是產品」比絕對分數可靠。把頁面從索引拿掉，這道門檻就失效。
+   又因為它們永遠不會被看見，PAGE_DOCS 的文字跟實際頁面同不同步也不重要。
+   頁首導覽列本來就有這四個頁面，沒人會打字去搜一題看得見的按鈕。
 
    為什麼不用關鍵字引擎（Algolia／Meilisearch 之類）：
    客戶打「垃圾袋」而我們的品名是「清潔袋」——兩個詞沒有任何一個字相同。
@@ -122,6 +128,7 @@
       if (q.length < 2) return [];
       var scored = [];
       items.forEach(function (it) {
+        if (it.type !== 'product') return;   // 頁面只當基準線，不進結果
         var title = normText(it.title) + ' ' + normText(it.title_en) + ' ' + normText(it.category);
         var body = normText(it.desc) + ' ' + normText(it.desc_en);
         var tag = literalTag(it, q);
@@ -550,7 +557,7 @@
 
         var gap = isLatinQuery(q) ? SEM.GAP_LATIN : SEM.GAP;
         var good = confident
-          ? ranked.filter(function (x) { return x.s >= best - gap; }).slice(0, SEM.max)
+          ? ranked.filter(function (x) { return x.it.type === 'product' && x.s >= best - gap; }).slice(0, SEM.max)
           : [];
 
         if (good.length) {
@@ -568,9 +575,10 @@
           render(q, { results: lit });
           queueLog(q, lit.length);
         } else {
-          // 沒有夠像的：列出最接近的三筆，不給死路。
+          // 沒有夠像的：列出最接近的三筆產品，不給死路。
           // 這裡不標細項 —— 它們是「最接近的」，不是命中。
-          render(q, { results: [], suggestions: ranked.slice(0, 3).map(function (x) { return toRow(x.it, true, null); }) });
+          var near = ranked.filter(function (x) { return x.it.type === 'product'; }).slice(0, 3);
+          render(q, { results: [], suggestions: near.map(function (x) { return toRow(x.it, true, null); }) });
           queueLog(q, 0);
         }
       });
