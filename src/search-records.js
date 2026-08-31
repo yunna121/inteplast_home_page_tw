@@ -10,8 +10,7 @@
    一般頁面（關於／永續／聯絡／產品中心）直接寫在本檔的 PAGE_DOCS。
    ============================================================ */
 (function () {
-  /* 產品分類專頁已全部移除，搜尋結果一律連到產品中心的對應卡片
-     （錮點代號與 products/index.html 的 getCatId 一致）。 */
+  /* User 在搜尋的時候點到對應產品 會自動跳轉到對應頁面*/
   var ANCHORS = {
     '清潔袋': 'cat-can-liners', '拉繩袋': 'cat-draw-tape', '蔬果袋': 'cat-heat-bags',
     '夾鏈袋': 'cat-sealed-packaging', '手套': 'cat-gloves', '膠帶': 'cat-masking-film',
@@ -67,11 +66,7 @@
       });
     });
 
-    /* 規格層（website-data.xlsx 的「產品規格」工作表）已不納入搜尋：
-       產品資料一律以 products-data.js 為準，避免兩份 Excel 各說一套。 */
-
-    /* 一般頁面：內容固定，直接寫在這裡，不再依賴 website-data.js
-       （那份與規格表一起移除了）。 */
+    /* 一般頁面：內容固定，直接寫在這裡*/
     var PAGE_DOCS = [
       { title: '關於營德', title_en: 'About Us', desc_en: 'A joint venture of Formosa Plastics and Inteplast USA, with integrated production at our Xingang plant in Chiayi.', category: '關於我們', desc: '台塑企業與 Inteplast USA 合資，嘉義新港基地一貫作業。', keywords: ['公司簡介', '沿革', '工廠', '嘉義', '新港', 'ISO', 'about'], url: '@root:about.html', icon: 'fa-building' },
       { title: '永續發展', title_en: 'Sustainability', desc_en: 'Green Mark certified products, 50% recycled plastic and closed-loop scrap recycling.', category: '永續發展', desc: '環保標章認證、50% 再生塑膠、廠內廢料閉環回收。', keywords: ['環保', '環保標章', '再生塑膠', '回收', 'ESG', 'sustainability'], url: '@root:sustainability.html', icon: 'fa-leaf' },
