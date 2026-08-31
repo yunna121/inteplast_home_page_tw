@@ -578,6 +578,11 @@
           // 沒有夠像的：列出最接近的三筆產品，不給死路。
           // 這裡不標細項 —— 它們是「最接近的」，不是命中。
           var near = ranked.filter(function (x) { return x.it.type === 'product'; }).slice(0, 3);
+          // 但先問這個查詢到底是不是在找產品：最高分的頁面贏過最高分的產品時
+          //（「聯繫」「工廠在哪」這種），推三筆擦邊球產品比不推還糟。
+          // 空狀態本來就寫著「歡迎直接與專員聯繫」並連到 contact.html，路沒斷。
+          var bestProduct = near.length ? near[0].s : 0;
+          if (bestPage > bestProduct) near = [];
           render(q, { results: [], suggestions: near.map(function (x) { return toRow(x.it, true, null); }) });
           queueLog(q, 0);
         }
