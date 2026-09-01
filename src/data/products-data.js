@@ -1,7 +1,7 @@
 /* 產品資料檔（Excel 的快照）
    正式資料來源：src/data/products-data.xlsx（工作表「產品資料」）
    由 tools/products-excel.html 轉出，請勿手改。
-   轉出時間：2026/9/1 下午1:49:29 — 來源檔：products-data.xlsx */
+   轉出時間：2026/9/1 下午2:50:04 — 來源檔：products-data.xlsx */
 window.PRODUCT_DATA = [
  {
   "name": "Scale Sheet\n(Tare Sheet)",
@@ -24,7 +24,7 @@ window.PRODUCT_DATA = [
   "desc": "專為生鮮食品與日常零售打造的優質蔬果袋系列。嚴選食品級合格原料，質地安全、無毒無味，具備極佳的抗拉韌性。提供平裝、捲裝等多樣化規格，搭配耐熱袋、雙道封口食品袋及市場專用袋等多元選擇，有效鎖住食材水分與鮮度，為消費者與商家嚴格把關每一道飲食安全防線。",
   "desc_en": "A premium produce bag range for fresh food and everyday retail. Made from certified food-grade resin that is safe, odourless and highly tear-resistant. Available flat-packed or on the roll, with heat-resistant bags, double-sealed food bags and market bags to choose from, locking in moisture and freshness so shoppers and store owners can rely on every layer of food safety.",
   "img": "封面-蔬果袋.png",
-  "items": "耐熱袋、雙道封口、食品袋、市場袋",
+  "items": "耐熱袋、雙道封口、食品袋、市場袋、冰袋",
   "items_en": "Heat-resistant bag, Double seal, Food bag, Market bag",
   "patent": "",
   "patent_no": ""
@@ -38,7 +38,7 @@ window.PRODUCT_DATA = [
   "desc_en": "Produced in-house from premium Formosa Plastics resin, using automated precision extrusion and sealing at our Xingang plant in Chiayi. The range covers perforated rolls, single-sheet dispensing and Green Mark certified liners. High tensile strength and load capacity handle both household waste and the high turnover of office buildings, restaurants and hotels without splitting or leaking.",
   "img": "封面-清潔袋.png",
   "items": "連捲、單張抽取、八折袋、環保清潔袋",
-  "items_en": "Perforated roll, Single-sheet dispensing, Can Liners, ECO Garbage Bag",
+  "items_en": "Coreless roll, Interleaved, Can Liners, ECO Garbage Bag",
   "patent": "",
   "patent_no": ""
  },
@@ -51,7 +51,7 @@ window.PRODUCT_DATA = [
   "desc_en": "Designed for convenience and fast clean-up. The one-piece draw tape closes the bag with a single pull, so waste stays inside and hands stay clean. The construction adds over 30% usable capacity while sealing odours in. Medical-grade and eco draw-tape versions are also available, keeping homes and commercial premises visibly cleaner.",
   "img": "封面-拉繩袋.png",
   "items": "清潔袋、醫療袋、環保拉繩袋",
-  "items_en": "Can liner, Medical waste bag, Eco draw tape liner",
+  "items_en": "Garbage Bag, Healthcare Isolation Bag, Eco draw tape",
   "patent": "",
   "patent_no": ""
  },
@@ -77,7 +77,7 @@ window.PRODUCT_DATA = [
   "desc_en": "A reusable zipper bag range made to a high manufacturing standard. Thick-gauge film with single- or double-track zippers delivers excellent airtight and moisture protection. Whether freezing fresh ingredients, sorting everyday items or packing industrial parts, the seal stays tight through repeated opening and closing.",
   "img": "封面-夾鏈袋.png",
   "items": "密實袋、冷凍袋、夾鏈袋",
-  "items_en": "Storage bag, Freezer bag, Zipper bag",
+  "items_en": "Slider Bag, Freezer Bag, Zipper Bag",
   "patent": "",
   "patent_no": ""
  },
