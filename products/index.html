@@ -832,6 +832,14 @@
         for (var i = 0; i < rows.length; i++) {
           if (String(rows[i].patent || '').trim()) { row = rows[i]; break; }
         }
+        /* Excel 的「專利證書圖」欄若沒填，就用內建的 Scale Sheet 證書，
+           免得同事重新轉檔後整個專利區消失 */
+        if (!row) {
+          for (var j = 0; j < rows.length; j++) {
+            if (/scale\s*sheet/i.test(String(rows[j].name || ''))) { row = rows[j]; break; }
+          }
+        }
+        var patentImg = (row && String(row.patent || '').trim()) || 'scale-sheet-patent.jpg';
         var sec = document.getElementById('patentSection');
         if (!sec || !row) return;
 
@@ -847,7 +855,7 @@
         sec.innerHTML =
           '<div class="patent-inner">' +
             '<figure class="patent-figure">' +
-              '<img src="../src/' + esc(row.patent) + '" alt="' + esc(name) + ' 美國專利證書" width="621" height="819" loading="lazy">' +
+              '<img src="../src/' + esc(patentImg) + '" alt="' + esc(name) + ' 美國專利證書" width="621" height="819" loading="lazy">' +
             '</figure>' +
             '<div>' +
               '<span class="patent-eyebrow">Patented technology</span>' +
