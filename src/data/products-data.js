@@ -1,11 +1,11 @@
 /* 產品資料檔（Excel 的快照）
    正式資料來源：src/data/products-data.xlsx（工作表「產品資料」）
    由 tools/products-excel.html 轉出，請勿手改。
-   轉出時間：2026/9/1 下午1:40:51 — 來源檔：products-data.xlsx */
+   轉出時間：2026/9/1 下午1:49:29 — 來源檔：products-data.xlsx */
 window.PRODUCT_DATA = [
  {
-  "name": "Scale Sheet(Tare Sheet)",
-  "name_en": "Scale Sheet(Tare Sheet)",
+  "name": "Scale Sheet\n(Tare Sheet)",
+  "name_en": "Scale Sheet\n(Tare Sheet)",
   "highlight": "集團專利單張抽取設計｜取用便利・不易污染・衛生安心",
   "highlight_en": "Patented Single-Sheet Dispensing | Easy to Use, Reduced Contamination, Improved Hygiene",
   "desc": "結合集團專利技術打造的抽取式 Scale Sheet，突破傳統取用方式的繁瑣與不便。採用貼心的單張抽取設計，取用俐落、操作便利，不僅能提升作業效率、節省取用時間，更能有效控管使用成本。材質強韌、防沾黏且不易受污染，適用於生鮮秤重、餐飲備料、工業分裝及各大商場櫃台等多元作業場景，是追求高效率、衛生與便利性的專業首選。",
@@ -31,14 +31,14 @@ window.PRODUCT_DATA = [
  },
  {
   "name": "清潔袋",
-  "name_en": "Can Liners",
+  "name_en": "Garbage Bag",
   "highlight": "強韌耐穿刺、滴水不漏的日常清潔首選",
   "highlight_en": "Puncture-resistant, leak-proof, built for everyday waste",
   "desc": "依託台塑高品質原料自製優勢，經由嘉義新港廠區自動化精密吹膜與封口技術打造。全系列涵蓋連捲式、單張抽取式及國家環保標章認證清潔袋等多種款式。具備超強的抗拉張力與優異承重力，不論是用於一般家庭日常垃圾清運，或是辦公大樓、餐飲旅宿等高頻率商用場域，皆能輕鬆應對、安心不破漏。",
   "desc_en": "Produced in-house from premium Formosa Plastics resin, using automated precision extrusion and sealing at our Xingang plant in Chiayi. The range covers perforated rolls, single-sheet dispensing and Green Mark certified liners. High tensile strength and load capacity handle both household waste and the high turnover of office buildings, restaurants and hotels without splitting or leaking.",
   "img": "封面-清潔袋.png",
   "items": "連捲、單張抽取、八折袋、環保清潔袋",
-  "items_en": "Perforated roll, Single-sheet dispensing, Eight-fold gusseted bag, Green Mark liner",
+  "items_en": "Perforated roll, Single-sheet dispensing, Can Liners, ECO Garbage Bag",
   "patent": "",
   "patent_no": ""
  },
