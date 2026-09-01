@@ -1,296 +1,364 @@
 /* ============================================================
-   全站搜尋 — 臺灣營德
+   全站搜尋 — 臺灣營德（關鍵字版 / BM25）
    ------------------------------------------------------------
-   單一引擎：語意搜尋（向量）。結果只給產品。
+   取代原本的語意（向量）搜尋。原檔完整保留為
+   src/site-search-vector-backup.js —— 要換回去只要把它改名蓋回來。
 
-   頁面（關於／永續／聯絡／產品中心）仍在索引裡，但不顯示：
-   它們是亂碼偵測的基準線 —— 亂碼跟哪個產品都不像，只會貼上泛用的頁面文字，
-   所以「第一名是頁面還是產品」比絕對分數可靠。把頁面從索引拿掉，這道門檻就失效。
-   又因為它們永遠不會被看見，PAGE_DOCS 的文字跟實際頁面同不同步也不重要。
-   頁首導覽列本來就有這四個頁面，沒人會打字去搜一題看得見的按鈕。
+   為什麼換：
+   向量搜尋的問題不在準度，在「判斷不出零」。實測分數裡
+   亂碼 qqqqqq 0.824 比正解 ziplock 0.811 還高，所以沒有任何
+   絕對門檻能分開對錯，只能靠「第一名是產品還是頁面」這種
+   間接訊號 —— 也因此索引裡必須塞四筆用不到的頁面當基準線。
 
-   為什麼不用關鍵字引擎（Algolia／Meilisearch 之類）：
-   客戶打「垃圾袋」而我們的品名是「清潔袋」——兩個詞沒有任何一個字相同。
-   任何字面比對的引擎都不可能命中，只能靠人工維護同義詞表。
-   向量搜尋是把整句話轉成語意座標再比距離，「垃圾袋」與「清潔袋」
-   在語意空間裡本來就很近，所以不需要同義詞表。
+   BM25 沒有這個問題：查詢詞一個都沒中就是 0 筆。
+   「產品中心沒有的東西就搜不到」是引擎的自然行為，不是調參調出來的。
+   代價是同義詞要人工維護（見 SYNONYMS），但品項只有 7 項、
+   採購講的詞彙固定，而且 0 筆的搜尋已經寫進 Google Sheet，
+   那張表就是補同義詞的清單。
 
-   資料只有一份：src/data/embeddings.json
-   （由 tools/build-embeddings.html 產生，內含標題／敘述／中英文／網址
-     與 int8 量化後的向量；11 筆約 9KB。）
+   資料只有一份：src/data/products-data.js（window.PRODUCT_DATA），
+   跟產品中心頁的卡片同源。改 Excel，兩邊一起變。
+   索引裡沒有任何頁面文件 —— 搜尋範圍就是產品，沒有別的。
 
-   查詢流程：
-   1. 立即：字面包含比對（打「清潔袋」「can liner」這種正式品名時
-      不必等模型，先給結果）。這不是第二個引擎，只是十來行的快速通道。
-   2. 模型就緒後：把使用者那一句轉成向量，與 11 筆比餘弦相似度並排序。
-      模型約 30MB，第一次搜尋才下載、之後由瀏覽器快取。
-   3. 沒有夠像的結果時，仍列出最接近的三筆（不給死路）。
-
-   命中細項時（打「市場袋」而品名是「蔬果袋」），結果會在敘述下方
-   多一行「符合：市場袋」說明為什麼這筆會出現 —— 字面命中直接知道，
-   語意命中則靠 embeddings.json 裡每個細項各自的小向量比出來。
-
-   介面是頁首常駐搜尋條，結果以下拉面板貼在輸入框下方。
+   介面（搜尋條、下拉面板、CSS、Ctrl+K、手機收合）與舊版完全相同，
+   搜尋記錄也照樣送 Apps Script，換檔不會有視覺或資料差異。
    ============================================================ */
 (function () {
   var inProducts = /\/products\//.test(location.pathname);
   var ROOT = inProducts ? '../' : '';
 
-  /* 記錄裡的網址一律用 @root: 前綴表示「相對站台根目錄」 */
   function resolveUrl(u) {
     u = String(u || '');
     if (u.indexOf('@root:') === 0) return ROOT + u.slice(6);
     return (inProducts ? '' : 'products/') + u;
   }
 
-  var seqNo = 0;
+  /* 點搜尋結果要跳到產品中心的哪一個區塊（沿用 search-records.js 的對照） */
+  var ANCHORS = {
+    '清潔袋': 'cat-can-liners', '拉繩袋': 'cat-draw-tape', '蔬果袋': 'cat-heat-bags',
+    '夾鏈袋': 'cat-sealed-packaging', '手套': 'cat-gloves', '膠帶': 'cat-masking-film',
+    'Scale Sheet': 'cat-stretch-films', 'Tare Sheet': 'cat-stretch-films'
+  };
+  function anchorFor(name) {
+    var n = String(name || ''), keys = Object.keys(ANCHORS);
+    for (var i = 0; i < keys.length; i++) if (n.indexOf(keys[i]) > -1) return '#' + ANCHORS[keys[i]];
+    return '';
+  }
 
   /* ============================================================
-     資料載入 ＋ 字面快速通道
+     同義詞 — 唯一需要人工維護的地方
      ------------------------------------------------------------
-     embeddings.json 同時是資料來源與向量來源，所以整個搜尋只讀一個檔。
-     快速通道＝「查詢字整段出現在標題／英文名／分類／敘述裡」就直接算命中，
-     讓打正式品名的人不用等模型下載。
+     左邊是客戶會打的詞，右邊是我們資料裡真正有的詞。
+     查詢時「附加」而非「取代」，所以打正式品名不會被影響。
+     新增方式：Google Sheet 篩「有無結果 = 無」，把常出現的詞補進來。
      ============================================================ */
-  var DB = { loading: null, items: null };
+  var SYNONYMS = {
+    '垃圾袋': ['清潔袋'], '垃圾桶袋': ['清潔袋'], '塑膠袋': ['清潔袋', '蔬果袋'],
+    '廚餘袋': ['清潔袋'], '大型垃圾袋': ['清潔袋'], '環保袋': ['環保清潔袋', '清潔袋'],
+    '束口袋': ['拉繩袋'], '抽繩袋': ['拉繩袋'], '穿繩袋': ['拉繩袋'],
+    '保鮮袋': ['冷凍袋', '夾鏈袋'], '密封袋': ['夾鏈袋'], '封口袋': ['夾鏈袋'],
+    '拉鍊袋': ['夾鏈袋'], '自封袋': ['夾鏈袋'], '收納袋': ['密實袋', '夾鏈袋'],
+    '市場袋': ['蔬果袋', '市場袋'], '生鮮袋': ['蔬果袋'], '食物袋': ['食品袋', '蔬果袋'],
+    '手扒雞袋': ['耐熱袋'], '微波袋': ['耐熱袋'],
+    '塑膠手套': ['手套'], '拋棄式手套': ['手套'], '一次性手套': ['手套'],
+    '養生膠帶': ['遮蔽防塵膠帶'], '防塵膜': ['遮蔽防塵膠帶'], '遮蔽膠帶': ['遮蔽防塵膠帶'],
+    '油漆膠帶': ['遮蔽防塵膠帶'], '裝潢膠帶': ['遮蔽防塵膠帶'],
+    '秤重紙': ['scale sheet'], '墊紙': ['scale sheet'], '包裝紙': ['scale sheet'],
+    'trash bag': ['清潔袋'], 'garbage bag': ['清潔袋'], 'bin liner': ['清潔袋'],
+    'can liner': ['清潔袋'], 'drawstring': ['拉繩袋'], 'draw tape': ['拉繩袋'],
+    'ziplock': ['夾鏈袋'], 'zip lock': ['夾鏈袋'], 'zipper': ['夾鏈袋'],
+    'freezer': ['冷凍袋'], 'produce': ['蔬果袋'], 'glove': ['手套'],
+    'masking': ['遮蔽防塵膠帶'], 'tape': ['遮蔽防塵膠帶']
+  };
 
-  function loadDB() {
-    if (DB.loading) return DB.loading;
-    DB.loading = fetch(ROOT + 'src/data/embeddings.json')
-      .then(function (res) { return res.ok ? res.json() : null; })
-      .then(function (data) {
-        if (!data || !data.items || !data.items.length) return null;
-        data.items.forEach(function (it) {
-          it.vecf = decodeVec(it.vecb64);
-          (it.tags || []).forEach(function (tg) {
-            if (tg.vecb64) tg.vecf = decodeVec(tg.vecb64);
-          });
-        });
-        DB.items = data.items;
-        return data.items;
-      })
-      .catch(function () { return null; });
-    return DB.loading;
-  }
+  /* 額外索引文字的掛勾：規格資料（尺寸／號數／容量）目前不在 repo 裡，
+     等 spec 資料回來時，把 { name: '清潔袋', text: '86x100 0號 45L …' }
+     推進 window.OM_SEARCH_EXTRA，就會併進該產品的索引。 */
+  var EXTRA = window.OM_SEARCH_EXTRA || [];
 
-  /** int8 量化向量還原：base64 → 有號位元組 → 單位向量 */
-  function decodeVec(b64) {
-    var bin = atob(b64), n = bin.length, v = new Float32Array(n), sum = 0;
-    for (var i = 0; i < n; i++) {
-      var b = bin.charCodeAt(i);
-      v[i] = (b > 127 ? b - 256 : b) / 127;
-      sum += v[i] * v[i];
-    }
-    var norm = Math.sqrt(sum) || 1;
-    for (var k = 0; k < n; k++) v[k] /= norm;
-    return v;
-  }
-
+  /* ---------- 斷詞 ---------- */
   function normText(s) {
     return String(s || '').toLowerCase()
       .replace(/[\uFF01-\uFF5E]/g, function (ch) { return String.fromCharCode(ch.charCodeAt(0) - 0xFEE0); })
-      .replace(/[\s\u3000、，,。．.\-_/（）()「」【】]+/g, '')
+      .replace(/[\s\u3000、，,。．.\-_/（）()「」【】·:：;；!！?？"'`~]+/g, ' ')
       .trim();
   }
 
-  /** 命中的細項要顯示成使用者當下的語言 */
-  function tagLabel(tag) {
-    if (!tag) return '';
-    return isEn() ? (tag.t_en || tag.t || '') : (tag.t || '');
+  /** 中文切成單字＋雙字組（雙字組是主力，單字補召回）；英數字整串為一詞 */
+  function tokenize(s) {
+    var out = [], norm = normText(s), m;
+    var latin = norm.match(/[a-z0-9]+/g) || [];
+    for (m = 0; m < latin.length; m++) out.push(latin[m]);
+    var runs = norm.match(/[\u4e00-\u9fff]+/g) || [];
+    runs.forEach(function (run) {
+      for (var i = 0; i < run.length; i++) {
+        out.push(run[i]);
+        if (i + 1 < run.length) out.push(run.substr(i, 2));
+      }
+    });
+    return out;
   }
 
-  function toRow(it, semantic, tag) {
-    return {
-      title: (isEn() && it.title_en) ? it.title_en : it.title,
-      tag: tagLabel(tag),
-      icon: it.icon || 'fa-cube',
-      desc: (isEn() && it.desc_en) ? it.desc_en : (it.desc || ''),
-      url: resolveUrl(it.url),
-      snippet: (isEn() && it.desc_en) ? it.desc_en : (it.desc || ''),
-      semantic: !!semantic
-    };
+  /** 單一中文字的訊號比雙字組弱很多，查詢時降權，否則「袋」會把七項全撈出來 */
+  function termWeight(t) {
+    if (/^[\u4e00-\u9fff]$/.test(t)) return 0.3;
+    if (/^[a-z0-9]$/.test(t)) return 0.2;
+    return 1;
   }
 
-  /** 字面命中的細項：整段查詢字出現在細項裡（中英文都比） */
-  function literalTag(it, q) {
-    var tags = it.tags || [];
-    for (var i = 0; i < tags.length; i++) {
-      if (normText(tags[i].t).indexOf(q) > -1 || normText(tags[i].t_en).indexOf(q) > -1) return tags[i];
+  /* ============================================================
+     資料自動載入
+     ------------------------------------------------------------
+     about / contact / sustainability 這三頁沒有載 products-data.js
+     （舊的向量版自己 fetch embeddings.json，所以沒遇到這問題）。
+     這裡自己補上，整個搜尋就還是一個檔案直接換，不用改任何 HTML。
+     ============================================================ */
+  var dataReady = null;
+  function ensureData() {
+    if (dataReady) return dataReady;
+    dataReady = new Promise(function (resolve) {
+      if (window.PRODUCT_DATA && window.PRODUCT_DATA.length) return resolve(true);
+      var s = document.createElement('script');
+      s.src = ROOT + 'src/data/products-data.js';
+      s.onload = function () { resolve(!!(window.PRODUCT_DATA || []).length); };
+      s.onerror = function () { resolve(false); };
+      document.head.appendChild(s);
+    });
+    return dataReady;
+  }
+
+  /* ---------- 建索引 ---------- */
+  var FIELDS = [['title', 4], ['items', 2.5], ['highlight', 1.5], ['desc', 1]];
+  var IDX = null;
+
+  function buildIndex() {
+    if (IDX) return IDX;
+    var raw = window.PRODUCT_DATA || [];
+    if (!raw.length) return null;
+
+    var docs = raw.map(function (p, i) {
+      var names = String(p.name || '').split('/').map(function (s) { return s.trim(); }).filter(Boolean);
+      var main = names[0] || '';
+      var extra = EXTRA.filter(function (e) { return String(e.name || '') === main; })
+                       .map(function (e) { return e.text || ''; }).join(' ');
+      return {
+        id: i,
+        title: main,
+        title_en: (p.name_en || '').split('/')[0].trim() || main,
+        desc: p.highlight || p.desc || '',
+        desc_en: p.highlight_en || p.desc_en || '',
+        items: splitList(p.items),
+        items_en: splitList(p.items_en),
+        icon: 'fa-box-open',
+        url: resolveUrl('@root:products/index.html' + anchorFor(p.name)),
+        f: {
+          title: [main, names.slice(1).join(' '), p.name_en].join(' '),
+          items: [p.items, p.items_en].join(' '),
+          highlight: [p.highlight, p.highlight_en].join(' '),
+          desc: [p.desc, p.desc_en, extra].join(' ')
+        }
+      };
+    });
+
+    var df = {}, avg = 0;
+    docs.forEach(function (d) {
+      var tf = {}, len = 0;
+      FIELDS.forEach(function (pair) {
+        var w = pair[1];
+        tokenize(d.f[pair[0]]).forEach(function (t) {
+          tf[t] = (tf[t] || 0) + w;
+          len += w;
+        });
+      });
+      d.tf = tf;
+      d.len = len;
+      avg += len;
+      Object.keys(tf).forEach(function (t) { df[t] = (df[t] || 0) + 1; });
+    });
+    avg = avg / docs.length;
+
+    IDX = { docs: docs, df: df, avg: avg, N: docs.length, vocab: Object.keys(df) };
+    return IDX;
+  }
+
+  function splitList(s) {
+    return String(s || '').split(/[、,，/]+/).map(function (x) { return x.trim(); }).filter(Boolean);
+  }
+
+  /* ---------- 查詢 ---------- */
+  var K1 = 1.2, B = 0.6;
+
+  /** 英文錯字容錯：編輯距離 ≤1 才換，避免 tape → tare 這種亂配 */
+  function editDistance(a, b) {
+    if (Math.abs(a.length - b.length) > 1) return 9;
+    var prev = [], cur = [], i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      cur[0] = i;
+      for (j = 1; j <= b.length; j++) {
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      }
+      prev = cur.slice();
+    }
+    return prev[b.length];
+  }
+
+  function expandQuery(q) {
+    var norm = normText(q);
+    var terms = {};
+    function add(t, w) { terms[t] = Math.max(terms[t] || 0, w); }
+
+    tokenize(q).forEach(function (t) { add(t, termWeight(t)); });
+
+    // 同義詞：整段查詢字裡出現 key 就把 canonical 加進來
+    Object.keys(SYNONYMS).forEach(function (key) {
+      if (norm.indexOf(normText(key)) === -1) return;
+      SYNONYMS[key].forEach(function (canon) {
+        tokenize(canon).forEach(function (t) { add(t, termWeight(t) * 0.95); });
+      });
+    });
+
+    // 英文錯字：查詢詞不在字典裡時找距離 1 的替代（ziplok → ziplock）
+    var idx = buildIndex();
+    if (idx) {
+      Object.keys(terms).forEach(function (t) {
+        if (!/^[a-z]{4,}$/.test(t) || idx.df[t]) return;
+        for (var i = 0; i < idx.vocab.length; i++) {
+          var v = idx.vocab[i];
+          if (/^[a-z]{4,}$/.test(v) && editDistance(t, v) <= 1) { add(v, 0.8); break; }
+        }
+        // 同義詞表的 key 也容錯一次（ziplok → ziplock → 夾鏈袋）
+        Object.keys(SYNONYMS).forEach(function (key) {
+          if (!/^[a-z ]+$/.test(key) || editDistance(t, key) > 1) return;
+          SYNONYMS[key].forEach(function (canon) {
+            tokenize(canon).forEach(function (x) { add(x, termWeight(x) * 0.75); });
+          });
+        });
+      });
+    }
+    return terms;
+  }
+
+  function search(query) {
+    var idx = buildIndex();
+    if (!idx || !String(query || '').trim()) return [];
+    var terms = expandQuery(query);
+    var keys = Object.keys(terms);
+    if (!keys.length) return [];
+
+    /* 只靠單一中文字命中的不算數 —— 「工廠在哪」的「廠」會撈到「新港廠區」，
+       但客戶並不是在找產品。要求至少一個雙字組（或英數字詞）對上，
+       零筆才會是真的零筆。查詢本身就只有一個字時（「袋」）才放寬。 */
+    var hasMulti = keys.some(function (t) { return t.length > 1; });
+
+    var hits = [];
+    idx.docs.forEach(function (d) {
+      var score = 0, matched = [], solid = false;
+      keys.forEach(function (t) {
+        var tf = d.tf[t];
+        if (!tf) return;
+        var n = idx.df[t];
+        var idf = Math.log(1 + (idx.N - n + 0.5) / (n + 0.5));
+        score += terms[t] * idf * (tf * (K1 + 1)) / (tf + K1 * (1 - B + B * d.len / idx.avg));
+        matched.push(t);
+        if (t.length > 1) solid = true;
+      });
+      if (score > 0 && (solid || !hasMulti)) hits.push({ d: d, s: score, matched: matched });
+    });
+
+    hits.sort(function (a, b) { return b.s - a.s; });
+    // 只留與第一名同一個量級的：BM25 的尾巴通常是「只中一個單字」的雜訊
+    var top = hits.length ? hits[0].s : 0;
+    return hits.filter(function (h) { return h.s >= top * 0.28; }).slice(0, 6);
+  }
+
+  /* 這一筆是靠哪個細項對上的？（打「市場袋」→ 蔬果袋，標「符合：市場袋」）
+     打的就是正式品名時不標 —— 標了是廢話。 */
+  function matchedItem(hit, query) {
+    var q = normText(query).replace(/ /g, '');
+    if (!q) return null;
+    var d = hit.d;
+    if (normText(d.title).indexOf(q) > -1 || normText(d.title_en).indexOf(q) > -1) return null;
+
+    var en = isEn();
+    var list = d.items, listEn = d.items_en;
+    var i;
+    // 先找整段字面命中的細項
+    for (i = 0; i < list.length; i++) {
+      if (normText(list[i]).replace(/ /g, '').indexOf(q) > -1) return en ? (listEn[i] || list[i]) : list[i];
+    }
+    for (i = 0; i < listEn.length; i++) {
+      if (normText(listEn[i]).replace(/ /g, '').indexOf(q) > -1) return en ? listEn[i] : (list[i] || listEn[i]);
+    }
+    // 再找同義詞導過來的細項（保鮮袋 → 冷凍袋）
+    var terms = hit.matched;
+    for (i = 0; i < list.length; i++) {
+      var toks = tokenize(list[i]).filter(function (t) { return t.length > 1; });
+      for (var k = 0; k < toks.length; k++) {
+        if (terms.indexOf(toks[k]) > -1 && normText(d.title).indexOf(toks[k]) === -1) {
+          return en ? (listEn[i] || list[i]) : list[i];
+        }
+      }
     }
     return null;
   }
 
-  /** 字面包含：標題最高，細項次之，敘述最低 */
-  function literalHits(query) {
-    return loadDB().then(function (items) {
-      if (!items) return [];
-      var q = normText(query);
-      if (q.length < 2) return [];
-      var scored = [];
-      items.forEach(function (it) {
-        if (it.type !== 'product') return;   // 頁面只當基準線，不進結果
-        var title = normText(it.title) + ' ' + normText(it.title_en) + ' ' + normText(it.category);
-        var body = normText(it.desc) + ' ' + normText(it.desc_en);
-        var tag = literalTag(it, q);
-        var s = 0;
-        if (title.indexOf(q) > -1) s = 10;
-        else if (tag) s = 8;
-        else if (body.indexOf(q) > -1) s = 4;
-        // 打的就是正式品名時不標細項 —— 標了是廢話
-        if (s) scored.push({ it: it, s: s, tag: s === 10 ? null : tag });
-      });
-      scored.sort(function (a, b) { return b.s - a.s; });
-      return scored.map(function (x) { return toRow(x.it, false, x.tag); });
+  /** 敘述裡把命中的詞標起來 */
+  function highlight(text, terms) {
+    var out = esc(text);
+    var words = terms.filter(function (t) { return t.length > 1; })
+                     .sort(function (a, b) { return b.length - a.length; })
+                     .slice(0, 8);
+    words.forEach(function (w) {
+      var re = new RegExp(w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      out = out.replace(re, function (m) { return '\u0001' + m + '\u0002'; });
     });
+    return out.split('\u0001').join('<mark>').split('\u0002').join('</mark>');
+  }
+
+  function toRow(hit, query) {
+    var d = hit.d, en = isEn();
+    var desc = (en && d.desc_en) ? d.desc_en : d.desc;
+    return {
+      title: (en && d.title_en) ? d.title_en : d.title,
+      icon: d.icon,
+      url: d.url,
+      tag: matchedItem(hit, query) || '',
+      snippet: highlight(desc, hit.matched)
+    };
   }
 
   /* ============================================================
      搜尋記錄 — 送到 Apps Script（同一支 /exec，action=search）
-     ------------------------------------------------------------
-     目的：知道客戶在找什麼，尤其是「搜尋了但我們沒有的東西」（結果 0 筆）。
-     Sheet 的「有無結果」欄篩選＝無，就是新產品開發的線索。
-
-     用 sendBeacon 送出、不等回應也不擋畫面；送不出去就安靜放棄。
-     debounce 900ms，所以只記使用者停下來的那一次，不會記成 清/清潔/清潔袋 三筆。
+     0 筆的那些就是新產品／新同義詞的線索。
      ============================================================ */
   var LOG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz1hF2WW-easWE11AHvlnzvOXMG8qDSElR_IYcVx6vj0TWoXHrA-Mzuu78qcTJS7GMX/exec';
-  var logTimer = null;
-  var logged = {};
+  var logTimer = null, logged = {};
 
   function logSearch(query, hits) {
     var q = String(query || '').trim();
     if (!LOG_ENDPOINT || q.length < 2) return;
-    // 去重只看查詢字串：同一個查詢會因為模型晚到而渲染兩次（先字面、後語意），
-    // 筆數不同但那是同一次搜尋，不該記成兩列
     var key = q.toLowerCase();
     if (logged[key]) return;
     logged[key] = true;
-
     var body = new URLSearchParams({
-      action: 'search',
-      q: q,
-      hits: String(hits),
+      action: 'search', q: q, hits: String(hits),
       page: location.pathname + location.hash,
       lang: document.documentElement.lang || '',
       ref: document.referrer || ''
     });
-
     try {
       if (navigator.sendBeacon) navigator.sendBeacon(LOG_ENDPOINT, body);
       else fetch(LOG_ENDPOINT, { method: 'POST', body: body, mode: 'no-cors', keepalive: true });
     } catch (err) { /* 記錄失敗不影響使用 */ }
   }
-
   function queueLog(query, hits) {
     clearTimeout(logTimer);
     logTimer = setTimeout(function () { logSearch(query, hits); }, 900);
   }
 
-  /* ============================================================
-     語意搜尋（transformers.js，完全在瀏覽器內執行）— 主引擎
-     ------------------------------------------------------------
-     資料的向量已離線算好在 embeddings.json，網站只需把「使用者打的那一句」
-     轉成向量，所以只有查詢端要跑模型。模型約 30MB，第一次搜尋才下載，
-     之後瀏覽器快取；在它就緒前由字面快速通道頂著。
-
-     門檻 FLOOR 以下視為「不夠像」，此時不當作結果，改走「你可能在找」。
-     ============================================================ */
-  /* 門檻怎麼定的（都是實測數據）：
-
-     e5 的絕對分數壓縮得很高，光看分數分不出對錯：
-       「垃圾袋」→ 清潔袋 0.873、拉繩袋 0.861（對的只贏 0.012）
-     而英文查詢對中文為主的資料，分數整體再低一截：
-       「ziplock」→ 夾鏈袋 0.811（明明是正解，卻不到 0.83）
-
-     真正可靠的訊號是「第一名是產品還是頁面」：
-       ziplock 0.811、can liner 0.813、gloves 0.822、produce bag 0.848
-         → 第一名都是產品
-       qqqqqq 0.824、xyzxyz 0.805、zzz 0.795、hello world 0.783
-         → 第一名都是頁面（亂碼跟哪個產品都不像，只會貼上泛用的頁面文字）
-     所以：分數夠高就直接採用；分數中段時，要求第一名是產品、
-     且贏過最高分的頁面，才算命中。
-
-     GAP 只留與第一名接近的幾筆，其餘視為雜訊。 */
-  var SEM = {
-    ready: false,
-    loading: false,
-    extractor: null,
-    FLOOR: 0.83,
-    PAGE_LEAD: 0.005,
-    GAP: 0.02,
-    GAP_LATIN: 0.012,   // 英文的分數分布較密，範圍要收窄才不會夾帶雜訊
-    TAG_LEAD: 0,        // 細項要贏過整筆多少才算「就是它命中的」（0 = 只要贏就算）
-    max: 4
-  };
-
-  /** 查詢是否以拉丁字母為主（用來選門檻） */
-  function isLatinQuery(q) {
-    var latin = (String(q).match(/[a-z]/gi) || []).length;
-    var cjk = (String(q).match(/[\u4e00-\u9fff]/g) || []).length;
-    return latin > 0 && latin >= cjk * 2;
-  }
-
-  function loadSemantic() {
-    if (SEM.loading || SEM.ready) return;
-    SEM.loading = true;
-
-    loadDB()
-      .then(function (items) {
-        if (!items) throw new Error('no embeddings');
-        return import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.2');
-      })
-      .then(function (mod) {
-        mod.env.allowLocalModels = false;
-        return mod.pipeline('feature-extraction', 'Xenova/multilingual-e5-small', { dtype: 'q8' });
-      })
-      .then(function (ex) {
-        SEM.extractor = ex;
-        SEM.ready = true;
-        SEM.loading = false;
-        // 模型晚到：把使用者已經打好的字重跑一次，結果自動升級
-        var input = document.getElementById('omSearchInput');
-        if (input && input.value.trim()) render(input.value);
-      })
-      .catch(function () { SEM.loading = false; });
-  }
-
-  /** 全部排序後回傳 { scored, qv }，門檻交給呼叫端決定。
-      qv 一併回傳，讓呼叫端可以再比一次細項向量。 */
-  function semanticRanked(query) {
-    if (!SEM.ready) { loadSemantic(); return Promise.resolve(null); }
-    return SEM.extractor('query: ' + query, { pooling: 'mean', normalize: true })
-      .then(function (out) {
-        var qv = out.tolist()[0];
-        var scored = DB.items.map(function (it) {
-          var s = 0;
-          for (var i = 0; i < qv.length; i++) s += qv[i] * it.vecf[i];
-          return { it: it, s: s };
-        });
-        scored.sort(function (a, b) { return b.s - a.s; });
-        return { scored: scored, qv: qv };
-      })
-      .catch(function () { return null; });
-  }
-
-  /** 這一筆是「靠哪個細項」對上的？
-      判準不用魔術數字：只有當某個細項比整筆記錄本身還像查詢時，
-      才代表使用者打的是那個細項（打「市場袋」→ 市場袋 0.95 > 蔬果袋整筆 0.87）。
-      打「gloves」時手套整筆最高、細項（無粉末…）都比不過，就不會亂標。 */
-  function bestTag(it, qv, itemScore) {
-    var tags = it.tags || [];
-    var best = null, bestS = itemScore + SEM.TAG_LEAD;
-    for (var i = 0; i < tags.length; i++) {
-      if (!tags[i].vecf) continue;
-      var s = 0;
-      for (var k = 0; k < qv.length; k++) s += qv[k] * tags[i].vecf[k];
-      if (s > bestS) { bestS = s; best = tags[i]; }
-    }
-    return best;
-  }
-
-  /* ---------- 介面 ---------- */
+  /* ---------- 介面（與 site-search.js 相同） ---------- */
   var EXTRA_CSS = `
-  /* 頁首常駐搜尋條：輸入框一直在，結果以下拉面板貼在下方（不遮擋整頁） */
   .om-searchbar { position: relative; display: flex; align-items: center; gap: 8px;
     width: clamp(170px, 18vw, 240px); margin-right: 10px; padding: 0 12px; height: 38px;
     background: #F1F5F9; border: 1px solid #E2E8F0; border-radius: 9999px;
@@ -314,8 +382,10 @@
   .om-search-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 16px;
     background: #F8FAFC; border-bottom: 1px solid #E2E8F0; }
   .om-search-tags .lbl { font-size: 0.74rem; font-weight: 800; color: #64748B; margin-right: 2px; }
+  /* nowrap：面板在窄螢幕會縮到 300px 以下，沒有這條「垃圾袋」會被折成「垃圾／袋」。
+     膠囊之間本來就會換行，折在詞中間才是壞的。 */
   .om-tag { background: #FFFFFF; border: 1px solid #CBD5E1; color: #334155; font-size: 0.76rem; font-weight: 700;
-    padding: 4px 10px; border-radius: 9999px; cursor: pointer; }
+    padding: 4px 10px; border-radius: 9999px; white-space: nowrap; cursor: pointer; }
   .om-tag:hover { border-color: #00529B; color: #00529B; background: #EFF6FF; }
   .om-search-list { max-height: 58vh; overflow-y: auto; overflow-x: hidden; }
   .om-result { display: flex; align-items: center; gap: 12px; padding: 12px 16px; text-decoration: none;
@@ -328,8 +398,6 @@
   .om-result-desc { display: block; font-size: 0.78rem; font-weight: 500; color: #64748B; margin-top: 2px; line-height: 1.5;
     overflow-wrap: anywhere; text-wrap: pretty; }
   .om-result-desc mark { background: #FEF08A; color: #0A2540; padding: 0 2px; border-radius: 3px; }
-  /* 命中細項的註腳：跟著敘述走（手機也看得到），沒命中就整行不存在。
-     比 desc 再輕一級，一行結果只留一個重點。 */
   .om-result-tag { display: flex; align-items: center; gap: 5px; margin-top: 6px;
     font-size: 0.72rem; font-weight: 600; color: #94A3B8; }
   .om-result-tag b { font-weight: 800; color: #00529B; background: #EFF6FF; padding: 1px 7px; border-radius: 5px; }
@@ -338,18 +406,14 @@
   .om-empty .s { font-size: 0.8rem; }
   .om-empty a { color: #00529B; font-weight: 800; }
 
-  /* 斷點統一為全站三段：1024 / 768 / 480 */
   @media (max-width: 1400px) {
     .om-searchbar { width: 150px; }
     .om-searchbar:focus-within { width: 220px; }
   }
-  /* 1024px 以下頁首交給漢堡選單，搜尋條攤成整列 */
   @media (max-width: 1024px) {
     .om-searchbar, .om-searchbar:focus-within { width: 100%; margin: 0; }
     .om-panel { width: 100%; right: auto; left: 0; }
   }
-  /* 手機（768px 以下）：搜尋條收成一顆放大鏡，點了才展開成整條，
-     讓 logo 與漢堡按鈕不會被擠壓 */
   @media (max-width: 768px) {
     .om-searchbar, .om-searchbar:focus-within {
       flex: 0 0 38px; width: 38px; min-width: 38px; padding: 0;
@@ -368,21 +432,15 @@
   `;
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
-
-  /* 搜尋面板的文字也要跟著全站語言（site-lang.js 會把 <html lang> 設成 zh-TW / en）。
-     這些字是動態產生的，掛 data-tw 沒用，所以直接依語言取字。 */
   function isEn() { return (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0; }
+
   var T = {
     hot:      ['熱門：', 'Popular:'],
     noResult: ['找不到與「{q}」相符的產品', 'No results for “{q}”'],
     noHint:   ['我們的品項持續增加中，歡迎<a href="{url}">直接與專員聯繫</a>詢問。',
                'Our range keeps growing — <a href="{url}">contact our team</a> and we will help.'],
-    maybeT:   ['找不到與「{q}」完全相符的產品', 'No exact match for “{q}”'],
-    maybeS:   ['你可能在找：', 'You might be looking for:'],
-    other:    ['都不是？歡迎<a href="{url}">直接與專員聯繫</a>詢問。',
-               'None of these? <a href="{url}">Contact our team</a> and we will help.'],
-    loading:  ['搜尋中…', 'Searching…'],
-    matched:  ['符合：', 'Matched:\u00a0']
+    matched:  ['符合：', 'Matched:\u00a0'],
+    loading:  ['搜尋中…', 'Searching…']
   };
   function t(key, vars) {
     var str = T[key][isEn() ? 1 : 0];
@@ -401,7 +459,6 @@
     if (legacy) legacy.remove();
     if (document.getElementById('omSearchBar')) return;
 
-    // 頁首那顆放大鏡按鈕換成常駐搜尋條
     var trigger = document.getElementById('globalSearchTrigger') || document.querySelector('.search-trigger-btn');
     if (!trigger || !trigger.parentNode) return;
 
@@ -436,7 +493,6 @@
     });
     input.addEventListener('focus', function () { openPanel(); });
 
-    // 窄螢幕：搜尋條平常只有一顆放大鏡，點擊才展開（展開狀態由 is-open 控制）
     var narrow = function () { return window.matchMedia('(max-width: 768px)').matches; };
     bar.addEventListener('click', function () {
       if (!narrow()) return;
@@ -457,7 +513,7 @@
   function openPanel() {
     var p = document.getElementById('omSearchPanel');
     if (p) p.classList.add('active');
-    loadSemantic();   // 面板一打開就開始載模型，使用者打完字通常已就緒
+    ensureData();
     var lbl = document.getElementById('omHotLabel');
     if (lbl) lbl.textContent = t('hot');
   }
@@ -466,131 +522,46 @@
     if (p) p.classList.remove('active');
   }
 
-  var queryTimer = null;
-  var lastQuery = '';
-
-  /** preset 有值＝拿已經算好的結果直接畫；沒有＝發動查詢 */
-  function render(query, preset) {
-    var list = document.getElementById('omSearchList');
-    if (!list) return;
-    var q = (query || '').trim();
-    lastQuery = q;
-
-    if (!preset) {
-      if (!q) { list.innerHTML = ''; return; }
-      if (q.length >= 2) loadSemantic();
-      // 延後 160ms：連續打字時只打最後一次，否則畫面會被較舊的回應反覆覆蓋
-      clearTimeout(queryTimer);
-      var seq = ++seqNo;
-      queryTimer = setTimeout(function () { runQuery(q, seq); }, 160);
-      return;
-    }
-
-    if (!preset.results.length) {
-      // 模型還在下載、且字面也沒命中：說明狀態，不要謊報「找不到」
-      if (preset.pending) {
-        list.innerHTML = '<div class="om-empty"><div class="s">' + t('loading') + '</div></div>';
-        return;
-      }
-      // 有「最接近的幾筆」就給建議，沒有才是真的死路
-      if (preset.suggestions && preset.suggestions.length) {
-        list.innerHTML =
-          '<div class="om-empty" style="padding:18px 18px 8px">' +
-            '<div class="t">' + t('maybeT', { q: esc(q) }) + '</div>' +
-            '<div class="s">' + t('maybeS') + '</div>' +
-          '</div>' +
-          preset.suggestions.map(resultRow).join('') +
-          '<div class="om-empty" style="padding:12px 18px 18px">' +
-            '<div class="s">' + t('other', { url: ROOT + 'contact.html' }) + '</div>' +
-          '</div>';
-        return;
-      }
-      list.innerHTML = '<div class="om-empty">' +
-        '<div class="t">' + t('noResult', { q: esc(q) }) + '</div>' +
-        '<div class="s">' + t('noHint', { url: ROOT + 'contact.html' }) + '</div>' +
-        '</div>';
-      return;
-    }
-
-    list.innerHTML = preset.results.map(resultRow).join('');
-  }
-
   function resultRow(x) {
     return '<a class="om-result" href="' + x.url + '">' +
       '<span class="om-result-icon"><i class="fa-solid ' + x.icon + '"></i></span>' +
       '<span class="om-result-info">' +
         '<span class="om-result-title">' + esc(x.title) + '</span>' +
-        '<span class="om-result-desc">' + (x.snippet || esc(x.desc)) + '</span>' +
+        '<span class="om-result-desc">' + x.snippet + '</span>' +
         (x.tag ? '<span class="om-result-tag">' + t('matched') + '<b>' + esc(x.tag) + '</b></span>' : '') +
       '</span>' +
     '</a>';
   }
 
-  function runQuery(q, seq) {
-    if (seq !== seqNo) return;
+  /* 純 JS 引擎，查詢是同步的，不需要防抖與序號競態處理 */
+  function render(query) {
+    var list = document.getElementById('omSearchList');
+    if (!list) return;
+    var q = (query || '').trim();
+    if (!q) { list.innerHTML = ''; return; }
 
-    // 先用字面快速通道給即時結果（模型還在下載時就是它在撐）
-    literalHits(q).then(function (lit) {
-      if (seq !== seqNo) return;
-      if (lit.length) render(q, { results: lit });
-
-      return semanticRanked(q).then(function (res) {
-        if (seq !== seqNo) return;
-
-        // 模型還沒就緒：維持字面結果；連字面也沒有就顯示「載入中」
-        if (!res) {
-          if (!lit.length) render(q, { results: [], pending: SEM.loading });
-          else queueLog(q, lit.length);
-          return;
-        }
-
-        var ranked = res.scored, qv = res.qv;
-
-        // 兩道關卡：最高分要夠高，且只留與最高分接近的幾筆
-        var best = ranked.length ? ranked[0].s : 0;
-        var topIsProduct = ranked.length && ranked[0].it.type === 'product';
-        var bestPage = 0;
-        ranked.forEach(function (x) { if (x.it.type !== 'product' && x.s > bestPage) bestPage = x.s; });
-
-        var confident = best >= SEM.FLOOR ||
-          (topIsProduct && (best - bestPage) >= SEM.PAGE_LEAD);
-
-        var gap = isLatinQuery(q) ? SEM.GAP_LATIN : SEM.GAP;
-        var good = confident
-          ? ranked.filter(function (x) { return x.it.type === 'product' && x.s >= best - gap; }).slice(0, SEM.max)
-          : [];
-
-        if (good.length) {
-          // 字面命中的排在前面（使用者打的就是正式品名，那一定是他要的）
-          var rows = lit.slice();
-          var seen = {};
-          rows.forEach(function (r) { seen[r.url + '|' + r.title] = true; });
-          good.forEach(function (x) {
-            var r = toRow(x.it, true, bestTag(x.it, qv, x.s));
-            if (!seen[r.url + '|' + r.title]) rows.push(r);
-          });
-          render(q, { results: rows });
-          queueLog(q, rows.length);
-        } else if (lit.length) {
-          render(q, { results: lit });
-          queueLog(q, lit.length);
-        } else {
-          // 沒有夠像的：列出最接近的三筆產品，不給死路。
-          // 這裡不標細項 —— 它們是「最接近的」，不是命中。
-          var near = ranked.filter(function (x) { return x.it.type === 'product'; }).slice(0, 3);
-          // 但先問這個查詢到底是不是在找產品：最高分的頁面贏過最高分的產品時
-          //（「聯繫」「工廠在哪」這種），推三筆擦邊球產品比不推還糟。
-          // 空狀態本來就寫著「歡迎直接與專員聯繫」並連到 contact.html，路沒斷。
-          var bestProduct = near.length ? near[0].s : 0;
-          if (bestPage > bestProduct) near = [];
-          render(q, { results: [], suggestions: near.map(function (x) { return toRow(x.it, true, null); }) });
-          queueLog(q, 0);
-        }
+    if (!buildIndex()) {
+      list.innerHTML = '<div class="om-empty"><div class="s">' + t('loading') + '</div></div>';
+      ensureData().then(function () {
+        var input = document.getElementById('omSearchInput');
+        if (input && input.value.trim() === q && buildIndex()) render(q);
       });
-    });
+      return;
+    }
+
+    var hits = search(q);
+    if (!hits.length) {
+      list.innerHTML = '<div class="om-empty">' +
+        '<div class="t">' + t('noResult', { q: esc(q) }) + '</div>' +
+        '<div class="s">' + t('noHint', { url: ROOT + 'contact.html' }) + '</div>' +
+        '</div>';
+      queueLog(q, 0);
+      return;
+    }
+    list.innerHTML = hits.map(function (h) { return resultRow(toRow(h, q)); }).join('');
+    queueLog(q, hits.length);
   }
 
-  // 保留這兩個名字：漢堡選單與舊頁面仍在呼叫
   window.openSearchModal = function () {
     ensureUI();
     var i = document.getElementById('omSearchInput');
@@ -599,17 +570,19 @@
     i.focus();
   };
   window.closeSearchModal = closePanel;
+  /* 頁首是動態注入的情境（navbar.js 晚於本檔）可再呼叫一次 */
+  window.OM_SEARCH_INIT = ensureUI;
+  window.OM_SEARCH_QUERY = search;
 
   document.addEventListener('click', function (e) {
-    var t = e.target;
+    var el = e.target;
     var bar = document.getElementById('omSearchBar');
-    if (bar && !bar.contains(t)) {
+    if (bar && !bar.contains(el)) {
       closePanel();
       var inp = document.getElementById('omSearchInput');
       if (!inp || !inp.value) bar.classList.remove('is-open');
     }
-
-    var tag = t.closest && t.closest('.om-tag');
+    var tag = el.closest && el.closest('.om-tag');
     if (tag) {
       e.preventDefault();
       var q = (isEn() && tag.getAttribute('data-q-en')) || tag.getAttribute('data-q');
