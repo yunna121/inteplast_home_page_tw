@@ -25,6 +25,22 @@
     document.head.appendChild(cssLink);
   }
 
+  // 瀏覽器分頁圖示（favicon）。原本各頁都沒設，分頁上會顯示瀏覽器預設地球圖示。
+  // 集中在這裡注入，五個頁面都不用改 <head>；rootPath 已處理 products/ 子目錄。
+  if (!document.querySelector('link[rel="icon"]')) {
+    const icon = document.createElement('link');
+    icon.rel = 'icon';
+    icon.type = 'image/svg+xml';
+    icon.href = `${rootPath}src/inteplast-logo-blue.svg`;
+    document.head.appendChild(icon);
+    // Safari 分頁釘選用
+    const mask = document.createElement('link');
+    mask.rel = 'mask-icon';
+    mask.href = `${rootPath}src/inteplast-logo-blue.svg`;
+    mask.setAttribute('color', '#175EA9');
+    document.head.appendChild(mask);
+  }
+
   const pathName = window.location.pathname.toLowerCase();
   let activePage = 'home';
   if (pathName.includes('about')) activePage = 'about';
