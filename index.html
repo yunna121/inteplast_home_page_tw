@@ -2067,7 +2067,7 @@
        讀不到 xlsx 時退回 src/data/products-data.js，都讀不到則保留 HTML 裡現有的六列 -->
   <script src="./src/data/products-data.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script>
+  <!-- <script>
     (function () {
       var SHEET = '產品資料';
       function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
@@ -2205,7 +2205,7 @@
         reveal();
         if (typeof applyLanguage === 'function') { try { applyLanguage(); } catch (e) { } }
         return true;
-      }
+      } -->
 
   //     function fromDataFile() {
   //       var rows = window.PRODUCT_DATA || [];
@@ -2267,7 +2267,7 @@
   //     });
   //   })();
   // </script>
- 
+ <script>
     (function () {
       function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
