@@ -41,6 +41,36 @@
     document.head.appendChild(mask);
   }
 
+  // 全站字體與字級（src/type.css）。原本五個頁面各自定義字體與級數，
+  // 同樣寫 2rem 在不同字體下看起來就是不一樣大。這裡集中注入，五頁都不用改 <head>。
+  // 附加在 navbar.css 之後、且在各頁區域樣式之後（head 最後），所以同權重時勝出。
+  if (!document.getElementById('site-type-css')) {
+    const typeLink = document.createElement('link');
+    typeLink.id = 'site-type-css';
+    typeLink.rel = 'stylesheet';
+    typeLink.href = `${rootPath}src/type.css`;
+    document.head.appendChild(typeLink);
+  }
+
+  // 統一的字體來源。五頁原本各自請求不同組合（Inter+Oswald / Barlow Condensed /
+  // Outfit / DM Sans），改為同一組，外部字體請求也跟著減少。
+  if (!document.getElementById('site-type-fonts')) {
+    const pre1 = document.createElement('link');
+    pre1.rel = 'preconnect';
+    pre1.href = 'https://fonts.googleapis.com';
+    document.head.appendChild(pre1);
+    const pre2 = document.createElement('link');
+    pre2.rel = 'preconnect';
+    pre2.href = 'https://fonts.gstatic.com';
+    pre2.crossOrigin = 'anonymous';
+    document.head.appendChild(pre2);
+    const fonts = document.createElement('link');
+    fonts.id = 'site-type-fonts';
+    fonts.rel = 'stylesheet';
+    fonts.href = 'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap';
+    document.head.appendChild(fonts);
+  }
+
   const pathName = window.location.pathname.toLowerCase();
   let activePage = 'home';
   if (pathName.includes('about')) activePage = 'about';

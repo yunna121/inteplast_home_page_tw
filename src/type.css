@@ -1,0 +1,200 @@
+/* ============================================================
+   src/type.css — 全站字體與字級的唯一來源
+   ------------------------------------------------------------
+   原本五個頁面各自定義字體與級數：
+     首頁      Inter + Oswald      hero 42–80px
+     關於營德  Barlow Condensed    hero 48–102px
+     產品中心  Outfit              hero 26–37px
+     永續發展  DM Sans             hero 52–80px、body 20px
+     聯繫我們  Inter               hero 40px、h2 行內 1.6rem
+   同樣寫 2rem，不同字體的字面高度差很多，所以看起來就是不一樣大。
+
+   這個檔案由 navbar.js 附加到 <head> 最後（跟 navbar.css、favicon 同一個做法），
+   所以它排在各頁的區域樣式之後，同權重時勝出。五個頁面的 HTML 都不用改。
+
+   級數：內文 16px 為基準，每階 ×1.25，溫和對比。
+   Barlow Condensed 沒有中文字 —— 中文標題實際由 Noto Sans TC 呈現，
+   窄體只作用在英文、數字與全大寫小標上。中文的統一來自級數與字重。
+   ============================================================ */
+
+:root {
+  --font-display: 'Barlow Condensed', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+  --font-body: 'Inter', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+
+  --fs-hero: clamp(2.5rem, 3.8vw, 3.25rem);   /* 40 → 52px */
+  --fs-h1: clamp(2.125rem, 3vw, 2.75rem);     /* 34 → 44px */
+  --fs-h2: clamp(1.75rem, 2.2vw, 2.125rem);   /* 28 → 34px */
+  --fs-h3: 1.5rem;                            /* 24px */
+  --fs-h4: 1.25rem;                           /* 20px */
+  --fs-lead: 1.125rem;                        /* 18px */
+  --fs-body: 1rem;                            /* 16px */
+  --fs-sm: 0.875rem;                          /* 14px */
+  --fs-eyebrow: 0.8125rem;                    /* 13px */
+
+  --lh-tight: 1.1;
+  --lh-heading: 1.22;
+  --lh-body: 1.7;
+}
+
+/* ---------- 基準 ---------- */
+/* 權重刻意提高到 html body：要蓋過 sustainability-redesign.css:654 的
+   body { font-size: 20px }，那頁整頁比其他頁大 25%。 */
+html body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+/* ---------- 標題 ---------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+h1 { font-size: var(--fs-h1); line-height: var(--lh-tight); }
+h2 { font-size: var(--fs-h2); line-height: var(--lh-heading); }
+h3 { font-size: var(--fs-h3); line-height: 1.32; }
+h4 { font-size: var(--fs-h4); line-height: 1.4; font-family: var(--font-body); }
+h5, h6 { font-size: var(--fs-body); line-height: 1.5; font-family: var(--font-body); }
+
+/* ---------- Hero 主標（四頁四個 class 名，全部收斂到同一個級數） ---------- */
+/* .story-hero h1 與 .hero-big-title 是後來補的：
+   關於營德的標題是 class + 元素（權重高於單純 class 選擇器）、
+   首頁是 .hero-big-title，兩者原本都沒被下面這組選到，
+   所以那兩頁的 102px / 80px 一直還在生效。
+   背景照片與影片不在這裡處理 —— 各頁的 Hero 影像保持原樣。 */
+.hero-title,              /* 首頁 */
+.hero-big-title,          /* 首頁（實際使用的 class） */
+.page-hero-title,         /* 關於營德 */
+.story-hero h1,           /* 關於營德（實際使用的選擇器） */
+.products-hero-title,     /* 產品中心 */
+.hero-grid h1,            /* 永續發展（sustainability-redesign.css 是 .hero h1，
+                             這裡用 .hero-grid h1 —— 同權重但載入更晚所以勝出，
+                             而且 .hero-grid 只存在於永續頁，不會誤中首頁的 .hero） */
+.page-hero h1 {           /* 聯繫我們（contact.html:56 寫死 2.5rem） */
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.01em;
+}
+
+/* Hero 的副標與導言 */
+.hero-sub-tagline,
+.hero-summary,
+.products-hero-desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-lead);
+  line-height: 1.8;
+}
+
+/* ---------- 區塊標題 ---------- */
+.section-title,           /* 關於營德 */
+.section-heading,         /* 永續發展 */
+.products-section-title,  /* 產品中心 */
+.contact-section-title {  /* 聯繫我們 */
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+  letter-spacing: -0.01em;
+}
+
+/* 關於營德同一頁內另外覆寫成 2.9rem / 3.25rem 的那幾處，一併收回來 */
+.about-page .section-title,
+.about-intro .section-title,
+.about-timeline .section-title {
+  font-size: var(--fs-h2);
+}
+
+/* ---------- 導言、內文、註解 ---------- */
+.hero-subtitle,
+.page-hero-subtitle,
+.section-lead,
+.lead {
+  font-family: var(--font-body);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body);
+  font-weight: 400;
+}
+
+p, li, td, th, dd, dt, label, input, textarea, select, button {
+  font-family: var(--font-body);
+}
+
+p { font-size: var(--fs-body); line-height: var(--lh-body); text-wrap: pretty; }
+
+.note, .footnote, .caption, footer small {
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+}
+
+/* ---------- 小標（全大寫）：Barlow Condensed 真正發揮的地方 ---------- */
+.eyebrow, .section-eyebrow, .label-caps {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ---------- 卡片 ---------- */
+.card-title, .product-card-title, .value-card h3, .feature-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: 1.32;
+}
+
+.card-text, .product-card-text, .value-card p, .feature-card p {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+/* ---------- 行內寫死的例外 ---------- */
+/* 聯繫我們的兩個 h2 級數寫在 HTML 的 style="font-size:1.6rem" 上。
+   行內樣式權重高過所有 CSS 檔，只有 !important 蓋得過去。
+   長期正解是把那兩個行內 style 刪掉，這裡先讓外觀統一。 */
+#contactFormSection h2[style],
+#contactInfoSection h2[style],
+.contact-card h2[style] {
+  font-size: var(--fs-h2) !important;
+  font-family: var(--font-display) !important;
+  line-height: var(--lh-heading) !important;
+}
+
+/* 永續發展的區塊標題與內文級數是在 sustainability-redesign.css 檔尾
+   用「同選擇器再寫一次」的方式放大的（.intro h2 / .section-heading h2 到 3rem、
+   .intro-copy 1.35rem、.points li 1.2rem…），權重與此處相同但載入更早，
+   所以下面這些會勝出。 */
+.intro h2,
+.section-heading h2 {
+  font-size: var(--fs-h2);
+  font-family: var(--font-display);
+  line-height: var(--lh-heading);
+}
+
+.intro-copy,
+.points li,
+.green-standard-summary,
+.green-standard-list li,
+.product-content p,
+.commitment-card p,
+.section-heading > p:last-child {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+/* ---------- 不列入統一範圍 ---------- */
+/* 首頁的裝飾性大數字（170–220px）是版面構成元素，不是文字階層，保持原樣。
+   導覽列與頁尾由 navbar.css 管理，不在這裡覆寫。 */
+.stat-number, .big-number, .decor-number { font-size: revert; }
+
+/* ---------- 手機 ---------- */
+@media (max-width: 768px) {
+  :root {
+    --fs-hero: clamp(1.875rem, 7vw, 2.25rem);   /* 30 → 36px */
+    --fs-h1: clamp(1.625rem, 6vw, 1.875rem);    /* 26 → 30px */
+    --fs-h2: clamp(1.375rem, 5vw, 1.625rem);    /* 22 → 26px */
+    --fs-h3: 1.25rem;
+    --fs-lead: 1.0625rem;
+  }
+}
