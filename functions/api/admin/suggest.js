@@ -10,9 +10,21 @@ import { json, fail } from "../_lib.js";
    錯的產品，而且沒人會發現。所以這裡只寫進待審表，
    人在編輯頁按「採用」才會進 synonyms。
 
-   需要在 Pages → Settings → Bindings 綁 Workers AI，變數名 AI。 */
+   模型：Cloudflare 的目錄換得很快（先前寫死的 qwen1.5 已於
+   2025-10 下架），所以這裡準備一組候選、依序嘗試，第一個跑得
+   起來的就用，並在回傳裡告訴前端用了哪一支。
+   要指定特定模型就在 Pages 設環境變數 AI_MODEL。
 
-const MODEL = "@cf/qwen/qwen1.5-14b-chat-awq";
+   需要在 Pages → 設定 → 繫結 新增 Workers AI，變數名稱 AI。 */
+
+const MODELS = [
+  "@cf/meta/llama-4-scout-17b-16e-instruct",
+  "@cf/qwen/qwen3-30b-a3b",
+  "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "@cf/openai/gpt-oss-20b",
+  "@cf/mistralai/mistral-small-3.1-24b-instruct",
+  "@cf/meta/llama-3.1-8b-instruct",
+];
 
 function buildPrompt(product) {
   return `你是台灣塑膠製品公司的電商搜尋顧問。
@@ -37,21 +49,58 @@ function buildPrompt(product) {
 ["垃圾袋","廚餘袋","trash bag"]`;
 }
 
+/** 不同模型的回傳結構不一樣，這裡統一抽出純文字 */
+function textOf(res) {
+  if (!res) return "";
+  if (typeof res === "string") return res;
+  if (typeof res.response === "string") return res.response;
+  if (res.result && typeof res.result.response === "string") return res.result.response;
+  if (Array.isArray(res.output)) {
+    // gpt-oss 這類的結構：output[].content[].text
+    return res.output
+      .map((o) => (o && Array.isArray(o.content) ? o.content.map((c) => (c && c.text) || "").join("") : ""))
+      .join("\n");
+  }
+  if (Array.isArray(res.choices) && res.choices[0] && res.choices[0].message) {
+    const content = res.choices[0].message.content;
+    if (typeof content === "string") return content;
+  }
+  return JSON.stringify(res);
+}
+
 function parseList(text) {
   const raw = String(text || "");
   const start = raw.indexOf("[");
   const end = raw.lastIndexOf("]");
-  if (start === -1 || end <= start) return [];
-  try {
-    const arr = JSON.parse(raw.slice(start, end + 1));
-    if (!Array.isArray(arr)) return [];
-    return arr
-      .map((x) => String(x || "").trim())
-      .filter((x) => x.length >= 2 && x.length <= 12)
-      .slice(0, 10);
-  } catch (err) {
-    return [];
+
+  let words = [];
+  if (start > -1 && end > start) {
+    try {
+      const arr = JSON.parse(raw.slice(start, end + 1));
+      if (Array.isArray(arr)) words = arr.map((x) => String(x || ""));
+    } catch (err) { /* 落到下面的寬鬆解析 */ }
   }
+
+  // 模型沒有照格式輸出時，退而用換行／逗號切開
+  if (!words.length) {
+    words = raw
+      .replace(/^[\s\S]*?[:：]/, "")
+      .split(/[\n,，、]+/)
+      .map((x) => x.replace(/^[\s\-*\d.、"'`]+|["'`]+$/g, ""));
+  }
+
+  const seen = new Set();
+  return words
+    .map((x) => x.trim())
+    .filter((x) => {
+      if (x.length < 2 || x.length > 12) return false;
+      if (/[。！？]/.test(x)) return false;
+      const key = x.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .slice(0, 10);
 }
 
 export async function onRequest(context) {
@@ -60,13 +109,14 @@ export async function onRequest(context) {
 
   if (request.method !== "POST") return json({ error: "只接受 POST" }, 405);
   if (!env.AI) {
-    return json({ error: "還沒綁定 Workers AI。請到 Pages → Settings → Bindings 新增，變數名 AI" }, 500);
+    return json({ error: "還沒繫結 Workers AI。請到 Pages → 設定 → 繫結 新增，變數名稱 AI" }, 500);
   }
 
   try {
     const body = await request.json().catch(() => ({}));
     const wantAll = !!body.all;
     const productId = Number(body.product_id || 0);
+    const candidates = env.AI_MODEL ? [env.AI_MODEL, ...MODELS] : MODELS;
 
     const products = wantAll
       ? (await DB.prepare("SELECT * FROM products ORDER BY id").all()).results || []
@@ -74,7 +124,6 @@ export async function onRequest(context) {
 
     if (!products.length) return json({ error: "找不到產品" }, 404);
 
-    // 已經有的別名（含已退回的建議）不要重複產生
     const [existing, rejected] = await Promise.all([
       DB.prepare("SELECT product_id, say FROM synonyms").all(),
       DB.prepare("SELECT product_id, say FROM synonym_suggestions WHERE status = 'rejected'").all(),
@@ -86,26 +135,43 @@ export async function onRequest(context) {
 
     const added = [];
     const skipped = [];
+    const errors = [];
+    let usedModel = null;
 
     for (const product of products) {
-      const res = await env.AI.run(MODEL, {
-        messages: [
-          { role: "system", content: "你只輸出 JSON 陣列，不輸出任何其他文字。" },
-          { role: "user", content: buildPrompt(product) },
-        ],
-        max_tokens: 300,
-      });
+      let words = [];
 
-      const words = parseList(res && (res.response || res.result || res));
+      // 已經找到可用的模型就只用那一支，否則依序試
+      for (const model of usedModel ? [usedModel] : candidates) {
+        try {
+          const res = await env.AI.run(model, {
+            messages: [
+              { role: "system", content: "你只輸出 JSON 陣列，不輸出任何其他文字。" },
+              { role: "user", content: buildPrompt(product) },
+            ],
+            max_tokens: 300,
+          });
+          words = parseList(textOf(res));
+          if (words.length) {
+            usedModel = model;
+            break;
+          }
+        } catch (err) {
+          const message = String((err && err.message) || err);
+          if (errors.indexOf(model + "：" + message) === -1) errors.push(model + "：" + message);
+        }
+      }
+
       if (!words.length) {
-        skipped.push({ product_id: product.id, name: product.name, reason: "模型沒有回傳可用的詞" });
+        skipped.push({ product_id: product.id, name: product.name });
         continue;
       }
 
       const stmts = [];
       words.forEach((say) => {
-        if (String(say).trim().toLowerCase() === String(product.name).trim().toLowerCase()) return;
+        if (say.trim().toLowerCase() === String(product.name).trim().toLowerCase()) return;
         if (taken.has(product.id + "\u0000" + say.toLowerCase())) return;
+        taken.add(product.id + "\u0000" + say.toLowerCase());
         stmts.push(
           DB.prepare(
             "INSERT OR IGNORE INTO synonym_suggestions (product_id, say, source) VALUES (?, ?, 'ai')"
@@ -117,7 +183,11 @@ export async function onRequest(context) {
       if (stmts.length) await DB.batch(stmts);
     }
 
-    return json({ ok: true, added, skipped, model: MODEL });
+    if (!added.length && errors.length) {
+      return json({ error: "所有模型都試過了：" + errors.join("｜") }, 502);
+    }
+
+    return json({ ok: true, added, skipped, model: usedModel, errors });
   } catch (error) {
     return fail(error);
   }
