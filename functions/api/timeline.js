@@ -1,7 +1,7 @@
 export async function onRequest(context) {
   try {
     const { results } = await context.env.DB.prepare(
-      "SELECT * FROM timeline"
+      "SELECT * FROM timeline ORDER BY CAST(year AS INTEGER), id"
     ).all();
 
     return new Response(JSON.stringify(results), {

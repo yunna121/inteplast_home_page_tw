@@ -134,6 +134,23 @@
       article.appendChild(copy);
       host.appendChild(article);
     });
+    /* 這些節點是 fetch 回來才建立的，about.html 的 IntersectionObserver
+       在載入時已經掃完一次，不會觀察到它們 —— 自己補上觀察／顯示。 */
+    var fresh = host.querySelectorAll('.reveal');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      fresh.forEach(function (el) { el.classList.add('visible'); });
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12 });
+      fresh.forEach(function (el) { io.observe(el); });
+    }
 
     /* 語言切換與進場動畫都是掃描 DOM 的，插完內容後再叫一次 */
     if (typeof window.applyLanguage === 'function') window.applyLanguage();
