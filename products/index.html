@@ -259,19 +259,14 @@
     .card-image-box {
       position: relative;
       background: #F1F5F9;
-      padding: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       overflow: hidden;
     }
 
     .card-image-box img {
+      display: block;
       width: 100%;
-      height: 340px;
+      height: 100%;
       object-fit: cover;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-sm);
       transition: transform 0.5s ease;
     }
 
@@ -514,7 +509,7 @@
         grid-template-columns: 1fr;
       }
       .card-image-box img {
-        height: 260px;
+        height: 320px;
       }
       .card-info-content {
         padding: 28px;
@@ -620,23 +615,8 @@
         });
       }
 
-      // 去背照 contain 完整呈現；白底／實拍方框照改 cover 並用 multiply 融進背景（載入後取樣四角 alpha 自動判斷）
-      function fitImage(img) {
-        try {
-          var w = 24, h = 24;
-          var c = document.createElement('canvas');
-          c.width = w; c.height = h;
-          var ctx = c.getContext('2d');
-          ctx.drawImage(img, 0, 0, w, h);
-          var d = ctx.getImageData(0, 0, w, h).data;
-          var pts = [0, (w - 1) * 4, (w * (h - 1)) * 4, (w * h - 1) * 4];
-          if (pts.every(function (i) { return d[i + 3] > 250; })) {
-            img.style.objectFit = 'cover';
-            img.style.maxHeight = '';
-            img.style.mixBlendMode = 'multiply';
-          }
-        } catch (e) { /* 無法取樣時維持 contain */ }
-      }
+      /* 圖片滿版（CSS 的 object-fit: cover），不再依去背／白底切換
+         contain 與 multiply，原本的 fitImage() 取樣邏輯已移除。 */
 
       /* 卡片的錨點代號：首頁與搜尋結果都用 products/index.html#cat-xxx 連過來 */
       function getCatId(cat, i2) {
@@ -734,9 +714,6 @@
             if (!url) { ph.remove(); return; }
             var img = document.createElement('img');
             img.alt = ph.getAttribute('data-alt') || '';
-            img.style.objectFit = 'contain';
-            img.style.maxHeight = '260px';
-            img.onload = function () { fitImage(img); };
             img.src = url;
             ph.replaceWith(img);
           });
