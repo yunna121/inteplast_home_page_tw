@@ -572,17 +572,17 @@
         <button class="filter-tab-btn active" onclick="filterGallery('all', this)">
           <i class="fa-solid fa-layer-group"></i> <span data-tw="顯示全部 All" data-en="All Categories">顯示全部 All</span>
         </button>
-        <!-- 產品按鈕由 products-data 產生 -->
+        <!-- 產品按鈕由 /api/products 產生 -->
       </div>
     </div>
   </section>
 
   <!-- Gallery Main Showcase Container -->
   <main class="gallery-container">
-    <!-- 卡片由 src/data/products-data.xlsx（工作表「產品資料」）產生，見頁尾腳本 -->
+    <!-- 卡片由 D1 資料庫（/api/products）產生，見頁尾腳本 -->
   </main>
 
-  <!-- 專利區：內容由 products-data 的「專利證書圖／專利號」欄產生，見頁尾腳本 -->
+  <!-- 專利區：內容由 D1 products 的 patent／patent_no 欄產生，見頁尾腳本 -->
   <section class="patent-section" id="patentSection" data-screen-label="美國專利"></section>
 
   <!-- Footer Footer Auto-Injected / Standard Footer -->
@@ -592,14 +592,9 @@
     </div>
   </footer>
 
-  <!-- SheetJS Library for Direct Excel (.xlsx) Parsing -->
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-
-  <!-- 產品中心卡片：讀 src/data/products-data.xlsx（工作表「產品資料」），讀不到時退回 products-data.js -->
-  <script src="../src/data/products-data.js"></script>
+  <!-- 產品中心卡片：唯一資料來源是 D1 資料庫（/api/products） -->
   <script>
     (function () {
-      var SHEET = '產品資料';
       function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
       // 圖片路徑：只寫檔名 → 先試 src/product-img/，載不到自動改試 src/ 根目錄
@@ -762,78 +757,68 @@
         return true;
       }
 
-      function fromSheet(wb) {
-        var ws = wb.Sheets[SHEET] || wb.Sheets[wb.SheetNames[0]];
-        if (!ws) return [];
-        return XLSX.utils.sheet_to_json(ws, { defval: '' }).map(function (r) {
+      /* D1 欄位名正規化：資料庫可能用 description／image（時間軸那張表就是
+         description），這裡把兩種寫法都收成頁面用的 desc／img。 */
+      function normalize(rows) {
+        var pick = function (r, keys) {
+          for (var i = 0; i < keys.length; i++) {
+            var v = String(r[keys[i]] == null ? '' : r[keys[i]]).trim();
+            if (v) return v;
+          }
+          return '';
+        };
+        return (Array.isArray(rows) ? rows : []).map(function (r) {
           return {
-            name: String(r['產品'] || r['產品名稱'] || '').trim(),
-            name_en: String(r['英文名稱'] || '').trim(),
-            highlight: String(r['重點'] || '').trim(),
-            highlight_en: String(r['重點英文'] || '').trim(),
-            desc: String(r['產品敘述'] || '').trim(),
-            desc_en: String(r['產品敘述英文'] || '').trim(),
-            img: String(r['產品圖片'] || '').trim(),
-            items: String(r['產品細項'] || '').trim(),
-            items_en: String(r['產品細項英文'] || '').trim(),
-            patent: String(r['專利證書圖'] || '').trim(),
-            patent_no: String(r['專利號'] || '').trim()
+            name: pick(r, ['name', 'product', 'title']),
+            name_en: pick(r, ['name_en', 'title_en']),
+            highlight: pick(r, ['highlight']),
+            highlight_en: pick(r, ['highlight_en']),
+            desc: pick(r, ['desc', 'description']),
+            desc_en: pick(r, ['desc_en', 'description_en']),
+            img: pick(r, ['img', 'image']),
+            items: pick(r, ['items']),
+            items_en: pick(r, ['items_en']),
+            patent: pick(r, ['patent']),
+            patent_no: pick(r, ['patent_no'])
           };
         }).filter(function (r) { return r.name; });
       }
 
-      /* 安全網：xlsx 少填某個欄位時，用 products-data.js 依產品名補上，
-         xlsx 有值就一律以 xlsx 為準。
-         （會需要這層是因為上面的 fromSheet 曾經漏讀英文與專利欄位——
-           xlsx 明明有「重點英文」等欄，網站卻整批丟掉，切英文只好退回中文。） */
-      function fillMissing(rows) {
-        var fallback = window.PRODUCT_DATA || [];
-        if (!fallback.length) return rows;
-        var byName = {};
-        fallback.forEach(function (f) { byName[String(f.name || '').trim()] = f; });
-        var keys = ['name_en', 'highlight_en', 'desc_en', 'items_en', 'patent', 'patent_no'];
-        rows.forEach(function (r) {
-          var f = byName[r.name];
-          if (!f) return;
-          keys.forEach(function (k) {
-            if (!String(r[k] || '').trim() && String(f[k] || '').trim()) r[k] = f[k];
-          });
-        });
-        return rows;
-      }
-
-      function fromDataFile() {
-        var rows = window.PRODUCT_DATA || [];
-        if (!rows.length || !render(rows)) console.warn('[產品中心] 讀不到產品資料，請確認 src/data/products-data.js 已載入。');
-      }
-
       document.addEventListener('DOMContentLoaded', function () {
-        if (!window.XLSX) { fromDataFile(); return; }
-        fetch('../src/data/products-data.xlsx', { cache: 'no-cache' })
-          .then(function (res) { if (!res.ok) throw new Error('xlsx ' + res.status); return res.arrayBuffer(); })
-          .then(function (buf) {
-            var rows = fillMissing(fromSheet(XLSX.read(buf, { type: 'array' })));
-            if (!rows.length || !render(rows)) fromDataFile();
+        fetch('/api/products', { cache: 'no-cache' })
+          .then(function (res) {
+            if (!res.ok) throw new Error('API 狀態錯誤: ' + res.status);
+            return res.json();
+          })
+          .then(function (data) {
+            var rows = normalize(data);
+            if (!rows.length) {
+              console.warn('[產品中心] D1 資料庫沒有產品資料');
+              return;
+            }
+            /* 專利區與這裡讀同一批資料，交給它用 */
+            window.__PRODUCT_ROWS = rows;
+            render(rows);
+            if (typeof window.buildPatentSection === 'function') window.buildPatentSection();
           })
           .catch(function (err) {
-            console.info('[產品中心] 改用 src/data/products-data.js（' + err.message + '）');
-            fromDataFile();
+            console.error('[產品中心] 無法從 API 取得產品資料：', err);
           });
       });
     })();
 
-    /* 專利區：資料來自 products-data 的「專利證書圖／專利號」欄。
+    /* 專利區：資料來自 D1 products 的 patent／patent_no 欄。
        只在使用者明確選到那個產品時才出現——「顯示全部」是總覽，
        塞一塊只屬於單一產品的專利說明會不成比例。 */
     (function () {
       function build() {
-        var rows = window.PRODUCT_DATA || [];
+        var rows = window.__PRODUCT_ROWS || [];
         var row = null;
         for (var i = 0; i < rows.length; i++) {
           if (String(rows[i].patent || '').trim()) { row = rows[i]; break; }
         }
-        /* Excel 的「專利證書圖」欄若沒填，就用內建的 Scale Sheet 證書，
-           免得同事重新轉檔後整個專利區消失 */
+        /* 資料庫的 patent 欄若沒填，就用內建的 Scale Sheet 證書，
+           免得改資料後整個專利區消失 */
         if (!row) {
           for (var j = 0; j < rows.length; j++) {
             if (/scale\s*sheet/i.test(String(rows[j].name || ''))) { row = rows[j]; break; }
@@ -866,6 +851,10 @@
         if (typeof window.applyLanguage === 'function') window.applyLanguage();
       }
 
+      /* 產品資料是 fetch 回來才有的，所以不綁 DOMContentLoaded ——
+         由上面取完資料後呼叫。 */
+      window.buildPatentSection = build;
+
       window.syncPatentSection = function (category) {
         var sec = document.getElementById('patentSection');
         if (!sec) return;
@@ -873,8 +862,6 @@
         var target = sec.getAttribute('data-patent-category');
         sec.classList.toggle('is-visible', !!target && category === target);
       };
-
-      document.addEventListener('DOMContentLoaded', function () { build(); });
     })();
 
     function filterGallery(category, btnElement) {

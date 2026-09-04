@@ -1,8 +1,9 @@
 export async function onRequest(context) {
   try {
-    // 透過我們剛剛設定的變數 DB，去資料庫撈取 products 表格的所有資料
+    // 卡片編號（001、002…）與篩選鈕順序都看這個順序，所以要明確排序，
+    // 不能靠 SELECT * 的預設回傳順序。
     const { results } = await context.env.DB.prepare(
-      "SELECT * FROM products"
+      "SELECT * FROM products ORDER BY id"
     ).all();
 
     // 將撈出來的資料轉換成 JSON 格式，回傳給前端網頁

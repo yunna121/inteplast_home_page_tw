@@ -2069,8 +2069,10 @@
     (function () {
       function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
+      /* 首頁讀 img_home，產品中心讀 img —— 同一個產品兩張圖，各頁一張。
+         img_home 沒填時沿用 img，免得首頁開天窗。 */
       function photoOf(row) {
-        var n = String(row.img || '').trim().replace(/^\.?\/?src\//, '');
+        var n = String(row.img_home || row.img || '').trim().replace(/^\.?\/?src\//, '');
         if (!n) return { main: '', backup: '' };
         if (n.indexOf('/') > -1) return { main: './src/' + n, backup: '' };
         return { main: './src/product-img/' + n, backup: './src/' + n };
