@@ -1,3 +1,5 @@
+import { attachTranslations, json, fail } from "./_lib.js";
+
 export async function onRequest(context) {
   try {
     // year 是 TEXT（"1989"、"1990s\n-2000s"），字串排序會亂 ——
@@ -6,15 +8,10 @@ export async function onRequest(context) {
       "SELECT * FROM timeline ORDER BY CAST(year AS INTEGER), id"
     ).all();
 
-    return new Response(JSON.stringify(results), {
-      headers: {
-        "content-type": "application/json;charset=UTF-8",
-      },
-    });
+    const rows = await attachTranslations(context.env.DB, "timeline", results || []);
+
+    return json(rows);
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { "content-type": "application/json;charset=UTF-8" }
-    });
+    return fail(error);
   }
 }

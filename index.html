@@ -1687,7 +1687,7 @@
         全線產品皆以台塑原料自製，嘉義新港基地一貫作業，從家用清潔袋到集團專利 Scale Sheet。</p>
     </div>
 
-    <!-- 產品列全部由 src/data/products-data.xlsx（工作表「產品資料」）產生，見頁尾腳本；此處不寫死任何產品 -->
+    <!-- 產品列全部由 D1 的 products 表（GET /api/products）產生，見頁尾腳本；此處不寫死任何產品 -->
     <div class="ps-list"></div>
 
 
@@ -2070,9 +2070,14 @@
       function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
       /* 首頁讀 img_home，產品中心讀 img —— 同一個產品兩張圖，各頁一張。
-         img_home 沒填時沿用 img，免得首頁開天窗。 */
+         img_home 沒填時沿用 img，免得首頁開天窗。
+
+         路徑三種寫法都吃：/media/x.png（編輯頁上傳到 R2 的）與
+         http(s):// 直接用；只寫檔名的先試 src/product-img/，再試 src/。 */
       function photoOf(row) {
-        var n = String(row.img_home || row.img || '').trim().replace(/^\.?\/?src\//, '');
+        var raw = String(row.img_home || row.img || '').trim();
+        if (/^(https?:)?\/\//.test(raw) || raw.charAt(0) === '/') return { main: raw, backup: '' };
+        var n = raw.replace(/^\.?\/?src\//, '');
         if (!n) return { main: '', backup: '' };
         if (n.indexOf('/') > -1) return { main: './src/' + n, backup: '' };
         return { main: './src/product-img/' + n, backup: './src/' + n };

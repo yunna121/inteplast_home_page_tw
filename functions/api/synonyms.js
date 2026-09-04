@@ -1,20 +1,18 @@
+import { json, fail } from "./_lib.js";
+
 export async function onRequest(context) {
   try {
-    // say = 客戶會打的詞、mean = 我們資料裡真正有的詞（多個用「、」分隔）。
-    // 依 say 排序，方便日後在編輯頁上以固定順序呈現。
+    // 一列＝一個別名掛在一個產品上。product_id 指向 products.id。
+    // 依產品分組回傳，編輯頁可以直接照這個順序把別名列在各產品底下。
     const { results } = await context.env.DB.prepare(
-      "SELECT id, say, mean FROM synonyms ORDER BY say"
+      `SELECT s.id, s.product_id, s.say, p.name AS product_name
+         FROM synonyms s
+         JOIN products p ON p.id = s.product_id
+        ORDER BY s.product_id, s.say`
     ).all();
 
-    return new Response(JSON.stringify(results), {
-      headers: {
-        "content-type": "application/json;charset=UTF-8",
-      },
-    });
+    return json(results || []);
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { "content-type": "application/json;charset=UTF-8" }
-    });
+    return fail(error);
   }
 }

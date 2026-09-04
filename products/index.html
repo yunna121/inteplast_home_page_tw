@@ -590,9 +590,14 @@
     (function () {
       function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
-      // 圖片路徑：只寫檔名 → 先試 src/product-img/，載不到自動改試 src/ 根目錄
+      /* 圖片路徑三種寫法都吃：
+           /media/x.png（編輯頁上傳到 R2 的）→ 直接用
+           http(s)://…            → 直接用
+           只寫檔名                → 先試 src/product-img/，載不到改試 src/ 根目錄 */
       function photoOf(row) {
-        var n = String(row.img || '').trim().replace(/^\.?\/?src\//, '');
+        var raw = String(row.img || '').trim();
+        if (/^(https?:)?\/\//.test(raw) || raw.charAt(0) === '/') return { main: raw, backup: '' };
+        var n = raw.replace(/^\.?\/?src\//, '');
         if (!n) return { main: '', backup: '' };
         if (n.indexOf('/') > -1) return { main: '../src/' + n, backup: '' };
         return { main: '../src/product-img/' + n, backup: '../src/' + n };

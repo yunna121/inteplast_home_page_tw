@@ -12,7 +12,7 @@
 
    BM25 沒有這個問題：查詢詞一個都沒中就是 0 筆。
    「產品中心沒有的東西就搜不到」是引擎的自然行為，不是調參調出來的。
-   代價是同義詞要人工維護（D1 的 synonyms 表），但品項只有 7 項、
+   代價是同義詞要人工維護（D1 的 synonyms 表，一列一個別名掛在產品上），但品項只有 7 項、
    採購講的詞彙固定，而且 0 筆的搜尋已經寫進 Google Sheet，
    那張表就是補同義詞的清單。
 
@@ -51,16 +51,33 @@
      資料在 D1 的 synonyms 表（GET /api/synonyms），由 ensureData()
      連同產品資料一起取回。
 
-       say  = 客戶會打的詞（垃圾袋）
-       mean = 我們資料裡真正有的詞（清潔袋），多個用「、」分隔
+       product_id = 對應到哪個產品（外鍵，指向 products.id）
+       say        = 客戶會打的別名（垃圾袋）
+
+     一列就是「一個別名掛在一個產品上」。同一個別名可以掛給多個
+     產品（塑膠袋 → 清潔袋、蔬果袋），就寫成兩列。
+
+     為什麼掛 id 而不是打字寫對應詞：
+     1) 產品改名時同義詞不會失效 —— 目標是 id，不是字面
+     2) 編輯頁可以按產品分組（清潔袋底下列出它的別名），
+        管理的人不必讀一張沒有分類的長清單
+     3) 命中後注入的是「該產品自己的品名」，不可能打錯字
 
      查詢時「附加」而非「取代」，所以打正式品名不會被影響。
-     新增方式：看搜尋紀錄裡「0 筆」的字，補一列進 synonyms 表。
+     新增方式：看搜尋紀錄裡「0 筆」的字，在該產品底下補一個別名。
 
      刻意不在這裡放一份備援表 —— 那會變成兩個正確答案。
-     API 拿不到時搜尋照常運作，只是少了同義詞擴展。
+     API 拿不到時搜尋照常運作，只是少了別名擴展。
      ============================================================ */
-  var SYN = {};
+  var SYN = {};        // { 別名: [product_id, ...] }
+  var ROW_BY_ID = {};  // { product_id: 產品資料列 }
+
+  /** 別名命中後要注入的詞 —— 直接取該產品的品名，不是人手打的對應詞 */
+  function targetTokens(pid) {
+    var row = ROW_BY_ID[pid];
+    if (!row) return [];
+    return tokenize([row.name, row.name_en].join(' '));
+  }
 
   /* 額外索引文字的掛勾：規格資料（尺寸／號數／容量）目前不在 repo 裡，
      等 spec 資料回來時，把 { name: '清潔袋', text: '86x100 0號 45L …' }
@@ -131,12 +148,17 @@
     dataReady = Promise.all([products, synonyms]).then(function (r) {
       ROWS = Array.isArray(r[0]) ? r[0] : [];
 
+      ROW_BY_ID = {};
+      ROWS.forEach(function (row) { ROW_BY_ID[String(row.id)] = row; });
+
       SYN = {};
       (Array.isArray(r[1]) ? r[1] : []).forEach(function (row) {
         var say = String(row.say == null ? '' : row.say).trim();
-        var mean = String(row.mean == null ? '' : row.mean)
-          .split(/[、,，/]+/).map(function (x) { return x.trim(); }).filter(Boolean);
-        if (say && mean.length) SYN[say] = mean;
+        var pid = String(row.product_id == null ? '' : row.product_id).trim();
+        if (!say || !pid) return;
+        /* 指向已不存在的產品時直接略過（產品刪了、同義詞還在） */
+        if (!ROW_BY_ID[pid]) return;
+        (SYN[say] = SYN[say] || []).push(pid);
       });
 
       return !!ROWS.length;
@@ -227,11 +249,11 @@
 
     tokenize(q).forEach(function (t) { add(t, termWeight(t)); });
 
-    // 同義詞：整段查詢字裡出現 key 就把 canonical 加進來
+    // 別名：整段查詢字裡出現別名，就把該產品的品名加進來
     Object.keys(SYN).forEach(function (key) {
       if (norm.indexOf(normText(key)) === -1) return;
-      SYN[key].forEach(function (canon) {
-        tokenize(canon).forEach(function (t) { add(t, termWeight(t) * 0.95); });
+      SYN[key].forEach(function (pid) {
+        targetTokens(pid).forEach(function (t) { add(t, termWeight(t) * 0.95); });
       });
     });
 
@@ -244,11 +266,11 @@
           var v = idx.vocab[i];
           if (/^[a-z]{4,}$/.test(v) && editDistance(t, v) <= 1) { add(v, 0.8); break; }
         }
-        // 同義詞表的 key 也容錯一次（ziplok → ziplock → 夾鏈袋）
+        // 別名本身也容錯一次（ziplok → ziplock → 夾鏈袋）
         Object.keys(SYN).forEach(function (key) {
           if (!/^[a-z ]+$/.test(key) || editDistance(t, key) > 1) return;
-          SYN[key].forEach(function (canon) {
-            tokenize(canon).forEach(function (x) { add(x, termWeight(x) * 0.75); });
+          SYN[key].forEach(function (pid) {
+            targetTokens(pid).forEach(function (x) { add(x, termWeight(x) * 0.75); });
           });
         });
       });

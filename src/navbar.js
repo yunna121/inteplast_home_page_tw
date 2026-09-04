@@ -52,6 +52,16 @@
     document.head.appendChild(typeLink);
   }
 
+  // 公司資訊套用層（src/site-info.js）。頁尾與聯繫我們的電話、信箱、地址
+  // 來自 D1 的 settings 表（GET /api/settings），由編輯頁維護。
+  // 集中在這裡注入，五個頁面都不用改。
+  if (!document.getElementById('site-info-js')) {
+    const infoScript = document.createElement('script');
+    infoScript.id = 'site-info-js';
+    infoScript.src = `${rootPath}src/site-info.js`;
+    document.head.appendChild(infoScript);
+  }
+
   // 統一的字體來源。五頁原本各自請求不同組合（Inter+Oswald / Barlow Condensed /
   // Outfit / DM Sans），改為同一組，外部字體請求也跟著減少。
   if (!document.getElementById('site-type-fonts')) {
