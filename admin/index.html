@@ -283,6 +283,7 @@
       <div class="side-foot">
         <a href="/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> 前往網站</a>
         <div style="margin-top:8px">改完存檔後，網站會立刻更新。</div>
+        <div id="logoutBox" style="margin-top:10px"></div>
       </div>
     </aside>
 
@@ -432,10 +433,53 @@
           cache: 'no-store'
         }).then(function (res) {
           return res.json().then(function (data) {
-            if (!res.ok || data.error) throw new Error(data.error || ('HTTP ' + res.status));
+            if (!res.ok || data.error) {
+              var err = new Error(data.error || ('HTTP ' + res.status));
+              err.needLogin = !!data.needLogin;
+              throw err;
+            }
             return data;
           });
         });
+      }
+
+      /* 密碼登入畫面（沒設密碼、或用 Cloudflare Access 時不會出現） */
+      function loginView(message) {
+        document.getElementById('nav').innerHTML = '';
+        var main = document.getElementById('main');
+        main.innerHTML = '';
+
+        var pass = el('input', { type: 'password', placeholder: '請輸入管理密碼', autofocus: 'autofocus' });
+        var note = el('div', { class: 'hint', text: message || '' });
+        var go = el('button', { class: 'btn' }, [el('i', { class: 'fa-solid fa-right-to-bracket' }), el('span', { text: '登入' })]);
+
+        function submit() {
+          if (!pass.value) { note.textContent = '請輸入密碼'; return; }
+          go.disabled = true;
+          api('/api/admin/login', { password: pass.value })
+            .then(function () { go.disabled = false; return reload(); })
+            .catch(function (err) {
+              note.textContent = err.message;
+              go.disabled = false;
+              pass.value = '';
+              pass.focus();
+            });
+        }
+
+        pass.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); submit(); } });
+        go.addEventListener('click', submit);
+
+        main.appendChild(el('div', { style: 'max-width:420px;margin:8vh auto 0' }, [
+          el('div', { class: 'card' }, [
+            el('div', { class: 'sect-label', text: '網站內容管理' }),
+            el('div', { class: 'field' }, [
+              el('label', { text: '管理密碼' }),
+              pass,
+              note
+            ]),
+            el('div', { class: 'formfoot' }, [go])
+          ])
+        ]));
       }
 
       function reload() {
@@ -443,6 +487,7 @@
           DB = data;
           render();
         }).catch(function (err) {
+          if (err.needLogin) { loginView(''); return; }
           document.getElementById('main').innerHTML =
             '<div class="banner bad"><i class="fa-solid fa-triangle-exclamation"></i><div>' +
             '<b>讀不到資料</b>' + err.message +
@@ -738,9 +783,32 @@
             id: row ? row.id : 0,
             base: base,
             tr: editing.tr
-          }).then(function () {
-            toast('已儲存', 'ok');
+          }).then(function (res) {
             editing = null;
+
+            /* 新增產品後自動產生別名候選：新產品沒有別名，客戶只能打
+               正式品名才搜得到。候選一律進待審區，不直接進搜尋。
+               AI 沒綁定或失敗都不影響存檔本身。 */
+            if (isNew && entity === 'product' && res && res.id) {
+              toast('已儲存，正在產生別名候選…', 'ok');
+              return api('/api/admin/suggest', { product_id: res.id })
+                .then(function (out) {
+                  var n = (out.added || []).length;
+                  if (n) {
+                    view = 'suggestion';
+                    toast('產生了 ' + n + ' 個別名候選，請核准', 'ok');
+                  } else {
+                    toast('已儲存。這次沒有產生別名候選，可到「產品別名」手動加');
+                  }
+                  return reload();
+                })
+                .catch(function (err) {
+                  toast('已儲存。別名候選產生失敗：' + err.message);
+                  return reload();
+                });
+            }
+
+            toast('已儲存', 'ok');
             return reload();
           }).catch(function (err) {
             toast('存檔失敗：' + err.message, 'err');
@@ -1081,6 +1149,19 @@
         renderNav();
         var main = document.getElementById('main');
         main.innerHTML = '';
+
+        /* 密碼登入時才顯示登出（Access 的登出是 Cloudflare 那邊管的） */
+        var box = document.getElementById('logoutBox');
+        box.innerHTML = '';
+        if (DB.access && DB.access.mode === 'password') {
+          box.appendChild(el('a', {
+            href: '#',
+            onclick: function (e) {
+              e.preventDefault();
+              api('/api/admin/logout', {}).then(function () { DB = { access: {} }; loginView('已登出'); });
+            }
+          }, [el('i', { class: 'fa-solid fa-right-from-bracket' }), el('span', { text: ' 登出' })]));
+        }
 
         if (DB.access && !DB.access.protected) {
           main.appendChild(el('div', { class: 'banner bad' }, [

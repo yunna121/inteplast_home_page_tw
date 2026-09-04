@@ -9,7 +9,7 @@ import { json, fail } from "../_lib.js";
 export async function onRequest(context) {
   try {
     const { DB } = context.env;
-    const protectedByAccess = !!context.request.headers.get("cf-access-jwt-assertion");
+    const protectedByAccess = context.data && context.data.auth && context.data.auth !== "none";
 
     const [languages, products, translations, synonyms, suggestions, timeline, settings] =
       await DB.batch([
@@ -31,7 +31,7 @@ export async function onRequest(context) {
       ]);
 
     return json({
-      access: { protected: protectedByAccess },
+      access: { protected: !!protectedByAccess, mode: (context.data && context.data.auth) || "none" },
       languages: languages.results || [],
       products: products.results || [],
       translations: translations.results || [],
