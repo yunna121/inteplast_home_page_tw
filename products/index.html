@@ -183,7 +183,6 @@
       padding: 48px;
       background: #F7FAFD;
       border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
     }
     .patent-figure { margin: 0; }
     .patent-figure img {
@@ -241,7 +240,6 @@
     .visual-product-card {
       background: var(--surface-white);
       border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: var(--shadow-md);
       transition: var(--transition);
@@ -284,7 +282,6 @@
       font-size: 0.8rem;
       font-weight: 900;
       padding: 6px 14px;
-      border-radius: var(--radius-sm);
       letter-spacing: 1px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
@@ -438,60 +435,6 @@
       border-color: var(--brand-blue);
       color: var(--brand-blue);
       background: rgba(0, 82, 155, 0.04);
-    }
-
-    /* 滑過卡片時，斜切色塊從右側掲過圖片。
-       每個產品一色，由頁尾腳本的 SWEEP 寫成 --sweep 在卡片上。
-       色塊用 clip-path 做斜邊，所以按鈕要放在它外面（clip 會連子元素一起裁）。 */
-    .card-sweep {
-      position: absolute;
-      inset: 0;
-      background: var(--sweep, var(--brand-blue));
-      clip-path: polygon(38% 0, 100% 0, 100% 100%, 0 100%);
-      transform: translateX(101%);
-      transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
-      pointer-events: none;
-    }
-
-    .visual-product-card:hover .card-sweep { transform: translateX(0); }
-
-    .card-sweep-cta {
-      position: absolute;
-      left: 50%;
-      bottom: 30px;
-      z-index: 2;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 26px;
-      border: 1px solid rgba(255, 255, 255, 0.55);
-      border-radius: var(--radius-full);
-      background: rgba(255, 255, 255, 0.14);
-      backdrop-filter: blur(6px);
-      color: #FFFFFF;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transform: translate(-50%, 12px);
-      transition: opacity 0.3s ease 0.12s, transform 0.3s ease 0.12s, background 0.2s ease;
-    }
-
-    .visual-product-card:hover .card-sweep-cta { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
-    .card-sweep-cta:hover { background: rgba(255, 255, 255, 0.26); }
-
-    /* 觸控裝置沒有 hover，色塊永遠不會出現，索性不載——
-       那邊靠右欄原本的「留下資料專人對接」按鈕。 */
-    @media (hover: none) {
-      .card-sweep,
-      .card-sweep-cta { display: none; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .card-sweep,
-      .card-sweep-cta { transition-duration: 0.01ms; }
     }
 
     /* Expandable Spec Matrix Drawer */
@@ -674,12 +617,6 @@
          contain 與 multiply，原本的 fitImage() 取樣邏輯已移除。 */
 
       /* 卡片的錨點代號：首頁與搜尋結果都用 products/index.html#cat-xxx 連過來 */
-      /* 斜切色塊的顏色：每個產品一色，全部落在品牌藍→藍綠這條線上
-         （#00529B 品牌藍、#0877BA 天藍、#0F7A4E 環保綠都是站上已有的色）。
-         產品比 7 個多時循環使用。 */
-      var SWEEP = ['#0B4F83', '#0F7A4E', '#00529B', '#0877BA', '#0E6E93', '#1B3F6E', '#12796F'];
-      function sweepOf(i) { return SWEEP[i % SWEEP.length]; }
-
       function getCatId(cat, i2) {
         var name = cat.name || '';
         if (name.indexOf('清潔袋') > -1) return 'cat-can-liners';
@@ -717,12 +654,10 @@
         var tw = splitAlias(cat.name);
         var en = splitAlias(cat.name_en || cat.name);
 
-        return '<article class="visual-product-card" id="' + catId + '" data-category="' + esc(cat.name) + '" style="--sweep: ' + sweepOf(i) + '">' +
+        return '<article class="visual-product-card" id="' + catId + '" data-category="' + esc(cat.name) + '">' +
           '<div class="card-image-box">' +
           '<span class="card-num-badge">' + String(i + 1).padStart(3, '0') + '</span>' +
           (p.main ? '<span data-src="' + esc(p.main) + '" data-src2="' + esc(p.backup) + '" data-alt="' + esc(cat.name) + '"></span>' : '') +
-          '<span class="card-sweep"></span>' +
-          '<a href="../contact.html" class="card-sweep-cta" tabindex="-1" aria-hidden="true"><i class="fa-solid fa-envelope"></i> <span data-tw="留下資料專人對接" data-en="Contact Sales">留下資料專人對接</span></a>' +
           '</div>' +
           '<div class="card-info-content">' +
           '<div>' +
