@@ -157,12 +157,11 @@
 
     <section class="history" id="history"><div class="container">
       <div class="reveal"><span class="eyebrow">Milestones</span><h2 class="section-title" data-tw="臺灣營德的製造歷程" data-en="A manufacturing history in Taiwan">臺灣營德的<br>製造歷程</h2><p class="section-lead" data-tw="故事始於高雄前鎮廠，從袋品生產出發，逐步發展為今日的製造基地。" data-en="The story began at the Kaohsiung Qianzhen plant, growing from bag production into today's manufacturing base.">故事始於高雄前鎮廠，從袋品生產出發，逐步發展為今日的製造基地。</p></div>
-      <!-- 時間軸內容由 content/timeline.js 提供，src/timeline-render.js 負責畫出來；這裡不要寫死文字 -->
+      <!-- 時間軸內容由 Cloudflare D1 提供（GET /api/timeline），src/timeline-render.js 負責畫出來；這裡不要寫死文字 -->
       <div class="timeline" data-timeline></div>
     </div></section>
 
-    <!-- 時間軸資料與渲染（資料在 content/timeline.js，改文字只改那支） -->
-    <script src="content/timeline.js"></script>
+    <!-- 時間軸渲染（資料在 D1 的 timeline 表，改文字改資料庫） -->
     <script src="src/timeline-render.js"></script>
 
     <section class="awards" data-screen-label="卓越營運獎"><div class="container">

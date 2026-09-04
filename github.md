@@ -3,11 +3,20 @@ branch: main
 
 ## Sync history
 - 2026-08-18T08:58:40Z（詳見下方項目）
+- 2026-08-19T01:45:00Z（詳見下方「先前項目」）
 
 ## Last sync
-date: 2026-08-19T01:45:00Z
+date: 2026-09-04T03:00:00Z
 
 ### Updated in this project
+- 移除 GitHub 時期的 JSON 編輯後台：刪除 admin/（Sveltia CMS 介面與 config.yml）、content/site.json、content/pages.json、src/content.js（後台內容套用層），並移除 contact.html 頁尾兩支載入（其中 content/content.js 本來就不存在，等於少一個 404）。內容管理改由 Cloudflare D1 承接。
+- 頁面上的 data-site / data-site-href 標記保留：contact.html 的通知信箱是從 [data-site="email"] 元素讀取（非 JSON），且將作為日後 D1 編輯頁的套用點。
+- 修正 about.html / sustainability.html 封面標題載入時「先大後縮」：src/type.css 原由 navbar.js 在 <body> 執行時才附加到 head，改為兩頁 <head> 內的 <link id="site-type-css">（navbar.js 的重複判斷會跳過注入）；字體一併換成全站統一那組（id="site-type-fonts"），不再晚一步補第二組請求。
+- products/index.html 改為單一資料來源 /api/products（移除 SheetJS 與 xlsx／products-data.js 三軌讀取）；卡片圖片改滿版 object-fit: cover 並移除 fitImage() 取樣邏輯；卡片與編號徽章改直角。functions/api/products.js 加 ORDER BY id。
+- 時間軸：src/timeline-render.js 補上 fetch 後建立節點的 IntersectionObserver 觀察（原本 .reveal 停在 opacity:0，看似「抓不到資料」），並正規化 year 欄位裡字面的 "\n"；functions/api/timeline.js 改 ORDER BY CAST(year AS INTEGER), id。
+- products 表新增 img_home 欄：首頁讀 img_home、產品中心讀 img，一個產品兩張圖（img_home 留空時沿用 img）。
+
+### 先前項目
 - 五個產品頁統一改為「左圖右表」：spec-render.js 依 Excel 產生規格區塊與篩選鈕，表格每列附迷你袋型（同頁共用比例尺），等比例對照改由「等比例尺寸對照」按鈕叫出。
 - 新增 src/product-img/（24 張實拍圖）與 data-map.js 的圖片索引：滑過或點選規格時左側圖片切換為該規格照片（檔名「系列 尺寸級別[ 包裝]」，封面為「封面-系列」；拉繩醫療袋↔拉繩感染袋、特小↔超小 設有別名）。尚無照片的系列左側留空位。
 - 修正 responsive.css 與 spec-render.js 的堆疊斷點衝突（統一 768px），並讓等比例圖同時受高度與並排總寬限制。

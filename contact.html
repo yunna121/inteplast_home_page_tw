@@ -360,8 +360,8 @@
         return;
       }
 
-      /* 通知信箱直接抓頁面上「聯絡我們」顯示的那個（來源：content/site.json 的 email），
-         這樣換聯絡信箱只要改 CMS，不用重新部署 Apps Script */
+      /* 通知信箱直接抓頁面上「聯絡我們」顯示的那個（data-site="email" 的元素），
+         這樣換聯絡信箱只要改頁面上的信箱，不用重新部署 Apps Script */
       const notifyField = document.getElementById('notifyTo');
       const contactMail = document.querySelector('[data-site="email"]');
       if (notifyField && contactMail) {
@@ -407,9 +407,6 @@
   <script src="src/site-search.js"></script>
   <script src="src/mobile-nav.js"></script>
   <script src="src/footer.js"></script>
-  <!-- 後台內容套用：content.js 是備援快照（用檔案直接開時使用），src/content.js 負責套用 -->
-  <script src="./content/content.js"></script>
-  <script src="./src/content.js"></script>
   <script src="src/site-lang.js"></script>
 </body>
 </html>

@@ -12,12 +12,12 @@
 
    BM25 沒有這個問題：查詢詞一個都沒中就是 0 筆。
    「產品中心沒有的東西就搜不到」是引擎的自然行為，不是調參調出來的。
-   代價是同義詞要人工維護（見 SYNONYMS），但品項只有 7 項、
+   代價是同義詞要人工維護（D1 的 synonyms 表），但品項只有 7 項、
    採購講的詞彙固定，而且 0 筆的搜尋已經寫進 Google Sheet，
    那張表就是補同義詞的清單。
 
-   資料只有一份：src/data/products-data.js（window.PRODUCT_DATA），
-   跟產品中心頁的卡片同源。改 Excel，兩邊一起變。
+   資料只有一份：Cloudflare D1 的 products 表（GET /api/products），
+   跟產品中心頁與首頁的卡片同源。改資料庫，三邊一起變。
    索引裡沒有任何頁面文件 —— 搜尋範圍就是產品，沒有別的。
 
    介面（搜尋條、下拉面板、CSS、Ctrl+K、手機收合）與舊版完全相同，
@@ -48,28 +48,19 @@
   /* ============================================================
      同義詞 — 唯一需要人工維護的地方
      ------------------------------------------------------------
-     左邊是客戶會打的詞，右邊是我們資料裡真正有的詞。
+     資料在 D1 的 synonyms 表（GET /api/synonyms），由 ensureData()
+     連同產品資料一起取回。
+
+       say  = 客戶會打的詞（垃圾袋）
+       mean = 我們資料裡真正有的詞（清潔袋），多個用「、」分隔
+
      查詢時「附加」而非「取代」，所以打正式品名不會被影響。
-     新增方式：Google Sheet 篩「有無結果 = 無」，把常出現的詞補進來。
+     新增方式：看搜尋紀錄裡「0 筆」的字，補一列進 synonyms 表。
+
+     刻意不在這裡放一份備援表 —— 那會變成兩個正確答案。
+     API 拿不到時搜尋照常運作，只是少了同義詞擴展。
      ============================================================ */
-  var SYNONYMS = {
-    '垃圾袋': ['清潔袋'], '垃圾桶袋': ['清潔袋'], '塑膠袋': ['清潔袋', '蔬果袋'],
-    '廚餘袋': ['清潔袋'], '大型垃圾袋': ['清潔袋'], '環保袋': ['環保清潔袋', '清潔袋'],
-    '束口袋': ['拉繩袋'], '抽繩袋': ['拉繩袋'], '穿繩袋': ['拉繩袋'],
-    '保鮮袋': ['冷凍袋', '夾鏈袋'], '密封袋': ['夾鏈袋'], '封口袋': ['夾鏈袋'],
-    '拉鍊袋': ['夾鏈袋'], '自封袋': ['夾鏈袋'], '收納袋': ['密實袋', '夾鏈袋'],
-    '市場袋': ['蔬果袋', '市場袋'], '生鮮袋': ['蔬果袋'], '食物袋': ['食品袋', '蔬果袋'],
-    '手扒雞袋': ['耐熱袋'], '微波袋': ['耐熱袋'],
-    '塑膠手套': ['手套'], '拋棄式手套': ['手套'], '一次性手套': ['手套'],
-    '養生膠帶': ['遮蔽防塵膠帶'], '防塵膜': ['遮蔽防塵膠帶'], '遮蔽膠帶': ['遮蔽防塵膠帶'],
-    '油漆膠帶': ['遮蔽防塵膠帶'], '裝潢膠帶': ['遮蔽防塵膠帶'],
-    '秤重紙': ['scale sheet'], '墊紙': ['scale sheet'], '包裝紙': ['scale sheet'],
-    'trash bag': ['清潔袋'], 'garbage bag': ['清潔袋'], 'bin liner': ['清潔袋'],
-    'can liner': ['清潔袋'], 'drawstring': ['拉繩袋'], 'draw tape': ['拉繩袋'],
-    'ziplock': ['夾鏈袋'], 'zip lock': ['夾鏈袋'], 'zipper': ['夾鏈袋'],
-    'freezer': ['冷凍袋'], 'produce': ['蔬果袋'], 'glove': ['手套'],
-    'masking': ['遮蔽防塵膠帶'], 'tape': ['遮蔽防塵膠帶']
-  };
+  var SYN = {};
 
   /* 額外索引文字的掛勾：規格資料（尺寸／號數／容量）目前不在 repo 裡，
      等 spec 資料回來時，把 { name: '清潔袋', text: '86x100 0號 45L …' }
@@ -107,22 +98,48 @@
   }
 
   /* ============================================================
-     資料自動載入
+     資料自動載入 — 一律向 D1 要（GET /api/products）
      ------------------------------------------------------------
-     about / contact / sustainability 這三頁沒有載 products-data.js
-     （舊的向量版自己 fetch embeddings.json，所以沒遇到這問題）。
-     這裡自己補上，整個搜尋就還是一個檔案直接換，不用改任何 HTML。
+     五個頁面都不必先載入產品資料，本檔第一次要用時自己去拿。
+     （原本是動態注入 src/data/products-data.js 的快照，資料已全部
+       移到 D1，那支檔案不再存在。）
      ============================================================ */
+  var ROWS = [];
   var dataReady = null;
+
+  function getJson(path) {
+    return fetch(path, { cache: 'no-cache' }).then(function (res) {
+      if (!res.ok) throw new Error(path + ' 狀態錯誤: ' + res.status);
+      return res.json();
+    });
+  }
+
   function ensureData() {
     if (dataReady) return dataReady;
-    dataReady = new Promise(function (resolve) {
-      if (window.PRODUCT_DATA && window.PRODUCT_DATA.length) return resolve(true);
-      var s = document.createElement('script');
-      s.src = ROOT + 'src/data/products-data.js';
-      s.onload = function () { resolve(!!(window.PRODUCT_DATA || []).length); };
-      s.onerror = function () { resolve(false); };
-      document.head.appendChild(s);
+
+    /* 同義詞失敗不該讓整個搜尋停擺，所以各自 catch。
+       產品資料是必要的，同義詞是加分的。 */
+    var products = getJson('/api/products').catch(function (err) {
+      if (window.console) console.error('[搜尋] 無法從 API 取得產品資料：', err);
+      return [];
+    });
+    var synonyms = getJson('/api/synonyms').catch(function (err) {
+      if (window.console) console.warn('[搜尋] 無法取得同義詞，僅以正式品名比對：', err.message);
+      return [];
+    });
+
+    dataReady = Promise.all([products, synonyms]).then(function (r) {
+      ROWS = Array.isArray(r[0]) ? r[0] : [];
+
+      SYN = {};
+      (Array.isArray(r[1]) ? r[1] : []).forEach(function (row) {
+        var say = String(row.say == null ? '' : row.say).trim();
+        var mean = String(row.mean == null ? '' : row.mean)
+          .split(/[、,，/]+/).map(function (x) { return x.trim(); }).filter(Boolean);
+        if (say && mean.length) SYN[say] = mean;
+      });
+
+      return !!ROWS.length;
     });
     return dataReady;
   }
@@ -133,7 +150,7 @@
 
   function buildIndex() {
     if (IDX) return IDX;
-    var raw = window.PRODUCT_DATA || [];
+    var raw = ROWS;
     if (!raw.length) return null;
 
     var docs = raw.map(function (p, i) {
@@ -211,9 +228,9 @@
     tokenize(q).forEach(function (t) { add(t, termWeight(t)); });
 
     // 同義詞：整段查詢字裡出現 key 就把 canonical 加進來
-    Object.keys(SYNONYMS).forEach(function (key) {
+    Object.keys(SYN).forEach(function (key) {
       if (norm.indexOf(normText(key)) === -1) return;
-      SYNONYMS[key].forEach(function (canon) {
+      SYN[key].forEach(function (canon) {
         tokenize(canon).forEach(function (t) { add(t, termWeight(t) * 0.95); });
       });
     });
@@ -228,9 +245,9 @@
           if (/^[a-z]{4,}$/.test(v) && editDistance(t, v) <= 1) { add(v, 0.8); break; }
         }
         // 同義詞表的 key 也容錯一次（ziplok → ziplock → 夾鏈袋）
-        Object.keys(SYNONYMS).forEach(function (key) {
+        Object.keys(SYN).forEach(function (key) {
           if (!/^[a-z ]+$/.test(key) || editDistance(t, key) > 1) return;
-          SYNONYMS[key].forEach(function (canon) {
+          SYN[key].forEach(function (canon) {
             tokenize(canon).forEach(function (x) { add(x, termWeight(x) * 0.75); });
           });
         });
