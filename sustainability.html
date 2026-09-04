@@ -8,9 +8,11 @@
   <meta name="description" data-desc-tw="臺灣營德環保標章產品：台塑環保拉繩清潔袋與台塑環保清潔袋。" data-desc-en="Green Mark certified products from INTEPLAST TAIWAN: Formosa eco draw tape liners and Formosa eco can liners." content="臺灣營德環保標章產品：台塑環保拉繩清潔袋與台塑環保清潔袋。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap"
-    rel="stylesheet">
+  <!-- 全站統一字體。原本這頁請求自己的組合，navbar.js 之後又補上這一組，
+       等於字體晚到、換上時字級再跳一次。這裡直接載入正確的一組，
+       id 讓 navbar.js 的重複判斷跳過注入。 -->
+  <link id="site-type-fonts" rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- 防止語系切換中文閃爍 (Anti-FOUC Instant Language Preloader) -->
   <script>
@@ -130,6 +132,12 @@
   <link rel="stylesheet" href="./src/navbar.css">
   <link rel="stylesheet" href="./sustainability-redesign.css">
   <link rel="stylesheet" href="src/responsive.css">
+  <!-- 全站字級（src/type.css）必須在首次繪製前就到位。
+       原本由 navbar.js 在 <body> 執行時才附加到 head，所以頁面會先用
+       本頁自己的級數畫出來（hero 最大 102px），type.css 進來後才收斂成
+       52px —— 那就是載入時標題「特別大然後縮小」的原因。
+       放在所有樣式之後，同權重時仍然勝出；id 讓 navbar.js 跳過注入。 -->
+  <link id="site-type-css" rel="stylesheet" href="src/type.css">
   <!-- Google Analytics 4（G-0FS2ZC88V0）
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
