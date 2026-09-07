@@ -999,6 +999,42 @@
       }
 
       /* ---------- 客戶詢價 ---------- */
+
+      /* created_at 是 D1 的 CURRENT_TIMESTAMP，存的是 UTC。
+         直接顯示會少八小時，所以這裡轉成台灣時間再顯示。 */
+      function localTime(utc) {
+        if (!utc) return '';
+        var iso = String(utc).replace(' ', 'T');
+        if (!/[zZ]|[+-]\d\d:?\d\d$/.test(iso)) iso += 'Z';
+        var d = new Date(iso);
+        if (isNaN(d.getTime())) return String(utc);
+        function p(n) { return (n < 10 ? '0' : '') + n; }
+        return d.getFullYear() + '/' + p(d.getMonth() + 1) + '/' + p(d.getDate()) +
+               ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+      }
+
+      /* 一列「標籤 ─ 內容」。value 可以是字串或節點。 */
+      function detailRow(label, value, opts) {
+        var o = opts || {};
+        var body;
+        if (value && value.nodeType) body = value;
+        else {
+          body = el('div', {
+            text: String(value == null || value === '' ? '—' : value),
+            style: (o.pre ? 'white-space:pre-wrap;' : '') +
+                   (value ? '' : 'color:#9db0c0;') +
+                   (o.strong ? 'font-weight:700;' : '')
+          });
+        }
+        return el('div', { style: 'display:flex; gap:14px; padding:9px 0; border-bottom:1px solid #f2f5f8;' }, [
+          el('div', {
+            text: label,
+            style: 'flex:0 0 96px; color:var(--muted); font-size:.82rem; padding-top:1px;'
+          }),
+          el('div', { style: 'flex:1; min-width:0;' }, [body])
+        ]);
+      }
+
       function inquiryView() {
         var main = document.getElementById('main');
         var rows = DB.inquiries || [];
@@ -1029,7 +1065,7 @@
 
         list.forEach(function (q) {
           var done = q.status === 'done';
-          var note = el('input', { type: 'text', value: q.note || '', placeholder: '內部備註：誰跟進、結果如何' });
+          var note = el('input', { type: 'text', value: q.note || '', placeholder: '誰跟進、結果如何' });
 
           function save(status) {
             api('/api/admin/save', {
@@ -1041,26 +1077,26 @@
             }).catch(function (err) { toast('失敗：' + err.message, 'err'); });
           }
 
+          var mailLink = q.email
+            ? el('a', { href: 'mailto:' + q.email, text: q.email, style: 'font-weight:700;' })
+            : null;
+          var telLink = q.phone
+            ? el('a', { href: 'tel:' + String(q.phone).replace(/[^\d+,]/g, ''), text: q.phone, style: 'font-weight:700;' })
+            : null;
+
           main.appendChild(el('div', { class: 'card', style: done ? 'opacity:.62' : '' }, [
             el('div', { class: 'sect-label', style: 'display:flex;gap:10px;align-items:center;flex-wrap:wrap' }, [
-              el('span', { text: q.created_at || '' }),
-              el('span', { class: 'chip plain', text: q.product || '未選類別' }),
+              el('span', { text: localTime(q.created_at) }),
               done ? el('span', { class: 'chip plain', style: 'border-color:#bfe0cd;background:#f0f9f4;color:#0f7a4e', text: '已處理' }) : null,
               q.mailed ? null : el('span', { class: 'chip plain', style: 'border-color:#f0d3a8;background:#fff8ef;color:#8a5a12', text: '通知信未寄出' })
             ]),
-            el('div', { class: 'grid2' }, [
-              el('div', { class: 'field' }, [
-                el('label', { text: '公司' }),
-                el('div', { class: 'rowtitle', text: q.company || '（未填）' }),
-                el('div', { class: 'rowsub' }, [
-                  el('a', { href: 'mailto:' + (q.email || ''), text: q.email || '' }),
-                  el('span', { text: q.phone ? '　' + q.phone : '' })
-                ])
-              ]),
-              el('div', { class: 'field' }, [
-                el('label', { text: '需求內容' }),
-                el('div', { style: 'white-space:pre-wrap', text: q.message || '' })
-              ])
+            el('div', { class: 'field' }, [
+              detailRow('公司名稱', q.company, { strong: true }),
+              detailRow('商務信箱', mailLink || ''),
+              detailRow('聯絡電話', telLink || ''),
+              detailRow('詢問產品', q.product),
+              detailRow('需求內容', q.message, { pre: true }),
+              detailRow('送出頁面', (q.page || '') + (q.lang ? '　語言：' + q.lang : ''))
             ]),
             el('div', { class: 'field' }, [el('label', { text: '內部備註' }), note]),
             el('div', { class: 'formfoot' }, [
