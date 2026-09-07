@@ -860,63 +860,104 @@
           return;
         }
 
-        products.forEach(function (product) {
-          var mine = (DB.synonyms || []).filter(function (s) { return String(s.product_id) === String(product.id); });
-
-          var chips = mine.map(function (s) {
-            return el('span', { class: 'chip' }, [
-              el('span', { text: s.say }),
-              el('button', {
-                title: '刪除',
-                onclick: function () {
-                  api('/api/admin/save', { entity: 'synonym', action: 'delete', id: s.id })
-                    .then(function () { toast('已刪除「' + s.say + '」', 'ok'); return reload(); })
-                    .catch(function (err) { toast('刪除失敗：' + err.message, 'err'); });
-                }
-              }, [el('i', { class: 'fa-solid fa-xmark' })])
-            ]);
-          });
-
-          var input = el('input', {
-            type: 'text',
-            placeholder: '輸入別名後按 Enter',
-            style: 'max-width:240px'
-          });
-
-          function add() {
-            var say = input.value.trim();
-            if (!say) return;
-            api('/api/admin/save', {
-              entity: 'synonym', action: 'create',
-              base: { product_id: product.id, say: say }
-            }).then(function () {
-              input.value = '';
-              toast('已加入「' + say + '」', 'ok');
-              return reload();
-            }).catch(function (err) { toast('加入失敗：' + err.message, 'err'); });
-          }
-
-          input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); add(); } });
-
-          var gen = el('button', { class: 'btn ghost sm' },
-            [el('i', { class: 'fa-solid fa-wand-magic-sparkles' }), el('span', { text: '產生建議' })]);
-          gen.addEventListener('click', function () { generate({ product_id: product.id }, gen); });
-
-          main.appendChild(el('div', { class: 'card' }, [
-            el('div', { class: 'sect-label' }, [
-              el('span', { text: String(product.name).replace(/\\n|\n/g, ' ') + '（' + mine.length + '）' })
-            ]),
-            el('div', { class: 'field' }, [
-              el('div', { class: 'chips' }, chips.length ? chips : [el('span', { class: 'rowsub', text: '還沒有別名 —— 客戶只能打正式品名才搜得到。' })])
-            ]),
-            el('div', { class: 'field', style: 'display:flex;gap:8px;align-items:center;flex-wrap:wrap' }, [
-              input,
-              el('button', { class: 'btn sm', onclick: add }, [el('i', { class: 'fa-solid fa-plus' }), el('span', { text: '加入' })]),
-              el('span', { class: 'spacer', style: 'margin-left:auto' }),
-              gen
-            ])
-          ]));
+        /* 別名很快就會累積到上百個，搜尋是用來回答
+           「這個詞加過了嗎、加在哪個產品底下」 */
+        var listBox = el('div', {});
+        var countLabel = el('span', { class: 'rowsub' });
+        var search = el('input', {
+          type: 'text', value: synonymView.q || '',
+          placeholder: '搜尋別名或產品名稱…', style: 'max-width:300px'
         });
+        search.addEventListener('input', function () { synonymView.q = this.value; paintList(); });
+
+        main.appendChild(el('div', { class: 'card' }, [
+          el('div', { class: 'field', style: 'display:flex; gap:12px; align-items:center; flex-wrap:wrap;' }, [
+            search,
+            el('span', { style: 'margin-left:auto' }, [countLabel])
+          ])
+        ]));
+        main.appendChild(listBox);
+
+        function paintList() {
+          var term = String(synonymView.q || '').trim().toLowerCase();
+          listBox.innerHTML = '';
+
+          var shown = 0;
+          var total = (DB.synonyms || []).length;
+
+          products.forEach(function (product) {
+            var all = (DB.synonyms || []).filter(function (s) { return String(s.product_id) === String(product.id); });
+            var nameHit = !term || String(product.name).toLowerCase().indexOf(term) > -1;
+            var mine = (!term || nameHit) ? all : all.filter(function (s) { return s.say.toLowerCase().indexOf(term) > -1; });
+
+            // 搜尋時，完全沒中的產品整塊隱藏
+            if (term && !nameHit && !mine.length) return;
+            shown += mine.length;
+
+            var chips = mine.map(function (s) {
+              return el('span', { class: 'chip' }, [
+                el('span', { text: s.say }),
+                el('button', {
+                  title: '刪除',
+                  onclick: function () {
+                    api('/api/admin/save', { entity: 'synonym', action: 'delete', id: s.id })
+                      .then(function () { toast('已刪除「' + s.say + '」', 'ok'); return reload(); })
+                      .catch(function (err) { toast('刪除失敗：' + err.message, 'err'); });
+                  }
+                }, [el('i', { class: 'fa-solid fa-xmark' })])
+              ]);
+            });
+
+            var input = el('input', { type: 'text', placeholder: '輸入別名後按 Enter', style: 'max-width:240px' });
+
+            function add() {
+              var say = input.value.trim();
+              if (!say) return;
+              api('/api/admin/save', {
+                entity: 'synonym', action: 'create', base: { product_id: product.id, say: say }
+              }).then(function () {
+                input.value = '';
+                toast('已加入「' + say + '」', 'ok');
+                return reload();
+              }).catch(function (err) { toast('加入失敗：' + err.message, 'err'); });
+            }
+
+            input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); add(); } });
+
+            var gen = el('button', { class: 'btn ghost sm' },
+              [el('i', { class: 'fa-solid fa-wand-magic-sparkles' }), el('span', { text: '產生建議' })]);
+            gen.addEventListener('click', function () { generate({ product_id: product.id }, gen); });
+
+            listBox.appendChild(el('div', { class: 'card' }, [
+              el('div', { class: 'sect-label' }, [
+                el('span', { text: String(product.name).replace(/\\n|\n/g, ' ') + '（' + (term ? mine.length + ' / ' : '') + all.length + '）' })
+              ]),
+              el('div', { class: 'field' }, [
+                el('div', { class: 'chips' }, chips.length ? chips : [
+                  el('span', { class: 'rowsub', text: term ? '這個產品底下沒有符合的別名。' : '還沒有別名 —— 客戶只能打正式品名才搜得到。' })
+                ])
+              ]),
+              el('div', { class: 'field', style: 'display:flex;gap:8px;align-items:center;flex-wrap:wrap' }, [
+                input,
+                el('button', { class: 'btn sm', onclick: add }, [el('i', { class: 'fa-solid fa-plus' }), el('span', { text: '加入' })]),
+                el('span', { style: 'margin-left:auto' }, [gen])
+              ])
+            ]));
+          });
+
+          countLabel.textContent = term ? '符合 ' + shown + ' 個別名（共 ' + total + ' 個）' : '共 ' + total + ' 個別名';
+
+          if (term && !listBox.children.length) {
+            listBox.appendChild(el('div', { class: 'card' }, [
+              el('div', { class: 'empty' }, [
+                el('i', { class: 'fa-solid fa-tags' }),
+                el('div', { text: '找不到「' + term + '」。可以在對應的產品底下加進去。' })
+              ])
+            ]));
+          }
+        }
+
+        paintList();
       }
 
       function generate(payload, button) {
@@ -1122,7 +1163,6 @@
             el('td', { colspan: '6', style: 'background:#f8fafc; padding:14px 16px' }, [
               detailRow('需求內容', q.message, { pre: true }),
               detailRow('聯絡電話', q.phone),
-              detailRow('送出頁面', (q.page || '') + (q.lang ? '　語言：' + q.lang : '')),
               el('div', { style: 'display:flex; gap:10px; align-items:center; margin-top:12px; flex-wrap:wrap;' }, [
                 note,
                 el('button', { class: 'btn sm', onclick: function () { save(q, note.value, null); } }, [el('span', { text: '存備註' })]),
