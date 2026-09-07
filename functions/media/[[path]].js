@@ -1,34 +1,44 @@
-/* 提供 R2 上的圖片：/media/<檔名>
+/* 提供存在 D1 裡的圖片：/media/<檔名>
    ------------------------------------------------------------
-   R2 的物件不會自動對外，要嘛開公開網域、要嘛像這樣用 Function 代理。
-   用 Function 的好處是網址在自己的網域底下（/media/…），
-   換 bucket 或改權限都不影響前端寫的路徑。 */
+   圖檔以 base64 存在 media 表（見 functions/api/admin/upload.js）。
+   這裡解碼後回傳，並帶上長效快取與 ETag —— 圖片內容變了檔名通常
+   也會換，就算同名覆蓋，ETag 會跟著變，瀏覽器不會拿到舊的。 */
+
+function fromBase64(b64) {
+  const binary = atob(b64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
+
 export async function onRequest(context) {
   const { env, params, request } = context;
-
-  if (!env.MEDIA) {
-    return new Response("R2 尚未綁定（變數名 MEDIA）", { status: 500 });
-  }
 
   const key = decodeURIComponent(
     Array.isArray(params.path) ? params.path.join("/") : String(params.path || "")
   );
   if (!key) return new Response("Not found", { status: 404 });
 
-  const object = await env.MEDIA.get(key);
-  if (!object) return new Response("Not found", { status: 404 });
+  try {
+    const row = await env.DB.prepare(
+      "SELECT mime, data, bytes, created_at FROM media WHERE name = ?"
+    ).bind(key).first();
 
-  const headers = new Headers();
-  object.writeHttpMetadata(headers);
-  headers.set("etag", object.httpEtag);
-  if (!headers.has("cache-control")) {
-    headers.set("cache-control", "public, max-age=31536000");
+    if (!row) return new Response("Not found", { status: 404 });
+
+    const etag = '"' + String(row.bytes) + "-" + String(row.created_at).replace(/\D/g, "") + '"';
+    if (request.headers.get("if-none-match") === etag) {
+      return new Response(null, { status: 304, headers: { etag: etag } });
+    }
+
+    return new Response(fromBase64(row.data), {
+      headers: {
+        "content-type": row.mime || "image/webp",
+        "cache-control": "public, max-age=31536000",
+        etag: etag,
+      },
+    });
+  } catch (error) {
+    return new Response("圖片讀取失敗：" + String(error && error.message), { status: 500 });
   }
-
-  // 瀏覽器帶 If-None-Match 時回 304，省流量
-  if (request.headers.get("if-none-match") === object.httpEtag) {
-    return new Response(null, { status: 304, headers });
-  }
-
-  return new Response(object.body, { headers });
 }

@@ -609,21 +609,70 @@
           onclick: function () { file.click(); }
         }, [el('i', { class: 'fa-solid fa-upload' }), el('span', { text: '上傳圖片' })]);
 
+        /* 上傳前先在瀏覽器壓縮：最長邊 1600px、轉 WebP。
+           圖檔存在 D1（單筆上限 1MB），沒壓過的手機照隨便就 3～5MB，
+           一定會被擋下來。壓完的產品照大約 100～250KB。
+           SVG 不能壓（那是向量），原樣送出。 */
+        function shrink(picked) {
+          if (picked.type === 'image/svg+xml') return Promise.resolve({ blob: picked, w: 0, h: 0 });
+
+          return new Promise(function (resolve, reject) {
+            var url = URL.createObjectURL(picked);
+            var img = new Image();
+            img.onload = function () {
+              var MAX = 1600;
+              var w = img.naturalWidth, hgt = img.naturalHeight;
+              var scale = Math.min(1, MAX / Math.max(w, hgt));
+              var cw = Math.round(w * scale), ch = Math.round(hgt * scale);
+
+              var canvas = document.createElement('canvas');
+              canvas.width = cw; canvas.height = ch;
+              canvas.getContext('2d').drawImage(img, 0, 0, cw, ch);
+              URL.revokeObjectURL(url);
+
+              // 逐步降品質直到進得了 D1
+              var q = 0.86;
+              function attempt() {
+                canvas.toBlob(function (blob) {
+                  if (!blob) { reject(new Error('圖片轉檔失敗')); return; }
+                  if (blob.size <= 880 * 1024 || q <= 0.5) {
+                    resolve({ blob: blob, w: cw, h: ch });
+                  } else {
+                    q -= 0.12;
+                    attempt();
+                  }
+                }, 'image/webp', q);
+              }
+              attempt();
+            };
+            img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('讀不到這張圖')); };
+            img.src = url;
+          });
+        }
+
         file.addEventListener('change', function () {
           var picked = file.files && file.files[0];
           if (!picked) return;
-          var form = new FormData();
-          form.append('file', picked);
           upload.disabled = true;
-          upload.querySelector('span').textContent = '上傳中…';
-          fetch('/api/admin/upload', { method: 'POST', body: form })
+          upload.querySelector('span').textContent = '處理中…';
+
+          shrink(picked).then(function (out) {
+            var base = String(picked.name).replace(/\.[^.]+$/, '');
+            var ext = out.blob.type === 'image/svg+xml' ? '.svg' : '.webp';
+            var form = new FormData();
+            form.append('file', out.blob, base + ext);
+            form.append('name', base + ext);
+            if (out.w) { form.append('width', out.w); form.append('height', out.h); }
+            upload.querySelector('span').textContent = '上傳中…';
+            return fetch('/api/admin/upload', { method: 'POST', body: form });
+          })
             .then(function (res) { return res.json(); })
             .then(function (data) {
               if (data.error) throw new Error(data.error);
               text.value = data.url;
               onInput(data.url);
               paint(data.url);
-              toast('圖片已上傳：' + data.name, 'ok');
+              toast('已上傳 ' + data.name + '（' + Math.round((data.bytes || 0) / 1024) + 'KB）', 'ok');
             })
             .catch(function (err) { toast('上傳失敗：' + err.message, 'err'); })
             .finally(function () {
