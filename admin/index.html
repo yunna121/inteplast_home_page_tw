@@ -659,12 +659,47 @@
         var rows = DB[spec.table] || [];
         var main = document.getElementById('main');
 
-        main.appendChild(el('div', { class: 'head' }, [
-          el('div', {}, [el('h1', { text: spec.title }), el('p', { text: spec.lead })]),
+        /* 一鍵翻譯：把還沒翻的欄位一次補齊，直接寫進資料庫。
+           整批逐筆確認才存不切實際 —— 翻完在清單上逐筆進去校對即可。
+           已經翻好或人工改過的不會被蓋掉。 */
+        var others = (DB.languages || []).filter(function (l) { return !l.is_base; });
+        var incomplete = others.filter(function (l) {
+          return rows.some(function (r) { return langIncomplete(entity, r, spec.langFields, l.code); });
+        });
+
+        var actions = [
           el('button', {
             class: 'btn',
             onclick: function () { editing = { entity: entity, row: null, draft: {}, tr: {} }; render(); }
           }, [el('i', { class: 'fa-solid fa-plus' }), el('span', { text: '新增' })])
+        ];
+
+        incomplete.forEach(function (l) {
+          var btn = el('button', { class: 'btn ghost' },
+            [el('i', { class: 'fa-solid fa-language' }), el('span', { text: '一鍵翻譯' + l.label })]);
+          btn.addEventListener('click', function () {
+            var span = btn.querySelector('span');
+            var was = span.textContent;
+            btn.disabled = true;
+            span.textContent = '翻譯中…';
+            api('/api/admin/translate', { entity: entity, lang: l.code, all: true })
+              .then(function (res) {
+                if (!res.rows) { toast('沒有需要翻譯的項目'); }
+                else { toast('翻好 ' + res.rows + ' 筆（' + res.fields + ' 個欄位），請逐筆校對', 'ok'); }
+                return reload();
+              })
+              .catch(function (err) {
+                toast('翻譯失敗：' + err.message, 'err');
+                btn.disabled = false;
+                span.textContent = was;
+              });
+          });
+          actions.unshift(btn);
+        });
+
+        main.appendChild(el('div', { class: 'head' }, [
+          el('div', {}, [el('h1', { text: spec.title }), el('p', { text: spec.lead })]),
+          el('div', { style: 'display:flex; gap:8px; flex-wrap:wrap;' }, actions)
         ]));
 
         if (!rows.length) {
@@ -674,7 +709,6 @@
           return;
         }
 
-        var others = (DB.languages || []).filter(function (l) { return !l.is_base; });
         var listBox = el('div', {});
         var countLabel = el('span', { class: 'rowsub' });
         listView.q = listView.q || {};

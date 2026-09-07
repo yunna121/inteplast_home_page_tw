@@ -84,6 +84,55 @@ function parseObject(text) {
   }
 }
 
+/** 翻一筆，回傳 { field: 譯文 }；翻不出來回 null */
+async function translateRow(env, conf, row, lang) {
+  const source = {};
+  Object.keys(conf.fields).forEach((f) => {
+    const v = row[f];
+    if (v != null && String(v).trim()) source[f] = String(v);
+  });
+  if (!Object.keys(source).length) return null;
+
+  const target = LANG_NAMES[lang.toLowerCase()] || lang;
+  const spec = Object.keys(source).map((f) => `- ${f}：${conf.fields[f]}`).join("\n");
+
+  const prompt = `你是台灣塑膠製品製造商的多語型錄翻譯員。請把下面的繁體中文內容翻成${target}。
+
+要翻譯的欄位：
+${spec}
+
+規則：
+1. 只輸出 JSON 物件，鍵是欄位名稱，值是翻譯後的文字，不要任何解釋
+2. 保留原文的換行、「｜」「・」「、」等分隔符號的結構
+3. 這是商品型錄，用語要專業自然，不要逐字直譯
+4. 產品規格的數字、單位、專有名詞（如 Scale Sheet）維持原樣
+5. 不要自行增加原文沒有的內容
+
+原文：
+${JSON.stringify(source, null, 2)}`;
+
+  const candidates = env.AI_MODEL ? [env.AI_MODEL, ...MODELS] : MODELS;
+  for (const model of candidates) {
+    try {
+      const res = await env.AI.run(model, {
+        messages: [
+          { role: "system", content: "你只輸出 JSON 物件，不輸出任何其他文字。" },
+          { role: "user", content: prompt },
+        ],
+        max_tokens: 900,
+      });
+      const obj = parseObject(textOf(res));
+      if (!obj) continue;
+      const out = {};
+      Object.keys(source).forEach((f) => {
+        if (obj[f] != null && String(obj[f]).trim()) out[f] = String(obj[f]).trim();
+      });
+      if (Object.keys(out).length) return out;
+    } catch (err) { /* 換下一個模型 */ }
+  }
+  return null;
+}
+
 export async function onRequest(context) {
   const { request, env } = context;
 
@@ -99,8 +148,52 @@ export async function onRequest(context) {
     const lang = String(body.lang || "").trim();
 
     if (!conf) return json({ error: "不支援的資料類型" }, 400);
-    if (!id) return json({ error: "缺少 id" }, 400);
     if (!lang) return json({ error: "缺少語言" }, 400);
+
+    /* ── 一鍵翻譯整份清單 ──
+       與單筆的「草稿不存檔」不同：整批逐筆確認才存不切實際，
+       這裡直接寫進資料庫，清單上每一筆都能再進去改。
+       只翻「還沒有這個語言」的欄位，已經翻好或人工改過的不會被蓋掉。 */
+    if (body.all) {
+      const rows = (await env.DB.prepare(`SELECT * FROM ${conf.table} ORDER BY id`).all()).results || [];
+      const existing = (await env.DB.prepare(
+        "SELECT entity_id, field FROM translations WHERE entity = ? AND lang = ? AND value <> ''"
+      ).bind(String(body.entity), lang).all()).results || [];
+
+      const has = new Set(existing.map((t) => t.entity_id + "\u0000" + t.field));
+      const stmts = [];
+      let doneRows = 0;
+      let doneFields = 0;
+
+      for (const row of rows) {
+        const need = Object.keys(conf.fields).filter((f) => {
+          const v = row[f];
+          return v != null && String(v).trim() && !has.has(row.id + "\u0000" + f);
+        });
+        if (!need.length) continue;
+
+        const out = await translateRow(env, conf, row, lang);
+        if (!out) continue;
+
+        let wrote = 0;
+        need.forEach((f) => {
+          if (!out[f]) return;
+          stmts.push(
+            env.DB.prepare(
+              `INSERT INTO translations (entity, entity_id, field, lang, value) VALUES (?, ?, ?, ?, ?)
+               ON CONFLICT(entity, entity_id, field, lang) DO UPDATE SET value = excluded.value`
+            ).bind(String(body.entity), row.id, f, lang, out[f])
+          );
+          wrote++;
+        });
+        if (wrote) { doneRows++; doneFields += wrote; }
+      }
+
+      if (stmts.length) await env.DB.batch(stmts);
+      return json({ ok: true, rows: doneRows, fields: doneFields });
+    }
+
+    if (!id) return json({ error: "缺少 id" }, 400);
 
     const row = await env.DB.prepare(`SELECT * FROM ${conf.table} WHERE id = ?`).bind(id).first();
     if (!row) return json({ error: "找不到資料" }, 404);
