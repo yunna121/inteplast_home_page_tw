@@ -35,7 +35,8 @@
 
   var currentLang = normalize(localStorage.getItem(STORAGE_KEY));
   var languages = [{ code: BASE, label: '繁體中文', is_base: 1 }];
-  var strings = null;   // { 中文原文: { en: '…', ja: '…' } }
+  var strings = null;      // { 中文原文: { en: '…', ja: '…' } }
+  var stringsReady = false;
 
   function labelOf(code) {
     for (var i = 0; i < languages.length; i++) {
@@ -60,9 +61,18 @@
     localStorage.setItem(STORAGE_KEY, currentLang);
     document.documentElement.lang = currentLang;
 
-    // 各頁 head 會在非繁中時加上 lang-loading（body opacity:0 防閃爍），
-    // 這裡是唯一負責解除它的地方；不解除的話會看到整頁空白。
-    document.documentElement.classList.remove('lang-loading');
+    /* 各頁 head 會在非繁中時加上 lang-loading（body opacity:0 防閃爍），
+       這裡是唯一負責解除它的地方。
+
+       什麼時候可以解除：
+         · 繁中 —— 頁面上寫的就是繁中，立刻可顯示
+         · 英文 —— HTML 裡有 data-en，不必等網路
+         · 其他語言 —— 只有資料庫有翻譯，要等對照表載入，
+           否則會先閃一下中文再變成日文
+       init() 另外有 2.5 秒保險，API 掛掉也不會卡在空白畫面。 */
+    if (currentLang === BASE || currentLang === 'en' || stringsReady) {
+      document.documentElement.classList.remove('lang-loading');
+    }
 
     var suffix = suffixOf(currentLang);
     renderSwitcher();
@@ -185,12 +195,18 @@
   function init() {
     setTimeout(function () { applyLanguage(currentLang); }, 0);
 
+    // 保險：對照表遲遲沒回來也要把頁面放出來，寧可顯示中文也不要空白
+    setTimeout(function () {
+      if (!stringsReady) document.documentElement.classList.remove('lang-loading');
+    }, 2500);
+
     Promise.all([
       fetch('/api/languages', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
       fetch('/api/ui-strings', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
     ]).then(function (out) {
       if (Array.isArray(out[0]) && out[0].length) languages = out[0];
       if (out[1] && typeof out[1] === 'object') strings = out[1];
+      stringsReady = true;
 
       // 使用者上次選的語言若已被刪除，退回基準語言
       var ok = languages.some(function (l) { return l.code === currentLang; });
