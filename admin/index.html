@@ -1623,7 +1623,45 @@
               ? el('textarea', { style: 'min-height:70px' })
               : el('input', { type: 'text' });
             input.value = cur;
-            input.addEventListener('input', function () { drafts[r.id] = this.value; });
+
+            /* 這條字串裡有哪些「翻譯時必須原樣保留」的東西 */
+            var vars = r.zh.match(/\{\{[^}]+\}\}/g) || [];
+            var hasBr = /<br\s*\/?>/i.test(r.zh);
+            var warn = el('div', { class: 'hint', style: 'margin-top:4px; color:#b42318; display:none' });
+
+            function checkKept() {
+              var v = input.value;
+              if (!v.trim()) { warn.style.display = 'none'; return; }
+              var missing = vars.filter(function (t) { return v.indexOf(t) === -1; });
+              if (hasBr && !/<br\s*\/?>/i.test(v)) missing.push('<br>');
+              if (missing.length) {
+                warn.textContent = '譯文少了：' + missing.join('、') + ' —— 這些要原樣保留';
+                warn.style.display = '';
+              } else {
+                warn.style.display = 'none';
+              }
+            }
+
+            input.addEventListener('input', function () { drafts[r.id] = this.value; checkKept(); });
+            checkKept();
+
+            var marks = [];
+            vars.forEach(function (t) {
+              marks.push(el('span', {
+                class: 'chip plain',
+                style: 'border-color:#cfe4f3;background:#eff6fb;color:var(--blue);font-size:.74rem;padding:1px 9px',
+                text: t,
+                title: '變數：載入時會換成實際數字，翻譯時原樣保留'
+              }));
+            });
+            if (hasBr) {
+              marks.push(el('span', {
+                class: 'chip plain',
+                style: 'font-size:.74rem;padding:1px 9px',
+                text: '換行 <br>',
+                title: '刻意的換行，翻譯時保留在合適的位置'
+              }));
+            }
 
             listBox.appendChild(el('div', {
               class: 'field',
@@ -1634,9 +1672,10 @@
                   text: r.zh,
                   style: 'white-space:pre-wrap; font-size:.9rem;' + (cur.trim() ? '' : 'color:#8a5a12;')
                 }),
+                marks.length ? el('div', { class: 'chips', style: 'margin-top:6px' }, marks) : null,
                 cur.trim() ? null : el('div', { class: 'hint', style: 'margin-top:4px', text: '尚未翻譯' })
               ]),
-              input
+              el('div', {}, [input, warn])
             ]));
           });
         }
