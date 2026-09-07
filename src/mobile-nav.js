@@ -212,7 +212,7 @@
         '<div class="m-nav-body">' + body + utilityBlock + '</div>' +
         '<div class="m-nav-foot">' +
           '<a class="m-nav-cta" href="' + esc(contactHref) + '"' + i18n('聯繫我們', 'Contact Us') + '><i class="fa-solid fa-envelope"></i> 聯繫我們</a>' +
-          '<button class="m-nav-lang" id="mNavLang" type="button">EN / 繁中</button>' +
+          '<button class="m-nav-lang" id="mNavLang" type="button">EN / 繁中</button>'  // 文字由 src/site-lang.js 依實際語言數更新 +
         '</div>' +
       '</aside>';
     document.body.insertAdjacentHTML('beforeend', html);
@@ -241,7 +241,12 @@
     if (t.closest('#mNavToggle')) { e.preventDefault(); open(); return; }
     if (t.closest('#mNavClose') || t.closest('#mNavBackdrop')) { close(); return; }
     if (t.closest('#mNavLang')) {
-      if (typeof window.toggleLanguage === 'function') window.toggleLanguage();
+      /* 把按鈕本身傳進去 —— 不傳的話選單會掛在桌面版那顆隱藏的
+         按鈕上，跑到畫面左上角。三種以上語言會展開選單，
+         只有兩種時直接互換。 */
+      var langBtn = t.closest('#mNavLang');
+      if (typeof window.switchLanguageFrom === 'function') window.switchLanguageFrom(langBtn);
+      else if (typeof window.toggleLanguage === 'function') window.toggleLanguage();
       return;
     }
     var acc = t.closest('[data-acc]');

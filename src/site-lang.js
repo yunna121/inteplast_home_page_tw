@@ -112,6 +112,18 @@
   /* 語言鈕：兩種語言時維持原本的兩段式切換；
      三種以上自動變成下拉選單。 */
   function renderSwitcher() {
+    /* 手機抽屜有自己的語言鈕（src/mobile-nav.js 的 #mNavLang），
+       文字要一起更新，否則會一直寫著「EN / 繁中」 */
+    var mBtn = document.getElementById('mNavLang');
+    if (mBtn) {
+      mBtn.textContent = languages.length <= 2
+        ? (function () {
+            var o = languages.filter(function (l) { return l.code !== currentLang; })[0];
+            return o ? shortLabel(o.code) + ' / ' + shortLabel(currentLang) : shortLabel(currentLang);
+          })()
+        : labelOf(currentLang) + '　▾';
+    }
+
     var btn = document.getElementById('langBtn');
     if (!btn) return;
 
@@ -145,7 +157,7 @@
     var menu = document.createElement('div');
     menu.id = 'langMenu';
     menu.style.cssText =
-      'position:absolute; z-index:2000; min-width:132px; padding:6px;' +
+      'position:absolute; z-index:100000; min-width:132px; padding:6px;' +
       'background:#fff; border:1px solid #dbe4ec; border-radius:8px;' +
       'box-shadow:0 12px 30px -10px rgba(10,37,64,.35); font-size:.9rem;';
 
@@ -192,6 +204,18 @@
     }
   };
   window.getCurrentLang = function () { return currentLang; };
+
+  /* 從指定的按鈕打開語言選單（手機抽屜用）。
+     不指定就用桌面版那顆 —— 但在手機上它是隱藏的，
+     選單會跑到畫面左上角，所以抽屜一定要把自己傳進來。 */
+  window.switchLanguageFrom = function (anchor) {
+    if (languages.length <= 2) {
+      var other = languages.filter(function (l) { return l.code !== currentLang; })[0];
+      applyLanguage(other ? other.code : currentLang);
+      return;
+    }
+    openMenu(anchor || document.getElementById('langBtn'));
+  };
 
   /* 先用 HTML 內建的 data-en 立刻套用（不等網路），
      資料庫回來後再套一次補上新語言 —— 這樣 API 慢或掛掉都不影響瀏覽。 */
