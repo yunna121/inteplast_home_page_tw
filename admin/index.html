@@ -718,7 +718,8 @@
 
             var first = entity === 'product'
               ? (function () {
-                  var src = imageSrc(row.img || row.img_home);
+                  // 縮圖用首頁那張（情境圖），比產品中心的去背圖好認
+                  var src = imageSrc(row.img_home || row.img);
                   return src
                     ? el('img', { class: 'thumb', src: src, alt: '' })
                     : el('div', { class: 'thumb none' }, [el('i', { class: 'fa-regular fa-image' })]);
