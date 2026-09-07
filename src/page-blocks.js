@@ -112,12 +112,29 @@
     if (!rows.length) { host.innerHTML = ''; return; }
     host.innerHTML = rows.map(function (r) { return blockHtml(r, root); }).join('');
 
-    // 語言與進場動畫都是掃描 DOM 的，插入後要再叫一次
+    // 語言是掃描 DOM 的，插入後要再叫一次
     if (typeof window.applyLanguage === 'function') window.applyLanguage();
-    if (typeof window.initReveal === 'function') window.initReveal();
-    else {
-      host.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+
+    /* 進場動畫：頁面自己的 IntersectionObserver 在載入時就掃描完了，
+       之後插入的元素不會被觀察到 —— 不自己接一個的話，這些區塊會
+       永遠停在 opacity:0（看起來像一大塊空白）。 */
+    var targets = host.querySelectorAll('.reveal');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduce || !('IntersectionObserver' in window)) {
+      targets.forEach(function (el) { el.classList.add('visible'); });
+      return;
     }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+
+    targets.forEach(function (el) { io.observe(el); });
   }
 
   function start() {
