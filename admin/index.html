@@ -522,6 +522,7 @@
             items: [
               { id: 'timeline', label: '時間軸', icon: 'fa-clock-rotate-left', count: (DB.timeline || []).length },
               { id: 'ui', label: '介面文字', icon: 'fa-font', count: (DB.uiStrings || []).length },
+              { id: 'block', label: '頁面區塊', icon: 'fa-layer-group', count: (DB.blocks || []).length },
               { id: 'setting', label: '公司資訊', icon: 'fa-building', count: 0 },
               { id: 'language', label: '語言', icon: 'fa-language', count: (DB.languages || []).length }
             ]
@@ -1691,6 +1692,221 @@
         main.appendChild(card);
       }
 
+      /* ---------- 頁面區塊 ---------- */
+      /* 讓業務在「關於營德」「永續發展」自行新增內容段落。
+         版型只有五種、樣式由程式碼決定 —— 內容自由，版面壞不掉。
+         現有的九個區段不在這裡，它們的文字在「介面文字」修改。 */
+      var BLOCK_PAGES = [
+        { id: 'about', label: '關於營德' },
+        { id: 'sustainability', label: '永續發展' }
+      ];
+      var BLOCK_LAYOUTS = [
+        { id: 'image-right', label: '圖右文左', needsImage: true },
+        { id: 'image-left', label: '圖左文右', needsImage: true },
+        { id: 'full-image', label: '全寬大圖 + 標題', needsImage: true },
+        { id: 'text', label: '純文字段落', needsImage: false },
+        { id: 'quote', label: '引言／數據強調', needsImage: false }
+      ];
+
+      function layoutLabel(id) {
+        var f = BLOCK_LAYOUTS.filter(function (l) { return l.id === id; })[0];
+        return f ? f.label : id;
+      }
+
+      function blockView() {
+        var main = document.getElementById('main');
+        if (!blockView.page) blockView.page = 'about';
+        var page = blockView.page;
+        var rows = (DB.blocks || []).filter(function (b) { return b.page === page; });
+        var langs = DB.languages || [];
+        var baseCode = baseLang();
+        if (!blockView.lang || !langs.some(function (l) { return l.code === blockView.lang; })) blockView.lang = baseCode;
+
+        main.appendChild(el('div', { class: 'head' }, [
+          el('div', {}, [
+            el('h1', { text: '頁面區塊' }),
+            el('p', { text: '在頁面下半部新增內容段落。選一種版型、填內容、排順序 —— 樣式由系統決定，不會弄壞版面。' })
+          ]),
+          el('button', {
+            class: 'btn',
+            onclick: function () {
+              api('/api/admin/save', {
+                entity: 'block', action: 'create',
+                base: {
+                  page: page, layout: 'image-right', title: '新的段落',
+                  body: '', eyebrow: '', image: '', caption: '',
+                  sort_order: rows.length, visible: 1
+                }
+              }).then(function () { toast('已新增區塊', 'ok'); return reload(); })
+                .catch(function (err) { toast('新增失敗：' + err.message, 'err'); });
+            }
+          }, [el('i', { class: 'fa-solid fa-plus' }), el('span', { text: '新增區塊' })])
+        ]));
+
+        var tabs = el('div', { class: 'tabs' });
+        BLOCK_PAGES.forEach(function (p) {
+          var n = (DB.blocks || []).filter(function (b) { return b.page === p.id; }).length;
+          tabs.appendChild(el('button', {
+            class: page === p.id ? 'on' : '',
+            onclick: function () { blockView.page = p.id; render(); }
+          }, [el('span', { text: p.label + (n ? '（' + n + '）' : '') })]));
+        });
+        main.appendChild(el('div', { class: 'card' }, [
+          tabs,
+          el('div', { class: 'field', style: 'background:#f8fafc' }, [
+            el('div', { class: 'hint', style: 'margin:0', text: '這些區塊會出現在' + (page === 'about' ? '「製造歷程」時間軸之後' : '頁面最後的行動呼籲之前') + '。' })
+          ])
+        ]));
+
+        if (!rows.length) {
+          main.appendChild(el('div', { class: 'card' }, [
+            el('div', { class: 'empty' }, [
+              el('i', { class: 'fa-solid fa-layer-group' }),
+              el('div', { text: '這一頁還沒有額外區塊。按右上角「新增區塊」開始。' })
+            ])
+          ]));
+          return;
+        }
+
+        function saveBlock(row, patch, tr, done) {
+          api('/api/admin/save', {
+            entity: 'block', action: 'update', id: row.id,
+            base: patch || {}, tr: tr || {}
+          }).then(function () { if (done) done(); return reload(); })
+            .catch(function (err) { toast('儲存失敗：' + err.message, 'err'); });
+        }
+
+        function move(row, dir) {
+          var ids = rows.map(function (r) { return r.id; });
+          var i = ids.indexOf(row.id);
+          var j = i + dir;
+          if (j < 0 || j >= ids.length) return;
+          ids.splice(j, 0, ids.splice(i, 1)[0]);
+          api('/api/admin/save', { entity: 'block', action: 'reorder', order: ids })
+            .then(function () { return reload(); })
+            .catch(function (err) { toast('排序失敗：' + err.message, 'err'); });
+        }
+
+        rows.forEach(function (row, idx) {
+          var lang = blockView.lang;
+          var isBase = lang === baseCode;
+          var draft = {};
+          var trDraft = {};
+
+          function valOf(field) {
+            if (isBase) return row[field] == null ? '' : String(row[field]);
+            var hit = (DB.translations || []).filter(function (t) {
+              return t.entity === 'block' && String(t.entity_id) === String(row.id) && t.field === field && t.lang === lang;
+            })[0];
+            return hit ? hit.value : '';
+          }
+
+          function setVal(field, v) {
+            if (isBase) draft[field] = v;
+            else { trDraft[lang] = trDraft[lang] || {}; trDraft[lang][field] = v; }
+          }
+
+          var layoutSel = el('select', { style: 'max-width:220px' });
+          BLOCK_LAYOUTS.forEach(function (l) {
+            var o = el('option', { value: l.id, text: l.label });
+            if (row.layout === l.id) o.selected = true;
+            layoutSel.appendChild(o);
+          });
+          layoutSel.value = row.layout;   // 保險：某些瀏覽器不吃 option.selected
+          layoutSel.addEventListener('change', function () {
+            saveBlock(row, { layout: this.value }, null, function () { toast('已改成「' + layoutLabel(layoutSel.value) + '」', 'ok'); });
+          });
+
+          var needsImage = (BLOCK_LAYOUTS.filter(function (l) { return l.id === row.layout; })[0] || {}).needsImage;
+
+          var langTabs = el('div', { class: 'tabs' });
+          langs.forEach(function (l) {
+            langTabs.appendChild(el('button', {
+              class: lang === l.code ? 'on' : '',
+              onclick: function () { blockView.lang = l.code; render(); }
+            }, [el('span', { text: l.label })]));
+          });
+
+          var fields = [
+            { key: 'eyebrow', label: '小標', type: 'text', hint: '選填，顯示在標題上方的小字' },
+            { key: 'title', label: '標題', type: 'text' },
+            { key: 'body', label: '內文', type: 'textarea', hint: '空一行就會分段' }
+          ];
+          if (needsImage) fields.push({ key: 'caption', label: '圖說', type: 'text', hint: '選填' });
+
+          var body = el('div', {});
+          fields.forEach(function (f) {
+            var hint = isBase ? f.hint : (row[f.key] ? '中文：' + String(row[f.key]).slice(0, 50) : f.hint);
+            body.appendChild(fieldNode(
+              { key: f.key, label: f.label, type: f.type, hint: hint },
+              valOf(f.key),
+              function (v) { setVal(f.key, v); }
+            ));
+          });
+
+          if (isBase && needsImage) {
+            body.appendChild(fieldNode(
+              { key: 'image', label: '圖片', type: 'image', hint: '可以直接上傳，或填現有的圖檔名稱' },
+              row.image || '',
+              function (v) { draft.image = v; }
+            ));
+          }
+
+          var saveBtn = el('button', { class: 'btn' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
+          saveBtn.addEventListener('click', function () {
+            if (!Object.keys(draft).length && !Object.keys(trDraft).length) { toast('沒有變更'); return; }
+            saveBtn.disabled = true;
+            saveBlock(row, draft, trDraft, function () { toast('已儲存', 'ok'); });
+          });
+
+          main.appendChild(el('div', { class: 'card', style: row.visible ? '' : 'opacity:.6' }, [
+            el('div', { class: 'sect-label', style: 'display:flex; gap:10px; align-items:center; flex-wrap:wrap;' }, [
+              el('span', { text: '區塊 ' + (idx + 1) }),
+              el('span', { class: 'chip plain', style: 'font-size:.74rem;padding:1px 9px', text: layoutLabel(row.layout) }),
+              row.visible ? null : el('span', { class: 'chip plain', style: 'font-size:.74rem;padding:1px 9px;border-color:#f0d3a8;background:#fff8ef;color:#8a5a12', text: '已隱藏' }),
+              el('span', { style: 'margin-left:auto; display:flex; gap:6px;' }, [
+                el('button', {
+                  class: 'btn ghost sm', title: '往上移',
+                  onclick: function () { move(row, -1); }
+                }, [el('i', { class: 'fa-solid fa-arrow-up' })]),
+                el('button', {
+                  class: 'btn ghost sm', title: '往下移',
+                  onclick: function () { move(row, 1); }
+                }, [el('i', { class: 'fa-solid fa-arrow-down' })])
+              ])
+            ]),
+            el('div', { class: 'field', style: 'display:flex; gap:12px; align-items:center; flex-wrap:wrap;' }, [
+              el('label', { style: 'font-size:.84rem; font-weight:700; margin:0', text: '版型' }),
+              layoutSel
+            ]),
+            langTabs,
+            body,
+            el('div', { class: 'formfoot' }, [
+              saveBtn,
+              el('button', {
+                class: 'btn ghost',
+                onclick: function () {
+                  saveBlock(row, { visible: row.visible ? 0 : 1 }, null, function () {
+                    toast(row.visible ? '已隱藏（網站上看不到）' : '已顯示', 'ok');
+                  });
+                }
+              }, [el('span', { text: row.visible ? '隱藏' : '顯示' })]),
+              el('span', { class: 'spacer' }),
+              el('button', {
+                class: 'btn danger',
+                onclick: function () {
+                  confirmDialog('確定要刪除這個區塊？', '「' + (row.title || '未命名區塊') + '」會從網站上消失，無法復原。', function () {
+                    api('/api/admin/save', { entity: 'block', action: 'delete', id: row.id })
+                      .then(function () { toast('已刪除', 'ok'); return reload(); })
+                      .catch(function (err) { toast('刪除失敗：' + err.message, 'err'); });
+                  });
+                }
+              }, [el('i', { class: 'fa-solid fa-trash' }), el('span', { text: '刪除' })])
+            ])
+          ]));
+        });
+      }
+
       /* ---------- 公司資訊 ---------- */
       function settingView() {
         var main = document.getElementById('main');
@@ -1890,6 +2106,7 @@
         if (view === 'suggestion') { suggestionView(); return; }
         if (view === 'inquiry') { inquiryView(); return; }
         if (view === 'ui') { uiView(); return; }
+        if (view === 'block') { blockView(); return; }
         if (view === 'setting') { settingView(); return; }
         if (view === 'language') { languageView(); return; }
       }

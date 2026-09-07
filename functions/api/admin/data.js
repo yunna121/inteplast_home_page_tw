@@ -11,7 +11,7 @@ export async function onRequest(context) {
     const { DB } = context.env;
     const protectedByAccess = context.data && context.data.auth && context.data.auth !== "none";
 
-    const [languages, products, translations, synonyms, suggestions, timeline, settings, inquiries, uiStrings] =
+    const [languages, products, translations, synonyms, suggestions, timeline, settings, inquiries, uiStrings, blocks] =
       await DB.batch([
         DB.prepare("SELECT code, label, is_base, sort_order FROM languages ORDER BY sort_order, code"),
         DB.prepare("SELECT * FROM products ORDER BY id"),
@@ -33,6 +33,7 @@ export async function onRequest(context) {
              FROM inquiries ORDER BY id DESC LIMIT 200`
         ),
         DB.prepare("SELECT id, zh, zh_key, page, note FROM ui_strings WHERE COALESCE(hidden, 0) = 0 ORDER BY id"),
+        DB.prepare("SELECT * FROM page_blocks ORDER BY page, sort_order, id"),
       ]);
 
     return json({
@@ -46,6 +47,7 @@ export async function onRequest(context) {
       settings: settings.results || [],
       inquiries: inquiries.results || [],
       uiStrings: uiStrings.results || [],
+      blocks: blocks.results || [],
     });
   } catch (error) {
     return fail(error);

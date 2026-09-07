@@ -57,7 +57,18 @@ const ENTITIES = {
     translatable: ["text"],
     required: ["zh"],
   },
+  /* 頁面區塊：版型（layout）只能是固定那幾種，樣式由程式碼決定，
+     所以業務填內容、排順序都不會弄壞版面。 */
+  block: {
+    table: "page_blocks",
+    base: ["page", "layout", "eyebrow", "title", "body", "image", "caption", "sort_order", "visible"],
+    translatable: ["eyebrow", "title", "body", "caption"],
+    required: ["page"],
+  },
 };
+
+const BLOCK_LAYOUTS = ["image-right", "image-left", "full-image", "text", "quote"];
+const BLOCK_PAGES = ["about", "sustainability"];
 
 function clean(value) {
   return value == null ? "" : String(value);
@@ -133,6 +144,29 @@ export async function onRequest(context) {
     /* ── 一般資料表 ── */
     const conf = ENTITIES[entity];
     if (!conf) return json({ error: "不支援的資料類型：" + entity }, 400);
+
+    /* 區塊：版型與頁面只接受白名單裡的值 —— 這是「版面壞不掉」的保證，
+       不能靠前端下拉選單擋，API 收到什麼都要自己驗。 */
+    if (entity === "block" && body.base) {
+      if (body.base.layout != null && BLOCK_LAYOUTS.indexOf(String(body.base.layout)) === -1) {
+        return json({ error: "不支援的版型：" + body.base.layout }, 400);
+      }
+      if (body.base.page != null && BLOCK_PAGES.indexOf(String(body.base.page)) === -1) {
+        return json({ error: "不支援的頁面：" + body.base.page }, 400);
+      }
+    }
+
+    /* 區塊排序：一次送整批新順序 */
+    if (entity === "block" && action === "reorder") {
+      const order = Array.isArray(body.order) ? body.order : [];
+      if (!order.length) return json({ error: "沒有收到順序" }, 400);
+      await DB.batch(
+        order.map((id, i) =>
+          DB.prepare("UPDATE page_blocks SET sort_order = ? WHERE id = ?").bind(i, Number(id))
+        )
+      );
+      return json({ ok: true, ordered: order.length });
+    }
 
     const id = Number(body.id || 0);
 

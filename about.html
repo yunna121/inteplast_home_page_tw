@@ -166,6 +166,10 @@
     <!-- 時間軸渲染（資料在 D1 的 timeline 表，改文字改資料庫） -->
     <script src="src/timeline-render.js"></script>
 
+    <!-- 業務在後台新增的內容區塊（後台 → 頁面區塊 → 關於營德）
+         沒有區塊時這裡不會佔任何空間 -->
+    <div data-blocks="about" data-root="./"></div>
+
     <section class="awards" data-screen-label="卓越營運獎"><div class="container">
       <div class="awards-grid">
         <div class="awards-copy reveal">
@@ -217,5 +221,6 @@
     if(reduceMotion||!("IntersectionObserver" in window)){document.querySelectorAll(".reveal").forEach(function(element){element.classList.add("visible")})}else{const observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}})},{threshold:.12});document.querySelectorAll(".reveal").forEach(function(element){observer.observe(element)})}
   </script>
   <script src="src/site-lang.js"></script>
+  <script src="src/page-blocks.js"></script>
 </body>
 </html>
