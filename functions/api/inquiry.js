@@ -96,30 +96,50 @@ function notifyMail(to, cc, replyTo, row) {
 }
 
 function autoReplyMail(row, settings) {
-  const isEn = String(row.lang || "").toLowerCase().indexOf("en") === 0;
+  /* 依客戶送出時的網站語言決定回覆語言。
+     新增語言時在下面 BODIES 加一份即可 —— 找不到就退回中文。 */
+  const lang = String(row.lang || "").toLowerCase();
+  const code = lang.indexOf("ja") === 0 ? "ja" : lang.indexOf("en") === 0 ? "en" : "zh";
+
   const company = settings.company_name || "臺灣營德股份有限公司";
   const phone = settings.phone || "";
 
-  const zh = `<div style="font-family:'Noto Sans TC',sans-serif;color:#142638;line-height:1.8">
-      <p>${esc(row.company || "您好")}，您好：</p>
-      <p>我們已收到您在官網留下的聯絡資料，將由專人於工作日內與您聯繫。</p>
-      <p style="color:#5f7182;font-size:14px">您填寫的內容<br>產品類別：${esc(row.product || "-")}<br>需求內容：${esc(row.message || "-")}</p>
-      <p style="margin-top:18px">${esc(company)}<br>${esc(phone)}</p>
-    </div>`;
+  const BODIES = {
+    zh: {
+      subject: `${company}｜已收到您的聯絡資料`,
+      html: `<div style="font-family:'Noto Sans TC',sans-serif;color:#142638;line-height:1.8">
+        <p>${esc(row.company || "您好")}，您好：</p>
+        <p>我們已收到您在官網留下的聯絡資料，將由專人於工作日內與您聯繫。</p>
+        <p style="color:#5f7182;font-size:14px">您填寫的內容<br>產品類別：${esc(row.product || "-")}<br>需求內容：${esc(row.message || "-")}</p>
+        <p style="margin-top:18px">${esc(company)}<br>${esc(phone)}</p>
+      </div>`,
+    },
+    en: {
+      subject: "INTEPLAST TAIWAN｜We have received your enquiry",
+      html: `<div style="font-family:sans-serif;color:#142638;line-height:1.8">
+        <p>Dear ${esc(row.company || "Sir/Madam")},</p>
+        <p>We have received your enquiry and a member of our team will be in touch within one business day.</p>
+        <p style="color:#5f7182;font-size:14px">Product: ${esc(row.product || "-")}<br>Message: ${esc(row.message || "-")}</p>
+        <p style="margin-top:18px">INTEPLAST TAIWAN CORPORATION<br>${esc(phone)}</p>
+      </div>`,
+    },
+    ja: {
+      subject: "INTEPLAST TAIWAN｜お問い合わせを受け付けました",
+      html: `<div style="font-family:sans-serif;color:#142638;line-height:1.9">
+        <p>${esc(row.company || "ご担当者")} 様</p>
+        <p>このたびはお問い合わせいただき、誠にありがとうございます。<br>内容を確認のうえ、営業日内に担当者よりご連絡いたします。</p>
+        <p style="color:#5f7182;font-size:14px">お問い合わせ内容<br>製品：${esc(row.product || "-")}<br>ご要望：${esc(row.message || "-")}</p>
+        <p style="margin-top:18px">INTEPLAST TAIWAN CORPORATION<br>${esc(phone)}</p>
+      </div>`,
+    },
+  };
 
-  const en = `<div style="font-family:sans-serif;color:#142638;line-height:1.8">
-      <p>Dear ${esc(row.company || "Sir/Madam")},</p>
-      <p>We have received your enquiry and a member of our team will be in touch within one business day.</p>
-      <p style="color:#5f7182;font-size:14px">Product: ${esc(row.product || "-")}<br>Message: ${esc(row.message || "-")}</p>
-      <p style="margin-top:18px">INTEPLAST TAIWAN CORPORATION<br>${esc(phone)}</p>
-    </div>`;
+  const pick = BODIES[code] || BODIES.zh;
 
   return {
     message: {
-      subject: isEn
-        ? "INTEPLAST TAIWAN｜We have received your enquiry"
-        : `${company}｜已收到您的聯絡資料`,
-      body: { contentType: "HTML", content: isEn ? en : zh },
+      subject: pick.subject,
+      body: { contentType: "HTML", content: pick.html },
       toRecipients: [{ emailAddress: { address: row.email } }],
     },
     saveToSentItems: false,

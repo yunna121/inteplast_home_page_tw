@@ -263,6 +263,41 @@
 
     .loading { padding: 60px; text-align: center; color: var(--muted); }
 
+    .two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+
+    /* ---------- 手機 ---------- */
+    /* 側邊選單改成橫向捲動的一列，分組標題在那個情境沒有意義就藏起來；
+       所有兩欄版面收成一欄；表格維持橫向捲動（欄位擠成一字一行更難看）。 */
+    @media (max-width: 760px) {
+      .two-col { grid-template-columns: 1fr; }
+
+      .side { padding: 12px; gap: 10px; }
+      .brand { font-size: .95rem; }
+      .brand small { display: none; }
+      .nav { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; gap: 6px; padding-bottom: 2px; -webkit-overflow-scrolling: touch; }
+      .nav::-webkit-scrollbar { display: none; }
+      .nav > div { display: none; }
+      .nav button { flex: 0 0 auto; padding: 8px 12px; font-size: .86rem; }
+      .nav button[style*="padding-left"] { padding-left: 12px !important; }
+      .side-foot { display: none; }
+
+      .main { padding: 16px 12px 72px; }
+      .head { flex-direction: column; align-items: stretch; gap: 12px; }
+      .head h1 { font-size: 1.25rem; }
+      .head > div:last-child { display: flex; flex-wrap: wrap; gap: 8px; }
+
+      .btn { min-height: 44px; }
+      .btn.sm { min-height: 38px; }
+      .formfoot { flex-wrap: wrap; }
+      .formfoot .spacer { margin-left: 0; width: 100%; }
+      .tabs { overflow-x: auto; padding: 8px 10px 0; }
+      .tabs button { flex: 0 0 auto; }
+      .field { padding: 12px; }
+      .imgfield { flex-direction: column; }
+      .toast { left: 12px; right: 12px; bottom: 12px; max-width: none; }
+      input[type=text], textarea, select { font-size: 16px; }  /* iOS 小於 16px 會自動放大整頁 */
+    }
+
     @media (max-width: 900px) {
       .shell { grid-template-columns: 1fr; }
       .side { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 14px; }
@@ -1695,8 +1730,7 @@
             }
 
             listBox.appendChild(el('div', {
-              class: 'field',
-              style: 'display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; align-items:start;'
+              class: 'field two-col'
             }, [
               el('div', {
                 text: r.zh,
