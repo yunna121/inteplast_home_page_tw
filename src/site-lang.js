@@ -47,7 +47,10 @@
 
   /** 某個中文原文在目前語言下該顯示什麼 */
   function translate(zh, lang, fallbackAttr) {
-    if (lang === BASE) return zh;
+    // 繁中也可能被後台改過（介面文字那頁），所以一樣要查表
+    if (lang === BASE) {
+      return (strings && strings[zh] && strings[zh][BASE]) || zh;
+    }
     if (strings && strings[zh] && strings[zh][lang]) return strings[zh][lang];
     return fallbackAttr || '';
   }

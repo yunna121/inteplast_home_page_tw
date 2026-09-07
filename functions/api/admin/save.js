@@ -49,13 +49,13 @@ const ENTITIES = {
     translatable: [],
     required: [],
   },
-  /* 介面文字：繁中原文（zh）是索引鍵，頁面靠它對應，所以不開放修改 ——
-     改了等於換一個鍵，頁面就對不到了。只能編輯其他語言的翻譯。 */
+  /* 介面文字：zh_key 是頁面對應用的鍵（永不變），zh 是實際顯示的中文。
+     業務改 zh 就等於改網站文案；zh_key 不開放修改。 */
   ui: {
     table: "ui_strings",
-    base: ["note"],
+    base: ["zh", "note"],
     translatable: ["text"],
-    required: [],
+    required: ["zh"],
   },
 };
 

@@ -41,14 +41,24 @@ export async function onRequest(context) {
 
     const [translations, ui, products, timeline] = await DB.batch([
       DB.prepare("SELECT entity, entity_id, field, lang, value FROM translations WHERE value <> ''"),
-      DB.prepare("SELECT id, zh FROM ui_strings"),
+      DB.prepare("SELECT id, zh, zh_key FROM ui_strings"),
       DB.prepare("SELECT id, name, highlight, desc, items FROM products"),
       DB.prepare("SELECT id, title, description, future_outlook FROM timeline"),
     ]);
 
     // entity → id → 該筆的繁中欄位值
     const base = { ui: {}, product: {}, timeline: {} };
-    (ui.results || []).forEach((r) => { base.ui[r.id] = { text: r.zh }; });
+    /* 介面文字的鍵是 zh_key（頁面上寫死的那句），顯示的是 zh。
+       業務改了中文之後，這裡把改後的中文當成「繁中的翻譯」回傳，
+       site-lang.js 就會用它覆蓋頁面上的原文。 */
+    (ui.results || []).forEach((r) => {
+      const key = r.zh_key || r.zh;
+      base.ui[r.id] = { text: key };
+      if (r.zh && r.zh !== key) {
+        if (!out[key]) out[key] = {};
+        out[key]["zh-TW"] = r.zh;
+      }
+    });
     (products.results || []).forEach((r) => {
       base.product[r.id] = { name: r.name, highlight: r.highlight, desc: r.desc, items: r.items };
     });
