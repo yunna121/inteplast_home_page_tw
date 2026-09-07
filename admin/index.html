@@ -612,6 +612,11 @@
       }
 
       /* ---------- 產品／時間軸：清單 ---------- */
+
+      /* 搜尋框只在筆數多到「捲動找不到」時才出現（門檻 8 筆）。
+         少的時候多一個輸入框只是雜訊，多的時候它自己會長出來。 */
+      var SEARCH_THRESHOLD = 8;
+
       function listView(entity) {
         var spec = SPEC[entity];
         var rows = DB[spec.table] || [];
@@ -633,56 +638,115 @@
         }
 
         var others = (DB.languages || []).filter(function (l) { return !l.is_base; });
-        var head = el('tr', {}, [
-          entity === 'product' ? el('th', { text: '圖' }) : el('th', { text: '年份' }),
-          el('th', { text: entity === 'product' ? '產品' : '標題' }),
-          el('th', { text: '翻譯狀態' }),
-          el('th', { class: 'right', text: '' })
-        ]);
+        var listBox = el('div', {});
+        var countLabel = el('span', { class: 'rowsub' });
+        listView.q = listView.q || {};
 
-        var body = rows.map(function (row) {
-          var name = entity === 'product' ? row.name : (row.title || '（未填標題）');
-          var sub = entity === 'product'
-            ? (row.highlight || row.desc || '').slice(0, 46)
-            : (row.description || '').slice(0, 46);
+        if (rows.length > SEARCH_THRESHOLD) {
+          var search = el('input', {
+            type: 'text', value: listView.q[entity] || '',
+            placeholder: entity === 'product' ? '搜尋產品名稱、敘述、細項…' : '搜尋年份、標題、說明…',
+            style: 'max-width:300px'
+          });
+          search.addEventListener('input', function () { listView.q[entity] = this.value; paintList(); });
 
-          var flags = others.map(function (l) {
-            var bad = langIncomplete(entity, row, spec.langFields, l.code);
-            return el('span', {
-              class: 'chip plain',
-              style: bad ? 'border-color:#f0d3a8;background:#fff8ef;color:#8a5a12' : '',
-              text: l.label + (bad ? ' 未完成' : ' ✓')
+          main.appendChild(el('div', { class: 'card' }, [
+            el('div', { class: 'field', style: 'display:flex; gap:12px; align-items:center; flex-wrap:wrap;' }, [
+              search,
+              el('span', { style: 'margin-left:auto' }, [countLabel])
+            ])
+          ]));
+        }
+
+        main.appendChild(listBox);
+
+        /* 搜尋範圍含各語言的翻譯：打英文品名也要找得到那一筆 */
+        function haystack(row) {
+          var parts = spec.neutral.concat(spec.langFields).map(function (f) { return row[f.key] || ''; });
+          (DB.translations || []).forEach(function (t) {
+            if (t.entity === entity && String(t.entity_id) === String(row.id)) parts.push(t.value);
+          });
+          return parts.join(' ').toLowerCase();
+        }
+
+        function paintList() {
+          var term = String(listView.q[entity] || '').trim().toLowerCase();
+          var list = term
+            ? rows.filter(function (row) {
+                var hay = haystack(row);
+                return term.split(/\s+/).every(function (w) { return !w || hay.indexOf(w) > -1; });
+              })
+            : rows;
+
+          countLabel.textContent = term
+            ? '符合 ' + list.length + ' 筆（共 ' + rows.length + ' 筆）'
+            : '共 ' + rows.length + ' 筆';
+
+          listBox.innerHTML = '';
+
+          if (!list.length) {
+            listBox.appendChild(el('div', { class: 'card' }, [
+              el('div', { class: 'empty' }, [
+                el('i', { class: 'fa-solid ' + spec.icon }),
+                el('div', { text: '找不到符合「' + term + '」的資料。' })
+              ])
+            ]));
+            return;
+          }
+
+          var head = el('tr', {}, [
+            entity === 'product' ? el('th', { text: '圖' }) : el('th', { text: '年份' }),
+            el('th', { text: entity === 'product' ? '產品' : '標題' }),
+            el('th', { text: '翻譯狀態' }),
+            el('th', { class: 'right', text: '' })
+          ]);
+
+          var body = list.map(function (row) {
+            var name = entity === 'product' ? row.name : (row.title || '（未填標題）');
+            var sub = entity === 'product'
+              ? (row.highlight || row.desc || '').slice(0, 46)
+              : (row.description || '').slice(0, 46);
+
+            var flags = others.map(function (l) {
+              var bad = langIncomplete(entity, row, spec.langFields, l.code);
+              return el('span', {
+                class: 'chip plain',
+                style: bad ? 'border-color:#f0d3a8;background:#fff8ef;color:#8a5a12' : '',
+                text: l.label + (bad ? ' 未完成' : ' ✓')
+              });
             });
+
+            var first = entity === 'product'
+              ? (function () {
+                  var src = imageSrc(row.img || row.img_home);
+                  return src
+                    ? el('img', { class: 'thumb', src: src, alt: '' })
+                    : el('div', { class: 'thumb none' }, [el('i', { class: 'fa-regular fa-image' })]);
+                })()
+              : el('div', { class: 'rowtitle', text: String(row.year || '').replace(/\\n|\n/g, ' / ') });
+
+            return el('tr', {}, [
+              el('td', {}, [first]),
+              el('td', {}, [
+                el('div', { class: 'rowtitle', text: String(name).replace(/\\n|\n/g, ' ') }),
+                sub ? el('div', { class: 'rowsub', text: sub }) : null
+              ]),
+              el('td', {}, [el('div', { class: 'chips' }, flags.length ? flags : [el('span', { class: 'rowsub', text: '—' })])]),
+              el('td', { class: 'right' }, [
+                el('button', {
+                  class: 'btn ghost sm',
+                  onclick: function () { editing = { entity: entity, row: row, draft: {}, tr: {} }; render(); }
+                }, [el('i', { class: 'fa-solid fa-pen' }), el('span', { text: '編輯' })])
+              ])
+            ]);
           });
 
-          var first = entity === 'product'
-            ? (function () {
-                var src = imageSrc(row.img || row.img_home);
-                return src
-                  ? el('img', { class: 'thumb', src: src, alt: '' })
-                  : el('div', { class: 'thumb none' }, [el('i', { class: 'fa-regular fa-image' })]);
-              })()
-            : el('div', { class: 'rowtitle', text: String(row.year || '').replace(/\\n|\n/g, ' / ') });
+          listBox.appendChild(el('div', { class: 'card' }, [
+            el('table', {}, [el('thead', {}, [head]), el('tbody', {}, body)])
+          ]));
+        }
 
-          return el('tr', {}, [
-            el('td', {}, [first]),
-            el('td', {}, [
-              el('div', { class: 'rowtitle', text: String(name).replace(/\\n|\n/g, ' ') }),
-              sub ? el('div', { class: 'rowsub', text: sub }) : null
-            ]),
-            el('td', {}, [el('div', { class: 'chips' }, flags.length ? flags : [el('span', { class: 'rowsub', text: '—' })])]),
-            el('td', { class: 'right' }, [
-              el('button', {
-                class: 'btn ghost sm',
-                onclick: function () { editing = { entity: entity, row: row, draft: {}, tr: {} }; render(); }
-              }, [el('i', { class: 'fa-solid fa-pen' }), el('span', { text: '編輯' })])
-            ])
-          ]);
-        });
-
-        main.appendChild(el('div', { class: 'card' }, [
-          el('table', {}, [el('thead', {}, [head]), el('tbody', {}, body)])
-        ]));
+        paintList();
       }
 
       /* ---------- 產品／時間軸：表單 ---------- */
