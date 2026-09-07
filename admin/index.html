@@ -1668,8 +1668,14 @@
               style: 'display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; align-items:start;'
             }, [
               el('div', {}, [
+                /* <br> 直接呈現成換行、變數呈現成灰底標籤 ——
+                   讓這裡看起來像一句話，而不是一段程式碼。
+                   （只影響顯示，資料庫存的還是原字串） */
                 el('div', {
-                  text: r.zh,
+                  html: r.zh
+                    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                    .replace(/&lt;br\s*\/?&gt;/gi, '<br>')
+                    .replace(/\{\{([^}]+)\}\}/g, '<span style="padding:0 5px;background:#eef2f6;border-radius:4px;color:#5f7182;font-size:.82em">$1</span>'),
                   style: 'white-space:pre-wrap; font-size:.9rem;' + (cur.trim() ? '' : 'color:#8a5a12;')
                 }),
                 marks.length ? el('div', { class: 'chips', style: 'margin-top:6px' }, marks) : null,
