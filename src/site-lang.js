@@ -150,16 +150,19 @@
     return /^[a-z]+$/i.test(l) ? l.slice(0, 2).toUpperCase() : l;
   }
 
-  function openMenu(btn) {
+  function openMenu(anchor) {
     var old = document.getElementById('langMenu');
     if (old) { old.remove(); return; }
 
     var menu = document.createElement('div');
     menu.id = 'langMenu';
+    /* position:fixed 而不是 absolute —— 頁面有記憶縮放（navbar.js 會設
+       documentElement.zoom），而且抽屜是固定定位的，用 absolute 加
+       scrollY 換算會整個跑掉。fixed 直接吃視窗座標，不必換算。 */
     menu.style.cssText =
-      'position:absolute; z-index:100000; min-width:132px; padding:6px;' +
+      'position:fixed; z-index:100000; min-width:150px; padding:6px;' +
       'background:#fff; border:1px solid #dbe4ec; border-radius:8px;' +
-      'box-shadow:0 12px 30px -10px rgba(10,37,64,.35); font-size:.9rem;';
+      'box-shadow:0 12px 30px -10px rgba(10,37,64,.35); font-size:.95rem;';
 
     languages.forEach(function (l) {
       var item = document.createElement('button');
@@ -181,13 +184,35 @@
     });
 
     document.body.appendChild(menu);
-    var box = btn.getBoundingClientRect();
-    menu.style.top = (box.bottom + window.scrollY + 6) + 'px';
-    menu.style.left = Math.max(8, Math.min(box.left + window.scrollX, window.innerWidth - menu.offsetWidth - 8)) + 'px';
+
+    /* 定位：預設開在按鈕下方；下方空間不夠（手機抽屜的語言鈕在最底部）
+       就翻到上方。左右都夾在視窗內，不會有一半在畫面外。 */
+    var box = anchor && anchor.getBoundingClientRect
+      ? anchor.getBoundingClientRect()
+      : { top: 60, bottom: 60, left: 12, right: 12, width: 0 };
+
+    var mh = menu.offsetHeight;
+    var mw = menu.offsetWidth;
+    var below = box.bottom + 8;
+    var top = (below + mh > window.innerHeight - 8) ? Math.max(8, box.top - mh - 8) : below;
+    var left = Math.max(8, Math.min(box.left, window.innerWidth - mw - 8));
+
+    menu.style.top = top + 'px';
+    menu.style.left = left + 'px';
+
+    /* 開著的時候捲動或轉向就關掉 —— fixed 的選單不會跟著內容跑，
+       留著會浮在錯的位置上 */
+    function dismiss() {
+      if (menu.parentNode) menu.remove();
+      window.removeEventListener('scroll', dismiss, true);
+      window.removeEventListener('resize', dismiss);
+    }
+    window.addEventListener('scroll', dismiss, true);
+    window.addEventListener('resize', dismiss);
 
     setTimeout(function () {
       document.addEventListener('click', function close() {
-        menu.remove();
+        dismiss();
         document.removeEventListener('click', close);
       });
     }, 0);
