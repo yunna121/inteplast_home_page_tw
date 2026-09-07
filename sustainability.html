@@ -17,7 +17,9 @@
   <!-- 防止語系切換中文閃爍 (Anti-FOUC Instant Language Preloader) -->
   <script>
     (function() {
-      if (localStorage.getItem('preferredLang') === 'en') {
+      var __lang = localStorage.getItem('preferredLang');
+      // 非繁中的語言都要先遮住，避免中文閃一下（site-lang.js 負責解除）
+      if (__lang && __lang !== 'zh-TW' && __lang !== 'tw') {
         document.documentElement.classList.add('lang-loading');
       }
     })();

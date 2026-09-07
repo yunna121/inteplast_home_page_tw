@@ -49,6 +49,14 @@ const ENTITIES = {
     translatable: [],
     required: [],
   },
+  /* 介面文字：繁中原文（zh）是索引鍵，頁面靠它對應，所以不開放修改 ——
+     改了等於換一個鍵，頁面就對不到了。只能編輯其他語言的翻譯。 */
+  ui: {
+    table: "ui_strings",
+    base: ["note"],
+    translatable: ["text"],
+    required: [],
+  },
 };
 
 function clean(value) {

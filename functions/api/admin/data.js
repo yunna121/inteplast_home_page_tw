@@ -11,7 +11,7 @@ export async function onRequest(context) {
     const { DB } = context.env;
     const protectedByAccess = context.data && context.data.auth && context.data.auth !== "none";
 
-    const [languages, products, translations, synonyms, suggestions, timeline, settings, inquiries] =
+    const [languages, products, translations, synonyms, suggestions, timeline, settings, inquiries, uiStrings] =
       await DB.batch([
         DB.prepare("SELECT code, label, is_base, sort_order FROM languages ORDER BY sort_order, code"),
         DB.prepare("SELECT * FROM products ORDER BY id"),
@@ -32,6 +32,7 @@ export async function onRequest(context) {
           `SELECT id, company, email, phone, product, message, lang, page, status, note, mailed, created_at
              FROM inquiries ORDER BY id DESC LIMIT 200`
         ),
+        DB.prepare("SELECT id, zh, page, note FROM ui_strings ORDER BY id"),
       ]);
 
     return json({
@@ -44,6 +45,7 @@ export async function onRequest(context) {
       timeline: timeline.results || [],
       settings: settings.results || [],
       inquiries: inquiries.results || [],
+      uiStrings: uiStrings.results || [],
     });
   } catch (error) {
     return fail(error);

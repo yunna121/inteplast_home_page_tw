@@ -6,7 +6,9 @@
   <script>
     // 英文使用者換頁時先隱藏內容，避免中文閃一下（site-lang.js 負責解除）
     (function () {
-      if (localStorage.getItem('preferredLang') === 'en') {
+      var __lang = localStorage.getItem('preferredLang');
+      // 非繁中的語言都要先遮住，避免中文閃一下（site-lang.js 負責解除）
+      if (__lang && __lang !== 'zh-TW' && __lang !== 'tw') {
         document.documentElement.classList.add('lang-loading');
       }
     })();

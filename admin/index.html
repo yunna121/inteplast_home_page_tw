@@ -521,6 +521,7 @@
             label: '網站內容',
             items: [
               { id: 'timeline', label: '時間軸', icon: 'fa-clock-rotate-left', count: (DB.timeline || []).length },
+              { id: 'ui', label: '介面文字', icon: 'fa-font', count: (DB.uiStrings || []).length },
               { id: 'setting', label: '公司資訊', icon: 'fa-building', count: 0 },
               { id: 'language', label: '語言', icon: 'fa-language', count: (DB.languages || []).length }
             ]
@@ -848,6 +849,45 @@
           ]));
         });
         langCard.appendChild(tabs);
+
+        /* AI 翻譯草稿：把繁中翻成目前這個語言，填進欄位但「不存檔」。
+           翻譯是要給客戶看的文字，機器譯稿一定要有人過目 ——
+           使用者改完按儲存才進資料庫，不滿意就直接離開。 */
+        if (activeLang !== baseLang() && !isNew) {
+          var draftBtn = el('button', { class: 'btn ghost sm' },
+            [el('i', { class: 'fa-solid fa-language' }), el('span', { text: '用 AI 產生' + langLabel(activeLang) + '草稿' })]);
+
+          draftBtn.addEventListener('click', function () {
+            var span = draftBtn.querySelector('span');
+            var was = span.textContent;
+            draftBtn.disabled = true;
+            span.textContent = '翻譯中…';
+
+            api('/api/admin/translate', {
+              entity: entity, id: row.id, lang: activeLang,
+              fields: spec.langFields.map(function (f) { return f.key; })
+            }).then(function (res) {
+              var keys = Object.keys(res.draft || {});
+              if (!keys.length) { toast('沒有取得翻譯結果'); return; }
+              keys.forEach(function (k) { setDraft(k, activeLang, res.draft[k]); });
+              toast('草稿已填入 ' + keys.length + ' 個欄位，請確認後按儲存', 'ok');
+              render();
+            }).catch(function (err) {
+              toast('翻譯失敗：' + err.message, 'err');
+            }).finally(function () {
+              draftBtn.disabled = false;
+              span.textContent = was;
+            });
+          });
+
+          langCard.appendChild(el('div', {
+            class: 'field',
+            style: 'display:flex; gap:12px; align-items:center; flex-wrap:wrap; background:#f8fafc;'
+          }, [
+            draftBtn,
+            el('span', { class: 'hint', style: 'margin:0', text: '機器譯稿會填進下面的欄位，改完按儲存才會寫入。' })
+          ]));
+        }
 
         spec.langFields.forEach(function (f) {
           var base = f.required && activeLang !== baseLang() ? Object.assign({}, f, { required: false }) : f;
@@ -1404,6 +1444,198 @@
         paintList();
       }
 
+      /* ---------- 介面文字 ---------- */
+      /* 選單、按鈕、標題那些原本寫死在 HTML 裡的字。
+         繁體中文是「索引鍵」—— 頁面靠它對應，所以不能改；
+         這裡只編輯其他語言的翻譯。 */
+      function uiView() {
+        var main = document.getElementById('main');
+        var rows = DB.uiStrings || [];
+        var langs = (DB.languages || []).filter(function (l) { return !l.is_base; });
+
+        if (!rows.length) {
+          main.appendChild(el('div', { class: 'head' }, [
+            el('div', {}, [el('h1', { text: '介面文字' })])
+          ]));
+          main.appendChild(el('div', { class: 'card' }, [
+            el('div', { class: 'empty' }, [
+              el('i', { class: 'fa-solid fa-font' }),
+              el('div', { text: '還沒有介面文字。請先在 D1 執行 db/schema-v6.sql 匯入。' })
+            ])
+          ]));
+          return;
+        }
+
+        if (!langs.length) {
+          main.appendChild(el('div', { class: 'head' }, [el('div', {}, [el('h1', { text: '介面文字' })])]));
+          main.appendChild(el('div', { class: 'card' }, [
+            el('div', { class: 'empty', text: '目前只有基準語言，沒有東西要翻譯。到「語言」新增一種語言。' })
+          ]));
+          return;
+        }
+
+        if (!uiView.lang || !langs.some(function (l) { return l.code === uiView.lang; })) uiView.lang = langs[0].code;
+        var lang = uiView.lang;
+
+        function valueOfUi(id) {
+          var hit = (DB.translations || []).filter(function (t) {
+            return t.entity === 'ui' && String(t.entity_id) === String(id) && t.field === 'text' && t.lang === lang;
+          })[0];
+          return hit ? hit.value : '';
+        }
+
+        var drafts = {};
+        var missing = rows.filter(function (r) { return !valueOfUi(r.id).trim(); }).length;
+
+        var aiBtn = el('button', { class: 'btn ghost' },
+          [el('i', { class: 'fa-solid fa-language' }), el('span', { text: '用 AI 翻譯未完成的（' + missing + '）' })]);
+
+        main.appendChild(el('div', { class: 'head' }, [
+          el('div', {}, [
+            el('h1', { text: '介面文字' }),
+            el('p', { text: '網站選單、按鈕、標題那些字。繁體中文是對應用的鍵，不能修改；這裡填其他語言。' })
+          ]),
+          missing ? aiBtn : null
+        ]));
+
+        /* AI 批次翻譯：分批呼叫直到翻完，過程顯示進度。
+           一次全部送給模型會超出長度限制，所以後端一批 20 條。 */
+        aiBtn.addEventListener('click', function () {
+          var span = aiBtn.querySelector('span');
+          aiBtn.disabled = true;
+          var total = missing;
+          var done = 0;
+
+          function step() {
+            span.textContent = '翻譯中… ' + done + ' / ' + total;
+            api('/api/admin/translate-ui', { lang: lang, limit: 20 })
+              .then(function (res) {
+                done += res.done || 0;
+                if (res.remaining > 0 && res.done > 0) return step();
+                toast('翻譯完成，共 ' + done + ' 條，請逐條校對', 'ok');
+                return reload();
+              })
+              .catch(function (err) {
+                toast('翻譯失敗：' + err.message, 'err');
+                aiBtn.disabled = false;
+                span.textContent = '用 AI 翻譯未完成的（' + total + '）';
+              });
+          }
+          step();
+        });
+
+        var card = el('div', { class: 'card' });
+        var tabs = el('div', { class: 'tabs' });
+        langs.forEach(function (l) {
+          tabs.appendChild(el('button', {
+            class: lang === l.code ? 'on' : '',
+            onclick: function () { uiView.lang = l.code; render(); }
+          }, [el('span', { text: l.label })]));
+        });
+        card.appendChild(tabs);
+
+        var listBox = el('div', {});
+        var countLabel = el('span', { class: 'rowsub' });
+
+        var search = el('input', {
+          type: 'text', value: uiView.q || '',
+          placeholder: '搜尋中文或譯文…', style: 'max-width:280px'
+        });
+        search.addEventListener('input', function () { uiView.q = this.value; paintRows(); });
+
+        var onlyMissing = el('input', { type: 'checkbox' });
+        onlyMissing.checked = !!uiView.onlyMissing;
+        onlyMissing.addEventListener('change', function () { uiView.onlyMissing = this.checked; paintRows(); });
+
+        card.appendChild(el('div', {
+          class: 'field',
+          style: 'display:flex; gap:12px; align-items:center; flex-wrap:wrap; background:#f8fafc;'
+        }, [
+          search,
+          el('label', { style: 'display:flex; gap:7px; align-items:center; font-size:.87rem; font-weight:700; cursor:pointer;' },
+            [onlyMissing, el('span', { text: '只看未翻譯' })]),
+          el('span', { style: 'margin-left:auto' }, [countLabel])
+        ]));
+
+        card.appendChild(listBox);
+
+        function paintRows() {
+          var term = String(uiView.q || '').trim().toLowerCase();
+          var list = rows.filter(function (r) {
+            var cur = Object.prototype.hasOwnProperty.call(drafts, r.id) ? drafts[r.id] : valueOfUi(r.id);
+            if (uiView.onlyMissing && cur.trim()) return false;
+            if (!term) return true;
+            return (r.zh + ' ' + cur).toLowerCase().indexOf(term) > -1;
+          });
+
+          countLabel.textContent = '顯示 ' + list.length + ' 條（共 ' + rows.length + ' 條，未翻譯 ' + missing + ' 條）';
+          listBox.innerHTML = '';
+
+          if (!list.length) {
+            listBox.appendChild(el('div', { class: 'empty', text: '沒有符合條件的字串。' }));
+            return;
+          }
+
+          var lastPage = null;
+          list.forEach(function (r) {
+            if (r.page !== lastPage) {
+              lastPage = r.page;
+              listBox.appendChild(el('div', { class: 'sect-label', text: r.page || '其他' }));
+            }
+
+            var cur = Object.prototype.hasOwnProperty.call(drafts, r.id) ? drafts[r.id] : valueOfUi(r.id);
+            var long = r.zh.length > 40;
+            var input = long
+              ? el('textarea', { style: 'min-height:70px' })
+              : el('input', { type: 'text' });
+            input.value = cur;
+            input.addEventListener('input', function () { drafts[r.id] = this.value; });
+
+            listBox.appendChild(el('div', {
+              class: 'field',
+              style: 'display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; align-items:start;'
+            }, [
+              el('div', {}, [
+                el('div', {
+                  text: r.zh,
+                  style: 'white-space:pre-wrap; font-size:.9rem;' + (cur.trim() ? '' : 'color:#8a5a12;')
+                }),
+                cur.trim() ? null : el('div', { class: 'hint', style: 'margin-top:4px', text: '尚未翻譯' })
+              ]),
+              input
+            ]));
+          });
+        }
+
+        paintRows();
+
+        var save = el('button', { class: 'btn' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
+        save.addEventListener('click', function () {
+          var ids = Object.keys(drafts).filter(function (id) {
+            return drafts[id] !== valueOfUi(id);
+          });
+          if (!ids.length) { toast('沒有變更'); return; }
+          save.disabled = true;
+          Promise.all(ids.map(function (id) {
+            var tr = {}; tr[lang] = { text: drafts[id] };
+            return api('/api/admin/save', { entity: 'ui', action: 'update', id: Number(id), base: {}, tr: tr });
+          })).then(function () {
+            toast('已儲存 ' + ids.length + ' 條', 'ok');
+            return reload();
+          }).catch(function (err) {
+            toast('存檔失敗：' + err.message, 'err');
+            save.disabled = false;
+          });
+        });
+
+        card.appendChild(el('div', { class: 'formfoot' }, [
+          save,
+          el('span', { class: 'hint', style: 'margin:0', text: '改完記得按儲存 —— 切換語言頁籤會清掉未存的修改。' })
+        ]));
+
+        main.appendChild(card);
+      }
+
       /* ---------- 公司資訊 ---------- */
       function settingView() {
         var main = document.getElementById('main');
@@ -1492,14 +1724,31 @@
         ]));
 
         var body = langs.map(function (l) {
+          /* 名稱可以直接改：新增時漏填就會顯示成代碼（ja），
+             這裡改完存檔，編輯畫面的頁籤就會跟著變 */
+          var label = el('input', { type: 'text', value: l.label || '', placeholder: l.code, style: 'max-width:200px' });
+
+          function saveLabel() {
+            var v = label.value.trim();
+            if (!v || v === l.label) return;
+            api('/api/admin/save', {
+              entity: 'language', action: 'update',
+              base: { code: l.code, label: v, sort_order: l.sort_order }
+            }).then(function () { toast('已更名為「' + v + '」', 'ok'); return reload(); })
+              .catch(function (err) { toast('更名失敗：' + err.message, 'err'); });
+          }
+
+          label.addEventListener('blur', saveLabel);
+          label.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); this.blur(); } });
+
           return el('tr', {}, [
-            el('td', {}, [el('div', { class: 'rowtitle', text: l.label }), el('div', { class: 'rowsub', text: l.code })]),
+            el('td', {}, [label, el('div', { class: 'rowsub', text: '代碼 ' + l.code })]),
             el('td', {}, [el('span', { class: 'chip plain', text: l.is_base ? '基準語言' : '翻譯' })]),
             el('td', { class: 'right' }, [
               l.is_base ? el('span', { class: 'rowsub', text: '不可刪除' }) : el('button', {
                 class: 'btn danger sm',
                 onclick: function () {
-                  confirmDialog('確定要刪除語言？', '「' + l.label + '」以及這個語言的所有翻譯內容都會被刪除，無法復原。', function () {
+                  confirmDialog('確定要刪除語言？', '「' + (l.label || l.code) + '」以及這個語言的所有翻譯內容都會被刪除，無法復原。', function () {
                     api('/api/admin/save', { entity: 'language', action: 'delete', id: l.code })
                       .then(function () { toast('已刪除', 'ok'); return reload(); })
                       .catch(function (err) { toast('刪除失敗：' + err.message, 'err'); });
@@ -1512,7 +1761,7 @@
 
         main.appendChild(el('div', { class: 'card' }, [
           el('table', {}, [
-            el('thead', {}, [el('tr', {}, [el('th', { text: '語言' }), el('th', { text: '類型' }), el('th', { class: 'right', text: '' })])]),
+            el('thead', {}, [el('tr', {}, [el('th', { text: '顯示名稱' }), el('th', { text: '類型' }), el('th', { class: 'right', text: '' })])]),
             el('tbody', {}, body)
           ])
         ]));
@@ -1585,6 +1834,7 @@
         if (view === 'synonym') { synonymView(); return; }
         if (view === 'suggestion') { suggestionView(); return; }
         if (view === 'inquiry') { inquiryView(); return; }
+        if (view === 'ui') { uiView(); return; }
         if (view === 'setting') { settingView(); return; }
         if (view === 'language') { languageView(); return; }
       }
