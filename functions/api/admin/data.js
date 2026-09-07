@@ -32,7 +32,7 @@ export async function onRequest(context) {
           `SELECT id, company, email, phone, product, message, lang, page, status, note, mailed, created_at
              FROM inquiries ORDER BY id DESC LIMIT 200`
         ),
-        DB.prepare("SELECT id, zh, page, note FROM ui_strings ORDER BY id"),
+        DB.prepare("SELECT id, zh, page, note FROM ui_strings WHERE COALESCE(hidden, 0) = 0 ORDER BY id"),
       ]);
 
     return json({
