@@ -168,6 +168,24 @@
 
   /* ---------- 建索引 ---------- */
   var FIELDS = [['title', 4], ['items', 2.5], ['highlight', 1.5], ['desc', 1]];
+  /* 把某個欄位的所有語言版本併成一個字串。
+     API 回傳的鍵是 name（繁中）、name_en、name_ja…
+     —— 加語言時 API 會自己多出 name_ja 這種鍵，這裡不必改。
+
+     索引不分語言：客戶打中文、英文、日文都是查同一份，
+     所以搜尋框在哪個語言版面都能找到東西。 */
+  function allLangs(row, field) {
+    var out = [];
+    var prefix = field + '_';
+    Object.keys(row).forEach(function (key) {
+      if (key === field || key.indexOf(prefix) === 0) {
+        var v = row[key];
+        if (v) out.push(String(v));
+      }
+    });
+    return out.join(' ');
+  }
+
   var IDX = null;
 
   function buildIndex() {
@@ -191,10 +209,10 @@
         icon: 'fa-box-open',
         url: resolveUrl('@root:products/index.html' + anchorFor(p.name)),
         f: {
-          title: [main, names.slice(1).join(' '), p.name_en].join(' '),
-          items: [p.items, p.items_en].join(' '),
-          highlight: [p.highlight, p.highlight_en].join(' '),
-          desc: [p.desc, p.desc_en, extra].join(' ')
+          title: [main, names.slice(1).join(' '), allLangs(p, 'name')].join(' '),
+          items: allLangs(p, 'items'),
+          highlight: allLangs(p, 'highlight'),
+          desc: [allLangs(p, 'desc'), extra].join(' ')
         }
       };
     });

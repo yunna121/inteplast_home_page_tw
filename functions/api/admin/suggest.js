@@ -26,27 +26,38 @@ const MODELS = [
   "@cf/meta/llama-3.1-8b-instruct",
 ];
 
-function buildPrompt(product) {
-  return `你是台灣塑膠製品公司的電商搜尋顧問。
+function buildPrompt(product, langs) {
+  /* langs 是編輯頁「語言」頁籤設定的清單，例如
+     [{label:'繁體中文',name:'清潔袋'},{label:'日本語',name:'ゴミ袋'}]
+     —— 加了日文版面之後，這裡就會一併要日文俗稱。
+     別名不分語言存在同一張表，搜尋時也不分語言比對。 */
+  const naming = langs.map((l) => `- ${l.label}：${l.name || "（尚未翻譯）"}`).join("\n");
+  const wanted = langs.map((l) => l.label).join("、");
 
-產品資料：
-- 品名：${product.name}
+  return `你是台灣塑膠製品公司的電商搜尋顧問。這家公司做外銷，客戶來自不同國家。
+
+產品各語言品名：
+${naming}
+
+其他資料：
 - 重點：${product.highlight || "（無）"}
 - 說明：${product.desc || "（無）"}
 - 細項：${product.items || "（無）"}
 
-請列出台灣的採購人員、店家或一般消費者在搜尋這個產品時，
-可能會輸入但與正式品名不同的字詞（別名、俗稱、口語說法、常見英文）。
+請列出採購人員、店家或一般消費者搜尋這個產品時，
+可能會輸入但與正式品名不同的字詞（別名、俗稱、口語說法、縮寫）。
 
 規則：
 1. 只輸出 JSON 陣列，不要任何解釋或標點以外的文字
-2. 每個詞 2 到 12 個字，最多 10 個詞
-3. 不要包含正式品名本身，也不要包含細項裡已經有的詞
-4. 不要臆測這個產品沒有的用途或材質
-5. 台灣用語優先（例如「垃圾袋」而不是「垃圾口袋」）
+2. ${wanted} 每一種語言都要給幾個詞，全部放在同一個陣列裡
+3. 每個詞 2 到 14 個字，總共最多 14 個詞
+4. 不要包含上面列的正式品名本身，也不要包含細項裡已經有的詞
+5. 不要臆測這個產品沒有的用途或材質
+6. 各語言都要用當地人真的會講的說法，不是中文直譯
+   （例：台灣講「垃圾袋」而不是「垃圾口袋」）
 
 範例輸出格式：
-["垃圾袋","廚餘袋","trash bag"]`;
+["垃圾袋","廚餘袋","trash bag","bin liner","ゴミ袋"]`;
 }
 
 /** 不同模型的回傳結構不一樣，這裡統一抽出純文字 */
@@ -93,14 +104,14 @@ function parseList(text) {
   return words
     .map((x) => x.trim())
     .filter((x) => {
-      if (x.length < 2 || x.length > 12) return false;
+      if (x.length < 2 || x.length > 14) return false;
       if (/[。！？]/.test(x)) return false;
       const key = x.toLowerCase();
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
     })
-    .slice(0, 10);
+    .slice(0, 14);
 }
 
 export async function onRequest(context) {
@@ -124,13 +135,21 @@ export async function onRequest(context) {
 
     if (!products.length) return json({ error: "找不到產品" }, 404);
 
-    const [existing, rejected] = await Promise.all([
+    const [existing, rejected, languages, allTr] = await Promise.all([
       DB.prepare("SELECT product_id, say FROM synonyms").all(),
       DB.prepare("SELECT product_id, say FROM synonym_suggestions WHERE status = 'rejected'").all(),
+      DB.prepare("SELECT code, label, is_base FROM languages ORDER BY sort_order, code").all(),
+      DB.prepare("SELECT entity_id, lang, value FROM translations WHERE entity = 'product' AND field = 'name'").all(),
     ]);
     const taken = new Set();
     [...(existing.results || []), ...(rejected.results || [])].forEach((r) => {
       taken.add(r.product_id + "\u0000" + String(r.say).toLowerCase());
+    });
+
+    const langRows = languages.results || [];
+    const nameByLang = new Map();
+    (allTr.results || []).forEach((t) => {
+      nameByLang.set(String(t.entity_id) + "|" + t.lang, t.value);
     });
 
     const added = [];
@@ -141,15 +160,23 @@ export async function onRequest(context) {
     for (const product of products) {
       let words = [];
 
+      /* 每個語言的品名：基準語言讀 products.name，其他讀 translations。
+         還沒翻譯的語言也一併送進去 —— 模型看得懂中文品名，
+         還是給得出那個語言的俗稱。 */
+      const langs = langRows.map((l) => ({
+        label: l.label,
+        name: l.is_base ? product.name : nameByLang.get(String(product.id) + "|" + l.code) || "",
+      }));
+
       // 已經找到可用的模型就只用那一支，否則依序試
       for (const model of usedModel ? [usedModel] : candidates) {
         try {
           const res = await env.AI.run(model, {
             messages: [
               { role: "system", content: "你只輸出 JSON 陣列，不輸出任何其他文字。" },
-              { role: "user", content: buildPrompt(product) },
+              { role: "user", content: buildPrompt(product, langs) },
             ],
-            max_tokens: 300,
+            max_tokens: 400,
           });
           words = parseList(textOf(res));
           if (words.length) {
