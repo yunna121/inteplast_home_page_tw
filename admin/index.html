@@ -502,6 +502,7 @@
           { id: 'product', label: '產品資料', icon: 'fa-box-open', count: (DB.products || []).length },
           { id: 'synonym', label: '產品別名', icon: 'fa-tags', count: (DB.synonyms || []).length },
           { id: 'suggestion', label: '待審別名', icon: 'fa-wand-magic-sparkles', count: (DB.suggestions || []).length },
+          { id: 'inquiry', label: '客戶詢價', icon: 'fa-envelope-open-text', count: (DB.inquiries || []).filter(function (q) { return q.status !== 'done'; }).length },
           { id: 'timeline', label: '時間軸', icon: 'fa-clock-rotate-left', count: (DB.timeline || []).length },
           { id: 'setting', label: '公司資訊', icon: 'fa-building', count: 0 },
           { id: 'language', label: '語言', icon: 'fa-language', count: (DB.languages || []).length }
@@ -997,6 +998,94 @@
         ]));
       }
 
+      /* ---------- 客戶詢價 ---------- */
+      function inquiryView() {
+        var main = document.getElementById('main');
+        var rows = DB.inquiries || [];
+        var pending = rows.filter(function (q) { return q.status !== 'done'; });
+        var showDone = inquiryView.showDone;
+        var list = showDone ? rows : pending;
+
+        main.appendChild(el('div', { class: 'head' }, [
+          el('div', {}, [
+            el('h1', { text: '客戶詢價' }),
+            el('p', { text: '網站表單送來的詢價。內容不能修改（那是紀錄），只能標記處理狀態與寫內部備註。' })
+          ]),
+          el('button', {
+            class: 'btn ghost',
+            onclick: function () { inquiryView.showDone = !showDone; render(); }
+          }, [el('span', { text: showDone ? '只看未處理' : '顯示全部（含已處理）' })])
+        ]));
+
+        if (!list.length) {
+          main.appendChild(el('div', { class: 'card' }, [
+            el('div', { class: 'empty' }, [
+              el('i', { class: 'fa-regular fa-envelope' }),
+              el('div', { text: showDone ? '還沒有任何詢價紀錄。' : '沒有未處理的詢價。' })
+            ])
+          ]));
+          return;
+        }
+
+        list.forEach(function (q) {
+          var done = q.status === 'done';
+          var note = el('input', { type: 'text', value: q.note || '', placeholder: '內部備註：誰跟進、結果如何' });
+
+          function save(status) {
+            api('/api/admin/save', {
+              entity: 'inquiry', action: 'update', id: q.id,
+              base: { status: status == null ? q.status : status, note: note.value }
+            }).then(function () {
+              toast(status === 'done' ? '已標記處理完成' : '已儲存', 'ok');
+              return reload();
+            }).catch(function (err) { toast('失敗：' + err.message, 'err'); });
+          }
+
+          main.appendChild(el('div', { class: 'card', style: done ? 'opacity:.62' : '' }, [
+            el('div', { class: 'sect-label', style: 'display:flex;gap:10px;align-items:center;flex-wrap:wrap' }, [
+              el('span', { text: q.created_at || '' }),
+              el('span', { class: 'chip plain', text: q.product || '未選類別' }),
+              done ? el('span', { class: 'chip plain', style: 'border-color:#bfe0cd;background:#f0f9f4;color:#0f7a4e', text: '已處理' }) : null,
+              q.mailed ? null : el('span', { class: 'chip plain', style: 'border-color:#f0d3a8;background:#fff8ef;color:#8a5a12', text: '通知信未寄出' })
+            ]),
+            el('div', { class: 'grid2' }, [
+              el('div', { class: 'field' }, [
+                el('label', { text: '公司' }),
+                el('div', { class: 'rowtitle', text: q.company || '（未填）' }),
+                el('div', { class: 'rowsub' }, [
+                  el('a', { href: 'mailto:' + (q.email || ''), text: q.email || '' }),
+                  el('span', { text: q.phone ? '　' + q.phone : '' })
+                ])
+              ]),
+              el('div', { class: 'field' }, [
+                el('label', { text: '需求內容' }),
+                el('div', { style: 'white-space:pre-wrap', text: q.message || '' })
+              ])
+            ]),
+            el('div', { class: 'field' }, [el('label', { text: '內部備註' }), note]),
+            el('div', { class: 'formfoot' }, [
+              done
+                ? el('button', { class: 'btn ghost', onclick: function () { save('new'); } }, [el('span', { text: '改回未處理' })])
+                : el('button', { class: 'btn', onclick: function () { save('done'); } },
+                    [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '標記處理完成' })]),
+              el('button', { class: 'btn ghost', onclick: function () { save(null); } }, [el('span', { text: '只存備註' })]),
+              el('span', { class: 'spacer' }),
+              el('button', {
+                class: 'btn danger',
+                onclick: function () {
+                  confirmDialog('確定要刪除這筆詢價？', '（' + (q.company || q.email) + '）刪除後無法復原。',
+                    function () {
+                      api('/api/admin/save', { entity: 'inquiry', action: 'delete', id: q.id })
+                        .then(function () { toast('已刪除', 'ok'); return reload(); })
+                        .catch(function (err) { toast('刪除失敗：' + err.message, 'err'); });
+                    });
+                }
+              }, [el('i', { class: 'fa-solid fa-trash' }), el('span', { text: '刪除' })])
+            ])
+          ]));
+        });
+      }
+
       /* ---------- 公司資訊 ---------- */
       function settingView() {
         var main = document.getElementById('main');
@@ -1177,6 +1266,7 @@
         if (view === 'product' || view === 'timeline') { listView(view); return; }
         if (view === 'synonym') { synonymView(); return; }
         if (view === 'suggestion') { suggestionView(); return; }
+        if (view === 'inquiry') { inquiryView(); return; }
         if (view === 'setting') { settingView(); return; }
         if (view === 'language') { languageView(); return; }
       }

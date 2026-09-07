@@ -216,6 +216,11 @@
             <div>
               <div class="info-title" data-tw="連絡電話" data-en="Telephone">連絡電話</div>
               <div class="info-text" data-site="phone">02-2712-2211 #8109 (+886-2-2712-2211 #8109)</div>
+              <!-- 服務時間跟著電話走：看到號碼的當下就知道現在打有沒有人接。
+                   內容由編輯頁「公司資訊」維護（settings.office_hours）。 -->
+              <div class="info-text" data-site="office_hours" data-tw="服務時間：週一至週五 08:30–17:30（國定假日休息）" data-en="Office hours: Mon–Fri 08:30–17:30 (GMT+8), closed on national holidays" style="margin-top:6px; font-size:.92em; color:var(--text-secondary,#5f7182);">
+                服務時間：週一至週五 08:30–17:30（國定假日休息）
+              </div>
             </div>
           </div>
 
@@ -372,27 +377,59 @@
       statusDiv.style.color = 'var(--brand-blue)';
       statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 資料傳送中，請稍候...';
 
-      /* 逾時保護：15 秒內 iframe 沒 load，就當作連線異常並給備援信箱 */
-      const timer = setTimeout(function() {
-        statusDiv.style.color = '#DC2626';
-        statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> 送出失敗（連線異常），請改寄 <a href="mailto:' +
-          FALLBACK_MAILTO + '" style="color:#DC2626; font-weight:800;">' + FALLBACK_MAILTO +
-          '</a> 或電洽 02-2712-2211 #8109。';
-        submitBtn.disabled = false;
-      }, 15000);
-
-      receiver.addEventListener('load', function() {
-        clearTimeout(timer);
+      function ok() {
         statusDiv.style.color = '#10B981';
         statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> 已成功送出！我們的團隊將會安排專人與您聯繫。';
         form.reset();
         submitBtn.disabled = false;
-      }, { once: true });
+      }
 
-      form.action = GAS_ENDPOINT_URL;
-      form.method = 'POST';
-      form.target = 'gasReceiver';
-      HTMLFormElement.prototype.submit.call(form);
+      function fail(why) {
+        statusDiv.style.color = '#DC2626';
+        statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> 送出失敗（' + why + '），請改寄 <a href="mailto:' +
+          FALLBACK_MAILTO + '" style="color:#DC2626; font-weight:800;">' + FALLBACK_MAILTO +
+          '</a> 或電洽 02-2712-2211 #8109。';
+        submitBtn.disabled = false;
+      }
+
+      /* 舊的送出方式：表單 POST 到 Apps Script 的隱藏 iframe。
+         現在只在 /api/inquiry 沒把信寄出時才用（見下方 sendToDatabase）。 */
+      function sendToAppsScript() {
+        const timer = setTimeout(function () { fail('連線異常'); }, 15000);
+        receiver.addEventListener('load', function () {
+          clearTimeout(timer);
+          ok();
+        }, { once: true });
+
+        form.action = GAS_ENDPOINT_URL;
+        form.method = 'POST';
+        form.target = 'gasReceiver';
+        HTMLFormElement.prototype.submit.call(form);
+      }
+
+      /* 新的主要路徑：送到 /api/inquiry
+           1. 寫進 D1 的 inquiries 表（編輯頁看得到）
+           2. 用 Microsoft Graph 寄通知信與自動回覆
+
+         mailed 為 false 表示資料存了但信沒寄出（例如還沒設定
+         Microsoft 寄信），這時再走 Apps Script 把信補寄出去 ——
+         客戶資料要同時兩套系統都壞掉才會遺失。 */
+      const payload = new FormData(form);
+      payload.set('lang', document.documentElement.lang || '');
+      payload.set('page', location.pathname + location.hash);
+
+      fetch('/api/inquiry', { method: 'POST', body: payload })
+        .then(function (res) { return res.json().then(function (data) { return { res: res, data: data }; }); })
+        .then(function (out) {
+          if (!out.res.ok || out.data.error) throw new Error(out.data.error || ('HTTP ' + out.res.status));
+          if (out.data.mailed) { ok(); return; }
+          // 資料已存下來，但信要靠 Apps Script 寄
+          sendToAppsScript();
+        })
+        .catch(function () {
+          // API 完全不通（例如還沒部署）—— 整份交給原本的 Apps Script
+          sendToAppsScript();
+        });
     });
 
           document.addEventListener("click", function (e) {

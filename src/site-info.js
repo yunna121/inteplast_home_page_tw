@@ -28,6 +28,24 @@
     return LANG_ATTR[key] || ('data-' + key.replace(/-/g, '-'));
   }
 
+  /* 頁尾的服務時間
+     ------------------------------------------------------------
+     五個頁面的 <footer> 結構各不相同（有的是 flex 排版、有的只是
+     一行文字），所以不在 HTML 裡各寫一次 —— 統一在這裡插到
+     footer 最前面，五頁一致，之後改版型也只改這一處。
+     頁面上已經有這個欄位的（聯繫我們的資訊卡）不受影響。 */
+  function ensureFooterLine(hasValue) {
+    if (!hasValue) return;
+    var footer = document.querySelector('footer');
+    if (!footer) return;
+    if (footer.querySelector('[data-site="office_hours"]')) return;
+
+    var line = document.createElement('div');
+    line.setAttribute('data-site', 'office_hours');
+    line.style.cssText = 'text-align:center; font-size:.88em; opacity:.75; margin-bottom:14px;';
+    footer.insertBefore(line, footer.firstChild);
+  }
+
   function apply(settings) {
     if (!settings || typeof settings !== 'object') return;
 
@@ -44,6 +62,8 @@
         byKey[raw]['zh-TW'] = settings[raw];
       }
     });
+
+    ensureFooterLine(!!String(settings.office_hours || '').trim());
 
     document.querySelectorAll('[data-site]').forEach(function (node) {
       var key = node.getAttribute('data-site');

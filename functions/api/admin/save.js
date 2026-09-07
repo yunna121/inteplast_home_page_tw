@@ -42,6 +42,13 @@ const ENTITIES = {
     translatable: ["value"],
     required: [],
   },
+  inquiry: {
+    // 客戶送來的內容不可編輯（那是紀錄），只能改處理狀態與內部備註
+    table: "inquiries",
+    base: ["status", "note"],
+    translatable: [],
+    required: [],
+  },
 };
 
 function clean(value) {
