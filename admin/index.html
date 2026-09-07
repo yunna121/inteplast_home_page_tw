@@ -1035,56 +1035,108 @@
         ]);
       }
 
+      /* 詢價頁的狀態放在函式屬性上，換頁再回來時保留
+         （mode = 卡片／表格，q = 搜尋字串，showDone = 含已處理） */
+      function inquiryMatch(q, term) {
+        if (!term) return true;
+        var hay = [q.company, q.email, q.phone, q.product, q.message, q.note]
+          .join(' ').toLowerCase();
+        return term.toLowerCase().split(/\s+/).every(function (w) {
+          return !w || hay.indexOf(w) > -1;
+        });
+      }
+
       function inquiryView() {
         var main = document.getElementById('main');
         var rows = DB.inquiries || [];
-        var pending = rows.filter(function (q) { return q.status !== 'done'; });
-        var showDone = inquiryView.showDone;
-        var list = showDone ? rows : pending;
+        if (inquiryView.mode == null) inquiryView.mode = 'card';
+
+        var listBox = el('div', {});
+
+        var search = el('input', {
+          type: 'text',
+          value: inquiryView.q || '',
+          placeholder: '搜尋公司、信箱、電話、產品、需求內容、備註…',
+          style: 'max-width:340px'
+        });
+        search.addEventListener('input', function () {
+          inquiryView.q = this.value;
+          paintList();          // 只重畫清單，輸入游標才不會跳掉
+        });
+
+        function modeBtn(id, label, icon) {
+          return el('button', {
+            class: inquiryView.mode === id ? 'btn sm' : 'btn ghost sm',
+            onclick: function () { inquiryView.mode = id; render(); }
+          }, [el('i', { class: 'fa-solid ' + icon }), el('span', { text: label })]);
+        }
 
         main.appendChild(el('div', { class: 'head' }, [
           el('div', {}, [
             el('h1', { text: '客戶詢價' }),
             el('p', { text: '網站表單送來的詢價。內容不能修改（那是紀錄），只能標記處理狀態與寫內部備註。' })
           ]),
-          el('button', {
-            class: 'btn ghost',
-            onclick: function () { inquiryView.showDone = !showDone; render(); }
-          }, [el('span', { text: showDone ? '只看未處理' : '顯示全部（含已處理）' })])
+          el('div', { style: 'display:flex; gap:8px;' }, [
+            modeBtn('card', '卡片', 'fa-list'),
+            modeBtn('table', '表格', 'fa-table')
+          ])
         ]));
 
-        if (!list.length) {
-          main.appendChild(el('div', { class: 'card' }, [
-            el('div', { class: 'empty' }, [
-              el('i', { class: 'fa-regular fa-envelope' }),
-              el('div', { text: showDone ? '還沒有任何詢價紀錄。' : '沒有未處理的詢價。' })
-            ])
-          ]));
-          return;
+        var countLabel = el('span', { class: 'rowsub' });
+
+        main.appendChild(el('div', { class: 'card' }, [
+          el('div', {
+            class: 'field',
+            style: 'display:flex; gap:12px; align-items:center; flex-wrap:wrap;'
+          }, [
+            search,
+            el('label', {
+              style: 'display:flex; gap:7px; align-items:center; font-size:.87rem; font-weight:700; cursor:pointer;'
+            }, [
+              (function () {
+                var cb = el('input', { type: 'checkbox' });
+                cb.checked = !!inquiryView.showDone;
+                cb.addEventListener('change', function () {
+                  inquiryView.showDone = this.checked;
+                  paintList();
+                });
+                return cb;
+              })(),
+              el('span', { text: '含已處理' })
+            ]),
+            el('span', { class: 'spacer', style: 'margin-left:auto' }),
+            countLabel
+          ])
+        ]));
+
+        main.appendChild(listBox);
+
+        function save(q, note, status) {
+          api('/api/admin/save', {
+            entity: 'inquiry', action: 'update', id: q.id,
+            base: { status: status == null ? q.status : status, note: note }
+          }).then(function () {
+            toast(status === 'done' ? '已標記處理完成' : '已儲存', 'ok');
+            return reload();
+          }).catch(function (err) { toast('失敗：' + err.message, 'err'); });
         }
 
-        list.forEach(function (q) {
+        function remove(q) {
+          confirmDialog('確定要刪除這筆詢價？', '（' + (q.company || q.email) + '）刪除後無法復原。', function () {
+            api('/api/admin/save', { entity: 'inquiry', action: 'delete', id: q.id })
+              .then(function () { toast('已刪除', 'ok'); return reload(); })
+              .catch(function (err) { toast('刪除失敗：' + err.message, 'err'); });
+          });
+        }
+
+        function cardOf(q) {
           var done = q.status === 'done';
           var note = el('input', { type: 'text', value: q.note || '', placeholder: '誰跟進、結果如何' });
 
-          function save(status) {
-            api('/api/admin/save', {
-              entity: 'inquiry', action: 'update', id: q.id,
-              base: { status: status == null ? q.status : status, note: note.value }
-            }).then(function () {
-              toast(status === 'done' ? '已標記處理完成' : '已儲存', 'ok');
-              return reload();
-            }).catch(function (err) { toast('失敗：' + err.message, 'err'); });
-          }
+          var mailLink = q.email ? el('a', { href: 'mailto:' + q.email, text: q.email, style: 'font-weight:700;' }) : null;
+          var telLink = q.phone ? el('a', { href: 'tel:' + String(q.phone).replace(/[^\d+,]/g, ''), text: q.phone, style: 'font-weight:700;' }) : null;
 
-          var mailLink = q.email
-            ? el('a', { href: 'mailto:' + q.email, text: q.email, style: 'font-weight:700;' })
-            : null;
-          var telLink = q.phone
-            ? el('a', { href: 'tel:' + String(q.phone).replace(/[^\d+,]/g, ''), text: q.phone, style: 'font-weight:700;' })
-            : null;
-
-          main.appendChild(el('div', { class: 'card', style: done ? 'opacity:.62' : '' }, [
+          return el('div', { class: 'card', style: done ? 'opacity:.62' : '' }, [
             el('div', { class: 'sect-label', style: 'display:flex;gap:10px;align-items:center;flex-wrap:wrap' }, [
               el('span', { text: localTime(q.created_at) }),
               done ? el('span', { class: 'chip plain', style: 'border-color:#bfe0cd;background:#f0f9f4;color:#0f7a4e', text: '已處理' }) : null,
@@ -1101,25 +1153,129 @@
             el('div', { class: 'field' }, [el('label', { text: '內部備註' }), note]),
             el('div', { class: 'formfoot' }, [
               done
-                ? el('button', { class: 'btn ghost', onclick: function () { save('new'); } }, [el('span', { text: '改回未處理' })])
-                : el('button', { class: 'btn', onclick: function () { save('done'); } },
+                ? el('button', { class: 'btn ghost', onclick: function () { save(q, note.value, 'new'); } }, [el('span', { text: '改回未處理' })])
+                : el('button', { class: 'btn', onclick: function () { save(q, note.value, 'done'); } },
                     [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '標記處理完成' })]),
-              el('button', { class: 'btn ghost', onclick: function () { save(null); } }, [el('span', { text: '只存備註' })]),
+              el('button', { class: 'btn ghost', onclick: function () { save(q, note.value, null); } }, [el('span', { text: '只存備註' })]),
               el('span', { class: 'spacer' }),
-              el('button', {
-                class: 'btn danger',
-                onclick: function () {
-                  confirmDialog('確定要刪除這筆詢價？', '（' + (q.company || q.email) + '）刪除後無法復原。',
-                    function () {
-                      api('/api/admin/save', { entity: 'inquiry', action: 'delete', id: q.id })
-                        .then(function () { toast('已刪除', 'ok'); return reload(); })
-                        .catch(function (err) { toast('刪除失敗：' + err.message, 'err'); });
-                    });
-                }
-              }, [el('i', { class: 'fa-solid fa-trash' }), el('span', { text: '刪除' })])
+              el('button', { class: 'btn danger', onclick: function () { remove(q); } },
+                [el('i', { class: 'fa-solid fa-trash' }), el('span', { text: '刪除' })])
             ])
-          ]));
-        });
+          ]);
+        }
+
+        /* 表格模式：一列一筆，點「展開」才看得到完整需求內容。
+           適合快速掃過一整批，卡片模式適合逐筆處理。 */
+        function tableOf(list) {
+          var body = [];
+
+          list.forEach(function (q) {
+            var done = q.status === 'done';
+            var open = false;
+            var detail = el('tr', { style: 'display:none' }, [
+              el('td', { colspan: '6', style: 'background:#f8fafc' }, [
+                (function () {
+                  var note = el('input', { type: 'text', value: q.note || '', placeholder: '內部備註：誰跟進、結果如何' });
+                  return el('div', {}, [
+                    detailRow('需求內容', q.message, { pre: true }),
+                    detailRow('送出頁面', (q.page || '') + (q.lang ? '　語言：' + q.lang : '')),
+                    el('div', { style: 'display:flex; gap:10px; align-items:center; margin-top:12px; flex-wrap:wrap;' }, [
+                      note,
+                      el('button', { class: 'btn sm', onclick: function () { save(q, note.value, null); } }, [el('span', { text: '存備註' })]),
+                      el('button', { class: 'btn danger sm', onclick: function () { remove(q); } }, [el('span', { text: '刪除' })])
+                    ])
+                  ]);
+                })()
+              ])
+            ]);
+
+            var toggle = el('button', {
+              class: 'btn ghost sm',
+              onclick: function () {
+                open = !open;
+                detail.style.display = open ? '' : 'none';
+                this.querySelector('span').textContent = open ? '收合' : '展開';
+              }
+            }, [el('span', { text: '展開' })]);
+
+            body.push(el('tr', { style: done ? 'opacity:.55' : '' }, [
+              el('td', {}, [el('div', { class: 'rowsub', style: 'white-space:nowrap', text: localTime(q.created_at) })]),
+              el('td', {}, [
+                el('div', { class: 'rowtitle', text: q.company || '（未填公司）' }),
+                el('div', { class: 'rowsub' }, [
+                  q.email ? el('a', { href: 'mailto:' + q.email, text: q.email }) : el('span', { text: '—' })
+                ])
+              ]),
+              el('td', { style: 'white-space:nowrap' }, [el('div', { class: 'rowsub', text: q.phone || '—' })]),
+              el('td', { style: 'white-space:nowrap' }, [el('div', { class: 'rowsub', text: q.product || '—' })]),
+              el('td', {}, [
+                el('div', {
+                  class: 'rowsub',
+                  style: 'max-width:320px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;',
+                  text: q.message || '—'
+                })
+              ]),
+              el('td', { class: 'right' }, [
+                el('div', { style: 'display:flex; gap:8px; justify-content:flex-end; align-items:center;' }, [
+                  q.mailed ? null : el('span', { title: '通知信未寄出', style: 'color:#b45309' }, [el('i', { class: 'fa-solid fa-triangle-exclamation' })]),
+                  done
+                    ? el('button', { class: 'btn ghost sm', onclick: function () { save(q, q.note || '', 'new'); } }, [el('span', { text: '改回未處理' })])
+                    : el('button', { class: 'btn sm', onclick: function () { save(q, q.note || '', 'done'); } }, [el('i', { class: 'fa-solid fa-check' })]),
+                  toggle
+                ])
+              ])
+            ]));
+            body.push(detail);
+          });
+
+          /* 欄位不換行 + 最小寬度：窄畫面改成橫向捲動，
+             不要把「詢問產品」壓成一個字一行 */
+          return el('div', { class: 'card', style: 'overflow-x:auto' }, [
+            el('table', { style: 'min-width:940px' }, [
+              el('thead', {}, [el('tr', {}, [
+                el('th', { style: 'white-space:nowrap', text: '時間' }),
+                el('th', { style: 'white-space:nowrap', text: '公司／信箱' }),
+                el('th', { style: 'white-space:nowrap', text: '電話' }),
+                el('th', { style: 'white-space:nowrap', text: '詢問產品' }),
+                el('th', { text: '需求內容' }),
+                el('th', { class: 'right', text: '' })
+              ])]),
+              el('tbody', {}, body)
+            ])
+          ]);
+        }
+
+        function paintList() {
+          var term = String(inquiryView.q || '').trim();
+          var list = rows.filter(function (q) {
+            if (!inquiryView.showDone && q.status === 'done') return false;
+            return inquiryMatch(q, term);
+          });
+
+          countLabel.textContent = term || inquiryView.showDone
+            ? '符合 ' + list.length + ' 筆（共 ' + rows.length + ' 筆）'
+            : '未處理 ' + list.length + ' 筆（共 ' + rows.length + ' 筆）';
+
+          listBox.innerHTML = '';
+
+          if (!list.length) {
+            listBox.appendChild(el('div', { class: 'card' }, [
+              el('div', { class: 'empty' }, [
+                el('i', { class: 'fa-regular fa-envelope' }),
+                el('div', { text: term ? '找不到符合「' + term + '」的詢價。' : (inquiryView.showDone ? '還沒有任何詢價紀錄。' : '沒有未處理的詢價。') })
+              ])
+            ]));
+            return;
+          }
+
+          if (inquiryView.mode === 'table') {
+            listBox.appendChild(tableOf(list));
+          } else {
+            list.forEach(function (q) { listBox.appendChild(cardOf(q)); });
+          }
+        }
+
+        paintList();
       }
 
       /* ---------- 公司資訊 ---------- */
