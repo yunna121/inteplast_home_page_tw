@@ -39,6 +39,15 @@ const TABLES = {
       future_outlook: "未來展望",
     },
   },
+  block: {
+    table: "page_blocks",
+    fields: {
+      eyebrow: "小標（英文短句風格，簡短）",
+      title: "段落標題",
+      body: "段落內文（保留原本的分段）",
+      caption: "圖說（簡短）",
+    },
+  },
 };
 
 const LANG_NAMES = {

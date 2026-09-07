@@ -1776,7 +1776,48 @@
             el('h1', { text: '頁面區塊' }),
             el('p', { text: '在頁面下半部新增內容段落。選一種版型、填內容、排順序 —— 樣式由系統決定，不會弄壞版面。' })
           ]),
-          el('button', {
+          el('div', { style: 'display:flex; gap:8px; flex-wrap:wrap;' }, blockActions())
+        ]));
+
+        /* 一鍵翻譯：跟產品那邊同一支端點，只補還沒翻的欄位。
+           已經翻好或人工改過的不會被蓋掉，所以按幾次都安全。 */
+        function blockActions() {
+          var acts = [];
+          (DB.languages || []).filter(function (l) { return !l.is_base; }).forEach(function (l) {
+            var need = rows.some(function (r) {
+              return ['eyebrow', 'title', 'body', 'caption'].some(function (f) {
+                if (!String(r[f] || '').trim()) return false;
+                return !(DB.translations || []).some(function (t) {
+                  return t.entity === 'block' && String(t.entity_id) === String(r.id) &&
+                         t.field === f && t.lang === l.code && String(t.value || '').trim();
+                });
+              });
+            });
+            if (!need) return;
+
+            var btn = el('button', { class: 'btn ghost' },
+              [el('i', { class: 'fa-solid fa-language' }), el('span', { text: '一鍵翻譯' + l.label })]);
+            btn.addEventListener('click', function () {
+              var span = btn.querySelector('span');
+              var was = span.textContent;
+              btn.disabled = true;
+              span.textContent = '翻譯中…';
+              api('/api/admin/translate', { entity: 'block', lang: l.code, all: true })
+                .then(function (res) {
+                  if (!res.rows) toast('沒有需要翻譯的項目');
+                  else toast('翻好 ' + res.rows + ' 個區塊，請逐一校對', 'ok');
+                  return reload();
+                })
+                .catch(function (err) {
+                  toast('翻譯失敗：' + err.message, 'err');
+                  btn.disabled = false;
+                  span.textContent = was;
+                });
+            });
+            acts.push(btn);
+          });
+
+          acts.push(el('button', {
             class: 'btn',
             onclick: function () {
               api('/api/admin/save', {
@@ -1789,8 +1830,10 @@
               }).then(function () { toast('已新增區塊', 'ok'); return reload(); })
                 .catch(function (err) { toast('新增失敗：' + err.message, 'err'); });
             }
-          }, [el('i', { class: 'fa-solid fa-plus' }), el('span', { text: '新增區塊' })])
-        ]));
+          }, [el('i', { class: 'fa-solid fa-plus' }), el('span', { text: '新增區塊' })]));
+
+          return acts;
+        }
 
         var tabs = el('div', { class: 'tabs' });
         BLOCK_PAGES.forEach(function (p) {
@@ -1905,7 +1948,39 @@
           saveBtn.addEventListener('click', function () {
             if (!Object.keys(draft).length && !Object.keys(trDraft).length) { toast('沒有變更'); return; }
             saveBtn.disabled = true;
-            saveBlock(row, draft, trDraft, function () { toast('已儲存', 'ok'); });
+            var span = saveBtn.querySelector('span');
+
+            /* 在中文頁籤存檔後自動補上各語言翻譯 ——
+               只補還沒翻的欄位，人工改過的不會被蓋掉。
+               翻不出來（AI 沒繫結、模型出錯）也不影響存檔本身。 */
+            var others = (DB.languages || []).filter(function (l) { return !l.is_base; });
+
+            api('/api/admin/save', {
+              entity: 'block', action: 'update', id: row.id,
+              base: draft, tr: trDraft
+            }).then(function () {
+              if (!isBase || !others.length) { toast('已儲存', 'ok'); return reload(); }
+
+              span.textContent = '翻譯中…';
+              var seq = Promise.resolve();
+              var okCount = 0;
+              others.forEach(function (l) {
+                seq = seq.then(function () {
+                  return api('/api/admin/translate', { entity: 'block', lang: l.code, all: true })
+                    .then(function (res) { if (res.rows) okCount++; })
+                    .catch(function () { /* 個別語言失敗不擋整體 */ });
+                });
+              });
+
+              return seq.then(function () {
+                toast(okCount ? '已儲存，並補上翻譯，請切到各語言頁籤校對' : '已儲存', 'ok');
+                return reload();
+              });
+            }).catch(function (err) {
+              toast('儲存失敗：' + err.message, 'err');
+              saveBtn.disabled = false;
+              span.textContent = '儲存';
+            });
           });
 
           main.appendChild(el('div', { class: 'card', style: row.visible ? '' : 'opacity:.6' }, [
