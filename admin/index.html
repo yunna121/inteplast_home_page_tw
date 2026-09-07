@@ -497,27 +497,63 @@
       }
 
       /* ---------- 側邊選單 ---------- */
+      /* 分三組：客戶詢價（每天要看的）、產品、網站內容。
+         「產品別名」「待審別名」是產品的附屬概念，縮排放在產品底下，
+         不要跟「時間軸」平起平坐。 */
       function renderNav() {
-        var items = [
-          { id: 'product', label: '產品資料', icon: 'fa-box-open', count: (DB.products || []).length },
-          { id: 'synonym', label: '產品別名', icon: 'fa-tags', count: (DB.synonyms || []).length },
-          { id: 'suggestion', label: '待審別名', icon: 'fa-wand-magic-sparkles', count: (DB.suggestions || []).length },
-          { id: 'inquiry', label: '客戶詢價', icon: 'fa-envelope-open-text', count: (DB.inquiries || []).filter(function (q) { return q.status !== 'done'; }).length },
-          { id: 'timeline', label: '時間軸', icon: 'fa-clock-rotate-left', count: (DB.timeline || []).length },
-          { id: 'setting', label: '公司資訊', icon: 'fa-building', count: 0 },
-          { id: 'language', label: '語言', icon: 'fa-language', count: (DB.languages || []).length }
+        var pending = (DB.inquiries || []).filter(function (q) { return q.status !== 'done'; }).length;
+
+        var groups = [
+          {
+            items: [
+              { id: 'inquiry', label: '客戶詢價', icon: 'fa-envelope-open-text', count: pending, alert: !!pending }
+            ]
+          },
+          {
+            label: '產品',
+            items: [
+              { id: 'product', label: '產品資料', icon: 'fa-box-open', count: (DB.products || []).length },
+              { id: 'synonym', label: '搜尋別名', icon: 'fa-tags', count: (DB.synonyms || []).length, sub: true },
+              { id: 'suggestion', label: '待審別名', icon: 'fa-wand-magic-sparkles', count: (DB.suggestions || []).length, sub: true, alert: !!(DB.suggestions || []).length }
+            ]
+          },
+          {
+            label: '網站內容',
+            items: [
+              { id: 'timeline', label: '時間軸', icon: 'fa-clock-rotate-left', count: (DB.timeline || []).length },
+              { id: 'setting', label: '公司資訊', icon: 'fa-building', count: 0 },
+              { id: 'language', label: '語言', icon: 'fa-language', count: (DB.languages || []).length }
+            ]
+          }
         ];
+
         var nav = document.getElementById('nav');
         nav.innerHTML = '';
-        items.forEach(function (item) {
-          nav.appendChild(el('button', {
-            class: view === item.id ? 'on' : '',
-            onclick: function () { view = item.id; editing = null; render(); }
-          }, [
-            el('i', { class: 'fa-solid ' + item.icon }),
-            el('span', { text: item.label }),
-            item.count ? el('span', { class: 'count', text: String(item.count) }) : null
-          ]));
+
+        groups.forEach(function (group) {
+          if (group.label) {
+            nav.appendChild(el('div', {
+              text: group.label,
+              style: 'margin:14px 12px 4px; font-size:.7rem; font-weight:700; letter-spacing:.12em; color:rgba(255,255,255,.42);'
+            }));
+          }
+          group.items.forEach(function (item) {
+            nav.appendChild(el('button', {
+              class: view === item.id ? 'on' : '',
+              style: item.sub ? 'padding-left:26px' : '',
+              onclick: function () { view = item.id; editing = null; render(); }
+            }, [
+              el('i', { class: 'fa-solid ' + item.icon, style: item.sub ? 'font-size:.76rem' : '' }),
+              el('span', { text: item.label }),
+              item.count
+                ? el('span', {
+                    class: 'count',
+                    style: item.alert && view !== item.id ? 'background:#e0a03a;color:#3a2708' : '',
+                    text: String(item.count)
+                  })
+                : null
+            ]));
+          });
         });
       }
 
