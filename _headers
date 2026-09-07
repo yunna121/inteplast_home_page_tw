@@ -1,0 +1,21 @@
+# Cloudflare Pages 快取規則
+#
+# src/*.js 每次都跟伺服器確認（must-revalidate）——
+# 檔案沒變時伺服器回 304，不會多耗流量，但改了就一定拿得到新的。
+# 沒有這條的話，使用者的瀏覽器會把舊的 JS 留好幾天。
+
+/src/*.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/src/*.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 圖片與字型內容不會變（換圖通常換檔名），可以長期快取
+/src/*.png
+  Cache-Control: public, max-age=2592000
+
+/src/*.svg
+  Cache-Control: public, max-age=2592000
+
+/media/*
+  Cache-Control: public, max-age=31536000
