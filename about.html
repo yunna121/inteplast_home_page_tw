@@ -212,7 +212,7 @@
   </main>
   <footer class="footer"><div class="container footer-inner"><img src="./src/INTEPLAST-logo-blue.svg" alt="INTEPLAST"><span>© {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</span></div></footer>
   <script src="src/site-search.js"></script>
-  <script src="src/mobile-nav.js?v=4"></script>
+  <script src="src/mobile-nav.js?v=5"></script>
   <script src="src/footer.js"></script>
   <script>
     /* 語言切換統一由 src/site-lang.js 提供（原本這裡有一份頁內版本，
@@ -220,7 +220,7 @@
     const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if(reduceMotion||!("IntersectionObserver" in window)){document.querySelectorAll(".reveal").forEach(function(element){element.classList.add("visible")})}else{const observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}})},{threshold:.12});document.querySelectorAll(".reveal").forEach(function(element){observer.observe(element)})}
   </script>
-  <script src="src/site-lang.js?v=4"></script>
-  <script src="src/page-blocks.js?v=4"></script>
+  <script src="src/site-lang.js?v=5"></script>
+  <script src="src/page-blocks.js?v=5"></script>
 </body>
 </html>

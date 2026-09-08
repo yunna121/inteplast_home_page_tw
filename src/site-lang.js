@@ -160,22 +160,40 @@
        documentElement.zoom），而且抽屜是固定定位的，用 absolute 加
        scrollY 換算會整個跑掉。fixed 直接吃視窗座標，不必換算。 */
     menu.style.cssText =
-      'position:fixed; z-index:100000; min-width:150px; padding:6px;' +
-      'background:#fff; border:1px solid #dbe4ec; border-radius:8px;' +
-      'box-shadow:0 12px 30px -10px rgba(10,37,64,.35); font-size:.95rem;';
+      'position:fixed; z-index:100000; min-width:172px; padding:8px;' +
+      'background:#fff; border:1px solid rgba(10,37,64,.08); border-radius:14px;' +
+      'box-shadow:0 18px 44px -14px rgba(10,37,64,.32), 0 2px 8px rgba(10,37,64,.06);' +
+      'font-size:.92rem;' +
+      'opacity:0; transform:translateY(-6px); transition:opacity .16s ease, transform .16s ease;';
 
     languages.forEach(function (l) {
+      var on = l.code === currentLang;
       var item = document.createElement('button');
       item.type = 'button';
-      item.textContent = l.label;
       item.style.cssText =
-        'display:block; width:100%; padding:8px 12px; text-align:left; cursor:pointer;' +
-        'background:' + (l.code === currentLang ? '#eff6fb' : 'none') + ';' +
-        'border:0; border-radius:5px; font:inherit;' +
-        'color:' + (l.code === currentLang ? '#00529b' : '#142638') + ';' +
-        'font-weight:' + (l.code === currentLang ? '700' : '500') + ';';
-      item.addEventListener('mouseenter', function () { if (l.code !== currentLang) this.style.background = '#f4f7fa'; });
-      item.addEventListener('mouseleave', function () { if (l.code !== currentLang) this.style.background = 'none'; });
+        'display:flex; align-items:center; gap:10px; width:100%; padding:9px 12px;' +
+        'text-align:left; cursor:pointer; border:0; border-radius:9px; font:inherit;' +
+        'background:' + (on ? 'rgba(0,82,155,.07)' : 'transparent') + ';' +
+        'color:' + (on ? '#00529b' : '#1f2f3f') + ';' +
+        'font-weight:' + (on ? '700' : '500') + '; transition:background .14s ease;';
+
+      /* 目前語言用左側的藍色勾記號，而不是只靠底色 ——
+         底色很淡，勾處才讀得出來。 */
+      var mark = document.createElement('span');
+      mark.style.cssText =
+        'flex:0 0 14px; width:14px; text-align:center; font-size:.78rem;' +
+        'color:#00529b; opacity:' + (on ? '1' : '0') + ';';
+      mark.textContent = '\u2713';
+
+      var text = document.createElement('span');
+      text.textContent = l.label;
+      text.style.cssText = 'flex:1 1 auto; white-space:nowrap;';
+
+      item.appendChild(mark);
+      item.appendChild(text);
+
+      item.addEventListener('mouseenter', function () { if (!on) this.style.background = 'rgba(10,37,64,.05)'; });
+      item.addEventListener('mouseleave', function () { if (!on) this.style.background = 'transparent'; });
       item.addEventListener('click', function () {
         menu.remove();
         applyLanguage(l.code);
@@ -193,12 +211,20 @@
 
     var mh = menu.offsetHeight;
     var mw = menu.offsetWidth;
-    var below = box.bottom + 8;
-    var top = (below + mh > window.innerHeight - 8) ? Math.max(8, box.top - mh - 8) : below;
-    var left = Math.max(8, Math.min(box.left, window.innerWidth - mw - 8));
+    var below = box.bottom + 10;
+    var top = (below + mh > window.innerHeight - 8) ? Math.max(8, box.top - mh - 10) : below;
+
+    /* 右對齊按鈕：語言鈕在頁首右側，選單從它的右邊對齊才不會
+       看起來像浮在旁邊。窗寬不足時再夾回視窗內。 */
+    var left = Math.max(8, Math.min(box.right - mw, window.innerWidth - mw - 8));
 
     menu.style.top = top + 'px';
     menu.style.left = left + 'px';
+
+    requestAnimationFrame(function () {
+      menu.style.opacity = '1';
+      menu.style.transform = 'none';
+    });
 
     /* 開著的時候捲動或轉向就關掉 —— fixed 的選單不會跟著內容跑，
        留著會浮在錯的位置上 */
