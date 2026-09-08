@@ -322,26 +322,35 @@
   gap: 12px;
 }
 
-/* 固定寬度：切換語言時「EN / 繁中」↔「繁中 / EN」字寬不同，
-   沒有 min-width 的話整條右側會縮放 */
+/* 語言鈕：地球圖示＋語言名＋小箭頭，沒有外框也沒有底色 ——
+   它不是行動按鈕（那是「聯繫我們」的位置），是狀態顯示＋切換入口，
+   給它一顆藥丸外框反而在頁首搶了聯繫鈕的注意力。
+
+   min-width 仍保留：切語言時「繁體中文」↔「English」字寬不同，
+   沒有它整條右側會跟著縮放。 */
 .lang-toggle {
-  min-width: 108px;
-  text-align: center;
-  padding: 8px 16px;
-  background: var(--surface-white);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-full);
-  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 104px;
+  padding: 8px 4px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  font-size: 0.88rem;
   font-weight: 700;
   color: var(--primary-navy);
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
-.lang-toggle:hover {
-  border-color: var(--brand-blue);
-  color: var(--brand-blue);
-}
+.lang-toggle svg { flex: 0 0 auto; }
+.lang-toggle .lang-globe { width: 19px; height: 19px; }
+.lang-toggle .lang-caret { width: 10px; height: 10px; opacity: .6; transition: transform .2s ease; }
+.lang-toggle[aria-expanded="true"] .lang-caret { transform: rotate(180deg); }
+.lang-toggle .lang-label { white-space: nowrap; }
+
+.lang-toggle:hover { color: var(--brand-blue); }
 
 .contact-btn {
   display: inline-flex;
@@ -412,7 +421,9 @@
     border-radius: 9999px;
   }
   .header-right .contact-btn span { display: none; }
-  .lang-toggle { min-width: 88px; padding: 8px 10px; font-size: 0.8rem; }
+  /* 桌機窄版：只留地球圖示，語言名讓給選單 */
+  .lang-toggle { min-width: 0; padding: 8px 2px; font-size: 0.82rem; gap: 5px; }
+  .lang-toggle .lang-label { display: none; }
 }
 
 /* 平板／手機（≤1024px）：交給 mobile-nav.js 的漢堡選單。
@@ -433,6 +444,17 @@
   .logo-image {
     height: 54px;
   }
+
+  /* 手機：搜尋與聯繫都在漢堡抽屜裡，但語言鈕留在頁首 ——
+     「我看不懂這一頁」是最需要立刻解決的事，不該先叫使用者
+     開一層選單才找得到。抽屜裡那顆就隱藏，避免兩個入口。 */
+  .header-right { display: flex; gap: 4px; }
+  .header-right .contact-btn,
+  .header-right .search-trigger-btn { display: none; }
+  .lang-toggle { min-width: 0; padding: 8px 6px; }
+  .lang-toggle .lang-label { display: none; }
+  .lang-toggle .lang-globe { width: 22px; height: 22px; }
+  #mNavLang { display: none !important; }
 }
 
 /* 小手機（≤480px）再縮一階，讓漢堡按鈕有空間 */

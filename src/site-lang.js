@@ -129,18 +129,34 @@
 
     if (languages.length <= 2) {
       var other = languages.filter(function (l) { return l.code !== currentLang; })[0];
-      btn.textContent = other
-        ? shortLabel(other.code) + ' / ' + shortLabel(currentLang)
-        : shortLabel(currentLang);
+      // 只有兩種語言時按鈕直接顯示「要切去哪個語言」，不需要選單
+      paintButton(btn, other ? labelOf(other.code) : labelOf(currentLang), false);
       btn.onclick = function () { applyLanguage(other ? other.code : currentLang); };
       return;
     }
 
-    btn.textContent = shortLabel(currentLang);
+    paintButton(btn, labelOf(currentLang), true);
+    btn.setAttribute('aria-expanded', 'false');
     btn.onclick = function (e) {
       e.stopPropagation();
       openMenu(btn);
     };
+  }
+
+  var GLOBE =
+    '<svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="1.7" stroke-linecap="round" aria-hidden="true">' +
+    '<circle cx="12" cy="12" r="9.2"/><path d="M2.8 12h18.4"/>' +
+    '<path d="M12 2.8c2.6 2.6 3.9 5.7 3.9 9.2s-1.3 6.6-3.9 9.2c-2.6-2.6-3.9-5.7-3.9-9.2S9.4 5.4 12 2.8z"/>' +
+    '</svg>';
+
+  var CARET =
+    '<svg class="lang-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M5 8.5l7 7 7-7"/></svg>';
+
+  function paintButton(btn, label, withCaret) {
+    btn.innerHTML = GLOBE + '<span class="lang-label">' + label + '</span>' + (withCaret ? CARET : '');
   }
 
   function shortLabel(code) {
@@ -160,8 +176,8 @@
        documentElement.zoom），而且抽屜是固定定位的，用 absolute 加
        scrollY 換算會整個跑掉。fixed 直接吃視窗座標，不必換算。 */
     menu.style.cssText =
-      'position:fixed; z-index:100000; min-width:172px; padding:8px;' +
-      'background:#fff; border:1px solid rgba(10,37,64,.08); border-radius:14px;' +
+      'position:fixed; z-index:100000; padding:6px;' +
+      'background:#fff; border:1px solid rgba(10,37,64,.1); border-radius:2px;' +
       'box-shadow:0 18px 44px -14px rgba(10,37,64,.32), 0 2px 8px rgba(10,37,64,.06);' +
       'font-size:.92rem;' +
       'opacity:0; transform:translateY(-6px); transition:opacity .16s ease, transform .16s ease;';
@@ -172,7 +188,7 @@
       item.type = 'button';
       item.style.cssText =
         'display:flex; align-items:center; gap:10px; width:100%; padding:9px 12px;' +
-        'text-align:left; cursor:pointer; border:0; border-radius:9px; font:inherit;' +
+        'text-align:left; cursor:pointer; border:0; border-radius:0; font:inherit;' +
         'background:' + (on ? 'rgba(0,82,155,.07)' : 'transparent') + ';' +
         'color:' + (on ? '#00529b' : '#1f2f3f') + ';' +
         'font-weight:' + (on ? '700' : '500') + '; transition:background .14s ease;';
@@ -209,6 +225,10 @@
       ? anchor.getBoundingClientRect()
       : { top: 60, bottom: 60, left: 12, right: 12, width: 0 };
 
+    /* 選單寬度＝按鈕寬度，看起來是那顆按鈕展開的，而不是旁邊多開一個小視窗。
+       按鈕很窄時（桌機的語言鈕縮到 88px）至少留 128px，否則字會擠。 */
+    if (box.width) menu.style.width = Math.max(box.width, 128) + 'px';
+
     var mh = menu.offsetHeight;
     var mw = menu.offsetWidth;
     var below = box.bottom + 10;
@@ -221,6 +241,8 @@
     menu.style.top = top + 'px';
     menu.style.left = left + 'px';
 
+    if (anchor && anchor.setAttribute) anchor.setAttribute('aria-expanded', 'true');
+
     requestAnimationFrame(function () {
       menu.style.opacity = '1';
       menu.style.transform = 'none';
@@ -230,6 +252,7 @@
        留著會浮在錯的位置上 */
     function dismiss() {
       if (menu.parentNode) menu.remove();
+      if (anchor && anchor.setAttribute) anchor.setAttribute('aria-expanded', 'false');
       window.removeEventListener('scroll', dismiss, true);
       window.removeEventListener('resize', dismiss);
     }
