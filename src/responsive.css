@@ -49,10 +49,16 @@ html, body { min-width: 320px; }
    ============================================================ */
 @media (max-width: 1024px) {
   .hero-container { grid-template-columns: 1fr !important; gap: 28px !important; }
-  /* 漢堡選單從 1024px 開始出現，語言鈕與聯繫按鈕改由抽屜內提供，
-     否則頁首在 769–1024 之間會擠成三顆按鈕、右側被切掉 */
-  .header-right .contact-btn,
-  .header-right .lang-toggle { display: none !important; }
+  /* 漢堡選單從 1024px 開始出現，聯繫按鈕改由抽屜內提供，
+     否則頁首在 769–1024 之間會擠成三顆按鈕、右側被切掉。
+
+     語言鈕例外，留在頁首 ——「我看不懂這一頁」是最需要立刻解決的事，
+     不該先叫使用者開一層抽屜才找得到。它在窄螢幕只顯示地球圖示
+     （navbar.css 負責），寬度跟一顆圖示鈕一樣，擠不到別人。
+     抽屜裡那顆（#mNavLang）因此隱藏，避免兩個入口。 */
+  .header-right .contact-btn { display: none !important; }
+  .header-right .lang-toggle { display: inline-flex !important; }
+  #mNavLang { display: none !important; }
 
   /* .page-hero 的上內距必須含固定頁首的高度，否則標題會被蓋住。
      這條要放在 1024px 這一層：漢堡版頁首從 1024px 就開始，

@@ -24,9 +24,9 @@
   <link id="site-type-fonts" rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="./src/navbar.css?v=7">
-  <link rel="stylesheet" href="src/responsive.css">
-  <link rel="stylesheet" href="src/navbar.css?v=7" id="site-navbar-css">
+  <link rel="stylesheet" href="./src/navbar.css?v=8">
+  <link rel="stylesheet" href="src/responsive.css?v=8">
+  <link rel="stylesheet" href="src/navbar.css?v=8" id="site-navbar-css">
   <style>
     :root {
       --navy-950:#0b4f83; --navy-900:#12679d; --navy-800:#1c7fb5;
@@ -212,7 +212,7 @@
   </main>
   <footer class="footer"><div class="container footer-inner"><img src="./src/INTEPLAST-logo-blue.svg" alt="INTEPLAST"><span>© {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</span></div></footer>
   <script src="src/site-search.js"></script>
-  <script src="src/mobile-nav.js?v=7"></script>
+  <script src="src/mobile-nav.js?v=8"></script>
   <script src="src/footer.js"></script>
   <script>
     /* 語言切換統一由 src/site-lang.js 提供（原本這裡有一份頁內版本，
@@ -220,7 +220,7 @@
     const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if(reduceMotion||!("IntersectionObserver" in window)){document.querySelectorAll(".reveal").forEach(function(element){element.classList.add("visible")})}else{const observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}})},{threshold:.12});document.querySelectorAll(".reveal").forEach(function(element){observer.observe(element)})}
   </script>
-  <script src="src/site-lang.js?v=7"></script>
-  <script src="src/page-blocks.js?v=7"></script>
+  <script src="src/site-lang.js?v=8"></script>
+  <script src="src/page-blocks.js?v=8"></script>
 </body>
 </html>

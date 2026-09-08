@@ -24,7 +24,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="src/navbar.css?v=7" id="site-navbar-css">
+  <link rel="stylesheet" href="src/navbar.css?v=8" id="site-navbar-css">
   <style>
     html.lang-loading body {
       opacity: 0 !important;
@@ -58,7 +58,7 @@
     /* 裝飾層：最終設計不使用（redesign.css 已將其隱藏），保留標記但不顯示 */
     .leaf-decor, .eco-scene { display: none; }
 
-    /* src/responsive.css 對全站 p 設了 word-break: keep-all（給產品頁短標題用的），
+    /* src/responsive.css?v=8 對全站 p 設了 word-break: keep-all（給產品頁短標題用的），
        這頁是長段落，會在標點處提早斷行。用 body p / body h1 提高選擇器權重蓋回正常斷行。 */
     body p { word-break: normal; overflow-wrap: break-word; text-wrap: pretty; }
     body h1, body h2 { text-wrap: pretty; }
@@ -131,9 +131,9 @@
     .cta { text-align: center; }
     footer { text-align: center; }
   </style>
-  <link rel="stylesheet" href="./src/navbar.css?v=7">
+  <link rel="stylesheet" href="./src/navbar.css?v=8">
   <link rel="stylesheet" href="./sustainability-redesign.css">
-  <link rel="stylesheet" href="src/responsive.css">
+  <link rel="stylesheet" href="src/responsive.css?v=8">
   <!-- 全站字級（src/type.css）必須在首次繪製前就到位。
        原本由 navbar.js 在 <body> 執行時才附加到 head，所以頁面會先用
        本頁自己的級數畫出來（hero 最大 102px），type.css 進來後才收斂成
@@ -294,10 +294,10 @@
   <footer>© {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</footer>
 
   <script src="src/site-search.js"></script>
-  <script src="src/mobile-nav.js?v=7"></script>
+  <script src="src/mobile-nav.js?v=8"></script>
   <script src="src/footer.js"></script>
-  <script src="src/site-lang.js?v=7"></script>
-  <script src="src/page-blocks.js?v=7"></script>
+  <script src="src/site-lang.js?v=8"></script>
+  <script src="src/page-blocks.js?v=8"></script>
 </body>
 
 </html>
