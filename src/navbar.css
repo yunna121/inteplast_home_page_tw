@@ -107,9 +107,14 @@
   z-index: 1000;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* minmax(0, …) 是關鍵：預設的 1fr 最小值是 auto，兩側內容（logo 圖）
+     壓不下去，中間選單一變長（日文比中文寬將近一倍）整條就撐出視窗，
+     把 logo 推到畫面外。改成 0 之後兩側才會真的讓位。 */
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   padding: 12px 40px;
+  max-width: 100%;
+  overflow: visible;
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-color);
@@ -121,14 +126,19 @@
   align-items: center;
   gap: 14px;
   text-decoration: none;
+  min-width: 0;
 }
 
 /* 整組 logo 圖（含中英文公司名）。原本 58px 太小，放大到 66px，
-   --header-h 一併從 72px 加到 88px，頁面 padding-top 用變數算就會自動跟上。 */
+   --header-h 一併從 72px 加到 88px，頁面 padding-top 用變數算就會自動跟上。
+
+   max-width 讓它在選單變寬時等比縮小，而不是把版面撐破 —— 日文選單
+   比中文寬很多，沒有這行就會發生 logo 被推出畫面。 */
 .logo-image {
   height: 66px;
   max-height: 70px;
   width: auto;
+  max-width: 100%;
   object-fit: contain;
 }
 
@@ -165,6 +175,17 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  min-width: 0;
+}
+
+/* 選單項目的左右內距隨可用寬度收縮。
+   日文（製品センター、持続可能な開発）與英文（Sustainability）都比
+   中文長，固定 18px 內距時整排會超出視窗；用 clamp 讓它在窄螢幕
+   先縮內距與字級，撐不住才交給 1000px 的漢堡選單。 */
+.nav-link-item {
+  padding: 8px clamp(9px, 1.15vw, 18px);
+  font-size: clamp(0.84rem, 0.92vw, 0.92rem);
+  white-space: nowrap;
 }
 
 .nav-item {
@@ -177,9 +198,7 @@
   gap: 6px;
   position: relative;
   z-index: 10;
-  padding: 8px 18px;
   border-radius: var(--radius-full);
-  font-size: 0.92rem;
   font-weight: 700;
   color: var(--text-main);
   text-decoration: none;
@@ -370,16 +389,20 @@
   transform: scale(1.06);
 }
 
-/* 桌機窄版（≤1400px）：logo＋五個選單＋搜尋＋語言鈕＋聯繫鈕會塞不進一列。
+/* 桌機窄版（≤1600px）：logo＋五個選單＋搜尋＋語言鈕＋聯繫鈕會塞不進一列。
+   斷點原本是 1400px，但那是以中文選單量的 —— 日文（INTEPLASTについて、
+   持続可能な開発）與英文（Sustainability）都寬得多，1400～1600 之間
+   就會把 logo 推出畫面，所以提早一階收縮。
+
    聯繫鈕不隱藏（客戶最重要的入口），改成只留信封圖示的圓鈕；
    logo、選單內距、語言鈕一併縮一階。語言切換全程保留，
    1024px 以下才整組交給漢堡抽屜。 */
-@media (max-width: 1400px) {
+@media (max-width: 1600px) {
   .header { padding: 12px 20px; }
   .header-logo { gap: 10px; }
   .logo-image { height: 50px; }
   .nav-menu { gap: 2px; }
-  .nav-link-item { padding: 8px 9px; font-size: 0.85rem; }
+  .nav-link-item { padding: 8px clamp(6px, 0.7vw, 9px); font-size: clamp(0.78rem, 0.86vw, 0.85rem); }
   .header-right { gap: 8px; }
   .header-right .contact-btn {
     width: 40px;
