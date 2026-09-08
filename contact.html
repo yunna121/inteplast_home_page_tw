@@ -291,9 +291,6 @@
               <input type="text" id="companyWebsite" name="website" tabindex="-1" autocomplete="off">
             </div>
 
-            <!-- 通知信要寄到哪：送出前由腳本填入頁面上「聯絡我們」顯示的信箱，Code.gs 不寫死 -->
-            <input type="hidden" id="notifyTo" name="notifyTo" value="">
-
             <button type="submit" class="submit-btn" id="submitBtn">
               <i class="fa-solid fa-paper-plane"></i> <span data-tw="確認送出，我們會儘速聯繫您" data-en="Submit & We Will Contact You">確認送出，我們會儘速聯繫您</span>
             </button>
@@ -305,9 +302,6 @@
 
     </div>
   </section>
-
-  <!-- GAS 回傳的頁面丟進這個隱藏 iframe，載入完成＝Apps Script 已收到並處理完 -->
-  <iframe name="gasReceiver" id="gasReceiver" title="Contact form submission receiver" hidden></iframe>
 
   <footer class="footer">
     <div class="container">
@@ -337,29 +331,20 @@
       }
     }
 
-    /* 送出目標：Google Apps Script 網頁應用程式（apps-script/Code.gs）
-       它會把表單寫進 Google Sheet「聯絡表單」，並寄出內部通知信與填表人自動回覆信。
-
-       換成自己的部署時只改 GAS_ENDPOINT_URL：
-       Google Sheet → 擴充功能 → Apps Script → 貼上 apps-script/Code.gs
-       → 部署 → 新增部署作業 → 網頁應用程式（執行身分：我／存取權：所有人）
-       → 複製 /exec 網址貼到下面。改過 Code.gs 要「管理部署作業 → 編輯 → 新版本」才生效。
-
-       送出方式用隱藏 iframe 而非 fetch：GAS 的 /exec 會跨網域重導，
-       fetch 讀不到回應也判斷不了成敗；iframe 的 load 事件則代表 GAS 已處理完。 */
-    const GAS_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbz1hF2WW-easWE11AHvlnzvOXMG8qDSElR_IYcVx6vj0TWoXHrA-Mzuu78qcTJS7GMX/exec';
+    /* 表單送出 → POST /api/inquiry → 寫進 D1 的 inquiries 表。
+       不寄信：業務到後台的「客戶詢價」看紀錄並主動聯繫。
+       送出失敗時給出信箱與電話，客戶還有路可走。 */
     const FALLBACK_MAILTO = 'lyanchen@wpjk.INTEPLAST.com';
 
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
       const form = e.currentTarget;
       const submitBtn = document.getElementById('submitBtn');
       const statusDiv = document.getElementById('statusMessage');
-      const receiver = document.getElementById('gasReceiver');
 
       /* 蜜罐：機器人填了 website 就當作已送出，不真的送
-         （Code.gs 也有同一道防線，兩邊都擋） */
+         （後端也有同一道防線，兩邊都擋） */
       if (form.website && form.website.value) {
         statusDiv.style.color = '#10B981';
         statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> 已成功送出！我們的團隊將會安排專人與您聯繫。';
@@ -367,70 +352,32 @@
         return;
       }
 
-      /* 通知信箱直接抓頁面上「聯絡我們」顯示的那個（data-site="email" 的元素），
-         這樣換聯絡信箱只要改頁面上的信箱，不用重新部署 Apps Script */
-      const notifyField = document.getElementById('notifyTo');
-      const contactMail = document.querySelector('[data-site="email"]');
-      if (notifyField && contactMail) {
-        notifyField.value = (contactMail.textContent || '').trim();
-      }
-
       submitBtn.disabled = true;
       statusDiv.style.color = 'var(--brand-blue)';
       statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 資料傳送中，請稍候...';
 
-      function ok() {
-        statusDiv.style.color = '#10B981';
-        statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> 已成功送出！我們的團隊將會安排專人與您聯繫。';
-        form.reset();
-        submitBtn.disabled = false;
-      }
-
-      function fail(why) {
-        statusDiv.style.color = '#DC2626';
-        statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> 送出失敗（' + why + '），請改寄 <a href="mailto:' +
-          FALLBACK_MAILTO + '" style="color:#DC2626; font-weight:800;">' + FALLBACK_MAILTO +
-          '</a> 或電洽 02-2712-2211 #8109。';
-        submitBtn.disabled = false;
-      }
-
-      /* 舊的送出方式：表單 POST 到 Apps Script 的隱藏 iframe。
-         現在只在 /api/inquiry 沒把信寄出時才用（見下方 sendToDatabase）。 */
-      function sendToAppsScript() {
-        const timer = setTimeout(function () { fail('連線異常'); }, 15000);
-        receiver.addEventListener('load', function () {
-          clearTimeout(timer);
-          ok();
-        }, { once: true });
-
-        form.action = GAS_ENDPOINT_URL;
-        form.method = 'POST';
-        form.target = 'gasReceiver';
-        HTMLFormElement.prototype.submit.call(form);
-      }
-
-      /* 新的主要路徑：送到 /api/inquiry
-           1. 寫進 D1 的 inquiries 表（編輯頁看得到）
-           2. 用 Microsoft Graph 寄通知信與自動回覆
-
-         mailed 為 false 表示資料存了但信沒寄出（例如還沒設定
-         Microsoft 寄信），這時再走 Apps Script 把信補寄出去 ——
-         客戶資料要同時兩套系統都壞掉才會遺失。 */
       const payload = new FormData(form);
       payload.set('lang', document.documentElement.lang || '');
       payload.set('page', location.pathname + location.hash);
 
       fetch('/api/inquiry', { method: 'POST', body: payload })
-        .then(function (res) { return res.json().then(function (data) { return { res: res, data: data }; }); })
+        .then(function (res) {
+          return res.json().then(function (data) { return { res: res, data: data }; });
+        })
         .then(function (out) {
           if (!out.res.ok || out.data.error) throw new Error(out.data.error || ('HTTP ' + out.res.status));
-          if (out.data.mailed) { ok(); return; }
-          // 資料已存下來，但信要靠 Apps Script 寄
-          sendToAppsScript();
+          statusDiv.style.color = '#10B981';
+          statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> 已成功送出！我們的團隊將會安排專人與您聯繫。';
+          form.reset();
+          submitBtn.disabled = false;
         })
-        .catch(function () {
-          // API 完全不通（例如還沒部署）—— 整份交給原本的 Apps Script
-          sendToAppsScript();
+        .catch(function (err) {
+          statusDiv.style.color = '#DC2626';
+          statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> 送出失敗（' +
+            (err.message || '連線異常') + '），請改寄 <a href="mailto:' + FALLBACK_MAILTO +
+            '" style="color:#DC2626; font-weight:800;">' + FALLBACK_MAILTO +
+            '</a> 或電洽 02-2712-2211 #8109。';
+          submitBtn.disabled = false;
         });
     });
 

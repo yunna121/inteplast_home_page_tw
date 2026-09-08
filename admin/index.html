@@ -1536,8 +1536,7 @@
                 el('div', { class: 'chips' }, [
                   done
                     ? el('span', { class: 'chip plain', style: 'border-color:#bfe0cd;background:#f0f9f4;color:#0f7a4e', text: '已處理' })
-                    : el('span', { class: 'chip plain', style: 'border-color:#cfe4f3;background:#eff6fb;color:var(--blue)', text: '未處理' }),
-                  q.mailed ? null : el('span', { title: '通知信未寄出', style: 'color:#b45309; align-self:center' }, [el('i', { class: 'fa-solid fa-triangle-exclamation' })])
+                    : el('span', { class: 'chip plain', style: 'border-color:#cfe4f3;background:#eff6fb;color:var(--blue)', text: '未處理' })
                 ])
               ]),
               el('td', { class: 'right' }, [
