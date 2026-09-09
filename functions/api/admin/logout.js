@@ -61,6 +61,15 @@ export async function onRequest(context) {
        一律回同一句「帳號或密碼不正確」。 */
     const expect = users[name];
     if (expect && slowEquals(password, expect)) who = name;
+
+    /* 沒送帳號時（舊版編輯頁只有密碼欄）用密碼本身認人：每個人的密碼不同，
+       所以對上哪一組就知道是誰。這是為了讓新舊版頁面都能登入，
+       不是放寬驗證 —— 密碼還是要完全正確。 */
+    if (!who && !name) {
+      Object.keys(users).forEach((key) => {
+        if (!who && slowEquals(password, users[key])) who = key;
+      });
+    }
   }
 
   // 舊設定：只有一組密碼，帳號欄填什麼都可以

@@ -530,7 +530,11 @@
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
     (function () {
-      if (location.hostname !== 'yunna121.github.io') return;
+      /* 只在正式網域送資料。原本只認 yunna121.github.io，搬到 Cloudflare Pages
+         之後就完全沒有統計了 —— 這裡改成列出所有正式網域。
+         換自訂網域時把它加進這個陣列。 */
+      var LIVE_HOSTS = ['yunna121.github.io', 'inteplast-home-page-tw.pages.dev'];
+      if (LIVE_HOSTS.indexOf(location.hostname) === -1) return;
       var s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0FS2ZC88V0';
@@ -807,6 +811,13 @@
           }
         }
         var patentImg = (row && String(row.patent || '').trim()) || 'scale-sheet-patent.jpg';
+        /* 後台上傳的圖是 /media/xxx.webp（絕對路徑），不能再前面接 ../src/ ——
+           原本無條件拼成 ../src//media/xxx.webp，所以上傳完就變破圖。
+           規則與產品照的 photoOf 一致：絕對路徑與外部網址直接用，
+           只有裸檔名才去 src/ 底下找。 */
+        var patentSrc = /^(https?:)?\/\//.test(patentImg) || patentImg.charAt(0) === '/'
+          ? patentImg
+          : '../src/' + patentImg;
         var sec = document.getElementById('patentSection');
         if (!sec || !row) return;
 
@@ -822,7 +833,7 @@
         sec.innerHTML =
           '<div class="patent-inner">' +
             '<figure class="patent-figure">' +
-              '<img src="../src/' + esc(patentImg) + '" alt="' + esc(name) + ' 美國專利證書" width="621" height="819" loading="lazy">' +
+              '<img src="' + esc(patentSrc) + '" alt="' + esc(name) + ' 美國專利證書" width="621" height="819" loading="lazy">' +
             '</figure>' +
             '<div>' +
               '<span class="patent-eyebrow">Patented technology</span>' +

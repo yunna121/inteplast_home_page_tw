@@ -55,5 +55,8 @@ INSERT OR IGNORE INTO site_images (key, label, hint, path, fallback, sort_order)
    '「連續五年獲頒卓越獎」旁邊的獎座照。白底棚拍，建議 1200×900 以上',
    'src/excellence-awards.jpg', 'src/excellence-awards.jpg', 5);
 
+-- 專利證書刻意不放這裡：它在「產品資料 → Scale Sheet → 專利證書圖」已經有一個
+-- 入口，關於營德與產品中心兩頁都讀那個欄位。同一張圖有兩個地方可改＝一定會不一致。
+
 -- 確認
 SELECT key, label, path FROM site_images ORDER BY sort_order;

@@ -107,10 +107,12 @@
   z-index: 1000;
   box-sizing: border-box;
   display: grid;
-  /* minmax(0, …) 是關鍵：預設的 1fr 最小值是 auto，兩側內容（logo 圖）
-     壓不下去，中間選單一變長（日文比中文寬將近一倍）整條就撐出視窗，
-     把 logo 推到畫面外。改成 0 之後兩側才會真的讓位。 */
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  /* 兩側 auto（依內容），中間 minmax(0, 1fr)：選單只拿「剩下的」空間。
+     原本中間是 auto —— auto 軌道會先吃滿 max-content，日文選單（INTEPLASTについて、
+     持続可能な開発）比中文寬將近一倍，於是整排不縮、直接溢出到右邊，
+     疊在搜尋條與語言鈕上面。改成 1fr（最小 0）後，塞不下時由 .nav-link-item
+     自己折成兩行，右側元件永遠完整。 */
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   padding: 12px 40px;
   max-width: 100%;
@@ -167,14 +169,18 @@
 }
 
 /* 主選單 */
+/* justify-self: stretch（撐滿中間那一欄）+ justify-content: center（選單自己置中）：
+   原本是 justify-self: center，選單寬度＝內容寬度，內容一長就溢出。
+   現在寬度上限＝可用空間，置中效果不變。 */
 .nav-menu {
-  justify-self: center;
+  justify-self: stretch;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 8px;
   min-width: 0;
 }
 
@@ -182,20 +188,28 @@
    日文（製品センター、持続可能な開発）與英文（Sustainability）都比
    中文長，固定 18px 內距時整排會超出視窗；用 clamp 讓它在窄螢幕
    先縮內距與字級，撐不住才交給 1000px 的漢堡選單。 */
+/* white-space: normal（原本是 nowrap）：一行塞不下的長標籤折成兩行，
+   而不是撐破版面去蓋住右側。88px 的 --header-h 容得下兩行。 */
 .nav-link-item {
   padding: 8px clamp(9px, 1.15vw, 18px);
   font-size: clamp(0.84rem, 0.92vw, 0.92rem);
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.3;
 }
 
 .nav-item {
   position: relative;
+  min-width: 0;
 }
 
+/* display 必須是 inline-block，不能是 inline-flex：
+   inline-flex 裡的文字是匿名 flex item，寬度不夠時它不會斷行、只會溢出 ——
+   結果就是日文選單被壓成一列疊在一起（ホームINTEPLASTについて製品センター）。
+   inline-block 走一般文字排版，才會照 white-space: normal 折成兩行。
+   下拉箭頭（.caret-icon）改用 margin 對齊，不靠 flex gap。 */
 .nav-link-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  display: inline-block;
   position: relative;
   z-index: 10;
   border-radius: var(--radius-full);
@@ -214,6 +228,7 @@
 }
 
 .caret-icon {
+  margin-left: 6px;
   font-size: 0.75rem;
   transition: transform 0.3s ease;
 }
