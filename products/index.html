@@ -508,8 +508,17 @@
       .visual-product-card {
         grid-template-columns: 1fr;
       }
+      /* 堆疊之後圖片改為「完整顯示」而不是滿版裁切：
+         上傳的照片比例不一（3:2、4:3、接近正方都有），固定 320px 高
+         配 object-fit: cover，框的比例對不上就會把產品裁掉。
+         contain 保證整張看得到，淺灰底當留白。 */
+      .card-image-box {
+        aspect-ratio: 3 / 2;
+        padding: 16px;
+      }
       .card-image-box img {
-        height: 320px;
+        height: 100%;
+        object-fit: contain;
       }
       .card-info-content {
         padding: 28px;
