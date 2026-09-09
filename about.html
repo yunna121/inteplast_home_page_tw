@@ -24,7 +24,7 @@
   <link id="site-type-fonts" rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- navbar.css 已在 head 上方以 id="site-navbar-css" 載入過，這裡不再重複請求 -->
+  <link rel="stylesheet" href="./src/navbar.css?v=8">
   <link rel="stylesheet" href="src/responsive.css?v=8">
   <link rel="stylesheet" href="src/navbar.css?v=8" id="site-navbar-css">
   <style>
@@ -47,7 +47,7 @@
     .section-lead {max-width:760px;margin-top:22px;color:var(--muted);font-size:clamp(1rem,1.5vw,1.12rem);text-wrap:pretty}
 
     .story-hero {position:relative;min-height:780px;padding-top:calc(var(--utility-height) + var(--header-height));display:grid;align-items:end;color:var(--white);background:var(--navy-950);isolation:isolate}
-    .story-hero::before {content:"";position:absolute;inset:0;z-index:-2;background:var(--site-img, url("./src/製袋區.jpeg?v=20260824105835")) right bottom/cover no-repeat;filter:saturate(1.08) contrast(1.02) brightness(1.08);
+    .story-hero::before {content:"";position:absolute;inset:0;z-index:-2;background:url("./src/製袋區.jpeg?v=20260824105835") right bottom/cover no-repeat;filter:saturate(1.08) contrast(1.02) brightness(1.08);
       /* 放大倍率：改這個數字就好（1 = 原尺寸、1.25 = 放大 25%）。
          以右下角為基準放大，所以右緣與下緣不動，往左上方長出去。 */
       --hero-zoom:1;transform:scale(var(--hero-zoom));transform-origin:right bottom}.story-hero::after {content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(11,79,131,.95) 0%,rgba(8,119,186,.86) 39%,rgba(16,143,202,.48) 68%,rgba(40,169,222,.18) 100%),linear-gradient(0deg,rgba(11,79,131,.52) 0%,transparent 55%)}
@@ -118,11 +118,7 @@
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
     (function () {
-      /* 只在正式網域送資料。原本只認 yunna121.github.io，搬到 Cloudflare Pages
-         之後就完全沒有統計了 —— 這裡改成列出所有正式網域。
-         換自訂網域時把它加進這個陣列。 */
-      var LIVE_HOSTS = ['yunna121.github.io', 'inteplast-home-page-tw.pages.dev'];
-      if (LIVE_HOSTS.indexOf(location.hostname) === -1) return;
+      if (location.hostname !== 'yunna121.github.io') return;
       var s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0FS2ZC88V0';
@@ -140,7 +136,7 @@
   <script src="src/navbar.js"></script>
   <script src="src/site-year.js"></script>
   <main>
-    <section class="story-hero" data-site-bg="about_hero">
+    <section class="story-hero">
       <div class="container hero-inner">
         <div><div class="hero-kicker">INTEPLAST TAIWAN · MANUFACTURING FOR TOMORROW</div><h1 data-tw="從台灣出發，為世界製造" data-en="Made in Taiwan. Built for the world.">從台灣出發，<span>為世界製造</span></h1><p class="hero-summary" data-tw="在新港，我們把穩定品質、精密製程與環境思維，做成全球市場可以信賴的日常。臺灣營德持續用更好的製造，回應每一個正在前進的需求。" data-en="In Xingang, we turn reliable quality, precise processes, and environmental thinking into work global markets can count on—responding to every need that keeps moving forward.">在新港，我們把穩定品質、精密製程與環境思維，做成全球市場可以信賴的日常。臺灣營德持續用更好的製造，回應每一個正在前進的需求。</p></div>
       </div>
@@ -182,12 +178,14 @@
           <p class="section-lead" data-tw="臺灣營德連續五年獲頒 INTEPLAST GROUP Excellence Award 卓越獎。" data-en="INTEPLAST TAIWAN has received the INTEPLAST GROUP Excellence Award for five consecutive years.">臺灣營德連續五年獲頒 INTEPLAST GROUP Excellence Award 卓越獎。</p>
         </div>
         <figure class="awards-figure reveal">
-          <img src="./src/excellence-awards.jpg" data-site-img="about_awards" alt="臺灣營德獲頒的 INTEPLAST GROUP 卓越營運獎項展示，包含 2021 至 2024 年度 Excellence Award 與 2024 年 The Most Improved Operation" width="612" height="408" loading="lazy">
+          <img src="./src/excellence-awards.jpg" alt="臺灣營德獲頒的 INTEPLAST GROUP 卓越營運獎項展示，包含 2021 至 2024 年度 Excellence Award 與 2024 年 The Most Improved Operation" width="612" height="408" loading="lazy">
           <figcaption data-tw="INTEPLAST GROUP 卓越獎與年度最大進步營運單位獎座" data-en="INTEPLAST GROUP Excellence Awards and The Most Improved Operation trophy">INTEPLAST GROUP 卓越獎與年度最大進步營運單位獎座</figcaption>
         </figure>
       </div>
     </div></section>
 
+    <!-- 美國專利：證書圖、產品圖、專利號由 D1 的 products 提供（src/patent-sync.js），
+         與產品中心讀同一份資料。下面的圖是 API 掛掉時的預設值。 -->
     <section class="patent-section" data-screen-label="美國專利"><div class="container">
       <div class="patent-grid">
         <figure class="patent-figure reveal">
@@ -225,8 +223,6 @@
     if(reduceMotion||!("IntersectionObserver" in window)){document.querySelectorAll(".reveal").forEach(function(element){element.classList.add("visible")})}else{const observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}})},{threshold:.12});document.querySelectorAll(".reveal").forEach(function(element){observer.observe(element)})}
   </script>
   <script src="src/site-lang.js?v=8"></script>
-  <!-- 頁面上的照片改由後台「網站圖片」設定，HTML 裡的路徑是後備 -->
-  <script src="src/site-images.js?v=1"></script>
   <script src="src/page-blocks.js?v=8"></script>
 </body>
 </html>

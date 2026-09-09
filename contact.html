@@ -152,17 +152,13 @@
       .tab-btn { border-radius: 14px; }
     }
   </style>
-  <!-- navbar.css 已在 head 上方以 id="site-navbar-css" 載入過，這裡不再重複請求 -->
+  <link rel="stylesheet" href="./src/navbar.css?v=8">
   <link rel="stylesheet" href="src/responsive.css?v=8">
   <!-- Google Analytics 4（G-0FS2ZC88V0）
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
     (function () {
-      /* 只在正式網域送資料。原本只認 yunna121.github.io，搬到 Cloudflare Pages
-         之後就完全沒有統計了 —— 這裡改成列出所有正式網域。
-         換自訂網域時把它加進這個陣列。 */
-      var LIVE_HOSTS = ['yunna121.github.io', 'inteplast-home-page-tw.pages.dev'];
-      if (LIVE_HOSTS.indexOf(location.hostname) === -1) return;
+      if (location.hostname !== 'yunna121.github.io') return;
       var s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0FS2ZC88V0';

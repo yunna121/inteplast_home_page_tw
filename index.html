@@ -90,9 +90,7 @@
     /* GSAP Parallax Hero */
     .fashion-hero-wrapper {
       position: relative;
-      /* 100vw 含捲軸寬度，在有捲軸的桌機會比可視區寬 15px（整塊往左偏、右邊露出背景）。
-         用 100% 跟著 body 走。 */
-      width: 100%;
+      width: 100vw;
       height: 100vh;
       overflow: hidden;
       background: var(--bg-dark);
@@ -229,11 +227,9 @@
     }
 
     /* Hero 底部 4 大核心特色列 */
-    /* 卡片數量會變（目前三張），所以用 auto-fit 而不是寫死 repeat(4)。
-       原本寫 repeat(4, 1fr) 但只有三張卡 —— 桌機右邊空一格，三張卡被壓窄又偏左。 */
     .hero-stats-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 18px;
       margin-top: 40px;
       width: 100%;
@@ -1444,12 +1440,10 @@
     }
 
     /* Scroll margin offset for fixed header navigation */
-    /* 跟著頁首實際高度算（頂欄 34 + 頁首 88 + 16 間距），寫死 110px 會讓
-       捲到的標題貼在頁首底下、看起來像被切掉 */
     #productShowcase,
     #greenMark,
     #contactCTA {
-      scroll-margin-top: calc(var(--utility-h) + var(--header-h) + 16px);
+      scroll-margin-top: 110px;
     }
 
     /* Right Side Step Rail Navigation (100% 匹配用戶圖示設計 - 往下滑動離頂時浮現) */
@@ -1602,17 +1596,13 @@
       }
     }
   </style>
-  <!-- navbar.css 已在 head 上方以 id="site-navbar-css" 載入過，這裡不再重複請求 -->
+  <link rel="stylesheet" href="./src/navbar.css?v=8">
   <link rel="stylesheet" href="src/responsive.css?v=8">
   <!-- Google Analytics 4（G-0FS2ZC88V0）
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
     (function () {
-      /* 只在正式網域送資料。原本只認 yunna121.github.io，搬到 Cloudflare Pages
-         之後就完全沒有統計了 —— 這裡改成列出所有正式網域。
-         換自訂網域時把它加進這個陣列。 */
-      var LIVE_HOSTS = ['yunna121.github.io', 'inteplast-home-page-tw.pages.dev'];
-      if (LIVE_HOSTS.indexOf(location.hostname) === -1) return;
+      if (location.hostname !== 'yunna121.github.io') return;
       var s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0FS2ZC88V0';
@@ -1734,7 +1724,7 @@
 
           <!-- Left Visual Box: Light Green Tint Box with Certificate Image -->
           <div style="background: #EFF8ED; padding: 36px; display: flex; align-items: center; justify-content: center;">
-            <img src="./src/opt/combine.jpg" data-site-img="eco_certificate" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書" loading="lazy" decoding="async"
+            <img src="./src/combine.png" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書"
               style="width: 100%; max-width: 520px; height: auto; border-radius: 14px; box-shadow: 0 16px 32px rgba(35, 82, 62, 0.12); object-fit: cover;">
           </div>
 
@@ -2237,8 +2227,6 @@
   <script src="src/mobile-nav.js?v=8"></script>
   <script src="src/footer.js"></script>
   <script src="src/site-lang.js?v=8"></script>
-  <!-- 頁面上的照片改由後台「網站圖片」設定，HTML 裡的路徑是後備 -->
-  <script src="src/site-images.js?v=1"></script>
 </body>
 
 </html>

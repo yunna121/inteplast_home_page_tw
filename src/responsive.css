@@ -463,12 +463,8 @@ p, .card-desc-text, .node-role, .node-detail, .timeline-copy p, .section-lead {
 }
 
 /* 短標籤、膠囊、序號才需要不換行（都是 2～8 字的內容） */
-/* .nav-link-item 已從這裡移除 —— 導覽列項目在日文版是「INTEPLASTについて」
-   「持続可能な開発」這種長標籤，nowrap 會讓整排選單不縮、溢出到右側疊在
-   搜尋條與語言鈕上面。navbar.css 已改成可折兩行（white-space: normal），
-   但這個檔案載入更晚，列在這裡就會把那個修正蓋回去。 */
 .hero-pill-tag, .card-num-badge, .prod-badge, .stat-num,
-.region-badge, .utility-left span, .utility-right a, .node-label,
+.nav-link-item, .region-badge, .utility-left span, .utility-right a, .node-label,
 .ps-chip, .edm-size-pill, .scale-no-pill {
   white-space: nowrap;
   word-break: keep-all;

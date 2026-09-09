@@ -131,7 +131,7 @@
     .cta { text-align: center; }
     footer { text-align: center; }
   </style>
-  <!-- navbar.css 已在 head 上方以 id="site-navbar-css" 載入過，這裡不再重複請求 -->
+  <link rel="stylesheet" href="./src/navbar.css?v=8">
   <link rel="stylesheet" href="./sustainability-redesign.css">
   <link rel="stylesheet" href="src/responsive.css?v=8">
   <!-- 全站字級（src/type.css）必須在首次繪製前就到位。
@@ -144,11 +144,7 @@
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
     (function () {
-      /* 只在正式網域送資料。原本只認 yunna121.github.io，搬到 Cloudflare Pages
-         之後就完全沒有統計了 —— 這裡改成列出所有正式網域。
-         換自訂網域時把它加進這個陣列。 */
-      var LIVE_HOSTS = ['yunna121.github.io', 'inteplast-home-page-tw.pages.dev'];
-      if (LIVE_HOSTS.indexOf(location.hostname) === -1) return;
+      if (location.hostname !== 'yunna121.github.io') return;
       var s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0FS2ZC88V0';
@@ -225,7 +221,7 @@
               <p class="green-standard-summary" data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。" data-en="Formosa Eco Drawtape and Can Liner bags are fully Green Mark certified from raw materials to manufacturing.">台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。</p>
             </div>
           </div>
-          <figure class="green-standard-visual"><img src="./src/opt/combine.jpg" data-site-img="eco_certificate" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書" loading="lazy" decoding="async"></figure>
+          <figure class="green-standard-visual"><img src="./src/combine.png" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書"></figure>
           <ul class="green-standard-list">
             <li><strong data-tw="通過環境審查" data-en="Passed Environmental Audits">通過環境審查</strong><span data-tw="符合環保標章規格標準，取得產品標示資格。" data-en="Meets official Green Mark specifications.">符合環保標章規格標準，取得產品標示資格。</span></li>
             <li><strong data-tw="50% 再生塑膠" data-en="50% Recycled Plastic">50% 再生塑膠</strong><span data-tw="減少對原生塑膠資源的依賴，延續材料價值。" data-en="Reduces reliance on virgin plastics.">減少對原生塑膠資源的依賴，延續材料價值。</span></li>
@@ -235,7 +231,7 @@
         </aside>
         <div class="products-grid">
           <article class="product-card">
-            <div class="product-image"><img src="./src/opt/drawtape.jpg" data-site-img="sus_product_drawtape" alt="台塑環保拉繩清潔袋" loading="lazy" decoding="async"></div>
+            <div class="product-image"><img src="./src/drawtape.jpg" alt="台塑環保拉繩清潔袋"></div>
             <div class="product-content">
               <span class="product-label"><i class="fa-solid fa-leaf"></i> <span data-tw="環保標章認證產品" data-en="ENVIRONMENTAL LABEL PRODUCT">ENVIRONMENTAL LABEL PRODUCT</span></span>
               <h3 data-tw="台塑環保拉繩清潔袋" data-en="Formosa Eco Drawtape Can Liner">台塑環保拉繩清潔袋</h3>
@@ -244,7 +240,7 @@
             </div>
           </article>
           <article class="product-card">
-            <div class="product-image"><img src="./src/opt/cleaning.jpg" data-site-img="sus_product_cleaning" alt="台塑環保清潔袋" loading="lazy" decoding="async"></div>
+            <div class="product-image"><img src="./src/cleaning.jpg" alt="台塑環保清潔袋"></div>
             <div class="product-content">
               <span class="product-label"><i class="fa-solid fa-leaf"></i> <span data-tw="環保標章認證產品" data-en="ENVIRONMENTAL LABEL PRODUCT">ENVIRONMENTAL LABEL PRODUCT</span></span>
               <h3 data-tw="台塑環保清潔袋" data-en="Formosa Eco Trash Bag">台塑環保清潔袋</h3>
@@ -302,8 +298,6 @@
   <script src="src/footer.js"></script>
   <script src="src/site-lang.js?v=8"></script>
   <script src="src/page-blocks.js?v=8"></script>
-  <!-- 頁面上的照片改由後台「網站圖片」設定，HTML 裡的路徑是後備 -->
-  <script src="src/site-images.js?v=1"></script>
 </body>
 
 </html>

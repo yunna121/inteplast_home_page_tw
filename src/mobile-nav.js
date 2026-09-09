@@ -1,7 +1,7 @@
 /* ============================================================
    手機版導覽抽屜 (Mobile Nav Drawer)
    ------------------------------------------------------------
-   1024px 以下桌機選單被隱藏，手機原本沒有任何導覽入口。
+   1000px 以下桌機選單被隱藏，手機原本沒有任何導覽入口。
    這支腳本會複製頁首既有的 .nav-menu 內容，產生漢堡按鈕與
    側滑抽屜（產品中心以手風琴展開），選單內容自動同步，
    不需要另外維護一份選單。
@@ -259,7 +259,7 @@
   });
 
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-  window.addEventListener('resize', function () { if (window.innerWidth > 1024) close(); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 1000) close(); });
 
   function init() {
     build();
