@@ -641,7 +641,7 @@
                 el('h2', { text: '網站管理系統' }),
                 el('div', { class: 'en', text: 'Inteplast Taiwan' })
               ]),
-              el('div', { class: 'lead', text: ' ' }),
+              el('div', { class: 'lead', text: '產品資料、搜尋別名、客戶詢價與網站文案都在這裡維護。改完存檔，網站會立刻更新。' }),
               el('a', { class: 'goto', href: '/', target: '_blank', rel: 'noopener' }, [
                 el('i', { class: 'fa-solid fa-arrow-up-right-from-square' }),
                 el('span', { text: '前往網站' })
@@ -2382,9 +2382,18 @@
         var main = document.getElementById('main');
         main.innerHTML = '';
 
-        /* 密碼登入時才顯示登出（Access 的登出是 Cloudflare 那邊管的） */
+        /* 側欄下方顯示目前登入的帳號 —— 存檔時記進 updated_by 的就是這個名字，
+           看得到才不會發生「用到別人的帳號在改」 */
         var box = document.getElementById('logoutBox');
         box.innerHTML = '';
+        var whoName = (DB.access && DB.access.user) || '';
+        if (whoName) {
+          box.appendChild(el('div', { style: 'margin-bottom:8px;color:rgba(255,255,255,.75)' }, [
+            el('i', { class: 'fa-solid fa-circle-user' }),
+            el('span', { text: ' 登入：' + whoName })
+          ]));
+        }
+        /* 密碼登入時才顯示登出（Access 的登出是 Cloudflare 那邊管的） */
         if (DB.access && DB.access.mode === 'password') {
           box.appendChild(el('a', {
             href: '#',
@@ -2400,7 +2409,7 @@
             el('i', { class: 'fa-solid fa-triangle-exclamation' }),
             el('div', {}, [
               el('b', { text: '這個頁面目前沒有登入保護' }),
-              el('span', { text: '任何知道網址的人都能修改或刪除網站內容。請在 Cloudflare 設定 Access，保護 /admin* 與 /api/admin* 兩個路徑（做法見 README-admin.txt）。' })
+              el('span', { text: '任何知道網址的人都能修改或刪除網站內容。請在 Pages → Settings → Variables and Secrets 新增 ADMIN_USERS（格式：dev:密碼A,sales:密碼B），或在 Cloudflare 設定 Access 保護 /admin* 與 /api/admin* 。' })
             ])
           ]));
         }
