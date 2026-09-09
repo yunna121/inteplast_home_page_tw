@@ -384,7 +384,9 @@
     .gm-body {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      /* 標題移到區段開頭後，右欄只剩四格與按鈕；space-between 會把它們
+         拉到上下兩端，中間空一大塊。改成置中，讓右欄對齊左邊照片的視覺重心。 */
+      justify-content: center;
       padding: 40px 48px;
       background: #FFFFFF;
     }
@@ -1759,8 +1761,23 @@
     style="padding: 70px 0; background: #F8FAFC; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
     <div style="max-width: 1350px; margin: 0 auto; padding: 0 40px;">
 
-      <!-- 區段標題移除（卡片裡已有一模一樣的兩句），綠色徽章隨之移到卡片內的標題上方：
-           置中的徽章配左對齊的卡片標題，兩條軸線對不上，看起來像掉在外面。 -->
+      <!-- 區段標題：徽章＋大標＋說明。
+           卡片裡原本有一模一樣的標題與說明（同一區講兩次），已移除；
+           文字統一由這裡負責，卡片只放證據：照片、四個事實、按鈕。 -->
+      <div class="section-head" style="margin-bottom: 48px;">
+        <span class="pill-badge"
+          style="background: rgba(67,172,89,0.1); color: #2F7B4B; border-color: rgba(67,172,89,0.3);">
+          <i class="fa-solid fa-leaf"></i> <span data-tw="ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品"
+            data-en="ENVIRONMENTAL LABEL PRODUCTS">ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品</span>
+        </span>
+        <h2 data-tw="環保不打折，每一款都經過層層把關" data-en="Uncompromised Eco Quality, Rigorously Audited">
+          環保不打折，每一款都經過層層把關
+        </h2>
+        <p data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。"
+          data-en="Formosa Eco Drawtape and Can Liner bags are fully Green Mark certified from raw materials to manufacturing.">
+          台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。
+        </p>
+      </div>
 
       <!-- Main Combined Card (100% Matching Screenshot Layout) -->
       <div
@@ -1775,27 +1792,8 @@
 
           <!-- Right Content Box: Intro + 2x2 Grid + Read More Button -->
           <div class="gm-body">
-            <div>
-              <!-- 綠色徽章：原本在卡片上方置中，移進來跟標題共用同一條左軸線。
-                   它取代了原本的「環保標章認證產品」小標 —— 兩者講同一件事。 -->
-              <span class="pill-badge"
-                style="background: rgba(67,172,89,0.1); color: #2F7B4B; border-color: rgba(67,172,89,0.3); margin-bottom: 14px;">
-                <i class="fa-solid fa-leaf"></i> <span data-tw="ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品"
-                  data-en="ENVIRONMENTAL LABEL PRODUCTS">ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品</span>
-              </span>
-              <!-- 原為 h3；上方的區段標題移除後由這裡承接段落層級 -->
-              <h2
-                style="font-size: 1.75rem; font-weight: 900; color: var(--primary-navy); margin-bottom: 12px; line-height: 1.3;"
-                data-tw="環保不打折，每一款都經過層層把關" data-en="Uncompromised Eco Quality, Rigorously Audited">
-                環保不打折，每一款都經過層層把關
-              </h2>
-              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 28px;"
-                data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。"
-                data-en="Formosa Eco Drawtape and Can Liner bags are fully Green Mark certified from raw materials to manufacturing.">
-                台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將環境考量落實於日常使用。
-              </p>
-            </div>
-
+            <!-- 標題與說明已移至區段開頭（原本兩邊完全一樣）。
+                 卡片只留四個具體事實與按鈕，不重複上面的話。 -->
             <!-- 2x2 Feature Grid -->
             <div class="gm-features">
               <div style="background: #F8FAFC; padding: 18px 20px;">
