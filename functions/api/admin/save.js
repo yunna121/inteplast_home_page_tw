@@ -61,6 +61,15 @@ const ENTITIES = {
     translatable: ["text"],
     required: ["zh"],
   },
+  /* 網站圖片：頁面上「不是產品照」的那些圖（永續頁產品照、證書、
+     關於頁首圖…）。只開放換 path —— key／label／hint 是位置定義，
+     由 db/v11-site-images.sql 維護，業務改不到，版面因此壞不了。 */
+  siteimg: {
+    table: "site_images",
+    base: ["path"],
+    translatable: [],
+    required: [],
+  },
   /* 頁面區塊：版型（layout）只能是固定那幾種，樣式由程式碼決定，
      所以業務填內容、排順序都不會弄壞版面。 */
   block: {
@@ -75,7 +84,7 @@ const BLOCK_LAYOUTS = ["image-right", "image-left", "full-image", "text", "quote
 const BLOCK_PAGES = ["about", "sustainability"];
 
 /* 有 updated_by / updated_at 兩欄的資料表（db/v9-audit.sql） */
-const AUDITED = ["products", "timeline", "synonyms", "settings", "ui_strings", "page_blocks", "inquiries"];
+const AUDITED = ["products", "timeline", "synonyms", "settings", "ui_strings", "page_blocks", "inquiries", "site_images"];
 
 function clean(value) {
   return value == null ? "" : String(value);
@@ -193,6 +202,7 @@ export async function onRequest(context) {
     if (action === "delete") {
       if (!id) return json({ error: "缺少 id" }, 400);
       if (entity === "setting") return json({ error: "公司資訊的欄位不能刪除" }, 400);
+      if (entity === "siteimg") return json({ error: "網站圖片的位置不能刪除（那是版面定義）" }, 400);
 
       const stmts = [DB.prepare(`DELETE FROM ${conf.table} WHERE id = ?`).bind(id)];
       if (conf.translatable.length) {

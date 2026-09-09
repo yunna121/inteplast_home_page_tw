@@ -702,6 +702,7 @@
               { id: 'timeline', label: '時間軸', icon: 'fa-clock-rotate-left', count: (DB.timeline || []).length },
               { id: 'ui', label: '介面文字', icon: 'fa-font', count: (DB.uiStrings || []).length },
               { id: 'block', label: '頁面區塊', icon: 'fa-layer-group', count: (DB.blocks || []).length },
+              { id: 'siteimg', label: '網站圖片', icon: 'fa-images', count: (DB.siteImages || []).length },
               { id: 'setting', label: '公司資訊', icon: 'fa-building', count: 0 },
               { id: 'language', label: '語言', icon: 'fa-language', count: (DB.languages || []).length }
             ]
@@ -763,6 +764,8 @@
         var raw = String(value || '').trim();
         if (!raw) return '';
         if (/^(https?:)?\/\//.test(raw) || raw.charAt(0) === '/') return raw;
+        // 含路徑的（src/opt/x.jpg）從網站根目錄找；只有檔名的是產品照
+        if (raw.indexOf('/') > -1) return '/' + raw.replace(/^\.\//, '');
         return '/src/product-img/' + raw;
       }
 
@@ -2299,6 +2302,84 @@
         main.appendChild(card);
       }
 
+      /* ---------- 網站圖片 ---------- */
+      /* 頁面上「不是產品照」的那些圖。只開放換圖，位置與尺寸由 CSS 決定，
+         所以業務換圖不會弄壞版面。文案不在這裡改（那是「介面文字」）。 */
+      function siteImageView() {
+        var main = document.getElementById('main');
+        var rows = DB.siteImages || [];
+
+        main.appendChild(el('div', { class: 'head' }, [
+          el('div', {}, [
+            el('h1', { text: '網站圖片' }),
+            el('p', { text: '換掉頁面上的照片。上傳時會自動壓縮成 WebP，存檔後網站立刻更新。' })
+          ])
+        ]));
+
+        if (!rows.length) {
+          main.appendChild(el('div', { class: 'card' }, [
+            el('div', { class: 'empty' }, [
+              el('i', { class: 'fa-regular fa-image' }),
+              el('div', { text: '還沒建立 site_images 表' }),
+              el('div', { class: 'rowsub', text: '請先在 Cloudflare D1 執行 db/v11-site-images.sql' })
+            ])
+          ]));
+          return;
+        }
+
+        var drafts = {};
+        var card = el('div', { class: 'card' });
+
+        rows.forEach(function (r) {
+          var node = fieldNode(
+            { key: r.key, label: r.label || r.key, type: 'image', hint: r.hint },
+            r.path || '',
+            function (v) { drafts[r.id] = v; }
+          );
+          /* 還原預設：把 repo 裡原本那張填回去。刻意做成一顆按鈕而不是
+             叫人記路徑 —— 換錯圖時要能一鍵回去。 */
+          if (r.fallback && r.fallback !== r.path) {
+            node.appendChild(el('div', { style: 'margin-top:8px' }, [
+              el('button', {
+                class: 'btn ghost sm',
+                type: 'button',
+                onclick: function () {
+                  api('/api/admin/save', { entity: 'siteimg', action: 'update', id: r.id, base: { path: r.fallback } })
+                    .then(function () { toast('已還原預設圖', 'ok'); return reload(); })
+                    .catch(function (err) { toast('還原失敗：' + err.message, 'err'); });
+                }
+              }, [el('i', { class: 'fa-solid fa-rotate-left' }), el('span', { text: '還原預設圖' })])
+            ]));
+          }
+          var mark = stampLine(r);
+          if (mark) node.appendChild(mark);
+          card.appendChild(node);
+        });
+
+        var save = el('button', { class: 'btn' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
+        save.addEventListener('click', function () {
+          var ids = Object.keys(drafts);
+          if (!ids.length) { toast('沒有變更'); return; }
+          save.disabled = true;
+          Promise.all(ids.map(function (id) {
+            return api('/api/admin/save', { entity: 'siteimg', action: 'update', id: Number(id), base: { path: drafts[id] } });
+          })).then(function () {
+            toast('已儲存', 'ok');
+            return reload();
+          }).catch(function (err) {
+            toast('存檔失敗：' + err.message, 'err');
+            save.disabled = false;
+          });
+        });
+
+        card.appendChild(el('div', { class: 'formfoot' }, [
+          save,
+          el('span', { class: 'hint', style: 'margin:0', text: '影片不在這裡管 —— 影片檔太大不適合放資料庫，要換請找工程師。' })
+        ]));
+
+        main.appendChild(card);
+      }
+
       /* ---------- 語言 ---------- */
       function languageView() {
         var main = document.getElementById('main');
@@ -2438,6 +2519,7 @@
         if (view === 'inquiry') { inquiryView(); return; }
         if (view === 'ui') { uiView(); return; }
         if (view === 'block') { blockView(); return; }
+        if (view === 'siteimg') { siteImageView(); return; }
         if (view === 'setting') { settingView(); return; }
         if (view === 'language') { languageView(); return; }
       }

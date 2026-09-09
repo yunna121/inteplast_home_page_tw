@@ -39,6 +39,14 @@ export async function onRequest(context) {
         DB.prepare("SELECT * FROM page_blocks ORDER BY page, sort_order, id"),
       ]);
 
+    /* 單獨查、失敗就當空的 —— 放進上面的 batch 會讓「還沒跑
+       db/v11-site-images.sql」變成整頁讀不到資料。 */
+    let siteImages = [];
+    try {
+      const r = await DB.prepare("SELECT * FROM site_images ORDER BY sort_order, id").all();
+      siteImages = r.results || [];
+    } catch (err) { siteImages = []; }
+
     return json({
       access: {
         protected: !!protectedByAuth,
@@ -55,6 +63,7 @@ export async function onRequest(context) {
       inquiries: inquiries.results || [],
       uiStrings: uiStrings.results || [],
       blocks: blocks.results || [],
+      siteImages: siteImages,
     });
   } catch (error) {
     return fail(error);
