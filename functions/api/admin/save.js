@@ -14,8 +14,12 @@ import { json, fail } from "../_lib.js";
    欄位一律走白名單（下面的 ENTITIES），呼叫端傳什麼欄位名都不會
    變成 SQL —— 只有白名單裡的欄位會被組進語句，值一律用 bind()。
 
-   ⚠ 必須用 Cloudflare Access 保護 /api/admin* —— 沒有的話任何人
-     都能改資料。詳見 README-admin.txt。 */
+   寫入時會一併記下 updated_by（登入帳號，來自 _middleware.js 的
+   context.data.user）與 updated_at。欄位由 db/v9-audit.sql 建立；
+   還沒跑那支 SQL 時會自動跳過，不會讓存檔失敗。
+
+   ⚠ 登入保護在 functions/api/admin/_middleware.js —— 沒有設
+     ADMIN_USERS（或 Cloudflare Access）的話任何人都能改資料。 */
 
 const ENTITIES = {
   product: {
@@ -57,6 +61,15 @@ const ENTITIES = {
     translatable: ["text"],
     required: ["zh"],
   },
+  /* 網站圖片：頁面上「不是產品照」的那些圖（永續頁產品照、證書、
+     關於頁首圖…）。只開放換 path —— key／label／hint 是位置定義，
+     由 db/v11-site-images.sql 維護，業務改不到，版面因此壞不了。 */
+  siteimg: {
+    table: "site_images",
+    base: ["path"],
+    translatable: [],
+    required: [],
+  },
   /* 頁面區塊：版型（layout）只能是固定那幾種，樣式由程式碼決定，
      所以業務填內容、排順序都不會弄壞版面。 */
   block: {
@@ -70,13 +83,29 @@ const ENTITIES = {
 const BLOCK_LAYOUTS = ["image-right", "image-left", "full-image", "text", "quote"];
 const BLOCK_PAGES = ["about", "sustainability"];
 
+/* 有 updated_by / updated_at 兩欄的資料表（db/v9-audit.sql） */
+const AUDITED = ["products", "timeline", "synonyms", "settings", "ui_strings", "page_blocks", "inquiries", "site_images"];
+
 function clean(value) {
   return value == null ? "" : String(value);
 }
 
+/** 這次寫入要蓋上的「誰、什麼時候」。沒登入資訊時回空陣列（等於不記） */
+function stamp(conf, who) {
+  if (!who || AUDITED.indexOf(conf.table) === -1) return { cols: [], vals: [] };
+  return { cols: ["updated_by", "updated_at"], vals: [who, new Date().toISOString()] };
+}
+
+/** 還沒跑 v9-audit.sql 時 D1 會回 "no such column: updated_by" —— 那就退回不記錄再存一次 */
+function missingAuditColumn(error) {
+  const msg = String((error && error.message) || error);
+  return /no such column/i.test(msg) && /updated_(by|at)/i.test(msg);
+}
+
 export async function onRequest(context) {
-  const { request, env } = context;
+  const { request, env, data } = context;
   const DB = env.DB;
+  const who = (data && data.user) || "";
 
   if (request.method !== "POST") {
     return json({ error: "只接受 POST" }, 405);
@@ -173,6 +202,7 @@ export async function onRequest(context) {
     if (action === "delete") {
       if (!id) return json({ error: "缺少 id" }, 400);
       if (entity === "setting") return json({ error: "公司資訊的欄位不能刪除" }, 400);
+      if (entity === "siteimg") return json({ error: "網站圖片的位置不能刪除（那是版面定義）" }, 400);
 
       const stmts = [DB.prepare(`DELETE FROM ${conf.table} WHERE id = ?`).bind(id)];
       if (conf.translatable.length) {
@@ -203,22 +233,44 @@ export async function onRequest(context) {
     }
 
     let rowId = id;
+    const audit = stamp(conf, who);
 
     if (action === "create") {
       if (!cols.length) return json({ error: "沒有可寫入的欄位" }, 400);
-      const marks = cols.map(() => "?").join(", ");
-      const res = await DB.prepare(
-        `INSERT INTO ${conf.table} (${cols.map((c) => `"${c}"`).join(", ")}) VALUES (${marks})`
-      ).bind(...cols.map((c) => clean(incoming[c]))).run();
+
+      const run = async (extra) => {
+        const all = cols.concat(extra.cols);
+        const marks = all.map(() => "?").join(", ");
+        return DB.prepare(
+          `INSERT INTO ${conf.table} (${all.map((c) => `"${c}"`).join(", ")}) VALUES (${marks})`
+        ).bind(...cols.map((c) => clean(incoming[c])), ...extra.vals).run();
+      };
+
+      let res;
+      try {
+        res = await run(audit);
+      } catch (error) {
+        if (!missingAuditColumn(error)) throw error;
+        res = await run({ cols: [], vals: [] });
+      }
       rowId = res.meta && res.meta.last_row_id;
       if (!rowId) return json({ error: "新增後取不到 id" }, 500);
     } else if (action === "update") {
       if (!rowId) return json({ error: "缺少 id" }, 400);
       if (cols.length) {
-        const sets = cols.map((c) => `"${c}" = ?`).join(", ");
-        await DB.prepare(`UPDATE ${conf.table} SET ${sets} WHERE id = ?`)
-          .bind(...cols.map((c) => clean(incoming[c])), rowId)
-          .run();
+        const run = async (extra) => {
+          const all = cols.concat(extra.cols);
+          const sets = all.map((c) => `"${c}" = ?`).join(", ");
+          return DB.prepare(`UPDATE ${conf.table} SET ${sets} WHERE id = ?`)
+            .bind(...cols.map((c) => clean(incoming[c])), ...extra.vals, rowId)
+            .run();
+        };
+        try {
+          await run(audit);
+        } catch (error) {
+          if (!missingAuditColumn(error)) throw error;
+          await run({ cols: [], vals: [] });
+        }
       }
     } else {
       return json({ error: "不支援的動作：" + action }, 400);
@@ -251,7 +303,7 @@ export async function onRequest(context) {
     });
     if (stmts.length) await DB.batch(stmts);
 
-    return json({ ok: true, id: rowId });
+    return json({ ok: true, id: rowId, by: who || undefined });
   } catch (error) {
     return fail(error);
   }

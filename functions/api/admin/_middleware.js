@@ -55,10 +55,14 @@ export function authSecret(env) {
   return env.ADMIN_USERS || env.ADMIN_PASSWORD || "";
 }
 
-/** ADMIN_USERS 解析成 { 帳號: 密碼 }。逗號、分號、換行都可以當分隔 */
+/** ADMIN_USERS 解析成 { 帳號: 密碼 }。逗號、分號、換行都可以當分隔
+    —— 全形的，：也一併接受：中文輸入法很容易打出全形，
+    而這裡認不出來的後果是「一個帳號都沒有」—— 所有人都登不進來。 */
 export function parseUsers(env) {
   const out = {};
   String(env.ADMIN_USERS || "")
+    .replace(/\uFF1A/g, ":")
+    .replace(/[\uFF0C\u3001]/g, ",")
     .split(/[,;\n\r]+/)
     .forEach((pair) => {
       const at = pair.indexOf(":");

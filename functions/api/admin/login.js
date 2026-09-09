@@ -66,7 +66,15 @@ export async function onRequest(context) {
   // 舊設定：只有一組密碼，帳號欄填什麼都可以
   if (!who && legacy && slowEquals(password, String(legacy))) who = name || "admin";
 
-  if (!who) return json({ error: "帳號或密碼不正確" }, 401);
+  if (!who) {
+    /* 分開回報「設定有問題」與「打錯了」—— 兩者的處理方式完全不同。
+       ADMIN_USERS 有值但一個帳號都解析不出來，通常是用了全形符號
+       或漏了冒號，這種情況要講清楚，不然會一直以為是密碼記錯。 */
+    if (env.ADMIN_USERS && !Object.keys(users).length) {
+      return json({ error: "ADMIN_USERS 格式看不懂，應為 dev:密碼A,sales:密碼B（半形冒號與逗號）" }, 500);
+    }
+    return json({ error: "帳號或密碼不正確" }, 401);
+  }
 
   const token = await makeToken(authSecret(env), who);
   return new Response(JSON.stringify({ ok: true, user: who }), {
