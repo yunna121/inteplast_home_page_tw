@@ -1030,7 +1030,8 @@
               el('td', {}, [first]),
               el('td', {}, [
                 el('div', { class: 'rowtitle', text: String(name).replace(/\\n|\n/g, ' ') }),
-                sub ? el('div', { class: 'rowsub', text: sub }) : null
+                sub ? el('div', { class: 'rowsub', text: sub }) : null,
+                stampLine(row)
               ]),
               el('td', {}, [el('div', { class: 'chips' }, flags.length ? flags : [el('span', { class: 'rowsub', text: '—' })])]),
               el('td', { class: 'right' }, [
@@ -1458,6 +1459,17 @@
                ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
       }
 
+      /* 「上次修改 09/09 11:19 · sales」—— 資料是 save.js 寫的 updated_by /
+         updated_at（欄位由 db/v9-audit.sql 建立）。還沒跑那支 SQL、或那一列
+         是舊資料時回 null，畫面就不會多一行空白。 */
+      function stampLine(row) {
+        if (!row || (!row.updated_at && !row.updated_by)) return null;
+        var when = localTime(row.updated_at);
+        var who = row.updated_by || '';
+        var text = '上次修改 ' + (when || '—') + (who ? ' · ' + who : '');
+        return el('div', { class: 'rowsub', style: 'font-size:.76rem;color:#93a5b4', text: text });
+      }
+
       /* 一列「標籤 ─ 內容」。value 可以是字串或節點。 */
       function detailRow(label, value, opts) {
         var o = opts || {};
@@ -1681,7 +1693,8 @@
                   done
                     ? el('span', { class: 'chip plain', style: 'border-color:#bfe0cd;background:#f0f9f4;color:#0f7a4e', text: '已處理' })
                     : el('span', { class: 'chip plain', style: 'border-color:#cfe4f3;background:#eff6fb;color:var(--blue)', text: '未處理' })
-                ])
+                ]),
+                stampLine(q)
               ]),
               el('td', { class: 'right' }, [
                 done
@@ -2247,11 +2260,14 @@
                 return hit ? hit.value : '';
               })();
 
-          card.appendChild(fieldNode(
+          var node = fieldNode(
             { key: s.key, label: s.label || s.key, type: 'text', hint: s.hint },
             current,
             function (v) { drafts[s.id] = v; }
-          ));
+          );
+          var mark = stampLine(s);
+          if (mark) node.appendChild(mark);
+          card.appendChild(node);
         });
 
         if (activeLang !== baseLang()) {
