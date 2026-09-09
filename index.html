@@ -1759,15 +1759,8 @@
     style="padding: 70px 0; background: #F8FAFC; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
     <div style="max-width: 1350px; margin: 0 auto; padding: 0 40px;">
 
-      <!-- 區段徽章。原本這裡還有大標與說明，但卡片裡已經有一模一樣的兩句，
-           同一區講兩次，所以只留徽章；標題層級由卡片內的 h2 承接。 -->
-      <div class="section-head" style="margin-bottom: 32px;">
-        <span class="pill-badge"
-          style="background: rgba(67,172,89,0.1); color: #2F7B4B; border-color: rgba(67,172,89,0.3);">
-          <i class="fa-solid fa-leaf"></i> <span data-tw="ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品"
-            data-en="ENVIRONMENTAL LABEL PRODUCTS">ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品</span>
-        </span>
-      </div>
+      <!-- 區段標題移除（卡片裡已有一模一樣的兩句），綠色徽章隨之移到卡片內的標題上方：
+           置中的徽章配左對齊的卡片標題，兩條軸線對不上，看起來像掉在外面。 -->
 
       <!-- Main Combined Card (100% Matching Screenshot Layout) -->
       <div
@@ -1783,7 +1776,13 @@
           <!-- Right Content Box: Intro + 2x2 Grid + Read More Button -->
           <div class="gm-body">
             <div>
-              <!-- 小標「環保標章認證產品」已移除：上方的綠色徽章講的是同一件事 -->
+              <!-- 綠色徽章：原本在卡片上方置中，移進來跟標題共用同一條左軸線。
+                   它取代了原本的「環保標章認證產品」小標 —— 兩者講同一件事。 -->
+              <span class="pill-badge"
+                style="background: rgba(67,172,89,0.1); color: #2F7B4B; border-color: rgba(67,172,89,0.3); margin-bottom: 14px;">
+                <i class="fa-solid fa-leaf"></i> <span data-tw="ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品"
+                  data-en="ENVIRONMENTAL LABEL PRODUCTS">ENVIRONMENTAL LABEL PRODUCTS · 綠色標章產品</span>
+              </span>
               <!-- 原為 h3；上方的區段標題移除後由這裡承接段落層級 -->
               <h2
                 style="font-size: 1.75rem; font-weight: 900; color: var(--primary-navy); margin-bottom: 12px; line-height: 1.3;"
