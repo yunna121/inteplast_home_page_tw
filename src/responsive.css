@@ -90,6 +90,10 @@ html, body { min-width: 320px; }
     left: auto !important;
     transform: none !important;
     height: auto !important;
+    /* 從絕對定位（left:50% + translateX(-50%)）改成 relative 之後就沒有置中了，
+       1350px 的內容框會貼齊左緣 —— 在寬螢幕但視窗較矮時特別明顯。
+       這裡補回水平置中。 */
+    margin-inline: auto !important;
     padding: calc(var(--utility-h) + var(--header-h) + 24px) 40px 48px !important;
   }
 }
@@ -216,6 +220,7 @@ html, body { min-width: 320px; }
     position: relative !important;
     left: auto !important;
     transform: none !important;
+    margin-inline: auto !important;
     /* 頁首高 88px，固定寫 88px 會讓首屏的 logo 牌貧齊頁首底部、看起來像重疊，
        改用變數再加 24px 間距 */
     padding: calc(var(--utility-h) + var(--header-h) + 24px) 18px 40px !important;
