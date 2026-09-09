@@ -189,15 +189,13 @@
    中文長，固定 18px 內距時整排會超出視窗；用 clamp 讓它在窄螢幕
    先縮內距與字級，撐不住才交給 1000px 的漢堡選單。 */
 /* white-space: normal（原本是 nowrap）：一行塞不下的長標籤折成兩行，
-   而不是撐破版面去蓋住右側。max-width: 11ch 讓它折在合理位置，
-   不會被壓成一列直書；88px 的 --header-h 容得下兩行。 */
+   而不是撐破版面去蓋住右側。88px 的 --header-h 容得下兩行。 */
 .nav-link-item {
   padding: 8px clamp(9px, 1.15vw, 18px);
   font-size: clamp(0.84rem, 0.92vw, 0.92rem);
   white-space: normal;
   text-align: center;
   line-height: 1.3;
-  max-width: 11ch;
 }
 
 .nav-item {
@@ -205,11 +203,13 @@
   min-width: 0;
 }
 
+/* display 必須是 inline-block，不能是 inline-flex：
+   inline-flex 裡的文字是匿名 flex item，寬度不夠時它不會斷行、只會溢出 ——
+   結果就是日文選單被壓成一列疊在一起（ホームINTEPLASTについて製品センター）。
+   inline-block 走一般文字排版，才會照 white-space: normal 折成兩行。
+   下拉箭頭（.caret-icon）改用 margin 對齊，不靠 flex gap。 */
 .nav-link-item {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+  display: inline-block;
   position: relative;
   z-index: 10;
   border-radius: var(--radius-full);
@@ -228,6 +228,7 @@
 }
 
 .caret-icon {
+  margin-left: 6px;
   font-size: 0.75rem;
   transition: transform 0.3s ease;
 }
