@@ -363,6 +363,55 @@
       color: var(--text-muted) !important;
     }
 
+    /* 環保標章卡：欄位原本寫在 style 屬性上，只靠 responsive.css 的
+       [style*="grid-template-columns: 1fr 1.1fr"] 在 768px 以下收單欄 ——
+       769–1024px（iPad 直立、小筆電）還是兩欄，證書與 2×2 表格擠在一起。
+       改用 class 自己管斷點：1024 收單欄、640 再把 2×2 收成一欄。 */
+    .gm-card {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      align-items: stretch;
+    }
+
+    .gm-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 36px;
+      background: #EFF8ED;
+    }
+
+    .gm-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 48px;
+      background: #FFFFFF;
+    }
+
+    .gm-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      margin-bottom: 28px;
+      background: var(--border-color);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 1024px) {
+      .gm-card { grid-template-columns: 1fr; }
+      .gm-visual { padding: 26px; }
+      .gm-body { padding: 30px 26px; }
+    }
+
+    @media (max-width: 640px) {
+      .gm-visual { padding: 18px; }
+      .gm-body { padding: 24px 18px; }
+      .gm-features { grid-template-columns: 1fr; }
+    }
+
     /* 回到頁首 Minimalist Frosted Glass Floating Button 樣式 */
     .back-to-top-btn {
       position: fixed;
@@ -1730,17 +1779,16 @@
       <!-- Main Combined Card (100% Matching Screenshot Layout) -->
       <div
         style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-md);">
-        <div style="display: grid; grid-template-columns: 1fr 1.1fr; align-items: stretch;">
+        <div class="gm-card">
 
           <!-- Left Visual Box: Light Green Tint Box with Certificate Image -->
-          <div style="background: #EFF8ED; padding: 36px; display: flex; align-items: center; justify-content: center;">
+          <div class="gm-visual">
             <img src="./src/opt/combine.jpg" data-site-img="eco_certificate" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書" loading="lazy" decoding="async"
               style="width: 100%; max-width: 520px; height: auto; border-radius: 14px; box-shadow: 0 16px 32px rgba(35, 82, 62, 0.12); object-fit: cover;">
           </div>
 
           <!-- Right Content Box: Intro + 2x2 Grid + Read More Button -->
-          <div
-            style="padding: 40px 48px; display: flex; flex-direction: column; justify-content: space-between; background: #FFFFFF;">
+          <div class="gm-body">
             <div>
               <span
                 style="font-size: 0.78rem; font-weight: 800; color: #2F7B4B; letter-spacing: 0.05em; display: inline-block; margin-bottom: 8px;"
@@ -1760,8 +1808,7 @@
             </div>
 
             <!-- 2x2 Feature Grid -->
-            <div
-              style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; margin-bottom: 28px;">
+            <div class="gm-features">
               <div style="background: #F8FAFC; padding: 18px 20px;">
                 <strong
                   style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;"
