@@ -196,7 +196,11 @@
           </div>
         </figure>
         <div class="patent-copy reveal">
-          <img class="patent-product" src="./src/product-img/封面-Scale Sheet.png" data-product-img="Scale Sheet::img_home" alt="Scale Sheet 抽取式盒裝，單張抽取設計" width="368" height="328" loading="lazy">
+          <!-- src 留空：圖由 src/site-images.js 依 data-product-img 從 D1 取
+               （src/product-img/ 已隨資料源移到 D1 後刪除，寫死路徑會 404）。
+               取不到時整張藏起來，不留破圖框。 -->
+          <img class="patent-product" data-product-img="Scale Sheet::img_home"
+            onerror="this.style.visibility='hidden'" alt="Scale Sheet 抽取式盒裝，單張抽取設計" width="368" height="328" loading="lazy">
           <span class="eyebrow">Patented technology</span>
           <h2 class="section-title" data-tw="抽取式設計，取得美國專利" data-en="A pop-up design, patented in the United States">抽取式設計，<br>取得美國專利</h2>
           <p class="section-lead" data-tw="Scale Sheet 的單張抽取結構已取得美國專利。取用一張就是一張，不必翻找、不會沾黏，讓秤重與分裝的每一次動作都省下時間。" data-en="The single-sheet pop-up structure behind Scale Sheet is protected by a United States patent. One pull, one sheet — no fumbling, no sticking, and time saved on every weigh and repack.">Scale Sheet 的單張抽取結構已取得美國專利。取用一張就是一張，不必翻找、不會沾黏，讓秤重與分裝的每一次動作都省下時間。</p>

@@ -764,9 +764,10 @@
         var raw = String(value || '').trim();
         if (!raw) return '';
         if (/^(https?:)?\/\//.test(raw) || raw.charAt(0) === '/') return raw;
-        // 含路徑的（src/opt/x.jpg）從網站根目錄找；只有檔名的是產品照
+        // 含路徑的（src/opt/x.jpg）從網站根目錄找；只有檔名的是舊資料，
+        // 後台上傳的圖都在 /media/（src/product-img/ 已刪除）
         if (raw.indexOf('/') > -1) return '/' + raw.replace(/^\.\//, '');
-        return '/src/product-img/' + raw;
+        return '/media/' + encodeURIComponent(raw);
       }
 
       function imageField(spec, value, onInput) {

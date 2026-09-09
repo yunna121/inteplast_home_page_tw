@@ -599,14 +599,15 @@
       /* 圖片路徑三種寫法都吃：
            /media/x.png（編輯頁上傳到 R2 的）→ 直接用
            http(s)://…            → 直接用
-           只寫檔名                → 先試 src/product-img/，載不到改試 src/ 根目錄 */
+           只寫檔名                → 舊資料，先試 /media/，載不到改試 src/ 根目錄
+                                     （src/product-img/ 已隨資料源移到 D1 後刪除） */
       function photoOf(row) {
         var raw = String(row.img || '').trim();
         if (/^(https?:)?\/\//.test(raw) || raw.charAt(0) === '/') return { main: raw, backup: '' };
         var n = raw.replace(/^\.?\/?src\//, '');
         if (!n) return { main: '', backup: '' };
         if (n.indexOf('/') > -1) return { main: '../src/' + n, backup: '' };
-        return { main: '../src/product-img/' + n, backup: '../src/' + n };
+        return { main: '/media/' + encodeURIComponent(n), backup: '../src/' + n };
       }
 
       // 先用 Image() 探測，確認哪個資料夾有這張圖，再寫進 <img>（避免 404 紅字與匯出時抓到失敗的 URL）

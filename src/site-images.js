@@ -87,12 +87,12 @@
           if (!value && field === 'img_home') value = String(hit.img || '').trim();
           if (!value) return;
 
-          /* 裸檔名（舊資料）先試 src/product-img/，載不到再試 src/ ——
-             與首頁、產品中心的 photoOf 同一套規則 */
+          /* 裸檔名是舊資料：先試 /media/（後台上傳的都在那），
+             載不到再試 src/ 根目錄。src/product-img/ 已刪除。 */
           var candidates;
           if (/^(https?:)?\/\//.test(value) || value.charAt(0) === '/') candidates = [value];
           else if (value.indexOf('/') > -1) candidates = [root + value.replace(/^\.\//, '')];
-          else candidates = [root + 'src/product-img/' + value, root + 'src/' + value];
+          else candidates = ['/media/' + encodeURIComponent(value), root + 'src/' + value];
 
           (function next(list) {
             if (!list.length) return;

@@ -37,7 +37,8 @@
     var raw = String(value || '').trim();
     if (!raw) return '';
     if (/^(https?:)?\/\//.test(raw) || raw.charAt(0) === '/') return raw;
-    return root + 'src/product-img/' + raw;
+    // 裸檔名是舊資料；後台上傳的圖都是 /media/…（src/product-img/ 已刪除）
+    return '/media/' + encodeURIComponent(raw);
   }
 
   function styles() {

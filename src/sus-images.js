@@ -13,7 +13,7 @@
    圖片路徑三種寫法都吃（與首頁、產品中心同一套規則）：
      /media/x.webp   後台上傳的（存在 D1，走 functions/media/）
      http(s)://…     外部網址
-     只寫檔名        先試 src/product-img/，載不到再試 src/
+     只寫檔名        舊資料，先試 /media/，載不到再試 src/
 */
 (function () {
   var slots = document.querySelectorAll('img[data-db-img]');
@@ -24,7 +24,7 @@
     if (!n) return [];
     if (/^(https?:)?\/\//.test(n) || n.charAt(0) === '/') return [n];
     if (n.indexOf('/') > -1) return ['./src/' + n];
-    return ['./src/product-img/' + n, './src/' + n];
+    return ['/media/' + encodeURIComponent(n), './src/' + n];
   }
 
   /* 依序試候選路徑，載得起來才換上去 —— 直接指過去會在載不到時
