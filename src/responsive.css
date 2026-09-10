@@ -431,38 +431,70 @@ html, body { min-width: 320px; }
 /* ============================================================
    CJK 排版優化
    ------------------------------------------------------------
-   標題（短、一定要排得好看）：keep-all 不讓詞彙被拆開
-   （沒有 keep-all 時會出現「讓穩定品質，成／為製程的日常」這種斷行），
-   断行因此發生在逗號等標點處；搭配 overflow-wrap: break-word，
-   真的放不下時才強制断，不會溢出畫面。
-   （之前右側文字溢出的真正原因是 grid／flex 子項的 min-width:auto，
-     已在上面的 1024px 區塊用 body *{min-width:0} 修正。）
+   中文沒有空格，瀏覽器預設「任兩個漢字之間都可以斷行」，
+   所以會出現「容／量大升級」這種把詞拆開、或最後一行只剩一個字的排版。
+   繁中唯一穩定的做法：把斷點限制在標點（，、。；）。
 
-   內文段落：保持正常断行（段落很長，keep-all 效益低、風險高），
-   支援 auto-phrase 的瀏覽器則依語意断句。
+   三個原則：
+   1) 短文字（標題、重點句、標籤）→ keep-all，只在標點斷。
+   2) overflow-wrap 用 break-word，不用 anywhere ——
+      anywhere 會把「任何位置」都當成合法斷點，
+      text-wrap 為了湊行長就會斷在詞中間（怪斷行的主因）。
+   3) text-wrap 用 pretty，不用 balance ——
+      balance 只求各行等長，會為此犧牲詞的完整性；
+      pretty 專門避免「最後一行只剩一個字」的孤字。
+
+   長段落維持正常斷行（段落很長，keep-all 的右側鋸齒風險大於效益），
+   只靠 pretty 收尾。
    ============================================================ */
+
+/* ---------- 標題 ---------- */
 h1, h2, h3, h4, h5, h6,
 .products-hero-title, .hero-title, .section-title, .card-main-title,
 .node-name, .timeline-copy h3, .stat-label, .stat-sub {
   word-break: keep-all;
   line-break: strict;
-  /* anywhere（而非 break-word）：沒有標點可斷的長標題，
-     讓 text-wrap: balance 有斷點可選，才會平均分行，
-     不會出現「高雄前鎮廠遷廠合／併」這種孤字。 */
-  overflow-wrap: anywhere;
-  /* pretty 專門避免「最後一行只剩一個字」的孤字（balance 只求各行等長） */
+  overflow-wrap: break-word;
   text-wrap: pretty;
 }
 
-p, .card-desc-text, .node-role, .node-detail, .timeline-copy p, .section-lead {
+/* ---------- 短句／重點文字：跟標題同一組規則 ----------
+   這些都是 30 字以內、一定要排得好看的句子。
+   （.ps-highlight 與 .hero-sub-tagline 原本在各頁的 style 標籤裡寫了
+     text-wrap: balance，這裡用同樣的選擇器權重蓋不掉 —— 那兩條要一併移除，
+     見檔案最下方的說明。） */
+.ps-highlight, .ps-lede, .ps-alias, .ps-title, .ps-eyebrow,
+.card-highlight-text, .hero-desc, .hero-sub-tagline,
+.cta-banner-desc, .cta-banner-title,
+.section-head p, .concertina-title, .concertina-sub,
+.scenario-title, .scenario-desc, .intro-h3,
+.gm-features strong, .gm-features span,
+.mio-check-item, .commitment-card h3, .capability h3 {
+  word-break: keep-all;
+  line-break: strict;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+/* ---------- 長段落：正常斷行 + 避免孤字 ---------- */
+p, .card-desc-text, .ps-desc, .node-role, .node-detail,
+.timeline-copy p, .section-lead, .intro-p {
   word-break: normal;
   line-break: strict;
   overflow-wrap: break-word;
   text-wrap: pretty;
 }
 
+/* auto-phrase 的語意斷句資料只涵蓋日文，中文開了等於沒作用，
+   而且會蓋掉上面 keep-all 的效果，因此只留給日文版。 */
 @supports (word-break: auto-phrase) {
-  p, .card-desc-text, .node-role, .node-detail, .timeline-copy p, .section-lead {
+  html[lang="ja"] p,
+  html[lang="ja"] .card-desc-text,
+  html[lang="ja"] .ps-desc,
+  html[lang="ja"] .node-role,
+  html[lang="ja"] .node-detail,
+  html[lang="ja"] .timeline-copy p,
+  html[lang="ja"] .section-lead {
     word-break: auto-phrase;
   }
 }
@@ -481,6 +513,19 @@ p, .card-desc-text, .node-role, .node-detail, .timeline-copy p, .section-lead {
 
 /* 橫向滑動列裡的篩選鈕維持單行（容器本身可滑動） */
 .filter-tab-btn, .filter-btn { white-space: nowrap; word-break: keep-all; }
+
+/* ---------- 內容端的手動控制 ----------
+   keep-all 之後，若某句兩個標點之間超過一行寬（例如 12 字以上無標點），
+   會被 break-word 強斷。這種個案只能在文案裡處理：
+     想斷的位置 → 插 <wbr> 或 &#8203;（零寬空白）
+     不想斷的詞 → <span class="nb">容量大升級</span> */
+.nb { white-space: nowrap; }
+
+/* .ps-highlight 最長那句在 1440px 桌機仍會排成兩行；
+   上限放寬後就能一行放完（比調字級安全）。 */
+@media (min-width: 1200px) {
+  .ps-highlight { max-width: min(880px, 100%); }
+}
 
 /* 按鈕文字在窄螢幕允許換行，避免長字串（例：留下資料 · 由我們聯繫您）被切掉 */
 @media (max-width: 768px) {
