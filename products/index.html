@@ -14,7 +14,7 @@
     })();
   </script>
   <style>html.lang-loading body { opacity: 0 !important; }</style>
-  <title data-tw="產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan" data-en="Products | Inteplast Taiwan Corporation">產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan</title>
+  <title data-tw="產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan" data-en="">產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan</title>
   <meta name="description" data-desc-tw="臺灣營德產品中心 – 核心產品系列：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。全高清產品展示與 B2B 對接。" data-desc-en="Inteplast Taiwan product centre: can liners, draw tape liners, produce bags, zipper bags, multifunctional gloves, pre-taped masking film and Scale Sheet, with full product detail for B2B buyers." content="臺灣營德產品中心 – 核心產品系列：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。全高清產品展示與 B2B 對接。">
 
   <!-- Google Fonts & Font Awesome -->
@@ -571,14 +571,14 @@
       <div class="hero-pill-tag">
         <i class="fa-solid fa-boxes-stacked"></i> PRODUCTS CENTER
       </div>
-      <h1 class="products-hero-title" data-tw="產品中心" data-en="Product Center">
+      <h1 class="products-hero-title" data-tw="產品中心" data-en="">
         產品中心
       </h1>
 
       <!-- Filter Pills Navigation Bar -->
       <div class="filter-tabs-bar">
         <button class="filter-tab-btn active" onclick="filterGallery('all', this)">
-          <i class="fa-solid fa-layer-group"></i> <span data-tw="顯示全部 All" data-en="All Categories">顯示全部 All</span>
+          <i class="fa-solid fa-layer-group"></i> <span data-tw="顯示全部 All" data-en="">顯示全部 All</span>
         </button>
         <!-- 產品按鈕由 /api/products 產生 -->
       </div>
@@ -665,7 +665,7 @@
             var base = 'display: inline-flex; align-items: center; gap: 7px; padding: 7px 16px; border: 1px solid ' +
               (eco ? '#A7D9C0' : '#BBD6EE') + '; border-radius: 999px; background: ' + (eco ? '#F1FBF6' : '#FFFFFF') +
               '; font-size: 0.84rem; font-weight: 700; color: ' + (eco ? '#0F7A4E' : '#00529B') + '; white-space: nowrap;';
-            return '<span data-tw="' + esc(s) + '" data-en="' + esc(e) + '" style="' + base + '">' +
+            return '<span data-tw="' + esc(s) + '" data-en="" style="' + base + '">' +
               esc(s) + '</span>';
           }).join('');
 
@@ -683,15 +683,15 @@
           '<div class="card-info-content">' +
           '<div>' +
           '<div class="card-header-group"><div class="card-title-row">' +
-          '<h2 class="card-main-title" data-tw="' + esc(tw.main) + '" data-en="' + esc(en.main) + '">' + esc(tw.main) + '</h2>' +
+          '<h2 class="card-main-title" data-tw="' + esc(tw.main) + '" data-en="">' + esc(tw.main) + '</h2>' +
           '</div></div>' +
-          (tw.alias ? '<div class="card-alias-text" data-tw="又稱 ' + esc(tw.alias) + '" data-en="Also known as ' + esc(en.alias || tw.alias) + '">又稱 ' + esc(tw.alias) + '</div>' : '') +
-          (cat.highlight ? '<p class="card-highlight-text" data-tw="' + esc(cat.highlight) + '" data-en="' + esc(cat.highlight_en || cat.highlight) + '">' + esc(cat.highlight) + '</p>' : '') +
-          (cat.desc ? '<p class="card-desc-text" data-tw="' + esc(cat.desc) + '" data-en="' + esc(cat.desc_en || cat.desc) + '">' + esc(cat.desc) + '</p>' : '') +
+          (tw.alias ? '<div class="card-alias-text" data-tw="又稱 ' + esc(tw.alias) + '" data-en="">又稱 ' + esc(tw.alias) + '</div>' : '') +
+          (cat.highlight ? '<p class="card-highlight-text" data-tw="' + esc(cat.highlight) + '" data-en="">' + esc(cat.highlight) + '</p>' : '') +
+          (cat.desc ? '<p class="card-desc-text" data-tw="' + esc(cat.desc) + '" data-en="">' + esc(cat.desc) + '</p>' : '') +
           (list ? '<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px;">' + list + '</div>' : '') +
           '</div>' +
           '<div class="card-actions-row">' +
-          '<a href="../contact.html" class="btn-action-primary"><i class="fa-solid fa-envelope"></i> <span data-tw="留下資料專人對接" data-en="Contact Sales">留下資料專人對接</span></a>' +
+          '<a href="../contact.html" class="btn-action-primary"><i class="fa-solid fa-envelope"></i> <span data-tw="留下資料專人對接" data-en="">留下資料專人對接</span></a>' +
           '</div>' +
           '</div>' +
           '</article>';
@@ -720,7 +720,7 @@
             var noStr = String(i + 1).padStart(2, '0');
             var nameTw = String(r.name || '').split('/')[0].trim();
             var nameEn = String(r.name_en || nameTw).split('/')[0].trim();
-            btn.innerHTML = '<span data-tw="' + esc(noStr + ' ' + nameTw) + '" data-en="' + esc(noStr + ' ' + nameEn) + '">' + esc(noStr + ' ' + nameTw) + '</span>';
+            btn.innerHTML = '<span data-tw="' + esc(noStr + ' ' + nameTw) + '" data-en="">' + esc(noStr + ' ' + nameTw) + '</span>';
             btn.addEventListener('click', function () { filterGallery(r.name, btn); });
             bar.appendChild(btn);
           });
@@ -847,8 +847,8 @@
             '</figure>' +
             '<div>' +
               '<span class="patent-eyebrow">Patented technology</span>' +
-              '<h2 class="patent-title" data-tw="抽取式設計，取得美國專利" data-en="A pop-up design, patented in the United States">抽取式設計，取得美國專利</h2>' +
-              '<p class="patent-lead" data-tw="Scale Sheet 的單張抽取結構已取得美國專利。取用一張就是一張，不必翻找、不會沾黏，讓秤重與分裝的每一次動作都省下時間。" data-en="The single-sheet pop-up structure behind Scale Sheet is protected by a United States patent. One pull, one sheet — no fumbling, no sticking, and time saved on every weigh and repack.">Scale Sheet 的單張抽取結構已取得美國專利。取用一張就是一張，不必翻找、不會沾黏，讓秤重與分裝的每一次動作都省下時間。</p>' +
+              '<h2 class="patent-title" data-tw="抽取式設計，取得美國專利" data-en="">抽取式設計，取得美國專利</h2>' +
+              '<p class="patent-lead" data-tw="Scale Sheet 的單張抽取結構已取得美國專利。取用一張就是一張，不必翻找、不會沾黏，讓秤重與分裝的每一次動作都省下時間。" data-en="">Scale Sheet 的單張抽取結構已取得美國專利。取用一張就是一張，不必翻找、不會沾黏，讓秤重與分裝的每一次動作都省下時間。</p>' +
             '</div>' +
           '</div>';
         if (typeof window.applyLanguage === 'function') window.applyLanguage();

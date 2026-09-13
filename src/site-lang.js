@@ -10,8 +10,8 @@
    「索引鍵」：/api/ui-strings 回傳 { "首頁": { en:"Home", ja:"ホーム" } }，
    這裡依目前語言查表覆寫文字。
 
-   data-en 這類寫在 HTML 裡的屬性仍然有效，當作「資料庫還沒載入完」
-   或「API 掛掉」時的後備 —— 所以英文版在任何情況下都不會壞。
+   data-en 這類屬性目前一律留空：英文改由後台維護，唯一來源是資料庫。
+   屬性本身保留，是為了標記「這個元素要翻譯」，日後要放回後備字串也行。
 
    語言代碼與屬性的對應：
      zh-TW → data-tw（歷史原因，繁中用 tw）
@@ -69,11 +69,10 @@
 
        什麼時候可以解除：
          · 繁中 —— 頁面上寫的就是繁中，立刻可顯示
-         · 英文 —— HTML 裡有 data-en，不必等網路
-         · 其他語言 —— 只有資料庫有翻譯，要等對照表載入，
+         · 其他語言（含英文）—— 翻譯只在資料庫，要等對照表載入，
            否則會先閃一下中文再變成日文
        init() 另外有 2.5 秒保險，API 掛掉也不會卡在空白畫面。 */
-    if (currentLang === BASE || currentLang === 'en' || stringsReady) {
+    if (currentLang === BASE || stringsReady) {
       document.documentElement.classList.remove('lang-loading');
     }
 
