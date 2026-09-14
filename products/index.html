@@ -718,8 +718,10 @@
             btn.className = 'filter-tab-btn';
             var noStr = String(i + 1).padStart(2, '0');
             var nameTw = String(r.name || '').split('/')[0].trim();
-            var nameEn = String(r.name_en || nameTw).split('/')[0].trim();
-            btn.innerHTML = '<span data-tw="' + esc(noStr + ' ' + nameTw) + '" data-en="">' + esc(noStr + ' ' + nameTw) + '</span>';
+            /* 編號放在翻譯範圍外 —— data-tw 必須剛好是產品名，
+               對照表的鍵就是它；混進「01 」會查不到而卡在中文。 */
+            btn.innerHTML = '<span style="opacity:.75">' + esc(noStr) + '</span> ' +
+              '<span data-tw="' + esc(nameTw) + '">' + esc(nameTw) + '</span>';
             btn.addEventListener('click', function () { filterGallery(r.name, btn); });
             bar.appendChild(btn);
           });
