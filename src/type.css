@@ -188,6 +188,27 @@ p { font-size: var(--fs-body); line-height: var(--lh-body); text-wrap: pretty; }
    導覽列與頁尾由 navbar.css 管理，不在這裡覆寫。 */
 .stat-number, .big-number, .decor-number { font-size: revert; }
 
+/* ---------- 斷行 ---------- */
+/* 英文版常出現「最後一行只剩一兩個字」或把片語切成兩半的斷行
+   （例：from household / Garbage Bags、Easy to Use, Less / Contamination）。
+     · balance —— 標題類，把各行長度拉齊，短標題不會頭重腳輕
+     · pretty  —— 內文，避免孤字結尾，斷點選得更合理
+   兩者都只影響換行位置，不動字級與行高。 */
+h1, h2, h3, h4,
+.eyebrow, .section-kicker, .ps-highlight, .ps-alias,
+.card-main-title, .card-highlight-text, .card-alias-text,
+.hero-subtitle, .section-heading > p:last-child {
+  text-wrap: balance;
+}
+
+p, li, figcaption,
+.intro-copy, .ps-desc, .card-desc-text, .product-content p, .commitment-card p {
+  text-wrap: pretty;
+}
+
+/* 標籤與篩選鈕是短詞，不該被拆成兩行 */
+.ps-chip, .filter-tab-btn { text-wrap: nowrap; }
+
 /* ---------- 手機 ---------- */
 @media (max-width: 768px) {
   :root {
