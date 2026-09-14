@@ -560,7 +560,7 @@
       display: grid;
       /* 文字欄從 1.08fr 提到 1.18fr：重點句最長那一句（拉繩袋）在舊比例下
          只有 655px 可用，怎麼調都會斷成兩行。照片欄稍窄不影響呈現。 */
-      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
       gap: 32px;
       align-items: center;
       padding: 30px 0;
@@ -587,7 +587,7 @@
        不然文字永遠分到窄的那欄，重點句只有偶數列會斷成兩行。
        偶數列再多讓一點給文字，最長那句才排得下。 */
     .ps-row:nth-child(even) {
-      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
     }
 
     .ps-stage {
@@ -737,8 +737,10 @@
       margin-top: 20px;
       /* 上限 680px（原本 560px 會讓最長的一句在桌機也斷成兩行）；
          balance：萬一遇到更長的句子換行時，兩行長度平均，不會第二行只剩兩字 */
-      max-width: 800px;
-      font-size: clamp(1.1875rem, 1.5vw, 1.375rem);
+      max-width: 860px;
+      /* 22px 時最長那句需要約 790px，欄寬只差幾 px 就整段掉行。
+         字級上限收到 21px，配上加寬的文字欄才有餘裕。 */
+      font-size: clamp(1.1875rem, 1.45vw, 1.3125rem);
       font-weight: 900;
       line-height: 1.45;
       letter-spacing: -0.01em;
@@ -824,11 +826,13 @@
     .ps-chip {
       display: inline-flex;
       align-items: center;
-      padding: 9px 20px;
+      /* 標籤是第三層資訊（標題 → 重點句 → 標籤）。原本 1.05rem 幾乎與
+         重點句同重，四顆就擠成兩行；收小之後層級清楚，也排得下一行。 */
+      padding: 7px 15px;
       border: 1px solid #BBD6EE;
       border-radius: 999px;
       background: #FFFFFF;
-      font-size: 1.05rem;
+      font-size: 0.9rem;
       font-weight: 700;
       letter-spacing: 0.01em;
       color: #00529B;
