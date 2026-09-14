@@ -218,8 +218,27 @@
 
     .sect-label { padding: 12px 16px; background: #f8fafc; border-bottom: 1px solid var(--line); font-size: .78rem; font-weight: 700; color: var(--muted); letter-spacing: .06em; }
 
-    .formfoot { display: flex; align-items: center; gap: 10px; padding: 16px; background: #f8fafc; border-top: 1px solid var(--line); border-radius: 0 0 10px 10px; }
+    /* 動作列黏在視窗底部：表單很長時不必捲到最下面才能按儲存。
+       卡片捲出畫面後它才跟著離開，所以不會擋住別區塊的內容。 */
+    .formfoot {
+      display: flex; align-items: center; gap: 10px; padding: 16px;
+      background: #f8fafcf2; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      border-top: 1px solid var(--line); border-radius: 0 0 10px 10px;
+      position: sticky; bottom: 0; z-index: 5;
+      box-shadow: 0 -6px 18px rgba(15, 35, 60, .07);
+    }
     .formfoot .spacer { margin-left: auto; }
+    /* 產品／時間軸表單的動作列自己獨立成一張卡，要讓卡片本身黏住 */
+    .card:has(> .formfoot:only-child) { position: sticky; bottom: 0; z-index: 5; }
+    .card:has(> .formfoot:only-child) .formfoot { border-radius: 10px; }
+    /* 儲存鈕上的快速鍵提示，字面由 JS 依作業系統寫入 --kbd */
+    @media (min-width: 861px) {
+      .formfoot .btn.save::after {
+        content: var(--kbd, ""); margin-left: 4px; padding-left: 7px;
+        border-left: 1px solid rgba(255, 255, 255, .32);
+        font-size: .72rem; font-weight: 700; opacity: .7;
+      }
+    }
 
     /* ---------- 圖片欄位 ---------- */
     .imgfield { display: flex; gap: 14px; align-items: flex-start; }
@@ -1173,7 +1192,7 @@
         main.appendChild(langCard);
 
         /* 底部動作 */
-        var saveBtn = el('button', { class: 'btn' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
+        var saveBtn = el('button', { class: 'btn save' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
         saveBtn.addEventListener('click', function () {
           var base = {};
           spec.neutral.concat(spec.langFields).forEach(function (f) {
@@ -1903,7 +1922,7 @@
 
         paintRows();
 
-        var save = el('button', { class: 'btn' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
+        var save = el('button', { class: 'btn save' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
         save.addEventListener('click', function () {
           var ids = Object.keys(drafts).filter(function (id) {
             var r = rows.filter(function (x) { return String(x.id) === String(id); })[0];
@@ -2138,7 +2157,7 @@
             ));
           }
 
-          var saveBtn = el('button', { class: 'btn' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
+          var saveBtn = el('button', { class: 'btn save' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
           saveBtn.addEventListener('click', function () {
             if (!Object.keys(draft).length && !Object.keys(trDraft).length) { toast('沒有變更'); return; }
             saveBtn.disabled = true;
@@ -2280,7 +2299,7 @@
           ]));
         }
 
-        var save = el('button', { class: 'btn' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
+        var save = el('button', { class: 'btn save' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
         save.addEventListener('click', function () {
           var ids = Object.keys(drafts);
           if (!ids.length) { toast('沒有變更'); return; }
@@ -2357,7 +2376,7 @@
           card.appendChild(node);
         });
 
-        var save = el('button', { class: 'btn' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
+        var save = el('button', { class: 'btn save' }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '儲存' })]);
         save.addEventListener('click', function () {
           var ids = Object.keys(drafts);
           if (!ids.length) { toast('沒有變更'); return; }
@@ -2526,6 +2545,28 @@
       }
 
       reload();
+
+      /* Ctrl/Cmd + S 直接送出目前畫面的儲存鈕 —— 手不用離開鍵盤。
+         抓 .formfoot 裡第一顆主色鈕（ghost 是取消／次要動作）。 */
+      document.documentElement.style.setProperty(
+        '--kbd', /Mac|iPhone|iPad/.test(navigator.platform || '') ? '"\u2318S"' : '"Ctrl+S"');
+
+      document.addEventListener('keydown', function (e) {
+        if (!(e.key === 's' || e.key === 'S') || !(e.metaKey || e.ctrlKey)) return;
+        /* 只抓真正的儲存鈕，且先看游標所在的卡片 ——
+           「頁面區塊」畫面每筆都有自己的儲存鈕，不能無條件拿第一顆。 */
+        var scope = document.activeElement && document.activeElement.closest
+          ? document.activeElement.closest('.card') : null;
+        var btn = scope && scope.querySelector('.btn.save:not(:disabled)');
+        if (!btn) {
+          var all = document.querySelectorAll('.btn.save:not(:disabled)');
+          if (all.length !== 1) return;
+          btn = all[0];
+        }
+        e.preventDefault();
+        if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+        btn.click();
+      });
     })();
   </script>
 </body>
