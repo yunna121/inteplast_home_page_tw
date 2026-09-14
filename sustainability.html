@@ -106,24 +106,19 @@
        src/site-images.js 把網址寫成行內的 --site-img，所以用
        [style*="--site-img"] 判定「有沒有設圖」—— 沒設就維持原本的底色，
        不會因為多了一層遮罩而洗掉畫面。 */
-    .hero[style*="--site-img"]::before,
-    .hero[style*="--site-img"]::after {
+    .hero[style*="--site-img"]::before {
       content: "";
       position: absolute;
       inset: 0;
       z-index: 0;
-    }
-    .hero[style*="--site-img"]::before {
       background-image: var(--site-img);
       background-size: cover;
       background-position: center;
     }
-    /* 標題是深色字，圖上要有白罩才讀得清；左濃右淡，右側照片還看得到 */
-    .hero[style*="--site-img"]::after {
-      background: linear-gradient(100deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.9) 46%, rgba(255,255,255,.6) 100%);
-    }
-    /* 有封面圖時葉子裝飾就多餘了 */
-    .hero[style*="--site-img"] .leaf-decor { display: none; }
+    /* 封面圖本身就是淡底、左側留白給標題，不再痊上白罩；
+       圖裡也已經有環保標章，右側那張標章圖樣跟葉子裝飾一併隱藏。 */
+    .hero[style*="--site-img"] .leaf-decor,
+    .hero[style*="--site-img"] .hero-mark { display: none; }
     .hero-grid { display: grid; align-items: center; position: relative; z-index: 1; }
     .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; }
     .eyebrow i { background: var(--green); color: #fff; width: 25px; height: 25px; border-radius: 50%; display: grid; place-items: center; font-size: .7rem; }
