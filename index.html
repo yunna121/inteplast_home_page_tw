@@ -365,6 +365,10 @@
       color: var(--text-muted) !important;
     }
 
+    /* 這一區的說明要跟下面那張卡同寬（容器 1350 − 左右 40 = 1270） */
+    .home-green-mark-section .section-head { max-width: 100%; }
+    .home-green-mark-section .section-head p { max-width: 100%; }
+
     /* 環保標章卡：欄位原本寫在 style 屬性上，只靠 responsive.css 的
        [style*="grid-template-columns: 1fr 1.1fr"] 在 768px 以下收單欄 ——
        769–1024px（iPad 直立、小筆電）還是兩欄，證書與 2×2 表格擠在一起。
@@ -398,12 +402,20 @@
       /* 原本 2×2：右欄約 570px 再切一半 = 每格 275px，英文標題與說明
          都會斷成兩三行。改成單欄四列，每格拿到整個欄寬，一行就排完。 */
       grid-template-columns: 1fr;
-      gap: 1px;
+      /* 四項直式排列時，外框＋格線＋灰底會看起來像一張表格。
+         改成只有細分隔線的清單，四項讀起來才是並列的事實。 */
+      gap: 0;
       margin-bottom: 28px;
-      background: var(--border-color);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      overflow: hidden;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      overflow: visible;
+    }
+
+    /* 第一項不需要上方那條線 */
+    .gm-features > div:first-child {
+      border-top: 0 !important;
+      padding-top: 0 !important;
     }
 
     @media (max-width: 1024px) {
@@ -1811,7 +1823,7 @@
                  卡片只留四個具體事實與按鈕，不重複上面的話。 -->
             <!-- 2x2 Feature Grid -->
             <div class="gm-features">
-              <div style="background: #F8FAFC; padding: 18px 20px;">
+              <div style="padding: 16px 0; border-top: 1px solid var(--border-color);">
                 <strong
                   style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;"
                   data-tw="通過環境審查" data-en="">通過環境審查</strong>
@@ -1819,7 +1831,7 @@
                   data-tw="符合環保標章規格標準，取得產品標示資格。"
                   data-en="">符合環保標章規格標準，取得產品標示資格。</span>
               </div>
-              <div style="background: #F8FAFC; padding: 18px 20px;">
+              <div style="padding: 16px 0; border-top: 1px solid var(--border-color);">
                 <strong
                   style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;"
                   data-tw="50% 再生塑膠" data-en="">50% 再生塑膠</strong>
@@ -1827,7 +1839,7 @@
                   data-tw="減少對原生塑膠資源的依賴，延續材料價值。"
                   data-en="">減少對原生塑膠資源的依賴，延續材料價值。</span>
               </div>
-              <div style="background: #F8FAFC; padding: 18px 20px;">
+              <div style="padding: 16px 0; border-top: 1px solid var(--border-color);">
                 <strong
                   style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;"
                   data-tw="避用重金屬" data-en="">避用重金屬</strong>
@@ -1835,7 +1847,7 @@
                   data-tw="不使用鉛、鎘、汞及六價鉻等重金屬。"
                   data-en="">不使用鉛、鎘、汞及六價鉻等重金屬。</span>
               </div>
-              <div style="background: #F8FAFC; padding: 18px 20px;">
+              <div style="padding: 16px 0; border-top: 1px solid var(--border-color);">
                 <strong
                   style="display: block; font-size: 0.95rem; font-weight: 800; color: #2F7B4B; margin-bottom: 4px;"
                   data-tw="製程審慎管理" data-en="">製程審慎管理</strong>
