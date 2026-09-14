@@ -84,7 +84,7 @@
     }
 
     .products-hero-container {
-      max-width: 1350px;
+      max-width: 1560px;
       margin: 0 auto;
       padding: 0 40px;
       position: relative;
@@ -161,18 +161,20 @@
 
     /* Gallery Main Container */
     .gallery-container {
-      max-width: 1350px;
+      max-width: 1560px;
       margin: 0 auto;
       padding: 60px 40px;
-      display: flex;
-      flex-direction: column;
+      /* grid + grid-auto-rows: 1fr —— 每一列等高，所以七張卡高度一致
+         （文字最多那張決定高度，其餘卡片跟著撐滿，圖片也一起變高）。 */
+      display: grid;
+      grid-auto-rows: 1fr;
       gap: 50px;
     }
 
     /* 專利區：只在選到有專利的產品（或顯示全部）時出現，接在卡片下方 */
     .patent-section {
       display: none;
-      max-width: 1350px;
+      max-width: 1560px;
       margin: 0 auto;
       padding: 0 40px 80px;
     }
@@ -597,7 +599,7 @@
 
   <!-- Footer Footer Auto-Injected / Standard Footer -->
   <footer class="footer" style="background: #0A2540; color: #FFFFFF; padding: 40px 0; text-align: center; font-size: 0.9rem;">
-    <div style="max-width: 1350px; margin: 0 auto; padding: 0 40px;">
+    <div style="max-width: 1560px; margin: 0 auto; padding: 0 40px;">
       © {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
     </div>
   </footer>
