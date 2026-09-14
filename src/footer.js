@@ -163,7 +163,8 @@
 
       '<div class="sf-col sf-col--cat">' +
         '<div class="sf-col-title" data-tw="產品分類" data-en="Categories">產品分類</div>' +
-        '<div class="sf-links">' +
+        /* 這七條只是載入中的占位；fillCategories() 會用 D1 的產品資料整排換掉。 */
+        '<div class="sf-links" id="sfCatLinks">' +
           link(P + '#cat-can-liners', '清潔袋', 'Can Liners') +
           link(P + '#cat-draw-tape', '拉繩袋', 'Draw Tape Liners') +
           link(P + '#cat-heat-bags', '蔬果袋', 'Produce Bags') +
@@ -219,6 +220,36 @@
     onScroll();
   }
 
+  /* 產品分類跟著 D1 的產品資料走 —— 後台新增、改名、調順序，頁尾自動跟上。
+     錯點代號跟 products/index.html 的 getCatId() 用同一組關鍵字判定，
+     改了品名也還能跳到正確的卡片；都對不上就送到產品中心首部。
+     英文／日文不寫在這裡：交給 site-lang.js 查 translations（data-tw 是索引鍵）。 */
+  function catAnchor(name) {
+    var n = String(name || '');
+    if (n.indexOf('清潔袋') > -1 && n.indexOf('拉繩') < 0) return '#cat-can-liners';
+    if (n.indexOf('拉繩') > -1) return '#cat-draw-tape';
+    if (n.indexOf('蔬果袋') > -1 || n.indexOf('耐熱袋') > -1) return '#cat-heat-bags';
+    if (n.indexOf('夾鏈袋') > -1) return '#cat-sealed-packaging';
+    if (n.indexOf('手套') > -1) return '#cat-gloves';
+    if (n.indexOf('膠帶') > -1) return '#cat-masking-film';
+    if (n.indexOf('Scale') > -1 || n.indexOf('Tare') > -1) return '#cat-stretch-films';
+    return '';
+  }
+
+  function fillCategories(host) {
+    var box = host.querySelector('#sfCatLinks');
+    if (!box) return;
+    fetch('/api/products')
+      .then(function (res) { return res.json(); })
+      .then(function (rows) {
+        if (!Array.isArray(rows) || !rows.length) return;
+        box.innerHTML = rows.filter(function (p) { return p.name; })
+          .map(function (p) { return link(P + catAnchor(p.name), p.name, ''); }).join('');
+        if (typeof window.applyLanguage === 'function') window.applyLanguage();
+      })
+      .catch(function () { /* 載入失敗：保留占位連結，頁尾不會空一塊 */ });
+  }
+
   function build() {
     if (document.querySelector('.site-footer')) { injectCss(); buildTopButton(); return; }
     var host = document.getElementById('site-footer-component') || document.querySelector('footer.footer');
@@ -232,6 +263,7 @@
     if (typeof window.applyYearTokens === 'function') window.applyYearTokens(host);
     else host.innerHTML = host.innerHTML.replace(/\{\{year\}\}/g, new Date().getFullYear());
     if (typeof window.applyLanguage === 'function') window.applyLanguage();
+    fillCategories(host);
     buildTopButton();
   }
 

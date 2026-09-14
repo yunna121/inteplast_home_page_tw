@@ -1866,6 +1866,14 @@
         var listBox = el('div', {});
         card.appendChild(listBox);
 
+        /* 內文裡的 {{year}} 是程式代入的數字，<br> 是換行，
+           兩者在譯文裡必須原樣保留 —— 漏了畫面會壞掉。
+           這裡把它們列出來，存檔前也會逐條比對。 */
+        function tokensOf(s) {
+          return (String(s || '').match(/\{\{[^}]+\}\}|<br\s*\/?>/gi) || [])
+            .map(function (t) { return t.toLowerCase().replace(/\s|\//g, ''); }).sort();
+        }
+
         function paintRows() {
           var term = String(uiView.q || '').trim().toLowerCase();
           var page = uiView.page || '';
@@ -1902,19 +1910,36 @@
             input.value = cur;
             input.addEventListener('input', function () { drafts[r.id] = this.value; });
 
+            var toks = tokensOf(r.zh_key || r.zh);
+            var tokenTag = toks.length ? el('div', {
+              style: 'margin-top:6px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;'
+            }, [
+              el('span', {
+                style: 'padding:1px 7px; border-radius:99px; background:#fff4d6; color:#8a5a12; font-size:.72rem; font-weight:800;',
+                text: '含變數'
+              }),
+              el('span', {
+                style: 'color:#8a5a12; font-size:.76rem;',
+                text: '譯文要保留 ' + toks.join('、')
+              })
+            ]) : null;
+
             if (isBase) {
               // 繁中頁籤：直接編輯文案，不需要左右對照
-              listBox.appendChild(el('div', { class: 'field' }, [input]));
+              listBox.appendChild(el('div', { class: 'field' }, [input, tokenTag]));
               return;
             }
 
             listBox.appendChild(el('div', {
               class: 'field two-col'
             }, [
-              el('div', {
-                text: r.zh,
-                style: 'white-space:pre-wrap; font-size:.9rem;' + (cur.trim() ? '' : 'color:#8a5a12;')
-              }),
+              el('div', {}, [
+                el('div', {
+                  text: r.zh,
+                  style: 'white-space:pre-wrap; font-size:.9rem;' + (cur.trim() ? '' : 'color:#8a5a12;')
+                }),
+                tokenTag
+              ]),
               input
             ]));
           });
@@ -1929,6 +1954,25 @@
             return r && drafts[id] !== currentOf(r);
           });
           if (!ids.length) { toast('沒有變更'); return; }
+
+          /* 變數把關：譯文少了 {{year}} 或 <br> 就擋下來，
+             壞資料不進資料庫，也不必事後回頭找哪一條填錯。 */
+          var bad = null;
+          ids.forEach(function (id) {
+            if (bad) return;
+            var r = rows.filter(function (x) { return String(x.id) === String(id); })[0];
+            if (!r) return;
+            var want = tokensOf(r.zh_key || r.zh);
+            if (!want.length) return;
+            var got = tokensOf(drafts[id]);
+            var miss = want.filter(function (t) { return got.indexOf(t) < 0; });
+            if (miss.length) bad = { r: r, miss: miss };
+          });
+          if (bad) {
+            toast('「' + String(bad.r.zh).slice(0, 14) + '…」的譯文少了 ' + bad.miss.join('、') + '，請補回來', 'err');
+            return;
+          }
+
           save.disabled = true;
 
           Promise.all(ids.map(function (id) {
