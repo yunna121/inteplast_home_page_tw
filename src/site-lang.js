@@ -46,13 +46,22 @@
   }
 
   /** 某個中文原文在目前語言下該顯示什麼 */
+  /* {{year}} / {{years}} 會自動代入數字（src/site-year.js）。
+     對照表的鍵是「帶著代號」的原文，所以查表前不能先換掉代號；
+     查到譯文之後才把代號換成數字 —— 譯文自己也帶著同樣的代號。 */
+  function fillYears(s) {
+    var Y = window.SITE_YEARS;
+    if (!Y || !s) return s;
+    return String(s).split('{{year}}').join(Y.year).split('{{years}}').join(Y.years);
+  }
+
   function translate(zh, lang, fallbackAttr) {
     // 繁中也可能被後台改過（介面文字那頁），所以一樣要查表
     if (lang === BASE) {
-      return (strings && strings[zh] && strings[zh][BASE]) || zh;
+      return fillYears((strings && strings[zh] && strings[zh][BASE]) || zh);
     }
-    if (strings && strings[zh] && strings[zh][lang]) return strings[zh][lang];
-    return fallbackAttr || '';
+    if (strings && strings[zh] && strings[zh][lang]) return fillYears(strings[zh][lang]);
+    return fillYears(fallbackAttr || '');
   }
 
   function applyLanguage(lang) {
