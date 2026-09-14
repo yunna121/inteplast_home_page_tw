@@ -567,7 +567,12 @@
       order: 2;
     }
 
-    /* \u5076\u6578\u5217\u7167\u7247\u6539\u5230\u53f3\u908a\uff0c\u6587\u5b57\u5c31\u843d\u5728\u7b2c\u4e00\u6b04 \u2014\u2014 \u6bd4\u4f8b\u8981\u8ddf\u8457\u53cd\u904e\u4f86\uff0c\n       \u4e0d\u7136\u6587\u5b57\u6c38\u9060\u5206\u5230\u7a84\u7684\u90a3\u6b04\uff0c\u91cd\u9ede\u53e5\u53ea\u6709\u5076\u6578\u5217\u6703\u65b7\u6210\u5169\u884c\u3002 */\n    .ps-row:nth-child(even) {\n      grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);\n    }
+    /* 偶數列照片改到右邊，文字落在第一欄 —— 比例要跟著反過來，
+       不然文字永遠分到窄的那欄，重點句只有偶數列會斷成兩行。
+       偶數列再多讓一點給文字，最長那句才排得下。 */
+    .ps-row:nth-child(even) {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    }
 
     .ps-stage {
       position: relative;
