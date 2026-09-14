@@ -102,6 +102,25 @@
       if (text !== null && text !== undefined && text !== '') el.setAttribute('placeholder', text);
     });
 
+    /* 重點句裡的「|」是刻意的分界（例：Food-Grade Materials | Helping
+       Preserve Produce Freshness）。只允許在這個分界換行 —— 每一段包成
+       不換行的 inline，片語就不會被切成兩半。
+       放在翻譯之後：site-lang 換文字時會把 innerHTML 蓋掉，所以每次
+       套用語言都要重建一次。 */
+    document.querySelectorAll('.ps-highlight, .card-highlight-text').forEach(function (el) {
+      var t = (el.textContent || '').trim();
+      if (t.indexOf('|') < 0) return;
+      var parts = t.split('|').map(function (s) { return s.trim(); }).filter(Boolean);
+      if (parts.length < 2) return;
+      el.innerHTML = parts.map(function (s, i) {
+        var body = s.replace(/[&<>]/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c];
+        });
+        return '<span style="white-space:nowrap">' + body +
+          (i < parts.length - 1 ? '&nbsp;|' : '') + '</span>';
+      }).join(' ');
+    });
+
     /* 產品細項標籤：整串（例「專利證書、防沾黏、不受汙染」）當索引鍵，
        譯文有幾段就顯示幾顆 —— 英文只填兩段就只出現兩顆，不補中文。
        中文兩個詞在英文常常是同一個字，硬要湊滿反而會出現重複的標籤。

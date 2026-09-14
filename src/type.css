@@ -209,6 +209,15 @@ p, li, figcaption,
 /* 標籤與篩選鈕是短詞，不該被拆成兩行 */
 .ps-chip, .filter-tab-btn { text-wrap: nowrap; }
 
+/* 手機上標籤原本 1.05rem，比 h2 標題（1.375rem 起）只小一點，
+   六顆就排成五行、比標題還搶眼。降到 lead 以下並縮小內距。 */
+@media (max-width: 768px) {
+  .ps-chip {
+    font-size: .8125rem;
+    padding: 6px 13px;
+  }
+}
+
 /* ---------- 手機 ---------- */
 @media (max-width: 768px) {
   :root {
