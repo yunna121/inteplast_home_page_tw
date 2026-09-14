@@ -102,6 +102,31 @@
       if (text !== null && text !== undefined && text !== '') el.setAttribute('placeholder', text);
     });
 
+    /* 產品細項標籤：整串（例「專利證書、防沾黏、不受汙染」）當索引鍵，
+       譯文有幾段就顯示幾顆 —— 英文只填兩段就只出現兩顆，不補中文。
+       中文兩個詞在英文常常是同一個字，硬要湊滿反而會出現重複的標籤。
+       樣式沿用原本那顆標籤（依位置對應），所以環保色也跟著對。 */
+    document.querySelectorAll('[data-items-tw]').forEach(function (box) {
+      var zh = box.getAttribute('data-items-tw');
+      if (!box.dataset.itemsTpl) box.dataset.itemsTpl = box.innerHTML;
+
+      var text = translate(zh, currentLang, '');
+      var segs = String(text || zh).split(/[、,，･·\n]+/)
+        .map(function (s) { return s.trim(); }).filter(Boolean);
+
+      var holder = document.createElement('div');
+      holder.innerHTML = box.dataset.itemsTpl;
+      var tpls = Array.prototype.slice.call(holder.children);
+      if (!tpls.length || !segs.length) return;
+
+      box.innerHTML = '';
+      segs.forEach(function (s, i) {
+        var node = (tpls[i] || tpls[tpls.length - 1]).cloneNode(true);
+        node.textContent = s;
+        box.appendChild(node);
+      });
+    });
+
     document.querySelectorAll('[data-tw]').forEach(function (el) {
       var zh = el.getAttribute('data-tw');
       var text = translate(zh, currentLang, el.getAttribute('data-' + suffix));

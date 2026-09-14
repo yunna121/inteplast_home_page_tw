@@ -665,8 +665,7 @@
             var base = 'display: inline-flex; align-items: center; gap: 7px; padding: 7px 16px; border: 1px solid ' +
               (eco ? '#A7D9C0' : '#BBD6EE') + '; border-radius: 999px; background: ' + (eco ? '#F1FBF6' : '#FFFFFF') +
               '; font-size: 0.84rem; font-weight: 700; color: ' + (eco ? '#0F7A4E' : '#00529B') + '; white-space: nowrap;';
-            return '<span data-tw="' + esc(s) + '" data-en="" style="' + base + '">' +
-              esc(s) + '</span>';
+            return '<span style="' + base + '">' + esc(s) + '</span>';
           }).join('');
 
         /* 專利證書：縮圖直接看得見（純文字標籤客戶不會知道背後有東西可看），
@@ -688,7 +687,7 @@
           (tw.alias ? '<div class="card-alias-text" data-tw="又稱 ' + esc(tw.alias) + '" data-en="">又稱 ' + esc(tw.alias) + '</div>' : '') +
           (cat.highlight ? '<p class="card-highlight-text" data-tw="' + esc(cat.highlight) + '" data-en="">' + esc(cat.highlight) + '</p>' : '') +
           (cat.desc ? '<p class="card-desc-text" data-tw="' + esc(cat.desc) + '" data-en="">' + esc(cat.desc) + '</p>' : '') +
-          (list ? '<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px;">' + list + '</div>' : '') +
+          (list ? '<div data-items-tw="' + esc(cat.items || '') + '" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px;">' + list + '</div>' : '') +
           '</div>' +
           '<div class="card-actions-row">' +
           '<a href="../contact.html" class="btn-action-primary"><i class="fa-solid fa-envelope"></i> <span data-tw="留下資料專人對接" data-en="">留下資料專人對接</span></a>' +
