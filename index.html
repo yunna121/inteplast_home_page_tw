@@ -321,7 +321,9 @@
     /* 通用 Section 標題樣式 */
     .section-head {
       text-align: center;
-      max-width: 800px;
+      /* 800px 對中文夠，英文同一段會變成四行。放寬到 1080px，
+         內文仍居中，標題不受影響（標題本來就短）。 */
+      max-width: 1080px;
       margin: 0 auto 60px;
     }
 
@@ -369,7 +371,7 @@
        改用 class 自己管斷點：1024 收單欄、640 再把 2×2 收成一欄。 */
     .gm-card {
       display: grid;
-      grid-template-columns: 1fr 1.1fr;
+      grid-template-columns: 0.85fr 1.15fr;
       align-items: stretch;
     }
 
@@ -393,7 +395,9 @@
 
     .gm-features {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      /* 原本 2×2：右欄約 570px 再切一半 = 每格 275px，英文標題與說明
+         都會斷成兩三行。改成單欄四列，每格拿到整個欄寬，一行就排完。 */
+      grid-template-columns: 1fr;
       gap: 1px;
       margin-bottom: 28px;
       background: var(--border-color);
@@ -795,7 +799,9 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 20px;
-      max-width: 560px;
+      /* 跟著文字欄的寬度走 —— 原本鎖 560px，六顆標籤就被擠成兩行，
+         而旁邊還空著一大塊。 */
+      max-width: 100%;
     }
 
     .ps-row:nth-child(even) .ps-items {
