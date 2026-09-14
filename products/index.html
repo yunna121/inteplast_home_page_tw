@@ -246,7 +246,9 @@
       box-shadow: var(--shadow-md);
       transition: var(--transition);
       display: grid;
-      grid-template-columns: 460px 1fr;
+      /* 文字欄給 minmax(0, 1fr)：不加下限時，英文長字串會用最小內容寬度
+         把版面撐開，圖片欄那 460px 就跟著被壓縮，每張卡寬度都不一樣。 */
+      grid-template-columns: 460px minmax(0, 1fr);
       align-items: stretch;
     }
 
@@ -260,6 +262,9 @@
       position: relative;
       background: #F1F5F9;
       overflow: hidden;
+      /* 每張卡的圖片區維持同一個比例，卡片高度不再影響圖片大小 */
+      aspect-ratio: 4 / 3;
+      align-self: center;
     }
 
     .card-image-box img {
