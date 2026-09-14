@@ -94,7 +94,10 @@ async function notify(env, row, id) {
 
   const mail = buildMail(row, id);
   const payload = {
-    from: env.MAIL_FROM || "no-reply@inteplast.com.tw",
+    /* 預設用 Resend 的測試寄件位址：不必驗證網域、不必動 DNS，
+       但只能寄給 Resend 帳號本人的信箱。
+       日後要寄給其他同事，再驗證網域並設 MAIL_FROM。 */
+    from: env.MAIL_FROM || "onboarding@resend.dev",
     to,
     subject: `[網站詢價] ${row.company || row.email}${row.product ? " · " + row.product : ""}`,
     html: mail.html,
