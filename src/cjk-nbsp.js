@@ -92,9 +92,17 @@
 
   function fixNode(text) {
     var v = text.nodeValue;
-    if (v.indexOf(' ') === -1 && v.indexOf('\t') === -1) return;
-    var out = keepPhrases(v).replace(AFTER, '$1\u00A0').replace(BEFORE, '$1\u00A0');
+    var out = fixText(v);
     if (out !== v) text.nodeValue = out;
+  }
+
+  /* 供其他腳本在「寫進 DOM 之前」先過一次（見 site-lang.js）。
+     這比事後追著改可靠：site-lang 會整段覆寫 innerHTML，
+     由它先處理好就不會有先錯一下再跳回來的閃動。 */
+  function fixText(v) {
+    if (!v) return v;
+    if (v.indexOf(' ') === -1 && v.indexOf('\t') === -1) return v;
+    return keepPhrases(v).replace(AFTER, '$1\u00A0').replace(BEFORE, '$1\u00A0');
   }
 
   function fixEl(el) {
@@ -149,6 +157,8 @@
       characterData: true
     });
   }
+
+  window.CJKNbsp = { fixText: fixText, fixEl: fixEl, run: run };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', start);

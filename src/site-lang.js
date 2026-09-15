@@ -55,13 +55,22 @@
     return String(s).split('{{year}}').join(Y.year).split('{{years}}').join(Y.years);
   }
 
+  /* 斷行處理（src/cjk-nbsp.js）：把譯文裡「不該當斷點」的空白換成
+     不斷行空白。必須在寫進 innerHTML 之前做 ——
+     這支每次套用語言都會整段覆寫，事後再改會先閃一下錯的斷行。
+     cjk-nbsp.js 在本檔之後載入，所以用時才查，不在載入時取。 */
+  function nbsp(s) {
+    var api = window.CJKNbsp;
+    return (api && api.fixText && s) ? api.fixText(String(s)) : s;
+  }
+
   function translate(zh, lang, fallbackAttr) {
     // 繁中也可能被後台改過（介面文字那頁），所以一樣要查表
     if (lang === BASE) {
-      return fillYears((strings && strings[zh] && strings[zh][BASE]) || zh);
+      return nbsp(fillYears((strings && strings[zh] && strings[zh][BASE]) || zh));
     }
-    if (strings && strings[zh] && strings[zh][lang]) return fillYears(strings[zh][lang]);
-    return fillYears(fallbackAttr || '');
+    if (strings && strings[zh] && strings[zh][lang]) return nbsp(fillYears(strings[zh][lang]));
+    return nbsp(fillYears(fallbackAttr || ''));
   }
 
   function applyLanguage(lang) {
