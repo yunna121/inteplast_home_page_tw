@@ -20,13 +20,18 @@
         background: var(--site-img, url("./src/原本那張.jpeg")) …
       偽元素會繼承父層的自訂屬性，所以掛在區塊本身就夠。
 
+   4) <a data-site-file="cert_drawtape_pdf" href="https://原本的外部連結">
+      文件（PDF）連結。後台欄位有值就改指到那份檔，留空就沒動 ——
+      所以 HTML 裡原本的網址仍然是後備。
+
    載不到新圖時不換 —— 先用 Image() 試載，成功才指過去，
    否則會把原本好的圖換成破圖框。 */
 (function () {
   var imgSlots = document.querySelectorAll('img[data-site-img]');
   var bgSlots = document.querySelectorAll('[data-site-bg]');
   var productSlots = document.querySelectorAll('img[data-product-img]');
-  if (!imgSlots.length && !bgSlots.length && !productSlots.length) return;
+  var fileSlots = document.querySelectorAll('[data-site-file]');
+  if (!imgSlots.length && !bgSlots.length && !productSlots.length && !fileSlots.length) return;
 
   // products/ 子目錄的頁面要往上一層找 src/
   var root = /\/products\//.test(location.pathname) ? '../' : './';
@@ -61,6 +66,13 @@
         whenLoaded(url, function () {
           box.style.setProperty('--site-img', 'url("' + url + '")');
         });
+      });
+
+      /* 文件連結：不先試載（PDF 沒辦法用 Image() 探測）。
+         欄位留空就不動，頁面上原本的網址維持有效。 */
+      fileSlots.forEach(function (node) {
+        var url = urlOf(map[node.getAttribute('data-site-file')]);
+        if (url) node.setAttribute('href', url);
       });
     })
     .catch(function () { /* 後備＝HTML 裡原本的圖，什麼都不用做 */ });

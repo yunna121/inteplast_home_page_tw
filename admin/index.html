@@ -721,7 +721,7 @@
               { id: 'timeline', label: '時間軸', icon: 'fa-clock-rotate-left', count: (DB.timeline || []).length },
               { id: 'ui', label: '介面文字', icon: 'fa-font', count: (DB.uiStrings || []).length },
               { id: 'block', label: '頁面區塊', icon: 'fa-layer-group', count: (DB.blocks || []).length },
-              { id: 'siteimg', label: '網站圖片', icon: 'fa-images', count: (DB.siteImages || []).length },
+              { id: 'siteimg', label: '網站圖片／檔案', icon: 'fa-images', count: (DB.siteImages || []).length },
               { id: 'setting', label: '公司資訊', icon: 'fa-building', count: 0 },
               { id: 'language', label: '語言', icon: 'fa-language', count: (DB.languages || []).length }
             ]
@@ -2392,8 +2392,7 @@
               })();
 
           var node = fieldNode(
-            /* key 以 _pdf／_file 結尾的欄位給檔案上傳元件，其餘照舊是文字欄 */
-            { key: s.key, label: s.label || s.key, type: /_(pdf|file)$/.test(s.key) ? 'file' : 'text', hint: s.hint },
+            { key: s.key, label: s.label || s.key, type: 'text', hint: s.hint },
             current,
             function (v) { drafts[s.id] = v; }
           );
@@ -2440,8 +2439,8 @@
 
         main.appendChild(el('div', { class: 'head' }, [
           el('div', {}, [
-            el('h1', { text: '網站圖片' }),
-            el('p', { text: '換掉頁面上的照片。上傳時會自動壓縮成 WebP，存檔後網站立刻更新。' })
+            el('h1', { text: '網站圖片／檔案' }),
+            el('p', { text: '換掉頁面上的照片或文件。圖片上傳時會自動壓縮成 WebP，PDF 原檔存放；存檔後網站立刻更新。' })
           ])
         ]));
 
@@ -2461,7 +2460,9 @@
 
         rows.forEach(function (r) {
           var node = fieldNode(
-            { key: r.key, label: r.label || r.key, type: 'image', hint: r.hint },
+            /* key 以 _pdf／_file 結尾的給文件上傳元件（不壓縮、不轉檔），
+               其餘照舊是圖片欄位。 */
+            { key: r.key, label: r.label || r.key, type: /_(pdf|file)$/.test(r.key) ? 'file' : 'image', hint: r.hint },
             r.path || '',
             function (v) { drafts[r.id] = v; }
           );
