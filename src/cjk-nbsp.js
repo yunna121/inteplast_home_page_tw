@@ -105,9 +105,12 @@
      標題不套這條：標題字很大，綁在一起反而會多擠出一行。 */
   var TIE = /\b(a|an|and|the|of|in|on|at|to|or|by|for|as|is|are|its|our|with|from|into)[ \t]+(?=[0-9A-Za-z“"'(])/gi;
 
-  /* 只有這些「一整段內文」額外套上面那條規則 */
+  /* 只有這些「一整段內文」額外套上面那條規則。
+     .ps-highlight / .card-highlight-text 是重點句（兩三行），
+     一樣會出現「with」「of」留在行尾的情況，所以一併納入。 */
   var BODY_SELECTOR = [
     '.hero-sub-tagline', '.hero-desc', '.ps-lede', '.ps-desc',
+    '.ps-highlight', '.card-highlight-text', '.card-desc-text',
     '.section-head p', '.cta-banner-desc', '.scenario-desc',
     '.intro-p', '.stat-sub', '.gm-features span', '.timeline-copy p'
   ].join(',');

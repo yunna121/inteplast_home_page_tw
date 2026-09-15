@@ -58,6 +58,19 @@
     .page-hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 12px; }
     .page-hero p { font-size: 1.05rem; max-width: 650px; margin: 0 auto; color: rgba(255,255,255,0.85); }
 
+    /* 手機：這段副標在 430px 寬會排成四行。置中的文字超過三行就沒有
+       固定的回行起點，讀起來像一坨 —— 改左對齊、行高收緊。
+       （文案本身偏長，英文在後台 /api/ui-strings；縮短成一句會更好。） */
+    @media (max-width: 560px) {
+      .page-hero { padding: 120px 20px 44px; }
+      .page-hero p {
+        max-width: 34ch;
+        text-align: left;
+        line-height: 1.55;
+        font-size: 1rem;
+      }
+    }
+
     .section { padding: 80px 40px; }
     .container { max-width: 1200px; margin: 0 auto; }
     .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; }
@@ -418,6 +431,6 @@
   <script src="src/mobile-nav.js?v=8"></script>
   <script src="src/footer.js"></script>
   <script src="src/site-lang.js?v=10"></script>
-  <script src="src/cjk-nbsp.js?v=4"></script>
+  <script src="src/cjk-nbsp.js?v=5"></script>
 </body>
 </html>

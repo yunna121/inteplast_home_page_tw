@@ -342,11 +342,15 @@
     }
 
     .section-head h2 {
-      font-size: 2.7rem;
+      /* 寫死 2.7rem 時手機上還是 43px，「環保不打折，每一款都經過層層把關」
+         會擠出只剩一個「關」的第三行。綁 vw 讓它跟著螢幕寬度縮，
+         窄螢幕自動降到 26px 左右，兩行就排完。 */
+      font-size: clamp(1.625rem, 6vw, 2.7rem);
       font-weight: 900;
       color: #FFFFFF;
       margin-bottom: 16px;
       line-height: 1.25;
+      text-wrap: balance;
     }
 
     .section-head p {
@@ -1728,14 +1732,14 @@
         <img src="./src/ITC Logo.png" alt="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION" class="brand-logo-img">
       </div>
 
-      <h1 class="hero-big-title" data-tw="台塑企業清潔袋專業製造" data-en="">
-        台塑企業清潔袋專業製造
+      <h1 class="hero-big-title" data-tw="台塑品牌塑膠袋專業製造" data-en="">
+        台塑品牌塑膠袋專業製造
       </h1>
 
       <p class="hero-sub-tagline"
-        data-tw="台塑企業、INTEPLAST USA 與長庚生技合資建立公司。以台塑原料自製清潔袋與拉繩袋，嘉義新港、越南基地自動化吹膜；另有蔬果袋、夾鏈袋，以及集團專利抽取式 Scale Sheet。"
+        data-tw="由台塑企業、INTEPLAST USA 與長庚生技共同投資成立，臺灣營德以台塑品牌塑膠袋為核心，於嘉義新港與越南工廠自動化生產，提供多元塑膠袋與包裝產品。"
         data-en="">
-        台塑企業、INTEPLAST USA 與長庚生技合資建立公司。以台塑原料自製清潔袋與拉繩袋，嘉義新港、越南基地自動化吹膜；另有蔬果袋、夾鏈袋，以及集團專利抽取式 Scale Sheet。
+        由台塑企業、INTEPLAST USA 與長庚生技共同投資成立，臺灣營德以台塑品牌塑膠袋為核心，於嘉義新港與越南工廠自動化生產，提供多元塑膠袋與包裝產品。
       </p>
 
       <div class="hero-btn-group">
@@ -2308,7 +2312,7 @@
   <script src="src/site-lang.js?v=10"></script>
   <!-- 頁面上的照片改由後台「網站圖片」設定，HTML 裡的路徑是後備 -->
   <script src="src/site-images.js?v=1"></script>
-  <script src="src/cjk-nbsp.js?v=4"></script>
+  <script src="src/cjk-nbsp.js?v=5"></script>
 </body>
 
 </html>
