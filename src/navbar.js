@@ -48,7 +48,7 @@
     const typeLink = document.createElement('link');
     typeLink.id = 'site-type-css';
     typeLink.rel = 'stylesheet';
-    typeLink.href = `${rootPath}src/type.css`;
+    typeLink.href = `${rootPath}src/type.css?v=2`;
     document.head.appendChild(typeLink);
   }
 

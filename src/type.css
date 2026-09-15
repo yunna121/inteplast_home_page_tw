@@ -206,8 +206,12 @@ p, li, figcaption,
   text-wrap: pretty;
 }
 
-/* 標籤與篩選鈕是短詞，不該被拆成兩行 */
-.ps-chip, .filter-tab-btn { text-wrap: nowrap; }
+/* 標籤是短詞，不該被拆成兩行。
+   .filter-tab-btn 已從這裡移除：產品中心的篩選列改成固定寬度的網格，
+   手機一欄／兩欄時膠囊只有 150-200px，「Scale Sheet (Tare Sheet)」這類
+   長標籤鎖 nowrap 就會溢出膠囊外，也把網格軌道撐成不等寬。
+   換行交給 products/index.html 自己的規則。 */
+.ps-chip { text-wrap: nowrap; }
 
 /* 手機上標籤原本 1.05rem，比 h2 標題（1.375rem 起）只小一點，
    六顆就排成五行、比標題還搶眼。降到 lead 以下並縮小內距。 */

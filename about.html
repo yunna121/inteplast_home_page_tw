@@ -113,7 +113,7 @@
        本頁自己的級數畫出來（hero 最大 102px），type.css 進來後才收斂成
        52px —— 那就是載入時標題「特別大然後縮小」的原因。
        放在所有樣式之後，同權重時仍然勝出；id 讓 navbar.js 跳過注入。 -->
-  <link id="site-type-css" rel="stylesheet" href="src/type.css">
+  <link id="site-type-css" rel="stylesheet" href="src/type.css?v=2">
   <!-- Google Analytics 4（G-0FS2ZC88V0）
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
@@ -137,7 +137,7 @@
 <body>
   <!-- 頁首（頂欄／選單／搜尋鈕／語言鈕／CTA）由 src/navbar.js 注入，頁面內不要再手寫一份 -->
   <div id="site-header-component"></div>
-  <script src="src/navbar.js"></script>
+  <script src="src/navbar.js?v=2"></script>
   <script src="src/site-year.js"></script>
   <main>
     <section class="story-hero" data-site-bg="about_hero">
