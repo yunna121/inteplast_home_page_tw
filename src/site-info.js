@@ -10,6 +10,9 @@
    可用的 key：company_name / address / phone / phone_link /
              email / email_cc / copyright
 
+   data-site-href 的 key 若不是 email／phone，就直接把設定值當網址
+   寫進 href（例：環保標章証書 PDF）。
+
    多語言：API 會同時回傳 address 與 address_en（以及日後新增的
    address_ja…）。這裡把各語言寫進 data-tw / data-en 等屬性，
    再交給 src/site-lang.js 依當前語言顯示 —— 所以切語言時
@@ -90,6 +93,11 @@
         node.setAttribute('href', 'mailto:' + settings.email);
       } else if (key === 'phone' && settings.phone_link) {
         node.setAttribute('href', 'tel:' + settings.phone_link);
+      } else if (settings[key]) {
+        /* 其他 key 直接當網址用（例：後台上備的証書 PDF，
+           cert_drawtape_pdf → /media/xxx.pdf）。後台欄位留空就
+           沒有這個 key，頁面上原本的 href 維持不變。 */
+        node.setAttribute('href', settings[key]);
       }
     });
 

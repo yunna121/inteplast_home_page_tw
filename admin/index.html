@@ -766,6 +766,8 @@
           input.value = value;
         } else if (spec.type === 'image') {
           return imageField(spec, value, onInput);
+        } else if (spec.type === 'file') {
+          return fileField(spec, value, onInput);
         } else {
           input = el('input', { type: 'text', value: value, oninput: function () { onInput(this.value); } });
         }
@@ -776,6 +778,68 @@
           ]),
           input,
           spec.hint ? el('div', { class: 'hint', text: spec.hint }) : null
+        ]);
+      }
+
+      /* 文件欄位（PDF）—— 與圖片共用同一支上傳 API，但不壓縮、不轉檔，
+         上傳後給一個可以點開來檢查的連結。D1 單筆上限約 900KB，
+         超過會被後端擋下並告知実際大小。 */
+      function fileField(spec, value, onInput) {
+        var text = el('input', { type: 'text', value: value, oninput: function () { onInput(this.value); paint(this.value); } });
+        var file = el('input', { type: 'file', accept: '.pdf,application/pdf', style: 'display:none' });
+        var open = el('a', { class: 'rowsub', target: '_blank', rel: 'noopener', style: 'display:none' });
+
+        function paint(v) {
+          var raw = String(v || '').trim();
+          if (raw) {
+            open.href = raw.charAt(0) === '/' || /^https?:/.test(raw) ? raw : '/media/' + encodeURIComponent(raw);
+            open.textContent = '預覽這份文件 ↗';
+            open.style.display = '';
+          } else {
+            open.style.display = 'none';
+          }
+        }
+
+        var upload = el('button', {
+          class: 'btn ghost sm',
+          type: 'button',
+          onclick: function () { file.click(); }
+        }, [el('i', { class: 'fa-solid fa-upload' }), el('span', { text: '上傳 PDF' })]);
+
+        file.addEventListener('change', function () {
+          var picked = file.files && file.files[0];
+          if (!picked) return;
+          upload.disabled = true;
+          upload.querySelector('span').textContent = '上傳中…';
+
+          var form = new FormData();
+          form.append('file', picked, picked.name);
+          form.append('name', picked.name);
+
+          fetch('/api/admin/upload', { method: 'POST', body: form })
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+              if (data.error) throw new Error(data.error);
+              text.value = data.url;
+              onInput(data.url);
+              paint(data.url);
+              toast('已上傳 ' + data.name + '（' + Math.round((data.bytes || 0) / 1024) + 'KB），記得按儲存', 'ok');
+            })
+            .catch(function (err) { toast('上傳失敗：' + err.message, 'err'); })
+            .finally(function () {
+              upload.disabled = false;
+              upload.querySelector('span').textContent = '上傳 PDF';
+              file.value = '';
+            });
+        });
+
+        paint(value);
+
+        return el('div', { class: 'field' }, [
+          el('label', { text: spec.label }),
+          text,
+          el('div', { class: 'row' }, [upload, file, open]),
+          el('div', { class: 'hint', text: spec.hint || '上傳後欄位會自動填入網址；留空則沒有這份文件。' })
         ]);
       }
 
@@ -2328,7 +2392,8 @@
               })();
 
           var node = fieldNode(
-            { key: s.key, label: s.label || s.key, type: 'text', hint: s.hint },
+            /* key 以 _pdf／_file 結尾的欄位給檔案上傳元件，其餘照舊是文字欄 */
+            { key: s.key, label: s.label || s.key, type: /_(pdf|file)$/.test(s.key) ? 'file' : 'text', hint: s.hint },
             current,
             function (v) { drafts[s.id] = v; }
           );

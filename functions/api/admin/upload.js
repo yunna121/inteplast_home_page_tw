@@ -16,7 +16,9 @@ import { json, fail } from "../_lib.js";
    不必回來改資料庫欄位。 */
 
 const MAX_BYTES = 900 * 1024;   // D1 單筆上限 1MB，留一點餘裕給 base64 以外的欄位
-const ALLOWED = ["image/webp", "image/png", "image/jpeg", "image/gif", "image/svg+xml"];
+/* PDF 也走這裡：環保標章証書之類的文件要能在後台換，
+   不必因為改一份 PDF 就動程式。前端不壓縮非圖片檔。 */
+const ALLOWED = ["image/webp", "image/png", "image/jpeg", "image/gif", "image/svg+xml", "application/pdf"];
 
 function safeName(name) {
   return String(name || "")
@@ -47,14 +49,14 @@ export async function onRequest(context) {
 
     const type = file.type || "application/octet-stream";
     if (ALLOWED.indexOf(type) === -1) {
-      return json({ error: "只接受圖片檔（webp／png／jpg／gif／svg），收到的是 " + type }, 400);
+      return json({ error: "只接受圖片（webp／png／jpg／gif／svg）或 PDF，收到的是 " + type }, 400);
     }
 
     const buffer = await file.arrayBuffer();
     if (buffer.byteLength > MAX_BYTES) {
       return json({
-        error: "圖片太大（" + Math.round(buffer.byteLength / 1024) + "KB，上限 " +
-               Math.round(MAX_BYTES / 1024) + "KB）。請用小一點的原圖再試一次。"
+        error: "檔案太大（" + Math.round(buffer.byteLength / 1024) + "KB，上限 " +
+               Math.round(MAX_BYTES / 1024) + "KB）。請先壓縮再試一次。"
       }, 400);
     }
 
