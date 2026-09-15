@@ -5,18 +5,17 @@ import { json, fail } from "./_lib.js";
    POST /api/inquiry   （contact.html 的表單）
 
    1. 把客戶留的資料寫進 D1 的 inquiries 表（一定會做）
-   2. 用 Resend 寄一封通知信給業務（做不到也不影響第 1 步）
+   2. 透過 Google Apps Script 寄一封通知信給業務（做不到也不影響第 1 步）
 
-   不寄自動回覆給客戶 —— 由業務主動聯繫。
+   不回覆客戶 —— 由業務主動聯繫。
+
+   為什麼繞一圈走 Apps Script：Cloudflare Workers 沒有 SMTP，不能自己寄信。
+   Apps Script 用公司現有的 Gmail 帳號代寄，不用驗證網域也不用第三方服務。
 
    需要的環境變數（Pages → 設定 → 環境變數）：
-     RESEND_API_KEY   Resend 的 API 金鑰
-     MAIL_TO          業務收件信箱，多人用逗號分隔
-     MAIL_FROM        寄件者，必須是 Resend 已驗證的網域
-                      例：inteplast.com.tw
-     MAIL_BCC         選填，副本
+     GAS_URL      Apps Script 部署後的 .../exec 網址
 
-   金鑰或收件人沒設就只存資料庫、不寄信，表單不會因此失敗。 */
+   沒設就只存資料庫、不寄信，表單不會因此失敗。 */
 
 function cap(value, max) {
   return String(value == null ? "" : value).trim().slice(0, max);
@@ -24,97 +23,6 @@ function cap(value, max) {
 
 function looksLikeEmail(value) {
   return /^[^@\s]+@[^@\s.]+(\.[^@\s.]+)+$/.test(value);
-}
-
-function esc(value) {
-  return String(value == null ? "" : value)
-    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
-function splitList(value) {
-  return String(value || "").split(/[,;]/).map(s => s.trim()).filter(Boolean);
-}
-
-/* 通知信內容：業務打開就能判斷要不要回、回什麼。
-   欄位順序照業務實際在意的程度排，訊息放最後才不必上下捲。 */
-function buildMail(row, id) {
-  const when = new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" });
-  const rows = [
-    ["公司名稱", row.company || "（未填）"],
-    ["商務信箱", row.email],
-    ["聯絡電話", row.phone || "（未填）"],
-    ["詢問產品", row.product || "（未選）"],
-    ["來源頁面", row.page || "—"],
-    ["送出時間", when],
-  ].map(([k, v]) => (
-    `<tr>` +
-    `<td style="padding:7px 14px 7px 0;color:#64748b;font-size:13px;white-space:nowrap;vertical-align:top">${esc(k)}</td>` +
-    `<td style="padding:7px 0;color:#0f172a;font-size:14px;font-weight:600">${esc(v)}</td>` +
-    `</tr>`
-  )).join("");
-
-  const html =
-    `<div style="margin:0;padding:24px;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans TC',sans-serif">` +
-      `<div style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden">` +
-        `<div style="padding:18px 24px;background:#0f3a63;color:#ffffff">` +
-          `<div style="font-size:15px;font-weight:700">網站詢價通知</div>` +
-          `<div style="font-size:12px;opacity:.75;margin-top:2px">臺灣營德股份有限公司 · 編號 #${esc(id)}</div>` +
-        `</div>` +
-        `<div style="padding:22px 24px">` +
-          `<table style="border-collapse:collapse;width:100%">${rows}</table>` +
-          `<div style="margin-top:20px;padding-top:18px;border-top:1px solid #e2e8f0">` +
-            `<div style="color:#64748b;font-size:13px;margin-bottom:7px">需求內容</div>` +
-            `<div style="color:#0f172a;font-size:14px;line-height:1.7;white-space:pre-wrap">${esc(row.message)}</div>` +
-          `</div>` +
-          `<div style="margin-top:22px">` +
-            `<a href="mailto:${esc(row.email)}" style="display:inline-block;padding:10px 20px;background:#0f3a63;color:#ffffff;border-radius:6px;font-size:14px;font-weight:600;text-decoration:none">回覆客戶</a>` +
-          `</div>` +
-        `</div>` +
-      `</div>` +
-    `</div>`;
-
-  const text = [
-    `網站詢價通知 #${id}`, "",
-    `公司名稱：${row.company || "（未填）"}`,
-    `商務信箱：${row.email}`,
-    `聯絡電話：${row.phone || "（未填）"}`,
-    `詢問產品：${row.product || "（未選）"}`,
-    `來源頁面：${row.page || "—"}`,
-    `送出時間：${when}`, "",
-    "需求內容：", row.message,
-  ].join("\n");
-
-  return { html, text };
-}
-
-async function notify(env, row, id) {
-  const key = env.RESEND_API_KEY;
-  const to = splitList(env.MAIL_TO);
-  if (!key || !to.length) return { sent: false, reason: "未設定" };
-
-  const mail = buildMail(row, id);
-  const payload = {
-    /* 預設用 Resend 的測試寄件位址：不必驗證網域、不必動 DNS，
-       但只能寄給 Resend 帳號本人的信箱。
-       日後要寄給其他同事，再驗證網域並設 MAIL_FROM。 */
-    from: env.MAIL_FROM || "onboarding@resend.dev",
-    to,
-    subject: `[網站詢價] ${row.company || row.email}${row.product ? " · " + row.product : ""}`,
-    html: mail.html,
-    text: mail.text,
-    /* 業務直接按「回覆」就是回給客戶，不用複製貼上信箱 */
-    reply_to: row.email,
-  };
-  const bcc = splitList(env.MAIL_BCC);
-  if (bcc.length) payload.bcc = bcc;
-
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { "authorization": `Bearer ${key}`, "content-type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) return { sent: false, reason: `resend ${res.status}` };
-  return { sent: true };
 }
 
 export async function onRequest(context) {
@@ -132,7 +40,7 @@ export async function onRequest(context) {
       form.forEach((value, key) => { input[key] = value; });
     }
 
-    // 蜜罐：真人看不到 website 這一欄，機器人一填就當作已處理但不寫入
+    // 蜜罐：真人看不到 website 這一欄，機器人一填就當作已處理但不寄出
     if (cap(input.website, 200)) return json({ ok: true, skipped: "honeypot" });
 
     const row = {
@@ -155,16 +63,38 @@ export async function onRequest(context) {
 
     const id = insert.meta && insert.meta.last_row_id;
 
-    /* 寄信失敗不能讓客戶看到錯誤 —— 資料已經進資料庫，
+    /* 以下都是通知信。寄信失敗不能讓客戶看到錯誤 —— 資料已經進資料庫，
        業務照樣能在後台看到，通知只是加快反應速度。 */
-    let mail = { sent: false, reason: "未執行" };
+    const gasUrl = env.GAS_URL;
+    if (!gasUrl) return json({ ok: true, saved: true, id, mailed: false });
+
+    let mailed = false;
     try {
-      mail = await notify(env, row, id);
+      /* Apps Script 的 doPost 讀 e.parameter，只接表單編碼（JSON 收不到）。
+         notifyTo 帶後台設的公司信箱，腳本端有網域白名單把關。 */
+      const body = new URLSearchParams({
+        company: row.company,
+        email: row.email,
+        phone: row.phone,
+        product: row.product,
+        message: row.message,
+      });
+      if (env.MAIL_TO) body.set("notifyTo", env.MAIL_TO);
+
+      const res = await fetch(gasUrl, {
+        method: "POST",
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+        redirect: "follow",
+      });
+      /* Apps Script 失敗時也常回 200，所以看回傳內容而不是只看狀態碼 */
+      const out = res.ok ? await res.json().catch(() => null) : null;
+      mailed = !!(out && out.ok && out.mail && out.mail.notify);
     } catch (mailError) {
-      mail = { sent: false, reason: String(mailError && mailError.message || mailError) };
+      mailed = false;
     }
 
-    return json({ ok: true, saved: true, id, mailed: mail.sent });
+    return json({ ok: true, saved: true, id, mailed });
   } catch (error) {
     return fail(error);
   }

@@ -181,7 +181,7 @@
           link('https://www.fpc.com.tw/fpcw/', '台灣塑膠工業股份有限公司', 'Formosa Plastics Corp.', true) +
           link('https://www.inteplast.com/', 'Inteplast USA', 'Inteplast USA', true) +
           link('https://www.104.com.tw/company/1a2x6bkjw0?jobsource=vipshare', '人才招募', 'Careers', true) +
-          link(ROOT + 'sustainability.html', '環保標章產品', 'Eco-Labeled Products') +
+          link(ROOT + 'sustainability.html', '環保標章產品', 'Green Mark Products') +
         '</div>' +
       '</div>' +
     '</div>' +
