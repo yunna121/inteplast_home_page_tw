@@ -121,117 +121,152 @@
       margin: 0 auto 36px;
     }
 
-    /* Filter Pills Navigation Bar
-       產品數量是變動的（由 Excel/D1 產生），用 flex-wrap 時最後一行永遠只剩
-       兩三顆、跟上一行寬度完全對不齊，所以看起來很亂。
-       改成網格：每顆同寬、上下對齊，8 顆正好 4×2。
-       手機固定兩欄，不再隨文字長度残差不齊。 */
+    /* Filter Tabs
+       不用膠囊：產品卡裡已經有 U.S. Patented 這類膠囊標籤，
+       上方再一排膠囊是同一個形狀講兩次。
+       改成文字＋底線的頁籤，與卡片的膠囊標籤分層。
+       寬度放到 1400px（原本 880px），八個分類就排得下一行。 */
     .filter-tabs-bar {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(176px, 1fr));
-      gap: 10px;
-      max-width: 880px;
-      margin: 10px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0 4px;
+      max-width: 1400px;
+      margin: 20px auto 0;
+      padding: 0 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
     }
 
     .filter-tab-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #FFFFFF;
-      padding: 11px 16px;
-      border-radius: var(--radius-full);
-      font-size: 0.88rem;
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      border-radius: 0;
+      color: rgba(255, 255, 255, 0.66);
+      padding: 13px 15px;
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
-      transition: var(--transition);
+      transition: color 0.25s ease, border-color 0.25s ease;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-      text-align: center;
+      white-space: nowrap;
     }
 
-    /* 不鎖 nowrap：手機兩欄時每顆只有 150-200px，
-       「Scale Sheet (Tare Sheet)」這種長標籤會直接溢出膠囊外。
-       用兩層 class 寫（.filter-tabs-bar .filter-tab-btn）：
-       src/type.css 是全站最後載入的，它裡面的單一 class 規則
-       比不過這個權重，所以不管 type.css 有沒有更新、有沒有被快取，
-       這行都肯定生效。 */
-    .filter-tabs-bar .filter-tab-btn {
-      min-width: 0;
-      white-space: normal;
-      text-wrap: wrap;
-      overflow-wrap: break-word;
-      line-height: 1.35;
+    /* 文字頁籤不需要圖示 */
+    .filter-tab-btn i {
+      display: none;
     }
 
-    /* 手機：橫向滑動的底線頁籤。沒有膠囊，只有文字與一條底線，
-       只佔一行高度，長標籤也不會擠（滑動列裡不換行是對的）。 */
+    /* 桌機不需要下拉開關 */
+    .filter-mobile-toggle {
+      display: none;
+    }
+
+    /* 手機：整排膠囊收成下拉。
+       八個分類、標籤又長，橫滑列的兩個前提（項目少、標籤短）
+       在 430px 都不成立；排成多行又看不出可以點。
+       下拉只有一個控制項，且「目前選什麼」一眼就知道。
+       選擇器一律帶上 .products-hero-container（兩層 class），
+       src/type.css 與 responsive.css 的単一 class 規則都壓不過。 */
     @media (max-width: 560px) {
-      .filter-tabs-bar {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        gap: 0;
-        max-width: none;
-        margin: 18px 0 0;
-        padding: 0 20px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-        overflow-x: auto;
-        overscroll-behavior-x: contain;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+      .products-hero-container .filter-mobile-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 20px auto 0;
+        padding: 11px 22px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 9999px;
+        color: #FFFFFF;
+        font-family: inherit;
+        font-size: 0.92rem;
+        font-weight: 800;
+        cursor: pointer;
       }
 
-      .filter-tabs-bar::-webkit-scrollbar {
+      .products-hero-container .filter-mobile-toggle i {
+        font-size: 0.7rem;
+        color: #7FC7FF;
+        transition: transform 0.25s ease;
+      }
+
+      .products-hero-container .filter-mobile-toggle[aria-expanded="true"] i {
+        transform: rotate(180deg);
+      }
+
+      .products-hero-container .filter-tabs-bar {
         display: none;
+        width: 100%;
+        max-width: 340px;
+        margin: 10px auto 0;
+        padding: 0;
+        background: #0E2A46;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 12px;
+        overflow: hidden;
+        text-align: left;
       }
 
-      .filter-tabs-bar .filter-tab-btn {
-        flex: 0 0 auto;
-        padding: 12px 14px;
+      .products-hero-container .filter-tabs-bar.is-open {
+        display: block;
+      }
+
+      .products-hero-container .filter-tabs-bar .filter-tab-btn {
+        display: flex;
+        width: 100%;
+        min-height: 44px;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 12px 18px;
         background: transparent;
         border: 0;
-        border-bottom: 2px solid transparent;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 0;
         box-shadow: none;
-        color: rgba(255, 255, 255, 0.62);
+        color: rgba(255, 255, 255, 0.84);
         font-size: 0.92rem;
-        font-weight: 700;
-        white-space: nowrap;
+        font-weight: 600;
+        text-align: left;
+        white-space: normal;
       }
 
-      /* 文字頁籤不需要圖示 */
-      .filter-tabs-bar .filter-tab-btn i {
+      .products-hero-container .filter-tabs-bar .filter-tab-btn:first-child {
+        border-top: 0;
+      }
+
+      .products-hero-container .filter-tabs-bar .filter-tab-btn i {
         display: none;
       }
 
-      .filter-tabs-bar .filter-tab-btn.active {
-        background: transparent;
-        border-bottom-color: #00A8FF;
-        box-shadow: none;
+      .products-hero-container .filter-tabs-bar .filter-tab-btn.active {
+        background: rgba(0, 168, 255, 0.14);
+        box-shadow: inset 3px 0 0 #00A8FF;
         color: #FFFFFF;
         font-weight: 800;
       }
 
-      .filter-tabs-bar .filter-tab-btn:hover {
+      .products-hero-container .filter-tabs-bar .filter-tab-btn:hover {
         transform: none;
-        background: transparent;
-        border-bottom-color: rgba(0, 168, 255, 0.5);
+        background: rgba(255, 255, 255, 0.06);
       }
     }
 
     .filter-tab-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-color: rgba(255, 255, 255, 0.4);
-      transform: translateY(-2px);
+      background: transparent;
+      border-bottom-color: rgba(0, 168, 255, 0.5);
+      color: #FFFFFF;
+      transform: none;
     }
 
     .filter-tab-btn.active {
-      background: #FFFFFF;
-      color: var(--primary-navy);
-      border-color: #FFFFFF;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      background: transparent;
+      border-bottom-color: #00A8FF;
+      box-shadow: none;
+      color: #FFFFFF;
+      font-weight: 800;
     }
 
     /* Gallery Main Container */
@@ -659,7 +694,12 @@
         產品中心
       </h1>
 
-      <!-- Filter Pills Navigation Bar（桌機 4×2 膠囊，手機橫向滑動的底線頁籤） -->
+      <!-- Filter Pills Navigation Bar（桌機 4×2 膠囊，手機收成下拉）
+           下面這顆是手機的下拉開關，桌機隱藏 -->
+      <button class="filter-mobile-toggle" id="filterMobileToggle" type="button" aria-expanded="false">
+        <span class="fmt-label" id="filterMobileLabel" data-tw="顯示全部 All" data-en="">顯示全部 All</span>
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      </button>
       <div class="filter-tabs-bar">
         <button class="filter-tab-btn active" onclick="filterGallery('all', this)">
           <i class="fa-solid fa-layer-group"></i> <span data-tw="顯示全部 All" data-en="">顯示全部 All</span>
@@ -959,7 +999,53 @@
         card.style.display = (category === 'all' || card.getAttribute('data-category') === category) ? 'grid' : 'none';
       });
       if (typeof window.syncPatentSection === 'function') window.syncPatentSection(category);
+      if (typeof window.syncFilterToggle === 'function') window.syncFilterToggle(true);
     }
+
+    /* 手機版篩選下拉：開關、標籤同步、點外面收起。
+       分類是 D1 資料回來後才產生的，標籤也會被語言切換重寫，
+       所以用 MutationObserver 持續同步，而不是只在載入時抓一次。 */
+    (function () {
+      var toggle = document.getElementById('filterMobileToggle');
+      var label = document.getElementById('filterMobileLabel');
+      var bar = document.querySelector('.filter-tabs-bar');
+      if (!toggle || !label || !bar) return;
+
+      function close() {
+        bar.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+
+      /* 把目前選中的分類名寫進按鈕。collapse=true 時順便收起選單。 */
+      window.syncFilterToggle = function (collapse) {
+        var active = bar.querySelector('.filter-tab-btn.active');
+        if (active) {
+          var text = (active.textContent || '').trim();
+          if (text) {
+            label.removeAttribute('data-tw');
+            label.textContent = text;
+          }
+        }
+        if (collapse) close();
+      };
+
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = bar.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!bar.classList.contains('is-open')) return;
+        if (bar.contains(e.target) || toggle.contains(e.target)) return;
+        close();
+      });
+
+      new MutationObserver(function () { window.syncFilterToggle(false); })
+        .observe(bar, { childList: true, subtree: true, characterData: true });
+
+      window.syncFilterToggle(false);
+    })();
   </script>
   <script src="../src/site-search.js?v=2"></script>
   <script src="../src/mobile-nav.js?v=8"></script>
