@@ -20,6 +20,53 @@
 (function () {
   'use strict';
 
+  /* ------------------------------------------------------------
+     專有名詞不拆行（Keep brand phrases on one line）
+     ------------------------------------------------------------
+     英文版標題會出現：
+
+         Professional Manufacturer of Formosa
+         Plastics-Branded Plastic Bags
+
+     「Formosa Plastics」是一個品牌名，中間的空白不是斷句處。
+     這裡不寫死「在哪裡換行」，而是宣告「哪些詞不可拆」——
+     詞內空白換成 U+00A0，瀏覽器就會自己把整個品牌名推到下一行，
+     任何螢幕寬度、任何語系、之後新增的文字都一樣適用。
+
+     維護時只改下面這份清單。 */
+  var KEEP_PHRASES = [
+    'Formosa Plastics',
+    'INTEPLAST TAIWAN',
+    'INTEPLAST USA',
+    'Chang Gung Biotechnology',
+    'Chang Gung',
+    'Scale Sheet',
+    'Scale Sheets',
+    'Tare Sheet',
+    'ISO 9001',
+    'Green Mark'
+  ];
+
+  /* 依長度排序，先鎖長詞（Chang Gung Biotechnology 要贏過 Chang Gung） */
+  var PHRASE_RES = KEEP_PHRASES
+    .slice()
+    .sort(function (a, b) { return b.length - a.length; })
+    .map(function (p) {
+      return new RegExp(
+        p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '[ \\t\\u00A0]+'),
+        'gi'
+      );
+    });
+
+  function keepPhrases(v) {
+    for (var i = 0; i < PHRASE_RES.length; i++) {
+      v = v.replace(PHRASE_RES[i], function (m) {
+        return m.replace(/[ \t]+/g, '\u00A0');
+      });
+    }
+    return v;
+  }
+
   var CJK = '\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\u3040-\u30FF';
   // 中文後接 空白 + 數字/英文   例：增加 30%
   var AFTER = new RegExp('([' + CJK + '])[ \\t]+(?=[0-9A-Za-z])', 'g');
@@ -30,7 +77,7 @@
   var SELECTOR = [
     'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
     '.ps-title', '.ps-highlight', '.ps-lede', '.ps-alias', '.ps-chip',
-    '.hero-title', '.hero-desc', '.hero-sub-tagline',
+    '.hero-title', '.hero-big-title', '.hero-desc', '.hero-sub-tagline',
     '.card-main-title', '.card-highlight-text',
     '.stat-label', '.stat-sub', '.stat-num',
     '.cta-banner-title', '.cta-banner-desc',
@@ -46,7 +93,7 @@
   function fixNode(text) {
     var v = text.nodeValue;
     if (v.indexOf(' ') === -1 && v.indexOf('\t') === -1) return;
-    var out = v.replace(AFTER, '$1\u00A0').replace(BEFORE, '$1\u00A0');
+    var out = keepPhrases(v).replace(AFTER, '$1\u00A0').replace(BEFORE, '$1\u00A0');
     if (out !== v) text.nodeValue = out;
   }
 
