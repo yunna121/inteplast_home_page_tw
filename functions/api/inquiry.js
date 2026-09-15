@@ -12,6 +12,9 @@ import { json, fail } from "./_lib.js";
    為什麼繞一圈走 Apps Script：Cloudflare Workers 沒有 SMTP，不能自己寄信。
    Apps Script 用公司現有的 Gmail 帳號代寄，不用驗證網域也不用第三方服務。
 
+   收件人不寫在程式裡：讀後台「公司資訊」的聯絡信箱（settings.email）
+   和副本收件人（settings.email_cc），所以業務自己在後台就能改。
+
    需要的環境變數（Pages → 設定 → 環境變數）：
      GAS_URL      Apps Script 部署後的 .../exec 網址
 
@@ -63,15 +66,21 @@ export async function onRequest(context) {
 
     const id = insert.meta && insert.meta.last_row_id;
 
-    /* 以下都是通知信。寄信失敗不能讓客戶看到錯誤 —— 資料已經進資料庫，
-       業務照樣能在後台看到，通知只是加快反應速度。 */
+    /* 寄信不能讓客戶等 —— 資料已經進資料庫，表單立刻回覆、
+       通知信丟到背景繼續跑（waitUntil）。
+       這樣即使 Apps Script 慢、掛掉、或被改成要登入，客戶那邊也不會卡住。 */
     const gasUrl = env.GAS_URL;
-    if (!gasUrl) return json({ ok: true, saved: true, id, mailed: false });
+    if (gasUrl) {
+      /* 收件人跟後台走，不寫在程式裡也不寫在環境變數 ——
+         業務換人或加一個副本，在後台改完下一筆詢價就生效。 */
+      const conf = await env.DB.prepare(
+        `SELECT key, value FROM settings WHERE key IN ('email', 'email_cc')`
+      ).all().catch(() => null);
+      const pick = (k) => {
+        const hit = conf && conf.results && conf.results.filter(r => r.key === k)[0];
+        return (hit && String(hit.value || "").trim()) || "";
+      };
 
-    let mailed = false;
-    try {
-      /* Apps Script 的 doPost 讀 e.parameter，只接表單編碼（JSON 收不到）。
-         notifyTo 帶後台設的公司信箱，腳本端有網域白名單把關。 */
       const body = new URLSearchParams({
         company: row.company,
         email: row.email,
@@ -79,22 +88,25 @@ export async function onRequest(context) {
         product: row.product,
         message: row.message,
       });
-      if (env.MAIL_TO) body.set("notifyTo", env.MAIL_TO);
+      const notifyTo = pick("email") || env.MAIL_TO || "";
+      const notifyCc = pick("email_cc");
+      if (notifyTo) body.set("notifyTo", notifyTo);
+      if (notifyCc) body.set("notifyCc", notifyCc);
 
-      const res = await fetch(gasUrl, {
+      /* Apps Script 的 doPost 讀 e.parameter，只接表單編碼（JSON 收不到）。
+         notifyTo 帶後台設的公司信箱，腳本端有網域白名單把關。 */
+      const send = fetch(gasUrl, {
         method: "POST",
         headers: { "content-type": "application/x-www-form-urlencoded" },
         body: body.toString(),
         redirect: "follow",
-      });
-      /* Apps Script 失敗時也常回 200，所以看回傳內容而不是只看狀態碼 */
-      const out = res.ok ? await res.json().catch(() => null) : null;
-      mailed = !!(out && out.ok && out.mail && out.mail.notify);
-    } catch (mailError) {
-      mailed = false;
+        signal: AbortSignal.timeout(15000),
+      }).catch(() => null);
+
+      if (context.waitUntil) context.waitUntil(send);
     }
 
-    return json({ ok: true, saved: true, id, mailed });
+    return json({ ok: true, saved: true, id });
   } catch (error) {
     return fail(error);
   }

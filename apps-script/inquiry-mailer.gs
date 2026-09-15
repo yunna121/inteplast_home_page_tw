@@ -35,6 +35,16 @@ function resolveNotifyTo_(p) {
   });
   return ok.length ? ok.join(',') : NOTIFY_TO;
 }
+/** 副本收件人（後台的 email_cc），同樣要過白名單 */
+function resolveNotifyCc_(p) {
+  var raw = String((p && p.notifyCc) || '').trim();
+  if (!raw) return '';
+  return raw.split(',').map(function (s) { return s.trim(); }).filter(function (addr) {
+    var m = addr.match(/^[^@\s]+@([^@\s]+)$/);
+    return m && ALLOWED_NOTIFY_DOMAINS.indexOf(m[1].toLowerCase()) !== -1;
+  }).join(',');
+}
+
 const SEND_AUTO_REPLY = false;                       // 不自動回覆填表人，由業務主動聯繫
 const HEADERS = ['送出時間', '公司名稱', '商務信箱', '聯絡電話', '詢問產品類別', '需求內容'];
 
@@ -106,7 +116,8 @@ function getSheet_() {
 function sendNotifyMail_(p) {
   var to = resolveNotifyTo_(p);
   if (!to) return;
-  MailApp.sendEmail({
+  var cc = resolveNotifyCc_(p);
+  var opts = {
     to: to,
     subject: '【官網詢價】' + (p.company || '未填公司') + ' · ' + (p.product || '未選類別'),
     body:
@@ -118,7 +129,9 @@ function sendNotifyMail_(p) {
       '需求內容：\n' + (p.message || '-') + '\n\n' +
       '送出時間：' + Utilities.formatDate(new Date(), 'Asia/Taipei', 'yyyy-MM-dd HH:mm') + '\n',
     replyTo: p.email || undefined
-  });
+  };
+  if (cc) opts.cc = cc;
+  MailApp.sendEmail(opts);
 }
 
 function sendAutoReply_(p) {
