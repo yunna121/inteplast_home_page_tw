@@ -721,7 +721,7 @@
               { id: 'timeline', label: '時間軸', icon: 'fa-clock-rotate-left', count: (DB.timeline || []).length },
               { id: 'ui', label: '介面文字', icon: 'fa-font', count: (DB.uiStrings || []).length },
               { id: 'block', label: '頁面區塊', icon: 'fa-layer-group', count: (DB.blocks || []).length },
-              { id: 'siteimg', label: '網站圖片／檔案', icon: 'fa-images', count: (DB.siteImages || []).length },
+              { id: 'siteimg', label: '圖片與檔案', icon: 'fa-images', count: (DB.siteImages || []).length },
               { id: 'setting', label: '公司資訊', icon: 'fa-building', count: 0 },
               { id: 'language', label: '語言', icon: 'fa-language', count: (DB.languages || []).length }
             ]
@@ -2439,7 +2439,7 @@
 
         main.appendChild(el('div', { class: 'head' }, [
           el('div', {}, [
-            el('h1', { text: '網站圖片／檔案' }),
+            el('h1', { text: '圖片與檔案' }),
             el('p', { text: '換掉頁面上的照片或文件。圖片上傳時會自動壓縮成 WebP，PDF 原檔存放；存檔後網站立刻更新。' })
           ])
         ]));
