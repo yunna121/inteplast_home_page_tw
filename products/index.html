@@ -165,107 +165,59 @@
       line-height: 1.35;
     }
 
-    /* 桌機不需要下拉開關 */
-    .filter-mobile-toggle {
-      display: none;
-    }
-
-    /* 手機：整排膠囊收成下拉選單。
-       八顆膠囊在 430px 寬不管排一欄、兩欄或橫滑都有代價，
-       收成一顆按鈕最省空間，長標籤也永遠不會擠。 */
+    /* 手機：橫向滑動的底線頁籤。沒有膠囊，只有文字與一條底線，
+       只佔一行高度，長標籤也不會擠（滑動列裡不換行是對的）。 */
     @media (max-width: 560px) {
-      .filter-mobile-toggle {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: center;
-        gap: 4px 12px;
-        width: 100%;
-        max-width: 420px;
-        margin: 14px auto 0;
-        padding: 12px 18px;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-        color: #FFFFFF;
-        font-family: inherit;
-        text-align: left;
-        cursor: pointer;
-      }
-
-      .filter-mobile-toggle .fmt-caps {
-        grid-column: 1;
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 0.16em;
-        color: #7FC7FF;
-      }
-
-      .filter-mobile-toggle .fmt-label {
-        grid-column: 1;
-        font-size: 1rem;
-        font-weight: 800;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .filter-mobile-toggle i {
-        grid-column: 2;
-        grid-row: 1 / 3;
-        font-size: 0.8rem;
-        color: #7FC7FF;
-        transition: transform 0.25s ease;
-      }
-
-      .filter-mobile-toggle[aria-expanded="true"] i {
-        transform: rotate(180deg);
-      }
-
       .filter-tabs-bar {
-        display: none;
-        max-width: 420px;
-        margin: 8px auto 0;
-        padding: 0;
-        background: #0E2A46;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        border-radius: 10px;
-        overflow: hidden;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        gap: 0;
+        max-width: none;
+        margin: 18px 0 0;
+        padding: 0 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
       }
 
-      .filter-tabs-bar.is-open {
-        display: block;
+      .filter-tabs-bar::-webkit-scrollbar {
+        display: none;
       }
 
       .filter-tabs-bar .filter-tab-btn {
-        display: flex;
-        width: 100%;
-        justify-content: flex-start;
-        gap: 12px;
-        padding: 13px 18px;
+        flex: 0 0 auto;
+        padding: 12px 14px;
         background: transparent;
         border: 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 2px solid transparent;
         border-radius: 0;
+        box-shadow: none;
+        color: rgba(255, 255, 255, 0.62);
         font-size: 0.92rem;
-        font-weight: 600;
-        text-align: left;
-        white-space: normal;
+        font-weight: 700;
+        white-space: nowrap;
       }
 
-      .filter-tabs-bar .filter-tab-btn:first-child {
-        border-top: 0;
+      /* 文字頁籤不需要圖示 */
+      .filter-tabs-bar .filter-tab-btn i {
+        display: none;
       }
 
       .filter-tabs-bar .filter-tab-btn.active {
-        background: rgba(0, 168, 255, 0.12);
+        background: transparent;
+        border-bottom-color: #00A8FF;
+        box-shadow: none;
         color: #FFFFFF;
         font-weight: 800;
-        box-shadow: none;
       }
 
       .filter-tabs-bar .filter-tab-btn:hover {
         transform: none;
-        background: rgba(255, 255, 255, 0.06);
+        background: transparent;
+        border-bottom-color: rgba(0, 168, 255, 0.5);
       }
     }
 
@@ -707,13 +659,7 @@
         產品中心
       </h1>
 
-      <!-- Filter Pills Navigation Bar
-           手機上這排按鈕收成下拉選單，這顆按鈕是它的開關（桌機隱藏） -->
-      <button class="filter-mobile-toggle" id="filterMobileToggle" type="button" aria-expanded="false">
-        <span class="fmt-caps">FILTER BY</span>
-        <span class="fmt-label" id="filterMobileLabel" data-tw="顯示全部 All" data-en="">顯示全部 All</span>
-        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-      </button>
+      <!-- Filter Pills Navigation Bar（桌機 4×2 膠囊，手機橫向滑動的底線頁籤） -->
       <div class="filter-tabs-bar">
         <button class="filter-tab-btn active" onclick="filterGallery('all', this)">
           <i class="fa-solid fa-layer-group"></i> <span data-tw="顯示全部 All" data-en="">顯示全部 All</span>
@@ -1013,53 +959,7 @@
         card.style.display = (category === 'all' || card.getAttribute('data-category') === category) ? 'grid' : 'none';
       });
       if (typeof window.syncPatentSection === 'function') window.syncPatentSection(category);
-      if (typeof window.syncFilterToggle === 'function') window.syncFilterToggle(true);
     }
-
-    /* 手機版篩選下拉：開關、標籤同步、點外面收起。
-       篩選鈕是 D1 資料回來後才產生的，標籤也會被語言切換重寫，
-       所以用 MutationObserver 持續同步，而不是只在載入時抓一次。 */
-    (function () {
-      var toggle = document.getElementById('filterMobileToggle');
-      var label = document.getElementById('filterMobileLabel');
-      var bar = document.querySelector('.filter-tabs-bar');
-      if (!toggle || !label || !bar) return;
-
-      function close() {
-        bar.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
-
-      /* 把目前選中的分類名寫進按鈕。collapse=true 時順便收起選單。 */
-      window.syncFilterToggle = function (collapse) {
-        var active = bar.querySelector('.filter-tab-btn.active');
-        if (active) {
-          var text = (active.textContent || '').trim();
-          if (text) {
-            label.removeAttribute('data-tw');
-            label.textContent = text;
-          }
-        }
-        if (collapse) close();
-      };
-
-      toggle.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var open = bar.classList.toggle('is-open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-
-      document.addEventListener('click', function (e) {
-        if (!bar.classList.contains('is-open')) return;
-        if (bar.contains(e.target) || toggle.contains(e.target)) return;
-        close();
-      });
-
-      new MutationObserver(function () { window.syncFilterToggle(false); })
-        .observe(bar, { childList: true, subtree: true, characterData: true });
-
-      window.syncFilterToggle(false);
-    })();
   </script>
   <script src="../src/site-search.js?v=2"></script>
   <script src="../src/mobile-nav.js?v=8"></script>
