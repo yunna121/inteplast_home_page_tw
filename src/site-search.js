@@ -475,7 +475,12 @@
     .om-searchbar, .om-searchbar:focus-within {
       flex: 0 0 38px; width: 38px; min-width: 38px; padding: 0;
       justify-content: center; margin: 0;
+      /* 收成圓圈時 input 雖然寬度 0，但仍是 flex 項目，
+         基本樣式的 gap: 8px 會在放大鏡右邊留空 —— 圖示就被推到左邊、
+         看起來沒在圓心。收合狀態不需要間距。 */
+      gap: 0;
     }
+    .om-searchbar.is-open, .om-searchbar.is-open:focus-within { gap: 8px; }
     .om-searchbar input { flex: 0 0 0; width: 0; padding: 0; }
     .om-searchbar.is-open, .om-searchbar.is-open:focus-within {
       position: absolute; left: 14px; right: 14px; top: 50%; transform: translateY(-50%);

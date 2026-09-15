@@ -149,7 +149,14 @@
       justify-content: center;
       gap: 8px;
       text-align: center;
-      white-space: nowrap;
+      /* 不鎖 nowrap：手機兩欄時每顆只有 150px 左右，
+         「Scale Sheet (Tare Sheet)」這種長標籤會直接溢出胶囊外。
+         讓它正常換行，胶囊自己長高就好。 */
+      min-width: 0;
+      white-space: normal;
+      overflow-wrap: break-word;
+      line-height: 1.35;
+      text-wrap: balance;
     }
 
     @media (max-width: 560px) {
@@ -159,9 +166,8 @@
       }
 
       .filter-tab-btn {
-        padding: 10px 10px;
-        font-size: 0.78rem;
-        white-space: normal;
+        padding: 10px 12px;
+        font-size: 0.8rem;
       }
     }
 
@@ -905,7 +911,7 @@
       if (typeof window.syncPatentSection === 'function') window.syncPatentSection(category);
     }
   </script>
-  <script src="../src/site-search.js"></script>
+  <script src="../src/site-search.js?v=2"></script>
   <script src="../src/mobile-nav.js?v=8"></script>
   <script src="../src/footer.js"></script>
   <script src="../src/site-lang.js?v=10"></script>
