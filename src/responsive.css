@@ -537,3 +537,62 @@ p, .card-desc-text, .ps-desc, .node-role, .node-detail,
     text-align: center;
   }
 }
+
+/* ---------- 手機：長段落回到自然換行 ----------
+   上面把 .hero-sub-tagline 歸在「短句」那組（keep-all，只在標點斷）。
+   桌機一行放得下 40 字以上時，斷在「，」等於語意斷句，好讀；
+   但手機一行只有 10-14 字，斷點被限制在標點就變成長短差很多的參差線：
+
+       由台塑企業、                    ← 只有 6 字
+       INTEPLAST USA 與長庚生技共同投資成立，
+       臺灣營德以台塑品牌塑膠袋為核心，
+
+   行本身已經很短，換行就是視覺斷點，不需要再疊一層語意斷點。
+   手機讓它自然斷行、每行長度一致，pretty 負責不留孤字。
+   標題與短標籤不套這條 —— 它們字少，keep-all 仍然有幫助。 */
+@media (max-width: 768px) {
+  .hero-sub-tagline {
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+  }
+}
+
+/* ---------- 手機：長段落左右對齊（Justify） ----------
+   手機一行只有 10-14 字，一句話斷在標點或英文詞邊界時，
+   右側會出現「某一行凸出去、某一行縮回來」的參差。
+   對齊兩端後每行都到同一條線，整塊看起來是一個乾淨的方形。
+
+   搭配的三件事：
+     · word-break: normal —— 漢字之間可斷，字距才不會被拉開補空
+     · overflow-wrap: break-word —— 超長英文/型號不會撐破容器
+     · text-wrap: auto —— pretty/balance 會為了行長重挑斷點，
+       跟 justify 目標衝突，這裡交還給瀏覽器
+   最後一行仍然靠左（justify 的正常行為），不會被拉開。
+   標題、短標籤、數字、按鈕都不套 —— 它們是 1-2 行的短字串。 */
+@media (max-width: 768px) {
+  p,
+  .hero-sub-tagline, .hero-desc, .hero-summary,
+  .ps-lede, .ps-desc, .card-desc-text,
+  .intro-p, .intro-copy, .section-lead,
+  .scenario-desc, .cta-banner-desc,
+  .timeline-copy p, .node-detail,
+  .commitment-card p, .product-content p {
+    text-align: justify;
+    text-justify: inter-ideograph;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-wrap: auto;
+    hyphens: none;
+  }
+
+  /* 置中的段落保持置中（區段標題下的說明本來就居中），不要被拉成兩端對齊 */
+  .section-head p,
+  [style*="text-align: center"] p,
+  [style*="text-align:center"] p,
+  .text-center p,
+  p[style*="text-align: center"],
+  p[style*="text-align:center"] {
+    text-align: center;
+  }
+}
