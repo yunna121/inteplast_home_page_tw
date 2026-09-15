@@ -420,7 +420,8 @@ section {
   grid-column: 1 / -1;
   grid-row: 2;
   align-self: center;
-  max-width: 820px;
+  /* 跟下面的產品卡同寬；原本鎖 820px，只有這一段縮在左半邊 */
+  max-width: 100%;
   margin: 18px 0 8px;
   padding-right: 0;
 }
@@ -663,8 +664,11 @@ body {
 }
 
 .hero p {
-  font-size: 1.35rem;
-  line-height: 1.82;
+  /* 21.6px × 660px 欄寬 → 英文擠成七行一坨。收到 18px 並放寬欄寬，
+     同一段文字約三到四行，中文也不會變得太小。 */
+  max-width: 780px;
+  font-size: 1.12rem;
+  line-height: 1.78;
 }
 
 .button {

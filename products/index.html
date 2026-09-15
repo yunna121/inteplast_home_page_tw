@@ -121,29 +121,48 @@
       margin: 0 auto 36px;
     }
 
-    /* Filter Pills Navigation Bar */
+    /* Filter Pills Navigation Bar
+       產品數量是變動的（由 Excel/D1 產生），用 flex-wrap 時最後一行永遠只剩
+       兩三顆、跟上一行寬度完全對不齊，所以看起來很亂。
+       改成網格：每顆同寬、上下對齊，8 顆正好 4×2。
+       手機固定兩欄，不再隨文字長度残差不齊。 */
     .filter-tabs-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(196px, 1fr));
       gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 10px;
+      max-width: 880px;
+      margin: 10px auto 0;
     }
 
     .filter-tab-btn {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #FFFFFF;
-      padding: 10px 22px;
+      padding: 11px 16px;
       border-radius: var(--radius-full);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
       transition: var(--transition);
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 560px) {
+      .filter-tabs-bar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .filter-tab-btn {
+        padding: 10px 10px;
+        font-size: 0.78rem;
+        white-space: normal;
+      }
     }
 
     .filter-tab-btn:hover {
@@ -374,7 +393,10 @@
     /* Excel「重點」欄：比敘述大一級、深色加粗 */
     .card-highlight-text {
       margin-top: 14px;
-      font-size: 1.28rem;
+      /* 1.28rem 時「One Pull Closes the Bag | 30% More Capacity…」審好比欄寬
+         多出幾 px，site-lang 的「不斷行片語」就會整組放棄，掉回普通換行
+         —— 斷在 More / Capacity 中間。收到 1.18rem 就排得下。 */
+      font-size: 1.18rem;
       font-weight: 900;
       line-height: 1.45;
       color: var(--brand-blue);

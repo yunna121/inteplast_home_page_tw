@@ -137,13 +137,13 @@
       }).join(' ');
 
       /* 有些段落本身就比欄寬長（例 30% More Capacity, No Mess on Your
-         Hands），硬不換行會撐破版面 —— 撐出去就放寬成正常換行。
+         Hands），硬不換行會撐破版面 —— 只放寬「真正塞不下的那一段」，
+         其餘片語照樣整組換行，不會整句退回普通斷行。
          「|」前面是 &nbsp;，所以分隔線永遠不會落在行首。 */
-      if (el.scrollWidth > el.clientWidth + 1) {
-        el.querySelectorAll('span').forEach(function (sp) {
-          sp.style.whiteSpace = 'normal';
-        });
-      }
+      var room = el.clientWidth + 1;
+      el.querySelectorAll('span').forEach(function (sp) {
+        if (sp.getBoundingClientRect().width > room) sp.style.whiteSpace = 'normal';
+      });
     });
 
     /* 產品細項標籤：整串（例「專利證書、防沾黏、不受汙染」）當索引鍵，
