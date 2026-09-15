@@ -548,7 +548,10 @@
 
     .ps-head .ps-lede {
       margin-top: 14px;
-      max-width: 720px;
+      /* 跟著 .ps-head 的容器走（1400 − 左右 56）。原本鎖 720px，
+         中文剛好一行，英文卻只有這一段縮在左半邊斷成兩行，
+         跟上面的大標不同寬、看起來像沒對齊。 */
+      max-width: 100%;
       font-size: 1.16rem;
       line-height: 1.75;
       color: var(--text-muted);
