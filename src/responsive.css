@@ -635,3 +635,20 @@ p, .card-desc-text, .ps-desc, .node-role, .node-detail,
     line-height: 1.75;
   }
 }
+
+/* ---------- 桌機：Hero 膠囊裡的 logo 收小 ----------
+   index.html 寫 74px —— 比頁首那顆還大，而同一顆 logo 在頁首已經出現過一次，
+   這裡是重複露出，不需要更重的視覺量；它也把下面的主標往下推。
+   收到 54px，膠囊內距一起縮，白底膠囊才不會顯得空。
+   手機維持原本的 48/42px（見本檔上方兩條 !important）。 */
+@media (min-width: 769px) {
+  .brand-logo-img {
+    height: 54px;
+  }
+
+  .brand-hero-badge {
+    padding: 12px 26px;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+}
