@@ -90,22 +90,46 @@
 
   var SKIP = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, CODE: 1, PRE: 1 };
 
-  function fixNode(text) {
+  /* ------------------------------------------------------------
+     短號字不留在行尾（只用於內文段落）
+     ------------------------------------------------------------
+     英文版內文會出現：
+
+         … at facilities in Taiwan and
+         Vietnam. Our product portfolio …
+
+     「and」留在行尾、它帶的名詞掉到下一行，讀起來就是断句。
+     這是排版惯例（不讓介系詞、連接詞孤立在行尾），
+     同樣不指定任何固定換行位置 —— 只是把這類詞跟後面那個字綁在一起。
+
+     標題不套這條：標題字很大，綁在一起反而會多擠出一行。 */
+  var TIE = /\b(a|an|and|the|of|in|on|at|to|or|by|for|as|is|are|its|our|with|from|into)[ \t]+(?=[0-9A-Za-z“"'(])/gi;
+
+  /* 只有這些「一整段內文」額外套上面那條規則 */
+  var BODY_SELECTOR = [
+    '.hero-sub-tagline', '.hero-desc', '.ps-lede', '.ps-desc',
+    '.section-head p', '.cta-banner-desc', '.scenario-desc',
+    '.intro-p', '.stat-sub', '.gm-features span', '.timeline-copy p'
+  ].join(',');
+
+  function fixNode(text, tie) {
     var v = text.nodeValue;
-    var out = fixText(v);
+    var out = fixText(v, tie);
     if (out !== v) text.nodeValue = out;
   }
 
   /* 供其他腳本在「寫進 DOM 之前」先過一次（見 site-lang.js）。
      這比事後追著改可靠：site-lang 會整段覆寫 innerHTML，
      由它先處理好就不會有先錯一下再跳回來的閃動。 */
-  function fixText(v) {
+  function fixText(v, tie) {
     if (!v) return v;
     if (v.indexOf(' ') === -1 && v.indexOf('\t') === -1) return v;
-    return keepPhrases(v).replace(AFTER, '$1\u00A0').replace(BEFORE, '$1\u00A0');
+    var out = keepPhrases(v).replace(AFTER, '$1\u00A0').replace(BEFORE, '$1\u00A0');
+    if (tie) out = out.replace(TIE, '$1\u00A0');
+    return out;
   }
 
-  function fixEl(el) {
+  function fixEl(el, tie) {
     if (!el || el.nodeType !== 1) return;
     var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
       acceptNode: function (n) {
@@ -115,15 +139,19 @@
       }
     });
     var n;
-    while ((n = walker.nextNode())) fixNode(n);
+    while ((n = walker.nextNode())) fixNode(n, tie);
+  }
+
+  function isBody(el) {
+    return !!(el.matches && el.matches(BODY_SELECTOR));
   }
 
   function run(root) {
     var scope = root && root.nodeType === 1 ? root : document.body;
     if (!scope) return;
-    if (scope.matches && scope.matches(SELECTOR)) fixEl(scope);
+    if (scope.matches && scope.matches(SELECTOR)) fixEl(scope, isBody(scope));
     var list = scope.querySelectorAll ? scope.querySelectorAll(SELECTOR) : [];
-    for (var i = 0; i < list.length; i++) fixEl(list[i]);
+    for (var i = 0; i < list.length; i++) fixEl(list[i], isBody(list[i]));
   }
 
   function start() {
@@ -158,7 +186,13 @@
     });
   }
 
-  window.CJKNbsp = { fixText: fixText, fixEl: fixEl, run: run };
+  window.CJKNbsp = {
+    fixText: fixText,
+    /* 給得到元素時用這支：內文段落會多套一條「短虛字不留行尾」 */
+    fixFor: function (el, s) { return fixText(s, !!(el && isBody(el))); },
+    fixEl: fixEl,
+    run: run
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', start);

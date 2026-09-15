@@ -64,6 +64,13 @@
     return (api && api.fixText && s) ? api.fixText(String(s)) : s;
   }
 
+  /* 知道是哪個元素時用這支：內文段落會多一條排版規則，
+     在寫進頁面前就做完，避免先畫一次再調整。 */
+  function nbspFor(el, s) {
+    var api = window.CJKNbsp;
+    return (api && api.fixFor && s) ? api.fixFor(el, String(s)) : s;
+  }
+
   function translate(zh, lang, fallbackAttr) {
     // 繁中也可能被後台改過（介面文字那頁），所以一樣要查表
     if (lang === BASE) {
@@ -168,6 +175,7 @@
       var zh = el.getAttribute('data-tw');
       var text = translate(zh, currentLang, el.getAttribute('data-' + suffix));
       if (!text) return;
+      text = nbspFor(el, text);
 
       // 首次翻譯前先保存原本的圖示，避免重複切換時圖示被吃掉
       if (!el.dataset.langIcon) {
