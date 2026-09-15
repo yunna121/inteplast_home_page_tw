@@ -605,3 +605,33 @@ p, .card-desc-text, .ps-desc, .node-role, .node-detail,
     text-align: center;
   }
 }
+
+/* ---------- 手機：區段標題與導言收小，把重量還給產品 ----------
+   手機上的實際字級原本是：
+     區段標題 .ps-head h2   38.4px  （index.html 的 clamp 下限 2.4rem）
+     區段導言 .ps-lede      18.6px  （1.16rem）
+     產品名   .ps-title     32.8px
+     產品重點 .ps-highlight 15.2px
+   標題比產品名還大、導言也比產品重點句大 —— 主角被區段標籤壓過去。
+   桌機不動（那裡有 3.8vw 的空間，大標不會蓋過產品名）。
+
+   收斂後的階層：產品名 32.8 → 區段標題 ~24 → 產品重點 15.2 → 導言 15 → 敘述 12.8
+   級數沿用 type.css 的 --fs-h2，不另開一組數字。 */
+@media (max-width: 768px) {
+  .ps-head h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-heading);
+  }
+
+  .ps-head .ps-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    margin-bottom: 10px;
+  }
+
+  .ps-head .ps-lede {
+    margin-top: 10px;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+}
