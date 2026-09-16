@@ -22,7 +22,7 @@ export async function onRequest(context) {
     const [languages, products, translations, synonyms, suggestions, timeline, settings, inquiries, uiStrings, blocks] =
       await DB.batch([
         DB.prepare("SELECT code, label, is_base, sort_order FROM languages ORDER BY sort_order, code"),
-        DB.prepare("SELECT * FROM products ORDER BY id"),
+        DB.prepare("SELECT * FROM products ORDER BY sort_order, id"),
         DB.prepare("SELECT entity, entity_id, field, lang, value FROM translations"),
         DB.prepare("SELECT * FROM synonyms ORDER BY product_id, say"),
         DB.prepare(

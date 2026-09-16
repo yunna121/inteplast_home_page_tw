@@ -146,6 +146,19 @@
     .thumb { width: 46px; height: 46px; object-fit: cover; border-radius: 5px; background: #eef2f6; display: block; }
     .thumb.none { display: grid; place-items: center; color: #9db0c0; font-size: .8rem; }
 
+    /* ---------- 拖曳排序 ---------- */
+    tr[draggable="true"] { cursor: grab; }
+    td.grip { width: 40px; padding: 11px 0 11px 12px; text-align: center; color: #9db0c0; user-select: none; }
+    td.grip i { font-size: .9rem; }
+    .gripno { display: block; margin-top: 2px; font-family: 'Barlow Condensed', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .04em; color: #9db0c0; }
+    tr.dragging { opacity: .4; }
+    tr.dragging td { background: #eff6fb; }
+    .sorthint { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid #eef2f6; background: #f8fafc; color: var(--muted); font-size: .8rem; }
+    .nudge { display: inline-flex; flex-direction: column; gap: 2px; vertical-align: middle; margin-right: 6px; }
+    .nudge button { width: 28px; height: 18px; display: grid; place-items: center; background: var(--white); border: 1px solid var(--line); border-radius: 4px; color: var(--muted); font-size: .6rem; cursor: pointer; }
+    .nudge button:hover:not(:disabled) { border-color: var(--azure); color: var(--blue); }
+    .nudge button:disabled { opacity: .35; cursor: not-allowed; }
+
     .chips { display: flex; flex-wrap: wrap; gap: 7px; }
 
     .chip {
@@ -1081,14 +1094,43 @@
             return;
           }
 
+          /* 只有產品、而且沒在搜尋的時候才能拖——篩過的清單看不到全貌，
+             在那邊拖出來的順序不是使用者以為的順序。時間軸按年份自動排，不適用。 */
+          var sortable = entity === 'product' && !term;
+          var initialOrder = list.map(function (r) { return r.id; }).join(',');
+          var dragId = null;
+
+          function renumber(tbody) {
+            [].slice.call(tbody.querySelectorAll('.gripno')).forEach(function (node, i) {
+              node.textContent = ('00' + (i + 1)).slice(-3);
+            });
+          }
+
+          function pushOrder(ids) {
+            api('/api/admin/save', { entity: 'product', action: 'reorder', order: ids })
+              .then(function () { toast('已更新產品順序', 'ok'); return reload(); })
+              .catch(function (err) { toast('排序失敗：' + err.message, 'err'); paintList(); });
+          }
+
+          /* 手機上沒有 drag 事件，所以上下鈕不是多餘的——這是觸控唯一的路 */
+          function nudge(row, dir) {
+            var ids = list.map(function (r) { return r.id; });
+            var i = ids.indexOf(row.id);
+            var j = i + dir;
+            if (j < 0 || j >= ids.length) return;
+            ids.splice(j, 0, ids.splice(i, 1)[0]);
+            pushOrder(ids);
+          }
+
           var head = el('tr', {}, [
+            sortable ? el('th', { style: 'width:40px' }) : null,
             entity === 'product' ? el('th', { text: '圖' }) : el('th', { text: '年份' }),
             el('th', { text: entity === 'product' ? '產品' : '標題' }),
             el('th', { text: '翻譯狀態' }),
             el('th', { class: 'right', text: '' })
           ]);
 
-          var body = list.map(function (row) {
+          var body = list.map(function (row, idx) {
             var name = entity === 'product' ? row.name : (row.title || '（未填標題）');
             var sub = entity === 'product'
               ? (row.highlight || row.desc || '').slice(0, 46)
@@ -1113,7 +1155,22 @@
                 })()
               : el('div', { class: 'rowtitle', text: String(row.year || '').replace(/\\n|\n/g, ' / ') });
 
-            return el('tr', {}, [
+            var up = el('button', {
+              type: 'button', title: '往上移一位', html: '<i class="fa-solid fa-chevron-up"></i>',
+              onclick: function () { nudge(row, -1); }
+            });
+            var down = el('button', {
+              type: 'button', title: '往下移一位', html: '<i class="fa-solid fa-chevron-down"></i>',
+              onclick: function () { nudge(row, 1); }
+            });
+            up.disabled = idx === 0;
+            down.disabled = idx === list.length - 1;
+
+            var tr = el('tr', { 'data-id': row.id }, [
+              sortable ? el('td', {
+                class: 'grip', title: '按住拖曳可以改順序',
+                html: '<i class="fa-solid fa-grip-vertical"></i><span class="gripno">' + ('00' + (idx + 1)).slice(-3) + '</span>'
+              }) : null,
               el('td', {}, [first]),
               el('td', {}, [
                 el('div', { class: 'rowtitle', text: String(name).replace(/\\n|\n/g, ' ') }),
@@ -1122,16 +1179,58 @@
               ]),
               el('td', {}, [el('div', { class: 'chips' }, flags.length ? flags : [el('span', { class: 'rowsub', text: '—' })])]),
               el('td', { class: 'right' }, [
+                sortable ? el('span', { class: 'nudge' }, [up, down]) : null,
                 el('button', {
                   class: 'btn ghost sm',
                   onclick: function () { editing = { entity: entity, row: row, draft: {}, tr: {} }; render(); }
                 }, [el('i', { class: 'fa-solid fa-pen' }), el('span', { text: '編輯' })])
               ])
             ]);
+
+            if (sortable) {
+              tr.draggable = true;
+              tr.addEventListener('dragstart', function (e) {
+                dragId = String(row.id);
+                tr.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                try { e.dataTransfer.setData('text/plain', dragId); } catch (err) { /* IE 不接 text/plain */ }
+              });
+              tr.addEventListener('dragover', function (e) {
+                if (!dragId || dragId === String(row.id)) return;
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                var tbody = tr.parentNode;
+                var src = tbody.querySelector('tr[data-id="' + dragId + '"]');
+                if (!src) return;
+                var box = tr.getBoundingClientRect();
+                tbody.insertBefore(src, e.clientY > box.top + box.height / 2 ? tr.nextSibling : tr);
+                renumber(tbody);
+              });
+              tr.addEventListener('drop', function (e) { e.preventDefault(); });
+              tr.addEventListener('dragend', function () {
+                tr.classList.remove('dragging');
+                dragId = null;
+                var tbody = tr.parentNode;
+                if (!tbody) return;
+                var ids = [].slice.call(tbody.querySelectorAll('tr[data-id]')).map(function (node) {
+                  return Number(node.getAttribute('data-id'));
+                });
+                if (ids.join(',') === initialOrder) return;   // 拖了又放回原位，不必寫入
+                pushOrder(ids);
+              });
+            }
+
+            return tr;
           });
 
+          var tbodyNode = el('tbody', {}, body);
+
           listBox.appendChild(el('div', { class: 'card' }, [
-            el('table', {}, [el('thead', {}, [head]), el('tbody', {}, body)])
+            sortable ? el('div', { class: 'sorthint' }, [
+              el('i', { class: 'fa-solid fa-arrows-up-down' }),
+              el('span', { text: '按住任一列拖曳即可改順序，放手自動存檔。首頁與產品中心的卡片順序、編號都跟這裡一致。' })
+            ]) : null,
+            el('table', {}, [el('thead', {}, [head]), tbodyNode])
           ]));
         }
 

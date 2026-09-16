@@ -24,7 +24,7 @@ import { json, fail } from "../_lib.js";
 const ENTITIES = {
   product: {
     table: "products",
-    base: ["name", "highlight", "desc", "img", "img_home", "items", "patent", "patent_no"],
+    base: ["name", "highlight", "desc", "img", "img_home", "items", "patent", "patent_no", "sort_order"],
     translatable: ["name", "highlight", "desc", "items"],
     required: ["name"],
   },
@@ -185,13 +185,20 @@ export async function onRequest(context) {
       }
     }
 
-    /* 區塊排序：一次送整批新順序 */
-    if (entity === "block" && action === "reorder") {
+    /* 排序：一次送整批新順序（前端把整份 id 陣列照畫面順序送來）
+       只有下面這些資料表有 sort_order —— 表名來自這裡的白名單，
+       不是呼叫端傳的字串，所以不會變成 SQL。 */
+    if (action === "reorder") {
+      const REORDERABLE = { block: "page_blocks", product: "products" };
+      const table = REORDERABLE[entity];
+      if (!table) return json({ error: "這個資料類型不能排序：" + entity }, 400);
+
       const order = Array.isArray(body.order) ? body.order : [];
       if (!order.length) return json({ error: "沒有收到順序" }, 400);
+
       await DB.batch(
         order.map((id, i) =>
-          DB.prepare("UPDATE page_blocks SET sort_order = ? WHERE id = ?").bind(i, Number(id))
+          DB.prepare(`UPDATE ${table} SET sort_order = ? WHERE id = ?`).bind(i, Number(id))
         )
       );
       return json({ ok: true, ordered: order.length });
