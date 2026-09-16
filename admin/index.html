@@ -296,6 +296,29 @@
 
     .loading { padding: 60px; text-align: center; color: var(--muted); }
 
+    /* ---------- 中文改了 → 順手改其他語言 ---------- */
+    .dialog.wide { width: min(720px, 100%); max-height: 86vh; padding: 0; display: flex; flex-direction: column; }
+    .gate-head { padding: 22px 24px 16px; border-bottom: 1px solid var(--line); }
+    .gate-head h3 { font-size: 1.12rem; margin-bottom: 6px; }
+    .gate-head p { color: var(--muted); font-size: .86rem; }
+    .gate-body { overflow-y: auto; }
+    .gate-item { padding: 16px 24px; border-bottom: 1px solid #eef2f6; }
+    .gate-item:last-child { border-bottom: 0; }
+    .gate-where { margin-bottom: 8px; font-size: .74rem; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
+    .zhdiff { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; font-size: .9rem; line-height: 1.5; }
+    .zhdiff .was { padding: 2px 8px; border-radius: 5px; background: #fdf2f2; color: #8f2018; text-decoration: line-through; }
+    .zhdiff .now { padding: 2px 8px; border-radius: 5px; background: #eefaf3; color: #0f7a4e; font-weight: 700; }
+    .zhdiff i { color: #9db0c0; font-size: .72rem; }
+    .gate-lang { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 10px; align-items: start; }
+    .gate-lang + .gate-lang { margin-top: 8px; }
+    .gate-lang > label { padding-top: 9px; font-size: .84rem; font-weight: 700; color: var(--muted); }
+    .gate-foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 16px 24px; background: #f8fafc; border-top: 1px solid var(--line); border-radius: 0 0 10px 10px; }
+    @media (max-width: 760px) {
+      .gate-lang { grid-template-columns: 1fr; gap: 4px; }
+      .gate-lang > label { padding-top: 0; }
+      .gate-foot .btn { flex: 1 1 auto; justify-content: center; }
+    }
+
     /* ---------- 登入畫面 ---------- */
     /* 還沒登入就沒有東西可以導覽，所以側欄整條不出現，登入獨立成一個畫面：
        左邊系統名稱、右邊帳號密碼。柔和陰影（neumorphic）只用在這一頁，
@@ -599,6 +622,110 @@
         return fields.some(function (f) {
           var zh = valueOf(entity, row, f.key, baseLang());
           return zh.trim() && !valueOf(entity, row, f.key, lang).trim();
+        });
+      }
+
+      /** 任一筆資料在某語言下某欄位的譯文（不需要手上有 row） */
+      function trValue(entity, id, field, lang) {
+        var hit = (DB.translations || []).filter(function (t) {
+          return t.entity === entity && String(t.entity_id) === String(id) && t.field === field && t.lang === lang;
+        })[0];
+        return hit ? hit.value : '';
+      }
+
+      /* ---------- 中文改了 → 順手改其他語言 ---------- */
+      /* 在繁中頁籤按儲存時，把「這次改動的欄位」連同其他語言的現有譯文
+         一起抬出來，就在這個框裡改完，一次存進去。
+         —— 改完中文還要自己記得切到英文頁籤，那一定會漏。
+
+         items: [{ key, where, was, now, langs: [{ code, label, value }] }]
+         resolve({ skip, values })  values[key][lang] = 新譯文
+         按取消就 reject（整個存檔動作中止，不碰資料庫） */
+      function syncGate(items) {
+        return new Promise(function (resolve, reject) {
+          var inputs = {};
+          var body = el('div', { class: 'gate-body' });
+
+          items.forEach(function (it) {
+            inputs[it.key] = {};
+            var langRows = it.langs.map(function (l) {
+              var long = String(it.now || '').length > 28;
+              var input = long ? el('textarea', { style: 'min-height:62px' }) : el('input', { type: 'text' });
+              input.value = l.value || '';
+              if (!l.value) input.placeholder = '還沒有' + l.label + '譯文';
+              inputs[it.key][l.code] = input;
+              return el('div', { class: 'gate-lang' }, [el('label', { text: l.label }), input]);
+            });
+
+            body.appendChild(el('div', { class: 'gate-item' }, [
+              el('div', { class: 'gate-where', text: it.where }),
+              el('div', { class: 'zhdiff' }, [
+                String(it.was || '').trim() ? el('span', { class: 'was', text: it.was }) : null,
+                String(it.was || '').trim() ? el('i', { class: 'fa-solid fa-arrow-right' }) : null,
+                el('span', { class: 'now', text: it.now })
+              ])
+            ].concat(langRows)));
+          });
+
+          var veil = el('div', { class: 'veil show' });
+          var done = false;
+
+          function close() {
+            if (done) return;
+            done = true;
+            document.removeEventListener('keydown', onKey);
+            if (veil.parentNode) veil.parentNode.removeChild(veil);
+          }
+
+          function collect() {
+            var values = {};
+            Object.keys(inputs).forEach(function (key) {
+              Object.keys(inputs[key]).forEach(function (code) {
+                values[key] = values[key] || {};
+                values[key][code] = inputs[key][code].value;
+              });
+            });
+            return values;
+          }
+
+          function onKey(e) {
+            if (e.key === 'Escape') { close(); reject(new Error('cancelled')); }
+          }
+
+          var n = items.length;
+          var langNames = items[0].langs.map(function (l) { return l.label; }).join('、');
+
+          veil.appendChild(el('div', { class: 'dialog wide' }, [
+            el('div', { class: 'gate-head' }, [
+              el('h3', {}, [
+                el('i', { class: 'fa-solid fa-language', style: 'margin-right:8px; color:var(--blue)' }),
+                el('span', { text: '中文改了，' + langNames + '要不要一起改？' })
+              ]),
+              el('p', { text: '這 ' + n + ' 個欄位的中文有變動。下面是它們現在的譯文，直接在這裡改完，按「一起儲存」一次送出。' })
+            ]),
+            body,
+            el('div', { class: 'gate-foot' }, [
+              el('button', {
+                class: 'btn',
+                onclick: function () { close(); resolve({ skip: false, values: collect() }); }
+              }, [el('i', { class: 'fa-solid fa-check' }), el('span', { text: '一起儲存' })]),
+              el('button', {
+                class: 'btn ghost',
+                onclick: function () { close(); resolve({ skip: true, values: {} }); }
+              }, [el('span', { text: '只存中文，稍後再譯' })]),
+              el('span', { class: 'spacer', style: 'margin-left:auto' }),
+              el('button', {
+                class: 'btn ghost',
+                onclick: function () { close(); reject(new Error('cancelled')); }
+              }, [el('span', { text: '取消' })])
+            ])
+          ]));
+
+          document.addEventListener('keydown', onKey);
+          document.body.appendChild(veil);
+
+          var first = body.querySelector('input, textarea');
+          if (first) first.focus();
         });
       }
 
@@ -1368,8 +1495,9 @@
           });
           if (missing.length) { toast('「' + missing[0].label + '」不能空白', 'err'); return; }
 
-          saveBtn.disabled = true;
-          api('/api/admin/save', {
+          function doSave() {
+            saveBtn.disabled = true;
+            api('/api/admin/save', {
             entity: entity,
             action: isNew ? 'create' : 'update',
             id: row ? row.id : 0,
@@ -1402,10 +1530,48 @@
 
             toast('已儲存', 'ok');
             return reload();
-          }).catch(function (err) {
-            toast('存檔失敗：' + err.message, 'err');
-            saveBtn.disabled = false;
+            }).catch(function (err) {
+              toast('存檔失敗：' + err.message, 'err');
+              saveBtn.disabled = false;
+            });
+          }
+
+          /* 在繁中頁籤改了可翻譯的欄位：先把其他語言抬出來一起改。
+             新增的不跳（沒有「舊的譯文」可以對照，該走一鍵翻譯）。 */
+          var otherLangs = (DB.languages || []).filter(function (l) { return !l.is_base; });
+          var changed = isNew ? [] : spec.langFields.filter(function (f) {
+            return Object.prototype.hasOwnProperty.call(editing.draft, f.key)
+              && String(editing.draft[f.key]) !== String(valueOf(entity, row, f.key, baseLang()))
+              && String(editing.draft[f.key]).trim();
           });
+
+          if (activeLang === baseLang() && otherLangs.length && changed.length) {
+            saveBtn.disabled = true;
+            syncGate(changed.map(function (f) {
+              return {
+                key: f.key,
+                where: spec.title + ' · ' + f.label,
+                was: valueOf(entity, row, f.key, baseLang()),
+                now: editing.draft[f.key],
+                langs: otherLangs.map(function (l) {
+                  return { code: l.code, label: l.label, value: valueOf(entity, row, f.key, l.code) };
+                })
+              };
+            })).then(function (out) {
+              if (!out.skip) {
+                Object.keys(out.values).forEach(function (field) {
+                  Object.keys(out.values[field]).forEach(function (code) {
+                    editing.tr[code] = editing.tr[code] || {};
+                    editing.tr[code][field] = out.values[field][code];
+                  });
+                });
+              }
+              doSave();
+            }).catch(function () { saveBtn.disabled = false; });
+            return;
+          }
+
+          doSave();
         });
 
         var foot = el('div', { class: 'card' }, [
@@ -2138,19 +2304,48 @@
 
           save.disabled = true;
 
-          Promise.all(ids.map(function (id) {
-            if (isBase) {
-              return api('/api/admin/save', { entity: 'ui', action: 'update', id: Number(id), base: { zh: drafts[id] } });
-            }
-            var tr = {}; tr[lang] = { text: drafts[id] };
-            return api('/api/admin/save', { entity: 'ui', action: 'update', id: Number(id), base: {}, tr: tr });
-          })).then(function () {
-            toast('已儲存 ' + ids.length + ' 條', 'ok');
-            return reload();
-          }).catch(function (err) {
-            toast('存檔失敗：' + err.message, 'err');
-            save.disabled = false;
-          });
+          function commit(extra) {
+            Promise.all(ids.map(function (id) {
+              if (isBase) {
+                var payload = { entity: 'ui', action: 'update', id: Number(id), base: { zh: drafts[id] } };
+                var add = extra && extra['ui:' + id];
+                if (add) {
+                  payload.tr = {};
+                  Object.keys(add).forEach(function (code) { payload.tr[code] = { text: add[code] }; });
+                }
+                return api('/api/admin/save', payload);
+              }
+              var tr = {}; tr[lang] = { text: drafts[id] };
+              return api('/api/admin/save', { entity: 'ui', action: 'update', id: Number(id), base: {}, tr: tr });
+            })).then(function () {
+              toast('已儲存 ' + ids.length + ' 條', 'ok');
+              return reload();
+            }).catch(function (err) {
+              toast('存檔失敗：' + err.message, 'err');
+              save.disabled = false;
+            });
+          }
+
+          /* 改中文就把各語言現有的譯文抬出來，在同一個框裡改完一起存 */
+          var otherLangs = all.filter(function (l) { return !l.is_base; });
+          if (isBase && otherLangs.length) {
+            syncGate(ids.map(function (id) {
+              var r = rows.filter(function (x) { return String(x.id) === String(id); })[0] || {};
+              return {
+                key: 'ui:' + id,
+                where: '介面文字 · ' + (r.page || '其他'),
+                was: r.zh || '',
+                now: drafts[id],
+                langs: otherLangs.map(function (l) {
+                  return { code: l.code, label: l.label, value: trValue('ui', id, 'text', l.code) };
+                })
+              };
+            })).then(function (out) { commit(out.skip ? null : out.values); })
+              .catch(function () { save.disabled = false; });
+            return;
+          }
+
+          commit(null);
         });
 
         card.appendChild(el('div', { class: 'formfoot' }, [
