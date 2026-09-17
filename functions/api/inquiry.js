@@ -1,24 +1,30 @@
 import { json, fail } from "./_lib.js";
+import { customerAck, pickLang, resendSend } from "./_mail.js";
 
 /* 客戶詢價接收端
    ------------------------------------------------------------
    POST /api/inquiry   （contact.html 的表單）
 
    1. 把客戶留的資料寫進 D1 的 inquiries 表（一定會做）
-   2. 透過 Google Apps Script 寄一封通知信給業務（做不到也不影響第 1 步）
+   2. 透過 Google Apps Script 寄通知信給業務（做不到也不影響第 1 步）
+   3. 透過 Resend 寄一封「已收到」的自動回覆給客戶，寄件人 noreply@
 
-   不回覆客戶 —— 由業務主動聯繫。
+   第 3 步是收件確認，實際回覆仍由業務主動聯繫。
+   第 2、3 步互不影響：任一邊掛掉，另一邊照常寄。
 
-   為什麼繞一圈走 Apps Script：Cloudflare Workers 沒有 SMTP，不能自己寄信。
-   Apps Script 用公司現有的 Gmail 帳號代寄，不用驗證網域也不用第三方服務。
+   為什麼業務那封走 Apps Script、客戶那封走 Resend：
+   業務通知信本來就在運作，沒有理由動它；客戶收到的信需要是自家網域的
+   寄件人，那必須用有驗證網域的服務（Cloudflare Workers 沒有 SMTP）。
 
    收件人不寫在程式裡：讀後台「公司資訊」的聯絡信箱（settings.email）
    和副本收件人（settings.email_cc），所以業務自己在後台就能改。
 
-   需要的環境變數（Pages → 設定 → 環境變數）：
-     GAS_URL      Apps Script 部署後的 .../exec 網址
+   環境變數（Pages → Settings → Variables and Secrets）：
+     GAS_URL          Apps Script 部署後的 .../exec 網址（業務通知信）
+     RESEND_API_KEY   Resend 的 API Key，設成 Secret（客戶自動回覆）
+     MAIL_FROM        選填，預設 noreply@inteplasttw.com.tw
 
-   沒設就只存資料庫、不寄信，表單不會因此失敗。 */
+   兩個都沒設就只存資料庫、不寄信，表單不會因此失敗。 */
 
 function cap(value, max) {
   return String(value == null ? "" : value).trim().slice(0, max);
@@ -87,6 +93,7 @@ export async function onRequest(context) {
         phone: row.phone,
         product: row.product,
         message: row.message,
+        lang: row.lang,
       });
       const notifyTo = pick("email") || env.MAIL_TO || "";
       const notifyCc = pick("email_cc");
@@ -104,6 +111,17 @@ export async function onRequest(context) {
       }).catch(() => null);
 
       if (context.waitUntil) context.waitUntil(send);
+    }
+
+    /* 客戶自動回覆（Resend）—— 與上面業務那封各走各的，互不影響。
+       同樣丟到背景：客戶不用等寄信結果，資料已經進資料庫了。
+       失敗只寫進 Pages 的即時記錄，不會讓表單顯示錯誤。 */
+    if (env.RESEND_API_KEY) {
+      const ack = customerAck(row, pickLang(row.lang));
+      const sendAck = resendSend(env, { to: row.email, ...ack }).then((r) => {
+        if (!r.ok) console.error("[inquiry] 客戶自動回覆失敗 " + r.status + " " + r.body);
+      });
+      if (context.waitUntil) context.waitUntil(sendAck);
     }
 
     return json({ ok: true, saved: true, id });
