@@ -21,7 +21,22 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="src/navbar.css?v=8" id="site-navbar-css">
+    <!-- ===== SEO：正規網址／社群分享卡（2026-09 新增） ===== -->
+  <link rel="canonical" href="https://inteplasttw.com.tw/contact">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:url" content="https://inteplasttw.com.tw/contact">
+  <meta property="og:title" content="聯繫我們 | 臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
+  <meta property="og:description" content="聯繫臺灣營德股份有限公司專人團隊。台北市松山區敦化北路 205 號 6 樓 609 室，電話 +886-2-2712-2211 #8109。">
+  <meta property="og:image" content="https://inteplasttw.com.tw/src/ITC%20Logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="聯繫我們 | 臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
+  <meta name="twitter:description" content="聯繫臺灣營德股份有限公司專人團隊。台北市松山區敦化北路 205 號 6 樓 609 室，電話 +886-2-2712-2211 #8109。">
+  <meta name="twitter:image" content="https://inteplasttw.com.tw/src/ITC%20Logo.png">
+  <!-- ===== /SEO ===== -->
+<link rel="stylesheet" href="src/navbar.css?v=8" id="site-navbar-css">
   <style>
     html.lang-loading body {
       opacity: 0 !important;
@@ -174,7 +189,7 @@
       /* 只在正式網域送資料。原本只認 yunna121.github.io，搬到 Cloudflare Pages
          之後就完全沒有統計了 —— 這裡改成列出所有正式網域。
          換自訂網域時把它加進這個陣列。 */
-      var LIVE_HOSTS = ['yunna121.github.io', 'inteplast-home-page-tw.pages.dev'];
+      var LIVE_HOSTS = ['inteplasttw.com.tw', 'www.inteplasttw.com.tw', 'yunna121.github.io', 'inteplast-home-page-tw.pages.dev'];
       if (LIVE_HOSTS.indexOf(location.hostname) === -1) return;
       var s = document.createElement('script');
       s.async = true;

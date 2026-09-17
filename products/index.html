@@ -22,7 +22,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../src/navbar.css?v=8" id="site-navbar-css">
+    <!-- ===== SEO：正規網址／社群分享卡（2026-09 新增） ===== -->
+  <link rel="canonical" href="https://inteplasttw.com.tw/products/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:url" content="https://inteplasttw.com.tw/products/">
+  <meta property="og:title" content="產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan">
+  <meta property="og:description" content="臺灣營德產品中心 – 核心產品系列：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。">
+  <meta property="og:image" content="https://inteplasttw.com.tw/src/ITC%20Logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan">
+  <meta name="twitter:description" content="臺灣營德產品中心 – 核心產品系列：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。">
+  <meta name="twitter:image" content="https://inteplasttw.com.tw/src/ITC%20Logo.png">
+  <!-- ===== /SEO ===== -->
+<link rel="stylesheet" href="../src/navbar.css?v=8" id="site-navbar-css">
 
   <style>
     :root {
@@ -661,7 +676,7 @@
       /* 只在正式網域送資料。原本只認 yunna121.github.io，搬到 Cloudflare Pages
          之後就完全沒有統計了 —— 這裡改成列出所有正式網域。
          換自訂網域時把它加進這個陣列。 */
-      var LIVE_HOSTS = ['yunna121.github.io', 'inteplast-home-page-tw.pages.dev'];
+      var LIVE_HOSTS = ['inteplasttw.com.tw', 'www.inteplasttw.com.tw', 'yunna121.github.io', 'inteplast-home-page-tw.pages.dev'];
       if (LIVE_HOSTS.indexOf(location.hostname) === -1) return;
       var s = document.createElement('script');
       s.async = true;
