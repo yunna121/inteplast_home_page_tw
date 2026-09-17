@@ -5,11 +5,11 @@
 
    兩種掛法：
 
-   1) <img data-site-img="eco_certificate" src="./src/opt/combine.jpg">
+   1) <img data-site-img="eco_certificate" src="./assets/img/opt/combine.jpg">
       直接換 src。HTML 裡原本的路徑是後備 —— API 掛掉、還沒設定、
       或用 file:// 直接開檔時，畫面照樣有圖。
 
-   2) <img data-product-img="Scale Sheet::patent" src="./src/scale-sheet-patent.jpg">
+   2) <img data-product-img="Scale Sheet::patent" src="./assets/img/scale-sheet-patent.jpg">
       讀「產品資料」裡那筆產品的指定欄位（產品名::欄位名，產品名用「包含」比對）。
       用於「同一張圖在兩頁出現」的情況：專利証書在產品中心與關於營德都有，
       讀同一個欄位，後台上傳一次兩邊一起更新，不會發生「改了一邊忘了另一邊」。
@@ -17,7 +17,7 @@
    3) <section class="story-hero" data-site-bg="about_hero">
       背景圖（含 ::before 這種偽元素）不能直接改 src，所以改設
       CSS 變數 --site-img，CSS 那邊寫成
-        background: var(--site-img, url("./src/原本那張.jpeg")) …
+        background: var(--site-img, url("./assets/img/原本那張.jpeg")) …
       偽元素會繼承父層的自訂屬性，所以掛在區塊本身就夠。
 
    4) <a data-site-file="cert_drawtape_pdf" href="https://原本的外部連結">
@@ -33,7 +33,7 @@
   var fileSlots = document.querySelectorAll('[data-site-file]');
   if (!imgSlots.length && !bgSlots.length && !productSlots.length && !fileSlots.length) return;
 
-  // products/ 子目錄的頁面要往上一層找 src/
+  // products/ 子目錄的頁面要往上一層找 assets/img/
   var root = /\/products\//.test(location.pathname) ? '../' : './';
 
   function urlOf(raw) {
@@ -100,11 +100,11 @@
           if (!value) return;
 
           /* 裸檔名是舊資料：先試 /media/（後台上傳的都在那），
-             載不到再試 src/ 根目錄。src/product-img/ 已刪除。 */
+             載不到再試 assets/img/ 根目錄。assets/img/product-img/ 已刪除。 */
           var candidates;
           if (/^(https?:)?\/\//.test(value) || value.charAt(0) === '/') candidates = [value];
           else if (value.indexOf('/') > -1) candidates = [root + value.replace(/^\.\//, '')];
-          else candidates = ['/media/' + encodeURIComponent(value), root + 'src/' + value];
+          else candidates = ['/media/' + encodeURIComponent(value), root + 'assets/img/' + value];
 
           (function next(list) {
             if (!list.length) return;

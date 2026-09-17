@@ -33,13 +33,13 @@
   <meta property="og:url" content="https://inteplasttw.com.tw/sustainability">
   <meta property="og:title" content="環保標章產品｜臺灣營德股份有限公司">
   <meta property="og:description" content="臺灣營德環保標章產品：台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書。">
-  <meta property="og:image" content="https://inteplasttw.com.tw/src/ITC%20Logo.png">
+  <meta property="og:image" content="https://inteplasttw.com.tw/assets/img/itc-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="環保標章產品｜臺灣營德股份有限公司">
   <meta name="twitter:description" content="臺灣營德環保標章產品：台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書。">
-  <meta name="twitter:image" content="https://inteplasttw.com.tw/src/ITC%20Logo.png">
+  <meta name="twitter:image" content="https://inteplasttw.com.tw/assets/img/itc-logo.png">
   <!-- ===== /SEO ===== -->
-<link rel="stylesheet" href="src/navbar.css?v=8" id="site-navbar-css">
+<link rel="stylesheet" href="assets/css/navbar.css?v=8" id="site-navbar-css">
   <style>
     html.lang-loading body {
       opacity: 0 !important;
@@ -73,7 +73,7 @@
     /* 裝飾層：最終設計不使用（redesign.css 已將其隱藏），保留標記但不顯示 */
     .leaf-decor, .eco-scene { display: none; }
 
-    /* src/responsive.css?v=9 對全站 p 設了 word-break: keep-all（給產品頁短標題用的），
+    /* assets/css/responsive.css?v=9 對全站 p 設了 word-break: keep-all（給產品頁短標題用的），
        這頁是長段落，會在標點處提早斷行。用 body p / body h1 提高選擇器權重蓋回正常斷行。 */
     body p { word-break: normal; overflow-wrap: break-word; text-wrap: pretty; }
     body h1, body h2 { text-wrap: pretty; }
@@ -118,7 +118,7 @@
     .hero { position: relative; overflow: hidden; padding: 92px 0 84px; }
 
     /* Hero 封面圖：後台「網站圖片」的 sus_hero。
-       src/site-images.js 把網址寫成行內的 --site-img，所以用
+       assets/js/site-images.js 把網址寫成行內的 --site-img，所以用
        [style*="--site-img"] 判定「有沒有設圖」—— 沒設就維持原本的底色，
        不會因為多了一層遮罩而洗掉畫面。 */
     .hero[style*="--site-img"]::before {
@@ -165,14 +165,14 @@
     footer { text-align: center; }
   </style>
   <!-- navbar.css 已在 head 上方以 id="site-navbar-css" 載入過，這裡不再重複請求 -->
-  <link rel="stylesheet" href="./sustainability-redesign.css?v=2">
-  <link rel="stylesheet" href="src/responsive.css?v=9">
-  <!-- 全站字級（src/type.css）必須在首次繪製前就到位。
+  <link rel="stylesheet" href="./assets/css/sustainability-redesign.css?v=2">
+  <link rel="stylesheet" href="assets/css/responsive.css?v=9">
+  <!-- 全站字級（assets/css/type.css）必須在首次繪製前就到位。
        原本由 navbar.js 在 <body> 執行時才附加到 head，所以頁面會先用
        本頁自己的級數畫出來（hero 最大 102px），type.css 進來後才收斂成
        52px —— 那就是載入時標題「特別大然後縮小」的原因。
        放在所有樣式之後，同權重時仍然勝出；id 讓 navbar.js 跳過注入。 -->
-  <link id="site-type-css" rel="stylesheet" href="src/type.css">
+  <link id="site-type-css" rel="stylesheet" href="assets/css/type.css">
   <!-- Google Analytics 4（G-0FS2ZC88V0）
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
@@ -195,10 +195,10 @@
 </head>
 
 <body>
-  <!-- 頁首（頂欄／選單／搜尋鈕／語言鈕／CTA）由 src/navbar.js 注入，頁面內不要再手寫一份 -->
+  <!-- 頁首（頂欄／選單／搜尋鈕／語言鈕／CTA）由 assets/js/navbar.js 注入，頁面內不要再手寫一份 -->
   <div id="site-header-component"></div>
-  <script src="src/navbar.js"></script>
-  <script src="src/site-year.js"></script>
+  <script src="assets/js/navbar.js"></script>
+  <script src="assets/js/site-year.js"></script>
   <main>
     <section class="hero" data-site-bg="sus_hero">
       <div class="leaf-decor" aria-hidden="true"><i class="fa-solid fa-leaf"></i><i class="fa-solid fa-leaf"></i><i
@@ -213,7 +213,7 @@
             <a class="button secondary" href="https://greenlifestyle.moenv.gov.tw/greenLabel/GreenMarkIntroFirst" target="_blank" rel="noopener"><span data-tw="環保標章介紹" data-en="">環保標章介紹</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </div>
-        <div class="hero-mark"><img src="./src/environmental-label-mark-official.png" alt="環境部環保標章圖樣"></div>
+        <div class="hero-mark"><img src="./assets/img/environmental-label-mark-official.png" alt="環境部環保標章圖樣"></div>
       </div>
     </section>
 
@@ -258,7 +258,7 @@
               <p class="green-standard-summary" data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將友善環境落實於日常使用。" data-en="">台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將友善環境落實於日常使用。</p>
             </div>
           </div>
-          <figure class="green-standard-visual"><img src="./src/opt/combine.jpg" data-site-img="eco_certificate" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書" loading="lazy" decoding="async"></figure>
+          <figure class="green-standard-visual"><img src="./assets/img/opt/combine.jpg" data-site-img="eco_certificate" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書" loading="lazy" decoding="async"></figure>
           <ul class="green-standard-list">
             <li><strong data-tw="通過製程及環境審查" data-en="">通過製程及環境審查</strong><span data-tw="符合環保標章規格標準，取得產品標示資格。" data-en="">符合環保標章規格標準，取得產品標示資格。</span></li>
             <li><strong data-tw="50% 以上再生塑膠" data-en="">50% 以上再生塑膠</strong><span data-tw="塑膠資源循環利用，延續材料價值。" data-en="">塑膠資源循環利用，延續材料價值。</span></li>
@@ -268,7 +268,7 @@
         </aside>
         <div class="products-grid">
           <article class="product-card">
-            <div class="product-image"><img src="./src/opt/drawtape.jpg" data-site-img="sus_product_drawtape" alt="台塑環保拉繩清潔袋" loading="lazy" decoding="async"></div>
+            <div class="product-image"><img src="./assets/img/opt/drawtape.jpg" data-site-img="sus_product_drawtape" alt="台塑環保拉繩清潔袋" loading="lazy" decoding="async"></div>
             <div class="product-content">
               <span class="product-label"><i class="fa-solid fa-leaf"></i> <span data-tw="環保標章認證產品" data-en="">ENVIRONMENTAL LABEL PRODUCT</span></span>
               <h3 data-tw="台塑環保拉繩清潔袋" data-en="">台塑環保拉繩清潔袋</h3>
@@ -277,7 +277,7 @@
             </div>
           </article>
           <article class="product-card">
-            <div class="product-image"><img src="./src/opt/cleaning.jpg" data-site-img="sus_product_cleaning" alt="台塑環保清潔袋" loading="lazy" decoding="async"></div>
+            <div class="product-image"><img src="./assets/img/opt/cleaning.jpg" data-site-img="sus_product_cleaning" alt="台塑環保清潔袋" loading="lazy" decoding="async"></div>
             <div class="product-content">
               <span class="product-label"><i class="fa-solid fa-leaf"></i> <span data-tw="環保標章認證產品" data-en="">ENVIRONMENTAL LABEL PRODUCT</span></span>
               <h3 data-tw="台塑環保清潔袋" data-en="">台塑環保清潔袋</h3>
@@ -330,14 +330,14 @@
   </main>
   <footer>© {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</footer>
 
-  <script src="src/site-search.js?v=2"></script>
-  <script src="src/mobile-nav.js?v=8"></script>
-  <script src="src/footer.js"></script>
-  <script src="src/site-lang.js?v=10"></script>
-  <script src="src/page-blocks.js?v=8"></script>
+  <script src="assets/js/site-search.js?v=2"></script>
+  <script src="assets/js/mobile-nav.js?v=8"></script>
+  <script src="assets/js/footer.js"></script>
+  <script src="assets/js/site-lang.js?v=10"></script>
+  <script src="assets/js/page-blocks.js?v=8"></script>
   <!-- 頁面上的照片改由後台「網站圖片」設定，HTML 裡的路徑是後備 -->
-  <script src="src/site-images.js?v=1"></script>
-  <script src="src/cjk-nbsp.js?v=5"></script>
+  <script src="assets/js/site-images.js?v=1"></script>
+  <script src="assets/js/cjk-nbsp.js?v=5"></script>
 </body>
 
 </html>

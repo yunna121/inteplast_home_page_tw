@@ -192,7 +192,7 @@ html, body { min-width: 320px; }
   .edm-size-pill { font-size: 0.92rem !important; }
   .edm-spec-card-dim { font-size: 0.84rem !important; }
 
-  /* ---------- 圖左表右 → 上下堆疊（斷點與 src/spec-render.js 一致） ---------- */
+  /* ---------- 圖左表右 → 上下堆疊（斷點與 assets/js/spec-render.js 一致） ---------- */
   .spec-with-photo { grid-template-columns: 1fr !important; }
   .spec-photo-pane { padding: 20px !important; border-right: none !important; border-bottom: 1px solid #E2E8F0 !important; }
   .spec-stage { height: 210px !important; }

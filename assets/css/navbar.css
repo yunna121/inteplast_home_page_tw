@@ -479,6 +479,6 @@
   }
 }
 
-/* 搜尋視窗（.om-*）的樣式由 src/site-search.js 自行注入，這裡不再重複一份。
+/* 搜尋視窗（.om-*）的樣式由 assets/js/site-search.js 自行注入，這裡不再重複一份。
    原本的 .search-modal-* / .search-result-* / .search-quick-tags / .quick-tag-btn 已刪除：
    site-search.js 會移除 #searchModalOverlay，那些規則不會有元素套用。 */

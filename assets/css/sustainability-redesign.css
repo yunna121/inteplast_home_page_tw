@@ -47,7 +47,7 @@ section {
   min-height: 444px;
   padding: 56px 0;
   isolation: isolate;
-  background: url("./src/sustainability-hero-green-label.png") center / cover no-repeat;
+  background: url("./assets/img/sustainability-hero-green-label.png") center / cover no-repeat;
   border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
@@ -213,7 +213,7 @@ section {
 
 /* Composited hero artwork: the emblem is baked into this image. */
 .hero {
-  background: url("./src/sustainability-hero-green-label.png?v=16") center / cover no-repeat;
+  background: url("./assets/img/sustainability-hero-green-label.png?v=16") center / cover no-repeat;
 }
 
 .hero::before, .hero::after, .hero .leaf-decor, .hero-mark {

@@ -31,13 +31,13 @@
   <meta property="og:url" content="https://inteplasttw.com.tw/products/">
   <meta property="og:title" content="產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan">
   <meta property="og:description" content="臺灣營德產品中心 – 核心產品系列：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。">
-  <meta property="og:image" content="https://inteplasttw.com.tw/src/ITC%20Logo.png">
+  <meta property="og:image" content="https://inteplasttw.com.tw/assets/img/itc-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="產品中心 | 臺灣營德股份有限公司 Inteplast Taiwan">
   <meta name="twitter:description" content="臺灣營德產品中心 – 核心產品系列：清潔袋、拉繩袋、蔬果袋、夾鏈袋、手套與遮蔽防塵膠帶與 Scale Sheet。">
-  <meta name="twitter:image" content="https://inteplasttw.com.tw/src/ITC%20Logo.png">
+  <meta name="twitter:image" content="https://inteplasttw.com.tw/assets/img/itc-logo.png">
   <!-- ===== /SEO ===== -->
-<link rel="stylesheet" href="../src/navbar.css?v=8" id="site-navbar-css">
+<link rel="stylesheet" href="../assets/css/navbar.css?v=8" id="site-navbar-css">
 
   <style>
     :root {
@@ -184,7 +184,7 @@
        在 430px 都不成立；排成多行又看不出可以點。
        下拉只有一個控制項，且「目前選什麼」一眼就知道。
        選擇器一律帶上 .products-hero-container（兩層 class），
-       src/type.css 與 responsive.css 的単一 class 規則都壓不過。 */
+       assets/css/type.css 與 responsive.css 的単一 class 規則都壓不過。 */
     @media (max-width: 560px) {
       .products-hero-container .filter-mobile-toggle {
         display: inline-flex;
@@ -668,7 +668,7 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="../src/responsive.css?v=9">
+  <link rel="stylesheet" href="../assets/css/responsive.css?v=9">
   <!-- Google Analytics 4（G-0FS2ZC88V0）
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
@@ -691,12 +691,12 @@
 </head>
 
 <body>
-  <!-- 頁首由 src/navbar.js 注入 -->
+  <!-- 頁首由 assets/js/navbar.js 注入 -->
   <div id="site-header-component"></div>
-  <script src="../src/navbar.js"></script>
-  <script src="../src/site-year.js"></script>
+  <script src="../assets/js/navbar.js"></script>
+  <script src="../assets/js/site-year.js"></script>
 
-  <!-- Top Utility Bar & Header Navigation Auto-Injected by src/navbar.js -->
+  <!-- Top Utility Bar & Header Navigation Auto-Injected by assets/js/navbar.js -->
   <div id="site-navbar"></div>
 
   <!-- Page Hero Stage -->
@@ -747,15 +747,15 @@
       /* 圖片路徑三種寫法都吃：
            /media/x.png（編輯頁上傳到 R2 的）→ 直接用
            http(s)://…            → 直接用
-           只寫檔名                → 舊資料，先試 /media/，載不到改試 src/ 根目錄
-                                     （src/product-img/ 已隨資料源移到 D1 後刪除） */
+           只寫檔名                → 舊資料，先試 /media/，載不到改試 assets/img/ 根目錄
+                                     （assets/img/product-img/ 已隨資料源移到 D1 後刪除） */
       function photoOf(row) {
         var raw = String(row.img || '').trim();
         if (/^(https?:)?\/\//.test(raw) || raw.charAt(0) === '/') return { main: raw, backup: '' };
         var n = raw.replace(/^\.?\/?src\//, '');
         if (!n) return { main: '', backup: '' };
-        if (n.indexOf('/') > -1) return { main: '../src/' + n, backup: '' };
-        return { main: '/media/' + encodeURIComponent(n), backup: '../src/' + n };
+        if (n.indexOf('/') > -1) return { main: '../assets/img/' + n, backup: '' };
+        return { main: '/media/' + encodeURIComponent(n), backup: '../assets/img/' + n };
       }
 
       // 先用 Image() 探測，確認哪個資料夾有這張圖，再寫進 <img>（避免 404 紅字與匯出時抓到失敗的 URL）
@@ -961,13 +961,13 @@
           }
         }
         var patentImg = (row && String(row.patent || '').trim()) || 'scale-sheet-patent.jpg';
-        /* 後台上傳的圖是 /media/xxx.webp（絕對路徑），不能再前面接 ../src/ ——
-           原本無條件拼成 ../src//media/xxx.webp，所以上傳完就變破圖。
+        /* 後台上傳的圖是 /media/xxx.webp（絕對路徑），不能再前面接 ../assets/img/ ——
+           原本無條件拼成 ../assets/img//media/xxx.webp，所以上傳完就變破圖。
            規則與產品照的 photoOf 一致：絕對路徑與外部網址直接用，
-           只有裸檔名才去 src/ 底下找。 */
+           只有裸檔名才去 assets/img/ 底下找。 */
         var patentSrc = /^(https?:)?\/\//.test(patentImg) || patentImg.charAt(0) === '/'
           ? patentImg
-          : '../src/' + patentImg;
+          : '../assets/img/' + patentImg;
         var sec = document.getElementById('patentSection');
         if (!sec || !row) return;
 
@@ -1062,11 +1062,11 @@
       window.syncFilterToggle(false);
     })();
   </script>
-  <script src="../src/site-search.js?v=2"></script>
-  <script src="../src/mobile-nav.js?v=8"></script>
-  <script src="../src/footer.js"></script>
-  <script src="../src/site-lang.js?v=10"></script>
-  <script src="../src/cjk-nbsp.js?v=5"></script>
+  <script src="../assets/js/site-search.js?v=2"></script>
+  <script src="../assets/js/mobile-nav.js?v=8"></script>
+  <script src="../assets/js/footer.js"></script>
+  <script src="../assets/js/site-lang.js?v=10"></script>
+  <script src="../assets/js/cjk-nbsp.js?v=5"></script>
 </body>
 
 </html>

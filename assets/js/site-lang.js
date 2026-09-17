@@ -46,7 +46,7 @@
   }
 
   /** 某個中文原文在目前語言下該顯示什麼 */
-  /* {{year}} / {{years}} 會自動代入數字（src/site-year.js）。
+  /* {{year}} / {{years}} 會自動代入數字（assets/js/site-year.js）。
      對照表的鍵是「帶著代號」的原文，所以查表前不能先換掉代號；
      查到譯文之後才把代號換成數字 —— 譯文自己也帶著同樣的代號。 */
   function fillYears(s) {
@@ -55,7 +55,7 @@
     return String(s).split('{{year}}').join(Y.year).split('{{years}}').join(Y.years);
   }
 
-  /* 斷行處理（src/cjk-nbsp.js）：把譯文裡「不該當斷點」的空白換成
+  /* 斷行處理（assets/js/cjk-nbsp.js）：把譯文裡「不該當斷點」的空白換成
      不斷行空白。必須在寫進 innerHTML 之前做 ——
      這支每次套用語言都會整段覆寫，事後再改會先閃一下錯的斷行。
      cjk-nbsp.js 在本檔之後載入，所以用時才查，不在載入時取。 */
@@ -190,7 +190,7 @@
   /* 語言鈕：兩種語言時維持原本的兩段式切換；
      三種以上自動變成下拉選單。 */
   function renderSwitcher() {
-    /* 手機抽屜有自己的語言鈕（src/mobile-nav.js 的 #mNavLang），
+    /* 手機抽屜有自己的語言鈕（assets/js/mobile-nav.js 的 #mNavLang），
        文字要一起更新，否則會一直寫著「EN / 繁中」 */
     var mBtn = document.getElementById('mNavLang');
     if (mBtn) {

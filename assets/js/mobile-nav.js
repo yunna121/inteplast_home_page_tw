@@ -93,7 +93,7 @@
 
   function esc(s) { return (s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
-  /* 抽屜的字要跟著全站語言切換：加上 data-tw / data-en 讓 src/site-lang.js 接手。
+  /* 抽屜的字要跟著全站語言切換：加上 data-tw / data-en 讓 assets/js/site-lang.js 接手。
      沒有英文時只放 data-tw，切英文時保留中文（不會變空白）。 */
   function i18n(tw, en) {
     var out = ' data-tw="' + esc(tw) + '"';
@@ -212,7 +212,7 @@
         '<div class="m-nav-body">' + body + utilityBlock + '</div>' +
         '<div class="m-nav-foot">' +
           '<a class="m-nav-cta" href="' + esc(contactHref) + '"' + i18n('聯繫我們', 'Contact Us') + '><i class="fa-solid fa-envelope"></i> 聯繫我們</a>' +
-          '<button class="m-nav-lang" id="mNavLang" type="button">EN / 繁中</button>'  // 文字由 src/site-lang.js 依實際語言數更新 +
+          '<button class="m-nav-lang" id="mNavLang" type="button">EN / 繁中</button>'  // 文字由 assets/js/site-lang.js 依實際語言數更新 +
         '</div>' +
       '</aside>';
     document.body.insertAdjacentHTML('beforeend', html);

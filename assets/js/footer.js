@@ -5,9 +5,9 @@
    要加網站導覽就得改五個檔案、日後也會各自長歪。這裡集中一份，
    有 <footer class="footer"> 或 #site-footer-component 就換掉它的內容。
 
-   語言切換沿用 data-tw / data-en（src/site-lang.js）；
-   公司資訊沿用 data-site（src/content.js 會用後台內容覆蓋）；
-   年份沿用 {{year}}（src/site-year.js）。
+   語言切換沿用 data-tw / data-en（assets/js/site-lang.js）；
+   公司資訊沿用 data-site（assets/js/content.js 會用後台內容覆蓋）；
+   年份沿用 {{year}}（assets/js/site-year.js）。
    ============================================================ */
 (function () {
   var inProducts = /\/products\//.test(location.pathname);
@@ -127,7 +127,7 @@
   }
   `;
 
-  /* 文字放在內層 span：src/site-lang.js 會整段換掉 [data-tw] 的 innerHTML，
+  /* 文字放在內層 span：assets/js/site-lang.js 會整段換掉 [data-tw] 的 innerHTML，
      外連圖示若跟文字同層會被搬到前面。 */
   function link(href, tw, en, external) {
     return '<a href="' + href + '"' + (external ? ' target="_blank" rel="noopener"' : '') + '>' +
@@ -141,7 +141,7 @@
     '<div class="sf-grid">' +
       '<div>' +
         '<a class="sf-brand" href="' + ROOT + 'index.html" title="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">' +
-          '<img class="sf-logo" src="' + ROOT + 'src/ITC Logo.png" alt="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">' +
+          '<img class="sf-logo" src="' + ROOT + 'assets/img/itc-logo.png" alt="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">' +
         '</a>' +
         '<div class="sf-contact">' +
           '<div><i class="fa-solid fa-location-dot"></i><span data-site="address" data-tw="臺北市松山區敦化北路205號6樓609室" data-en="Rm. 609, 6F., No. 205, Dunhua N. Rd., Songshan Dist., Taipei City, Taiwan">臺北市松山區敦化北路205號6樓609室</span></div>' +

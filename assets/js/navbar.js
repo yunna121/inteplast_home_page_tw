@@ -3,7 +3,7 @@
  *
  * 職責：注入集團頂欄 + 頁首導覽、產品錨點平滑滾動、跨頁縮放記憶。
  *
- * 不負責搜尋。搜尋（索引、結果、視窗）一律由 src/site-search.js 提供，
+ * 不負責搜尋。搜尋（索引、結果、視窗）一律由 assets/js/site-search.js 提供，
  * 本檔只保留頁首那顆 .search-trigger-btn 按鈕，site-search.js 會接手它的點擊。
  * 原本這裡另有一份 10 筆的 searchIndex 與自己的 modal，與 site-search.js 重複
  * （且 site-search.js 載入時會直接移除它的 #searchModalOverlay），已整段刪除。
@@ -21,7 +21,7 @@
     const cssLink = document.createElement('link');
     cssLink.id = 'site-navbar-css';
     cssLink.rel = 'stylesheet';
-    cssLink.href = `${rootPath}src/navbar.css`;
+    cssLink.href = `${rootPath}assets/css/navbar.css`;
     document.head.appendChild(cssLink);
   }
 
@@ -31,34 +31,34 @@
     const icon = document.createElement('link');
     icon.rel = 'icon';
     icon.type = 'image/svg+xml';
-    icon.href = `${rootPath}src/inteplast-logo-blue.svg`;
+    icon.href = `${rootPath}assets/img/inteplast-logo-blue.svg`;
     document.head.appendChild(icon);
     // Safari 分頁釘選用
     const mask = document.createElement('link');
     mask.rel = 'mask-icon';
-    mask.href = `${rootPath}src/inteplast-logo-blue.svg`;
+    mask.href = `${rootPath}assets/img/inteplast-logo-blue.svg`;
     mask.setAttribute('color', '#175EA9');
     document.head.appendChild(mask);
   }
 
-  // 全站字體與字級（src/type.css）。原本五個頁面各自定義字體與級數，
+  // 全站字體與字級（assets/css/type.css）。原本五個頁面各自定義字體與級數，
   // 同樣寫 2rem 在不同字體下看起來就是不一樣大。這裡集中注入，五頁都不用改 <head>。
   // 附加在 navbar.css 之後、且在各頁區域樣式之後（head 最後），所以同權重時勝出。
   if (!document.getElementById('site-type-css')) {
     const typeLink = document.createElement('link');
     typeLink.id = 'site-type-css';
     typeLink.rel = 'stylesheet';
-    typeLink.href = `${rootPath}src/type.css`;
+    typeLink.href = `${rootPath}assets/css/type.css`;
     document.head.appendChild(typeLink);
   }
 
-  // 公司資訊套用層（src/site-info.js）。頁尾與聯繫我們的電話、信箱、地址
+  // 公司資訊套用層（assets/js/site-info.js）。頁尾與聯繫我們的電話、信箱、地址
   // 來自 D1 的 settings 表（GET /api/settings），由編輯頁維護。
   // 集中在這裡注入，五個頁面都不用改。
   if (!document.getElementById('site-info-js')) {
     const infoScript = document.createElement('script');
     infoScript.id = 'site-info-js';
-    infoScript.src = `${rootPath}src/site-info.js`;
+    infoScript.src = `${rootPath}assets/js/site-info.js`;
     document.head.appendChild(infoScript);
   }
 
@@ -102,7 +102,7 @@
   </div>
   <header class="header">
     <a href="${rootPath}index.html" class="header-logo" title="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
-      <img src="${rootPath}src/ITC Logo.png" alt="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION" class="logo-image">
+      <img src="${rootPath}assets/img/itc-logo.png" alt="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION" class="logo-image">
     </a>
 
     <ul class="nav-menu">

@@ -6,7 +6,7 @@
    所以版面壞不掉。要新增版型是改這支，不是開放自由編輯。
 
    多語言：每個文字都掛 data-tw（中文原文），其他語言由
-   src/site-lang.js 依 /api/ui-strings 查表替換。這裡另外把
+   assets/js/site-lang.js 依 /api/ui-strings 查表替換。這裡另外把
    API 帶回來的 title_en / title_ja 直接寫成 data-en / data-ja，
    兩條路都通，先到先套。
 */
@@ -37,7 +37,7 @@
     var raw = String(value || '').trim();
     if (!raw) return '';
     if (/^(https?:)?\/\//.test(raw) || raw.charAt(0) === '/') return raw;
-    // 裸檔名是舊資料；後台上傳的圖都是 /media/…（src/product-img/ 已刪除）
+    // 裸檔名是舊資料；後台上傳的圖都是 /media/…（assets/img/product-img/ 已刪除）
     return '/media/' + encodeURIComponent(raw);
   }
 

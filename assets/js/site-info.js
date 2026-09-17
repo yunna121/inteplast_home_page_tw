@@ -12,11 +12,11 @@
 
    多語言：API 會同時回傳 address 與 address_en（以及日後新增的
    address_ja…）。這裡把各語言寫進 data-tw / data-en 等屬性，
-   再交給 src/site-lang.js 依當前語言顯示 —— 所以切語言時
+   再交給 assets/js/site-lang.js 依當前語言顯示 —— 所以切語言時
    公司資訊也會跟著換。
 
-   本檔由 src/navbar.js 注入，五個頁面都不必改 <head> 或 <body>。
-   （原本這件事由 src/content.js 做，資料來自 content/site.json；
+   本檔由 assets/js/navbar.js 注入，五個頁面都不必改 <head> 或 <body>。
+   （原本這件事由 assets/js/content.js 做，資料來自 content/site.json；
      JSON 後台已移除，資料改存 D1。）
    ============================================================ */
 (function () {
@@ -110,7 +110,7 @@
       });
   }
 
-  /* 頁尾是 src/footer.js 注入的，等 DOM 齊全再套用 */
+  /* 頁尾是 assets/js/footer.js 注入的，等 DOM 齊全再套用 */
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
 

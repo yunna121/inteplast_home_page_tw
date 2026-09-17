@@ -28,7 +28,7 @@
   /* data-tw 刻意不在列：它是翻譯對照表的鍵，代號必須原樣保留，
      不然查表時會變成「43 年全球品牌資歷」這種表裡沒有的鍵。
      看得到的文字由下方的文字節點處理，翻譯後的代號則由
-     src/site-lang.js 的 fillYears() 接手。 */
+     assets/js/site-lang.js 的 fillYears() 接手。 */
   var ATTRS = ['data-target', 'title', 'alt', 'content', 'aria-label', 'placeholder'];
 
   function apply(root) {

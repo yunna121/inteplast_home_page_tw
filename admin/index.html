@@ -794,7 +794,7 @@
         main.appendChild(el('div', { class: 'login-page' }, [
           el('div', { class: 'login-card' }, [
             el('div', { class: 'login-brand' }, [
-              el('div', { class: 'login-logo' }, [el('img', { src: '../src/inteplast-logo-blue.svg', alt: 'INTEPLAST' })]),
+              el('div', { class: 'login-logo' }, [el('img', { src: '../assets/img/inteplast-logo-blue.svg', alt: 'INTEPLAST' })]),
               el('div', {}, [
                 el('h2', { text: '網站管理系統' }),
                 el('div', { class: 'en', text: 'Inteplast Taiwan' })
@@ -987,8 +987,8 @@
         var raw = String(value || '').trim();
         if (!raw) return '';
         if (/^(https?:)?\/\//.test(raw) || raw.charAt(0) === '/') return raw;
-        // 含路徑的（src/opt/x.jpg）從網站根目錄找；只有檔名的是舊資料，
-        // 後台上傳的圖都在 /media/（src/product-img/ 已刪除）
+        // 含路徑的（assets/img/opt/x.jpg）從網站根目錄找；只有檔名的是舊資料，
+        // 後台上傳的圖都在 /media/（assets/img/product-img/ 已刪除）
         if (raw.indexOf('/') > -1) return '/' + raw.replace(/^\.\//, '');
         return '/media/' + encodeURIComponent(raw);
       }
