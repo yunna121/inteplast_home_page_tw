@@ -16,12 +16,19 @@ import { json, fail } from "../_lib.js";
    Cloudflare Function 有執行時間限制。前端會重複呼叫直到
    remaining 歸零，並顯示進度。 */
 
+// const MODELS = [
+//   "@cf/meta/llama-4-scout-17b-16e-instruct",
+//   "@cf/qwen/qwen3-30b-a3b",
+//   "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+//   "@cf/mistralai/mistral-small-3.1-24b-instruct",
+//   "@cf/meta/llama-3.1-8b-instruct",
+// ];
+
 const MODELS = [
-  "@cf/meta/llama-4-scout-17b-16e-instruct",
   "@cf/qwen/qwen3-30b-a3b",
   "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
   "@cf/mistralai/mistral-small-3.1-24b-instruct",
-  "@cf/meta/llama-3.1-8b-instruct",
+  "@cf/meta/llama-4-scout-17b-16e-instruct",
 ];
 
 const LANG_NAMES = {
@@ -118,18 +125,62 @@ export async function onRequest(context) {
     const source = {};
     pending.forEach((r, i) => { source["s" + i] = r.zh; });
 
-    const prompt = `你是台灣塑膠製品製造商官方網站的翻譯員。請把下面的繁體中文網站介面文字翻成${target}。
+//     const prompt = `你是台灣塑膠製品製造商官方網站的翻譯員。請把下面的繁體中文網站介面文字翻成${target}。
 
-規則：
-1. 只輸出 JSON 物件，鍵沿用輸入的編號，值是翻譯後的文字，不要任何解釋
-2. 這是網站的選單、按鈕、標題與說明文字，用語要簡潔、符合企業官網語氣
-3. **保留 {{year}}、{{years}} 這類雙大括號變數，原樣不動**
-4. 保留 <br> 標籤、「·」「｜」等符號的位置
-5. 公司名稱 INTEPLAST、Scale Sheet、ISO 9001 等專有名詞維持原樣
-6. 「臺灣營德股份有限公司」譯為 INTEPLAST TAIWAN CORPORATION（其他語言比照，保留英文商號）
-7. 短標題就翻成短標題，不要擴寫成句子
+// 規則：
+// 1. 只輸出 JSON 物件，鍵沿用輸入的編號，值是翻譯後的文字，不要任何解釋
+// 2. 這是網站的選單、按鈕、標題與說明文字，用語要簡潔、符合企業官網語氣
+// 3. **保留 {{year}}、{{years}} 這類雙大括號變數，原樣不動**
+// 4. 保留 <br> 標籤、「·」「｜」等符號的位置
+// 5. 公司名稱 INTEPLAST、Scale Sheet、ISO 9001 等專有名詞維持原樣
+// 6. 「臺灣營德股份有限公司」譯為 INTEPLAST TAIWAN CORPORATION（其他語言比照，保留英文商號）
+// 7. 短標題就翻成短標題，不要擴寫成句子
 
-原文：
+// 原文：
+// ${JSON.stringify(source, null, 1)}`;
+
+const prompt = `You are a professional multilingual translator and localization editor for the official B2B website of a Taiwanese plastics manufacturer.
+
+Translate the following Traditional Chinese website interface text into ${target}.
+
+IMPORTANT:
+This is NOT a word-for-word translation task.
+
+First understand the meaning, purpose, and context of each Chinese interface text. Then express it naturally in ${target} using the wording and conventions that native speakers would normally see on a professional B2B corporate website.
+
+Do not preserve Chinese sentence structure when doing so would make the result sound unnatural.
+
+The goal is for the translated UI to look as if it were originally written by a native ${target} website editor, not translated from Chinese.
+
+Translation principles:
+1. Return ONLY a JSON object. Keep the input IDs as the keys and use the translated text as the values. Do not include explanations.
+2. Use concise, natural wording appropriate for website navigation, buttons, headings, labels, and short descriptions.
+3. Do not translate word by word. Prioritize the original meaning, purpose, and user experience over the literal wording or sentence structure of the Chinese source.
+4. If a direct translation sounds unnatural in ${target}, rewrite it using the natural expression commonly used by native speakers.
+5. Keep short headings and buttons short. Do not unnecessarily turn them into complete sentences.
+6. The website is a professional B2B corporate website. Use a professional, clear, trustworthy, and natural tone.
+7. Do not use overly casual language, machine-translation-style wording, or unnecessary marketing language.
+8. Do not add information, claims, features, benefits, or marketing statements that are not present in the source.
+9. Preserve {{year}}, {{years}}, and any other variables inside double curly braces exactly as they appear.
+10. Preserve <br> tags and symbols such as "·" and "｜" when they are part of the original text.
+11. Keep established brand names, company names, product names, standards, certifications, model numbers, and other official terminology unchanged unless an established target-language name is provided.
+12. "INTEPLAST" must remain "INTEPLAST".
+13. "Scale Sheet" must remain "Scale Sheet".
+14. "ISO 9001" must remain "ISO 9001".
+15. "Green Mark" refers to Taiwan's official environmental label and must remain "Green Mark".
+16. "Eco" must remain "Eco" when it is part of an official product name.
+17. "臺灣營德股份有限公司" should be represented as "INTEPLAST TAIWAN CORPORATION" in the target language unless an established official target-language company name is provided.
+18. Preserve the intended meaning and function of each UI element. For example, a button should sound like a button, a navigation item should sound like a navigation item, and a heading should remain a heading.
+
+Before producing the final translation, internally check:
+- Does the translation sound natural to a native speaker of ${target}?
+- Does it sound appropriate for a professional B2B corporate website?
+- Did you avoid literal Chinese sentence structure?
+- Did you preserve the original meaning and all required variables, tags, terminology, and factual information?
+
+Output ONLY the JSON object.
+
+Source:
 ${JSON.stringify(source, null, 1)}`;
 
     const candidates = env.AI_MODEL ? [env.AI_MODEL, ...MODELS] : MODELS;
@@ -140,7 +191,14 @@ ${JSON.stringify(source, null, 1)}`;
       try {
         const res = await env.AI.run(model, {
           messages: [
-            { role: "system", content: "你只輸出 JSON 物件，不輸出任何其他文字。" },
+            {
+                role: "system",
+                content: `You are a professional B2B website localization editor.
+              Translate content naturally into ${target}.
+              Do not translate literally or preserve Chinese sentence structure.
+              Preserve the original meaning, terminology, variables, and formatting.
+              Return ONLY the requested JSON object.`
+              },
             { role: "user", content: prompt },
           ],
           max_tokens: 2400,
