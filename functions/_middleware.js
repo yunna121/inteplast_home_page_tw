@@ -15,7 +15,8 @@
    只導「正式的」pages.dev 網址；分支預覽（開頭一串亂碼的那種）
    保持原樣，測試才不會被踢走。 */
 
-const PRIMARY = 'inteplasttw.com.tw';
+// const PRIMARY = 'inteplasttw.com.tw';
+const PRIMARY = 'inteplast-home-page-tw.pages.dev';
 const LEGACY = ['inteplast-home-page-tw.pages.dev', 'yunna121.github.io'];
 
 export async function onRequest(context) {
