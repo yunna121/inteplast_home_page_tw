@@ -164,6 +164,14 @@ function translate(res, lang, path, strings, origin) {
 
   const canonical = origin + '/' + lang + (path === '/' ? '/' : path);
 
+  /* <title> 與 description 解出來的結果，給後面的 og:／twitter: 沿用。
+     這兩個標籤在 <head> 裡排在 og 之前，所以串流處理時已經填好了。
+
+     為什麼不讓 og 自己查對照表：那些 content 是手寫的 SEO 文案，
+     不是後台的介面文字，對照表裡查不到 —— 會留在中文。 */
+  let doneTitle = '';
+  let doneDesc = '';
+
   const rewriter = new HTMLRewriter()
     .on('html', { element: (e) => e.setAttribute('lang', conf.htmlLang) })
 
@@ -171,24 +179,24 @@ function translate(res, lang, path, strings, origin) {
     .on('title', {
       element(e) {
         const v = e.getAttribute(conf.titleAttr) || tr(e.getAttribute('data-tw'));
-        if (v) e.setInnerContent(v);
+        if (v) { doneTitle = v; e.setInnerContent(v); }
       },
     })
 
     .on('meta[name="description"]', {
       element(e) {
         const v = e.getAttribute(conf.descAttr) || tr(e.getAttribute('data-desc-tw'));
-        if (v) e.setAttribute('content', v);
+        if (v) { doneDesc = v; e.setAttribute('content', v); }
       },
     })
 
     /* 社群分享卡跟著語言走 */
-    .on('meta[property="og:title"]', { element: (e) => swapContent(e, tr) })
-    .on('meta[property="og:description"]', { element: (e) => swapContent(e, tr) })
+    .on('meta[property="og:title"]', { element: (e) => setFrom(e, () => doneTitle, tr) })
+    .on('meta[property="og:description"]', { element: (e) => setFrom(e, () => doneDesc, tr) })
     .on('meta[property="og:locale"]', { element: (e) => e.setAttribute('content', conf.ogLocale) })
     .on('meta[property="og:url"]', { element: (e) => e.setAttribute('content', canonical) })
-    .on('meta[name="twitter:title"]', { element: (e) => swapContent(e, tr) })
-    .on('meta[name="twitter:description"]', { element: (e) => swapContent(e, tr) })
+    .on('meta[name="twitter:title"]', { element: (e) => setFrom(e, () => doneTitle, tr) })
+    .on('meta[name="twitter:description"]', { element: (e) => setFrom(e, () => doneDesc, tr) })
 
     /* 正規網址指向自己這個語言版，否則三個語言會互相搶排名 */
     .on('link[rel="canonical"]', { element: (e) => e.setAttribute('href', canonical) })
@@ -228,8 +236,9 @@ function translate(res, lang, path, strings, origin) {
   return out;
 }
 
-function swapContent(e, tr) {
-  const v = tr(e.getAttribute('content'));
+/* 先用已解出的 title／description，沒有才退回查對照表 */
+function setFrom(e, get, tr) {
+  const v = get() || tr(e.getAttribute('content'));
   if (v) e.setAttribute('content', v);
 }
 
