@@ -37,14 +37,59 @@
 const PRIMARY = 'inteplasttw.com.tw';
 const LEGACY = ['inteplast-home-page-tw.pages.dev', 'yunna121.github.io'];
 
-/* 支援的語言。key 是網址前綴，也是 translations 表的 lang 值。
-   htmlLang 是 <html lang> 與 hreflang 用的完整標記。
-   新增語言時這裡加一行，其餘都不用動。 */
-const LANGS = {
-  en: { htmlLang: 'en', ogLocale: 'en_US', titleAttr: 'data-en', descAttr: 'data-desc-en' },
-  ja: { htmlLang: 'ja', ogLocale: 'ja_JP', titleAttr: 'data-ja', descAttr: 'data-desc-ja' },
+/* 支援的語言直接讀後台「語言」設定（D1 的 languages 表）——
+   程式裡不寫死清單，所以新增語言時**這個檔案完全不用改**：
+   後台加一個語言、翻好介面文字，/ko/ 這類網址下一次請求就能用。
+
+   og:locale 需要「語言_地區」的格式，這裡只列常見對應，
+   查不到就直接用語言代碼（Facebook 容錯，不會壞）。 */
+const OG_LOCALE = {
+  en: 'en_US', ja: 'ja_JP', ko: 'ko_KR', vi: 'vi_VN',
+  es: 'es_ES', de: 'de_DE', fr: 'fr_FR', th: 'th_TH',
+  id: 'id_ID', 'zh-tw': 'zh_TW', 'zh-cn': 'zh_CN',
 };
+
 const BASE = { htmlLang: 'zh-Hant-TW', ogLocale: 'zh_TW' };
+
+function langConf(code) {
+  const key = String(code).toLowerCase();
+  return {
+    code: key,
+    htmlLang: key,
+    ogLocale: OG_LOCALE[key] || key.replace('-', '_'),
+    /* 標題與描述不是後台的介面文字（查不到對照表），
+       所以直接讀頁面上的 data-<語言> 屬性。 */
+    titleAttr: 'data-' + key,
+    descAttr: 'data-desc-' + key,
+  };
+}
+
+/* 看起來像語言代碼的第一段路徑：en、ja、zh-tw…
+   先用形狀篩掉 /about、/products 這些，才去查資料庫。 */
+const LANG_SHAPE = /^[a-z]{2}(-[a-z]{2,4})?$/i;
+
+/* 後台設定的語言清單（不含基準語言繁中）。快取 5 分鐘。 */
+async function loadLangs(origin) {
+  const key = new Request(origin + '/api/languages', { headers: { 'x-i18n-cache': '1' } });
+  const cache = caches.default;
+
+  let res = await cache.match(key);
+  if (!res) {
+    res = await fetch(origin + '/api/languages');
+    if (!res.ok) return [];
+    res = new Response(res.body, res);
+    res.headers.set('cache-control', 'max-age=300');
+    await cache.put(key, res.clone());
+  }
+  try {
+    const rows = await res.json();
+    return (Array.isArray(rows) ? rows : [])
+      .filter((r) => r && r.code && !r.is_base)
+      .map((r) => String(r.code).toLowerCase());
+  } catch (e) {
+    return [];
+  }
+}
 
 /* 這些路徑不參與語言處理：API、後台、媒體檔、靜態資源 */
 const SKIP = /^\/(api|media|admin|assets)\//;
@@ -71,9 +116,10 @@ export async function onRequest(context) {
     }
 
     // ---- 2. 語言網址 ----
-    const hit = url.pathname.match(/^\/(en|ja)(\/.*)?$/);
-    if (hit) {
-      const lang = hit[1];
+    const hit = url.pathname.match(/^\/([^/]+)(\/.*)?$/);
+    const langs = (hit && LANG_SHAPE.test(hit[1])) ? await loadLangs(url.origin) : [];
+    if (hit && langs.indexOf(hit[1].toLowerCase()) > -1) {
+      const lang = hit[1].toLowerCase();
       const rest = hit[2] || '/';
 
       /* 底層資源用「去掉語言前綴」的路徑取。
@@ -103,12 +149,12 @@ export async function onRequest(context) {
       if (!res.ok || !type.includes('text/html')) return res;
 
       const strings = await loadStrings(env, url.origin);
-      return translate(res, lang, rest, strings, url.origin);
+      return translate(res, lang, rest, strings, url.origin, langs);
     }
 
     // ---- 3. 首頁依瀏覽器語言導向（真人限定）----
     if (url.pathname === '/' && shouldAutoRedirect(request)) {
-      const want = pickLang(request.headers.get('accept-language'));
+      const want = pickLang(request.headers.get('accept-language'), await loadLangs(url.origin));
       if (want) {
         return new Response(null, {
           status: 302,
@@ -131,9 +177,14 @@ export async function onRequest(context) {
        否則 hreflang 會被插入兩次。 */
     if (request.headers.get('x-i18n-origin')) return res;
 
+    /* 先取好語言清單 —— HTMLRewriter 的處理函式是同步的，裡面不能 await */
+    const all = await loadLangs(url.origin);
+
     return new HTMLRewriter()
       .on('html', { element: (e) => e.setAttribute('lang', BASE.htmlLang) })
-      .on('head', { element: (e) => e.append(hreflangTags(url.pathname, url.origin), { html: true }) })
+      .on('head', {
+        element: (e) => e.append(hreflangTags(url.pathname, url.origin, all), { html: true }),
+      })
       .transform(res);
   } catch (e) {
     /* 轉址或翻譯失敗不能連帶把網站弄壞 —— 當作沒事發生、照常放行 */
@@ -173,8 +224,8 @@ async function loadStrings(env, origin) {
 /* ------------------------------------------------------------
    把一份中文 HTML 轉成指定語言
    ------------------------------------------------------------ */
-function translate(res, lang, path, strings, origin) {
-  const conf = LANGS[lang];
+function translate(res, lang, path, strings, origin, langs) {
+  const conf = langConf(lang);
 
   /* 查表：key 是繁中原文，值是 { en: …, ja: … } */
   const tr = (zh) => {
@@ -227,8 +278,8 @@ function translate(res, lang, path, strings, origin) {
 
     .on('head', {
       element(e) {
-        e.prepend(bootScript(lang), { html: true });
-        e.append(hreflangTags(path, origin), { html: true });
+        e.prepend(bootScript(lang, langs), { html: true });
+        e.append(hreflangTags(path, origin, langs), { html: true });
       },
     })
 
@@ -246,7 +297,9 @@ function translate(res, lang, path, strings, origin) {
     .on('a[href^="/"]', {
       element(e) {
         const h = e.getAttribute('href');
-        if (!h || SKIP.test(h) || /^\/(en|ja)(\/|$)/.test(h)) return;
+        if (!h || SKIP.test(h)) return;
+        const seg = h.split('/')[1] || '';
+        if (LANG_SHAPE.test(seg) && (langs || []).indexOf(seg.toLowerCase()) > -1) return;
         e.setAttribute('href', '/' + lang + h);
       },
     })
@@ -269,11 +322,11 @@ function setFrom(e, get, tr) {
 /* hreflang：告訴 Google 這三個網址是同一頁的不同語言版本，
    缺了它們會被當成重複內容互相稀釋。
    x-default 指向中文版，作為語言都對不上時的預設。 */
-function hreflangTags(path, origin) {
+function hreflangTags(path, origin, langs) {
   const clean = path === '/' ? '/' : path;
-  let out = '\n  <link rel="alternate" hreflang="zh-Hant-TW" href="' + origin + clean + '">';
-  Object.keys(LANGS).forEach((code) => {
-    out += '\n  <link rel="alternate" hreflang="' + LANGS[code].htmlLang +
+  let out = '\n  <link rel="alternate" hreflang="' + BASE.htmlLang + '" href="' + origin + clean + '">';
+  (langs || []).forEach((code) => {
+    out += '\n  <link rel="alternate" hreflang="' + code +
            '" href="' + origin + '/' + code + clean + '">';
   });
   out += '\n  <link rel="alternate" hreflang="x-default" href="' + origin + clean + '">\n';
@@ -285,15 +338,17 @@ function hreflangTags(path, origin) {
       （它讀的是 preferredLang，見 assets/js/site-lang.js）
    2) 導覽列與頁尾是 JS 產生的，連結沒有語言前綴 —— 用事件捕獲
       在跳轉前補上，使用者就不會點一下掉回中文版 */
-function bootScript(lang) {
-  return '<script>(function(){try{localStorage.setItem("preferredLang","' + lang + '")}catch(e){}' +
+function bootScript(lang, langs) {
+  const list = JSON.stringify(langs || []);
+  return '<script>(function(){var L=' + list + ';' +
+    'try{localStorage.setItem("preferredLang","' + lang + '")}catch(e){}' +
     'document.addEventListener("click",function(ev){' +
     'var a=ev.target&&ev.target.closest?ev.target.closest("a[href]"):null;if(!a)return;' +
     'var h=a.getAttribute("href");if(!h)return;' +
     'if(/^(https?:|mailto:|tel:|#|\\/\\/)/.test(h))return;' +
     'if(h.charAt(0)!=="/")return;' +
     'if(/^\\/(api|media|admin|assets)\\//.test(h))return;' +
-    'if(/^\\/(en|ja)(\\/|$)/.test(h))return;' +
+    'var s=h.split("/")[1]||"";if(L.indexOf(s)>-1)return;' +
     'a.setAttribute("href","/' + lang + '"+h);' +
     '},true);})();</script>';
 }
@@ -320,8 +375,8 @@ function shouldAutoRedirect(request) {
 
 /* Accept-Language 挑第一個我們支援的語言。
    中文（含簡體）與認不出來的都留在中文版，不導。 */
-function pickLang(header) {
-  if (!header) return '';
+function pickLang(header, langs) {
+  if (!header || !langs || !langs.length) return '';
   const list = header.split(',')
     .map((part) => {
       const [tag, q] = part.trim().split(';q=');
@@ -329,10 +384,12 @@ function pickLang(header) {
     })
     .sort((a, b) => b.q - a.q);
 
+  /* 中文一律留在中文版。其餘看後台有沒有設定那個語言 ——
+     瀏覽器送的是 ja-JP、en-US 這種，只比對前兩字。 */
   for (const item of list) {
     if (item.tag.startsWith('zh')) return '';
-    if (item.tag.startsWith('ja')) return 'ja';
-    if (item.tag.startsWith('en')) return 'en';
+    const hit = langs.filter((c) => item.tag === c || item.tag.split('-')[0] === c.split('-')[0])[0];
+    if (hit) return hit;
   }
   return '';
 }

@@ -23,12 +23,25 @@ import { loadProducts, productSlug } from './products/_shared.js';
 
 const SITE = 'https://inteplasttw.com.tw';
 
-/* 語言前綴與 hreflang 標記。新增語言時這裡與 _middleware.js 各加一行。 */
-const LANGS = [
-  { prefix: '', hreflang: 'zh-Hant-TW' },
-  { prefix: '/en', hreflang: 'en' },
-  { prefix: '/ja', hreflang: 'ja' },
-];
+/* 語言直接讀後台「語言」設定（D1 的 languages 表），程式裡不寫死 ——
+   後台新增一個語言，這份 sitemap 下一次被讀取就會多出那個語言的網址。
+   基準語言（繁中）沒有前綴。 */
+const BASE_HREFLANG = 'zh-Hant-TW';
+
+async function loadLangs(env) {
+  try {
+    const { results } = await env.DB.prepare(
+      'SELECT code, is_base FROM languages ORDER BY sort_order, code'
+    ).all();
+    const extra = (results || [])
+      .filter((r) => r.code && !r.is_base)
+      .map((r) => ({ prefix: '/' + String(r.code).toLowerCase(), hreflang: String(r.code).toLowerCase() }));
+    return [{ prefix: '', hreflang: BASE_HREFLANG }].concat(extra);
+  } catch (e) {
+    // 讀不到就只出中文版，不要讓整份 sitemap 掛掉
+    return [{ prefix: '', hreflang: BASE_HREFLANG }];
+  }
+}
 
 /* 固定頁面。priority 是相對重要性，給 Google 參考用。 */
 const PAGES = [
@@ -41,6 +54,7 @@ const PAGES = [
 
 export async function onRequest(context) {
   try {
+    const LANGS = await loadLangs(context.env);
     let paths = PAGES.slice();
 
     /* 產品頁：讀不到資料庫也不要讓整份 sitemap 掛掉 ——
