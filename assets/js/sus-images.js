@@ -19,9 +19,11 @@
   var slots = document.querySelectorAll('img[data-db-img]');
   if (!slots.length) return;
 
+  /* 舊資料相容：資料庫裡還有 src/… 開頭的路徑（檔案已搬到 assets/img/） */
   function pathsOf(raw) {
-    var n = String(raw || '').trim();
+    var n = String(raw || '').trim().replace(/^\.?\/?src\//, 'assets/img/');
     if (!n) return [];
+    if (n.indexOf('assets/img/') === 0) return ['./' + n];
     if (/^(https?:)?\/\//.test(n) || n.charAt(0) === '/') return [n];
     if (n.indexOf('/') > -1) return ['./assets/img/' + n];
     return ['/media/' + encodeURIComponent(n), './assets/img/' + n];

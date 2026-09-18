@@ -36,8 +36,13 @@
   // products/ 子目錄的頁面要往上一層找 assets/img/
   var root = /\/products\//.test(location.pathname) ? '../' : './';
 
+  /* 舊資料相容：site_images 裡還有 src/… 開頭的路徑（檔案已搬到 assets/img/） */
+  function unSrc(p) {
+    return String(p || '').replace(/^\.?\/?src\//, 'assets/img/');
+  }
+
   function urlOf(raw) {
-    var p = String(raw || '').trim();
+    var p = unSrc(String(raw || '').trim());
     if (!p) return '';
     if (/^(https?:)?\/\//.test(p) || p.charAt(0) === '/') return p;
     return root + p.replace(/^\.\//, '');
@@ -95,7 +100,7 @@
           })[0];
           if (!hit) return;
 
-          var value = String(hit[field] || '').trim();
+          var value = unSrc(String(hit[field] || '').trim());
           if (!value && field === 'img_home') value = String(hit.img || '').trim();
           if (!value) return;
 

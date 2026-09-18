@@ -668,7 +668,7 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="../assets/css/responsive.css?v=9">
+  <link rel="stylesheet" href="../assets/css/responsive.css?v=10">
   <!-- Google Analytics 4（G-0FS2ZC88V0）
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
@@ -754,7 +754,10 @@
         if (/^(https?:)?\/\//.test(raw) || raw.charAt(0) === '/') return { main: raw, backup: '' };
         var n = raw.replace(/^\.?\/?src\//, '');
         if (!n) return { main: '', backup: '' };
-        if (n.indexOf('/') > -1) return { main: '../assets/img/' + n, backup: '' };
+        // 舊資料相容：資料庫裡還有 src/… 開頭的路徑（檔案已搬到 assets/img/）
+      n = n.replace(/^\.?\/?src\//, 'assets/img/');
+      if (n.indexOf('assets/img/') === 0) return { main: '../' + n, backup: '' };
+      if (n.indexOf('/') > -1) return { main: '../assets/img/' + n, backup: '' };
         return { main: '/media/' + encodeURIComponent(n), backup: '../assets/img/' + n };
       }
 

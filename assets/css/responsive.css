@@ -304,7 +304,11 @@ html, body { min-width: 320px; }
   .points,
   .commitment-grid { flex-direction: column !important; }
   .green-standard-list { grid-template-columns: 1fr !important; }
-  .commitment-card { border-left: 0 !important; }
+  /* flex: 1 1 <長度> 橫排時是「最小寬度」，轉成直排後那個長度變成最小高度、
+     flex-grow 又讓每一項撐滿容器高度 —— 文字底下會多出一大塊空白。
+     直排時一律改成跟著內容高。 */
+  .commitment-card { flex: 0 0 auto !important; border-left: 0 !important; }
+  .points li { flex: 0 0 auto !important; }
 
   /* 區塊已經有 14px 側邊距，內層 .container 寫在 style 屬性上的 40px 在手機會疊加，
      加上卡片內距後文字離畫面邊緣已經 74px，內容欄只剩一半寬。 */

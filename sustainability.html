@@ -73,7 +73,7 @@
     /* 裝飾層：最終設計不使用（redesign.css 已將其隱藏），保留標記但不顯示 */
     .leaf-decor, .eco-scene { display: none; }
 
-    /* assets/css/responsive.css?v=9 對全站 p 設了 word-break: keep-all（給產品頁短標題用的），
+    /* assets/css/responsive.css?v=10 對全站 p 設了 word-break: keep-all（給產品頁短標題用的），
        這頁是長段落，會在標點處提早斷行。用 body p / body h1 提高選擇器權重蓋回正常斷行。 */
     body p { word-break: normal; overflow-wrap: break-word; text-wrap: pretty; }
     body h1, body h2 { text-wrap: pretty; }
@@ -166,7 +166,7 @@
   </style>
   <!-- navbar.css 已在 head 上方以 id="site-navbar-css" 載入過，這裡不再重複請求 -->
   <link rel="stylesheet" href="./assets/css/sustainability-redesign.css?v=3">
-  <link rel="stylesheet" href="assets/css/responsive.css?v=9">
+  <link rel="stylesheet" href="assets/css/responsive.css?v=10">
   <!-- 全站字級（assets/css/type.css）必須在首次繪製前就到位。
        原本由 navbar.js 在 <body> 執行時才附加到 head，所以頁面會先用
        本頁自己的級數畫出來（hero 最大 102px），type.css 進來後才收斂成

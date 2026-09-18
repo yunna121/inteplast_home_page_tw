@@ -984,7 +984,8 @@
       }
 
       function imageSrc(value) {
-        var raw = String(value || '').trim();
+        // 舊資料相容：欄位裡還有 src/… 開頭的路徑（檔案已搬到 assets/img/）
+        var raw = String(value || '').trim().replace(/^\.?\/?src\//, 'assets/img/');
         if (!raw) return '';
         if (/^(https?:)?\/\//.test(raw) || raw.charAt(0) === '/') return raw;
         // 含路徑的（assets/img/opt/x.jpg）從網站根目錄找；只有檔名的是舊資料，
