@@ -378,12 +378,17 @@ function langSyncScript(langs, forceLang) {
     'var c=cur(),w=want();if(c===w)return;' +
     'var p=location.pathname;if(c){p=p.slice(c.length+1)||"/"}if(p.charAt(0)!=="/"){p="/"+p}' +
     'location.replace((w?"/"+w:"")+p+location.search+location.hash)}' +
-    /* site-lang.js 在頁尾才載入，所以等 applyLanguage 出現再包住它 */
-    'var n=0,t=setInterval(function(){' +
-    'if(typeof window.applyLanguage==="function"&&!window.applyLanguage.__i18n){' +
-    'var f=window.applyLanguage;var g=function(){var r=f.apply(this,arguments);setTimeout(sync,0);return r};' +
-    'g.__i18n=1;window.applyLanguage=g;clearInterval(t)}' +
-    'if(++n>50){clearInterval(t)}},100);' +
+    /* 直接監看 localStorage 的變化。
+
+       原本想包住 window.applyLanguage，但 site-lang.js 是
+       「window.applyLanguage = applyLanguage」—— 語言選單呼叫的是
+       內部那個變數，包外面的那層永遠不會被觸發。
+
+       輪詢雖然土，但完全不依賴 site-lang.js 的內部實作，
+       它改版也不會壞。每 400ms 讀一次 localStorage，成本可以忽略。 */
+    'function read(){try{return localStorage.getItem("preferredLang")||""}catch(e){return ""}}' +
+    'var last=read();' +
+    'setInterval(function(){var v=read();if(v!==last){last=v;sync()}},400);' +
     'sync();})();</script>';
 }
 
