@@ -2320,13 +2320,16 @@
         var targetUrl = productUrl(row);
         var tw = splitAlias(row.name);
         var en = splitAlias(row.name_en || row.name);
-        /* 品名的譯文直接寫在 data-en / data-ja 上。
+        var ja = splitAlias(row.name_ja || '');
 
-           原本寫 data-en="" 是讓 site-lang.js 去查後台的介面文字對照表，
-           但品名是 products 表自己的欄位（name_en / name_ja），
-           不在那張表裡 —— 查不到就留在中文。
-           重點句能翻是因為它剛好有進對照表。 */
-        var ja = splitAlias(row.name_ja || row.name_en || row.name);
+        /* 只有真的有譯文才寫進 data-<語言>。
+
+           空字串是有意義的訊號：site-lang.js 看到空的就去查後台的
+           介面文字對照表。若這裡拿英文當日文的後備，日文頁就會顯示英文，
+           而且因為屬性非空，連查表的機會都沒了。 */
+        function attr(name, v) {
+          return v ? ' data-' + name + '="' + esc(v) + '"' : '';
+        }
         return '' +
           '<article class="ps-row">' +
           '  <div class="ps-stage">' +
@@ -2335,9 +2338,9 @@
           '  </div>' +
           '  <div class="ps-body">' +
           (row.name_en ? '    <div class="ps-eyebrow">' + esc(en.main) + '</div>' : '') +
-          '    <a href="' + targetUrl + '" style="display:block;text-decoration:none;color:inherit"><h3 class="ps-title" data-tw="' + esc(tw.main) + '" data-en="' + esc(en.main) + '" data-ja="' + esc(ja.main) + '">' + esc(tw.main) + '</h3></a>' +
-          (tw.alias ? '    <div class="ps-alias" data-tw="又稱 ' + esc(tw.alias) + '" data-en="Also known as ' + esc(en.alias || tw.alias) + '" data-ja="別名 ' + esc(ja.alias || en.alias || tw.alias) + '">又稱 ' + esc(tw.alias) + '</div>' : '') +
-          (row.highlight ? '    <p class="ps-highlight" data-tw="' + esc(row.highlight) + '" data-en="' + esc(row.highlight_en || row.highlight) + '" data-ja="' + esc(row.highlight_ja || row.highlight_en || row.highlight) + '">' + esc(row.highlight) + '</p>' : '') +
+          '    <a href="' + targetUrl + '" style="display:block;text-decoration:none;color:inherit"><h3 class="ps-title" data-tw="' + esc(tw.main) + '"' + attr('en', row.name_en ? en.main : '') + attr('ja', ja.main) + '>' + esc(tw.main) + '</h3></a>' +
+          (tw.alias ? '    <div class="ps-alias" data-tw="又稱 ' + esc(tw.alias) + '"' + attr('en', en.alias ? 'Also known as ' + en.alias : '') + attr('ja', ja.alias ? '別名 ' + ja.alias : '') + '>又稱 ' + esc(tw.alias) + '</div>' : '') +
+          (row.highlight ? '    <p class="ps-highlight" data-tw="' + esc(row.highlight) + '"' + attr('en', row.highlight_en) + attr('ja', row.highlight_ja) + '>' + esc(row.highlight) + '</p>' : '') +
           (chips ? '    <div class="ps-items" data-items-tw="' + esc(row.items || '') + '">' + chips + '</div>' : '') +
           '    <div><a href="' + targetUrl + '" class="ps-card-link"><span data-tw="前往產品中心查看" data-en="">前往產品中心查看</span> <i class="fa-solid fa-arrow-right"></i></a></div>' +
           '  </div>' +
