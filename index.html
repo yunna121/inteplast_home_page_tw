@@ -2320,6 +2320,13 @@
         var targetUrl = productUrl(row);
         var tw = splitAlias(row.name);
         var en = splitAlias(row.name_en || row.name);
+        /* 品名的譯文直接寫在 data-en / data-ja 上。
+
+           原本寫 data-en="" 是讓 site-lang.js 去查後台的介面文字對照表，
+           但品名是 products 表自己的欄位（name_en / name_ja），
+           不在那張表裡 —— 查不到就留在中文。
+           重點句能翻是因為它剛好有進對照表。 */
+        var ja = splitAlias(row.name_ja || row.name_en || row.name);
         return '' +
           '<article class="ps-row">' +
           '  <div class="ps-stage">' +
@@ -2328,9 +2335,9 @@
           '  </div>' +
           '  <div class="ps-body">' +
           (row.name_en ? '    <div class="ps-eyebrow">' + esc(en.main) + '</div>' : '') +
-          '    <a href="' + targetUrl + '" style="display:block;text-decoration:none;color:inherit"><h3 class="ps-title" data-tw="' + esc(tw.main) + '" data-en="">' + esc(tw.main) + '</h3></a>' +
-          (tw.alias ? '    <div class="ps-alias" data-tw="又稱 ' + esc(tw.alias) + '" data-en="">又稱 ' + esc(tw.alias) + '</div>' : '') +
-          (row.highlight ? '    <p class="ps-highlight" data-tw="' + esc(row.highlight) + '" data-en="">' + esc(row.highlight) + '</p>' : '') +
+          '    <a href="' + targetUrl + '" style="display:block;text-decoration:none;color:inherit"><h3 class="ps-title" data-tw="' + esc(tw.main) + '" data-en="' + esc(en.main) + '" data-ja="' + esc(ja.main) + '">' + esc(tw.main) + '</h3></a>' +
+          (tw.alias ? '    <div class="ps-alias" data-tw="又稱 ' + esc(tw.alias) + '" data-en="Also known as ' + esc(en.alias || tw.alias) + '" data-ja="別名 ' + esc(ja.alias || en.alias || tw.alias) + '">又稱 ' + esc(tw.alias) + '</div>' : '') +
+          (row.highlight ? '    <p class="ps-highlight" data-tw="' + esc(row.highlight) + '" data-en="' + esc(row.highlight_en || row.highlight) + '" data-ja="' + esc(row.highlight_ja || row.highlight_en || row.highlight) + '">' + esc(row.highlight) + '</p>' : '') +
           (chips ? '    <div class="ps-items" data-items-tw="' + esc(row.items || '') + '">' + chips + '</div>' : '') +
           '    <div><a href="' + targetUrl + '" class="ps-card-link"><span data-tw="前往產品中心查看" data-en="">前往產品中心查看</span> <i class="fa-solid fa-arrow-right"></i></a></div>' +
           '  </div>' +

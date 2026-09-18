@@ -826,6 +826,10 @@
         /* Excel 產品名寫成「主名稱 / 別稱」時，大標只放主名稱，別稱另起小字一行（與首頁同規則） */
         var tw = splitAlias(cat.name);
         var en = splitAlias(cat.name_en || cat.name);
+        /* 品名的譯文直接寫在 data-en / data-ja 上。
+           品名是 products 表自己的欄位，不在後台介面文字對照表裡，
+           所以不能只寫 data-en="" 靠查表 —— 查不到就會留在中文。 */
+        var ja = splitAlias(cat.name_ja || cat.name_en || cat.name);
 
         return '<article class="visual-product-card" id="' + catId + '" data-category="' + esc(cat.name) + '">' +
           '<div class="card-image-box">' +
@@ -835,11 +839,11 @@
           '<div class="card-info-content">' +
           '<div>' +
           '<div class="card-header-group"><div class="card-title-row">' +
-          '<h2 class="card-main-title" data-tw="' + esc(tw.main) + '" data-en="">' + esc(tw.main) + '</h2>' +
+          '<h2 class="card-main-title" data-tw="' + esc(tw.main) + '" data-en="' + esc(en.main) + '" data-ja="' + esc(ja.main) + '">' + esc(tw.main) + '</h2>' +
           '</div></div>' +
-          (tw.alias ? '<div class="card-alias-text" data-tw="又稱 ' + esc(tw.alias) + '" data-en="">又稱 ' + esc(tw.alias) + '</div>' : '') +
-          (cat.highlight ? '<p class="card-highlight-text" data-tw="' + esc(cat.highlight) + '" data-en="">' + esc(cat.highlight) + '</p>' : '') +
-          (cat.desc ? '<p class="card-desc-text" data-tw="' + esc(cat.desc) + '" data-en="">' + esc(cat.desc) + '</p>' : '') +
+          (tw.alias ? '<div class="card-alias-text" data-tw="又稱 ' + esc(tw.alias) + '" data-en="Also known as ' + esc(en.alias || tw.alias) + '" data-ja="別名 ' + esc(ja.alias || en.alias || tw.alias) + '">又稱 ' + esc(tw.alias) + '</div>' : '') +
+          (cat.highlight ? '<p class="card-highlight-text" data-tw="' + esc(cat.highlight) + '" data-en="' + esc(cat.highlight_en || cat.highlight) + '" data-ja="' + esc(cat.highlight_ja || cat.highlight_en || cat.highlight) + '">' + esc(cat.highlight) + '</p>' : '') +
+          (cat.desc ? '<p class="card-desc-text" data-tw="' + esc(cat.desc) + '" data-en="' + esc(cat.desc_en || cat.desc) + '" data-ja="' + esc(cat.desc_ja || cat.desc_en || cat.desc) + '">' + esc(cat.desc) + '</p>' : '') +
           (list ? '<div data-items-tw="' + esc(cat.items || '') + '" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px;">' + list + '</div>' : '') +
           '</div>' +
           '<div class="card-actions-row">' +
