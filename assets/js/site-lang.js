@@ -76,8 +76,22 @@
     if (lang === BASE) {
       return nbsp(fillYears((strings && strings[zh] && strings[zh][BASE]) || zh));
     }
+
+    /* 元素上直接寫了譯文就以它為準，不查對照表。
+
+       為什麼要這樣：產品品名、重點句這些是 products 表自己的欄位
+       （name_ja、highlight_ja），由 /api/products 帶回來、寫進
+       data-ja。但同一句中文也會出現在「介面文字」對照表裡 ——
+       而那張表是把全站 data-tw 掃進去建的，產品名那幾筆往往沒翻，
+       ja 的值還是中文。表贏的話品名就永遠翻不動。
+
+       全站原本的 data-en 一律是空字串（英文統一走資料庫），
+       所以「非空」就等於「這裡刻意放了譯文」，判斷很安全。 */
+    var own = String(fallbackAttr == null ? '' : fallbackAttr).trim();
+    if (own) return nbsp(fillYears(own));
+
     if (strings && strings[zh] && strings[zh][lang]) return nbsp(fillYears(strings[zh][lang]));
-    return nbsp(fillYears(fallbackAttr || ''));
+    return '';
   }
 
   function applyLanguage(lang) {
