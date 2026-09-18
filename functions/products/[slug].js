@@ -202,14 +202,17 @@ function pageHtml(row, all) {
     }
     .pd-figure {
       display: grid; place-items: center;
-      min-height: 320px;
-      padding: 28px;
+      /* 満版：不留內距、用 overflow 剪圓角，
+         等比固定成 4:3 不管原圖比例如何都不會忽高忽低。 */
+      aspect-ratio: 4 / 3;
+      min-height: 300px;
+      overflow: hidden;
       background: var(--bg);
       border: 1px solid var(--line);
       border-radius: 20px;
     }
-    .pd-figure img { width: 100%; max-width: 420px; height: auto; object-fit: contain; display: block; }
-    .pd-figure .pd-noimg { color: #94A3B8; font-size: .85rem; }
+    .pd-figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pd-figure .pd-noimg { padding: 28px; color: #94A3B8; font-size: .85rem; text-align: center; }
 
     .pd-eyebrow {
       font-size: .78rem; font-weight: 800; letter-spacing: .22em;
@@ -281,7 +284,7 @@ function pageHtml(row, all) {
 
     @media (max-width: 860px) {
       .pd-hero { grid-template-columns: 1fr; }
-      .pd-figure { order: -1; min-height: 240px; padding: 20px; }
+      .pd-figure { order: -1; min-height: 220px; }
     }
   </style>
 </head>
@@ -309,11 +312,11 @@ function pageHtml(row, all) {
         ${items.length ? `<div class="pd-chips">${items.map((v) =>
           `<span class="pd-chip${/環保|認證|標章|回收|再生/.test(v) ? ' is-eco' : ''}" data-tw="${esc(v)}">${esc(v)}</span>`
         ).join('')}</div>` : ''}
-        <a class="pd-cta" href="/contact"><span data-tw="詢價與規格諮詢" data-en="Request a Quote" data-ja="お見積り・仕様のご相談">詢價與規格諮詢</span> <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="pd-cta" href="/contact"><span data-tw="聯繫我們" data-en="Contact Us" data-ja="お問い合わせ">聯繫我們</span> <i class="fa-solid fa-arrow-right"></i></a>
       </div>
       <figure class="pd-figure">
         ${img
-          ? `<img src="${esc(img)}" alt="${esc(nameTw)} ${esc(nameEn)}" width="420" height="420" loading="eager" decoding="async">`
+          ? `<img src="${esc(img)}" alt="${esc(nameTw)} ${esc(nameEn)}" width="1200" height="900" loading="eager" decoding="async">`
           : `<span class="pd-noimg" data-tw="產品照片準備中" data-en="Product photo coming soon" data-ja="製品写真は準備中です">產品照片準備中</span>`}
       </figure>
     </article>
