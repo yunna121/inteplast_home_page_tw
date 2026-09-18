@@ -127,23 +127,26 @@ export async function onRequest(context) {
          解析成 /en/assets/…，也會走到這裡被還原 —— 所以 CSS、JS、
          圖片不必改任何一行。 */
       const assetUrl = new URL(rest + url.search, url.origin);
-      let res = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
 
-      /* ASSETS 只認靜態檔案。產品頁 /products/<slug> 是 Function 產生的，
-         所以 404 時再打一次自家網址 —— 那次請求沒有語言前綴，
-         會直接落到 Function 身上（不會無限迴圈）。
+      /* 打自家網址取原料，而不是 env.ASSETS.fetch()。
 
-         帶 x-i18n-origin 讓下面的中文分支知道「這是給語言版用的原料」，
-         不要重複插入 hreflang。 */
-      if (res.status === 404) {
-        const headers = new Headers(request.headers);
-        headers.set('x-i18n-origin', '1');
-        res = await fetch(assetUrl.toString(), {
-          method: 'GET',
-          headers,
-          redirect: 'follow',
-        });
-      }
+         為什麼不用 ASSETS：它只看靜態檔案，而且找不到時**不是回 404**，
+         而是回 200 加上 index.html（單頁應用的後援行為）。所以
+         /en/products/draw-tape-liners 會靜悄悄地拿到首頁，
+         連 CSS 都因為 MIME 不符而被瀏覽器拒絕。
+
+         走 fetch 就會經過 Pages 正常的順序：Functions 優先、再靜態檔案，
+         所以產品頁（Function 產生）與一般頁面（靜態檔案）都能取到。
+
+         帶 x-i18n-origin 標記這是內部取料：那次請求不能再被自動導向，
+         也不要重複插入 hreflang。 */
+      const headers = new Headers(request.headers);
+      headers.set('x-i18n-origin', '1');
+      const res = await fetch(assetUrl.toString(), {
+        method: 'GET',
+        headers,
+        redirect: 'follow',
+      });
 
       const type = res.headers.get('content-type') || '';
       if (!res.ok || !type.includes('text/html')) return res;
@@ -362,6 +365,10 @@ function bootScript(lang, langs) {
 const BOTS = /bot|crawler|spider|crawling|slurp|bingpreview|facebookexternalhit|embedly|quora link preview|pinterest|vkshare|w3c_validator|lighthouse|gtmetrix|pagespeed/i;
 
 function shouldAutoRedirect(request) {
+  /* 語言版的內部取料請求（見上面）不能被導向，
+     否則 /en/ 取首頁原料時會被丟回 /en/，變成無限迴圈。 */
+  if (request.headers.get('x-i18n-origin')) return false;
+
   const ua = request.headers.get('user-agent') || '';
   if (BOTS.test(ua)) return false;
 
