@@ -155,9 +155,19 @@ export async function onRequest(context) {
       return translate(res, lang, rest, strings, url.origin, langs);
     }
 
-    // ---- 3. 首頁依瀏覽器語言導向（真人限定）----
+    // ---- 3. 首頁語言導向（真人限定）----
     if (url.pathname === '/' && shouldAutoRedirect(request)) {
-      const want = pickLang(request.headers.get('accept-language'), await loadLangs(url.origin));
+      const langs = await loadLangs(url.origin);
+
+      /* 優先順序：使用者自己選過的語言（cookie）→ 瀏覽器語言。
+         cookie 由 langSyncScript 從 localStorage 同步過來 ——
+         site-lang.js 只寫 localStorage，伺服器讀不到，
+         所以一定要有那一層同步，否則使用者選了繁中還是會被丟回 /en/。 */
+      const picked = cookieLang(request, langs);
+      const want = picked === null
+        ? pickLang(request.headers.get('accept-language'), langs)
+        : picked;
+
       if (want) {
         return new Response(null, {
           status: 302,
@@ -186,7 +196,10 @@ export async function onRequest(context) {
     return new HTMLRewriter()
       .on('html', { element: (e) => e.setAttribute('lang', BASE.htmlLang) })
       .on('head', {
-        element: (e) => e.append(hreflangTags(url.pathname, url.origin, all), { html: true }),
+        element(e) {
+          e.prepend(langSyncScript(all), { html: true });
+          e.append(hreflangTags(url.pathname, url.origin, all), { html: true });
+        },
       })
       .transform(res);
   } catch (e) {
@@ -281,6 +294,7 @@ function translate(res, lang, path, strings, origin, langs) {
 
     .on('head', {
       element(e) {
+        e.prepend(langSyncScript(langs, lang), { html: true });
         e.prepend(bootScript(lang, langs), { html: true });
         e.append(hreflangTags(path, origin, langs), { html: true });
       },
@@ -328,6 +342,51 @@ function setFrom(e, get, tr) {
   if (v) e.setAttribute('content', v);
 }
 
+/* 語言同步（所有語言版與中文版都要注入）
+   ------------------------------------------------------------
+   解決兩件事：
+
+   1) site-lang.js 只把使用者選的語言寫進 localStorage，伺服器讀不到。
+      這裡把它同步成 cookie（lang_choice），首頁導向才知道
+      「這個人已經自己選過了」。沒有這一層，使用者選了繁中之後
+      每次回首頁都還是會被丟回 /en/。
+
+   2) 在 /en/ 切成繁中時，文字變了但網址還停在 /en/ ——
+      網址與內容不一致。這裡在語言切換後把網址也換成對應的前綴。
+
+   作法是包住 window.applyLanguage（site-lang.js 換完語言就會呼叫它），
+   不去猜語言選單的 DOM 結構 —— 那個結構改了這裡就會壞。
+   ------------------------------------------------------------ */
+function langSyncScript(langs, forceLang) {
+  const list = JSON.stringify(langs || []);
+  /* 語言版要先把網址的語言寫進 localStorage，再做同步判斷。
+
+     順序很重要：如果先讀舊的 localStorage（例如上次選的繁中），
+     會判定「想要中文」而把人從 /en/ 彈回 /，
+     那樣點英文連結或從 Google 進來的人永遠到不了英文版。 */
+  const force = forceLang
+    ? 'try{localStorage.setItem("preferredLang","' + forceLang + '")}catch(e){}'
+    : '';
+  return '<script>(function(){var L=' + list + ';' + force +
+    'function ck(v){try{document.cookie="lang_choice="+encodeURIComponent(v)+";path=/;max-age=31536000;samesite=lax"}catch(e){}}' +
+    /* 目前網址的語言前綴 */
+    'function cur(){var s=(location.pathname.split("/")[1]||"").toLowerCase();return L.indexOf(s)>-1?s:""}' +
+    /* 使用者想要的語言前綴（繁中＝沒有前綴） */
+    'function want(){var v="";try{v=(localStorage.getItem("preferredLang")||"").toLowerCase()}catch(e){}' +
+    'if(!v||v.indexOf("zh")===0||v==="tw")return "";return L.indexOf(v)>-1?v:""}' +
+    'function sync(){var v="";try{v=localStorage.getItem("preferredLang")||""}catch(e){}if(v)ck(v);' +
+    'var c=cur(),w=want();if(c===w)return;' +
+    'var p=location.pathname;if(c){p=p.slice(c.length+1)||"/"}if(p.charAt(0)!=="/"){p="/"+p}' +
+    'location.replace((w?"/"+w:"")+p+location.search+location.hash)}' +
+    /* site-lang.js 在頁尾才載入，所以等 applyLanguage 出現再包住它 */
+    'var n=0,t=setInterval(function(){' +
+    'if(typeof window.applyLanguage==="function"&&!window.applyLanguage.__i18n){' +
+    'var f=window.applyLanguage;var g=function(){var r=f.apply(this,arguments);setTimeout(sync,0);return r};' +
+    'g.__i18n=1;window.applyLanguage=g;clearInterval(t)}' +
+    'if(++n>50){clearInterval(t)}},100);' +
+    'sync();})();</script>';
+}
+
 /* hreflang：告訴 Google 這三個網址是同一頁的不同語言版本，
    缺了它們會被當成重複內容互相稀釋。
    x-default 指向中文版，作為語言都對不上時的預設。 */
@@ -350,7 +409,6 @@ function hreflangTags(path, origin, langs) {
 function bootScript(lang, langs) {
   const list = JSON.stringify(langs || []);
   return '<script>(function(){var L=' + list + ';' +
-    'try{localStorage.setItem("preferredLang","' + lang + '")}catch(e){}' +
     'document.addEventListener("click",function(ev){' +
     'var a=ev.target&&ev.target.closest?ev.target.closest("a[href]"):null;if(!a)return;' +
     'var h=a.getAttribute("href");if(!h)return;' +
@@ -378,12 +436,32 @@ function shouldAutoRedirect(request) {
   const ua = request.headers.get('user-agent') || '';
   if (BOTS.test(ua)) return false;
 
-  /* 使用者自己選過語言就不再導 —— site-lang.js 會寫 cookie 之外，
-     這裡也接受任何帶 nolang 參數的網址（給你測試用）。 */
-  const cookie = request.headers.get('cookie') || '';
-  if (/(^|;\s*)lang_choice=/.test(cookie)) return false;
-
   return true;
+}
+
+/* 使用者自己選過的語言（cookie lang_choice）。
+
+   回傳值分三種，呼叫端要分得清楚：
+     '<語言>' 選了某個語言 → 導到那個語言
+     ''       選了繁中     → 留在中文版，不導
+     null     沒選過       → 交給 Accept-Language 判斷 */
+function cookieLang(request, langs) {
+  const raw = request.headers.get('cookie') || '';
+  const hit = raw.match(/(?:^|;\s*)lang_choice=([^;]+)/);
+  if (!hit) return null;
+
+  let v = '';
+  try {
+    v = decodeURIComponent(hit[1]).trim().toLowerCase();
+  } catch (e) {
+    return null;
+  }
+  if (!v) return null;
+
+  // 繁中（zh-TW／tw／zh-Hant-TW…）＝明確選擇留在中文版
+  if (v.indexOf('zh') === 0 || v === 'tw') return '';
+
+  return (langs || []).indexOf(v) > -1 ? v : null;
 }
 
 /* Accept-Language 挑第一個我們支援的語言。
