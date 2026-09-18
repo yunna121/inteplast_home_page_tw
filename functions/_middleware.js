@@ -175,11 +175,15 @@ function translate(res, lang, path, strings, origin) {
   const rewriter = new HTMLRewriter()
     .on('html', { element: (e) => e.setAttribute('lang', conf.htmlLang) })
 
-    /* 標題：優先用頁面上寫好的 data-en；日文沒有對應屬性，就查對照表 */
+    /* 標題：優先用頁面上寫好的 data-en；日文沒有對應屬性，就查對照表。
+
+       用 html:true —— HTMLRewriter 讀屬性時不解碼 HTML 實體，
+       data-en 裡的 &amp;amp; 拿到手還是 &amp;amp;。當成純文字寫入會被再轉義一次
+       （&amp;amp;amp;），畫面上就出現 &amp;amp; 這種字。 */
     .on('title', {
       element(e) {
         const v = e.getAttribute(conf.titleAttr) || tr(e.getAttribute('data-tw'));
-        if (v) { doneTitle = v; e.setInnerContent(v); }
+        if (v) { doneTitle = v; e.setInnerContent(v, { html: true }); }
       },
     })
 
