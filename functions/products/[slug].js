@@ -87,6 +87,13 @@ function pageHtml(row, all) {
 
   const img = imageUrl(row);
   const items = splitItems(row.items);
+  /* 細項標籤的譯文，依索引配對：第 n 個中文細項對第 n 個英文／日文細項。
+     沒填或數量不足時退回中文，不要讓標籤消失。
+
+     為什麼要在這裡帶：細項不在後台的介面文字對照表裡（它們是 products
+     表自己的欄位），只寫 data-tw 的話中介程式查不到譯文，切語言不會變。 */
+  const itemsEn = splitItems(row.items_en);
+  const itemsJa = splitItems(row.items_ja);
 
   const titleTw = nameTw + '｜' + COMPANY_TW;
   const titleEn = nameEn + ' Manufacturer | ' + COMPANY_EN;
@@ -299,19 +306,21 @@ function pageHtml(row, all) {
       <i class="fa-solid fa-chevron-right"></i>
       <a href="/products/" data-tw="產品中心" data-en="Products" data-ja="製品一覧">產品中心</a>
       <i class="fa-solid fa-chevron-right"></i>
-      <span data-tw="${esc(nameTw)}">${esc(nameTw)}</span>
+      <span data-tw="${esc(nameTw)}" data-en="${esc(nameEn || nameTw)}" data-ja="${esc(mainName(row.name_ja) || nameEn || nameTw)}">${esc(nameTw)}</span>
     </nav>
 
     <article class="pd-hero">
       <div>
         ${row.name_en ? `<div class="pd-eyebrow">${esc(mainName(row.name_en))}</div>` : ''}
-        <h1 class="pd-title" data-tw="${esc(nameTw)}">${esc(nameTw)}</h1>
+        <h1 class="pd-title" data-tw="${esc(nameTw)}" data-en="${esc(nameEn || nameTw)}" data-ja="${esc(mainName(row.name_ja) || nameEn || nameTw)}">${esc(nameTw)}</h1>
         ${aliasTw ? `<div class="pd-alias" data-tw="又稱 ${esc(aliasTw)}" data-en="Also known as ${esc(aliasOf(row.name_en) || aliasTw)}" data-ja="別名 ${esc(aliasOf(row.name_ja) || aliasOf(row.name_en) || aliasTw)}">又稱 ${esc(aliasTw)}</div>` : ''}
-        ${row.highlight ? `<p class="pd-highlight" data-tw="${esc(row.highlight)}">${esc(row.highlight)}</p>` : ''}
-        ${row.desc ? `<p class="pd-desc" data-tw="${esc(row.desc)}">${esc(row.desc)}</p>` : ''}
-        ${items.length ? `<div class="pd-chips">${items.map((v) =>
-          `<span class="pd-chip${/環保|認證|標章|回收|再生/.test(v) ? ' is-eco' : ''}" data-tw="${esc(v)}">${esc(v)}</span>`
-        ).join('')}</div>` : ''}
+        ${row.highlight ? `<p class="pd-highlight" data-tw="${esc(row.highlight)}" data-en="${esc(row.highlight_en || row.highlight)}" data-ja="${esc(row.highlight_ja || row.highlight_en || row.highlight)}">${esc(row.highlight)}</p>` : ''}
+        ${row.desc ? `<p class="pd-desc" data-tw="${esc(row.desc)}" data-en="${esc(row.desc_en || row.desc)}" data-ja="${esc(row.desc_ja || row.desc_en || row.desc)}">${esc(row.desc)}</p>` : ''}
+        ${items.length ? `<div class="pd-chips">${items.map((v, i) => {
+          const en = itemsEn[i] || v;
+          const ja = itemsJa[i] || en;
+          return `<span class="pd-chip${/環保|認證|標章|回收|再生/.test(v) ? ' is-eco' : ''}" data-tw="${esc(v)}" data-en="${esc(en)}" data-ja="${esc(ja)}">${esc(v)}</span>`;
+        }).join('')}</div>` : ''}
         <a class="pd-cta" href="/contact"><span data-tw="聯繫我們" data-en="Contact Us" data-ja="お問い合わせ">聯繫我們</span> <i class="fa-solid fa-arrow-right"></i></a>
       </div>
       <figure class="pd-figure">
@@ -328,7 +337,7 @@ function pageHtml(row, all) {
           const n = mainName(r.name);
           const e = mainName(r.name_en);
           return `<a class="pd-more-card" href="/products/${productSlug(r)}">
-            <div class="pd-more-name" data-tw="${esc(n)}">${esc(n)}</div>
+            <div class="pd-more-name" data-tw="${esc(n)}" data-en="${esc(e || n)}" data-ja="${esc(mainName(r.name_ja) || e || n)}">${esc(n)}</div>
             ${e ? `<div class="pd-more-en">${esc(e)}</div>` : ''}
           </a>`;
         }).join('')}
