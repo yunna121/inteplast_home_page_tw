@@ -535,11 +535,11 @@
       '<button class="om-sb-clear" id="omSearchClear" type="button" aria-label="清除"><i class="fa-solid fa-xmark"></i></button>' +
       '<div class="om-panel" id="omSearchPanel">' +
         '<div class="om-search-tags">' +
-          '<span class="lbl" id="omHotLabel">熱門：</span>' +
+          '<span class="lbl" id="omHotLabel" data-tw="熱門：">熱門：</span>' +
           '<button class="om-tag" type="button" data-q="垃圾袋" data-q-en="trash bag" data-tw="垃圾袋" data-en="Trash bags">垃圾袋</button>' +
           '<button class="om-tag" type="button" data-q="束口袋" data-q-en="drawstring bag" data-tw="束口袋" data-en="Drawstring">束口袋</button>' +
           '<button class="om-tag" type="button" data-q="保鮮袋" data-q-en="freezer bag" data-tw="保鮮袋" data-en="Freezer bags">保鮮袋</button>' +
-          '<button class="om-tag" type="button" data-q="蔬果袋" data-q-en="produce bag" data-tw="蔬果袋" data-en="Produce bags">蔬果袋</button>' +
+          '<button class="om-tag" type="button" data-q="蔬果袋" data-q-en="produce bag" data-tw="耐熱袋" data-en="Produce bags">耐熱袋</button>' +
           '<button class="om-tag" type="button" data-q="手套" data-q-en="gloves" data-tw="手套" data-en="Gloves">手套</button>' +
         '</div>' +
         '<div id="omSearchList" class="om-search-list"></div>' +
@@ -576,8 +576,9 @@
     var p = document.getElementById('omSearchPanel');
     if (p) p.classList.add('active');
     ensureData();
-    var lbl = document.getElementById('omHotLabel');
-    if (lbl) lbl.textContent = t('hot');
+    if (typeof window.applyLanguage === 'function') {
+      try { window.applyLanguage(); } catch (e) {}
+    }
   }
   function closePanel() {
     var p = document.getElementById('omSearchPanel');
