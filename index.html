@@ -793,7 +793,11 @@
       transition: color 0.3s ease;
     }
 
-    .ps-row {
+    /* 整列不再可點（改成只有產品照與產品名是連結），所以不顯示手指游標
+       —— 否則看起來到處都能點，選字時卻不會跳轉，更混亂。
+       hover 的視覺回饋保留：滑過整列時照片浮起、標題變色。 */
+    .ps-photo,
+    .ps-title {
       cursor: pointer;
     }
 
@@ -2278,16 +2282,30 @@
         }).join('');
       }
 
-      function getCatAnchor(name) {
-        name = String(name || '');
-        if (name.indexOf('清潔袋') > -1 && name.indexOf('拉繩') === -1) return 'products/index.html#cat-can-liners';
-        if (name.indexOf('拉繩') > -1) return 'products/index.html#cat-draw-tape';
-        if (name.indexOf('蔬果') > -1 || name.indexOf('耐熱') > -1) return 'products/index.html#cat-heat-bags';
-        if (name.indexOf('夾鏈') > -1 || name.indexOf('密實') > -1) return 'products/index.html#cat-sealed-packaging';
-        if (name.indexOf('手套') > -1) return 'products/index.html#cat-gloves';
-        if (name.indexOf('膠帶') > -1) return 'products/index.html#cat-masking-film';
-        if (name.indexOf('Scale') > -1) return 'products/index.html#cat-stretch-films';
-        return 'products/index.html';
+      /* 產品網址：/products/<英文品名>。規則要與後端一致
+         （functions/products/_shared.js 的 productSlug）——
+         兩邊算出來的字串不一樣就會連到 404。 */
+      function slugify(s) {
+        return String(s || '').toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          .replace(/-{2,}/g, '-');
+      }
+
+      /* 目前的語言前綴。在 /en/ 底下要連到 /en/products/…，
+         否則點一下就掉回中文版。
+
+         只認「兩個字母」或「xx-xxxx」的第一段路徑 ——
+         /about、/products 這種頁面名不會被誤判。 */
+      function langPrefix() {
+        var seg = (location.pathname.split('/')[1] || '').toLowerCase();
+        return /^[a-z]{2}(-[a-z]{2,4})?$/.test(seg) ? '/' + seg : '';
+      }
+
+      function productUrl(row) {
+        var en = String(row.name_en || '').split('/')[0].trim();
+        var s = slugify(en);
+        return langPrefix() + '/products/' + (s || ('product-' + row.id));
       }
 
       function splitAlias(name) {
@@ -2299,22 +2317,22 @@
         var p = photoOf(row);
         var chips = chipsHtml(row.items, row.items_en);
         var num = String(i + 1).padStart(2, '0');
-        var targetUrl = getCatAnchor(row.name);
+        var targetUrl = productUrl(row);
         var tw = splitAlias(row.name);
         var en = splitAlias(row.name_en || row.name);
         return '' +
-          '<article class="ps-row" onclick="window.location.href=\'' + targetUrl + '\'" title="點擊前往產品中心對應產品">' +
+          '<article class="ps-row">' +
           '  <div class="ps-stage">' +
           '    <div class="ps-numeral" aria-hidden="true">' + num + '</div>' +
-          (p.main ? '    <div class="ps-photo" data-src="' + esc(p.main) + '" data-src2="' + esc(p.backup) + '"></div>' : '') +
+          (p.main ? '    <a class="ps-photo" href="' + targetUrl + '" style="display:block" data-src="' + esc(p.main) + '" data-src2="' + esc(p.backup) + '" aria-label="' + esc(tw.main) + '"></a>' : '') +
           '  </div>' +
           '  <div class="ps-body">' +
           (row.name_en ? '    <div class="ps-eyebrow">' + esc(en.main) + '</div>' : '') +
-          '    <h3 class="ps-title" data-tw="' + esc(tw.main) + '" data-en="">' + esc(tw.main) + '</h3>' +
+          '    <a href="' + targetUrl + '" style="display:block;text-decoration:none;color:inherit"><h3 class="ps-title" data-tw="' + esc(tw.main) + '" data-en="">' + esc(tw.main) + '</h3></a>' +
           (tw.alias ? '    <div class="ps-alias" data-tw="又稱 ' + esc(tw.alias) + '" data-en="">又稱 ' + esc(tw.alias) + '</div>' : '') +
           (row.highlight ? '    <p class="ps-highlight" data-tw="' + esc(row.highlight) + '" data-en="">' + esc(row.highlight) + '</p>' : '') +
           (chips ? '    <div class="ps-items" data-items-tw="' + esc(row.items || '') + '">' + chips + '</div>' : '') +
-          '    <div><a href="' + targetUrl + '" class="ps-card-link" onclick="event.stopPropagation();"><span data-tw="前往產品中心查看" data-en="">前往產品中心查看</span> <i class="fa-solid fa-arrow-right"></i></a></div>' +
+          '    <div><a href="' + targetUrl + '" class="ps-card-link"><span data-tw="前往產品中心查看" data-en="">前往產品中心查看</span> <i class="fa-solid fa-arrow-right"></i></a></div>' +
           '  </div>' +
           '</article>';
       }
