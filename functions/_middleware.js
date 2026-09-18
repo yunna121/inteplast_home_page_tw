@@ -81,7 +81,23 @@ export async function onRequest(context) {
          解析成 /en/assets/…，也會走到這裡被還原 —— 所以 CSS、JS、
          圖片不必改任何一行。 */
       const assetUrl = new URL(rest + url.search, url.origin);
-      const res = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+      let res = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+
+      /* ASSETS 只認靜態檔案。產品頁 /products/<slug> 是 Function 產生的，
+         所以 404 時再打一次自家網址 —— 那次請求沒有語言前綴，
+         會直接落到 Function 身上（不會無限迴圈）。
+
+         帶 x-i18n-origin 讓下面的中文分支知道「這是給語言版用的原料」，
+         不要重複插入 hreflang。 */
+      if (res.status === 404) {
+        const headers = new Headers(request.headers);
+        headers.set('x-i18n-origin', '1');
+        res = await fetch(assetUrl.toString(), {
+          method: 'GET',
+          headers,
+          redirect: 'follow',
+        });
+      }
 
       const type = res.headers.get('content-type') || '';
       if (!res.ok || !type.includes('text/html')) return res;
@@ -110,6 +126,10 @@ export async function onRequest(context) {
     const res = await context.next();
     const type = res.headers.get('content-type') || '';
     if (!type.includes('text/html') || SKIP.test(url.pathname)) return res;
+
+    /* 語言版的內部取料請求：原封不動交回去，翻譯與 hreflang 由呼叫端處理，
+       否則 hreflang 會被插入兩次。 */
+    if (request.headers.get('x-i18n-origin')) return res;
 
     return new HTMLRewriter()
       .on('html', { element: (e) => e.setAttribute('lang', BASE.htmlLang) })
