@@ -292,9 +292,9 @@ function pageHtml(row, all) {
 
   <main class="pd-wrap">
     <nav class="pd-crumb" aria-label="breadcrumb">
-      <a href="/" data-tw="首頁">首頁</a>
+      <a href="/" data-tw="首頁" data-en="Home" data-ja="ホーム">首頁</a>
       <i class="fa-solid fa-chevron-right"></i>
-      <a href="/products/" data-tw="產品中心">產品中心</a>
+      <a href="/products/" data-tw="產品中心" data-en="Products" data-ja="製品一覧">產品中心</a>
       <i class="fa-solid fa-chevron-right"></i>
       <span data-tw="${esc(nameTw)}">${esc(nameTw)}</span>
     </nav>
@@ -303,23 +303,23 @@ function pageHtml(row, all) {
       <div>
         ${row.name_en ? `<div class="pd-eyebrow">${esc(mainName(row.name_en))}</div>` : ''}
         <h1 class="pd-title" data-tw="${esc(nameTw)}">${esc(nameTw)}</h1>
-        ${aliasTw ? `<div class="pd-alias" data-tw="又稱 ${esc(aliasTw)}">又稱 ${esc(aliasTw)}</div>` : ''}
+        ${aliasTw ? `<div class="pd-alias" data-tw="又稱 ${esc(aliasTw)}" data-en="Also known as ${esc(aliasOf(row.name_en) || aliasTw)}" data-ja="別名 ${esc(aliasOf(row.name_ja) || aliasOf(row.name_en) || aliasTw)}">又稱 ${esc(aliasTw)}</div>` : ''}
         ${row.highlight ? `<p class="pd-highlight" data-tw="${esc(row.highlight)}">${esc(row.highlight)}</p>` : ''}
         ${row.desc ? `<p class="pd-desc" data-tw="${esc(row.desc)}">${esc(row.desc)}</p>` : ''}
         ${items.length ? `<div class="pd-chips">${items.map((v) =>
           `<span class="pd-chip${/環保|認證|標章|回收|再生/.test(v) ? ' is-eco' : ''}" data-tw="${esc(v)}">${esc(v)}</span>`
         ).join('')}</div>` : ''}
-        <a class="pd-cta" href="/contact"><span data-tw="詢價與規格諮詢">詢價與規格諮詢</span> <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="pd-cta" href="/contact"><span data-tw="詢價與規格諮詢" data-en="Request a Quote" data-ja="お見積り・仕様のご相談">詢價與規格諮詢</span> <i class="fa-solid fa-arrow-right"></i></a>
       </div>
       <figure class="pd-figure">
         ${img
           ? `<img src="${esc(img)}" alt="${esc(nameTw)} ${esc(nameEn)}" width="420" height="420" loading="eager" decoding="async">`
-          : `<span class="pd-noimg" data-tw="產品照片準備中">產品照片準備中</span>`}
+          : `<span class="pd-noimg" data-tw="產品照片準備中" data-en="Product photo coming soon" data-ja="製品写真は準備中です">產品照片準備中</span>`}
       </figure>
     </article>
 
     ${others.length ? `<section class="pd-more">
-      <h2 data-tw="其他產品系列">其他產品系列</h2>
+      <h2 data-tw="其他產品系列" data-en="Other Product Lines" data-ja="その他の製品シリーズ">其他產品系列</h2>
       <div class="pd-more-grid">
         ${others.map((r) => {
           const n = mainName(r.name);

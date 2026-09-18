@@ -287,10 +287,16 @@ function translate(res, lang, path, strings, origin, langs) {
     })
 
     /* 頁面本文：data-tw 就是繁中原文，也是對照表的鍵。
-       用 html:true —— 譯文裡本來就允許寫 <br> 當刻意換行。 */
+
+       優先順序：元素上直接寫的 data-<語言> → 後台譯文對照表。
+       前者是給「不在後台介面文字裡」的字用的（例如產品頁自己的
+       按鈕文案）；現有頁面上的 data-en="" 是空的，會被跳過。
+
+       用 html:true —— 譯文裡允許寫 <br> 當刻意換行，而且屬性值
+       讀出來沒有解碼，當純文字寫入會被二次轉義。 */
     .on('[data-tw]', {
       element(e) {
-        const v = tr(e.getAttribute('data-tw'));
+        const v = e.getAttribute('data-' + conf.code) || tr(e.getAttribute('data-tw'));
         if (v) e.setInnerContent(v, { html: true });
       },
     })
