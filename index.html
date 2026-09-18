@@ -71,6 +71,25 @@
     }
   }
   </script>
+  <!-- 網站圖示：Google 搜尋結果左側那顆圖示。SVG 優先（任何尺寸都清晰），
+       PNG 是後備 —— 要求正方形且邊長是 48 的倍數。
+       用絕對路徑（/assets/…）—— /products/ 這類子目錄用相對路徑會抓錯位置。 -->
+  <link rel="icon" href="/assets/img/inteplast-logo-blue.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/favicon-96.png" sizes="96x96" type="image/png">
+  <link rel="icon" href="/assets/img/favicon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <!-- 搜尋結果上方顯示的「網站名稱」讀這段 WebSite 結構化資料。
+       沒有這段時 Google 會退回用網域（inteplasttw.com.tw）當名稱。
+       name 要短 —— 這是品牌名，不是公司全名；全名放 alternateName。 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "臺灣營德",
+    "alternateName": ["臺灣營德股份有限公司", "INTEPLAST TAIWAN CORPORATION"],
+    "url": "https://inteplasttw.com.tw/"
+  }
+  </script>
   <!-- ===== /SEO ===== -->
 <link rel="stylesheet" href="assets/css/navbar.css?v=8" id="site-navbar-css">
   <style>
