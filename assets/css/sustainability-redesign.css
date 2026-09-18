@@ -47,7 +47,7 @@ section {
   min-height: 444px;
   padding: 56px 0;
   isolation: isolate;
-  background: url("../img/sustainability-hero-green-label.png") center / cover no-repeat;
+  background: url("./src/sustainability-hero-green-label.png") center / cover no-repeat;
   border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
@@ -211,12 +211,9 @@ section {
   filter: drop-shadow(0 16px 18px rgba(20, 122, 85, .12));
 }
 
-/* Composited hero artwork: the emblem is baked into this image.
-   路徑用 ../img/ —— CSS 的 url() 是相對於「這個 CSS 檔案」的位置
-   （本檔在 assets/css/），不是相對於網頁。寫 ./assets/img/ 會變成
-   /assets/css/assets/img/ 而 404。 */
+/* Composited hero artwork: the emblem is baked into this image. */
 .hero {
-  background: url("../img/sustainability-hero-green-label.png?v=16") center / cover no-repeat;
+  background: url("./src/sustainability-hero-green-label.png?v=16") center / cover no-repeat;
 }
 
 .hero::before, .hero::after, .hero .leaf-decor, .hero-mark {
@@ -229,7 +226,9 @@ section {
 }
 
 .intro-grid {
-  grid-template-columns: minmax(280px, .72fr) minmax(0, 1.28fr);
+  /* 左欄是標題與內文、右欄是三點清單。原本 .72 / 1.28 讓主文字只剩約 470px，
+     英文標題被折成三四行；改成等寬，文字欄約 600px。 */
+  grid-template-columns: minmax(320px, 1fr) minmax(0, 1fr);
   gap: 54px;
   align-items: stretch;
   padding: 32px 0;
@@ -349,7 +348,9 @@ section {
 }
 
 .green-standard h3 {
-  max-width: 13em;
+  /* 13em 是照中文字數訂的，英文標題字母窄、字數多，同樣的 em 只夠約 395px。
+     放寬到 20em，讓它跟著欄寬跑。 */
+  max-width: 20em;
   margin: 9px 0 10px;
   color: var(--ink);
   font-size: 1.45rem;

@@ -25,7 +25,7 @@
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- navbar.css 已在 head 上方以 id="site-navbar-css" 載入過，這裡不再重複請求 -->
-  <link rel="stylesheet" href="assets/css/responsive.css?v=9">
+  <link rel="stylesheet" href="src/responsive.css?v=9">
     <!-- ===== SEO：正規網址／社群分享卡（2026-09 新增） ===== -->
   <link rel="canonical" href="https://inteplasttw.com.tw/about">
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -35,13 +35,13 @@
   <meta property="og:url" content="https://inteplasttw.com.tw/about">
   <meta property="og:title" content="關於臺灣營德｜從新港出發的全球製造實力">
   <meta property="og:description" content="認識臺灣營德股份有限公司：從台塑嘉義新港廠到 INTEPLAST GROUP 全球製造網絡，超過三十年的塑膠薄膜、清潔袋與軟包裝製造歷程。">
-  <meta property="og:image" content="https://inteplasttw.com.tw/assets/img/itc-logo.png">
+  <meta property="og:image" content="https://inteplasttw.com.tw/src/ITC%20Logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="關於臺灣營德｜從新港出發的全球製造實力">
   <meta name="twitter:description" content="認識臺灣營德股份有限公司：從台塑嘉義新港廠到 INTEPLAST GROUP 全球製造網絡，超過三十年的塑膠薄膜、清潔袋與軟包裝製造歷程。">
-  <meta name="twitter:image" content="https://inteplasttw.com.tw/assets/img/itc-logo.png">
+  <meta name="twitter:image" content="https://inteplasttw.com.tw/src/ITC%20Logo.png">
   <!-- ===== /SEO ===== -->
-<link rel="stylesheet" href="assets/css/navbar.css?v=8" id="site-navbar-css">
+<link rel="stylesheet" href="src/navbar.css?v=8" id="site-navbar-css">
   <style>
     :root {
       --navy-950:#0b4f83; --navy-900:#12679d; --navy-800:#1c7fb5;
@@ -62,7 +62,7 @@
     .section-lead {max-width:100%;margin-top:22px;color:var(--muted);font-size:clamp(1rem,1.5vw,1.12rem);text-wrap:pretty}
 
     .story-hero {position:relative;min-height:780px;padding-top:calc(var(--utility-height) + var(--header-height));display:grid;align-items:end;color:var(--white);background:var(--navy-950);isolation:isolate}
-    .story-hero::before {content:"";position:absolute;inset:0;z-index:-2;background:var(--site-img, url("./assets/img/製袋區.jpeg?v=20260824105835")) right bottom/cover no-repeat;filter:saturate(1.08) contrast(1.02) brightness(1.08);
+    .story-hero::before {content:"";position:absolute;inset:0;z-index:-2;background:var(--site-img, url("./src/製袋區.jpeg?v=20260824105835")) right bottom/cover no-repeat;filter:saturate(1.08) contrast(1.02) brightness(1.08);
       /* 放大倍率：改這個數字就好（1 = 原尺寸、1.25 = 放大 25%）。
          以右下角為基準放大，所以右緣與下緣不動，往左上方長出去。 */
       --hero-zoom:1;transform:scale(var(--hero-zoom));transform-origin:right bottom}.story-hero::after {content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(11,79,131,.95) 0%,rgba(8,119,186,.86) 39%,rgba(16,143,202,.48) 68%,rgba(40,169,222,.18) 100%),linear-gradient(0deg,rgba(11,79,131,.52) 0%,transparent 55%)}
@@ -106,14 +106,14 @@
     .capabilities {padding:116px 0;background:var(--white);border-top:1px solid var(--line)}.capability-intro {display:block}.capability-intro .section-lead {margin-bottom:0}.capability-grid {margin-top:62px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
     .capability {position:relative;min-height:410px;padding:34px;display:flex;flex-direction:column;overflow:hidden;background:#edf7fc;border:1px solid #d5e9f4;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}.capability:nth-child(2) {color:var(--white);background:linear-gradient(145deg,#0877ba,#0b4f83);border-color:transparent}.capability:nth-child(3) {background:#e8f3f9;border-color:#d0e3ee}.capability::after {content:"";position:absolute;right:-34px;bottom:-72px;width:180px;height:180px;border:1px solid currentColor;border-radius:50%;opacity:.1}.capability:hover {z-index:2;transform:translateY(-9px);box-shadow:0 18px 34px rgba(11,79,131,.14)}.capability-number {position:absolute;right:26px;top:18px;color:var(--brand-blue);font-family:"Barlow Condensed",sans-serif;font-size:5.4rem;font-weight:700;line-height:1;letter-spacing:-.06em;opacity:.13}.capability:nth-child(2) .capability-number {color:var(--white);opacity:.15}.capability-top {position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between}.capability-tag {color:var(--brand-blue);font-family:"Barlow Condensed",sans-serif;font-size:.83rem;font-weight:700;letter-spacing:.16em}.capability:nth-child(2) .capability-tag {color:#c3edff}.capability-arrow {width:34px;height:34px;display:grid;place-items:center;color:var(--brand-blue);background:rgba(255,255,255,.76);border-radius:50%;font-size:.8rem}.capability:nth-child(2) .capability-arrow {color:var(--white);background:rgba(255,255,255,.16)}.capability h3 {position:relative;z-index:1;max-width:none;margin-top:68px;color:var(--navy-950);font-size:clamp(1.45rem,2vw,1.8rem);line-height:1.35;letter-spacing:-.03em}.capability:nth-child(2) h3 {color:var(--white)}.capability p {position:relative;z-index:1;margin-top:18px;color:#587185;font-size:.94rem;line-height:1.9;text-wrap:pretty}.capability:nth-child(2) p {color:rgba(255,255,255,.76)}.capability-footer {position:relative;z-index:1;margin-top:auto;padding-top:22px;color:var(--brand-blue);border-top:1px solid rgba(8,119,186,.22);font-family:"Barlow Condensed","Noto Sans TC",sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.1em}.capability:nth-child(2) .capability-footer {color:#c3edff;border-color:rgba(255,255,255,.24)}
 
-    .factory-feature {display:grid;grid-template-columns:minmax(0,1.2fr) minmax(520px,.85fr);min-height:580px;background:var(--navy-900)}.factory-image {position:relative;min-height:520px;overflow:hidden;background:var(--navy-900)}.factory-video {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .6s ease}.factory-video.is-ready {opacity:1}.factory-copy {padding:clamp(36px,3.5vw,60px);display:flex;flex-direction:column;justify-content:center;color:var(--white)}.factory-copy .eyebrow {color:#8fd6ff}.factory-copy h2 {margin-top:18px;font-size:clamp(1.9rem,2.6vw,2.6rem);line-height:1.14;text-wrap:balance}.factory-copy p {margin-top:24px;color:rgba(255,255,255,.68);text-wrap:pretty}.process-list {margin-top:36px;list-style:none}.process-list li {padding:13px 0;display:flex;align-items:center;gap:14px;border-top:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.84);font-size:.9rem}.process-list i {width:20px;color:#85d2ff;text-align:center}
+    .factory-feature {display:grid;grid-template-columns:minmax(0,1fr) minmax(560px,1fr);min-height:580px;background:var(--navy-900)}.factory-image {position:relative;min-height:520px;overflow:hidden;background:var(--navy-900)}.factory-video {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .6s ease}.factory-video.is-ready {opacity:1}.factory-copy {padding:clamp(36px,3.5vw,60px);display:flex;flex-direction:column;justify-content:center;color:var(--white)}.factory-copy .eyebrow {color:#8fd6ff}.factory-copy h2 {margin-top:18px;font-size:clamp(1.9rem,2.6vw,2.6rem);line-height:1.14;text-wrap:balance}.factory-copy p {margin-top:24px;color:rgba(255,255,255,.68);text-wrap:pretty}.process-list {margin-top:36px;list-style:none}.process-list li {padding:13px 0;display:flex;align-items:center;gap:14px;border-top:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.84);font-size:.9rem}.process-list i {width:20px;color:#85d2ff;text-align:center}
 
     .closing {padding:104px 0;background:var(--white);text-align:center}.closing h2 {color:var(--navy-950);font-size:clamp(2.3rem,4.8vw,4.8rem);line-height:1.12;letter-spacing:-.04em}.closing p {max-width:980px;margin:22px auto 0;color:var(--muted);text-wrap:pretty}.closing-actions {margin-top:36px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.primary-action, .secondary-action {min-height:48px;padding:11px 22px;display:inline-flex;align-items:center;gap:10px;border-radius:3px;font-size:.9rem;font-weight:800;text-decoration:none}.primary-action {color:var(--white);background:var(--brand-blue)}.secondary-action {color:var(--navy-900);border:1px solid var(--line)}.primary-action:hover {background:var(--navy-800)}.secondary-action:hover {border-color:var(--brand-blue);color:var(--brand-blue)}
     .footer {padding:42px 40px 28px;color:rgba(255,255,255,.62);background:var(--navy-950);font-size:.84rem}.footer-inner {display:flex;align-items:center;justify-content:space-between;gap:24px}.footer img {height:32px;width:auto;filter:brightness(0) invert(1);opacity:.84}
     .reveal {opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}.reveal.visible {opacity:1;transform:none}
 
     @media(min-width:1025px) and (max-width:1280px){
-      .factory-feature {grid-template-columns:1.05fr .95fr}
+      .factory-feature {grid-template-columns:.92fr 1.08fr}
       .factory-copy {padding:52px 44px}
       .factory-copy h2 {font-size:clamp(1.7rem,2.4vw,2.2rem)}
       .factory-copy p {margin-top:18px;font-size:.95rem}
@@ -123,12 +123,12 @@
     @media(max-width:768px){.awards {padding:72px 0}.patent-section {padding:72px 0}.patent-product {max-width:104px}.patent-card img {width:260px}.patent-meta {width:260px}.patent-meta code {font-size:1.3rem}.container {width:min(100% - 36px,var(--container))}.logo-copy {display:none}.story-hero {min-height:720px;padding-top:64px}.hero-inner {padding-top:92px;padding-bottom:46px}.story-hero::after {background:linear-gradient(100deg,rgba(11,79,131,.93),rgba(8,119,186,.65)),linear-gradient(0deg,rgba(11,79,131,.78),transparent 65%)}.hero-fact {grid-template-columns:64px 1fr}.partnership, .origin, .history, .capabilities, .closing {padding-block:82px}.network-node {min-height:0;padding:30px 26px}.timeline::before {left:77px}.timeline-item {grid-template-columns:58px 1fr;gap:40px;min-height:140px}.timeline-item::before {left:72px}.timeline-year {font-size:1.45rem}.timeline-item.future .timeline-copy {padding:22px}.capability-grid {grid-template-columns:1fr}.capability {min-height:auto}.factory-image {min-height:320px}.footer-inner {flex-direction:column;align-items:flex-start}}
     @media(prefers-reduced-motion:reduce){html {scroll-behavior:auto}*, *::before, *::after {animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal {opacity:1;transform:none}}
   </style>
-  <!-- 全站字級（assets/css/type.css）必須在首次繪製前就到位。
+  <!-- 全站字級（src/type.css）必須在首次繪製前就到位。
        原本由 navbar.js 在 <body> 執行時才附加到 head，所以頁面會先用
        本頁自己的級數畫出來（hero 最大 102px），type.css 進來後才收斂成
        52px —— 那就是載入時標題「特別大然後縮小」的原因。
        放在所有樣式之後，同權重時仍然勝出；id 讓 navbar.js 跳過注入。 -->
-  <link id="site-type-css" rel="stylesheet" href="assets/css/type.css">
+  <link id="site-type-css" rel="stylesheet" href="src/type.css">
   <!-- Google Analytics 4（G-0FS2ZC88V0）
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
@@ -150,10 +150,10 @@
   </script>
 </head>
 <body>
-  <!-- 頁首（頂欄／選單／搜尋鈕／語言鈕／CTA）由 assets/js/navbar.js 注入，頁面內不要再手寫一份 -->
+  <!-- 頁首（頂欄／選單／搜尋鈕／語言鈕／CTA）由 src/navbar.js 注入，頁面內不要再手寫一份 -->
   <div id="site-header-component"></div>
-  <script src="assets/js/navbar.js"></script>
-  <script src="assets/js/site-year.js"></script>
+  <script src="src/navbar.js"></script>
+  <script src="src/site-year.js"></script>
   <main>
     <section class="story-hero" data-site-bg="about_hero">
       <div class="container hero-inner">
@@ -178,12 +178,12 @@
 
     <section class="history" id="history"><div class="container">
       <div class="reveal"><span class="eyebrow">Milestones</span><h2 class="section-title" data-tw="臺灣營德的製造歷程" data-en="">臺灣營德的<br>製造歷程</h2><p class="section-lead" data-tw="故事始於高雄前鎮廠，從袋品生產出發，逐步發展為今日的製造基地。" data-en="">故事始於高雄前鎮廠，從袋品生產出發，逐步發展為今日的製造基地。</p></div>
-      <!-- 時間軸內容由 Cloudflare D1 提供（GET /api/timeline），assets/js/timeline-render.js 負責畫出來；這裡不要寫死文字 -->
+      <!-- 時間軸內容由 Cloudflare D1 提供（GET /api/timeline），src/timeline-render.js 負責畫出來；這裡不要寫死文字 -->
       <div class="timeline" data-timeline></div>
     </div></section>
 
     <!-- 時間軸渲染（資料在 D1 的 timeline 表，改文字改資料庫） -->
-    <script src="assets/js/timeline-render.js"></script>
+    <script src="src/timeline-render.js"></script>
 
     <!-- 業務在後台新增的內容區塊（後台 → 頁面區塊 → 關於營德）
          沒有區塊時這裡不會佔任何空間 -->
@@ -197,7 +197,7 @@
           <p class="section-lead" data-tw="臺灣營德連續五年獲頒 INTEPLAST GROUP Excellence Award 卓越獎。" data-en="">臺灣營德連續五年獲頒 INTEPLAST GROUP Excellence Award 卓越獎。</p>
         </div>
         <figure class="awards-figure reveal">
-          <img src="./assets/img/excellence-awards.jpg" data-site-img="about_awards" alt="臺灣營德獲頒的 INTEPLAST GROUP 卓越營運獎項展示，包含 2021 至 2024 年度 Excellence Award 與 2024 年 The Most Improved Operation" width="612" height="408" loading="lazy">
+          <img src="./src/excellence-awards.jpg" data-site-img="about_awards" alt="臺灣營德獲頒的 INTEPLAST GROUP 卓越營運獎項展示，包含 2021 至 2024 年度 Excellence Award 與 2024 年 The Most Improved Operation" width="612" height="408" loading="lazy">
           <figcaption data-tw="INTEPLAST GROUP 卓越獎與年度最大進步營運單位獎座" data-en="">INTEPLAST GROUP 卓越獎與年度最大進步營運單位獎座</figcaption>
         </figure>
       </div>
@@ -207,12 +207,12 @@
       <div class="patent-grid">
         <figure class="patent-figure reveal">
           <div class="patent-card">
-            <img src="./assets/img/scale-sheet-patent.jpg" data-product-img="Scale Sheet::patent" alt="Scale Sheet 抽取式設計的美國專利證書" width="621" height="819" loading="lazy">
+            <img src="./src/scale-sheet-patent.jpg" data-product-img="Scale Sheet::patent" alt="Scale Sheet 抽取式設計的美國專利證書" width="621" height="819" loading="lazy">
           </div>
         </figure>
         <div class="patent-copy reveal">
-          <!-- src 留空：圖由 assets/js/site-images.js 依 data-product-img 從 D1 取
-               （assets/img/product-img/ 已隨資料源移到 D1 後刪除，寫死路徑會 404）。
+          <!-- src 留空：圖由 src/site-images.js 依 data-product-img 從 D1 取
+               （src/product-img/ 已隨資料源移到 D1 後刪除，寫死路徑會 404）。
                取不到時整張藏起來，不留破圖框。 -->
           <img class="patent-product" data-product-img="Scale Sheet::img_home"
             onerror="this.style.visibility='hidden'" alt="Scale Sheet 抽取式盒裝，單張抽取設計" width="368" height="328" loading="lazy">
@@ -228,25 +228,25 @@
       <div class="capability-grid reveal"><article class="capability"><span class="capability-number">01</span><div class="capability-top"><span class="capability-tag">PRECISION</span><span class="capability-arrow"><i class="fa-solid fa-arrow-up-right"></i></span></div><h3 data-tw="讓穩定品質，成為製程的日常" data-en="">讓穩定品質，成為製程的日常</h3><p data-tw="從全自動拌料與原料空輸，從吹膜控制與精密點斷熱封，每一道製程都為穩定品質與良率而設計。" data-en="">從全自動拌料與原料空輸，從吹膜控制與精密點斷熱封，每一道製程都為穩定品質與良率而設計。</p><div class="capability-footer" data-tw="製程 × 品質管理" data-en="">製程 × 品質管理</div></article><article class="capability"><span class="capability-number">02</span><div class="capability-top"><span class="capability-tag">GLOBAL REACH</span><span class="capability-arrow"><i class="fa-solid fa-arrow-up-right"></i></span></div><h3 data-tw="以多元產品，回應全球市場" data-en="">以多元產品，回應全球市場</h3><p data-tw="從包裝膜、清潔袋、拉繩清潔袋、醫療包裝袋、冷凍袋、密實袋，臺灣營德服務台灣、日本、美洲、澳洲與東南亞等市場。" data-en="">從包裝膜、清潔袋、拉繩清潔袋、醫療包裝袋、冷凍袋、密實袋，臺灣營德服務台灣、日本、美洲、澳洲與東南亞等市場。</p><div class="capability-footer" data-tw="產品 × 市場連結" data-en="">產品 × 市場連結</div></article><article class="capability"><span class="capability-number">03</span><div class="capability-top"><span class="capability-tag">CIRCULARITY</span><span class="capability-arrow"><i class="fa-solid fa-arrow-up-right"></i></span></div><h3 data-tw="把永續，落實在每個細節" data-en="">把永續，落實在每個細節</h3><p data-tw="採用環保水性墨、建構廢膜回收再生系統，並推出取得國家環保標章認證的綠色產品。" data-en="">採用環保水性墨、建構廢膜回收再生系統，並推出取得國家環保標章認證的綠色產品。</p><div class="capability-footer" data-tw="材料 × 循環思維" data-en="">材料 × 循環思維</div></article></div>
     </div></section>
 
-    <section class="factory-feature"><div class="factory-image" role="img" aria-label="臺灣營德新港生產基地自動化設備"><video class="factory-video" src="./assets/video/factory-xingang.mp4" autoplay muted loop playsinline preload="metadata" onloadeddata="this.classList.add('is-ready')"></video></div><div class="factory-copy reveal"><span class="eyebrow">Xingang production hub</span><h2 data-tw="把現場經驗，轉化成每一批產品的可靠度" data-en="">把現場經驗，轉化成每一批產品的可靠度</h2><p data-tw="嘉義新港工廠將原料輸送、吹膜、印刷、製袋與品質控管串聯為完整流程，讓品質不是最後一道檢查，而是每一道製程的共同標準。" data-en="">嘉義新港工廠將原料輸送、吹膜、印刷、製袋與品質控管串聯為完整流程，讓品質不是最後一道檢查，而是每一道製程的共同標準。</p><ul class="process-list"><li><i class="fa-solid fa-circle-nodes"></i><span data-tw="全自動拌料與原料空輸" data-en="">全自動拌料與原料空輸</span></li><li><i class="fa-solid fa-microchip"></i><span data-tw="自動化吹膜控制" data-en="">自動化吹膜控制</span></li><li><i class="fa-solid fa-shield-halved"></i><span data-tw="精密點斷、熱封與品質追蹤" data-en="">精密點斷、熱封與品質追蹤</span></li></ul></div></section>
+    <section class="factory-feature"><div class="factory-image" role="img" aria-label="臺灣營德新港生產基地自動化設備"><video class="factory-video" src="./src/新港.mp4" autoplay muted loop playsinline preload="metadata" onloadeddata="this.classList.add('is-ready')"></video></div><div class="factory-copy reveal"><span class="eyebrow">Xingang production hub</span><h2 data-tw="把現場經驗，轉化成每一批產品的可靠度" data-en="">把現場經驗，轉化成每一批產品的可靠度</h2><p data-tw="嘉義新港工廠將原料輸送、吹膜、印刷、製袋與品質控管串聯為完整流程，讓品質不是最後一道檢查，而是每一道製程的共同標準。" data-en="">嘉義新港工廠將原料輸送、吹膜、印刷、製袋與品質控管串聯為完整流程，讓品質不是最後一道檢查，而是每一道製程的共同標準。</p><ul class="process-list"><li><i class="fa-solid fa-circle-nodes"></i><span data-tw="全自動拌料與原料空輸" data-en="">全自動拌料與原料空輸</span></li><li><i class="fa-solid fa-microchip"></i><span data-tw="自動化吹膜控制" data-en="">自動化吹膜控制</span></li><li><i class="fa-solid fa-shield-halved"></i><span data-tw="精密點斷、熱封與品質追蹤" data-en="">精密點斷、熱封與品質追蹤</span></li></ul></div></section>
 
 
     <section class="closing"><div class="container reveal"><span class="eyebrow">Build with confidence</span><h2 data-tw="下一段製造故事，與您一起開始" data-en="">下一段製造故事，<br>與您一起開始</h2><p data-tw="需要穩定可靠的塑膠薄膜、袋品或軟包裝製造夥伴？讓臺灣營德的技術與全球網絡，回應您的產品需求。" data-en="">需要穩定可靠的塑膠薄膜、袋品或軟包裝製造夥伴？讓臺灣營德的技術與全球網絡，回應您的產品需求。</p><div class="closing-actions"><a class="primary-action" href="contact.html"><span data-tw="聯繫與詢價" data-en="">聯繫與詢價</span><i class="fa-solid fa-arrow-right"></i></a><a class="secondary-action" href="products/index.html"><span data-tw="瀏覽產品中心" data-en="">瀏覽產品中心</span></a></div></div></section>
   </main>
-  <footer class="footer"><div class="container footer-inner"><img src="./assets/img/inteplast-logo-blue.svg" alt="INTEPLAST"><span>© {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</span></div></footer>
-  <script src="assets/js/site-search.js?v=2"></script>
-  <script src="assets/js/mobile-nav.js?v=8"></script>
-  <script src="assets/js/footer.js"></script>
+  <footer class="footer"><div class="container footer-inner"><img src="./src/INTEPLAST-logo-blue.svg" alt="INTEPLAST"><span>© {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</span></div></footer>
+  <script src="src/site-search.js?v=2"></script>
+  <script src="src/mobile-nav.js?v=8"></script>
+  <script src="src/footer.js"></script>
   <script>
-    /* 語言切換統一由 assets/js/site-lang.js 提供（原本這裡有一份頁內版本，
+    /* 語言切換統一由 src/site-lang.js 提供（原本這裡有一份頁內版本，
        固定從 tw 起算，會覆蓋使用者選的語言）。 */
     const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if(reduceMotion||!("IntersectionObserver" in window)){document.querySelectorAll(".reveal").forEach(function(element){element.classList.add("visible")})}else{const observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}})},{threshold:.12});document.querySelectorAll(".reveal").forEach(function(element){observer.observe(element)})}
   </script>
-  <script src="assets/js/site-lang.js?v=10"></script>
+  <script src="src/site-lang.js?v=10"></script>
   <!-- 頁面上的照片改由後台「網站圖片」設定，HTML 裡的路徑是後備 -->
-  <script src="assets/js/site-images.js?v=1"></script>
-  <script src="assets/js/page-blocks.js?v=8"></script>
-  <script src="assets/js/cjk-nbsp.js?v=5"></script>
+  <script src="src/site-images.js?v=1"></script>
+  <script src="src/page-blocks.js?v=8"></script>
+  <script src="src/cjk-nbsp.js?v=5"></script>
 </body>
 </html>
