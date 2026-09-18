@@ -853,7 +853,9 @@ footer {
   }
 
   .commitment .container {
-    grid-template-columns: 1fr;
+    /* minmax(0, 1fr) 而不是 1fr：1fr 的下限是 min-content，
+       一段不能斷行的長文字就會把整欄推得比畫面還寬。 */
+    grid-template-columns: minmax(0, 1fr);
     gap: 18px;
   }
 
