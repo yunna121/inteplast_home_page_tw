@@ -843,8 +843,7 @@
           (list ? '<div data-items-tw="' + esc(cat.items || '') + '" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px;">' + list + '</div>' : '') +
           '</div>' +
           '<div class="card-actions-row">' +
-          '<a href="' + productUrl(cat) + '" class="btn-action-primary"><i class="fa-solid fa-circle-info"></i> <span>' + esc(detailLabel()) + '</span></a>' +
-          '<a href="../contact.html" class="btn-action-secondary"><i class="fa-solid fa-envelope"></i> <span data-tw="留下資料專人對接" data-en="">留下資料專人對接</span></a>' +
+          '<a href="../contact.html" class="btn-action-primary"><i class="fa-solid fa-envelope"></i> <span data-tw="留下資料專人對接" data-en="">留下資料專人對接</span></a>' +
           '</div>' +
           '</div>' +
           '</article>';
@@ -855,37 +854,9 @@
         return { main: parts.shift() || '', alias: parts.join(' / ') };
       }
 
-      /* 產品網址：/products/<英文品名>。規則要與後端一致
-         （functions/products/_shared.js 的 productSlug）。 */
-      function slugify(s) {
-        return String(s || '').toLowerCase()
-          .replace(/[^a-z0-9]+/g, '-')
-          .replace(/^-+|-+$/g, '')
-          .replace(/-{2,}/g, '-');
-      }
-
-      /* 目前的語言前綴：在 /en/ 底下要連到 /en/products/…。
-         只認兩字母或 xx-xxxx 的第一段，頁面名不會被誤判。 */
-      function langPrefix() {
-        var seg = (location.pathname.split('/')[1] || '').toLowerCase();
-        return /^[a-z]{2}(-[a-z]{2,4})?$/.test(seg) ? '/' + seg : '';
-      }
-
-      function productUrl(row) {
-        var en = String(row.name_en || '').split('/')[0].trim();
-        var s = slugify(en);
-        return langPrefix() + '/products/' + (s || ('product-' + row.id));
-      }
-
-      /* 這顆按鈕的文字刻意不帶 data-tw：它不在後台的介面文字裡，
-         site-lang.js 查不到翻譯時會用原文覆蓋掉，反而把英文蓋回中文。
-         直接依 <html lang> 選字，伺服器端已經把語言設好了。 */
-      function detailLabel() {
-        var l = (document.documentElement.lang || '').toLowerCase();
-        if (l.indexOf('ja') === 0) return '製品詳細を見る';
-        if (l.indexOf('en') === 0) return 'View Product Details';
-        return '查看產品詳情';
-      }
+      /* 這頁刻意不連到單一產品頁（/products/<英文品名>）——
+         產品頁的內容與這頁的卡片一樣，多一層點擊沒有給使用者新資訊。
+         首頁的產品列仍然連過去，Google 也靠 sitemap 找得到。 */
 
       function render(rows) {
         var container = document.querySelector('main.gallery-container');
