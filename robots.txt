@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+
+# 後台與 API 不需要被收錄
 Disallow: /admin/
 Disallow: /api/
 

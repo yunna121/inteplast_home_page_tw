@@ -1,33 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<!-- 每一頁列出三種語言，並用 xhtml:link 互相指認。
+     Google 靠這個知道 /、/en/、/ja/ 是同一頁的不同語言版本，
+     而不是三份重複內容。x-default 是語言都對不上時的預設。 -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://inteplasttw.com.tw/</loc>
-    <lastmod>2026-09-17</lastmod>
-    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/"/>
+    <lastmod>2026-09-18</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://inteplasttw.com.tw/about</loc>
-    <lastmod>2026-09-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://inteplasttw.com.tw/en/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://inteplasttw.com.tw/ja/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://inteplasttw.com.tw/products/</loc>
-    <lastmod>2026-09-17</lastmod>
-    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/products/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/products/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/products/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/products/"/>
+    <lastmod>2026-09-18</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://inteplasttw.com.tw/en/products/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/products/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/products/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/products/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/products/"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://inteplasttw.com.tw/ja/products/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/products/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/products/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/products/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/products/"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://inteplasttw.com.tw/about</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/about"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://inteplasttw.com.tw/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/about"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://inteplasttw.com.tw/ja/about</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/about"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://inteplasttw.com.tw/sustainability</loc>
-    <lastmod>2026-09-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/sustainability"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/sustainability"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/sustainability"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/sustainability"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://inteplasttw.com.tw/en/sustainability</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/sustainability"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/sustainability"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/sustainability"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/sustainability"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://inteplasttw.com.tw/ja/sustainability</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/sustainability"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/sustainability"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/sustainability"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/sustainability"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://inteplasttw.com.tw/contact</loc>
-    <lastmod>2026-09-17</lastmod>
-    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/contact"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://inteplasttw.com.tw/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/contact"/>
+    <lastmod>2026-09-18</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://inteplasttw.com.tw/ja/contact</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://inteplasttw.com.tw/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://inteplasttw.com.tw/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://inteplasttw.com.tw/ja/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://inteplasttw.com.tw/contact"/>
+    <lastmod>2026-09-18</lastmod>
     <priority>0.7</priority>
   </url>
 </urlset>
