@@ -92,7 +92,6 @@
   <div class="top-utility-bar">
     <div class="utility-left">
       <span><i class="fa-solid fa-earth-americas"></i> <span data-tw="相關連結" data-en="Related Links">相關連結</span></span>
-      <a href="https://www.fpc.com.tw/fpcw/" target="_blank" rel="noopener"><span data-tw="台灣塑膠工業股份有限公司" data-en="Formosa Plastics Corp.">台灣塑膠工業股份有限公司</span></a>
       <a href="https://www.INTEPLAST.com/" target="_blank" rel="noopener"><span data-tw="INTEPLAST USA" data-en="INTEPLAST USA">INTEPLAST USA</span></a>
     </div>
     <div class="utility-right">
