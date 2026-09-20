@@ -146,7 +146,7 @@
         '<div class="sf-contact">' +
           '<div><i class="fa-solid fa-location-dot"></i><span data-site="address" data-tw="臺北市松山區敦化北路205號6樓609室" data-en="Rm. 609, 6F., No. 205, Dunhua N. Rd., Songshan Dist., Taipei City, Taiwan">臺北市松山區敦化北路205號6樓609室</span></div>' +
           '<div><i class="fa-solid fa-phone"></i><a href="tel:0227122211,8109" data-site="phone">02-2712-2211 #8109</a></div>' +
-          '<div><i class="fa-solid fa-envelope"></i><a href="mailto:lyanchen@wpjk.inteplast.com" data-site-href="email" data-site="email">lyanchen@wpjk.inteplast.com</a></div>' +
+          '<div><i class="fa-solid fa-envelope"></i><a href="mailto:inteplasttw@fpc.com.tw" data-site-href="email" data-site="email">inteplasttw@fpc.com.tw</a></div>' +
         '</div>' +
       '</div>' +
 
