@@ -194,10 +194,10 @@
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
     (function () {
-      /* 只在正式網域送資料。原本只認 yunna121.github.io，搬到 Cloudflare Pages
-         之後就完全沒有統計了 —— 這裡改成列出所有正式網域。
-         換自訂網域時把它加進這個陣列。 */
-      var LIVE_HOSTS = ['inteplasttw.com.tw', 'www.inteplasttw.com.tw', 'yunna121.github.io', 'inteplast-home-page-tw.pages.dev'];
+      /* 只在正式網域送資料。舊的 github.io 與 pages.dev 已經 301 導向，
+         永遠不會執行到這裡，所以從清單移除。
+         以後換網域時把新的加進這個陣列。 */
+      var LIVE_HOSTS = ['inteplasttw.com.tw', 'www.inteplasttw.com.tw'];
       if (LIVE_HOSTS.indexOf(location.hostname) === -1) return;
       var s = document.createElement('script');
       s.async = true;
@@ -393,8 +393,17 @@
 
     /* 表單送出 → POST /api/inquiry → 寫進 D1 的 inquiries 表。
        不寄信：業務到後台的「客戶詢價」看紀錄並主動聯繫。
-       送出失敗時給出信箱與電話，客戶還有路可走。 */
-    const FALLBACK_MAILTO = 'inteplasttw@fpc.com.tw';
+       送出失敗時給出信箱與電話，客戶還有路可走。
+
+       這兩個值不寫死 —— 直接讀畫面上那兩個欄位，
+       它們已經被 site-settings.js 用後台的值覆蓋過了。
+       後台改總機或信箱，這裡的錯誤訊息跟著變，不會有第二處要記得改。
+       （取不到才退回這裡的預設值，例如設定 API 掛掉時） */
+    function siteValue(key, fallback) {
+      var el = document.querySelector('[data-site="' + key + '"]');
+      var v = el ? String(el.textContent || '').trim() : '';
+      return v || fallback;
+    }
 
     document.getElementById('contactForm').addEventListener('submit', function (e) {
       e.preventDefault();
@@ -434,9 +443,9 @@
         .catch(function (err) {
           statusDiv.style.color = '#DC2626';
           statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> 送出失敗（' +
-            (err.message || '連線異常') + '），請改寄 <a href="mailto:' + FALLBACK_MAILTO +
-            '" style="color:#DC2626; font-weight:800;">' + FALLBACK_MAILTO +
-            '</a> 或電洽 02-2712-2211 #8109。';
+            (err.message || '連線異常') + '），請改寄 <a href="mailto:' + siteValue('email', 'inteplasttw@fpc.com.tw') +
+            '" style="color:#DC2626; font-weight:800;">' + siteValue('email', 'inteplasttw@fpc.com.tw') +
+            '</a> 或電洽 ' + siteValue('phone', '02-2712-2211 #8109') + '。';
           submitBtn.disabled = false;
         });
     });
@@ -452,7 +461,7 @@
     </script>
   <script src="assets/js/site-search.js?v=3"></script>
   <script src="assets/js/mobile-nav.js?v=8"></script>
-  <script src="assets/js/footer.js?v=4"></script>
+  <script src="assets/js/footer.js?v=5"></script>
   <script src="assets/js/site-lang.js?v=11"></script>
   <script src="assets/js/cjk-nbsp.js?v=5"></script>
 </body>

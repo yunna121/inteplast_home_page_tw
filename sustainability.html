@@ -185,10 +185,10 @@
        只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
   <script>
     (function () {
-      /* 只在正式網域送資料。原本只認 yunna121.github.io，搬到 Cloudflare Pages
-         之後就完全沒有統計了 —— 這裡改成列出所有正式網域。
-         換自訂網域時把它加進這個陣列。 */
-      var LIVE_HOSTS = ['inteplasttw.com.tw', 'www.inteplasttw.com.tw', 'yunna121.github.io', 'inteplast-home-page-tw.pages.dev'];
+      /* 只在正式網域送資料。舊的 github.io 與 pages.dev 已經 301 導向，
+         永遠不會執行到這裡，所以從清單移除。
+         以後換網域時把新的加進這個陣列。 */
+      var LIVE_HOSTS = ['inteplasttw.com.tw', 'www.inteplasttw.com.tw'];
       if (LIVE_HOSTS.indexOf(location.hostname) === -1) return;
       var s = document.createElement('script');
       s.async = true;
@@ -340,7 +340,7 @@
 
   <script src="assets/js/site-search.js?v=3"></script>
   <script src="assets/js/mobile-nav.js?v=8"></script>
-  <script src="assets/js/footer.js?v=4"></script>
+  <script src="assets/js/footer.js?v=5"></script>
   <script src="assets/js/site-lang.js?v=11"></script>
   <script src="assets/js/page-blocks.js?v=8"></script>
   <!-- 頁面上的照片改由後台「網站圖片」設定，HTML 裡的路徑是後備 -->

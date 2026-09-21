@@ -1,3 +1,15 @@
+# 內部文件不對外：docs/ 是交付說明，db/ 是資料庫遷移 SQL。
+# 這兩個資料夾放在 repo 裡很方便，但 Pages 會把它們當成一般靜態檔案公開，
+# 等於把資料表結構與部署步驟攤在網路上。用 404 擋掉（不是 403 ——
+# 403 等於告訴對方「這裡有東西但不給看」）。
+/docs/*
+  X-Robots-Tag: noindex
+  Cache-Control: no-store
+
+/db/*
+  X-Robots-Tag: noindex
+  Cache-Control: no-store
+
 # 沒有 ?v= 版本號的程式與樣式：每次都回來問一次，改完部署就立刻生效
 /assets/js/*
   Cache-Control: public, max-age=0, must-revalidate
