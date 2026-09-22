@@ -1,21 +1,22 @@
-/* 客戶自動回覆信（Resend）
+/* 詢價信件（兩封都走 Resend）
    ------------------------------------------------------------
-   只負責一件事：寄一封「已收到您的詢價」給客戶，寄件人是
-   noreply@inteplasttw.com.tw。實際回覆仍由業務主動聯繫。
-
-   給業務的通知信不在這裡 —— 那個繼續走原本的 Google Apps Script，
-   完全沒有改動。
+     1. salesNotify(row, id, adminUrl)  給業務的通知信
+        原本走 Google Apps Script（MailApp），已改為 Resend，
+        寄件人 inquiry@inteplasttw.com.tw，回覆地址＝客戶信箱。
+     2. customerAck(row, lang)           給客戶的自動回覆，寄件人 noreply@
 
    為什麼用 Resend：Cloudflare Workers 沒有 SMTP，不能自己寄信。
-   Resend 是 HTTP API，免費方案每月 3,000 封／每天 100 封，
-   驗證網域後寄件人就是 noreply@inteplasttw.com.tw。
+   Resend 是 HTTP API，免費方案每月 3,000 封／每天 100 封 ——
+   一筆詢價會用掉 2 封，所以每天約可承受 50 筆。
 
    需要的環境變數（Pages → Settings → Variables and Secrets）：
-     RESEND_API_KEY   Resend 後台建立的 API Key（設成 Secret）
-     MAIL_FROM        選填，預設 noreply@inteplasttw.com.tw
+     RESEND_API_KEY     Resend 後台建立的 API Key（設成 Secret）
+     MAIL_FROM          選填，客戶自動回覆的寄件人，預設 noreply@inteplasttw.com.tw
+     MAIL_FROM_NOTIFY   選填，業務通知信的寄件人，預設 inquiry@inteplasttw.com.tw
+     ADMIN_URL          選填，後台網址，預設 https://inteplasttw.com.tw/admin/
 
-   沒設 RESEND_API_KEY 時就不寄自動回覆，其他流程照常，
-   所以可以先部署程式、之後再驗證網域，中間不會有空窗。 */
+   沒設 RESEND_API_KEY 時兩封都不寄，其他流程照常（資料仍寫入 D1）。
+   Apps Script（GAS_URL、apps-script/inquiry-mailer.gs）已不再使用。 */
 
 export const MAIL_FROM_NAME = '臺灣營德股份有限公司';
 
@@ -93,6 +94,50 @@ function shell(inner) {
     + '</div></div>';
 }
 
+/* 台北時間字串，給業務信的「送出時間」用（Workers 沒有時區設定，自己加 8 小時） */
+function taipeiNow() {
+  const d = new Date(Date.now() + 8 * 60 * 60 * 1000);
+  const p = (n) => String(n).padStart(2, '0');
+  return `${d.getUTCFullYear()}-${p(d.getUTCMonth() + 1)}-${p(d.getUTCDate())} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}`;
+}
+
+/* 給業務的通知信 —— 內容與原本 Apps Script 寄出的那封一致（主旨格式、欄位、
+   送出時間都照舊），只是改由 Resend 送出，並多帶後台詢價紀錄的編號。
+   replyTo 設成客戶的信箱，業務直接按回覆就是回給客戶。 */
+export function salesNotify(data, id, adminUrl) {
+  const admin = adminUrl || 'https://inteplasttw.com.tw/admin/';
+  const f = { company: '公司名稱', email: '商務信箱', phone: '聯絡電話', product: '產品類別', message: '需求內容' };
+  const subject = '【官網詢價】' + (data.company || '未填公司') + ' · ' + (data.product || '未選類別');
+  const sentAt = taipeiNow();
+
+  const html = shell(''
+    + '<div style="padding:28px">'
+    + '<p style="margin:0 0 20px;color:#1E293B;font-size:15px;line-height:1.7">官網「留下聯絡資料」新進一筆：</p>'
+    + '<table style="width:100%;border-collapse:collapse;border-top:1px solid #E2E8F0;border-bottom:1px solid #E2E8F0">'
+    + row(f.company, data.company) + row(f.email, data.email) + row(f.phone, data.phone)
+    + row(f.product, data.product) + row(f.message, data.message)
+    + row('送出時間', sentAt) + row('紀錄編號', id ? '#' + id : '')
+    + '</table>'
+    + `<p style="margin:24px 0 0"><a href="${esc(admin)}" style="display:inline-block;padding:10px 18px;border:1px solid #0A2540;border-radius:6px;color:#0A2540;font-size:14px;text-decoration:none">到後台「客戶詢價」查看${id ? '（#' + id + '）' : ''}</a></p>`
+    + '<p style="margin:20px 0 0;padding-top:20px;border-top:1px solid #E2E8F0;color:#64748B;font-size:12px;line-height:1.7">'
+    + '直接回覆這封信即可回給客戶（回覆地址已設為客戶信箱）。處理完請到後台把這筆標成已處理。</p>'
+    + '</div>');
+
+  const text = [
+    '官網「留下聯絡資料」新進一筆：', '',
+    `${f.company}：${data.company || '-'}`,
+    `${f.email}：${data.email || '-'}`,
+    `${f.phone}：${data.phone || '-'}`,
+    `${f.product}：${data.product || '-'}`,
+    `${f.message}：`, (data.message || '-'), '',
+    `送出時間：${sentAt}`,
+    id ? `紀錄編號：#${id}` : '',
+    '', `後台「客戶詢價」：${admin}`,
+  ].filter(Boolean).join('\n');
+
+  return { subject, html, text, replyTo: data.email || undefined };
+}
+
 /* 給客戶的自動回覆 */
 export function customerAck(data, lang) {
   const t = TEXTS[lang] || TEXTS['zh-TW'];
@@ -128,21 +173,31 @@ export function customerAck(data, lang) {
   return { subject: t.subject, html, text: lines.join('\n') };
 }
 
+/* 收件人字串（後台可能填成 "a@x.com, b@y.com"）拆成陣列 */
+export function addrList(raw) {
+  return String(raw || '').split(/[,;]/).map(s => s.trim()).filter(Boolean);
+}
+
 /* 送給 Resend。回傳 { ok, status, body } —— 呼叫端自己決定要不要在意結果。
    刻意不 throw：寄信失敗不應該讓客戶的表單顯示錯誤（資料已經進資料庫了）。 */
-export async function resendSend(env, { to, subject, html, text }) {
+export async function resendSend(env, { to, cc, subject, html, text, replyTo, from: fromOverride }) {
   const key = env.RESEND_API_KEY;
   if (!key) return { ok: false, status: 0, body: 'RESEND_API_KEY 未設定' };
 
-  const from = env.MAIL_FROM || 'noreply@inteplasttw.com.tw';
+  const from = fromOverride || env.MAIL_FROM || 'noreply@inteplasttw.com.tw';
+  const list = (v) => (Array.isArray(v) ? v : addrList(v)).filter(Boolean);
 
   const payload = {
     from: `${MAIL_FROM_NAME} <${from}>`,
-    to: Array.isArray(to) ? to : [to],
+    to: list(to),
     subject,
     html,
     text,
   };
+  if (list(cc).length) payload.cc = list(cc);
+  if (replyTo) payload.reply_to = replyTo;
+  if (!payload.to.length) return { ok: false, status: 0, body: '沒有收件人' };
+
   try {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',

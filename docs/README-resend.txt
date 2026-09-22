@@ -1,88 +1,80 @@
-客戶自動回覆信（Resend）
+  兩封詢價信都改走 Resend（業務通知信 + 客戶自動回覆）
 ============================================================
 
-做什麼
+改了什麼
 ------------------------------------------------------------
-客戶在網站填完詢價表單送出後，立刻收到一封確認信：
+業務的通知信原本走 Google Apps Script（MailApp 寄信 + 寫進 Google
+Sheet），現在跟客戶自動回覆一樣走 Resend。Apps Script 整個不再使用。
 
-  「感謝您與臺灣營德聯繫。我們已收到您的詢價，專人將盡快與您聯繫。」
-  下面附上他剛才填的內容，
-  最後一行：「此信件由系統自動發送，請勿直接回覆。」
+  業務通知信   寄件人 inquiry@inteplasttw.com.tw
+               收件人＝後台「公司資訊」的聯絡信箱（副本＝email_cc）
+               回覆地址＝客戶信箱，按回覆就是回客戶
+               信裡有客戶填的內容、送出時間、紀錄編號，
+               以及一顆「到後台『客戶詢價』查看」的按鈕
 
-寄件人：noreply@inteplasttw.com.tw
+  客戶自動回覆 寄件人 noreply@inteplasttw.com.tw（沒有改動）
 
-業務那邊的通知信**完全沒有改動**，繼續走原本的 Google Apps Script。
-兩封信各走各的，任一邊掛掉另一邊照常寄。
+兩封各自送、各自記 log：任一封失敗都不影響另一封，也不影響資料寫入。
 
 
 要上傳的檔案（2 個）
 ------------------------------------------------------------
-functions/api/_mail.js        ← 新增（信件內容與寄送）
-functions/api/inquiry.js      ← 覆蓋
+functions/api/_mail.js        ← 覆蓋（多了 salesNotify）
+functions/api/inquiry.js      ← 覆蓋（移除 Apps Script 呼叫）
 
-※ 檔名開頭的底線是刻意的 —— Pages 不會把 _mail.js 當成網址端點，
-  它只是被 inquiry.js import 的工具檔（跟現有的 _lib.js 一樣）。
+可以刪掉的：apps-script/inquiry-mailer.gs（留著也不會被呼叫）
 
 
-你已經做完的
+環境變數
 ------------------------------------------------------------
-[v] Cloudflare 環境變數 RESEND_API_KEY
+RESEND_API_KEY     必要，已經設好
+MAIL_FROM_NOTIFY   選填，業務通知信寄件人，預設 inquiry@inteplasttw.com.tw
+MAIL_FROM          選填，客戶自動回覆寄件人，預設 noreply@inteplasttw.com.tw
+MAIL_TO            選填，後台聯絡信箱是空的時候的備援收件人
+ADMIN_URL          選填，通知信裡的後台連結，預設 https://inteplasttw.com.tw/admin/
+GAS_URL            已不使用，可以從 Pages 設定刪掉
+
+※ inquiry@ 不需要真的收信 —— 只要網域 inteplasttw.com.tw 在 Resend
+  驗證過，任何 @inteplasttw.com.tw 的位址都可以當寄件人。
+  但業務按「回覆」時回的是客戶信箱（reply_to），不是 inquiry@。
 
 
-還要做的：在 Resend 驗證網域
+上線前要注意的三件事
 ------------------------------------------------------------
-沒驗證的話 Resend 會拒收（回 403 或 422），信寄不出去。
+1) Google Sheet 的紀錄從此不再新增
+   舊資料還在那張表裡，之後的詢價只會在後台「客戶詢價」。
 
-1) resend.com → 左側 Domains → Add Domain → 輸入 inteplasttw.com.tw
+2) 業務信匣裡的寄件人變了
+   從原本部署腳本的 Gmail 帳號變成 inquiry@inteplasttw.com.tw。
+   如果他們有設篩選規則或標籤，要請他們改條件；
+   也先提醒看一下垃圾信匣（新寄件位址前幾天比較容易被歸過去）。
 
-2) Resend 會列出要加的 DNS 記錄（通常 3 筆：MX、SPF 的 TXT、DKIM 的 TXT）
-   ※ 值要照它畫面上給你的，不要抄網路上的範例
-
-   到 Cloudflare → 你的網域 → DNS → Records → Add record，一筆一筆加
-   ※ 這幾筆的 Proxy status 選「DNS only」（灰色雲朵），不要開橘色雲
-
-3) 回 Resend 按 Verify，變綠色就完成（通常幾分鐘，最多 30 分鐘）
-
-4) 確認 RESEND_API_KEY 在 Production 和 Preview 兩個環境都有
-   （只設 Production 的話，預覽部署會寄不出去）
-
-5) 重新部署一次才會生效
-   Deployments → 最新那筆 → Retry deployment
+3) 額度變成一筆詢價 2 封
+   Resend 免費版每天 100 封／每月 3,000 封 → 每天約 50 筆詢價。
+   超過的話兩封都會寄不出去（資料仍會存進資料庫）。
 
 
 怎麼測
 ------------------------------------------------------------
-1) 開 inteplasttw.com.tw/contact，用你自己的信箱填一筆送出
-2) 你的信箱要收到自動回覆，寄件人是 noreply@inteplasttw.com.tw
-3) 業務信箱要照舊收到通知信（確認沒被我改壞）
-4) 後台「詢價紀錄」要有這筆
-5) 切成英文版再送一次，確認收到英文版的信
-6) Resend 後台 → Logs 可以看每一封的投遞狀態
-
-
-信裡有什麼
-------------------------------------------------------------
-· 深藍色公司抬頭（配色取自網站的 #0A2540）
-· 「我們已收到您的詢價，專人將盡快與您聯繫」
-· 他剛才填的內容整理成表格
-· 「此信件由系統自動發送，請勿直接回覆」
-· 頁尾：地址、電話、服務時間、網站連結
-· 三種語言：繁中／English／日本語，依客戶當時瀏覽的語言自動選
-
-刻意沒有承諾具體回覆時間（沒寫「24 小時內」）。
-要加的話改 _mail.js 裡 TEXTS 的 thanks 那一行，三種語言各一處。
-
-要改地址、電話、服務時間 → _mail.js 最上面的 CONTACT。
+1) 後台「公司資訊」確認聯絡信箱（和副本）填的是對的
+2) 開 inteplasttw.com.tw/contact，用自己的信箱填一筆送出
+3) 業務信箱要收到通知信，寄件人 inquiry@，按回覆會回到你剛填的信箱
+4) 你的信箱要收到自動回覆，寄件人 noreply@
+5) 後台「客戶詢價」要有這筆，編號跟信裡的一致
+6) 切成英文版再送一次，確認客戶那封是英文
+7) Resend 後台 → Logs 可以看每一封的投遞狀態
 
 
 沒收到信時的排查順序
 ------------------------------------------------------------
-· Resend → Logs：有紀錄就是寄出去了，看狀態 delivered 還是 bounced
+· Resend → Logs：有紀錄就是寄出去了，看 delivered 還是 bounced
 · 沒有紀錄 → Cloudflare Pages → Deployments → Functions → Real-time logs
-  程式寄失敗會印：[inquiry] 客戶自動回覆失敗 <狀態碼> <內容>
+    [inquiry] 業務通知信失敗 <狀態碼> <內容>
+    [inquiry] 客戶自動回覆失敗 <狀態碼> <內容>
+    [inquiry] 沒有業務收件人：…   ← 後台聯絡信箱是空的
 · 401 / 403 → API Key 沒設好，或沒設到 Production 環境
 · 422 提到 domain not verified → Resend 的網域驗證還沒過
-· 垃圾信匣也要看（新網域前幾天比較容易被歸到那裡）
+· 429 → 當天額度用完了
 
-無論哪種失敗，客戶的資料都已經進資料庫、表單也顯示成功 —— 
+無論哪種失敗，客戶的資料都已經進資料庫、表單也顯示成功 ——
 寄信是額外動作，不會讓客戶看到錯誤。
