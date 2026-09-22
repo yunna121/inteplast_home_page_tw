@@ -6,7 +6,8 @@ import { addrList, customerAck, pickLang, resendSend, salesNotify } from "./_mai
    POST /api/inquiry   （contact.html 的表單）
 
    1. 把客戶留的資料寫進 D1 的 inquiries 表（一定會做）
-   2. 透過 Resend 寄通知信給業務，寄件人 inquiry@，回覆地址＝客戶信箱
+   2. 透過 Resend 寄通知信給業務（每位收件人各一封，不用 CC），
+      寄件人 inquiry@，回覆地址＝客戶信箱
    3. 透過 Resend 寄一封「已收到」的自動回覆給客戶，寄件人 noreply@
 
    第 3 步是收件確認，實際回覆仍由業務主動聯繫。
@@ -87,20 +88,25 @@ export async function onRequest(context) {
         return (hit && String(hit.value || "").trim()) || "";
       };
 
-      const notifyTo = addrList(pick("email") || env.MAIL_TO || "");
-      const notifyCc = addrList(pick("email_cc"));
+      /* 主收件人 + 副本合成一份名單，每人各寄一封、都放在 To。
+         不用 CC：企業郵件閘道（inteplast／fpc）會把「收件人不在 To 欄」
+         的外部信直接隔離，Resend 顯示 delivered 但沒人收到。
+         代價是每個收件人各吃一封額度。 */
+      const seen = new Set();
+      const recipients = addrList(pick("email") || env.MAIL_TO || "")
+        .concat(addrList(pick("email_cc")))
+        .map(a => a.toLowerCase())
+        .filter(a => !seen.has(a) && seen.add(a));
 
-      if (notifyTo.length) {
+      if (recipients.length) {
         const notice = salesNotify(row, id, env.ADMIN_URL);
-        const sendNotice = resendSend(env, {
-          to: notifyTo,
-          cc: notifyCc,
-          from: env.MAIL_FROM_NOTIFY || "inquiry@inteplasttw.com.tw",
-          ...notice,
-        }).then((r) => {
-          if (!r.ok) console.error("[inquiry] 業務通知信失敗 " + r.status + " " + r.body);
+        const from = env.MAIL_FROM_NOTIFY || "inquiry@inteplasttw.com.tw";
+        recipients.forEach((to) => {
+          const send = resendSend(env, { to, from, ...notice }).then((r) => {
+            if (!r.ok) console.error("[inquiry] 業務通知信失敗 (" + to + ") " + r.status + " " + r.body);
+          });
+          if (context.waitUntil) context.waitUntil(send);
         });
-        if (context.waitUntil) context.waitUntil(sendNotice);
       } else {
         console.error("[inquiry] 沒有業務收件人：後台公司資訊的聯絡信箱是空的，也沒設 MAIL_TO");
       }

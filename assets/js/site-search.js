@@ -1,8 +1,7 @@
 /* ============================================================
    全站搜尋 — 臺灣營德（關鍵字版 / BM25）
    ------------------------------------------------------------
-   取代原本的語意（向量）搜尋。原檔完整保留為
-   assets/js/site-search-vector-backup.js —— 要換回去只要把它改名蓋回來。
+   取代原本的語意（向量）搜尋。
 
    為什麼換：
    向量搜尋的問題不在準度，在「判斷不出零」。實測分數裡
@@ -386,10 +385,18 @@
   }
 
   /* ============================================================
-     搜尋記錄 — 送到 Apps Script（同一支 /exec，action=search）
-     0 筆的那些就是新產品／新同義詞的線索。
+     搜尋記錄 — 目前停用
+     ------------------------------------------------------------
+     原本每次搜尋都把「查詢字 + 命中筆數」送到 Apps Script 的 /exec，
+     想用 0 筆的搜尋當補同義詞的線索。但那支從來沒有真的寫進
+     Google Sheet，而且寄信改走 Resend 後 Apps Script 整個退場了，
+     所以這裡留成空字串 —— logSearch() 開頭就會直接 return，
+     不會再對一個死網址發請求。
+
+     要恢復記錄：做一個 POST 端點（例如 functions/api/search-log.js
+     寫進 D1），把網址填回 LOG_ENDPOINT 即可，下面的程式不用改。
      ============================================================ */
-  var LOG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz1hF2WW-easWE11AHvlnzvOXMG8qDSElR_IYcVx6vj0TWoXHrA-Mzuu78qcTJS7GMX/exec';
+  var LOG_ENDPOINT = '';
   var logTimer = null, logged = {};
 
   function logSearch(query, hits) {
