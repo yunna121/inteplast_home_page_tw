@@ -188,6 +188,8 @@
     '<div class="sf-bottom">' +
       '<span data-site="copyright">© {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.</span>' +
       '<span data-tw="嘉義新港生產基地 · ISO 9001 品質管理系統認證" data-en="Xingang, Chiayi production hub · ISO 9001 certified">嘉義新港生產基地 · ISO 9001 品質管理系統認證</span>' +
+      /* 商標聲明：確認集團書面授權後再上線 */
+      '<span class="sf-tm" style="flex-basis:100%" data-tw="「台塑」「Formosa Plastics」為台灣塑膠工業股份有限公司之註冊商標，經授權使用；INTEPLAST 為 INTEPLAST GROUP 之商標。環保標章圖樣為環境部所有。" data-en="“Formosa Plastics” is a registered trademark of Formosa Plastics Corporation, used under license. INTEPLAST is a trademark of INTEPLAST GROUP. The Green Mark is owned by the Ministry of Environment, Taiwan.">「台塑」「Formosa Plastics」為台灣塑膠工業股份有限公司之註冊商標，經授權使用；INTEPLAST 為 INTEPLAST GROUP 之商標。環保標章圖樣為環境部所有。</span>' +
     '</div>';
 
   function injectCss() {
