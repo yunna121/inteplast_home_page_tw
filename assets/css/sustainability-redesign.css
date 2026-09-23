@@ -952,17 +952,18 @@ footer {
     transition-duration: .01ms !important;
   }
 }
-/* 證書圖說明（figcaption）放在圖片正下方，不要跟圖片左右並排 */
-.green-standard-visual {
-  flex-direction: column;
-  justify-content: center;
-}
-.green-standard-visual img {
-  flex: none;
-  height: auto;
-}
-.green-standard-visual figcaption {
-  flex: none;
-  width: 100%;
+/* 證書圖說明：放在卡片外、正下方，不壓到圖片 */
+.green-standard-note {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin: -20px 0 0;
+  font-size: .8rem;
+  line-height: 1.6;
+  color: var(--muted);
   text-align: center;
+}
+.products .section-heading { grid-row: 3; }
+.products-grid { grid-row: 4; }
+@media (max-width: 1024px) {
+  .green-standard-note { margin: 10px 0 0; }
 }
