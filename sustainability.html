@@ -92,7 +92,7 @@
     body .green-standard { grid-template-areas: 'visual copy' 'list list'; }
     body .green-standard-visual { min-height: 0; padding: 0; }
     /* 圖片一律照原比例完整顯示，不裁切；卡片高度跟著圖片走 */
-    body .green-standard-visual { display: block; align-self: stretch; }
+    body .green-standard-visual { display: block; align-self: stretch; position: relative; }
     body .green-standard-visual img { display: block; width: 100% !important; max-width: none !important; height: auto !important; max-height: none !important; min-height: 0; aspect-ratio: auto; border-radius: 0; object-fit: fill; box-shadow: none; }
     body .green-standard-list { border-top: 1px solid var(--line); }
     @media (max-width: 1024px) {
@@ -269,7 +269,7 @@
               <p class="green-standard-summary" data-tw="台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將友善環境落實於日常使用。" data-en="">台塑環保拉繩清潔袋與台塑環保清潔袋，皆通過環保標章審查並取得使用證書；從原料到製程，將友善環境落實於日常使用。</p>
             </div>
           </div>
-          <figure class="green-standard-visual"><img src="./assets/img/opt/combine.jpg" data-site-img="eco_certificate" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書" loading="lazy" decoding="async"></figure>
+          <figure class="green-standard-visual"><img src="./assets/img/opt/combine.jpg" data-site-img="eco_certificate" alt="台塑環保拉繩清潔袋與環保清潔袋的環保標章使用證書" loading="lazy" decoding="async"><p class="green-standard-credit" data-tw="環保標章使用證書，由環境部核發。" data-en="Green Mark certificates issued by the Ministry of Environment." style="position:absolute;left:16px;bottom:12px;z-index:2;margin:0;font-size:.72rem;line-height:1.4;letter-spacing:.02em;color:rgba(20,40,55,.78);text-shadow:0 0 4px rgba(255,255,255,.9);pointer-events:none">環保標章使用證書，由環境部核發。</p></figure>
           <ul class="green-standard-list">
             <li><strong data-tw="通過製程及環境審查" data-en="">通過製程及環境審查</strong><span data-tw="符合環保標章規格標準，取得產品標示資格。" data-en="">符合環保標章規格標準，取得產品標示資格。</span></li>
             <li><strong data-tw="50% 以上再生塑膠" data-en="">50% 以上再生塑膠</strong><span data-tw="塑膠資源循環利用，延續材料價值。" data-en="">塑膠資源循環利用，延續材料價值。</span></li>
@@ -277,7 +277,6 @@
             <li><strong data-tw="製程審慎管理" data-en="">製程審慎管理</strong><span data-tw="避用列管毒性化學物質及相關管制物。" data-en="">避用列管毒性化學物質及相關管制物。</span></li>
           </ul>
         </aside>
-        <p class="green-standard-note" data-tw="環保標章使用證書，由環境部核發。" data-en="Green Mark certificates issued by the Ministry of Environment.">環保標章使用證書，由環境部核發。</p>
         <div class="products-grid">
           <article class="product-card">
             <div class="product-image"><img src="./assets/img/opt/drawtape.jpg" data-site-img="sus_product_drawtape" alt="台塑環保拉繩清潔袋" loading="lazy" decoding="async"></div>
