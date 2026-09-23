@@ -31,7 +31,9 @@
   var bgSlots = document.querySelectorAll('[data-site-bg]');
   var productSlots = document.querySelectorAll('img[data-product-img]');
   var fileSlots = document.querySelectorAll('[data-site-file]');
-  if (!imgSlots.length && !bgSlots.length && !productSlots.length && !fileSlots.length) return;
+  /* 5) <span data-site-text="cert_drawtape_no_text">25987</span> 純文字（證書編號、有效期限），留空就沿用 HTML 原本的字 */
+  var textSlots = document.querySelectorAll('[data-site-text]');
+  if (!imgSlots.length && !bgSlots.length && !productSlots.length && !fileSlots.length && !textSlots.length) return;
 
   // products/ 子目錄的頁面要往上一層找 assets/img/
   var root = /\/products\//.test(location.pathname) ? '../' : './';
@@ -78,6 +80,11 @@
       fileSlots.forEach(function (node) {
         var url = urlOf(map[node.getAttribute('data-site-file')]);
         if (url) node.setAttribute('href', url);
+      });
+
+      textSlots.forEach(function (node) {
+        var value = String(map[node.getAttribute('data-site-text')] || '').trim();
+        if (value) node.textContent = value;
       });
     })
     .catch(function () { /* 後備＝HTML 裡原本的圖，什麼都不用做 */ });

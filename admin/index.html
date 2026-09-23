@@ -2757,7 +2757,7 @@
           var node = fieldNode(
             /* key 以 _pdf／_file 結尾的給文件上傳元件（不壓縮、不轉檔），
                其餘照舊是圖片欄位。 */
-            { key: r.key, label: r.label || r.key, type: /_(pdf|file)$/.test(r.key) ? 'file' : 'image', hint: r.hint },
+            { key: r.key, label: r.label || r.key, type: /_text$/.test(r.key) ? 'text' : (/_(pdf|file)$/.test(r.key) ? 'file' : 'image'), hint: r.hint },
             r.path || '',
             function (v) { drafts[r.id] = v; }
           );
