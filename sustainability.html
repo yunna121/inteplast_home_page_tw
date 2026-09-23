@@ -92,8 +92,8 @@
     body .green-standard { grid-template-areas: 'visual copy' 'list list'; }
     body .green-standard-visual { min-height: 0; padding: 0; }
     /* 圖片一律照原比例完整顯示，不裁切；卡片高度跟著圖片走 */
-    body .green-standard-visual { align-items: stretch; }
-    body .green-standard-visual img { display: block; width: 100%; height: auto; min-height: 0; aspect-ratio: auto; border-radius: 0; object-fit: contain; box-shadow: none; }
+    body .green-standard-visual { display: block; align-self: stretch; }
+    body .green-standard-visual img { display: block; width: 100% !important; max-width: none !important; height: auto !important; max-height: none !important; min-height: 0; aspect-ratio: auto; border-radius: 0; object-fit: fill; box-shadow: none; }
     body .green-standard-list { border-top: 1px solid var(--line); }
     @media (max-width: 1024px) {
       body .green-standard { grid-template-columns: 1fr; grid-template-areas: 'copy' 'visual' 'list'; }
