@@ -958,8 +958,8 @@ footer {
   justify-content: center;
 }
 .green-standard-visual img {
-  flex: 1 1 0;
-  min-height: 0;
+  flex: none;
+  height: auto;
 }
 .green-standard-visual figcaption {
   flex: none;
