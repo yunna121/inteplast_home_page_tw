@@ -952,3 +952,17 @@ footer {
     transition-duration: .01ms !important;
   }
 }
+/* 證書圖說明（figcaption）放在圖片正下方，不要跟圖片左右並排 */
+.green-standard-visual {
+  flex-direction: column;
+  justify-content: center;
+}
+.green-standard-visual img {
+  flex: 1 1 0;
+  min-height: 0;
+}
+.green-standard-visual figcaption {
+  flex: none;
+  width: 100%;
+  text-align: center;
+}
