@@ -328,6 +328,11 @@
               <input type="text" id="companyWebsite" name="website" tabindex="-1" autocomplete="off">
             </div>
 
+            <div class="form-group" style="display:flex; align-items:flex-start; gap:10px;">
+              <input type="checkbox" id="privacyConsent" name="consent" value="yes" required style="width:18px; height:18px; margin-top:3px; flex-shrink:0; accent-color:var(--brand-blue); cursor:pointer;">
+              <label for="privacyConsent" style="margin:0; font-weight:500; font-size:.9rem; color:var(--text-muted); line-height:1.6; cursor:pointer;"><span data-tw="我已閱讀並同意" data-en="">我已閱讀並同意</span> <a href="privacy.html" target="_blank" rel="noopener" style="color:var(--brand-blue); font-weight:700;"><span data-tw="隱私權政策" data-en="">隱私權政策</span></a><span data-tw="，同意臺灣營德依政策所述目的蒐集及利用我的個人資料。" data-en="">，同意臺灣營德依政策所述目的蒐集及利用我的個人資料。</span></label>
+            </div>
+
             <button type="submit" class="submit-btn" id="submitBtn">
               <i class="fa-solid fa-paper-plane"></i> <span data-tw="確認送出，我們會儘速聯繫您" data-en="">確認送出，我們會儘速聯繫您</span>
             </button>
@@ -461,7 +466,7 @@
     </script>
   <script src="assets/js/site-search.js?v=3"></script>
   <script src="assets/js/mobile-nav.js?v=8"></script>
-  <script src="assets/js/footer.js?v=5"></script>
+  <script src="assets/js/footer.js?v=6"></script>
   <script src="assets/js/site-lang.js?v=11"></script>
   <script src="assets/js/cjk-nbsp.js?v=5"></script>
 </body>

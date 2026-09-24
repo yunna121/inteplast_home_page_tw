@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-tw="隱私權政策 | 臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION" data-en="Privacy Policy | INTEPLAST TAIWAN CORPORATION" data-ja="プライバシーポリシー｜INTEPLAST TAIWAN CORPORATION">隱私權政策 | 臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION</title>
+  <meta name="description" data-desc-tw="臺灣營德股份有限公司隱私權政策：說明本網站蒐集、處理及利用個人資料的方式與您的權利。" data-desc-en="Privacy Policy of INTEPLAST TAIWAN CORPORATION: how this website collects, processes and uses personal data, and your rights." data-desc-ja="INTEPLAST TAIWAN CORPORATION のプライバシーポリシー：個人情報の取得・利用方法とお客様の権利について。" content="臺灣營德股份有限公司隱私權政策：說明本網站蒐集、處理及利用個人資料的方式與您的權利。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- 防止語系切換中文閃爍 (Anti-FOUC Instant Language Preloader) -->
+  <script>
+    (function() {
+      var __lang = localStorage.getItem('preferredLang');
+      // 非繁中的語言都要先遮住，避免中文閃一下（site-lang.js 負責解除）
+      if (__lang && __lang !== 'zh-TW' && __lang !== 'tw') {
+        document.documentElement.classList.add('lang-loading');
+      }
+    })();
+  </script>
+    <!-- ===== SEO：正規網址／社群分享卡（2026-09 新增） ===== -->
+  <link rel="canonical" href="https://inteplasttw.com.tw/privacy">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:url" content="https://inteplasttw.com.tw/privacy">
+  <meta property="og:title" content="隱私權政策 | 臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
+  <meta property="og:description" content="臺灣營德股份有限公司隱私權政策：說明本網站蒐集、處理及利用個人資料的方式與您的權利。">
+  <meta property="og:image" content="https://inteplasttw.com.tw/assets/img/itc-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="隱私權政策 | 臺灣營德股份有限公司 INTEPLAST TAIWAN CORPORATION">
+  <meta name="twitter:description" content="臺灣營德股份有限公司隱私權政策：說明本網站蒐集、處理及利用個人資料的方式與您的權利。">
+  <meta name="twitter:image" content="https://inteplasttw.com.tw/assets/img/itc-logo.png">
+  <!-- 網站圖示：Google 搜尋結果左側那顆圖示。SVG 優先（任何尺寸都清晰），
+       PNG 是後備 —— 要求正方形且邊長是 48 的倍數。
+       用絕對路徑（/assets/…）—— /products/ 這類子目錄用相對路徑會抓錯位置。 -->
+  <link rel="icon" href="/assets/img/inteplast-logo-blue.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/favicon-96.png" sizes="96x96" type="image/png">
+  <link rel="icon" href="/assets/img/favicon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <!-- ===== /SEO ===== -->
+<link rel="stylesheet" href="assets/css/navbar.css?v=8" id="site-navbar-css">
+  <style>
+    html.lang-loading body {
+      opacity: 0 !important;
+    }
+  </style>
+
+  <style>
+    :root {
+      --primary-navy: #0A2540;
+      --brand-blue: #00529B;
+      --brand-blue-hover: #003d75;
+      --accent-azure: #00A8FF;
+      --bg-light: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+      --shadow-mega: 0 30px 60px -12px rgba(10, 37, 64, 0.22);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; color: var(--text-main); background: var(--bg-light); line-height: 1.6; }
+
+    /* Page Hero */
+    .page-hero { padding: 160px 40px 60px; background: linear-gradient(135deg, var(--primary-navy), var(--brand-blue)); color: var(--surface-white); text-align: center; }
+    .page-hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 12px; }
+    .page-hero p { font-size: 1.05rem; max-width: 650px; margin: 0 auto; color: rgba(255,255,255,0.85); }
+
+    /* 手機：這段副標在 430px 寬會排成四行。置中的文字超過三行就沒有
+       固定的回行起點，讀起來像一坨 —— 改左對齊、行高收緊。
+       （文案本身偏長，英文在後台 /api/ui-strings；縮短成一句會更好。） */
+    @media (max-width: 560px) {
+      .page-hero { padding: 120px 20px 44px; }
+      .page-hero p {
+        max-width: 34ch;
+        text-align: left;
+        line-height: 1.55;
+        font-size: 1rem;
+      }
+    }
+
+    .section { padding: 80px 40px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; }
+
+    .info-card { background: var(--surface-white); border-radius: var(--radius-md); padding: 40px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+    .info-item { display: flex; gap: 20px; margin-bottom: 30px; }
+    .info-icon { font-size: 1.6rem; color: var(--brand-blue); background: rgba(0, 82, 155, 0.08); width: 50px; height: 50px; border-radius: var(--radius-full); display: grid; place-items: center; flex-shrink: 0; }
+    .info-title { font-size: 1.1rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 4px; }
+    .info-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* 隱私權政策內文 */
+    .policy { max-width: 860px; margin: 0 auto; background: var(--surface-white); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 48px 52px; box-shadow: var(--shadow-sm); }
+    .policy-meta { font-size: .88rem; color: var(--text-muted); margin-bottom: 28px; }
+    .policy h2 { font-size: 1.2rem; font-weight: 800; color: var(--primary-navy); margin: 36px 0 12px; padding-top: 28px; border-top: 1px solid var(--border-color); }
+    .policy h2:first-of-type { margin-top: 0; padding-top: 0; border-top: 0; }
+    .policy p, .policy li { font-size: .98rem; color: var(--text-main); line-height: 1.9; }
+    .policy p + p { margin-top: 10px; }
+    .policy ul { margin: 8px 0 0 1.4em; display: grid; gap: 6px; }
+    .policy a { color: var(--brand-blue); font-weight: 700; text-decoration: none; }
+    .policy a:hover { color: var(--brand-blue-hover); text-decoration: underline; }
+    @media (max-width: 640px) { .policy { padding: 32px 22px; } }
+
+    .footer { background: var(--primary-navy); color: rgba(255,255,255,0.7); padding: 60px 40px 30px; font-size: 0.9rem; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; }
+
+  </style>
+  <!-- navbar.css 已在 head 上方以 id="site-navbar-css" 載入過，這裡不再重複請求 -->
+  <link rel="stylesheet" href="assets/css/responsive.css?v=11">
+  <!-- Google Analytics 4（G-0FS2ZC88V0）
+       只在正式網址載入：本機用 file:// 或 localhost 測試時不送資料，統計才不會被自己的瀏覽污染。 -->
+  <script>
+    (function () {
+      /* 只在正式網域送資料。舊的 github.io 與 pages.dev 已經 301 導向，
+         永遠不會執行到這裡，所以從清單移除。
+         以後換網域時把新的加進這個陣列。 */
+      var LIVE_HOSTS = ['inteplasttw.com.tw', 'www.inteplasttw.com.tw'];
+      if (LIVE_HOSTS.indexOf(location.hostname) === -1) return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0FS2ZC88V0';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', 'G-0FS2ZC88V0');
+    })();
+  </script>
+</head>
+<body>
+  <!-- 頁首由 assets/js/navbar.js 注入 -->
+  <div id="site-header-component"></div>
+  <script src="assets/js/navbar.js?v=1"></script>
+  <script src="assets/js/site-year.js"></script>
+
+  <section class="page-hero">
+    <h1 data-tw="隱私權政策" data-en="">隱私權政策</h1>
+    <p data-tw="臺灣營德重視您的個人資料保護，以下說明本網站如何蒐集、處理及利用您的個人資料。" data-en="">臺灣營德重視您的個人資料保護，以下說明本網站如何蒐集、處理及利用您的個人資料。</p>
+  </section>
+
+  <section class="section">
+    <article class="policy">
+      <p class="policy-meta" data-tw="最後更新日期：2026 年 9 月 23 日" data-en="">最後更新日期：2026 年 9 月 23 日</p>
+      <h2 data-tw="一、適用範圍" data-en="">一、適用範圍</h2>
+      <p data-tw="本政策適用於臺灣營德股份有限公司（以下稱「本公司」）官方網站 inteplasttw.com.tw 及其各語言版本。本網站連結至其他網站時，該網站的個人資料處理方式依其自身的隱私權政策辦理。" data-en="">本政策適用於臺灣營德股份有限公司（以下稱「本公司」）官方網站 inteplasttw.com.tw 及其各語言版本。本網站連結至其他網站時，該網站的個人資料處理方式依其自身的隱私權政策辦理。</p>
+      <h2 data-tw="二、蒐集目的" data-en="">二、蒐集目的</h2>
+      <p data-tw="依個人資料保護法第 8 條規定告知：本公司蒐集您的個人資料，目的如下：" data-en="">依個人資料保護法第 8 條規定告知：本公司蒐集您的個人資料，目的如下：</p>
+      <ul>
+        <li data-tw="回覆您的產品詢問、報價與合作洽詢（〇四〇 行銷；〇六九 契約、類似契約或其他法律關係事務）" data-en="">回覆您的產品詢問、報價與合作洽詢（〇四〇 行銷；〇六九 契約、類似契約或其他法律關係事務）</li>
+        <li data-tw="客戶聯繫與服務管理（〇九〇 消費者、客戶管理與服務）" data-en="">客戶聯繫與服務管理（〇九〇 消費者、客戶管理與服務）</li>
+        <li data-tw="網站使用情形統計與改善（一五七 調查、統計與研究分析）" data-en="">網站使用情形統計與改善（一五七 調查、統計與研究分析）</li>
+      </ul>
+      <h2 data-tw="三、蒐集的個人資料類別" data-en="">三、蒐集的個人資料類別</h2>
+      <p data-tw="當您填寫「留下資料 · 由我們聯繫您」表單時，本公司會蒐集：公司名稱、商務信箱、聯絡電話（選填）、詢問的產品類別及您填寫的需求內容（C001 辨識個人者）。" data-en="">當您填寫「留下資料 · 由我們聯繫您」表單時，本公司會蒐集：公司名稱、商務信箱、聯絡電話（選填）、詢問的產品類別及您填寫的需求內容（C001 辨識個人者）。</p>
+      <p data-tw="瀏覽本網站時，系統會自動記錄瀏覽器類型、瀏覽頁面、停留時間及概略地區等使用資訊，這些資訊不會用來辨識您的個人身分。" data-en="">瀏覽本網站時，系統會自動記錄瀏覽器類型、瀏覽頁面、停留時間及概略地區等使用資訊，這些資訊不會用來辨識您的個人身分。</p>
+      <h2 data-tw="四、利用期間、地區、對象及方式" data-en="">四、利用期間、地區、對象及方式</h2>
+      <ul>
+        <li data-tw="期間：自蒐集之日起，至蒐集目的消失或您請求刪除為止；詢問紀錄最長保存至最後一次聯繫後五年。" data-en="">期間：自蒐集之日起，至蒐集目的消失或您請求刪除為止；詢問紀錄最長保存至最後一次聯繫後五年。</li>
+        <li data-tw="地區：中華民國境內，以及下列服務供應商主機所在地區。" data-en="">地區：中華民國境內，以及下列服務供應商主機所在地區。</li>
+        <li data-tw="對象：本公司及業務人員；為提供網站服務，資料會存放或經由下列服務處理：Cloudflare（網站主機與資料庫）、Resend（寄送通知與回覆信件）、Google Analytics（網站流量統計）。" data-en="">對象：本公司及業務人員；為提供網站服務，資料會存放或經由下列服務處理：Cloudflare（網站主機與資料庫）、Resend（寄送通知與回覆信件）、Google Analytics（網站流量統計）。</li>
+        <li data-tw="方式：以電子郵件、電話等方式與您聯繫，並以電子檔案保存於資料庫中。" data-en="">方式：以電子郵件、電話等方式與您聯繫，並以電子檔案保存於資料庫中。</li>
+      </ul>
+      <h2 data-tw="五、Cookie 與網站分析" data-en="">五、Cookie 與網站分析</h2>
+      <p data-tw="本網站使用 Google Analytics 分析網站流量，Google 會透過 Cookie 蒐集匿名的使用資訊。您可以在瀏覽器設定中拒絕 Cookie，或安裝 Google 提供的「Google Analytics 選擇停用瀏覽器外掛程式」；停用後仍可正常瀏覽本網站。" data-en="">本網站使用 Google Analytics 分析網站流量，Google 會透過 Cookie 蒐集匿名的使用資訊。您可以在瀏覽器設定中拒絕 Cookie，或安裝 Google 提供的「Google Analytics 選擇停用瀏覽器外掛程式」；停用後仍可正常瀏覽本網站。</p>
+      <p data-tw="本網站也會在您的瀏覽器中記住您選擇的顯示語言，此資訊僅存放在您的裝置上。" data-en="">本網站也會在您的瀏覽器中記住您選擇的顯示語言，此資訊僅存放在您的裝置上。</p>
+      <h2 data-tw="六、您的權利" data-en="">六、您的權利</h2>
+      <p data-tw="依個人資料保護法第 3 條，您可以就您的個人資料向本公司行使下列權利：" data-en="">依個人資料保護法第 3 條，您可以就您的個人資料向本公司行使下列權利：</p>
+      <ul>
+        <li data-tw="查詢或請求閱覽" data-en="">查詢或請求閱覽</li>
+        <li data-tw="請求製給複製本" data-en="">請求製給複製本</li>
+        <li data-tw="請求補充或更正" data-en="">請求補充或更正</li>
+        <li data-tw="請求停止蒐集、處理或利用" data-en="">請求停止蒐集、處理或利用</li>
+        <li data-tw="請求刪除" data-en="">請求刪除</li>
+      </ul>
+      <p data-tw="如需行使上述權利，請以下方聯絡方式與本公司聯繫，本公司將於確認您的身分後儘速處理。" data-en="">如需行使上述權利，請以下方聯絡方式與本公司聯繫，本公司將於確認您的身分後儘速處理。</p>
+      <h2 data-tw="七、不提供資料的影響" data-en="">七、不提供資料的影響</h2>
+      <p data-tw="您可以自由選擇是否提供個人資料。若未提供商務信箱或需求內容，本公司將無法透過表單回覆您的詢問；您仍可直接以電話或電子郵件與本公司聯繫。" data-en="">您可以自由選擇是否提供個人資料。若未提供商務信箱或需求內容，本公司將無法透過表單回覆您的詢問；您仍可直接以電話或電子郵件與本公司聯繫。</p>
+      <h2 data-tw="八、資料安全" data-en="">八、資料安全</h2>
+      <p data-tw="本公司以加密連線（HTTPS）傳輸資料，並限制只有經授權的人員可以登入管理系統查閱詢問紀錄，以防止個人資料被竊取、竄改或洩漏。" data-en="">本公司以加密連線（HTTPS）傳輸資料，並限制只有經授權的人員可以登入管理系統查閱詢問紀錄，以防止個人資料被竊取、竄改或洩漏。</p>
+      <h2 data-tw="九、政策修訂" data-en="">九、政策修訂</h2>
+      <p data-tw="本公司得因法令或服務調整修訂本政策，修訂後的內容將公布於本頁面，並更新上方的最後更新日期。" data-en="">本公司得因法令或服務調整修訂本政策，修訂後的內容將公布於本頁面，並更新上方的最後更新日期。</p>
+      <h2 data-tw="十、聯絡我們" data-en="">十、聯絡我們</h2>
+      <p data-tw="對本政策或您的個人資料有任何疑問，請聯繫：臺灣營德股份有限公司" data-en="">對本政策或您的個人資料有任何疑問，請聯繫：臺灣營德股份有限公司</p>
+      <p><span data-tw="地址：" data-en="">地址：</span><span data-site="address" data-tw="臺北市松山區敦化北路205號6樓609室" data-en="">臺北市松山區敦化北路205號6樓609室</span></p>
+      <p><span data-tw="電話：" data-en="">電話：</span><span data-site="phone">02-2712-2211 #8109</span></p>
+      <p><span data-tw="電子郵件：" data-en="">電子郵件：</span><a href="mailto:inteplasttw@fpc.com.tw" data-site-href="email" data-site="email">inteplasttw@fpc.com.tw</a></p>
+    </article>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" data-site="copyright">
+        © {{year}} INTEPLAST TAIWAN CORPORATION. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/site-search.js?v=3"></script>
+  <script src="assets/js/mobile-nav.js?v=8"></script>
+  <script src="assets/js/footer.js?v=6"></script>
+  <script src="assets/js/site-lang.js?v=11"></script>
+  <script src="assets/js/cjk-nbsp.js?v=5"></script>
+</body>
+</html>

@@ -50,6 +50,7 @@ const PAGES = [
   { path: '/about', priority: '0.8', changefreq: 'monthly' },
   { path: '/sustainability', priority: '0.8', changefreq: 'monthly' },
   { path: '/contact', priority: '0.7', changefreq: 'monthly' },
+  { path: '/privacy', priority: '0.3', changefreq: 'yearly' },
 ];
 
 export async function onRequest(context) {
