@@ -87,7 +87,7 @@
     const jaCss = document.createElement('style');
     jaCss.id = 'site-ja-font';
     jaCss.textContent =
-      'html[lang="ja"] body, html[lang="ja"] body *:not(i):not(.fa):not(.fas):not(.far):not(.fab):not([class*="fa-"]) {' +
+      'html:lang(ja) body, html:lang(ja) body *:not(i):not(.fa):not(.fas):not(.far):not(.fab):not([class*="fa-"]) {' +
       ' font-family: "Inter", "Noto Sans JP", sans-serif !important; }';
     document.head.appendChild(jaCss);
   }
