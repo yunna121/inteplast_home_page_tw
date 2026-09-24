@@ -77,8 +77,19 @@
     const fonts = document.createElement('link');
     fonts.id = 'site-type-fonts';
     fonts.rel = 'stylesheet';
-    fonts.href = 'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap';
+    fonts.href = 'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap';
     document.head.appendChild(fonts);
+  }
+
+  // 日文頁改用日文字型：Noto Sans TC 沒有「専、気、対、処」這類日文字形，
+  // 會退回系統字型造成粗細不一。英數仍用 Inter；Font Awesome 圖示排除在外。
+  if (!document.getElementById('site-ja-font')) {
+    const jaCss = document.createElement('style');
+    jaCss.id = 'site-ja-font';
+    jaCss.textContent =
+      'html[lang="ja"] body, html[lang="ja"] body *:not(i):not(.fa):not(.fas):not(.far):not(.fab):not([class*="fa-"]) {' +
+      ' font-family: "Inter", "Noto Sans JP", sans-serif !important; }';
+    document.head.appendChild(jaCss);
   }
 
   const pathName = window.location.pathname.toLowerCase();
